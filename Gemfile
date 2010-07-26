@@ -35,5 +35,5 @@ group :test do
   gem 'rspec-rails', "2.0.0.beta.19"
   gem 'spork'
   gem 'launchy'    # So you can do Then show me the page
-  gem 'shoulda', :git => 'git@github.com:thoughtbot/shoulda.git'
+  gem 'shoulda', :git => 'http://github.com/thoughtbot/shoulda.git'
 end
