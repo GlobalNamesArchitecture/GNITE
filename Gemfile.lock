@@ -163,16 +163,16 @@ specs:
     source: 0
 - spork: 
     version: 0.8.4
-hash: 5630755d56691a0328bb7bfecf8940fdcb0b40a4
+hash: 86d6db4d81afc8938b5b43607e21bed866c84c02
 sources: 
 - Git: 
-    uri: http://github.com/thoughtbot/shoulda.git
-    git: http://github.com/thoughtbot/shoulda.git
+    uri: git://github.com/thoughtbot/shoulda.git
+    git: git://github.com/thoughtbot/shoulda.git
     ref: f814549b3e48bcad3037cf60f62159ca59acc6dd
 - Git: 
-    uri: http://github.com/justinfrench/formtastic.git
+    uri: git://github.com/justinfrench/formtastic.git
     branch: rails3
-    git: http://github.com/justinfrench/formtastic.git
+    git: git://github.com/justinfrench/formtastic.git
     ref: 44813410b6c9d948dd6f2d08356a2fec4b89e3c9
 - Rubygems: 
     uri: http://rubygems.org

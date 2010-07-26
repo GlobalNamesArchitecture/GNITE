@@ -8,7 +8,7 @@ gem 'rails', '3.0.0.beta4'
 gem 'mysql'
 gem 'clearance', "0.9.0.rc5"
 gem 'factory_girl'
-gem 'formtastic', :git => "http://github.com/justinfrench/formtastic.git", :branch => "rails3"
+gem 'formtastic', :git => "git://github.com/justinfrench/formtastic.git", :branch => "rails3"
 # Use unicorn as the web server
 # gem 'unicorn'
 
@@ -35,5 +35,5 @@ group :test do
   gem 'rspec-rails', "2.0.0.beta.19"
   gem 'spork'
   gem 'launchy'    # So you can do Then show me the page
-  gem 'shoulda', :git => 'http://github.com/thoughtbot/shoulda.git'
+  gem 'shoulda', :git => 'git://github.com/thoughtbot/shoulda.git'
 end
