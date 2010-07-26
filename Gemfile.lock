@@ -163,11 +163,11 @@ specs:
     source: 0
 - spork: 
     version: 0.8.4
-hash: ecd4f0fcc196b1400eab98ef7fe0a237ea72067e
+hash: 5630755d56691a0328bb7bfecf8940fdcb0b40a4
 sources: 
 - Git: 
-    uri: git@github.com:thoughtbot/shoulda.git
-    git: git@github.com:thoughtbot/shoulda.git
+    uri: http://github.com/thoughtbot/shoulda.git
+    git: http://github.com/thoughtbot/shoulda.git
     ref: f814549b3e48bcad3037cf60f62159ca59acc6dd
 - Git: 
     uri: http://github.com/justinfrench/formtastic.git
