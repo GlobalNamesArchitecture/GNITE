@@ -25,12 +25,13 @@ gem 'factory_girl'
 
 # Bundle gems for certain environments:
 # gem 'rspec', :group => :test
-group :cucumber do
+group :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'cucumber-rails'
   gem 'cucumber'
-  gem 'rspec-rails'
+  gem 'rspec-rails', "2.0.0.beta.19"
   gem 'spork'
   gem 'launchy'    # So you can do Then show me the page
+  gem 'shoulda', :git => 'git@github.com:thoughtbot/shoulda.git'
 end
