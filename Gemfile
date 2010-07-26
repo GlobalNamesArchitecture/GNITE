@@ -27,6 +27,7 @@ gem 'formtastic', :git => "http://github.com/justinfrench/formtastic.git", :bran
 # Bundle gems for certain environments:
 # gem 'rspec', :group => :test
 group :test do
+  gem 'polyglot'
   gem 'capybara'
   gem 'database_cleaner'
   gem 'cucumber-rails'
