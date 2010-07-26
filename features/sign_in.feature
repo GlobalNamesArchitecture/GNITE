@@ -33,3 +33,9 @@ Feature: Sign in
       When I return next time
       Then I should be signed in
 
+  Scenario: User is directed to tree index after sign in
+    Given I am signed up and confirmed as "email@person.com/password"
+    When I go to the sign in page
+    And I sign in as "email@person.com/password"
+    Then I should be on the master tree index page
+

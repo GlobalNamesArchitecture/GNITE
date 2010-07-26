@@ -1,15 +1,16 @@
 require 'spec_helper'
 
-describe HomesController do
+describe TreesController do
 
-  context "on GET to #show" do
+  context "on GET to #index" do
     before do
-      get :show
+      get :index
     end
 
     subject { controller }
 
     it { should respond_with(:success) }
+    it { should render_template(:index) }
   end
 
 end
