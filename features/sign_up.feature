@@ -43,3 +43,7 @@ Feature: Sign up
       Then I should see "Already confirmed email. Please sign in."
       And I should be signed out
 
+    Scenario: User is directed to tree index after sign up
+      Given I signed up with "email@person.com/password"
+      When I follow the confirmation link sent to "email@person.com"
+      Then I should be on the master tree index page
