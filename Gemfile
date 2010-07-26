@@ -6,7 +6,8 @@ gem 'rails', '3.0.0.beta4'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql'
-
+gem 'clearance', "0.9.0.rc5"
+gem 'factory_girl'
 # Use unicorn as the web server
 # gem 'unicorn'
 
