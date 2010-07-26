@@ -8,6 +8,7 @@ gem 'rails', '3.0.0.beta4'
 gem 'mysql'
 gem 'clearance', "0.9.0.rc5"
 gem 'factory_girl'
+gem 'formtastic', :git => "http://github.com/justinfrench/formtastic.git", :branch => "rails3"
 # Use unicorn as the web server
 # gem 'unicorn'
 

@@ -18,7 +18,6 @@ Feature: Password reset
       Given I signed up with "email@person.com/password"
       When I follow the password reset link sent to "email@person.com"
       And I update my password with "newpassword/wrongconfirmation"
-      Then show me the page
       Then I should see an error message
       And I should be signed out
 
