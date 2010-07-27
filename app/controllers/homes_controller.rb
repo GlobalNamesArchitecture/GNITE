@@ -1,5 +1,11 @@
 class HomesController < ApplicationController
   def show
-    redirect_to sign_in_path
+    flash.keep
+
+    if signed_in?
+      redirect_to trees_url
+    else
+      redirect_to sign_in_url
+    end
   end
 end

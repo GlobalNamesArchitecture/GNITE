@@ -2,14 +2,33 @@ require 'spec_helper'
 
 describe HomesController do
 
-  context "on GET to #show" do
+  context "signed out" do
+    context "on GET to #show" do
+      before do
+        get :show
+      end
+
+      subject { controller }
+
+      it { should redirect_to(sign_in_url) }
+    end
+  end
+
+  context "when signed in" do
     before do
-      get :show
+      @user = Factory(:email_confirmed_user)
+      sign_in_as(@user)
     end
 
-    subject { controller }
+    context "on GET to #show" do
+      before do
+        get :show
+      end
 
-    it { should redirect_to(sign_in_path) }
+      subject { controller }
+
+      it { should redirect_to(trees_url) }
+    end
   end
 
 end

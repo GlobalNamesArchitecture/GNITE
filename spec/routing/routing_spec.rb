@@ -7,4 +7,11 @@ describe "routing to trees" do
       :action => "index"
     )
   end
+
+  it "routes /your/password/edit to passwords#edit" do
+    { :get => "/your/password/edit" }.should route_to(
+      :controller => "your/passwords",
+      :action => "edit"
+    )
+  end
 end

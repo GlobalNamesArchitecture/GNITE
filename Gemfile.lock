@@ -16,6 +16,10 @@ dependencies:
     group: 
     - :default
     version: ">= 0"
+  bourne: 
+    group: 
+    - :test
+    version: ">= 0"
   shoulda: 
     group: 
     - :development
@@ -37,6 +41,10 @@ dependencies:
     - :default
     version: ">= 0"
   cucumber-rails: 
+    group: 
+    - :test
+    version: ">= 0"
+  mocha: 
     group: 
     - :test
     version: ">= 0"
@@ -97,6 +105,10 @@ specs:
     version: 3.0.0.beta4
 - activeresource: 
     version: 3.0.0.beta4
+- mocha: 
+    version: 0.9.8
+- bourne: 
+    version: "1.0"
 - bundler: 
     version: 0.9.26
 - culerity: 
@@ -163,7 +175,7 @@ specs:
     source: 0
 - spork: 
     version: 0.8.4
-hash: f79390979d9868e025ae42a67ec507b3acd43cc0
+hash: 870e40d1239640e439943b893aec4e92746c076d
 sources: 
 - Git: 
     uri: git://github.com/thoughtbot/shoulda.git

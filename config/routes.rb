@@ -8,6 +8,10 @@ Gnite::Application.routes.draw do |map|
     resource :confirmation, :controller => 'confirmations', :only => [:new, :create]
   end
 
+  namespace :your do
+    resource :password, :only => [:edit, :update]
+  end
+
   resources :trees, :only => [:index]
   root :to => "homes#show"
 end
