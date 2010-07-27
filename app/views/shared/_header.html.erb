@@ -3,6 +3,8 @@
 <div id="sign_in_or_out">
   <% if signed_in? %>
     <%= link_to "Sign out", sign_out_path %>
+    asdfasdf
+    <%= link_to "Change Password", edit_user_password_path(current_user, :token => current_user.confirmation_token.to_s) %>
   <% else %>
     <%= link_to "Sign in", sign_in_path %>
   <% end %>
