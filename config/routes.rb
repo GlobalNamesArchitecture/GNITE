@@ -8,16 +8,6 @@ Gnite::Application.routes.draw do |map|
     resource :confirmation, :controller => 'confirmations', :only => [:new, :create]
   end
 
-  # map.resources :users, :controller => 'clearance/users' do |users|
-  #   users.resource :password,
-  #     :controller => 'clearance/passwords',
-  #     :only       => [:create, :edit, :update]
-
-  #   users.resource :confirmation,
-  #     :controller => 'clearance/confirmations',
-  #     :only       => [:new, :create]
-  # end
-
   resources :trees, :only => [:index]
   root :to => "homes#show"
 end
