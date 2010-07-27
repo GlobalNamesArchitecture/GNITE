@@ -1,21 +1,25 @@
-<h2>Sign in</h2>
-
-<%= semantic_form_for :session, :url => session_path do |form| %>
-  <%= form.inputs do %>
-    <%= form.input :email %>
-    <%= form.input :password, :as => :password %>
-  <% end %>
-  <%= form.buttons do %>
-    <%= form.commit_button "Sign in" %>
-  <% end %>
-<% end %>
-
-<ul>
-  <li>
-    <%= link_to "Sign up", sign_up_path %>
-  </li>
-  <li>
-    <%= link_to "Forgot password?", new_password_path %>
-  </li>
-</ul>
-
+<!-- Start of Login Content -->
+<div id="loginwrap">
+  <!-- Start of Logo -->
+  <div id="loginlogo">
+    <p>GNITE LOGO</p>
+  </div>
+  <!-- End of Logo -->
+  <!-- Start of Forms -->
+  <div id="loginform">
+    <%= semantic_form_for :session, :url => session_path do |form| %>
+      <%= form.inputs do %>
+        <%= form.input :email %>
+        <%= form.input :password, :as => :password %>
+      <% end %>
+      <%= form.buttons do %>
+        <%= form.commit_button "Sign in" %>
+      <% end %>
+    <% end %>
+    <p>Forgot your password? <%= link_to "Reset it here", new_password_path %></p>
+    <hr/>
+    <p>Need a GNITE account? <%= link_to "Sign up here", sign_up_path %></p>
+  </div>
+  <!-- End of Forms -->
+</div>
+<!-- End of Body Content -->

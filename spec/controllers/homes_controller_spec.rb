@@ -9,7 +9,7 @@ describe HomesController do
 
     subject { controller }
 
-    it { should respond_with(:success) }
+    it { should redirect_to(sign_in_path) }
   end
 
 end
