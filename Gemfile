@@ -26,14 +26,22 @@ gem 'formtastic', :git => "git://github.com/justinfrench/formtastic.git", :branc
 
 # Bundle gems for certain environments:
 # gem 'rspec', :group => :test
+group :development do
+  # # rspec-rails is in the development group to get the rspec rake tasks.
+  # # see http://blog.davidchelimsky.net/2010/07/11/rspec-rails-2-generators-and-rake-tasks-part-ii/
+  # gem 'rspec-rails', "2.0.0.beta.19"
+  gem 'shoulda', :git => 'git://github.com/thoughtbot/shoulda.git'
+  gem 'rspec-rails', "2.0.0.beta.19"
+end
+
 group :test do
   gem 'polyglot'
   gem 'capybara'
   gem 'database_cleaner'
   gem 'cucumber-rails'
   gem 'cucumber'
-  gem 'rspec-rails', "2.0.0.beta.19"
   gem 'spork'
   gem 'launchy'    # So you can do Then show me the page
-  gem 'shoulda', :git => 'git://github.com/thoughtbot/shoulda.git'
 end
+
+

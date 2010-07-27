@@ -18,7 +18,7 @@ dependencies:
     version: ">= 0"
   shoulda: 
     group: 
-    - :test
+    - :development
     version: ">= 0"
   database_cleaner: 
     group: 
@@ -30,7 +30,7 @@ dependencies:
     version: ">= 0"
   rspec-rails: 
     group: 
-    - :test
+    - :development
     version: = 2.0.0.beta.19
   factory_girl: 
     group: 
@@ -48,11 +48,11 @@ dependencies:
     group: 
     - :default
     version: = 0.9.0.rc5
-  capybara: 
+  launchy: 
     group: 
     - :test
     version: ">= 0"
-  launchy: 
+  capybara: 
     group: 
     - :test
     version: ">= 0"
@@ -163,7 +163,7 @@ specs:
     source: 0
 - spork: 
     version: 0.8.4
-hash: 86d6db4d81afc8938b5b43607e21bed866c84c02
+hash: f79390979d9868e025ae42a67ec507b3acd43cc0
 sources: 
 - Git: 
     uri: git://github.com/thoughtbot/shoulda.git

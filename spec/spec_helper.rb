@@ -11,6 +11,8 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 require 'factory_girl'
 Factory.find_definitions
 
+require 'shoulda'
+
 RSpec.configure do |config|
   # == Mock Framework
   #
