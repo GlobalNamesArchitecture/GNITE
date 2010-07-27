@@ -1,0 +1,351 @@
+/* Eric Meyer's Reset Reloaded */
+/* http://meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/ */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+html,body {
+  height:100%;
+  }
+body {
+  line-height: 1;
+  font-size: 75%;
+  color: #222;
+  background: rgb(56,62,72);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+/* remember to define focus styles! */
+:focus {
+  outline: 0;
+}
+/* remember to highlight inserts somehow! */
+ins {
+  text-decoration: none;
+}
+del {
+  text-decoration: line-through;
+  }
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/************************************************************************/
+/* Global Stucture */
+/************************************************************************/
+#wrapper {
+  height:100%;
+  padding-left:200px;
+}
+
+/* =Clearfix (all browsers)
+--------------------------------*/
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+/* IE6 */
+* html .clearfix {height: 1%;}
+/* IE7 */
+*:first-child+html .clearfix {min-height: 1px;}
+
+h1 {
+  font-size: 1.5em;
+  margin:10px 0px;
+}
+h2 {}
+h3 {}
+h4 {}
+
+hr {
+  margin:15px 0px;
+  border-bottom: #999;
+}
+/************************************************************************/
+/* Body Content */
+/************************************************************************/
+
+#content {
+  min-width:780px;
+  height:100%;
+}
+
+#bodywrap {
+  width:760px;
+  float:left;
+  color:white;
+  margin:12px 30px;
+}
+
+/************************************************************************/
+/* Login Screen */
+/************************************************************************/
+#loginwrap {
+  width: 960px;
+  padding:150px 0;
+  text-align: left;
+  margin: 0 auto;
+}
+
+#loginlogo {
+  height:190px;
+  width:390px;
+  border:1px solid;
+  float:left;
+}
+#loginform {
+  float:left;
+  padding:0px 20px;
+}
+legend {
+  font-size:1.8em;
+  color:rgb(124,170,235);
+  padding-bottom:15px;
+  text-shadow: 1px 1px 0px rgba(26, 26, 26, 0.6);
+}
+#loginform input {
+  width:380px;
+  font-size:1.6em;
+  letter-spacing: -1px;
+  padding:10px;
+  border:0px;
+  border-radius:8px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6) inset;
+  -webkit-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6) inset;
+  -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6) inset;
+  margin-bottom:15px;
+  color:grey;
+}
+input#signin-btn{
+  border:0px;
+  width:inherit;
+  padding:10px 30px;
+  color:#fff;
+  font-size:16px;
+  border:0px solid rgb(15, 18, 21);
+  border-radius:8px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(45, 115, 255) inset;
+  -webkit-box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(45, 115, 255) inset;
+  -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(45, 115, 255) inset;
+  background:-webkit-gradient(linear,left bottom,left top,color-stop(0, rgb(56,82,161)),color-stop(0.58, rgb(70,116,223)),color-stop(1, rgb(124,170,235)));
+  background:-moz-linear-gradient(center bottom, rgb(56,82,161) 0%, rgb(70,116,223) 58%, rgb(124,170,235) 100%);
+}
+#signin-btn:hover {
+  color:;
+  box-shadow:2px 1.5px 2px 1px rgb(77, 88, 104);
+  -webkit-box-shadow:1px 1px 5px 1px rgb(117, 165, 255) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+  -moz-box-shadow: 0px 1px 2px 1px rgb(106, 169, 255);
+  border:0px solid rgb(15, 18, 21);
+}
+#loginform form {
+  margin-bottom:35px;
+}
+#loginform p {
+  color:#999;
+}
+#loginform p a {
+  color:#fff;
+  text-decoration: none;
+}
+#loginform p a:hover {
+  border-bottom: 1px dotted;
+}
+/************************************************************************/
+/* Sidebar Navigation */
+/************************************************************************/
+#navbar {
+  width:200px;
+  height:100%;
+  background: rgb(227, 231, 234);
+  text-align: right;
+  padding:0 0px;
+  font-weight: bold;
+  float:left;
+  margin-left:-200px;
+  }
+#logo {
+  height:;
+  font-size:24px;
+  padding:20px 20px 0px;
+  color:rgb(142,155,162);
+  }
+
+#nav {
+  font-size:14px;
+  padding:20px 0;
+  }
+#nav ul {
+
+  }
+#nav ul li {
+  margin:0;
+  padding:10px 20px;
+  border-top:1px solid;
+  border-color:rgb(197, 197, 199);
+  }
+#nav li#active {
+  background:-webkit-gradient(linear,left bottom,left top,color-stop(0, rgb(56,82,161)),color-stop(0.58, rgb(70,116,223)),color-stop(1, rgb(124,170,235)));
+  background:-moz-linear-gradient(center bottom, rgb(56,82,161) 0%, rgb(70,116,223) 58%, rgb(124,170,235) 100%);
+  box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+  -webkit-box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+  -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+  color: white;
+  border:none;
+  }
+  #nav li#active a {
+    color:white;
+    }
+#nav a:link,
+#nav a:hover,
+#nav a:focus,
+#nav a:visited,
+#nav a:active {
+  color: #000;
+  text-decoration: none;
+}
+
+/************************************************************************/
+/* Main Tree Structure */
+/************************************************************************/
+.tree-column {
+  width:49.75%;
+  min-width:370px;
+  height:100%;
+  float:left;
+}
+.tree {
+  width:100%;
+  height:800px;
+  background:white;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  border:0px solid #fff;
+
+  }
+.treewrap{
+  margin:12px 30px;
+}
+.tree-nav {
+  width:100%;
+  height:40px;
+  font-size:12px;
+  margin-bottom:10px;
+
+  }
+.tree-nav li a, .tree-nav li a:visited, .tree-nav li a:active {
+  color:black;
+  text-decoration: none;
+  font-weight:bold;
+  /*text-shadow: 1px 1px 0px #555;*/
+}
+.tree-nav li a:hover {
+  border-bottom:1px dotted rgba(255, 255, 255,0.3);
+}
+.tree-nav ul {
+  padding:13px 0px;
+  height:40px;
+  }
+.tree-nav li {
+  display:inline;
+  padding:8px 10px;
+  margin:0px 5px;
+  background: -moz-linear-gradient(100% 100% 90deg, rgba(176, 176, 176, 1.0000),rgba(252, 255, 255, 1.0000));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgba(252, 255, 255, 1.0000)), color-stop(1, rgba(176, 176, 176, 1.0000)));
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  border-radius: 15px;
+  box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+  -webkit-box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+  -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+  }
+.tree .breadcrumbs {
+  height:36px;
+  color:#444;
+  font-weight: bold;
+  width:100%;
+  background: rgb(184, 184, 184);
+  display:block;
+  -webkit-border-top-left-radius: 8px;
+  -webkit-border-top-right-radius: 8px;
+  -moz-border-radius-topleft: 8px;
+  -moz-border-radius-topright: 8px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+.breadcrumbs p {
+  font-size:12px;
+  padding:12px 10px;
+  }
+.searchbar {
+  height:30px;
+  background:rgb(184, 184, 184);
+  border-top:1px solid rgb(145, 147, 147);
+  border-bottom:1px solid rgb(145, 147, 147);
+  padding:8px 5px;
+}
+.searchbar a {
+  color:rgb(51,51,51);
+  text-decoration:none;
+  }
+.searchbar a:hover {
+
+}
+.searchbar .grid-button {
+  padding:8px 8px;
+  margin-top:2px;
+  float:left;
+}
+#searchform {
+  margin:0px 20px 0 0;
+  float: right;
+  width:160px;
+}
+#search {
+  width:160px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  border:0px solid #fff;
+  padding:6px;
+  box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6) inset;
+  -webkit-box-shadow:0px 1px 2px 1px rgba(26, 26, 26, 0.6) inset;
+  -moz-box-shadow: 0px 1px 2px 1px rgba(26, 26, 26, 0.6) inset;
+}
+
+
+
+
+
+
+
+
+
+

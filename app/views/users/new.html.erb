@@ -1,10 +1,20 @@
-<h2>Sign up</h2>
-
-<%= semantic_form_for @user do |form| %>
-  <%= form.error_messages %>
-  <%= render :partial => "/users/inputs", :locals => { :form => form } %>
-  <%= form.buttons do %>
-    <%= form.commit_button "Sign up" %>
-  <% end %>
-<% end %>
-
+<!-- Start of Login Content -->
+<div id="loginwrap">
+  <!-- Start of Logo -->
+  <div id="loginlogo">
+    <p>GNITE LOGO</p>
+  </div>
+  <!-- End of Logo -->
+  <!-- Start of Forms -->
+  <div id="loginform">
+    <%= semantic_form_for @user do |form| %>
+      <%= form.error_messages %>
+      <%= render :partial => "/users/inputs", :locals => { :form => form } %>
+      <%= form.buttons do %>
+        <%= form.commit_button "Sign up" %>
+      <% end %>
+    <% end %>
+  </div>
+  <!-- End of Forms -->
+</div>
+<!-- End of Body Content -->
