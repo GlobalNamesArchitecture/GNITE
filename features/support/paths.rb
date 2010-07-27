@@ -20,6 +20,9 @@ module NavigationHelpers
       new_password_path
     when /the master tree index page/i
       trees_path
+    when /the edit user settings page for "(.+)"/i
+      user = User.find_by_email($1)
+      edit_user_path(user.id)
     # Here is an example that pulls values out of the Regexp:
     #
     #   when /^(.*)'s profile page$/i
