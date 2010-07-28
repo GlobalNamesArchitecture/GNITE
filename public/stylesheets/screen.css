@@ -189,6 +189,7 @@ hr {
 	margin-bottom:15px;
 	color:grey;
 }
+input#password_submit,
 input#session_submit,
 input#user_submit {
 	border:0px;
