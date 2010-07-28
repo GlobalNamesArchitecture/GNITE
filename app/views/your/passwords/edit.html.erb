@@ -9,11 +9,10 @@
       <%= form.error_messages %>
       <%= form.inputs :title => "Change your password" do -%>
         <%= form.input :password, :as => :password,
-          :label => "Choose password",
-          :input_html => { :class => "prefilled" } %>
+          :label => "Choose password"
+           %>
         <%= form.input :password_confirmation, :as => :password,
-          :label => "Confirm password",
-          :input_html => { :class => "prefilled" } %>
+          :label => "Confirm password" %>
         <% end -%>
       <%= form.buttons do -%>
         <%= form.commit_button "Save this password" %>

@@ -51,9 +51,9 @@ end
 auth = YAML.load(File.read(File.join(Rails.root, "..", "..", "shared", "config", "smtp_settings.yml")))
 
 ActionMailer::Base.smtp_settings = {
-  :address              => "smtp.gmail.com",
+  :address              => 'smtp.gmail.com',
   :port                 => 587,
-  :domain               => 'your.host.name',
+  :domain               => 'gnite.staging.thoughtbot.com',
   :user_name            => auth[:user_name],
   :password             => auth[:password],
   :authentication       => 'plain',

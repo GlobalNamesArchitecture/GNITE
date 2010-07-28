@@ -11,8 +11,8 @@
       <%= form.semantic_errors %>
       <%= form.inputs :title => "Sign up for a GNITE account" do %>
         <%= form.input :email, :label => "Email", :input_html => { :class => "prefilled" } %>
-        <%= form.input :password, :label => "Password", :input_html => { :class => "prefilled" }%>
-        <%= form.input :password_confirmation, :label => "Confirm password", :input_html => { :class => "prefilled" } %>
+        <%= form.input :password, :label => "Password"%>
+        <%= form.input :password_confirmation, :label => "Confirm password" %>
       <% end %>
       <%= form.buttons do %>
         <%= form.commit_button "Sign up" %>
