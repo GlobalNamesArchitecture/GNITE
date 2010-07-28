@@ -14,4 +14,18 @@ describe "routing to trees" do
       :action => "edit"
     )
   end
+  it "routes /users/abc/edit to users#edit" do
+    { :get => "/users/abc/edit" }.should route_to(
+      :controller => "users",
+      :action => "edit",
+      :id => "abc"
+    )
+  end
+  it "routes /users/abc to users#update" do
+    { :put => "/users/abc" }.should route_to(
+      :controller => "users",
+      :action => "update",
+      :id => "abc"
+    )
+  end
 end

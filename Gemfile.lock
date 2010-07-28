@@ -34,7 +34,7 @@ dependencies:
     version: ">= 0"
   rspec-rails: 
     group: 
-    - :development
+    - :test
     version: = 2.0.0.beta.19
   factory_girl: 
     group: 
@@ -197,7 +197,7 @@ specs:
     source: 0
 - spork: 
     version: 0.8.4
-hash: 0bb9fd502f6afb27b390c5f99a527e40b64638b9
+hash: 889fdeae953bbc212d3e7f3c52fd85c9d23df77d
 sources: 
 - Git: 
     uri: git://github.com/thoughtbot/shoulda.git
