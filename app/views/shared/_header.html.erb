@@ -5,6 +5,7 @@
     <span>Signed in as <%= current_user.email %></span>
     <%= link_to "Sign out", sign_out_path %>
     <%= link_to "Change Password", edit_your_password_path %>
+    <%= link_to "Account Settings", edit_user_path(current_user.id) %>
   <% else %>
     <%= link_to "Sign in", sign_in_path %>
   <% end %>
