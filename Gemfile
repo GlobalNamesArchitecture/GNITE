@@ -12,9 +12,6 @@ gem 'formtastic', :git => "git://github.com/justinfrench/formtastic.git", :branc
 gem 'engineyard'
 gem 'hoptoad_notifier'
 
-# Use unicorn as the web server
-# gem 'unicorn'
-
 # Deploy with Capistrano
 # gem 'capistrano'
 
@@ -51,4 +48,8 @@ group :test do
   gem 'bourne'
 end
 
+group :staging do
+  # Use unicorn as the web server
+  gem 'unicorn'
+end
 
