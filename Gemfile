@@ -32,6 +32,7 @@ group :development do
   # gem 'rspec-rails', "2.0.0.beta.19"
   gem 'shoulda', :git => 'git://github.com/thoughtbot/shoulda.git'
   gem 'rspec-rails', "2.0.0.beta.19"
+  gem 'high_voltage'
 end
 
 group :test do
