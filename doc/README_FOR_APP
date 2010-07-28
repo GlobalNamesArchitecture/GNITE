@@ -1,14 +1,22 @@
 == Using bundler, getting set up
 
-This is a Rails 3 application, so we require Ruby >=1.8.7 and use Bundler.  To get rolling:
+This is a Rails 3 application, so we require Ruby >=1.8.7 and use Bundler.
 
-    rvm use 1.8.7
+REE 2010.02 is the best 1.8.x Ruby to use for Rails 3, so let's get it:
+
+    echo "# Use REE 2010.02" >> ~/.rvm/config/user
+    echo "ree_1.8.7_url=http://rubyforge.org/frs/download.php/71096" >> ~/.rvm/config/user
+    rvm install ree-1.8.7-2010.02
+    rvm use ree-1.8.7-2010.02
+
+Then install bundler, and the GNITE dependencies:
+
     gem install bundler
     bundle install
 
 == Create your databases
 
-    bundle exec rake db:create bundle exec rake db:migrate
+    bundle exec rake db:create rake db:migrate
     bundle exec rake db:create RAILS_ENV=test
     bundle exec rake db:schema:dump db:test:prepare
 
