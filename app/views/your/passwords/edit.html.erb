@@ -1,14 +1,25 @@
-<%= semantic_form_for(:user,
-            :url  => your_password_path,
-            :html => { :method => :put }) do |form| %>
-  <%= form.error_messages %>
-  <%= form.inputs do -%>
-    <%= form.input :password, :as => :password,
-                   :label => "Choose password" %>
-    <%= form.input :password_confirmation, :as => :password,
-                   :label => "Confirm password" %>
-  <% end -%>
-  <%= form.buttons do -%>
-    <%= form.commit_button "Save this password" %>
-  <% end -%>
-<% end %>
+<!-- Start of Login Content -->
+<div id="loginwrap">
+  <!-- End of Logo -->
+  <!-- Start of Forms -->
+  <div id="loginform">
+    <%= semantic_form_for(:user,
+                :url  => your_password_path,
+                :html => { :method => :put }) do |form| %>
+      <%= form.error_messages %>
+      <%= form.inputs :title => "Change your password" do -%>
+        <%= form.input :password, :as => :password,
+          :label => "Choose password",
+          :input_html => { :class => "prefilled" } %>
+        <%= form.input :password_confirmation, :as => :password,
+          :label => "Confirm password",
+          :input_html => { :class => "prefilled" } %>
+        <% end -%>
+      <%= form.buttons do -%>
+        <%= form.commit_button "Save this password" %>
+      <% end -%>
+    <% end %>
+  </div>
+  <!-- End of Forms -->
+</div>
+<!-- End of Body Content -->
