@@ -2,19 +2,24 @@
 <div id="loginwrap">
   <!-- Start of Logo -->
   <div id="loginlogo">
-    <p>GNITE LOGO</p>
+    <img src="images/login-logo.png"/>
   </div>
   <!-- End of Logo -->
   <!-- Start of Forms -->
   <div id="loginform">
-    <%= semantic_form_for :session, :url => session_path do |form| %>
-      <%= form.inputs do %>
-        <%= form.input :email %>
-        <%= form.input :password, :as => :password %>
-      <% end %>
-      <%= form.buttons do %>
-        <%= form.commit_button "Sign in" %>
-      <% end %>
+    <%= form_for :session, :url => session_path, :id => "signin" do |form| %>
+      <fieldset>
+        <legend>Sign in to your account</legend>
+        <p>
+          <label for="emailform">Email</label>
+          <input id="emailform" name="session[email]" size="50" type="text" value="Email address" />
+        </p>
+        <p>
+          <label for="passwordform">Password</label>
+          <input id="passwordform" name="session[password]" size="50" type="password" value="Password"/>
+        </p>
+      </fieldset>
+      <p><input type="submit" value="Sign in" id="signin-btn"/></p>
     <% end %>
     <p>Forgot your password? <%= link_to "Reset it here", new_password_path %></p>
     <hr/>
