@@ -2,18 +2,24 @@
 <div id="loginwrap">
   <!-- Start of Logo -->
   <div id="loginlogo">
-    <p>GNITE LOGO</p>
+    <img src="/images/login-logo.png"/>
   </div>
   <!-- End of Logo -->
   <!-- Start of Forms -->
   <div id="loginform">
-    <%= semantic_form_for @user do |form| %>
-      <%= form.error_messages %>
-      <%= render :partial => "/users/inputs", :locals => { :form => form } %>
+    <%= semantic_form_for @user, :id => "signin" do |form| %>
+      <%= form.semantic_errors %>
+      <%= form.inputs :title => "Sign up for a GNITE account" do %>
+        <%= form.input :email, :label => "Email", :input_html => { :class => "prefilled" } %>
+        <%= form.input :password, :label => "Password", :input_html => { :class => "prefilled" }%>
+        <%= form.input :password_confirmation, :label => "Confirm password", :input_html => { :class => "prefilled" } %>
+      <% end %>
       <%= form.buttons do %>
         <%= form.commit_button "Sign up" %>
       <% end %>
     <% end %>
+    <hr/>
+    <p>Already have a GNITE account? <%= link_to "Sign in here", sign_in_path %></p>
   </div>
   <!-- End of Forms -->
 </div>

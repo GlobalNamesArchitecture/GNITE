@@ -18,7 +18,7 @@ Feature: Password reset
       Given I signed up with "email@person.com/password"
       When I follow the password reset link sent to "email@person.com"
       And I update my password with "newpassword/wrongconfirmation"
-      Then I should see an error message
+      Then I should see "doesn't match confirmation"
       And I should be signed out
 
     Scenario: User is signed up and updates his password
@@ -30,4 +30,3 @@ Feature: Password reset
       Then I should be signed out
       And I sign in as "email@person.com/newpassword"
       Then I should be signed in
-

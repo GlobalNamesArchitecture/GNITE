@@ -189,7 +189,8 @@ hr {
 	margin-bottom:15px;
 	color:grey;
 }
-input#signin-btn{
+input#session_submit,
+input#user_submit {
 	border:0px;
 	width:inherit;
 	padding:10px 30px;

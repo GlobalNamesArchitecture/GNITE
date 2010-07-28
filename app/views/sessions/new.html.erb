@@ -7,19 +7,14 @@
   <!-- End of Logo -->
   <!-- Start of Forms -->
   <div id="loginform">
-    <%= form_for :session, :url => session_path, :id => "signin" do |form| %>
-      <fieldset>
-        <legend>Sign in to your account</legend>
-        <p>
-          <label for="emailform">Email</label>
-          <input class="prefilled" id="emailform" name="session[email]" size="50" type="text" />
-        </p>
-        <p>
-          <label for="passwordform">Password</label>
-          <input class="prefilled" id="passwordform" name="session[password]" size="50" type="password" />
-        </p>
-      </fieldset>
-      <p><input type="submit" value="Sign in" id="signin-btn"/></p>
+    <%= semantic_form_for :session, :url => session_path, :id => "signin" do |form| %>
+      <%= form.inputs :title => "Sign in to your account" do %>
+        <%= form.input :email, :input_html => { :class => "prefilled" } %>
+        <%= form.input :password, :input_html => { :class => "prefilled" } %>
+      <% end %>
+      <%= form.buttons do %>
+        <%= form.commit_button "Sign in" %>
+      <% end %>
     <% end %>
     <p>Forgot your password? <%= link_to "Reset it here", new_password_path %></p>
     <hr/>
