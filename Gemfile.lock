@@ -52,11 +52,15 @@ dependencies:
     group: 
     - :test
     version: ">= 0"
+  engineyard: 
+    group: 
+    - :default
+    version: ">= 0"
   clearance: 
     group: 
     - :default
     version: = 0.9.0.rc5
-  engineyard: 
+  hoptoad_notifier: 
     group: 
     - :default
     version: ">= 0"
@@ -170,6 +174,8 @@ specs:
 - formtastic: 
     version: 1.0.0.beta2
     source: 1
+- hoptoad_notifier: 
+    version: 2.3.2
 - launchy: 
     version: 0.3.7
 - mysql: 
@@ -191,7 +197,7 @@ specs:
     source: 0
 - spork: 
     version: 0.8.4
-hash: a7d8400e82d24d8849d6d9d9ccbe042534c23e6e
+hash: 0bb9fd502f6afb27b390c5f99a527e40b64638b9
 sources: 
 - Git: 
     uri: git://github.com/thoughtbot/shoulda.git

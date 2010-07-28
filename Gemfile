@@ -10,6 +10,8 @@ gem 'clearance', "0.9.0.rc5"
 gem 'factory_girl'
 gem 'formtastic', :git => "git://github.com/justinfrench/formtastic.git", :branch => "rails3"
 gem 'engineyard'
+gem 'hoptoad_notifier'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
