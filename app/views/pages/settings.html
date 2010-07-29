@@ -1,61 +1,75 @@
-		<div id="wrapper">
-		<!-- Start of Sidebar -->
-			<div id="navbar">
-				<div id="logo"><img src="/images/logo-nav.png"/></div>
-				<div id="nav">
-					<ul>
-						<li><a href="mastertrees.html"><img class="icon" src="/images/tree-nonactive.png"/>Master Trees</a></li>
-						<li><a href="profile.html"><img class="icon" src="/images/profile-nonactive.png"/>Profile</a></li>
-						<li id="active"><a href="settings.html"><img class="icon hover" src="/images/settings-active.png"/>Settings</a></li>
-						<li><a href="karma.html"><img class="icon" src="/images/karma-nonactive.png"/>Karma</a></li>
-					</ul>
-				</div>
-			</div>
-		<!-- End of Sidebar -->
-		<!-- Start of Body Content -->
-			<div id="content">
-			<!-- Start of Settings Body -->
-				<div id="header">
-					<h1>Account Settings</h1>
-				</div>
-				<div id="bodywrap">
-			<!-- Start of Profile Information Box -->
-					<div class="infobox-wrap">
-						<div class="infobox">
-						<form action="" method="get">
-							<div class="title">
-								<fieldset>
-									<legend>Profile Information</legend>
-							</div>	
-									<p><label for="first">First name</label><input type="text" name="first" id="first" /></p>
-									<p><label for="first">Last name</label><input type="text" name="first" id="first" /></p>
-									<p><label for="first">Location name</label><input type="text" name="first" id="first" /></p>
-								</fieldset>
-							<p><input type="submit" /></p>
-						</form>
-						</div>
-					</div>
-			<!-- End of Profile Information Box -->
-			<!-- Start of Profile Information Box -->
-					<div class="infobox-wrap">
-						<div class="infobox">
-							<div class="breadcrumbs title">
-								<p>Profile Information</p>
-							</div>
-							<div class="labels">
-								<ul>
-									<li>Email address</li>
-									<li>Password</li>
-									<li>Password Confirm</li>
-								</ul>
-							</div>
+    <div id="wrapper">
+    <!-- Start of Sidebar -->
+      <div id="navbar">
+        <div id="logo"><img src="/images/logo-nav.png"/></div>
+        <div id="nav">
+          <ul>
+            <li><a href="mastertrees.html"><img class="icon" src="/images/tree-nonactive.png"/>Master Trees</a></li>
+            <li><a href="profile.html"><img class="icon" src="/images/profile-nonactive.png"/>Profile</a></li>
+            <li id="active"><a href="settings.html"><img class="icon hover" src="/images/settings-active.png"/>Settings</a>
+              <ul>
+                <li class="active"><a href="#">Account Settings</a></li>
+                <li><a href="#">Sorting Options</a></li>
+                <li><a href="#">Option Three</a></li>
+                <li><a href="#">Option Four</a></li>
+              </ul>
+            </li>
+            <li><a href="karma.html"><img class="icon" src="/images/karma-nonactive.png"/>Karma</a></li>
+          </ul>
+        </div>
+      </div>
+    <!-- End of Sidebar -->
+    <!-- Start of Body Content -->
+      <div id="content">
+      <!-- Start of Settings Body -->
+        <div id="header">
+          <h1>Account Settings</h1>
+        </div>
+        <div id="bodywrap">
+      <!-- Start of Profile Information Box -->
+          <div class="infobox-wrap">
+            <div class="title">
+              <p>Profile Information</p>
+            </div>
+            <div class="infobox">
+            <form action="" method="get">
+                <fieldset>
+                  <div class="info-content">  
+                    <ul>                    
+                      <li><label for="first">First name</label><input type="text" name="first" id="first" /></li>
+                      <li><label for="first">Last name</label><input type="text" name="first" id="first" /></li>
+                      <li><label for="first">Location name</label><input type="text" name="first" id="first" /></li>
+                    </ul>
+                  </div>
+                </fieldset>
+            </form>
+            </div>
+          </div>
+      <!-- End of Profile Information Box -->
+      <!-- Start of Profile Information Box -->
+          <div class="infobox-wrap">
+            <div class="title">
+              <p>Account Information</p>
+            </div>
+            <div class="infobox">
+            <form action="" method="get">
+                <fieldset>
+                  <div class="info-content">  
+                    <ul>                    
+                      <li><label for="first">Email</label><input type="text" name="first" id="first" /></li>
+                      <li><label for="first">Password</label><input type="password" name="first" id="first" /></li>
+                      <li><label for="first">Confirm Password</label><input type="password" name="first" id="first" /></li>
+                    </ul>
+                  </div>
+                </fieldset>
+            </form>
+            </div>
+          </div>
 
-						</div>
-					</div>
-			<!-- End of Profile Information Box -->
-
-				</div>
-			<!-- End of Settings Body -->
-			</div>
-		<!-- End of Body Content -->
-		</div>
+      <!-- End of Profile Information Box -->
+          <p><input type="submit" value="Save changes" id="signin-btn"/></p>
+        </div>
+      <!-- End of Settings Body -->
+      </div>
+    <!-- End of Body Content -->
+    </div>
