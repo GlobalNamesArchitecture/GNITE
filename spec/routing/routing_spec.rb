@@ -7,13 +7,22 @@ describe "routing to trees" do
       :action => "index"
     )
   end
-
-  it "routes /your/password/edit to passwords#edit" do
-    { :get => "/your/password/edit" }.should route_to(
-      :controller => "your/passwords",
-      :action => "edit"
+  it "routes /trees/new to trees#new" do
+    { :get => "trees/new" }.should route_to(
+      :controller => "trees",
+      :action => "new"
     )
   end
+  it "routes /trees to trees#create" do
+    { :post => "/trees" }.should route_to(
+      :controller => "trees",
+      :action => "create"
+    )
+  end
+
+end
+
+describe "routing to users" do
   it "routes /users/abc/edit to users#edit" do
     { :get => "/users/abc/edit" }.should route_to(
       :controller => "users",
@@ -26,6 +35,15 @@ describe "routing to trees" do
       :controller => "users",
       :action => "update",
       :id => "abc"
+    )
+  end
+end
+
+describe "routing to passwords" do
+  it "routes /your/password/edit to passwords#edit" do
+    { :get => "/your/password/edit" }.should route_to(
+      :controller => "your/passwords",
+      :action => "edit"
     )
   end
 end

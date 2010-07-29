@@ -1,0 +1,11 @@
+<%= semantic_form_for(:tree,
+                      :url => trees_path,
+                      :html => { :method => :post }) do |form| %>
+    <%= form.error_messages %>
+    <%= form.inputs :title => "Metadata for New Tree" do -%>
+      <%= form.input :title %>
+    <% end %>
+    <%= form.buttons do -%>
+      <%= form.commit_button "Create" %>
+    <% end -%>
+<% end %>

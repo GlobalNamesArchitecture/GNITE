@@ -12,6 +12,7 @@ describe UsersController do
 
     subject { controller }
 
+    it { should respond_with(:success) }
     it { should assign_to(:user).with(user) }
     it { should render_template(:edit) }
   end

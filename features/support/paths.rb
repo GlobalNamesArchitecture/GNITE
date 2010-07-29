@@ -23,6 +23,9 @@ module NavigationHelpers
     when /the edit user settings page for "(.+)"/i
       user = User.find_by_email($1)
       edit_user_path(user.id)
+    when /the tree page for "(.+)"/i
+      tree = Tree.find_by_title($1)
+      tree_path(tree.id)
     # Here is an example that pulls values out of the Regexp:
     #
     #   when /^(.*)'s profile page$/i
