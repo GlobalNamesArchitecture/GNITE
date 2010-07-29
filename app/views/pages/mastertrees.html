@@ -32,8 +32,8 @@
 						<div class="treewrap">
 							<div class="tree-nav">
 								<ul>
-									<li><a href="#">Back to list</a></li>
-									<li><a href="#">New master tree</a></li>
+									<li><a href="#">New Master Tree</a></li>
+									<li><a href="#">New Node</a></li>
 								</ul>
 							</div>
 							<div class="tree">
@@ -48,14 +48,14 @@
 								</div>
 								<div class="searchbar">
 									<div class="grid-button">
-										<a href="#">view as grid</a>
+										<a href="#"><img class="icon" src="/images/metadata-author.png"/>Author</a>
 									</div>
 									<div class="grid-button">
-										<a href="#">Author</a>
+										<a href="#"><img class="icon" src="/images/gridview.png"/>Grid view</a>
 									</div>
 									<form method="get" id="searchform" action="">
 										<fieldset>
-											<input type="text" value="Search this tree" name="search" id="search" />
+											<input type="text" value="Search this tree" name="search" id="search" onclick="this.value='';this.onclick=null;" />
 										</fieldset>
 									</form>
 									<div class="clearfix"></div>
