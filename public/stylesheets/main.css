@@ -385,19 +385,6 @@ input#signin-btn{
 	border-top-left-radius: 8px;
 	border-top-right-radius: 8px;
 }
-.breadcrumbs ul {
-	padding:8px 5px;
-}
-.breadcrumbs ul li {
-	display:inline-block;
-	padding:0 12px 0 3px;
-	line-height:20px;
-	background:url(../images/angle.png) no-repeat;
-	background-position:right;
-}
-.breadcrumbs ul li:last-child{
-	background:none;
-}
 .breadcrumbs p, .infobox .title legend {
 	font-size:12px;
 	padding:12px 10px;
