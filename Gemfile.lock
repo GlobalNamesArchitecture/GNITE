@@ -4,6 +4,10 @@ dependencies:
     group: 
     - :test
     version: ">= 0"
+  capybara-envjs-fixes: 
+    group: 
+    - :test
+    version: ">= 0"
   rails: 
     group: 
     - :default
@@ -69,6 +73,10 @@ dependencies:
     - :default
     version: ">= 0"
   cucumber: 
+    group: 
+    - :test
+    version: ">= 0"
+  capybara-envjs: 
     group: 
     - :test
     version: ">= 0"
@@ -141,6 +149,17 @@ specs:
     version: 0.0.27
 - capybara: 
     version: 0.3.9
+- stackdeck: 
+    version: 0.2.0
+- johnson: 
+    version: 2.0.0.pre3
+- envjs: 
+    version: 0.3.7
+- capybara-envjs: 
+    version: 0.1.6
+- capybara-envjs-fixes: 
+    version: 0.0.2
+    source: 0
 - thor: 
     version: 0.13.8
 - railties: 
@@ -180,8 +199,8 @@ specs:
 - factory_girl: 
     version: 1.3.1
 - formtastic: 
-    version: 1.0.0.beta3
-    source: 1
+    version: 1.0.0.rc
+    source: 2
 - high_voltage: 
     version: 0.9.0
 - hoptoad_notifier: 
@@ -203,22 +222,26 @@ specs:
 - rspec-rails: 
     version: 2.0.0.beta.19
 - shoulda: 
-    version: 2.11.1
-    source: 0
+    version: 2.11.2
+    source: 1
 - spork: 
     version: 0.8.4
 - unicorn: 
     version: 1.1.2
-hash: f4d25e488acd5642b789a8f576eb0c3f95de6fb1
+hash: 5479158120530b9b29e868e9c36b575879b16e70
 sources: 
+- Git: 
+    uri: git://github.com/jasonm/capybara-envjs-fixes.git
+    git: git://github.com/jasonm/capybara-envjs-fixes.git
+    ref: 5661862251c876d3feeacab5a5aa6ad3f59bf4cc
 - Git: 
     uri: git://github.com/thoughtbot/shoulda.git
     git: git://github.com/thoughtbot/shoulda.git
-    ref: f814549b3e48bcad3037cf60f62159ca59acc6dd
+    ref: 97fb23835c7152789a9d39fbe4af72fd8d77ee70
 - Git: 
     uri: git://github.com/justinfrench/formtastic.git
     branch: rails3
     git: git://github.com/justinfrench/formtastic.git
-    ref: 229eb53a626bb2c5272a4e7eee0b6f3210dd3c45
+    ref: 4d83225df73e051a82d3530b7c99cb8d45220ba8
 - Rubygems: 
     uri: http://rubygems.org

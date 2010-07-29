@@ -2,61 +2,74 @@ require 'spec_helper'
 
 describe TreesController do
 
-  context "on GET to #index" do
+  context "signed in" do
     before do
-      get :index
+      @user = Factory(:email_confirmed_user)
+      sign_in_as(@user)
     end
 
-    subject { controller }
+    context "on GET to #index" do
+      let(:trees) { [Factory(:tree)] }
 
-    it { should respond_with(:success) }
-    it { should render_template(:index) }
-  end
+      before do
+        controller.stubs(:current_user => @user)
+        @user.stubs(:trees => trees)
 
-  context "on a valid GET to #new" do
-    let(:tree) { Factory(:tree) }
+        get :index
+      end
 
-    before do
-      Tree.stubs(:new => tree)
-      get :new
+      subject { controller }
+
+      it { should respond_with(:success) }
+      it { should render_template(:index) }
+      it { should assign_to(:trees).with(trees) }
     end
 
-    subject { controller }
+    context "on a valid GET to #new" do
+      let(:tree) { Factory(:tree) }
 
-    it { should respond_with(:success) }
-    it { should assign_to(:tree).with(tree) }
-    it { should render_template(:new) }
-  end
+      before do
+        Tree.stubs(:new => tree)
+        get :new
+      end
 
-  context "on a valid POST to #create" do
-    let(:tree) { Factory(:tree) }
+      subject { controller }
 
-    before do
-      Tree.stubs(:new => tree)
-      tree.stubs(:save => true)
-      post :create
+      it { should respond_with(:success) }
+      it { should assign_to(:tree).with(tree) }
+      it { should render_template(:new) }
     end
 
-    subject { controller }
+    context "on a valid POST to #create" do
+      let(:tree) { Factory(:tree) }
 
-    it { should assign_to(:tree).with(tree) }
-    it { should redirect_to(tree_url(tree)) }
-    it { should set_the_flash.to(/created/) }
-  end
+      before do
+        Tree.stubs(:new => tree)
+        tree.stubs(:save => true)
+        post :create
+      end
 
-  context "on an invalid POST to #create" do
-    let(:tree) { Factory(:tree) }
+      subject { controller }
 
-    before do
-      Tree.stubs(:new => tree)
-      tree.stubs(:save => false)
-      post :create
+      it { should assign_to(:tree).with(tree) }
+      it { should redirect_to(tree_url(tree)) }
+      it { should set_the_flash.to(/created/) }
     end
 
-    subject { controller }
+    context "on an invalid POST to #create" do
+      let(:tree) { Factory(:tree) }
 
-    it { should assign_to(:tree).with(tree) }
-    it { should_not set_the_flash }
-    it { should render_template(:new) }
+      before do
+        Tree.stubs(:new => tree)
+        tree.stubs(:save => false)
+        post :create
+      end
+
+      subject { controller }
+
+      it { should assign_to(:tree).with(tree) }
+      it { should_not set_the_flash }
+      it { should render_template(:new) }
+    end
   end
 end

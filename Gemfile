@@ -47,6 +47,8 @@ group :test do
   gem 'launchy'    # So you can do Then show me the page
   gem 'mocha'
   gem 'bourne'
+  gem 'capybara-envjs'
+  gem 'capybara-envjs-fixes', :git => "git://github.com/jasonm/capybara-envjs-fixes.git"
 end
 
 group :staging do

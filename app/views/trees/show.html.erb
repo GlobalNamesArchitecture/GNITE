@@ -1,0 +1,156 @@
+    <div id="wrapper">
+    <!-- Start of Sidebar -->
+      <div id="navbar">
+        <div id="logo"><img src="/images/logo-nav.png"/></div>
+        <div id="nav">
+          <ul>
+            <li id="active"><a href="mastertrees.html"><img class="icon hover" src="/images/tree-active.png"/>Master Trees</a>
+              <!--
+              <ul>
+                <li class="active"><a href="#">Your Master Trees</a></li>
+                <li><a href="#">New Master Tree</a></li>
+              </ul>
+              -->
+            </li>
+            <!--
+            <li><a href="profile.html"><img class="icon" src="/images/profile-nonactive.png"/>Profile</a></li>
+            <li><a href="settings.html"><img class="icon" src="/images/settings-nonactive.png"/>Settings</a></li>
+            <li><a href="karma.html"><img class="icon" src="/images/karma-nonactive.png"/>Karma</a></li>
+            -->
+          </ul>
+        </div>
+      </div>
+    <!-- End of Sidebar -->
+    <!-- Start of Body Content -->
+      <div id="content">
+      <!-- Start of Left Tree -->
+          <div class="tree-column">
+            <div class="treewrap">
+              <div class="tree-nav">
+                <ul>
+                  <!--
+                  <li><a href="#">New Master Tree</a></li>
+                  -->
+                  <li><a href="#">New Node</a></li>
+                </ul>
+              </div>
+              <div class="tree">
+                <div class="breadcrumbs">
+                <!--
+                  <ul>
+                    <li>Kingdom</li>
+                    <li>Phylum</li>
+                    <li>Class</li>
+                    <li>Order</li>
+                    <li>Family</li>
+                  </ul>
+                  -->
+                </div>
+                <!--
+                <div class="searchbar">
+                  <div class="grid-button">
+                    <a href="#"><img class="icon" src="/images/metadata-author.png"/>Author</a>
+                  </div>
+                  <div class="grid-button">
+                    <a href="#"><img class="icon" src="/images/gridview.png"/>Grid view</a>
+                  </div>
+                  <form method="get" id="searchform" action="">
+                    <fieldset>
+                      <input type="text" value="Search this tree" name="search" id="search" onclick="this.value='';this.onclick=null;" />
+                    </fieldset>
+                  </form>
+                  <div class="clearfix"></div>
+                </div>
+                -->
+                
+                <div id="tree-container">
+                  <div id="master-tree"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+      <!-- End of Left Tree -->
+      <!-- Start of Right Tree -->
+      <!--
+          <div class="tree-column">
+            <div class="treewrap">
+              <div class="tree-nav">
+                <ul>
+                
+                </ul>
+              </div>
+              <div class="tree">
+                <div class="breadcrumbs">
+                  <p></p>
+                </div>
+                <div class="searchbar">
+                  <div class="grid-button">
+                    
+                  </div>
+    
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          -->
+      <!-- End of Right Tree -->
+      </div>
+    <!-- End of Body Content -->
+  </div>
+
+<% content_for :javascript do %>
+  <%= javascript_include_tag 'jquery', 'jquery.jstree' %>
+
+  <script type="text/javascript" class="source">
+    $(document).ready(function() {
+
+      $("#add-child-node").click(function() {
+        $("#tree").jstree("create");
+      });
+
+      $("#master-tree").jstree({
+        //"json_data": {
+        //  "ajax": {
+        //    "url": "/nodes.json",
+        //    "data" : function (node) {
+        //      return { parent_id : node.attr ? node.attr("id") : 0 };
+        //    }
+        //  },
+        //},
+        "plugins" : [ "themes", "json_data", "crrm" ]
+      });
+
+
+      $("#master-tree")
+        .bind("create.jstree", function(event, data) {
+          // var newNode = data.rslt;
+
+          // var parentId;
+          // if (newNode.parent == -1) {
+          //   parentId = null;
+          // } else {
+          //   parentId = newNode.parent.attr("id");
+          // }
+
+          // log("Creating new node '" + newNode.name + "' under parent " + parentId + "...");
+          // var node = Node.build({parent_id: parentId, name: newNode.name});
+
+          // if (node.save()) {
+          //   newNode.obj.attr("id", node.id);
+          //   log("Successfully created node " + node.id + " on the server.")
+          // } else {
+          //   logError("Failed to created on the server.  Errors:");
+
+          //   $.each(node.errors, function(index, error) {
+          //     logError(error);
+          //   });
+
+          //   $.jstree.rollback(data.rlbk);
+          //   logError("Rolled back the JSTree state.");
+          // }
+        });
+
+    });
+  </script>
+<% end %>
