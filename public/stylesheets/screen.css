@@ -189,6 +189,9 @@ hr {
 	margin-bottom:15px;
 	color:grey;
 }
+input#password_submit,
+input#session_submit,
+input#user_submit,
 input#signin-btn{
 	border:0px;
 	width:inherit;
@@ -457,4 +460,26 @@ input#signin-btn{
 
 
 
+#sign_in_or_out {
+  position: absolute;
+  top: 15px;
+  right: 36px;
+}
+#sign_in_or_out span,
+#sign_in_or_out a {
+  background: #ccc;
+  padding: 0.5em;
+  border: 1px solid white;
+  filter:alpha(opacity=50);
+  -moz-opacity:0.5;
+  -khtml-opacity: 0.5;
+  opacity: 0.5;
+}
+#loginform label {
+  font-size:1.4em;
+  color:#999;
+  padding-bottom:4px;
+  text-shadow: 1px 1px 0px rgba(26, 26, 26, 0.6);
+  display: block;
+}
 
