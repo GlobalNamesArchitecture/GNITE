@@ -9,3 +9,4 @@ Feature: Create and Edit the Master Tree
     And I fill in "Title" with "My new tree"
     And I press "Create"
     Then I should be on the tree page for "My new tree"
+    And I should see "Tree successfully created"
