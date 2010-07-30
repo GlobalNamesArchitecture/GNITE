@@ -93,7 +93,11 @@ h4 {}
 
 hr {
   margin:15px 0px;
-  border-bottom: #999;
+  border:none;
+  height:1px;
+  width:100%;
+  background:rgb(10,11,13);
+  border-bottom:1px solid rgb(83,95,112);
 }
 /************************************************************************/
 /* Body Content */
@@ -203,7 +207,7 @@ hr {
   padding-bottom:15px;
   text-shadow: 1px 1px 0px rgba(26, 26, 26, 0.6);
 }
-#loginform input {
+#loginform .input {
   width:380px;
   font-size:1.6em;
   letter-spacing: -1px;
@@ -220,7 +224,6 @@ hr {
 }
 input#signin-btn{
   border:0px;
-  width:inherit;
   padding:10px 30px;
   color:#fff;
   font-size:16px;
@@ -242,10 +245,9 @@ input#signin-btn{
   border:0px solid rgb(15, 18, 21);
 }
 .blue-submit{
-  border:0px;
-  width:inherit;
-  padding:10px 30px;
   color:#fff;
+  border:0px;
+  padding:10px 30px;
   font-size:16px;
   border:0px solid rgb(15, 18, 21);
   border-radius:8px;
@@ -258,7 +260,6 @@ input#signin-btn{
   background:-moz-linear-gradient(center bottom, rgb(56,82,161) 0%, rgb(70,116,223) 58%, rgb(124,170,235) 100%);
 }
 .blue-submit:hover {
-  color:;
   box-shadow:1px 1px 5px 1px rgb(117, 165, 255) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
   -webkit-box-shadow:1px 1px 5px 1px rgb(117, 165, 255) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
   -moz-box-shadow:1px 1px 5px 1px rgb(117, 165, 255) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
