@@ -1,0 +1,23 @@
+<!-- Start of Sidebar -->
+<div id="navbar">
+  <div id="logo"><img src="/images/logo-nav.png"/></div>
+  <div id="nav">
+    <ul>
+      <li id="active"><a href="#"><img class="icon hover" src="/images/tree-active.png"/>Master Trees</a>
+        <ul>
+          <% current_user.trees.each do |tree| %>
+            <li><%= link_to tree.title, tree_url(tree.id) %></li>
+        <% end %>
+        </ul>
+      </li>
+      <li><a href="profile.html"><img class="icon" src="/images/profile-nonactive.png"/>Profile</a>
+         <ul>
+           <li><%= link_to "Profile Settings", edit_user_url(current_user.id) %> </li>
+        </ul>
+      </li>
+      <li><a href="#"><img class="icon" src="/images/settings-nonactive.png"/>Settings</a></li>
+      <li><a href="karma.html"><img class="icon" src="/images/karma-nonactive.png"/>Karma</a></li>
+    </ul>
+  </div>
+</div>
+<!-- End of Sidebar -->

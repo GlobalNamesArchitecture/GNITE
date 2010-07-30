@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gnite</title>
+  <%= stylesheet_link_tag :all %>
+  <%= csrf_meta_tag %>
+</head>
+<body class="<%= body_class %>">
+  <%= render :partial => 'shared/flashes' -%>
+  <%= render :partial => 'shared/header' -%>
+  <%= yield %>
+  <%= render :partial => 'shared/javascript' %>
+</body>
+</html>
