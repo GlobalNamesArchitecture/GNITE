@@ -235,6 +235,29 @@ input#signin-btn{
   -moz-box-shadow:1px 1px 5px 1px rgb(117, 165, 255) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
   border:0px solid rgb(15, 18, 21);
 }
+.blue-submit{
+  border:0px;
+  width:inherit;
+  padding:10px 30px;
+  color:#fff;
+  font-size:16px;
+  border:0px solid rgb(15, 18, 21);
+  border-radius:8px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(45, 115, 255) inset;
+  -webkit-box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(45, 115, 255) inset;
+  -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(45, 115, 255) inset;
+  background:-webkit-gradient(linear,left bottom,left top,color-stop(0, rgb(56,82,161)),color-stop(0.58, rgb(70,116,223)),color-stop(1, rgb(124,170,235)));
+  background:-moz-linear-gradient(center bottom, rgb(56,82,161) 0%, rgb(70,116,223) 58%, rgb(124,170,235) 100%);
+}
+.blue-submit:hover {
+  color:;
+  box-shadow:1px 1px 5px 1px rgb(117, 165, 255) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+  -webkit-box-shadow:1px 1px 5px 1px rgb(117, 165, 255) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+  -moz-box-shadow:1px 1px 5px 1px rgb(117, 165, 255) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+  border:0px solid rgb(15, 18, 21);
+}
 #loginform form {
   margin-bottom:35px;
 }
