@@ -143,6 +143,12 @@ hr {
   border-radius: 8px;
   color:#000;  
 }
+.infobox p {
+  padding:10px 0 10px;
+}
+.input {
+  margin:3px 0 10px;
+}
 .title p{
   padding:5px 10px;
   line-height: 30px;

@@ -13,7 +13,7 @@
         <%= form.input :password %>
       <% end %>
       <%= form.buttons do %>
-        <%= form.commit_button "Sign in" %>
+        <%= form.commit_button "Sign in", :button_html => { :class => "blue-submit" } %>
       <% end %>
     <% end %>
     <p>Forgot your password? <%= link_to "Reset it here", new_password_path %></p>
