@@ -7,11 +7,6 @@
         <%= link_to trees_path do %>
           <img class="icon hover" src="/images/tree-active.png"/>Master Trees
         <% end %>
-        <ul>
-          <% current_user.trees.each do |tree| %>
-            <li><%= link_to tree.title, tree_url(tree.id) %></li>
-        <% end %>
-        </ul>
       </li>
       <li>
         <%= link_to edit_user_path(current_user.id) do %>

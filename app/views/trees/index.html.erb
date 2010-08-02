@@ -1,21 +1,38 @@
-<!-- Start of Body Content --> 
-<div id="content"> 
-  <!-- Start of Settings Body --> 
-  <div id="header"> 
-    <h1>Master Trees</h1> 
-  </div> 
-  <div id="bodywrap"> 
-    <!-- Start of Box --> 
-    <div class="infobox-wrap"> 
-      <div class="title"> 
-        <p>Choose a tree to edit</p> 
-      </div> 
-      <div class="infobox"> 
-        <%= link_to 'New Tree', new_tree_path %>
-      </div> 
-    </div> 
-    <!-- End of Box --> 
-  </div> 
-  <!-- End of Settings Body --> 
-</div> 
-<!-- End of Body Content --> 
+<!-- Start of Body Content -->
+<div id="content">
+  <!-- Start of Settings Body -->
+  <div id="header">
+    <h1>Master Trees</h1>
+  </div>
+  <div id="bodywrap">
+    <!-- Start of Box -->
+    <div class="infobox-wrap">
+      <div class="title">
+        <p>Create a new master tree</p>
+      </div>
+      <div class="infobox">
+        <ul>
+          <li><%= link_to 'New Tree', new_tree_path %></li>
+        </ul>
+      </div>
+    </div>
+    <!-- End of Box -->
+
+    <!-- Start of Box -->
+    <div class="infobox-wrap">
+      <div class="title">
+        <p>Or choose an existing tree to edit</p>
+      </div>
+      <div class="infobox">
+        <ul>
+          <% current_user.trees.each do |tree| %>
+            <li><%= link_to tree.title, tree_url(tree.id) %></li>
+          <% end %>
+        </ul>
+      </div>
+      <!-- End of Box -->
+    </div>
+  </div>
+  <!-- End of Settings Body -->
+</div>
+<!-- End of Body Content -->

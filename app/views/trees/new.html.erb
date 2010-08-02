@@ -1,11 +1,33 @@
-<%= semantic_form_for(:tree,
-                      :url => trees_path,
-                      :html => { :method => :post }) do |form| %>
-    <%= form.error_messages %>
-    <%= form.inputs :title => "Metadata for New Tree" do -%>
-      <%= form.input :title %>
+<!-- Start of Body Content -->
+<div id="content">
+  <!-- Start of Settings Body -->
+  <div id="header">
+    <h1>New Tree</h1>
+  </div>
+  <div id="bodywrap">
+    <!-- Start of New Tree Box -->
+    <%= semantic_form_for(:tree, :url => trees_path, :html => { :method => :post }) do |form| %>
+      <div class="infobox-wrap">
+        <div class="title">
+          <p>New Tree</p>
+        </div>
+        <div class="infobox">
+          <%= form.error_messages %>
+
+          <!-- form -->
+          <div class="info-content">
+            <%= form.inputs :title => "Metadata for New Tree" do -%>
+              <%= form.input :title %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <%= form.buttons do -%>
+        <%= form.commit_button "Create", :button_html => { :class => "blue-submit" } %>
+      <% end -%>
     <% end %>
-    <%= form.buttons do -%>
-      <%= form.commit_button "Create" %>
-    <% end -%>
-<% end %>
+    <!-- End of Profile Information Box -->
+  </div>
+  <!-- End of Settings Body -->
+</div>
+<!-- End of Body Content -->
