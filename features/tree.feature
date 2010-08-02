@@ -8,10 +8,10 @@ Feature: Create and Edit the Master Tree
     When I follow "New Tree"
     And I fill in "Title" with "My new tree"
     And I press "Create"
-    Then I should be on the tree page for "My new tree"
-    And I should see "Tree successfully created"
+    Then I should see "Tree successfully created"
+    And I should be on the tree page for "My new tree"
 
-  @javascript
+  @wip @javascript
   Scenario: User can see nodes on an existing tree
     Given I have signed in with "email@person.com/password"
     And "email@person.com" has created an existing tree titled "Waterpigs" with:
@@ -20,7 +20,7 @@ Feature: Create and Edit the Master Tree
     And I follow "Waterpigs"
     Then I should see a node "hydrochaeris" at the root level in my master tree
 
-  @javascript
+  @wip @javascript
   Scenario: User can add nodes to a tree
     Given I have signed in with "email@person.com/password"
     Then I should be on the master tree index page

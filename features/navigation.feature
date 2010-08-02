@@ -18,7 +18,5 @@ Feature: Interact with navigation bar
   Scenario: Navigating to the edit profile page
     Given I have signed in with "belinda@belew.com/password"
     Then I should see the navigation bar
-    Then show me the page
-    When I follow "Profile"
-    And I follow "Profile Settings"
+    When I follow "Profile Settings"
     Then I should be on the edit user settings page for "belinda@belew.com"

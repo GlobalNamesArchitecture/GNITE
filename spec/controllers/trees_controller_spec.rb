@@ -51,6 +51,10 @@ describe TreesController do
 
       subject { controller }
 
+      it "should assign the tree to the current user" do
+        assigns(:tree).user.should == @user
+      end
+
       it { should assign_to(:tree).with(tree) }
       it { should redirect_to(tree_url(tree)) }
       it { should set_the_flash.to(/created/) }
