@@ -8,13 +8,22 @@
 <body class="<%= body_class %>">
   <div id="wrapper">
     <%= render :partial => 'shared/flashes' -%>
-    <% if current_user %>
-      <%= render :partial => 'shared/navigation' %>
-    <% end %>
-    <div id="content">
+
+    <!-- Start of Login Content -->
+    <div id="loginwrap">
+      <!-- Start of Logo -->
+      <div id="loginlogo">
+        <img src="/images/login-logo.png"/>
+      </div>
+      <!-- End of Logo -->
+
       <%= yield %>
+
     </div>
+    <!-- End of Body Content -->
+
     <%= render :partial => 'shared/javascript' %>
   </div>
 </body>
 </html>
+

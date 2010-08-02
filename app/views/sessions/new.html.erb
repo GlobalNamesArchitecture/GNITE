@@ -1,25 +1,16 @@
-<!-- Start of Login Content -->
-<div id="loginwrap">
-  <!-- Start of Logo -->
-  <div id="loginlogo">
-    <img src="/images/login-logo.png"/>
-  </div>
-  <!-- End of Logo -->
-  <!-- Start of Forms -->
-  <div id="loginform">
-    <%= semantic_form_for :session, :url => session_path, :id => "signin" do |form| %>
-      <%= form.inputs :title => "Sign in to your account" do %>
-        <%= form.input :email, :input_html => { :class => "prefilled input" } %>
-        <%= form.input :password, :input_html => { :class => "prefilled input" } %>
-      <% end %>
-      <%= form.buttons do %>
-        <%= form.commit_button "Sign in", :button_html => { :class => "blue-submit" } %>
-      <% end %>
+<!-- Start of Forms -->
+<div id="loginform">
+  <%= semantic_form_for :session, :url => session_path, :id => "signin" do |form| %>
+    <%= form.inputs :title => "Sign in to your account" do %>
+      <%= form.input :email, :input_html => { :class => "prefilled input" } %>
+      <%= form.input :password, :input_html => { :class => "prefilled input" } %>
     <% end %>
-    <p>Forgot your password? <%= link_to "Reset it here", new_password_path %></p>
-    <hr/>
-    <p>Need a GNITE account? <%= link_to "Sign up here", sign_up_path %></p>
-  </div>
-  <!-- End of Forms -->
+    <%= form.buttons do %>
+      <%= form.commit_button "Sign in", :button_html => { :class => "blue-submit" } %>
+    <% end %>
+  <% end %>
+  <p>Forgot your password? <%= link_to "Reset it here", new_password_path %></p>
+  <hr/>
+  <p>Need a GNITE account? <%= link_to "Sign up here", sign_up_path %></p>
 </div>
-<!-- End of Body Content -->
+<!-- End of Forms -->
