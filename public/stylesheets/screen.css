@@ -501,12 +501,31 @@ input#signin-btn{
   -moz-box-shadow: 0px 1px 2px 1px rgba(26, 26, 26, 0.6) inset;
 }
 
+#flash_success, #flash_failure, #flash_notice {
+  padding: 1em;
+  margin: 1em;
 
+  width: 810px;
+  background: #fff;
 
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  border:0px solid #fff;
+  box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6) inset;
+  -webkit-box-shadow:0px 1px 2px 1px rgba(26, 26, 26, 0.6) inset;
+  -moz-box-shadow: 0px 1px 2px 1px rgba(26, 26, 26, 0.6) inset;
 
+}
 
+#flash_success {
+  background-color: #479d31;
+}
 
+#flash_failure {
+  background-color: #ad3311;
+}
 
-
-
-
+#flash_notice {
+  background-color: #fff;
+}

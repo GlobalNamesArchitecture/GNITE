@@ -7,11 +7,17 @@
 </head>
 <body class="<%= body_class %>">
   <div id="wrapper">
-    <%= render :partial => 'shared/flashes' -%>
     <% if current_user %>
       <%= render :partial => 'shared/navigation' %>
     <% end %>
     <div id="content">
+      <% if content_for?(:header) %>
+        <div id="header">
+          <h1><%= yield :header %></h1>
+        </div>
+      <% end %>
+      <span class="clearfix"></span>
+      <%= render :partial => 'shared/flashes' -%>
       <%= yield %>
     </div>
     <%= render :partial => 'shared/javascript' %>

@@ -1,7 +1,7 @@
-<!-- Start of Settings Body -->
-<div id="header">
-  <h1>New Tree</h1>
-</div>
+<% content_for :header do %>
+  New Tree
+<% end %>
+
 <div id="bodywrap">
   <!-- Start of New Tree Box -->
   <%= semantic_form_for(:tree, :url => trees_path, :html => { :method => :post }) do |form| %>

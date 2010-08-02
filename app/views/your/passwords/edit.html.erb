@@ -1,7 +1,8 @@
+<% content_for :header do %>
+  Change Password
+<% end %>
+
 <!-- Start of Settings Body --> 
-<div id="header"> 
-  <h1>Change Password</h1> 
-</div> 
 <div id="bodywrap"> 
   <%= semantic_form_for(:user, :url  => your_password_path, :html => { :method => :put }) do |form| %>
     <div class="infobox-wrap">
