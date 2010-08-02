@@ -6,7 +6,7 @@
         <!--
         <li><a href="#">New Master Tree</a></li>
         -->
-        <li><a href="#">New Node</a></li>
+        <li><a href="#" id="new-node-button">New Node</a></li>
       </ul>
     </div>
     <div class="tree-background">
@@ -77,8 +77,8 @@
   <script type="text/javascript" class="source">
     $(document).ready(function() {
 
-        $("#add-child-node").click(function() {
-          $("#tree").jstree("create");
+        $("#new-node-button").click(function() {
+          $("#master-tree").jstree("create");
           });
 
         $("#master-tree").jstree({

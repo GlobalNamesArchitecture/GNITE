@@ -21,4 +21,20 @@ class NodesController < ApplicationController
     end
   end
 
+  # prototype:
+  #
+  # def create
+  #   respond_to do |format|
+  #     format.json do
+  #       node = Node.new(params[:node])
+
+  #       if node.save
+  #         render :json => node, :status => :created
+  #       else
+  #         render :json => node.errors, :status => :unprocessable_entity
+  #       end
+  #     end
+  #   end
+  # end
+
 end

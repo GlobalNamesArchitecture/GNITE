@@ -20,7 +20,7 @@ Feature: Create and Edit the Master Tree
     And I follow "Waterpigs"
     Then I should see a node "hydrochaeris" at the root level in my master tree
 
-  @wip @javascript
+  @javascript
   Scenario: User can add nodes to a tree
     Given I have signed in with "email@person.com/password"
     Then I should be on the master tree index page

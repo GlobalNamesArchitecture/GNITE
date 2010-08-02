@@ -4,6 +4,10 @@ dependencies:
     group: 
     - :test
     version: ">= 0"
+  ruby-debug: 
+    group: 
+    - :default
+    version: ">= 0"
   capybara-envjs-fixes: 
     group: 
     - :test
@@ -60,7 +64,7 @@ dependencies:
     group: 
     - :default
     version: ">= 0"
-  engineyard: 
+  hoptoad_notifier: 
     group: 
     - :default
     version: ">= 0"
@@ -68,7 +72,7 @@ dependencies:
     group: 
     - :default
     version: = 0.9.0.rc5
-  hoptoad_notifier: 
+  engineyard: 
     group: 
     - :default
     version: ">= 0"
@@ -168,6 +172,8 @@ specs:
     version: 3.0.0.beta4
 - clearance: 
     version: 0.9.0.rc5
+- columnize: 
+    version: 0.3.1
 - configuration: 
     version: 1.1.0
 - diff-lcs: 
@@ -207,6 +213,8 @@ specs:
     version: 2.3.2
 - launchy: 
     version: 0.3.7
+- linecache: 
+    version: "0.43"
 - mysql: 
     version: 2.8.1
 - rspec-core: 
@@ -221,6 +229,10 @@ specs:
     version: 0.7.2.beta.1
 - rspec-rails: 
     version: 2.0.0.beta.19
+- ruby-debug-base: 
+    version: 0.10.3
+- ruby-debug: 
+    version: 0.10.3
 - shoulda: 
     version: 2.11.3
     source: 1
@@ -228,7 +240,7 @@ specs:
     version: 0.8.4
 - unicorn: 
     version: 1.1.2
-hash: 5479158120530b9b29e868e9c36b575879b16e70
+hash: 2e585cbf4ae5257001b9ce35259ad855621d0e79
 sources: 
 - Git: 
     uri: git://github.com/jasonm/capybara-envjs-fixes.git
@@ -242,6 +254,6 @@ sources:
     uri: git://github.com/justinfrench/formtastic.git
     branch: rails3
     git: git://github.com/justinfrench/formtastic.git
-    ref: 4d83225df73e051a82d3530b7c99cb8d45220ba8
+    ref: 96a2e54b3e8ee71e9907df3868819b6c077d30b2
 - Rubygems: 
     uri: http://rubygems.org
