@@ -54,7 +54,8 @@ class Clearance::PasswordsController < ApplicationController
   def forbid_non_existent_user
     unless ::User.find_by_id_and_confirmation_token(
                   params[:user_id], params[:token])
-      raise ActionController::Forbidden, "non-existent user"
+      flash[:error] = 'You must use the link from the most recently sent password reset email.  Check your inbox for another password reset email.'
+      redirect_to root_url
     end
   end
 

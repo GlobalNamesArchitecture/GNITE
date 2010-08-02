@@ -30,3 +30,8 @@ Feature: Password reset
       Then I should be signed out
       And I sign in as "email@person.com/newpassword"
       Then I should be signed in
+
+    Scenario: User uses an old password reset link
+      Given I signed up with "email@person.com/password"
+      When I follow the old password reset link sent to "email@person.com"
+      Then I should see "must use the link from the most recently sent password reset email"
