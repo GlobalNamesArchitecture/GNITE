@@ -17,6 +17,9 @@
         <%= link_to edit_user_path(current_user.id) do %>
           <img class="icon" src="/images/profile-nonactive.png"/>Profile Settings
         <% end %>
+        <ul>
+          <li><%= link_to "Change Password", edit_your_password_path %></li>
+        </ul>
       </li>
       <!--
       <li><a href="#"><img class="icon" src="/images/settings-nonactive.png"/>Settings</a></li>
