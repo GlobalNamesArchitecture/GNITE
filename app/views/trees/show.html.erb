@@ -72,56 +72,53 @@
 <!-- End of Right Tree -->
 
 <% content_for :javascript do %>
-  <%= javascript_include_tag 'jquery', 'jquery.jstree' %>
+  <%= javascript_include_tag 'prototype', 'jester', 'jquery', 'jquery.jstree' %>
 
   <script type="text/javascript" class="source">
-    $(document).ready(function() {
+    jQuery.noConflict();
 
-        $("#new-node-button").click(function() {
-          $("#master-tree").jstree("create");
-          });
-
-        $("#master-tree").jstree({
-          "json_data": {
-            "ajax": {
-              "url": "/trees/<%= @tree.id %>/nodes.json",
-              "data" : function (node) {
-                return { parent_id : node.attr ? node.attr("id") : 0 };
-              }
-            },
-          },
-          "plugins" : [ "themes", "json_data", "crrm" ]
-          });
+    Resource.model("Node", {
+      format: "json",
+      prefix: "/trees/:tree_id"
+    });
 
 
-        $("#master-tree")
-        .bind("create.jstree", function(event, data) {
-          // var newNode = data.rslt;
+    jQuery(document).ready(function($) {
 
-          // var parentId;
-          // if (newNode.parent == -1) {
-          //   parentId = null;
-          // } else {
-          //   parentId = newNode.parent.attr("id");
-          // }
-
-          // log("Creating new node '" + newNode.name + "' under parent " + parentId + "...");
-          // var node = Node.build({parent_id: parentId, name: newNode.name});
-
-          // if (node.save()) {
-          //   newNode.obj.attr("id", node.id);
-          //   log("Successfully created node " + node.id + " on the server.")
-          // } else {
-          //   logError("Failed to created on the server.  Errors:");
-
-          //   $.each(node.errors, function(index, error) {
-          //     logError(error);
-          //   });
-
-          //   $.jstree.rollback(data.rlbk);
-          //   logError("Rolled back the JSTree state.");
-          // }
+      $("#new-node-button").click(function() {
+        $("#master-tree").jstree("create");
         });
+
+      $("#master-tree").jstree({
+        "json_data": {
+          "ajax": {
+            "url": "/trees/<%= @tree.id %>/nodes.json",
+            "data" : function (node) {
+              return { parent_id : node.attr ? node.attr("id") : 0 };
+            }
+          },
+        },
+        "plugins" : [ "themes", "json_data", "crrm" ]
+        });
+
+
+      $("#master-tree")
+      .bind("create.jstree", function(event, data) {
+        var newNode = data.rslt;
+
+        var parentId;
+        // if (newNode.parent == -1) {
+          parentId = null;
+        // } else {
+        //   parentId = newNode.parent.attr("id");
+        // }
+
+        // var node = Node.build({parent_id: parentId, name: newNode.name});
+        var node = Node.build({name: newNode.name, tree_id: <%= @tree.id %>});
+
+        node.save();
+        newNode.obj.attr("id", node.id);
+      });
 
     });
 </script>

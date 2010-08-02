@@ -8,5 +8,5 @@ When /^I enter "([^"]*)" in the new node and press enter$/ do |text|
   field = find(:css, ".jstree-last input")
   field.set(text)
 
-  page.execute_script("$('.jstree-last input').blur();")
+  page.execute_script("jQuery('.jstree-last input').blur();")
 end

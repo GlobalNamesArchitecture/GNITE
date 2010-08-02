@@ -23,18 +23,20 @@ class NodesController < ApplicationController
 
   # prototype:
   #
-  # def create
-  #   respond_to do |format|
-  #     format.json do
-  #       node = Node.new(params[:node])
+  def create
+    respond_to do |format|
+      format.json do
+        node_attributes = params[:node].merge(:tree_id => params[:tree_id])
+        node = Node.new(node_attributes)
 
-  #       if node.save
-  #         render :json => node, :status => :created
-  #       else
-  #         render :json => node.errors, :status => :unprocessable_entity
-  #       end
-  #     end
-  #   end
-  # end
+        # if
+        node.save
+        render :json => node, :status => :created
+        #else
+        #  render :json => node.errors, :status => :unprocessable_entity
+        #end
+      end
+    end
+  end
 
 end
