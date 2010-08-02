@@ -501,7 +501,7 @@ input#signin-btn{
   -moz-box-shadow: 0px 1px 2px 1px rgba(26, 26, 26, 0.6) inset;
 }
 
-#flash_success, #flash_failure, #flash_notice {
+#flash_error, #flash_success, #flash_failure, #flash_notice {
   padding: 1em;
   margin: 1em 0;
 
@@ -524,7 +524,7 @@ input#signin-btn{
   background-color: #479d31;
 }
 
-#flash_failure {
+#flash_error, #flash_failure {
   background-color: #ad3311;
 }
 
