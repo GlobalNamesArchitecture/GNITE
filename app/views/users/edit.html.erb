@@ -2,31 +2,27 @@
   Account Settings
 <% end %>
 
-<!-- Start of Settings Body --> 
-<div id="bodywrap"> 
-  <!-- Start of Profile Information Box --> 
-  <%= semantic_form_for(:user,
-                        :url => user_path(@user),
-                        :html => { :method => :put }) do |form| %>
-    <div class="infobox-wrap"> 
-      <div class="title"> 
-        <p>Account Information</p> 
-      </div> 
-      <div class="infobox"> 
-        <%= form.error_messages %>
-
-        <!-- form -->
-        <div class="info-content">
-          <%= form.inputs do -%>
-            <%= form.input :email %>
-          <% end -%>
-        </div>
-      </div> 
+<!-- Start of Profile Information Box --> 
+<%= semantic_form_for(:user,
+                      :url => user_path(@user),
+                      :html => { :method => :put }) do |form| %>
+  <div class="infobox-wrap"> 
+    <div class="title"> 
+      <p>Account Information</p> 
     </div> 
-    <%= form.buttons do -%>
-      <p><%= form.commit_button "Save changes", :button_html => { :class => "blue-submit" } %></p>
-    <% end %>
+    <div class="infobox"> 
+      <%= form.error_messages %>
+
+      <!-- form -->
+      <div class="info-content">
+        <%= form.inputs do -%>
+          <%= form.input :email %>
+        <% end -%>
+      </div>
+    </div> 
+  </div> 
+  <%= form.buttons do -%>
+    <p><%= form.commit_button "Save changes", :button_html => { :class => "blue-submit" } %></p>
   <% end %>
-  <!-- End of Profile Information Box --> 
-</div> 
-<!-- End of Settings Body --> 
+<% end %>
+<!-- End of Profile Information Box --> 

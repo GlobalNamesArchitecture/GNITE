@@ -16,9 +16,11 @@
           <h1><%= yield :header %></h1>
         </div>
       <% end %>
-      <span class="clearfix"></span>
-      <%= render :partial => 'shared/flashes' -%>
-      <%= yield %>
+
+      <div id="bodywrap">
+        <%= render :partial => 'shared/flashes' -%>
+        <%= yield %>
+      </div>
     </div>
     <%= render :partial => 'shared/javascript' %>
   </div>
