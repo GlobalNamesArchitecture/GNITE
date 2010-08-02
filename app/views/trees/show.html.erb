@@ -82,14 +82,14 @@
           });
 
         $("#master-tree").jstree({
-          //"json_data": {
-          //  "ajax": {
-          //    "url": "/nodes.json",
-          //    "data" : function (node) {
-          //      return { parent_id : node.attr ? node.attr("id") : 0 };
-          //    }
-          //  },
-          //},
+          "json_data": {
+            "ajax": {
+              "url": "/trees/<%= @tree.id %>/nodes.json",
+              "data" : function (node) {
+                return { parent_id : node.attr ? node.attr("id") : 0 };
+              }
+            },
+          },
           "plugins" : [ "themes", "json_data", "crrm" ]
           });
 

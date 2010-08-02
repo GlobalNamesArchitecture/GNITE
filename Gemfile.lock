@@ -222,7 +222,7 @@ specs:
 - rspec-rails: 
     version: 2.0.0.beta.19
 - shoulda: 
-    version: 2.11.2
+    version: 2.11.3
     source: 1
 - spork: 
     version: 0.8.4
@@ -237,7 +237,7 @@ sources:
 - Git: 
     uri: git://github.com/thoughtbot/shoulda.git
     git: git://github.com/thoughtbot/shoulda.git
-    ref: 97fb23835c7152789a9d39fbe4af72fd8d77ee70
+    ref: 15e36eb60d5ec515399329decffd5c0b6e9cbe2a
 - Git: 
     uri: git://github.com/justinfrench/formtastic.git
     branch: rails3

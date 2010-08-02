@@ -41,6 +41,7 @@ new function($) {
   };
 
   var clearPrefilledInputs = function () {
+    $(this).find("input").blur();
     $(this).find("input.prefilled").val("");
   };
 

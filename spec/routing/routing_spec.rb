@@ -47,3 +47,14 @@ describe "routing to passwords" do
     )
   end
 end
+
+describe "routing to nodes" do
+  it "routes /trees/:id/nodes.json to nodes#index" do
+    { :get => "/trees/123/nodes.json" }.should route_to(
+      :controller => "nodes",
+      :action     => "index",
+      :tree_id    => "123",
+      :format     => "json"
+    )
+  end
+end

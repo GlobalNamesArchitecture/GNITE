@@ -1,6 +1,6 @@
 Then /^I should see a node "([^"]*)" at the root level in my master tree$/ do |node_text|
-  within('.jstree-leaf') do |scope|
-    scope.should contain(node_text)
+  with_scope('.jstree-leaf') do
+    page.should have_content(node_text)
   end
 end
 

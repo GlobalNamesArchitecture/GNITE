@@ -11,7 +11,7 @@ Feature: Create and Edit the Master Tree
     Then I should see "Tree successfully created"
     And I should be on the tree page for "My new tree"
 
-  @wip @javascript
+  @javascript
   Scenario: User can see nodes on an existing tree
     Given I have signed in with "email@person.com/password"
     And "email@person.com" has created an existing tree titled "Waterpigs" with:
