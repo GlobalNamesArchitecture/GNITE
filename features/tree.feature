@@ -27,7 +27,7 @@ Feature: Edit a master tree
     When I follow "My new tree"
     Then I should see "hydrochaeris"
 
-  @wip @javascript
+  @javascript
   Scenario: User can add child nodes to a tree
     Given I have signed in with "email@person.com/password"
     Then I should be on the master tree index page
@@ -47,6 +47,8 @@ Feature: Edit a master tree
 
     When I follow "Master Trees"
     And I follow "My new tree"
+    And I wait for the tree to load
+    When I select the node "Caviidae"
     And I expand the node "Caviidae"
     Then I should see "Hydrochoerinae"
     And I should see "Caviidae"

@@ -15,25 +15,19 @@ When /^I select the node "([^"]*)"$/ do |node_text|
   When %{I follow "#{node_text}"}
 end
 
-Then /^I should see a node "([^"]*)" under "([^"]*)"$/ do |parent_node_text, child_node_text|
-  puts parent_node_text
-  puts child_node_text
-  puts "*"*80
-  puts Node.all.map &:text
+Then /^I should see a node "([^"]*)" under "([^"]*)"$/ do |child_node_text, parent_node_text|
   parent_node_id = Node.find_by_name(parent_node_text).id
   child_node_id = Node.find_by_name(child_node_text).id
 
   with_scope("##{parent_node_id}") do
     page.should have_css("##{child_node_id}")
   end
-  # page.should have_xpath "//li[contains(a, '#{parent_node_text}')]/ul/li[contains(a, '#{child_node_text}')]"
 end
 
 When /^I double click "([^"]*)" and change it to "([^"]*)"$/ do |old_name, new_name|
   When %{I follow "#{old_name}"}
 
-  page.execute_script("jQuery('.jstree-clicked').dblclick();
-                       jQuery(':input').attr('id', 'temp-input');")
+  page.execute_script("jQuery('.jstree-clicked').dblclick();")
   field = find(:css, "#master-tree input")
   field.set(new_name)
   page.execute_script("jQuery(':input').blur();")
@@ -43,5 +37,16 @@ When /^I wait for the tree to load$/ do
   loaded = false
   while !loaded
     loaded = page.has_css?("#master-tree.loaded")
+  end
+end
+
+When /^I expand the node "([^"]*)"$/ do |node_name|
+  node = Node.find_by_name(node_name)
+  page.execute_script("jQuery('#master-tree').jstree('open_node', '##{node.id}');")
+end
+
+Then /^pause (\d)$/ do |num|
+  time = Time.now
+  while Time.now - time < num.to_i
   end
 end
