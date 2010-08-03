@@ -15,17 +15,19 @@
 </div>
 <!-- End of Box -->
 
-<!-- Start of Box -->
-<div class="infobox-wrap">
-  <div class="title">
-    <p>Or choose an existing tree to edit</p>
+<% if current_user.trees.any? %>
+  <!-- Start of Box -->
+  <div class="infobox-wrap">
+    <div class="title">
+      <p>Or choose an existing tree to edit</p>
+    </div>
+    <div class="infobox">
+      <ul>
+        <% current_user.trees.each do |tree| %>
+          <li><%= link_to tree.title, tree_url(tree.id) %></li>
+        <% end %>
+      </ul>
+    </div>
+    <!-- End of Box -->
   </div>
-  <div class="infobox">
-    <ul>
-      <% current_user.trees.each do |tree| %>
-        <li><%= link_to tree.title, tree_url(tree.id) %></li>
-      <% end %>
-    </ul>
-  </div>
-  <!-- End of Box -->
-</div>
+<% end %>

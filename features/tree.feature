@@ -34,3 +34,15 @@ Feature: Create and Edit the Master Tree
     Then I should be on the master tree index page
     When I follow "My new tree"
     Then I should see "hydrochaeris"
+
+  Scenario: List of trees
+    Given I have signed in with "email@person.com/password"
+    Then I should be on the master tree index page
+    And I should not see "Or choose an existing tree to edit"
+
+    When I follow "New Tree"
+    And I fill in "Title" with "My new tree"
+    And I press "Create"
+    And I go to the trees page
+    Then I should see "Or choose an existing tree to edit"
+    And I should see "My new tree"
