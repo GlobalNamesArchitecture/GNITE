@@ -72,18 +72,10 @@
 <!-- End of Right Tree -->
 
 <% content_for :javascript do %>
-  <%= javascript_include_tag 'prototype', 'jester', 'jquery', 'jquery.jstree' %>
+  <%= javascript_include_tag 'jquery.jstree' %>
 
   <script type="text/javascript" class="source">
-    jQuery.noConflict();
-
-    Resource.model("Node", {
-      format: "json",
-      prefix: "/trees/:tree_id"
-    });
-
-
-    jQuery(document).ready(function($) {
+    $(document).ready(function() {
 
       $("#new-node-button").click(function() {
         $("#master-tree").jstree("create");
@@ -107,17 +99,23 @@
         var newNode = data.rslt;
 
         var parentId;
-        // if (newNode.parent == -1) {
-          parentId = null;
-        // } else {
-        //   parentId = newNode.parent.attr("id");
-        // }
+        parentId = null;
 
-        // var node = Node.build({parent_id: parentId, name: newNode.name});
-        var node = Node.build({name: newNode.name, tree_id: <%= @tree.id %>});
+        $.ajax({
+          type: "POST",
+          url: "/trees/<%= @tree.id %>/nodes.json",
+          contentType: "application/json",
+          dataType: 'json',
+          data: JSON.stringify({node: {name: newNode.name}}),
+          success: function(data, textStatus, xhr) {
+            // console.log(textStatus);
+            // console.log(data);
+            // console.log(data.node.id);
+            newNode.obj.attr("id", data.node.id);
+            // newNode.obj.attr("id", node.id);
+          }
+        });
 
-        node.save();
-        newNode.obj.attr("id", node.id);
       });
 
     });
