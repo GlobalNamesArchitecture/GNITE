@@ -79,43 +79,36 @@
 
       $("#new-node-button").click(function() {
         $("#master-tree").jstree("create");
-        });
+      });
 
       $("#master-tree").jstree({
         "json_data": {
           "ajax": {
-            "url": "/trees/<%= @tree.id %>/nodes.json",
+          "url": "<%= tree_nodes_path(:tree_id => @tree, :format => 'json') %>",
             "data" : function (node) {
               return { parent_id : node.attr ? node.attr("id") : 0 };
             }
           },
         },
         "plugins" : [ "themes", "json_data", "crrm" ]
-        });
+      });
 
 
       $("#master-tree")
       .bind("create.jstree", function(event, data) {
         var newNode = data.rslt;
-
-        var parentId;
-        parentId = null;
+        var parentId = null;
 
         $.ajax({
           type: "POST",
-          url: "/trees/<%= @tree.id %>/nodes.json",
+          url: "<%= tree_nodes_path(:tree_id => @tree, :format => 'json') %>",
           contentType: "application/json",
           dataType: 'json',
           data: JSON.stringify({node: {name: newNode.name}}),
           success: function(data, textStatus, xhr) {
-            // console.log(textStatus);
-            // console.log(data);
-            // console.log(data.node.id);
             newNode.obj.attr("id", data.node.id);
-            // newNode.obj.attr("id", node.id);
           }
         });
-
       });
 
     });
