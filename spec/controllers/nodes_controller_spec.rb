@@ -69,6 +69,33 @@ describe NodesController do
         response.body.should == new_node.to_json
       end
     end
-  end
 
+    context "on PUT to update" do
+      let(:node_attributes) do
+        { :name => "My renamed node" }
+      end
+      let(:node) { Factory(:node, node_attributes) }
+
+      before do
+        Node.stubs(:find => node)
+        node.stubs(:update_attributes => node)
+        node.stubs(:save => true)
+        put :update, :id => node.id, :tree_id => node.tree.id, :format => 'json', :node => node_attributes
+      end
+
+      it "should find and update a node" do
+        Node.should have_received(:find).with(node.id)
+        node.should have_received(:update_attributes).with(node_attributes.merge({ :tree_id => node.tree.id }).stringify_keys)
+
+        node.should have_received(:save)
+      end
+
+      it { should respond_with(:success) }
+
+      it "should render the updated node as JSON" do
+        response.body.should == node.to_json
+      end
+    end
+
+  end
 end

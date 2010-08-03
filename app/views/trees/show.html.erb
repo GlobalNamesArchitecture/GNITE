@@ -94,8 +94,8 @@
             }
           },
         },
-        "plugins" : [ "themes", "json_data", "crrm", "ui" ]
-      });
+        "plugins" : [ "themes", "json_data", "crrm", "ui",  "contextmenu"]
+        });
 
 
       $("#master-tree")
@@ -120,6 +120,24 @@
           }
         });
       });
+     $("#master-tree").bind("loaded.jstree", function(event, data) {
+        $("#master-tree").addClass("loaded");
+       })
+
+      $("#master-tree").bind("rename.jstree", function(event, data) {
+        $.ajax({
+          type: "PUT",
+          url: "/trees/<%= @tree.id %>/nodes/"+data.rslt.obj.attr("id")+".json",
+          contentType: "application/json",
+          dataType: 'json',
+          data: JSON.stringify({node: {name: data.rslt.new_name }}),
+          success: function(data, textStatus, xhr) {
+            newNode.obj.attr("id", data.node.id);
+          }
+        });
+       });
+
+     jQuery('.jstree-clicked').live('dblclick', function() { jQuery(".jstree-focused").jstree("rename"); });
 
     });
 </script>

@@ -28,3 +28,20 @@ Then /^I should see a node "([^"]*)" under "([^"]*)"$/ do |parent_node_text, chi
   end
   # page.should have_xpath "//li[contains(a, '#{parent_node_text}')]/ul/li[contains(a, '#{child_node_text}')]"
 end
+
+When /^I double click "([^"]*)" and change it to "([^"]*)"$/ do |old_name, new_name|
+  When %{I follow "#{old_name}"}
+
+  page.execute_script("jQuery('.jstree-clicked').dblclick();
+                       jQuery(':input').attr('id', 'temp-input');")
+  field = find(:css, "#master-tree input")
+  field.set(new_name)
+  page.execute_script("jQuery(':input').blur();")
+end
+
+When /^I wait for the tree to load$/ do
+  loaded = false
+  while !loaded
+    loaded = page.has_css?("#master-tree.loaded")
+  end
+end

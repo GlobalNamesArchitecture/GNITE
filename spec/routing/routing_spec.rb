@@ -66,4 +66,13 @@ describe "routing to nodes" do
       :format     => "json"
     )
   end
+  it "routes PUT /trees/:tree_id/nodes/:id.json to nodes#update" do
+    { :put => "/trees/123/nodes/abc.json" }.should route_to(
+      :controller => "nodes",
+      :action     => "update",
+      :tree_id    => "123",
+      :id         => "abc",
+      :format     => "json"
+    )
+  end
 end

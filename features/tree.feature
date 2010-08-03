@@ -51,3 +51,21 @@ Feature: Edit a master tree
     Then I should see "Hydrochoerinae"
     And I should see "Caviidae"
     And I should see a node "Hydrochoerinae" under "Caviidae"
+
+  @javascript
+  Scenario: User can rename nodes in a tree
+    Given I am signed up and confirmed as "email@person.com/password"
+    And "email@person.com" has created an existing tree titled "Moose tree" with:
+      | Bullwinkle |
+      | Rocky      |
+    And I sign in as "email@person.com/password"
+    Then I should be on the master tree index page
+    When I follow "Moose tree"
+    And I wait for the tree to load
+    And I double click "Bullwinkle" and change it to "Monkey"
+    Then I should see "Monkey"
+    When I follow "Master Trees"
+    Then I should not see "Monkey"
+    When I follow "Moose tree"
+    Then I should see "Monkey"
+    And I should see "Rocky"

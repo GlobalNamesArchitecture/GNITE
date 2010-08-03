@@ -21,4 +21,17 @@ class NodesController < ApplicationController
     end
   end
 
+  def update
+    respond_to do |format|
+      format.json do
+        node_attributes = params[:node].merge(:tree_id => params[:tree_id])
+        node = Node.find(params[:id])
+        node.update_attributes(node_attributes)
+
+        node.save
+        render :json => node
+      end
+    end
+  end
+
 end
