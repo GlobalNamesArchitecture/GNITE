@@ -9,15 +9,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100729215049) do
+ActiveRecord::Schema.define(:version => 20100803145836) do
 
   create_table "nodes", :force => true do |t|
     t.integer  "tree_id"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "ancestry"
   end
 
+  add_index "nodes", ["ancestry"], :name => "index_nodes_on_ancestry"
   add_index "nodes", ["tree_id"], :name => "index_nodes_on_tree_id"
 
   create_table "trees", :force => true do |t|

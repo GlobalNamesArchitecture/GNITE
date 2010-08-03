@@ -4,9 +4,12 @@ describe NodesController do
 
   context "when signed in with a tree" do
     let(:user) { Factory(:email_confirmed_user) }
-    let(:tree) { Factory(:tree, :user => user) }
-    let(:node) { Factory(:node, :tree => tree) }
-    let(:nodes) { [node] }
+    let(:tree) do
+      tree = Factory(:tree)
+      Factory(:node, :tree => tree)
+      tree
+    end
+    let(:nodes) { tree.nodes }
 
     before do
       sign_in_as(user)
@@ -15,31 +18,26 @@ describe NodesController do
       user_trees = [tree]
       user.stubs(:trees => user_trees)
       user_trees.stubs(:find => tree)
+      tree.stubs(:children_of => nodes)
     end
 
     subject { controller }
 
-    context "on GET to #index.json" do
+    context "on GET to #index.json for a given parent_id" do
       before do
-        tree.stubs(:nodes => nodes)
-
-        get :index, :tree_id => tree.id, :format => 'json'
+        @parent_id = 12345
+        @json      = '{}'
+        @tree_id   = 456
+        NodeJsonPresenter.stubs(:present => @json)
+        get :index, :tree_id => @tree_id, :format => 'json', :parent_id => @parent_id
       end
-
 
       it { should respond_with(:success) }
 
-      it "should render the node json" do
-        expected_node_structure = [
-          {
-            :data => node.name,
-            :attr => {
-              :id => node.id
-            }
-          }
-        ]
-
-        response.body.should == expected_node_structure.to_json
+      it "should render the root node json with the NodeJsonPresenter" do
+        tree.should have_received(:children_of).with(@parent_id)
+        NodeJsonPresenter.should have_received(:present).with(nodes)
+        response.body.should == @json
       end
     end
 

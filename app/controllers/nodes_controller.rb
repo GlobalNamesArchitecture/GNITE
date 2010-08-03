@@ -2,16 +2,9 @@ class NodesController < ApplicationController
   def index
     respond_to do |format|
       format.json do
-        nodes = current_user.trees.find(params[:tree_id]).nodes
-
-        node_hashes = nodes.map do |node|
-          node_hash = {
-            :data => node.name,
-            :attr => { :id => node.id }
-          }
-        end
-
-        render :json => node_hashes
+        tree = current_user.trees.find(params[:tree_id])
+        nodes = tree.children_of(params[:parent_id])
+        render :json => NodeJsonPresenter.present(nodes)
       end
     end
   end

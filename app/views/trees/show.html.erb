@@ -86,25 +86,35 @@
           "ajax": {
           "url": "<%= tree_nodes_path(:tree_id => @tree, :format => 'json') %>",
             "data" : function (node) {
-              return { parent_id : node.attr ? node.attr("id") : 0 };
+              if (node.attr) {
+                return { parent_id : node.attr("id") };
+              } else {
+                return {};
+              }
             }
           },
         },
-        "plugins" : [ "themes", "json_data", "crrm" ]
+        "plugins" : [ "themes", "json_data", "crrm", "ui" ]
       });
 
 
       $("#master-tree")
       .bind("create.jstree", function(event, data) {
         var newNode = data.rslt;
-        var parentId = null;
+
+        var parentId;
+        if (newNode.parent == -1) {
+          parentId = null;
+        } else {
+          parentId = newNode.parent.attr("id");
+        }
 
         $.ajax({
           type: "POST",
           url: "<%= tree_nodes_path(:tree_id => @tree, :format => 'json') %>",
           contentType: "application/json",
           dataType: 'json',
-          data: JSON.stringify({node: {name: newNode.name}}),
+          data: JSON.stringify({node: {name: newNode.name, parent_id: parentId}}),
           success: function(data, textStatus, xhr) {
             newNode.obj.attr("id", data.node.id);
           }
