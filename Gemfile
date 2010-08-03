@@ -11,6 +11,7 @@ gem 'factory_girl'
 gem 'formtastic', :git => "git://github.com/justinfrench/formtastic.git", :branch => "rails3"
 gem 'engineyard'
 gem 'hoptoad_notifier'
+gem 'ancestry', :git => "git://github.com/thoughtbot/ancestry.git", :branch => "rails3"
 
 # Deploy with Capistrano
 # gem 'capistrano'
