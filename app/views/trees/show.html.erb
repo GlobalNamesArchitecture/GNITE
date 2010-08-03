@@ -125,14 +125,15 @@
        })
 
       $("#master-tree").bind("rename.jstree", function(event, data) {
+        var updatedNode = data.rslt;
         $.ajax({
           type: "PUT",
-          url: "/trees/<%= @tree.id %>/nodes/"+data.rslt.obj.attr("id")+".json",
+          url: "/trees/<%= @tree.id %>/nodes/"+updatedNode.obj.attr("id")+".json",
           contentType: "application/json",
           dataType: 'json',
-          data: JSON.stringify({node: {name: data.rslt.new_name }}),
+          data: JSON.stringify({node: {name: updatedNode.new_name }}),
           success: function(data, textStatus, xhr) {
-            newNode.obj.attr("id", data.node.id);
+            updatedNode.obj.attr("id", data.node.id);
           }
         });
        });
