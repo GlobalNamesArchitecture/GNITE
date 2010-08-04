@@ -75,4 +75,13 @@ describe "routing to nodes" do
       :format     => "json"
     )
   end
+  it "routes DELETE /trees/:tree_id/nodes/:id.json to nodes#delete" do
+    { :delete => "/trees/123/nodes/abc.json" }.should route_to(
+      :controller => "nodes",
+      :action     => "destroy",
+      :tree_id    => "123",
+      :id         => "abc",
+      :format     => "json"
+    )
+  end
 end
