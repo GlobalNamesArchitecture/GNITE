@@ -111,7 +111,7 @@ hr {
 #bodywrap {
   width:760px;
   float:left;
-  color:white;
+  color:black;
   margin:0px 40px;
 }
 .infobox-wrap {
@@ -536,7 +536,7 @@ input#signin-btn{
   margin:0px 0 15px 0;
 }
 ul#treelist { 
-  padding:40px;
+  padding:0;
 }
 ul#treelist li {
   padding:10px 20px;
@@ -546,6 +546,7 @@ ul#treelist li {
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
   border-radius: 8px;
+  cursor: pointer;
 }
 ul#treelist li .content{
   float:left;
