@@ -71,3 +71,31 @@ Feature: Edit a master tree
     When I follow "Moose tree"
     Then I should see "Monkey"
     And I should see "Rocky"
+
+   @javascript
+   Scenario: User can move nodes in a tree
+    Given I am signed up and confirmed as "email@person.com/password"
+    And "email@person.com" has created an existing tree titled "Moose tree" with:
+      | Bullwinkle |
+      | Rocky      |
+      | Natasha    |
+      | Boris      |
+    And I sign in as "email@person.com/password"
+    Then I should be on the master tree index page
+    When I follow "Moose tree"
+    And I wait for the tree to load
+    And I drag "Rocky" under "Bullwinkle"
+    Then I should see a node "Rocky" under "Bullwinkle"
+
+    When I follow "Master Trees"
+    And I follow "Moose tree"
+    And I wait for the tree to load
+    When I select the node "Bullwinkle"
+    And I expand the node "Bullwinkle"
+    Then I should see a node "Rocky" under "Bullwinkle"
+
+    When I follow "Master Trees"
+    And I follow "Moose tree"
+    And I drag "Bullwinkle" under "Natasha"
+    Then I should see a node "Bullwinkle" under "Natasha"
+

@@ -50,3 +50,13 @@ Then /^pause (\d)$/ do |num|
   while Time.now - time < num.to_i
   end
 end
+
+When /^I drag "([^"]*)" under "([^"]*)"$/ do |child_node_text, parent_node_text|
+  child_node = Node.find_by_name(child_node_text)
+  parent_node = Node.find_by_name(parent_node_text)
+  #This calls the "move_node" function from the core api directly
+  #but the same function is also called during mouse drag and drops
+  page.execute_script("jQuery('#master-tree').jstree('move_node', '##{child_node.id}', '##{parent_node.id}', 'first', false);")
+
+end
+
