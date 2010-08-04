@@ -136,12 +136,12 @@ hr {
   -moz-border-radius-topright: 8px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(220, 222, 222)), to(rgb(184, 184, 184))); 
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(236, 234, 226)), to(rgb(206, 203, 188))); 
   background: -moz-linear-gradient(center bottom, rgb(184,184,184), rgb(220, 222, 222));
 }
 .infobox {
   padding:10px 10px 20px;
-  background:rgb(238, 238, 238);
+  background:rgb(247, 246, 243);
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
   border-radius: 8px;
@@ -172,7 +172,7 @@ hr {
 }
 .infobox input {
   background: #fff;
-  border:1px solid rgba(199, 202, 202, 1.0000);
+  border:1px solid rgb(199, 195, 181);
   border-radius:5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -231,37 +231,48 @@ input#signin-btn{
   border-radius:8px;
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
-  box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(45, 115, 255) inset;
-  -webkit-box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(45, 115, 255) inset;
-  -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(45, 115, 255) inset;
-  background:-webkit-gradient(linear,left bottom,left top,color-stop(0, rgb(56,82,161)),color-stop(0.58, rgb(70,116,223)),color-stop(1, rgb(124,170,235)));
-  background:-moz-linear-gradient(center bottom, rgb(56,82,161) 0%, rgb(70,116,223) 58%, rgb(124,170,235) 100%);
+  box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
+  -webkit-box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
+  -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
+  background:-webkit-gradient(linear,left bottom,left top,
+    color-stop(0.04, rgb(27,112,4)),
+    color-stop(0.58, rgb(90,165,43)),
+    color-stop(0.98, rgb(144,207,76)));
+  background:-moz-linear-gradient(center bottom,
+    rgb(27,112,4) 4%,
+    rgb(90,165,43) 58%,
+    rgb(144,207,76) 98%);
 }
 #signin-btn:hover {
-  color:;
   box-shadow:1px 1px 5px 1px rgb(117, 165, 255) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
-  -webkit-box-shadow:1px 1px 5px 1px rgb(117, 165, 255) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+  -webkit-box-shadow:1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
   -moz-box-shadow:1px 1px 5px 1px rgb(117, 165, 255) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
   border:0px solid rgb(15, 18, 21);
 }
 .blue-submit{
-  color:#fff;
   border:0px;
   padding:10px 30px;
+  color:#fff;
   font-size:16px;
   border:0px solid rgb(15, 18, 21);
   border-radius:8px;
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
-  box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(45, 115, 255) inset;
-  -webkit-box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(45, 115, 255) inset;
-  -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(45, 115, 255) inset;
-  background:-webkit-gradient(linear,left bottom,left top,color-stop(0, rgb(56,82,161)),color-stop(0.58, rgb(70,116,223)),color-stop(1, rgb(124,170,235)));
-  background:-moz-linear-gradient(center bottom, rgb(56,82,161) 0%, rgb(70,116,223) 58%, rgb(124,170,235) 100%);
+  box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
+  -webkit-box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
+  -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
+  background:-webkit-gradient(linear,left bottom,left top,
+    color-stop(0.04, rgb(27,112,4)),
+    color-stop(0.58, rgb(90,165,43)),
+    color-stop(0.98, rgb(144,207,76)));
+  background:-moz-linear-gradient(center bottom,
+    rgb(27,112,4) 4%,
+    rgb(90,165,43) 58%,
+    rgb(144,207,76) 98%);
 }
 .blue-submit:hover {
   box-shadow:1px 1px 5px 1px rgb(117, 165, 255) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
-  -webkit-box-shadow:1px 1px 5px 1px rgb(117, 165, 255) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+  -webkit-box-shadow:1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
   -moz-box-shadow:1px 1px 5px 1px rgb(117, 165, 255) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
   border:0px solid rgb(15, 18, 21);
 }
@@ -280,11 +291,11 @@ input#signin-btn{
 }
 /************************************************************************/
 /* Sidebar Navigation */
-/******************************************* *****************************/
+/************************************************************************/
 #navbar {
   width:200px;
   height:100%;
-  background:rgb(227, 231, 234);
+  background:rgb(236, 234, 226);
   text-align:left;
   font-weight:bold;
   float:left;
@@ -302,11 +313,13 @@ input#signin-btn{
 #nav ul {
   border-top:1px solid;
   border-bottom:1px solid;
-  border-color:rgb(197, 197, 199);  
+  border-color:rgb(199, 195, 181);  
+  background:rgb(247,246,243);
   }
 #nav ul li {
   line-height:38px;
   padding:0px 26px 0 15px;
+  background:rgb(236, 234, 226);
   }
 #nav li#active {
   /*background:-webkit-gradient(linear,left bottom,left top,color-stop(0, rgb(56,82,161)),color-stop(0.58, rgb(70,116,223)),color-stop(1, rgb(124,170,235)));
@@ -328,7 +341,7 @@ input#signin-btn{
   } 
 #nav li:not(#active) {
   border-top:1px solid;
-  border-color:rgb(197, 197, 199);
+  border-color:rgb(199, 195, 181);
   position: relative;
   z-index: 10;
   }
@@ -356,6 +369,7 @@ input#signin-btn{
   padding:0px;
   overflow:hidden;
   margin:0 0 0 25px;
+  background:rgb(247,246,243);
 }
 #nav li#active ul li a{
   color:#000;
@@ -364,7 +378,7 @@ input#signin-btn{
   color:#555;
 }
 #nav ul li#active ul li.active a{
-  color:rgb(87, 157, 244);  
+  color:rgb(58, 114, 24);  
 }
 #nav ul li ul, #nav ul li:first-child, #nav ul li#active ul li:first-child {
   border-top:none;
@@ -382,7 +396,7 @@ input#signin-btn{
 .tree-background {
   width:100%;
   min-height:800px;
-  background:white;
+  background:rgb(247, 246, 243);
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
   border-radius: 8px;
@@ -436,7 +450,8 @@ input#signin-btn{
   color:#444;
   font-weight: bold;
   width:100%;
-  background: rgb(184, 184, 184);
+  background: -moz-linear-gradient(100% 100% 90deg, rgba(176, 176, 176, 1.0000),rgba(252, 255, 255, 1.0000));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgb(236, 234, 226)), color-stop(1, rgb(206,202,187)));
   display:block;
   -webkit-border-top-left-radius: 8px;
   -webkit-border-top-right-radius: 8px;
@@ -462,9 +477,10 @@ input#signin-btn{
   font-size:12px;
   }
 .searchbar {
-  background:rgb(184, 184, 184);
-  border-top:1px solid rgb(145, 147, 147);
-  border-bottom:1px solid rgb(145, 147, 147);
+  background: -moz-linear-gradient(100% 100% 90deg, rgba(176, 176, 176, 1.0000),rgba(252, 255, 255, 1.0000));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgb(236, 234, 226)), color-stop(1, rgb(206,202,187)));
+  border-top:1px solid rgb(176, 173, 163);
+  border-bottom:1px solid rgb(176, 173, 163);
   padding:8px 5px;
 }
 .searchbar a {
@@ -500,6 +516,48 @@ input#signin-btn{
   -webkit-box-shadow:0px 1px 2px 1px rgba(26, 26, 26, 0.6) inset;
   -moz-box-shadow: 0px 1px 2px 1px rgba(26, 26, 26, 0.6) inset;
 }
+
+.metadata-wrap {
+  width:100%;
+  background:red;
+}
+/************************************************************************/
+/* Master Tree List */
+/************************************************************************/
+
+#treelist {
+  width:640px;
+  height:140px;
+  float:left;
+}
+#treelist li > h1 {
+  padding:0px;
+  margin:0px 0 15px 0;
+}
+ul#treelist { 
+  padding:40px;
+}
+ul#treelist li {
+  padding:20px;
+  background: -moz-linear-gradient(100% 100% 90deg, rgba(176, 176, 176, 1.0000),rgba(252, 255, 255, 1.0000));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgb(236, 234, 226)), color-stop(1, rgb(206,202,187)));
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+}
+ul#treelist li > p {
+  margin:15px 0;
+}
+.date-wrap {
+  padding:10px 0;
+}
+.date {
+  width:150px;
+  margin-right:20px;
+  float:left;
+}
+
+
 
 #flash_error, #flash_success, #flash_failure, #flash_notice {
   padding: 1em;
