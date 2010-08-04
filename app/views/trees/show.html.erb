@@ -94,7 +94,7 @@
             }
           },
         },
-        "plugins" : [ "themes", "json_data", "crrm", "ui",  "contextmenu"]
+        "plugins" : [ "themes", "json_data", "crrm", "ui",  "contextmenu", "dnd"]
         });
 
 
@@ -136,6 +136,24 @@
             updatedNode.obj.attr("id", data.node.id);
           }
         });
+       });
+      $("#master-tree").bind("move_node.jstree", function(event, data) {
+          var updatedNodes = data.rslt;
+          var parent_id = updatedNodes.np.attr("id");
+          if(parent_id == "master-tree"){
+            parent_id = null;
+          }
+         $.ajax({
+          type: "PUT",
+          url: "/trees/<%= @tree.id %>/nodes/"+updatedNodes.o.attr("id")+".json",
+          contentType: "application/json",
+          dataType: 'json',
+          data: JSON.stringify({node: {parent_id: parent_id }}),
+          success: function(data, textStatus, xhr) {
+            updatedNodes.o.attr("id", data.node.id);
+          }
+        });
+
        });
 
      jQuery('.jstree-clicked').live('dblclick', function() { jQuery(".jstree-focused").jstree("rename"); });
