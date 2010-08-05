@@ -506,8 +506,10 @@ hr {
 /************************************************************************/
 /* Master Tree List */
 /************************************************************************/
-
-#treelist {
+#treelist h1, #newtree h1 {
+  text-shadow: 0px 1px 2px white;
+}
+#treelist{
   width:640px;
   height:140px;
   float:left;
@@ -519,7 +521,7 @@ hr {
 ul#treelist { 
   padding:0;
 }
-ul#treelist li {
+ul#treelist li, #newtree {
   float:left;
   padding:10px 20px;
   margin:15px 0;
@@ -528,10 +530,9 @@ ul#treelist li {
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
   border-radius: 8px;
-  cursor: pointer;
   width:100%;
 }
-ul#treelist a:link, ul#treelist a:visited, ul#treelist a:active, ul#treelist a:hover {
+ul#treelist a:link, ul#treelist a:visited, ul#treelist a:active, ul#treelist a:hover, #newtree a:link, #newtree a:hover, #newtree a:active, #newtree a:visited {
   text-decoration: none;
   color:black;
 }
@@ -557,16 +558,25 @@ ul#treelist li p {
   margin-right:20px;
   float:left;
   color:rgb(58,58,58);
+  text-shadow: 0px 1px 1px white;
+  font-weight: bold;
 }
-ul#treelist li #newtree{
+#newtree{
+  width:640px;
+}
+#newtree .content {
   width:92%;
   background:url(../images/newtree.png) no-repeat;
-  background-position: left;
-  
+  background-position: 0px;
+  padding:0 0 0 55px;
 }
-ul#treelist li #newtree:hover {
+#newtree .content:hover {
   background:url(../images/newtree-hover.png) no-repeat;
   background-position: left;
+}
+#newtree p {
+  margin:0 0 8px;
+  padding:0px;
 }
 
 #flash_error, #flash_success, #flash_failure, #flash_notice {

@@ -1,23 +1,20 @@
 <% content_for :header do %>
-  Master Trees
+  Your Master Trees
 <% end %>
 
-<!-- Start of Box -->
-
-<div class="infobox-wrap">
-  <div class="title">
-    <p>Create a new master tree</p>
-  </div>
-  <div class="infobox">
-    <ul>
-      <li><%= link_to 'New Tree', new_tree_path %></li>
-    </ul>
-  </div>
-</div>
-<!-- End of Box -->
-
+<!-- New Tree Button -->
+            <div id="newtree">
+              <a href="<%= new_tree_path %>">
+                <div class="content">
+                  <h1>Create New Master Tree</h1>
+                  <p>Create and edit a new master tree</p>
+                </div>
+              </a>
+            </div>
+          
+<!-- Master Trees List -->
 <% if current_user.trees.any? %>
-<ul id="treelist">
+          <ul id="treelist">
             <% current_user.trees.each do |tree| %>
             <a href="<%= tree_url(tree.id) %>">
               <li>        
@@ -35,5 +32,6 @@
             <% end %>
           </ul>
 <% end %>
+<!-- End Tree List -->
 
 
