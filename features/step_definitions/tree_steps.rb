@@ -5,4 +5,3 @@ Given /^"([^"]*)" has created an existing tree titled "([^"]*)" with:$/ do |user
     Factory :node, :name => row.first, :tree => tree
   end
 end
-

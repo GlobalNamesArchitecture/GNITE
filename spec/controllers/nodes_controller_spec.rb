@@ -97,5 +97,20 @@ describe NodesController do
       end
     end
 
+    context "on DELETE to destroy" do
+      let(:node) { Factory(:node) }
+      before do
+        Node.stubs(:destroy)
+        delete :destroy, :id => node.id, :tree_id => node.tree.id, :format => 'json'
+      end
+
+      it { should respond_with(:success) }
+
+      it "should delete the node" do
+        Node.should have_received(:destroy).with(node.id)
+      end
+
+    end
+
   end
 end

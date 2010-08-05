@@ -4,6 +4,12 @@ Then /^I should see a node "([^"]*)" at the root level in my master tree$/ do |n
   end
 end
 
+Then /^I should not see a node "([^"]*)" at the root level in my master tree$/ do |node_text|
+  with_scope('.jstree-leaf') do
+    page.should_not have_content(node_text)
+  end
+end
+
 When /^I enter "([^"]*)" in the new node and press enter$/ do |text|
   field = find(:css, ".jstree-last input")
   field.set(text)
@@ -58,5 +64,10 @@ When /^I drag "([^"]*)" under "([^"]*)"$/ do |child_node_text, parent_node_text|
   #but the same function is also called during mouse drag and drops
   page.execute_script("jQuery('#master-tree').jstree('move_node', '##{child_node.id}', '##{parent_node.id}', 'first', false);")
 
+end
+
+When /^I delete the node "([^"]*)"$/ do |node_text|
+  node = Node.find_by_name(node_text)
+  page.execute_script("jQuery('#master-tree').jstree('remove', '##{node.id}');")
 end
 

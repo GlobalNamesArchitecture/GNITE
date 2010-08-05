@@ -153,8 +153,17 @@
             updatedNodes.o.attr("id", data.node.id);
           }
         });
-
        });
+
+      $("#master-tree").bind("remove.jstree", function(event, data) {
+          var node = data.rslt;
+        $.ajax({
+          type: "DELETE",
+          url: "/trees/<%= @tree.id %>/nodes/"+node.obj.attr("id")+".json",
+          contentType: "application/json",
+          dataType: 'json',
+        });
+      });
 
      jQuery('.jstree-clicked').live('dblclick', function() { jQuery(".jstree-focused").jstree("rename"); });
 
