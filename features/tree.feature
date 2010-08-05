@@ -16,7 +16,7 @@ Feature: Edit a master tree
   Scenario: User can add nodes to a tree
     Given I have signed in with "email@person.com/password"
     Then I should be on the master tree index page
-    When I follow "New Tree"
+    When I follow "New Master Tree"
     And I fill in "Title" with "My new tree"
     And I press "Create"
     When I follow "New Node"
@@ -31,7 +31,7 @@ Feature: Edit a master tree
   Scenario: User can add child nodes to a tree
     Given I have signed in with "email@person.com/password"
     Then I should be on the master tree index page
-    When I follow "New Tree"
+    When I follow "New Master Tree"
     And I fill in "Title" with "My new tree"
     And I press "Create"
     When I follow "New Node"

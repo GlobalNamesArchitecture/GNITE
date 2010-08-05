@@ -6,7 +6,7 @@ Feature: Create and manage master trees
   Scenario: User can create a new tree
     Given I have signed in with "email@person.com/password"
     Then I should be on the master tree index page
-    When I follow "New Tree"
+    When I follow "New Master Tree"
     And I fill in "Title" with "My new tree"
     And I press "Create"
     Then I should see "Tree successfully created"
@@ -17,7 +17,7 @@ Feature: Create and manage master trees
     Then I should be on the master tree index page
     And I should not see "Or choose an existing tree to edit"
 
-    When I follow "New Tree"
+    When I follow "New Master Tree"
     And I fill in "Title" with "My new tree"
     And I press "Create"
     And I go to the trees page
