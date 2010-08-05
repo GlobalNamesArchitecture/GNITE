@@ -1,26 +1,43 @@
 <% content_for :header do %>
-  New Tree
+  New Master Tree
 <% end %>
 
 <!-- Start of New Tree Box -->
-<%= semantic_form_for(:tree, :url => trees_path, :html => { :method => :post }) do |form| %>
-  <div class="infobox-wrap">
-    <div class="title">
-      <p>New Tree</p>
-    </div>
-    <div class="infobox">
+      <!-- Start of Left Tree -->
+          <div class="tree-column">
+            <div class="treewrap">
+              <!-- Start of Tree Background -->
+              <div class="tree-back-wrap">
+                <form id="tree-metadata" action="" method="get"> 
+                  <div class="metadata-header"> 
+                  <h1>Add Tree Metadata</h1>
+                  </div>
+                  <div class="tree-back">
+                  <%= semantic_form_for(:tree, :url => trees_path, :html => { :method => :post }) do |form| %>
       <%= form.error_messages %>
 
-      <!-- form -->
-      <div class="info-content">
         <%= form.inputs :title => "Metadata for New Tree" do -%>
           <%= form.input :title %>
         <% end %>
-      </div>
-    </div>
-  </div>
+                    <fieldset>
+                    	<ul>
+                    		<li><label for="name">Tree Name*</label><input type="text" name="name" id="" AUTOFOCUS/></li>
+                    		<li><label for="uuid">UUID</label><input type="text" value="550e8400-e29b-41d4-a716-446655440000" name="uuid" id="" READONLY /></li>
+                    		<li><label for="pub-date">Publication Date</label><input type="text" name="date" id="" /></li>
+                    		<li><label for="citation">Citation</label><input type="text" name="citation" id="" /></li>
+                        <li><label for="abstract">Abstract*</label><textarea name="abstract" id="textarea" rows="5" cols="30"></textarea></li>
+    
+                    		<li><label for="creative-commons">Creative Commons</label><input type="text" name="creative-commons" id="" /></li>
+                  		</ul>
+                  	</fieldset>
+
+                </div>
+              </div>
   <%= form.buttons do -%>
     <%= form.commit_button "Create", :button_html => { :class => "green-submit" } %>
   <% end -%>
 <% end %>
-<!-- End of Profile Information Box -->
+              <!-- End of Tree Background -->
+            </div>
+          </div>
+          <!-- End of Left Tree -->

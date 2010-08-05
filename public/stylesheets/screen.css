@@ -118,9 +118,6 @@ hr {
   width:600px;
   margin:10px 0px;
   background:white;
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
-  border-radius: 8px;
   float:left;
 }
 .infobox-wrap .title {
@@ -143,9 +140,6 @@ hr {
 .infobox {
   padding:10px 10px 20px;
   background:rgb(247, 246, 243);
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
-  border-radius: 8px;
   color:#000;  
 }
 .infobox p {
@@ -214,9 +208,6 @@ hr {
   letter-spacing: -1px;
   padding:10px;
   border:0px;
-  border-radius:8px;
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
   box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6) inset;
   -webkit-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6) inset;
   -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6) inset;
@@ -229,10 +220,7 @@ hr {
   padding:10px 30px;
   color:#fff;
   font-size:16px;
-  border:0px solid rgb(15, 18, 21);
-  border-radius:8px;
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
+  border:0;
   box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
   -webkit-box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
   -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
@@ -270,6 +258,7 @@ hr {
 #navbar {
   width:200px;
   height:100%;
+  min-height:920px;
   background:rgb(236, 234, 226);
   text-align:left;
   font-weight:bold;
@@ -366,16 +355,13 @@ hr {
 .tree-column {
   width:49.75%;
   min-width:480px;
-  height:100%;
+  height:92%;
   float:left;
 }
 .tree-background {
   width:100%;
   min-height:800px;
   background:rgb(247, 246, 243);
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
-  border-radius: 8px;
   border:0px solid #fff;
   }
 .treewrap{
@@ -386,7 +372,6 @@ hr {
   height:40px;
   font-size:12px;
   margin-bottom:10px;
-
   }
 .tree-nav li a, .tree-nav li a:visited, .tree-nav li a:active {
   color:black;
@@ -421,7 +406,7 @@ hr {
   -webkit-box-shadow:1px 1px 5px 1px rgb(255, 255, 255) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
   -moz-box-shadow:1px 1px 5px 1px rgb(255, 255, 255) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
 }
-.breadcrumbs {
+.breadcrumbs, .metadata-header {
   height:36px;
   color:#444;
   font-weight: bold;
@@ -483,9 +468,6 @@ hr {
 }
 #search {
   min-width:50px;
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
-  border-radius: 8px;
   border:0px solid #fff;
   padding:6px;
   box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6) inset;
@@ -500,8 +482,48 @@ hr {
 /************************************************************************/
 /* Master Tree Metadata Back */
 /************************************************************************/
-
-
+.tree-back-wrap {
+  background:rgb(236, 234, 226);
+  width:100%;
+  min-height:400px;
+  border:0px;
+}
+.tree-back {
+  padding:10px 15px 20px;
+  overflow:hidden;
+}
+.metadata-header {
+  height:52px;
+  color:#444;
+  border-bottom: 1px solid rgb(176, 173, 163);
+}
+.metadata-header h1 {
+  padding:16px;
+}
+#tree-metadata label{
+  width:100%;
+  float:left;
+  margin:15px 0 10px;
+  font-weight: bold; 
+}
+#tree-metadata fieldset input, #tree-metadata fieldset textarea {
+  float:left;
+  width:95%;
+  background: #fff;
+  border:1px solid rgb(199, 195, 181);
+  border-radius:5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  padding:0 10px;
+}
+#tree-metadata fieldset input {
+  height:28px;
+}
+#tree-metadata fieldset textarea {
+  height:56px;
+  padding:10px;
+  resize:none;
+}
 
 /************************************************************************/
 /* Master Tree List */
@@ -527,9 +549,6 @@ ul#treelist li, #newtree {
   margin:15px 0;
   background: -moz-linear-gradient(100% 100% 90deg, rgb(206,202,187),rgb(236, 234, 226));
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgb(236, 234, 226)), color-stop(1, rgb(206,202,187)));
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
-  border-radius: 8px;
   width:100%;
 }
 ul#treelist a:link, ul#treelist a:visited, ul#treelist a:active, ul#treelist a:hover, #newtree a:link, #newtree a:hover, #newtree a:active, #newtree a:visited {
@@ -586,10 +605,7 @@ ul#treelist li p {
   width: 810px;
   background: #fff;
 
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
-  border-radius: 8px;
-  border:0px solid #fff;
+  border:0px;
   box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6) inset;
   -webkit-box-shadow:0px 1px 2px 1px rgba(26, 26, 26, 0.6) inset;
   -moz-box-shadow: 0px 1px 2px 1px rgba(26, 26, 26, 0.6) inset;
@@ -608,4 +624,15 @@ ul#treelist li p {
 
 #flash_notice {
   background-color: #fff;
+}
+
+/************************************************************************/
+/* Border Radius */
+/************************************************************************/
+#flash_error, #flash_success, #flash_failure, #flash_notice,
+ul#treelist li, #newtree, #search, .tree-background, #loginform .input, .green-submit,
+.infobox-wrap, .infobox, .tree-back-wrap { 
+  border-radius:8px;
+  -moz-border-radius:8px;
+  -webkit-border-radius:8px;
 }
