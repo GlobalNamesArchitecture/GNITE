@@ -15,12 +15,13 @@
         <%= form.input :password_confirmation, :label => "Confirm password", :input_html => { :class => "prefilled input" } %>
       <% end %>
       <%= form.buttons do %>
-        <%= form.commit_button "Sign up", :button_html => { :class => "blue-submit" } %>
+        <%= form.commit_button "Sign up", :button_html => { :class => "green-submit" } %>
       <% end %>
     <% end %>
     <hr/>
     <p>Already have a GNITE account? <%= link_to "Sign in here", sign_in_path %></p>
   </div>
   <!-- End of Forms -->
+  <div class="clearfix"></div>
 </div>
 <!-- End of Body Content -->

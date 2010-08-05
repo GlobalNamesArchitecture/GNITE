@@ -19,18 +19,19 @@
 <% if current_user.trees.any? %>
 <ul id="treelist">
             <% current_user.trees.each do |tree| %>
-            <li onclick="document.location.href='<%= tree_url(tree.id) %>'">        
-              <div class="content">
-                <h1><%= tree.title %></h1>
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod.</p>
-                <div class="date-wrap">
-                  <div class="date">Created: 06/22/10</div>
-                  <div class="date">Last Edited: 07/02/10</div>
+            <a href="<%= tree_url(tree.id) %>">
+              <li>        
+                <div class="content">
+                  <h1><%= tree.title %></h1>
+                  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod.</p>
+                  <div class="date-wrap">
+                    <div class="date">Created: 06/22/10</div>
+                    <div class="date">Last Edited: 07/02/10</div>
+                  </div>
                 </div>
-              </div>
-              <div class="clearfix"></div>
-              
-            </li>
+                <div class="clearfix"></div>              
+              </li>
+            </a>
             <% end %>
           </ul>
 <% end %>

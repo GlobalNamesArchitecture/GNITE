@@ -112,15 +112,16 @@ hr {
   width:760px;
   float:left;
   color:black;
-  margin:0px 40px;
+  margin:20px 40px;
 }
 .infobox-wrap {
   width:600px;
-  margin:30px 0px;
+  margin:10px 0px;
   background:white;
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
   border-radius: 8px;
+  float:left;
 }
 .infobox-wrap .title {
   font-weight: bold;
@@ -222,8 +223,9 @@ hr {
   margin-bottom:15px;
   color:grey;
 }
-input#signin-btn{
-  border:0px;
+.green-submit{
+  float:left;
+  margin: 15px 0;
   padding:10px 30px;
   color:#fff;
   font-size:16px;
@@ -243,34 +245,7 @@ input#signin-btn{
     rgb(90,165,43) 58%,
     rgb(144,207,76) 98%);
 }
-#signin-btn:hover {
-  box-shadow:1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
-  -webkit-box-shadow:1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
-  -moz-box-shadow:1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
-  border:0px solid rgb(15, 18, 21);
-}
-.blue-submit{
-  border:0px;
-  padding:10px 30px;
-  color:#fff;
-  font-size:16px;
-  border:0px solid rgb(15, 18, 21);
-  border-radius:8px;
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
-  box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
-  -webkit-box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
-  -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
-  background:-webkit-gradient(linear,left bottom,left top,
-    color-stop(0.04, rgb(27,112,4)),
-    color-stop(0.58, rgb(90,165,43)),
-    color-stop(0.98, rgb(144,207,76)));
-  background:-moz-linear-gradient(center bottom,
-    rgb(27,112,4) 4%,
-    rgb(90,165,43) 58%,
-    rgb(144,207,76) 98%);
-}
-.blue-submit:hover {
+.green-submit:hover {
   box-shadow:1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
   -webkit-box-shadow:1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
   -moz-box-shadow:1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
@@ -523,6 +498,12 @@ input#signin-btn{
   background:red;
 }
 /************************************************************************/
+/* Master Tree Metadata Back */
+/************************************************************************/
+
+
+
+/************************************************************************/
 /* Master Tree List */
 /************************************************************************/
 
@@ -539,17 +520,22 @@ ul#treelist {
   padding:0;
 }
 ul#treelist li {
+  float:left;
   padding:10px 20px;
-  margin-bottom:30px;
+  margin:15px 0;
   background: -moz-linear-gradient(100% 100% 90deg, rgb(206,202,187),rgb(236, 234, 226));
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgb(236, 234, 226)), color-stop(1, rgb(206,202,187)));
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
   border-radius: 8px;
   cursor: pointer;
+  width:100%;
+}
+ul#treelist a:link, ul#treelist a:visited, ul#treelist a:active, ul#treelist a:hover {
+  text-decoration: none;
+  color:black;
 }
 ul#treelist li .content{
-  float:left;
   width:92%;
   padding-right:40px;
   background:url(../images/tree-arrow.png) no-repeat;
@@ -570,9 +556,18 @@ ul#treelist li p {
   width:125px;
   margin-right:20px;
   float:left;
+  color:rgb(58,58,58);
 }
-
-
+ul#treelist li #newtree{
+  width:92%;
+  background:url(../images/newtree.png) no-repeat;
+  background-position: left;
+  
+}
+ul#treelist li #newtree:hover {
+  background:url(../images/newtree-hover.png) no-repeat;
+  background-position: left;
+}
 
 #flash_error, #flash_success, #flash_failure, #flash_notice {
   padding: 1em;
