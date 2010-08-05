@@ -21,8 +21,7 @@ Feature: Create and manage master trees
     And I fill in "Title" with "My new tree"
     And I press "Create"
     And I go to the trees page
-    Then I should see "Or choose an existing tree to edit"
-    And I should see "My new tree"
+    Then should see "My new tree"
 
     When I follow "My new tree"
     Then I should be on the tree page for "My new tree"
