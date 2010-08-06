@@ -353,7 +353,7 @@ hr {
 /* Main Tree Structure */
 /************************************************************************/
 .tree-column {
-  width:49.75%;
+  width:49%;
   min-width:480px;
   height:92%;
   float:left;
@@ -524,6 +524,76 @@ hr {
   padding:10px;
   resize:none;
 }
+/************************************************************************/
+/* Tree New Import */
+/************************************************************************/
+
+#tree-newimport {
+  
+}
+#tree-newimport ul {
+margin:0 auto;
+width:400px;
+padding:0px;
+}
+#tree-newimport li {
+  width:400px;
+  background: -webkit-gradient(linear,left bottom,left top,
+    color-stop(0, rgb(230,228,221)),
+    color-stop(0.5, rgb(255,255,255)));
+  background:-moz-linear-gradient(center bottom,
+    rgb(230,228,221) 0%,
+    rgb(255,255,255) 50%);
+  margin:25px 0;
+  box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+  -webkit-box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+  -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+}
+#tree-newimport li .content {
+  padding:10px;
+  padding:0 0 0 65px;
+  float:left;
+}
+#tree-newimport li h1 {
+  padding:5px 0;
+  margin:0;
+}
+#tree-newimport li p {
+  margin:5px 0;
+  padding:0;
+  color:#555;
+}
+#tree-newimport a:link, #tree-newimport a:hover, #tree-newimport a:active, #tree-newimport a:visited {
+  text-decoration: none;
+  color:black;
+}
+#tree-newimport .btn-img {
+  width:400px;
+  height:;
+  float:left;
+  margin: 10px 0px 10px 6px;
+}
+#tree-newimport .btn-img:hover {
+  cursor: pointer;
+}
+#tree-newimport .search {
+  background:url(../images/search.png) no-repeat;
+}
+#tree-newimport .search:hover {
+  background:url(../images/search-hover.png) no-repeat;
+}
+#tree-newimport .upload {
+  background:url(../images/upload.png) no-repeat;
+}
+#tree-newimport .upload:hover {
+  background:url(../images/upload-hover.png) no-repeat;
+}
+#tree-newimport .browse {
+  background:url(../images/browse.png) no-repeat;
+}
+#tree-newimport .browse:hover {
+  background:url(../images/browse-hover.png) no-repeat;
+}
 
 /************************************************************************/
 /* Master Tree List */
@@ -631,7 +701,7 @@ ul#treelist li p {
 /************************************************************************/
 #flash_error, #flash_success, #flash_failure, #flash_notice,
 ul#treelist li, #newtree, #search, .tree-background, #loginform .input, .green-submit,
-.infobox-wrap, .infobox, .tree-back-wrap { 
+.infobox-wrap, .infobox, .tree-back-wrap, #tree-newimport li { 
   border-radius:8px;
   -moz-border-radius:8px;
   -webkit-border-radius:8px;
