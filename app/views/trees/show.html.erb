@@ -156,7 +156,7 @@
        });
 
       $("#master-tree").bind("remove.jstree", function(event, data) {
-          var node = data.rslt;
+        var node = data.rslt;
         $.ajax({
           type: "DELETE",
           url: "/trees/<%= @tree.id %>/nodes/"+node.obj.attr("id")+".json",
@@ -165,8 +165,20 @@
         });
       });
 
-     jQuery('.jstree-clicked').live('dblclick', function() { jQuery(".jstree-focused").jstree("rename"); });
+     $('.jstree-clicked').live('dblclick', function() { $(".jstree-focused").jstree("rename"); });
 
+      $('.tree-background').live('click', function(event) {
+        var hitNode = (event.target.tagName == 'A') ||
+                      (event.target.tagName == 'INS');
+
+        if (! hitNode) {
+          $(event.target).closest('.jstree').jstree('deselect_all');
+        }
+      });
+
+      $('.tree-background').live('click', function(event) {
+        $(event.target).find('.jstree').jstree('deselect_all');
+      });
     });
 </script>
 <% end %>

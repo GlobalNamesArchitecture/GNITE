@@ -137,3 +137,19 @@ Feature: Edit a master tree
     And I follow "Moose tree"
     Then I should not see a node "Bullwinkle" at the root level in my master tree
     And I should not see a node "Rocky" at the root level in my master tree
+
+  @javascript
+  Scenario: User can deselect a node
+    Given I am signed up and confirmed as "email@person.com/password"
+    And "email@person.com" has created an existing tree titled "Moose tree" with:
+      | Bullwinkle |
+    And I sign in as "email@person.com/password"
+    When I follow "Moose tree"
+
+    And I select the node "Bullwinkle"
+    When I click the master tree background
+    Then no nodes should be selected in the master tree
+
+    When I select the node "Bullwinkle"
+    And I click a non-text area of a node in the master tree
+    Then no nodes should be selected in the master tree

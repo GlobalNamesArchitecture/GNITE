@@ -74,3 +74,21 @@ When /^I delete the node "([^"]*)"$/ do |node_text|
   page.execute_script("jQuery('#master-tree').jstree('remove', '##{node.id}');")
 end
 
+Then /^the "([^"]*)" tree node should be selected$/ do |node_text|
+  node = Node.find_by_name(node_text)
+  puts page.body
+  page.should have_css("li##{node.id} a.jstree-clicked")
+end
+
+When /^I click the master tree background$/ do
+  page.execute_script("jQuery('#master-tree').closest('.tree-background').click();")
+end
+
+Then /^no nodes should be selected in the master tree$/ do
+  page.should_not have_css("#master-tree a.jstree-clicked")
+end
+
+When /^I click a non\-text area of a node in the master tree$/ do
+  page.should have_css('#master-tree li')
+  page.execute_script("jQuery('#master-tree').find('li').first().click();")
+end
