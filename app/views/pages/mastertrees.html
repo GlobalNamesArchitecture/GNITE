@@ -1,3 +1,14 @@
+   <link href="../stylesheets/Aristo/jquery-ui-1.8rc3.custom.css" media="screen" rel="stylesheet" type="text/css" />
+   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.3/jquery-ui.min.js"></script>
+	<script type="text/javascript">
+  $.noConflict();
+  jQuery(document).ready(function($) {
+    	$(function() {
+		$("#tabs").tabs().find(".ui-tabs-nav").sortable({axis:'x'});
+	 });
+  });
+</script>
     <div id="wrapper">
     <!-- Start of Sidebar -->
       <div id="navbar">
@@ -19,15 +30,18 @@
     <!-- End of Sidebar -->
     <!-- Start of Body Content -->
       <div id="content">
+        <div id="header">
+          <h1>New Master Tree</h1>
+        </div>
       <!-- Start of Left Tree -->
           <div class="tree-column">
             <div class="treewrap">
-              <div class="tree-nav">
+              <!--<div class="tree-nav">
                 <ul>
                   <li><a href="#">New Master Tree</a></li>
                   <li><a href="#">New Node</a></li>
                 </ul>
-              </div>
+              </div> -->
               <!-- Start of Tree Background -->
               <div class="tree-background">
                 <div class="breadcrumbs">
@@ -54,6 +68,11 @@
                   <div class="clearfix"></div>
                 </div>
                 <!-- End of searchbar -->
+                <div class="controls">
+                  <div class="tree-btn">New Master Node</div>
+                  <div class="tree-btn">New Node</div>
+                  <div class="clearfix"></div>
+                </div>
                 <div class="metadata-wrap">
                 </div>
               </div>
@@ -64,24 +83,136 @@
       <!-- Start of Right Tree -->
           <div class="tree-column">
             <div class="treewrap">
+              <!--
               <div class="tree-nav">
                 <ul>
-                
+                  <li><a href="#">New Tree</a></li>
+                </ul>
+              </div> -->
+            </div>
+            <div id="tabs">
+            	<ul>
+            		<li><a href="#tabs-1">Tab1</a></li>
+            		<li><a href="#tabs-2">Tab2</a></li>
+            		<li><a href="#tabs-3">Tab3</a></li>
+            	</ul>
+            	<div id="tabs-1">
+                <div class="tree-background">
+                  <div class="breadcrumbs">
+                    <ul>
+                      <li>Kingdom</li>
+                      <li>Phylum</li>
+                      <li>Class</li>
+                      <li>Order</li>
+                      <li>Family</li>
+                    </ul>
+                  </div>
+                  <div class="searchbar">
+                    <div class="grid-button">
+                      <a href="#"><img class="icon" src="/images/metadata-author.png"/>Author</a>
+                    </div>
+                    <div class="grid-button">
+                      <a href="#"><img class="icon" src="/images/gridview.png"/>Grid view</a>
+                    </div>
+                    <form method="get" id="searchform" action="">
+                      <fieldset>
+                        <input type="text" value="Search this tree" name="search" id="search" onclick="this.value='';this.onclick=null;" />
+                      </fieldset>
+                    </form>
+                    <div class="clearfix"></div>
+                  </div>
+                  <p>Tabs 1</p>            
+                </div>
+            	</div>
+            	<div id="tabs-2">
+                <div class="tree-background">
+                  <div class="breadcrumbs">
+                    <ul>
+                      <li>Kingdom</li>
+                      <li>Phylum</li>
+                      <li>Class</li>
+                      <li>Order</li>
+                      <li>Family</li>
+                    </ul>
+                  </div>
+                  <div class="searchbar">
+                    <div class="grid-button">
+                      <a href="#"><img class="icon" src="/images/metadata-author.png"/>Author</a>
+                    </div>
+                    <div class="grid-button">
+                      <a href="#"><img class="icon" src="/images/gridview.png"/>Grid view</a>
+                    </div>
+                    <form method="get" id="searchform" action="">
+                      <fieldset>
+                        <input type="text" value="Search this tree" name="search" id="search" onclick="this.value='';this.onclick=null;" />
+                      </fieldset>
+                    </form>
+                    <div class="clearfix"></div>
+                  </div>            
+                <p>Tab 2</p>
+                </div>
+            	</div>
+            	<div id="tabs-3">
+                <div class="tree-background">
+                  <div class="breadcrumbs">
+                    <ul>
+                      <li>Kingdom</li>
+                      <li>Phylum</li>
+                      <li>Class</li>
+                      <li>Order</li>
+                      <li>Family</li>
+                    </ul>
+                  </div>
+                  <div class="searchbar">
+                    <div class="grid-button">
+                      <a href="#"><img class="icon" src="/images/metadata-author.png"/>Author</a>
+                    </div>
+                    <div class="grid-button">
+                      <a href="#"><img class="icon" src="/images/gridview.png"/>Grid view</a>
+                    </div>
+                    <form method="get" id="searchform" action="">
+                      <fieldset>
+                        <input type="text" value="Search this tree" name="search" id="search" onclick="this.value='';this.onclick=null;" />
+                      </fieldset>
+                    </form>
+                    <div class="clearfix"></div>
+                  </div>
+                <p>Tab 3</p>            
+                </div>
+            	</div>
+            </div>
+            <!--
+            <div class="tab-wrap">
+              <ul>
+                <li class="active">New Tab</li>
+                <li>New Tab</li>
+              </ul>
+            </div>
+            <div class="tree-background">
+              <div class="breadcrumbs">
+                <ul>
+                  <li>Kingdom</li>
+                  <li>Phylum</li>
+                  <li>Class</li>
+                  <li>Order</li>
+                  <li>Family</li>
                 </ul>
               </div>
-              <div class="tree-background">
-                <div class="breadcrumbs">
-                  <p></p>
+              <div class="searchbar">
+                <div class="grid-button">
+                  <a href="#"><img class="icon" src="/images/metadata-author.png"/>Author</a>
                 </div>
-                <div class="searchbar">
-                  <div class="grid-button">
-                    
-                  </div>
-    
-                  <div class="clearfix"></div>
+                <div class="grid-button">
+                  <a href="#"><img class="icon" src="/images/gridview.png"/>Grid view</a>
                 </div>
-              </div>
-            </div>
+                <form method="get" id="searchform" action="">
+                  <fieldset>
+                    <input type="text" value="Search this tree" name="search" id="search" onclick="this.value='';this.onclick=null;" />
+                  </fieldset>
+                </form>
+                <div class="clearfix"></div>
+              </div>            
+            </div> -->
           </div>
       <!-- End of Right Tree -->
       </div>

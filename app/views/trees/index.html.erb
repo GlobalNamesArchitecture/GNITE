@@ -1,37 +1,38 @@
-<% content_for :header do %>
-  Your Master Trees
-<% end %>
-
-<!-- New Tree Button -->
-            <div id="newtree">
-              <a href="<%= new_tree_path %>">
-                <div class="content">
-                  <h1>Create New Master Tree</h1>
-                  <p>Create and edit a new master tree</p>
-                </div>
-              </a>
-            </div>
-          
-<!-- Master Trees List -->
-<% if current_user.trees.any? %>
-          <ul id="treelist">
-            <% current_user.trees.each do |tree| %>
-            <a href="<%= tree_url(tree.id) %>">
-              <li>
-                <div class="content">
-                  <h1><%= tree.title %></h1>
-                  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod.</p>
-                  <div class="date-wrap">
-                    <div class="date">Created: 06/22/10</div>
-                    <div class="date">Last Edited: 07/02/10</div>
+<div id="bodywrap">
+  <% content_for :header do %>
+    Your Master Trees
+  <% end %>
+  
+  <!-- New Tree Button -->
+              <div id="newtree">
+                <a href="<%= new_tree_path %>">
+                  <div class="content">
+                    <h1>Create New Master Tree</h1>
+                    <p>Create and edit a new master tree</p>
                   </div>
-                </div>
-                <div class="clearfix"></div>              
-              </li>
-            </a>
-            <% end %>
-          </ul>
-<% end %>
-<!-- End Tree List -->
-
+                </a>
+              </div>
+            
+  <!-- Master Trees List -->
+  <% if current_user.trees.any? %>
+            <ul id="treelist">
+              <% current_user.trees.each do |tree| %>
+              <a href="<%= tree_url(tree.id) %>">
+                <li>
+                  <div class="content">
+                    <h1><%= tree.title %></h1>
+                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod.</p>
+                    <div class="date-wrap">
+                      <div class="date">Created: 06/22/10</div>
+                      <div class="date">Last Edited: 07/02/10</div>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>              
+                </li>
+              </a>
+              <% end %>
+            </ul>
+  <% end %>
+  <!-- End Tree List -->
+</div>
 

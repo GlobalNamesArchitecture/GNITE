@@ -406,6 +406,31 @@ hr {
   -webkit-box-shadow:1px 1px 5px 1px rgb(255, 255, 255) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
   -moz-box-shadow:1px 1px 5px 1px rgb(255, 255, 255) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
 }
+/************************************************************************/
+/* Tab Bar */
+/************************************************************************/
+.tab-wrap { 
+  margin:20px 0 0;
+  position: relative;
+}
+.tab-wrap ul {
+  margin:10px 0;
+}
+.tab-wrap li {
+  display:inline;
+  padding:14px;
+  background:rgb(206,202,187);
+  -webkit-border-top-left-radius: 8px;
+  -webkit-border-top-right-radius: 8px;
+  -moz-border-radius-topleft: 8px;
+  -moz-border-radius-topright: 8px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+.tab-wrap li.active {
+  background:rgb(236, 234, 226);
+}
+
 .breadcrumbs, .metadata-header {
   height:36px;
   color:#444;
@@ -437,7 +462,7 @@ hr {
 .breadcrumbs p, .infobox .title legend {
   font-size:12px;
   }
-.searchbar {
+.searchbar, .controls {
   background: -moz-linear-gradient(100% 100% 90deg, rgb(206,202,187),rgb(236, 234, 226));
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgb(236, 234, 226)), color-stop(1, rgb(206,202,187)));
   border-top:1px solid rgb(176, 173, 163);
@@ -451,7 +476,7 @@ hr {
 .searchbar a:hover {
 
 }  
-.searchbar .grid-button {
+.searchbar .grid-button, .controls .tree-btn {
   padding:0;
   line-height: 30px;
   float:left;
@@ -474,7 +499,11 @@ hr {
   -webkit-box-shadow:0px 1px 2px 1px rgba(26, 26, 26, 0.6) inset;
   -moz-box-shadow: 0px 1px 2px 1px rgba(26, 26, 26, 0.6) inset;
 }
-
+.controls {
+  border-top:0px;
+}
+.tree-btn {
+}
 .metadata-wrap {
   width:100%;
   background:red;
@@ -706,3 +735,29 @@ ul#treelist li, #newtree, #search, .tree-background, #loginform .input, .green-s
   -moz-border-radius:8px;
   -webkit-border-radius:8px;
 }
+
+/************************************************************************/
+/* Tabs */
+/************************************************************************/
+.ui-tabs .ui-tabs-hide {
+     display: none;
+}
+.ui-tabs .ui-tabs-panel, .ui-tabs {
+  padding:0px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

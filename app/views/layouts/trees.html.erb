@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gnite</title>
+  <%= stylesheet_link_tag :all %>
+  <%= csrf_meta_tag %>
+</head>
+<body class="<%= body_class %>">
+  <div id="wrapper">
+    <% if current_user %>
+      <%= render :partial => 'shared/navigation' %>
+    <% end %>
+    <div id="content">
+      <% if content_for?(:header) %>
+        <div id="header">
+          <h1><%= yield :header %></h1>
+        </div>
+      <% end %>
+
+        <%= render :partial => 'shared/flashes' -%>
+        <%= yield %>
+    </div>
+    <%= render :partial => 'shared/javascript' %>
+  </div>
+</body>
+</html>
