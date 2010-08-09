@@ -128,7 +128,7 @@ Feature: Edit a master tree
       | Boris      |
     And I sign in as "email@person.com/password"
     Then I should be on the master tree index page
-    When I follow "1"
+    When I follow "Moose tree"
     And I drag "Rocky" under "Bullwinkle"
     And I delete the node "Bullwinkle"
     Then I should not see a node "Bullwinkle" at the root level in my master tree

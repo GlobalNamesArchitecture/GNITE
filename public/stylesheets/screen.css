@@ -382,7 +382,7 @@ hr {
 .tree-nav li a:hover {
   border-bottom:0px dotted rgba(255, 255, 255,0.3);
 }
-.tree-nav ul { 
+.tree-nav ul {
   padding:13px 0px;
   height:40px;
   }
@@ -409,7 +409,7 @@ hr {
 /************************************************************************/
 /* Tab Bar */
 /************************************************************************/
-.tab-wrap { 
+.tab-wrap {
   margin:20px 0 0;
   position: relative;
 }
@@ -471,11 +471,11 @@ hr {
 }
 .searchbar a {
   color:rgb(51,51,51);
-  text-decoration:none; 
+  text-decoration:none;
   }
 .searchbar a:hover {
 
-}  
+}
 .searchbar .grid-button, .controls .tree-btn {
   padding:0;
   line-height: 30px;
@@ -533,7 +533,26 @@ hr {
   width:100%;
   float:left;
   margin:15px 0 10px;
-  font-weight: bold; 
+  font-weight: bold;
+}
+#tree-metadata .green-submit{
+  float:left;
+  margin: 15px 0;
+  padding:10px 30px;
+  color:#fff;
+  font-size:16px;
+  border:0;
+  box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
+  -webkit-box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
+  -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
+  background:-webkit-gradient(linear,left bottom,left top,
+    color-stop(0.04, rgb(27,112,4)),
+    color-stop(0.58, rgb(90,165,43)),
+    color-stop(0.98, rgb(144,207,76)));
+  background:-moz-linear-gradient(center bottom,
+    rgb(27,112,4) 4%,
+    rgb(90,165,43) 58%,
+    rgb(144,207,76) 98%);
 }
 #tree-metadata fieldset input, #tree-metadata fieldset textarea {
   float:left;
@@ -558,7 +577,7 @@ hr {
 /************************************************************************/
 
 #tree-newimport {
-  
+
 }
 #tree-newimport ul {
 margin:0 auto;
@@ -639,7 +658,7 @@ padding:0px;
   padding:0px;
   margin:0px 0 15px 0;
 }
-ul#treelist { 
+ul#treelist {
   padding:0;
 }
 ul#treelist li, #newtree {
@@ -730,7 +749,7 @@ ul#treelist li p {
 /************************************************************************/
 #flash_error, #flash_success, #flash_failure, #flash_notice,
 ul#treelist li, #newtree, #search, .tree-background, #loginform .input, .green-submit,
-.infobox-wrap, .infobox, .tree-back-wrap, #tree-newimport li { 
+.infobox-wrap, .infobox, .tree-back-wrap, #tree-newimport li {
   border-radius:8px;
   -moz-border-radius:8px;
   -webkit-border-radius:8px;
@@ -745,19 +764,4 @@ ul#treelist li, #newtree, #search, .tree-background, #loginform .input, .green-s
 .ui-tabs .ui-tabs-panel, .ui-tabs {
   padding:0px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -63,6 +63,8 @@ When /^I drag "([^"]*)" under "([^"]*)"$/ do |child_node_text, parent_node_text|
   parent_node = Node.find_by_name(parent_node_text)
   #This calls the "move_node" function from the core api directly
   #but the same function is also called during mouse drag and drops
+  When %{I select the node "#{child_node.name}"}
+  #When %{I follow "#{child_node.id}"}
   page.execute_script("jQuery('#master-tree').jstree('move_node', '##{child_node.id}', '##{parent_node.id}', 'first', false);")
 
 end
