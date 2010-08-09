@@ -1,0 +1,18 @@
+<% content_for :header do %>
+  Edit Master Tree
+<% end %>
+
+<!-- Start of Edit Tree Box -->
+  <!-- Start of Tree -->
+  <div class="tree-column">
+    <div class="treewrap">
+      <%= semantic_form_for(:tree, :url => tree_path(@tree), :html => { :method => :put, :id => "tree-metadata" }) do |form| %>
+        <%= render :partial => "form", :locals => { :form => form } %>
+        <%= form.buttons do -%>
+          <%= form.commit_button "Update", :button_html => { :class => "green-submit" } %>
+        <% end -%>
+      <% end %>
+    </div>
+  </div>
+  <!-- End of Tree -->
+

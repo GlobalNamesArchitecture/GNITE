@@ -26,6 +26,9 @@ module NavigationHelpers
     when /the tree page for "(.+)"/i
       tree = Tree.find_by_title($1)
       tree_path(tree.id)
+    when /the edit tree page for "(.+)"/i
+      tree = Tree.find_by_title($1)
+      edit_tree_path(tree.id)
     # Here is an example that pulls values out of the Regexp:
     #
     #   when /^(.*)'s profile page$/i

@@ -19,6 +19,27 @@ describe "routing to trees" do
       :action => "create"
     )
   end
+  it "routes /trees/abc to trees#show" do
+    { :get => "/trees/abc" }.should route_to(
+      :controller => "trees",
+      :action => "show",
+      :id => "abc"
+    )
+  end
+  it "routes /trees/abc/edit to trees#edit" do
+    { :get => "/trees/abc/edit" }.should route_to(
+      :controller => "trees",
+      :action => "edit",
+      :id => "abc"
+    )
+  end
+    it "routes /trees/abc to trees#update" do
+    { :put => "/trees/abc" }.should route_to(
+      :controller => "trees",
+      :action => "update",
+      :id => "abc"
+    )
+  end
 
 end
 

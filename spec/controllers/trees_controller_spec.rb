@@ -75,5 +75,51 @@ describe TreesController do
       it { should_not set_the_flash }
       it { should render_template(:new) }
     end
+
+    context "on a valid GET to #new" do
+      let(:tree) { Factory(:tree) }
+
+      before do
+        get :edit, :id => tree.id
+      end
+
+      subject { controller }
+
+      it { should respond_with(:success) }
+      it { should assign_to(:tree).with(tree) }
+      it { should render_template(:edit) }
+    end
+
+    context "on a valid PUT to #upate" do
+      let(:tree) { Factory(:tree) }
+
+      before do
+        Tree.stubs(:find => tree)
+        tree.stubs(:save => true)
+        put :update, :id => tree.id, :tree => {}
+      end
+
+      subject { controller }
+
+      it { should assign_to(:tree).with(tree) }
+      it { should redirect_to(tree_url(tree)) }
+      it { should set_the_flash.to(/updated/) }
+    end
+
+    context "on an invalid POST to #update" do
+      let(:tree) { Factory(:tree) }
+
+      before do
+        Tree.stubs(:find => tree)
+        tree.stubs(:save => false)
+        put :update, :id => tree.id, :tree => {}
+      end
+
+      subject { controller }
+
+      it { should assign_to(:tree).with(tree) }
+      it { should_not set_the_flash }
+      it { should render_template(:edit) }
+    end
   end
 end

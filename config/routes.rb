@@ -12,7 +12,7 @@ Gnite::Application.routes.draw do |map|
     resource :password, :only => [:edit, :update]
   end
 
-  resources :trees, :only => [:index, :new, :create, :show] do
+  resources :trees, :only => [:index, :new, :create, :show, :edit, :update] do
     resources :nodes, :only => [:index, :create, :update, :destroy]
   end
   root :to => "homes#show"

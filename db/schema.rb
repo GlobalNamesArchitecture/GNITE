@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100803145836) do
+ActiveRecord::Schema.define(:version => 20100809192317) do
 
   create_table "nodes", :force => true do |t|
     t.integer  "tree_id"
@@ -27,6 +27,11 @@ ActiveRecord::Schema.define(:version => 20100803145836) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.string   "uuid"
+    t.datetime "publication_date"
+    t.string   "citation"
+    t.text     "abstract"
+    t.string   "creative_commons"
   end
 
   create_table "users", :force => true do |t|
