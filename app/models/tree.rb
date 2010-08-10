@@ -3,6 +3,7 @@ class Tree < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :user_id
   has_many :nodes
+  after_initialize :set_uuid
 
   def children_of(parent_id)
     if parent_id && Node.exists?(parent_id)
@@ -10,5 +11,11 @@ class Tree < ActiveRecord::Base
     else
       nodes.roots
     end
+  end
+
+  private
+
+  def set_uuid
+    self.uuid = UUID.new.generate unless self.uuid
   end
 end

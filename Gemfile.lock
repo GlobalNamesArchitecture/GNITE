@@ -32,6 +32,10 @@ dependencies:
     group: 
     - :development
     version: ">= 0"
+  uuid: 
+    group: 
+    - :default
+    version: ">= 0"
   ancestry: 
     group: 
     - :default
@@ -68,7 +72,7 @@ dependencies:
     group: 
     - :default
     version: ">= 0"
-  engineyard: 
+  hoptoad_notifier: 
     group: 
     - :default
     version: ">= 0"
@@ -76,7 +80,7 @@ dependencies:
     group: 
     - :default
     version: = 0.9.0.rc5
-  hoptoad_notifier: 
+  engineyard: 
     group: 
     - :default
     version: ">= 0"
@@ -153,7 +157,7 @@ specs:
 - ffi: 
     version: 0.6.3
 - json_pure: 
-    version: 1.4.3
+    version: 1.4.6
 - rubyzip: 
     version: 0.9.4
 - selenium-webdriver: 
@@ -202,7 +206,7 @@ specs:
 - highline: 
     version: 1.5.2
 - json: 
-    version: 1.4.3
+    version: 1.4.6
 - rest-client: 
     version: 1.6.0
 - termios: 
@@ -212,16 +216,18 @@ specs:
 - factory_girl: 
     version: 1.3.2
 - formtastic: 
-    version: 1.0.0.rc
+    version: 1.0.0.rc2
     source: 3
 - high_voltage: 
     version: 0.9.0
 - hoptoad_notifier: 
-    version: 2.3.2
+    version: 2.3.3
 - launchy: 
     version: 0.3.7
 - linecache: 
     version: "0.43"
+- macaddr: 
+    version: 1.0.0
 - mysql: 
     version: 2.8.1
 - rspec-core: 
@@ -247,7 +253,9 @@ specs:
     version: 0.8.4
 - unicorn: 
     version: 1.1.2
-hash: 4276309da4fe1c84f730404b4f1e769fa2e5b5a1
+- uuid: 
+    version: 2.3.1
+hash: b64123ddfb6f88ded9144695a138064c208a7876
 sources: 
 - Git: 
     uri: git://github.com/jasonm/capybara-envjs-fixes.git
@@ -256,7 +264,7 @@ sources:
 - Git: 
     uri: git://github.com/thoughtbot/shoulda.git
     git: git://github.com/thoughtbot/shoulda.git
-    ref: 15e36eb60d5ec515399329decffd5c0b6e9cbe2a
+    ref: a839bf5a7efca93733dbf73c3042df9eacfeadec
 - Git: 
     uri: git://github.com/thoughtbot/ancestry.git
     branch: rails3
@@ -266,6 +274,6 @@ sources:
     uri: git://github.com/justinfrench/formtastic.git
     branch: rails3
     git: git://github.com/justinfrench/formtastic.git
-    ref: 7a5120edbd4db386c98d9dd6a903a1b927951e62
+    ref: 3dbe0fd54f3665906d837f4b0dc239a58b7cf380
 - Rubygems: 
     uri: http://rubygems.org

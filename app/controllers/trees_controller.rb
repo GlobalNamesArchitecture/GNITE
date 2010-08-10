@@ -11,6 +11,7 @@ class TreesController < ApplicationController
   def create
     @tree = Tree.new(params[:tree])
     @tree.user = current_user
+
     if @tree.save
       flash[:success] = "Tree successfully created"
       redirect_to tree_url(@tree.id)

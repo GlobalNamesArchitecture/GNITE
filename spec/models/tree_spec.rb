@@ -17,6 +17,16 @@ describe Tree do
     tree.children_of(parent.id).should == [child1, child2]
   end
 
+  it "should have an automatically generated uuid" do
+    subject.uuid.should_not be_nil
+  end
+
+  it "should not assign a new uuid to something with a uuid" do
+    tree = Factory(:tree, :uuid => "uuid monster")
+    tree.save
+    tree.uuid.should == "uuid monster"
+  end
+
   it "should raise ActiveRecord::RecordNotFound when asking for the children of a node not in the tree" do
     tree = Factory(:tree)
 
