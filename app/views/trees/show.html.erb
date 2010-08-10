@@ -75,6 +75,50 @@
   <script type="text/javascript" class="source">
     $(document).ready(function() {
 
+          function contextMenuItems() {
+            return { // Could be a function that should return an object like this one
+              "create" : {
+                "separator_before"	: false,
+                "separator_after"	: true,
+                "label"				: "Create",
+                "action"			: function (obj) { this.create(obj); }
+              },
+              "rename" : {
+                "separator_before"	: false,
+                "separator_after"	: false,
+                "label"				: "Rename",
+                "action"			: function (obj) { this.rename(obj); }
+              },
+              "remove" : {
+                "separator_before"	: false,
+                "icon"				: false,
+                "separator_after"	: true,
+                "label"				: "Delete",
+                "action"			: function (obj) { this.remove(obj); }
+              },
+              "cut" : {
+                "separator_before"	: false,
+                "separator_after"	: false,
+                "label"				: "Cut",
+                "action"			: function (obj) { this.cut(obj); }
+              },
+              "copy" : {
+                "separator_before"	: false,
+                "icon"				: false,
+                "separator_after"	: false,
+                "label"				: "Copy",
+                "action"			: function (obj) { this.copy(obj); }
+              },
+              "paste" : {
+                "separator_before"	: false,
+                "icon"				: false,
+                "separator_after"	: false,
+                "label"				: "Paste",
+                "action"			: function (obj) { this.paste(obj); }
+              }
+            }
+          }
+
       $("#new-node-button").click(function() {
         $("#master-tree").jstree("create");
       });
@@ -91,6 +135,10 @@
               }
             }
           },
+        },
+        "contextmenu": {
+          select_node: true,
+          items : contextMenuItems
         },
         "plugins" : [ "themes", "json_data", "crrm", "ui",  "contextmenu", "dnd"]
         });
@@ -118,9 +166,10 @@
           }
         });
       });
-     $("#master-tree").bind("loaded.jstree", function(event, data) {
+
+      $("#master-tree").bind("loaded.jstree", function(event, data) {
         $("#master-tree").addClass("loaded");
-       })
+      });
 
       $("#master-tree").bind("rename.jstree", function(event, data) {
         var updatedNode = data.rslt;
@@ -136,21 +185,37 @@
         });
        });
       $("#master-tree").bind("move_node.jstree", function(event, data) {
-          var updatedNodes = data.rslt;
-          var parent_id = updatedNodes.np.attr("id");
-          if(parent_id == "master-tree"){
-            parent_id = null;
-          }
-         $.ajax({
-          type: "PUT",
-          url: "/trees/<%= @tree.id %>/nodes/"+updatedNodes.o.attr("id")+".json",
-          contentType: "application/json",
-          dataType: 'json',
-          data: JSON.stringify({node: {parent_id: parent_id }}),
-          success: function(data, textStatus, xhr) {
-            updatedNodes.o.attr("id", data.node.id);
-          }
-        });
+         var result = data.rslt;
+         var movedNodeId = result.o.attr("id");
+         var parentId = result.np.attr("id");
+         var isCopy = data.rslt.cy;
+         if(parentId == "master-tree"){
+           parentId = null;
+         }
+
+         if (isCopy) {
+           $.ajax({
+             type: "POST",
+             url: "/trees/<%= @tree.id %>/nodes/" + movedNodeId + "/clone.json",
+             contentType: "application/json",
+             dataType: 'json',
+             data: JSON.stringify({node: {parent_id: parentId }}),
+             success: function(data, textStatus, xhr) {
+               result.o.attr("id", data.node.id);
+             }
+           });
+         } else {
+           $.ajax({
+             type: "PUT",
+             url: "/trees/<%= @tree.id %>/nodes/"+result.o.attr("id")+".json",
+             contentType: "application/json",
+             dataType: 'json',
+             data: JSON.stringify({node: {parent_id: parentId }}),
+             success: function(data, textStatus, xhr) {
+               result.o.attr("id", data.node.id);
+             }
+           });
+         }
        });
 
       $("#master-tree").bind("remove.jstree", function(event, data) {

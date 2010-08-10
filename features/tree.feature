@@ -154,7 +154,6 @@ Feature: Edit a master tree
     And I click a non-text area of a node in the master tree
     Then no nodes should be selected in the master tree
 
-
   Scenario: User can edit the metadata for a tree
     Given I am signed up and confirmed as "email@person.com/password"
     And "email@person.com" has created an existing tree titled "Moose tree" with:
@@ -171,3 +170,39 @@ Feature: Edit a master tree
     Then I should see "Bullwinkle tree"
     And I should not see "Moose tree"
 
+  @javascript
+  Scenario: User can cut, copy, and paste a node
+    Given I am signed up and confirmed as "email@person.com/password"
+    And "email@person.com" has created an existing tree titled "Snacks" with:
+      | Get Cut    |
+      | Get Copied |
+      | Paste Here |
+    And I sign in as "email@person.com/password"
+    When I follow "Snacks"
+
+    And I wait for the tree to load
+    And I select the node "Get Cut"
+    And I click "Cut" in the context menu
+    And I select the node "Paste Here"
+    And I click "Paste" in the context menu
+
+    When I reload the page
+    And I wait for the tree to load
+    And I expand the node "Paste Here"
+    Then I should see a node "Get Cut" under "Paste Here"
+    And I should not see a node "Get Cut" at the root level in my master tree
+
+    And I select the node "Get Copied"
+    And I click "Copy" in the context menu
+    And I select the node "Paste Here"
+    And I click "Paste" in the context menu
+
+    When I reload the page
+    And I wait for the tree to load
+    And I expand the node "Paste Here"
+    Then I should see a node "Get Copied" under "Paste Here"
+    And I should see a node "Get Copied" at the root level in my master tree
+
+  @wip @javascript
+  Scenario: User can cut, copy, and paste a subtree
+    # Pending

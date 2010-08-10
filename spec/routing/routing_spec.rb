@@ -105,4 +105,14 @@ describe "routing to nodes" do
       :format     => "json"
     )
   end
+
+  it "routes POST /trees/:tree_id/nodes/:id/clone.json to nodes/clones#create" do
+    { :post => "/trees/123/nodes/456/clone.json" }.should route_to(
+      :controller => "clones",
+      :action     => "create",
+      :tree_id    => "123",
+      :node_id         => "456",
+      :format     => "json"
+    )
+  end
 end
