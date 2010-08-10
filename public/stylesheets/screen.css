@@ -67,7 +67,13 @@ table {
 }
 #header h1 {
   color:white;
-  padding:15px 45px;
+  padding:25px 45px;
+}
+#fluid-head {
+  width:100%;
+  height:27px;
+  margin:0 0 0 30px;
+  color:rgb(236, 234, 226);
 }
 /* =Clearfix (all browsers)
 --------------------------------*/
@@ -85,7 +91,7 @@ table {
 
 h1 {
   font-size: 1.5em;
-  margin:10px 0px;
+  padding:10px 0px;
 }
 h2 {}
 h3 {}
@@ -107,7 +113,6 @@ hr {
   min-width:960px;
   height:100%;
 }
-
 #bodywrap {
   width:760px;
   float:left;
@@ -215,6 +220,8 @@ hr {
   color:grey;
 }
 .green-submit{
+  min-height:38px;
+  max-width:50%;
   float:left;
   margin: 15px 0;
   padding:10px 30px;
@@ -238,6 +245,17 @@ hr {
   -webkit-box-shadow:1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
   -moz-box-shadow:1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
   border:0px solid rgb(15, 18, 21);
+}
+.green-submit.shadow { 
+  box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.9), 1px 1px 5px 1px rgb(98,179,34) inset !important;
+  -webkit-box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.9), 1px 1px 5px 1px rgb(98,179,34) inset !important;
+  -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.9), 1px 1px 5px 1px rgb(98,179,34) inset !important;
+  margin:25px 0 !important;
+}
+.green-submit.shadow:hover {
+  box-shadow:1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.9) !important;
+  -webkit-box-shadow:1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.9) !important;
+  -moz-box-shadow:1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.9);
 }
 #loginform form {
   margin-bottom:35px;
@@ -364,8 +382,11 @@ hr {
   background:rgb(247, 246, 243);
   border:0px solid #fff;
   }
-.treewrap{
-  margin:12px 30px;
+#treewrap-left{
+  margin:12px 20px 12px 40px;
+}
+#treewrap-right{
+  margin:12px 20px 12px 20px;
 }
 .tree-nav {
   width:100%;
@@ -487,9 +508,7 @@ hr {
   margin:7px 5px 0 0;
 }
 #searchform {
-  margin:0px 20px 0 0;
   float: right;
-  width:160px;
 }
 #search {
   min-width:50px;
@@ -514,8 +533,12 @@ hr {
 .tree-back-wrap {
   background:rgb(236, 234, 226);
   width:100%;
+  height:100%;
   min-height:400px;
   border:0px;
+}
+.dark {
+  background:rgb(236, 234, 226);
 }
 .tree-back {
   padding:10px 15px 20px;
@@ -601,9 +624,6 @@ padding:0px;
     rgb(230,228,221) 0%,
     rgb(255,255,255) 50%);
   margin:25px 0;
-  box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
-  -webkit-box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
-  -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
 }
 #tree-newimport li .content {
   padding:10px;
@@ -673,6 +693,7 @@ ul#treelist li, #newtree {
   float:left;
   padding:10px 20px;
   margin:15px 0;
+  background: #e3e0d6;
   background: -moz-linear-gradient(100% 100% 90deg, rgb(206,202,187),rgb(236, 234, 226));
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgb(236, 234, 226)), color-stop(1, rgb(206,202,187)));
   width:100%;
@@ -762,14 +783,22 @@ ul#treelist li, #newtree, #search, .tree-background, #loginform .input, .green-s
   -moz-border-radius:8px;
   -webkit-border-radius:8px;
 }
-
+.tree-background, #treelist li, #newtree, .tree-back-wrap, #tree-newimport li {
+  box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+  -webkit-box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+  -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+}
 /************************************************************************/
 /* Tabs */
 /************************************************************************/
 .ui-tabs .ui-tabs-hide {
-     display: none;
+  display: none;
 }
 .ui-tabs .ui-tabs-panel, .ui-tabs {
   padding:0px;
+}
+#trash {
+  float:right;
+  margin-right:0em;
 }
 

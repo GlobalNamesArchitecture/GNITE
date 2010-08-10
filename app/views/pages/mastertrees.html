@@ -1,14 +1,4 @@
    <link href="../stylesheets/Aristo/jquery-ui-1.8rc3.custom.css" media="screen" rel="stylesheet" type="text/css" />
-   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.3/jquery-ui.min.js"></script>
-	<script type="text/javascript">
-  $.noConflict();
-  jQuery(document).ready(function($) {
-    	$(function() {
-		$("#tabs").tabs().find(".ui-tabs-nav").sortable({axis:'x'});
-	 });
-  });
-</script>
     <div id="wrapper">
     <!-- Start of Sidebar -->
       <div id="navbar">
@@ -31,11 +21,14 @@
     <!-- Start of Body Content -->
       <div id="content">
         <div id="header">
-          <h1>New Master Tree</h1>
+          <h1>Indo-Pacific Bottlenose Dolphin - Tursiops aduncus</h1>
         </div>
       <!-- Start of Left Tree -->
           <div class="tree-column">
-            <div class="treewrap">
+        <div id="fluid-head">
+
+        </div>
+            <div id="treewrap-left">
               <!--<div class="tree-nav">
                 <ul>
                   <li><a href="#">New Master Tree</a></li>
@@ -68,11 +61,7 @@
                   <div class="clearfix"></div>
                 </div>
                 <!-- End of searchbar -->
-                <div class="controls">
-                  <div class="tree-btn">New Master Node</div>
-                  <div class="tree-btn">New Node</div>
-                  <div class="clearfix"></div>
-                </div>
+                <img src="/images/tree-preview.jpg"/>
                 <div class="metadata-wrap">
                 </div>
               </div>
@@ -80,21 +69,16 @@
             </div>
           </div>
       <!-- End of Left Tree -->
+      
       <!-- Start of Right Tree -->
           <div class="tree-column">
-            <div class="treewrap">
-              <!--
-              <div class="tree-nav">
-                <ul>
-                  <li><a href="#">New Tree</a></li>
-                </ul>
-              </div> -->
-            </div>
+            <div id="treewrap-right">
             <div id="tabs">
             	<ul>
-            		<li><a href="#tabs-1">Tab1</a></li>
-            		<li><a href="#tabs-2">Tab2</a></li>
-            		<li><a href="#tabs-3">Tab3</a></li>
+            		<li><a href="#tabs-1">Kangaroo</a></li>
+            		<li><a href="#tabs-2">Monkey</a></li>
+            		<li><a href="#tabs-3">New Tab</a></li>
+            		<li id="trash"><a href="#trash-tab">Trash</a></li>
             	</ul>
             	<div id="tabs-1">
                 <div class="tree-background">
@@ -121,7 +105,7 @@
                     </form>
                     <div class="clearfix"></div>
                   </div>
-                  <p>Tabs 1</p>            
+                  <img src="/images/tree-preview.jpg"/>
                 </div>
             	</div>
             	<div id="tabs-2">
@@ -149,72 +133,65 @@
                     </form>
                     <div class="clearfix"></div>
                   </div>            
-                <p>Tab 2</p>
+                  <img src="/images/tree-preview.jpg"/>
                 </div>
             	</div>
             	<div id="tabs-3">
-                <div class="tree-background">
-                  <div class="breadcrumbs">
-                    <ul>
-                      <li>Kingdom</li>
-                      <li>Phylum</li>
-                      <li>Class</li>
-                      <li>Order</li>
-                      <li>Family</li>
-                    </ul>
-                  </div>
-                  <div class="searchbar">
-                    <div class="grid-button">
-                      <a href="#"><img class="icon" src="/images/metadata-author.png"/>Author</a>
+                <div class="tree-background dark">
+
+                    <div class="metadata-header"> 
+                      <h1>New Import</h1>
                     </div>
-                    <div class="grid-button">
-                      <a href="#"><img class="icon" src="/images/gridview.png"/>Grid view</a>
+                    <div id="tree-newimport">
+                    	<ul>
+                        <li>
+                        <a href="#">
+                          <div class="btn-img search">
+                            <div class="content">
+                              <h1>Search GNACLR Database</h1>
+                              <p>Search GNACLR database for master trees to import</p>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+                          </a>
+                        </li>
+                        <li>
+                          <div class="btn-img upload">
+                            <div class="content">
+                              <h1>Upload New File</h1>
+                              <p>Upload an Excel spreadsheet or plain text file</p>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+                        </li>
+                        <li>
+                          <div class="btn-img browse">
+                            <div class="content">
+                              <h1>Open an Existing File</h1>
+                              <p>Open one of my previously created master trees</p>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+                        </li>
+                  		</ul>
                     </div>
-                    <form method="get" id="searchform" action="">
-                      <fieldset>
-                        <input type="text" value="Search this tree" name="search" id="search" onclick="this.value='';this.onclick=null;" />
-                      </fieldset>
-                    </form>
-                    <div class="clearfix"></div>
-                  </div>
-                <p>Tab 3</p>            
-                </div>
-            	</div>
-            </div>
-            <!--
-            <div class="tab-wrap">
-              <ul>
-                <li class="active">New Tab</li>
-                <li>New Tab</li>
-              </ul>
-            </div>
-            <div class="tree-background">
-              <div class="breadcrumbs">
-                <ul>
-                  <li>Kingdom</li>
-                  <li>Phylum</li>
-                  <li>Class</li>
-                  <li>Order</li>
-                  <li>Family</li>
-                </ul>
+                    
+                  <!-- End of .tree-back-wrap -->
+            	 </div>
+            	 <!-- End of .tree-background -->
               </div>
-              <div class="searchbar">
-                <div class="grid-button">
-                  <a href="#"><img class="icon" src="/images/metadata-author.png"/>Author</a>
+              <!-- End of tab-3 -->
+              <div id="trash-tab">
+                <div class="tree-background">
+                  <div class="metadata-header"> 
+                    <h1>Trash Bin</h1>
+                  </div>
+                  <p>Your Trash Bin is currently Empty.</p>
                 </div>
-                <div class="grid-button">
-                  <a href="#"><img class="icon" src="/images/gridview.png"/>Grid view</a>
-                </div>
-                <form method="get" id="searchform" action="">
-                  <fieldset>
-                    <input type="text" value="Search this tree" name="search" id="search" onclick="this.value='';this.onclick=null;" />
-                  </fieldset>
-                </form>
-                <div class="clearfix"></div>
-              </div>            
-            </div> -->
+          	 </div>
           </div>
       <!-- End of Right Tree -->
+      </div>
       </div>
     <!-- End of Body Content -->
     </div>
