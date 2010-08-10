@@ -8,6 +8,7 @@ Feature: Create and manage master trees
     Then I should be on the master tree index page
     When I follow "New Master Tree"
     And I fill in "Title" with "My new tree"
+    And I select "Public domain" from "Creative commons"
     And I press "Create"
     Then I should see "Tree successfully created"
     And I should be on the tree page for "My new tree"
@@ -19,6 +20,7 @@ Feature: Create and manage master trees
 
     When I follow "New Master Tree"
     And I fill in "Title" with "My new tree"
+    And I select "Public domain" from "Creative commons"
     And I press "Create"
     And I go to the trees page
     Then should see "My new tree"

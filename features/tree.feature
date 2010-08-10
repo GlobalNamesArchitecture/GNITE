@@ -18,6 +18,7 @@ Feature: Edit a master tree
     Then I should be on the master tree index page
     When I follow "New Master Tree"
     And I fill in "Title" with "My new tree"
+    And I select "Public domain" from "Creative commons"
     And I press "Create"
     When I follow "New Node"
     And I enter "hydrochaeris" in the new node and press enter
@@ -33,6 +34,7 @@ Feature: Edit a master tree
     Then I should be on the master tree index page
     When I follow "New Master Tree"
     And I fill in "Title" with "My new tree"
+    And I select "Public domain" from "Creative commons"
     And I press "Create"
     When I follow "New Node"
     And I enter "Caviidae" in the new node and press enter
@@ -165,7 +167,7 @@ Feature: Edit a master tree
     And I follow "Tree Description"
     Then I should be on the edit tree page for "Moose tree"
     When I fill in "Title" with "Bullwinkle tree"
-    And I select "Public Domain" from "Creative commons"
+    And I select "Public domain" from "Creative commons"
     And I press "Update"
     And I go to the master tree index page
     Then I should see "Bullwinkle tree"
