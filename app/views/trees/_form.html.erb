@@ -10,7 +10,8 @@
         <%= form.input :title %>
 
         <%= form.input :uuid, :input_html => { :disabled => true } %>
-        <%= form.input :publication_date, :input_html => { :disabled => true } %>
+        <%= form.label :publication_date %>
+        <%= form.date_select :publication_date %>
         <%= form.input :citation %>
         <%= form.label :abstract %>
         <%= form.text_area :abstract %>
