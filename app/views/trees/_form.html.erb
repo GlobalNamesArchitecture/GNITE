@@ -16,7 +16,7 @@
         <%= form.input :citation %>
         <%= form.label :abstract %>
         <%= form.text_area :abstract %>
-        <%= form.input :creative_commons %>
+        <%= form.input :creative_commons, :as => :select, :collection => Licenses::CC_LICENSES %>
       <% end %>
     </div>
   </div>

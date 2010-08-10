@@ -5,6 +5,8 @@ describe Tree do
   it { should belong_to :user }
   it { should validate_presence_of :user_id }
   it { should have_many(:nodes) }
+  it { should allow_value('publicdomain').for(:creative_commons) }
+  it { should_not allow_value('something else').for(:creative_commons) }
 
   it "should know the children of a node inside it" do
     tree = Factory(:tree)

@@ -1,6 +1,7 @@
 Factory.define :tree do |tree|
   tree.title { "My Tree" }
   tree.association :user
+  tree.creative_commons { 'cc0' }
 end
 
 Factory.sequence :node_name do |n|

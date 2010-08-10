@@ -3,6 +3,8 @@ class Tree < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :user_id
   has_many :nodes
+
+  validates_inclusion_of :creative_commons, :in => Licenses::CC_LICENSES.map{|elt| elt.last }
   after_initialize :set_uuid
 
   def children_of(parent_id)
