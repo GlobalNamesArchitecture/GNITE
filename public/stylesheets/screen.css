@@ -61,21 +61,15 @@ table {
 #header {
   background: rgb(35, 41, 44); /* The Fallback */
   background:rgba(11, 12, 14, 0.25);
-  height:70px;
+  height:50px;
   width:100%;
   float:left;
   padding:0;
 }
-  #header.tree {
-  height:50px;
+  #header h1 {
+    color:white;
+    padding:15px 45px;
   }
-    #header h1 {
-      color:white;
-      padding:25px 45px;
-    }
-      #header.tree h1 {
-        padding:15px 45px;
-      }
 #fluid-head {
   width:100%;
   height:27px;
@@ -447,6 +441,9 @@ hr {
     box-shadow:0px 1.5px 3px 1px rgba(26, 26, 26, 0.4), 0px 1px 1px rgb(255, 255, 255) inset;
     -webkit-box-shadow:0px 1.5px 3px 1px rgba(26, 26, 26, 0.4), 0px 1px 1px rgb(255, 255, 255) inset;
     -moz-box-shadow: 0px 1.5px 3px 1px rgba(26, 26, 26, 0.4), 0px 1px 1px rgb(255, 255, 255) inset;
+  }
+    #add-node:hover {
+    cursor: pointer;
   }
     #add-node .img {
       float:left;
@@ -832,6 +829,6 @@ ul#treelist li, #newtree, #search, .tree-background, #loginform .input, .green-s
 /************************************************************************/
 /* Text Shadow Light Highlight */
 /************************************************************************/
-#add-node p, {
+#add-node p {
 text-shadow: 0px 1px 0px rgba(255,255,255,0.8);
 }

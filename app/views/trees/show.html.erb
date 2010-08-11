@@ -1,17 +1,9 @@
-<div id="header" class="tree">
+<div id="header">
   <h1>Tree Title</h1>
 </div>
 <!-- Start of Left Tree -->
 <div class="tree-column">
   <div id="treewrap-left">
-    <div class="tree-nav">
-      <ul>
-        <!--
-        <li><a href="#">New Master Tree</a></li>
-        -->
-        <li><a href="#" id="new-node-button">New Node</a></li>
-      </ul>
-    </div>
     <div class="tree-background">
       <div class="breadcrumbs">
         <!--
@@ -38,7 +30,12 @@
         </form> -->
         <div class="clearfix"></div>
       </div>
-
+                <div id="add-node-wrap">
+                  <div id="add-node">
+                    <div class="img"></div>
+                    <p>Add Node</p>
+                  </div>
+                </div>
       <div id="tree-container">
         <div id="master-tree"></div>
       </div>
@@ -122,7 +119,7 @@
             }
           }
 
-      $("#new-node-button").click(function() {
+      $("#add-node").click(function() {
         $("#master-tree").jstree("create");
       });
 
