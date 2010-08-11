@@ -4,7 +4,7 @@ class ClonesController < ApplicationController
   def create
     tree = current_user.trees.find(params[:tree_id])
     node = tree.nodes.find(params[:node_id])
-    clone = node.clone
+    clone = node.deep_copy
     clone.attributes = params[:node]
     clone.save
 

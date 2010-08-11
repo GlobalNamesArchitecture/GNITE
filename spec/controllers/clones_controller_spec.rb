@@ -26,7 +26,7 @@ describe ClonesController do
         controller.stubs(:current_user => user)
 
         @clone = stub('clone', :save  => true, :attributes= => true, :to_json => 'json')
-        @node  = stub('node',  :clone => @clone, :id => 456)
+        @node  = stub('node',  :deep_copy => @clone, :id => 456)
         @nodes = stub('nodes', :find  => @node)
         @tree  = stub('tree',  :nodes => @nodes, :id => 123)
         @trees = stub('trees', :find => @tree)
@@ -59,7 +59,7 @@ describe ClonesController do
       end
 
       it "should clone the requested node" do
-        @node.should have_received(:clone).with()
+        @node.should have_received(:deep_copy).with()
       end
 
       it "should apply the specified attributes to the clone" do

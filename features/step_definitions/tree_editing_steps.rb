@@ -43,9 +43,18 @@ end
 When /^I expand the node "([^"]*)"$/ do |node_name|
   node = Node.find_by_name(node_name)
   page.execute_script("jQuery('#master-tree').jstree('open_node', '##{node.id}');")
+  sleep 1
 end
 
-Then /^pause (\d)$/ do |num|
+When /^I expand the node "([^"]*)" under "([^"]*)"$/ do |child_node_name, parent_node_name|
+  child_node = Node.all.detect { |node| node.parent && node.name == child_node_name && node.parent.name == parent_node_name }
+  child_node.should_not be_nil
+  page.execute_script("jQuery('#master-tree').jstree('open_node', '##{child_node.id}');")
+  sleep 1
+end
+
+
+Then /^pause (\d+)$/ do |num|
   time = Time.now
   while Time.now - time < num.to_i
   end
@@ -87,4 +96,16 @@ When /^I click "([^"]*)" in the context menu$/ do |menu_selection|
   page.execute_script("jQuery('#master-tree').jstree('show_contextmenu');");
   sleep 1
   click_link(menu_selection)
+end
+
+Given /^the "([^"]*)" tree has a child node "([^"]*)" under "([^"]*)"$/ do |tree_title, child_node_name, parent_node_name|
+  tree = Tree.find_by_title(tree_title)
+  parent = tree.nodes.find_by_name(parent_node_name)
+  Factory(:node, :parent => parent, :name => child_node_name)
+end
+
+Then /^I should see "([^"]*)" under "([^"]*)" under "([^"]*)" in my master tree$/ do |grandchild, child, parent|
+  page.should have_css("#master-tree ul>li>a:contains('#{parent}')+" +
+                                    "ul>li>a:contains('#{child}')+" +
+                                    "ul>li>a:contains('#{grandchild}')")
 end
