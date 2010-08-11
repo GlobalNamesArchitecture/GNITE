@@ -221,7 +221,7 @@ specs:
 - high_voltage: 
     version: 0.9.0
 - hoptoad_notifier: 
-    version: 2.3.3
+    version: 2.3.4
 - launchy: 
     version: 0.3.7
 - linecache: 
