@@ -540,8 +540,15 @@ hr {
   margin: 15px 0;
   padding:10px 30px;
   color:#fff;
-  font-size:16px;
+  font-size:15px;
+  font-weight: bold;
+  text-shadow: 0 1px 1px rgba(0,0,0,.4);
   border:0;
+  height: auto;
+  width: auto;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
   box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
   -webkit-box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
   -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
@@ -558,14 +565,15 @@ hr {
   float:left;
   width:95%;
   background: #fff;
-  border:1px solid rgb(199, 195, 181);
-  border-radius:5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
+  border:1px solid #d1cdc1;
+  border-top-color: #b3ae9d;
+  border-radius:3px;
+  -moz-border-radius:    3px;
+  -webkit-border-radius: 3px;
   padding:0 10px;
 }
 #tree-metadata fieldset input {
-  height:28px;
+  padding: 6px;
 }
 #tree-metadata fieldset textarea {
   height:56px;
@@ -647,7 +655,7 @@ padding:0px;
 /* Master Tree List */
 /************************************************************************/
 #treelist h1, #newtree h1 {
-  text-shadow: 0px 1px 2px white;
+  text-shadow: 0px 1px 1px white;
 }
 #treelist{
   width:640px;
