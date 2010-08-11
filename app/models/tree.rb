@@ -5,7 +5,7 @@ class Tree < ActiveRecord::Base
   has_many :nodes
 
   validates_inclusion_of :creative_commons, :in => Licenses::CC_LICENSES.map{|elt| elt.last }
-  after_initialize :set_uuid
+  after_initialize :set_defaults
 
   def children_of(parent_id)
     if parent_id && Node.exists?(parent_id)
@@ -17,7 +17,8 @@ class Tree < ActiveRecord::Base
 
   private
 
-  def set_uuid
+  def set_defaults
     self.uuid = UUID.new.generate unless self.uuid
+    self.creative_commons = "cc0"
   end
 end

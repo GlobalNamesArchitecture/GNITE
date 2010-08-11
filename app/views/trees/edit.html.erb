@@ -7,12 +7,16 @@
   <div class="tree-column">
     <div class="treewrap">
       <%= semantic_form_for(:tree, :url => tree_path(@tree), :html => { :method => :put, :id => "tree-metadata" }) do |form| %>
-        <%= render :partial => "form", :locals => { :form => form } %>
+        <div class="tree-back-wrap">
+          <div class="metadata-header">
+            <h1>Tree Description: <%= truncate(@tree.title) %></h1>
+          </div>
+          <%= render :partial => "form", :locals => { :form => form } %>
+        </div>
         <%= form.buttons do -%>
           <%= form.commit_button "Update", :button_html => { :class => "green-submit" } %>
         <% end -%>
       <% end %>
-    </div>
   </div>
   <!-- End of Tree -->
 

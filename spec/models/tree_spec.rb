@@ -23,6 +23,10 @@ describe Tree do
     subject.uuid.should_not be_nil
   end
 
+  it "should set a default value for creative commons" do
+    subject.creative_commons.should == "cc0"
+  end
+
   it "should not assign a new uuid to something with a uuid" do
     tree = Factory(:tree, :uuid => "uuid monster")
     tree.save
