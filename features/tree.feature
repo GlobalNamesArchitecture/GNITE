@@ -184,11 +184,10 @@ Feature: Edit a master tree
 
 
   @javascript
-  Scenario: User can cut, copy, and paste a node
+  Scenario: User can cut and paste a node
     Given I am signed up and confirmed as "email@person.com/password"
     And "email@person.com" has created an existing tree titled "Snacks" with:
       | Get Cut    |
-      | Get Copied |
       | Paste Here |
     And I sign in as "email@person.com/password"
     When I follow "Snacks"
@@ -204,36 +203,3 @@ Feature: Edit a master tree
     And I expand the node "Paste Here"
     Then I should see a node "Get Cut" under "Paste Here"
     And I should not see a node "Get Cut" at the root level in my master tree
-
-    And I select the node "Get Copied"
-    And I click "Copy" in the context menu
-    And I select the node "Paste Here"
-    And I click "Paste" in the context menu
-
-    When I reload the page
-    And I wait for the tree to load
-    And I expand the node "Paste Here"
-    Then I should see a node "Get Copied" under "Paste Here"
-    And I should see a node "Get Copied" at the root level in my master tree
-
-  @javascript
-  Scenario: User can copy and paste a subtree
-    Given I am signed up and confirmed as "email@person.com/password"
-    And "email@person.com" has created an existing tree titled "Snacks" with:
-      | Source      |
-      | Destination |
-    And the "Snacks" tree has a child node "Child" under "Source"
-    And I sign in as "email@person.com/password"
-    And I follow "Snacks"
-    And I wait for the tree to load
-
-    When I select the node "Source"
-    And I click "Copy" in the context menu
-    And I select the node "Destination"
-    And I click "Paste" in the context menu
-
-    And I reload the page
-    And I wait for the tree to load
-    And I expand the node "Destination"
-    And I expand the node "Source" under "Destination"
-    Then I should see "Child" under "Source" under "Destination" in my master tree
