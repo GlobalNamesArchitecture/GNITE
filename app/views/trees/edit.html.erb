@@ -10,7 +10,7 @@
       <%= semantic_form_for(:tree, :url => tree_path(@tree), :html => { :method => :put, :id => "tree-metadata" }) do |form| %>
         <div class="tree-back-wrap">
           <div class="metadata-header">
-            <h1>Tree Description: <%= truncate(@tree.title) %></h1>
+            <h1>Tree Description</h1>
           </div>
           <%= render :partial => "form", :locals => { :form => form } %>
         </div>

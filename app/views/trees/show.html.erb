@@ -1,5 +1,5 @@
 <div id="header">
-  <h1>Tree Title</h1>
+  <h1><%= @tree.title %></h1>
 </div>
 <!-- Start of Left Tree -->
 <div class="tree-column">
@@ -17,8 +17,9 @@
         -->
       </div>
       <div class="searchbar">
+        <%= @tree.title %>
         <div class="grid-button">
-          <%= link_to "Tree Description", edit_tree_path %>
+          <%= link_to "Edit Tree Description", edit_tree_path %>
         </div>
         <!--<div class="grid-button">
           <a href="#"><img class="icon" src="/images/gridview.png"/>Grid view</a>
@@ -78,43 +79,43 @@
           function contextMenuItems() {
             return { // Could be a function that should return an object like this one
               "create" : {
-                "separator_before"	: false,
-                "separator_after"	: true,
-                "label"				: "Create",
-                "action"			: function (obj) { this.create(obj); }
+                "separator_before"  : false,
+                "separator_after"  : true,
+                "label"        : "Create",
+                "action"      : function (obj) { this.create(obj); }
               },
               "rename" : {
-                "separator_before"	: false,
-                "separator_after"	: false,
-                "label"				: "Rename",
-                "action"			: function (obj) { this.rename(obj); }
+                "separator_before"  : false,
+                "separator_after"  : false,
+                "label"        : "Rename",
+                "action"      : function (obj) { this.rename(obj); }
               },
               "remove" : {
-                "separator_before"	: false,
-                "icon"				: false,
-                "separator_after"	: true,
-                "label"				: "Delete",
-                "action"			: function (obj) { this.remove(obj); }
+                "separator_before"  : false,
+                "icon"        : false,
+                "separator_after"  : true,
+                "label"        : "Delete",
+                "action"      : function (obj) { this.remove(obj); }
               },
               "cut" : {
-                "separator_before"	: false,
-                "separator_after"	: false,
-                "label"				: "Cut",
-                "action"			: function (obj) { this.cut(obj); }
+                "separator_before"  : false,
+                "separator_after"  : false,
+                "label"        : "Cut",
+                "action"      : function (obj) { this.cut(obj); }
               },
               "copy" : {
-                "separator_before"	: false,
-                "icon"				: false,
-                "separator_after"	: false,
-                "label"				: "Copy",
-                "action"			: function (obj) { this.copy(obj); }
+                "separator_before"  : false,
+                "icon"        : false,
+                "separator_after"  : false,
+                "label"        : "Copy",
+                "action"      : function (obj) { this.copy(obj); }
               },
               "paste" : {
-                "separator_before"	: false,
-                "icon"				: false,
-                "separator_after"	: false,
-                "label"				: "Paste",
-                "action"			: function (obj) { this.paste(obj); }
+                "separator_before"  : false,
+                "icon"        : false,
+                "separator_after"  : false,
+                "label"        : "Paste",
+                "action"      : function (obj) { this.paste(obj); }
               }
             }
           }
