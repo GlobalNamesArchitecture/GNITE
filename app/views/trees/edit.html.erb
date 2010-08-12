@@ -16,6 +16,7 @@
         </div>
         <%= form.buttons do -%>
           <%= form.commit_button "Update", :button_html => { :class => "green-submit" } %>
+          <%= link_to "Cancel", tree_path(@tree) %>
         <% end -%>
       <% end %>
   </div>

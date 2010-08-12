@@ -170,6 +170,19 @@ Feature: Edit a master tree
     Then I should see "Bullwinkle tree"
     And I should not see "Moose tree"
 
+  Scenario: User can cancel editing the metadata for a tree
+    Given I am signed up and confirmed as "email@person.com/password"
+    And "email@person.com" has created an existing tree titled "Moose tree" with:
+      | Bullwinkle |
+    And I sign in as "email@person.com/password"
+    Then I should be on the master tree index page
+    When I follow "Moose tree"
+    And I follow "Edit Tree Description"
+    Then I should be on the edit tree page for "Moose tree"
+    When I follow "Cancel"
+    Then I should be on the tree page for "Moose tree"
+
+
   @javascript
   Scenario: User can cut, copy, and paste a node
     Given I am signed up and confirmed as "email@person.com/password"
