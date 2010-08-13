@@ -21,13 +21,15 @@
                 <li>
                   <div class="content">
                     <h1><%= tree.title %></h1>
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod.</p>
+                    <% if tree.abstract.present? %>
+                      <p><%= tree.abstract %></p>
+                    <% end %>
                     <div class="date-wrap">
-                      <div class="date">Created: 06/22/10</div>
-                      <div class="date">Last Edited: 07/02/10</div>
+                      <div class="date">Created: <%= tree.created_at.to_s(:short_date) %></div>
+                      <div class="date">Last Edited: <%= tree.updated_at.to_s(:short_date) %></div>
                     </div>
                   </div>
-                  <div class="clearfix"></div>              
+                  <div class="clearfix"></div>
                 </li>
               </a>
               <% end %>

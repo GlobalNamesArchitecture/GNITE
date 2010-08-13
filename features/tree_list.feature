@@ -27,3 +27,14 @@ Feature: Create and manage master trees
 
     When I follow "My new tree"
     Then I should be on the tree page for "My new tree"
+
+  Scenario: Tree details are displayed on the tree list
+    Given I have signed in with "email@person.com/password"
+    And the following tree exists:
+      | Title       | Created At | Updated At | Abstract                            | User                    |
+      | Bananas     | 06/22/09   | 07/02/09   | All the types of bananas on my desk | Email: email@person.com |
+    When I am on the master tree index page
+    Then I should see "Bananas"
+    And I should see "06/22/09"
+    And I should see "07/02/09"
+    And I should see "All the types of bananas on my desk"
