@@ -210,8 +210,8 @@ specs:
 - factory_girl: 
     version: 1.3.2
 - formtastic: 
-    version: 1.0.1
-    source: 2
+    version: 1.0.0
+    source: 3
 - high_voltage: 
     version: 0.9.1
 - hoptoad_notifier: 
