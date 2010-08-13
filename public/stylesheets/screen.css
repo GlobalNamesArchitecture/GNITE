@@ -378,6 +378,10 @@ hr {
 /************************************************************************/
 /* Main Tree Structure */
 /************************************************************************/
+#master-tree{
+  min-height:734px;
+}
+
 .tree-column {
   width:49%;
   min-width:480px;
@@ -565,9 +569,18 @@ hr {
 .controls {
   border-top:0px;
 }
-.metadata-wrap {
+.node-meta-wrap {
   width:100%;
+  position: relative;
+  bottom:0px;
+  height:100%;
+}
+.node-meta {
+  position:absolute;
   background:red;
+  height:20px;
+  width:100%;
+  bottom:0;
 }
 /************************************************************************/
 /* Master Tree Metadata Back */
