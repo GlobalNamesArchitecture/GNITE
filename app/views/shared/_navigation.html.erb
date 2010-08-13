@@ -3,19 +3,32 @@
   <div id="logo"><img src="/images/logo-nav.png"/></div>
   <div id="nav">
     <ul>
-      <li id="active">
+      <% if controller.controller_name == "trees" %>
+        <li id="active">
+      <% else %>
+        <li>
+      <% end %>
         <%= link_to trees_path do %>
           <img class="icon hover" src="/images/tree-active.png"/>Master Trees
         <% end %>
       </li>
-      <li>
+      <% if controller.controller_name == "users" || controller.controller_name == "passwords"%>
+        <li id="active">
+          <img class="icon" src="/images/profile-nonactive.png"/>Profile Settings
+        <ul>
+          <% if controller.controller_name == "passwords"  && controller.action_name = "edit" %>
+           <li class="active"><%= link_to "Change Password", edit_your_password_path %></li>
+          <% else %>
+            <li><%= link_to "Change Password", edit_your_password_path %></li>
+          <% end %>
+          <li><%= link_to "Sign out", sign_out_path %></li>
+        </ul>
+      <% else %>
+        <li>
         <%= link_to edit_user_path(current_user.id) do %>
           <img class="icon" src="/images/profile-nonactive.png"/>Profile Settings
         <% end %>
-        <ul>
-          <li><%= link_to "Change Password", edit_your_password_path %></li>
-          <li><%= link_to "Sign out", sign_out_path %></li>
-        </ul>
+      <% end %>
       </li>
       <!--
       <li><a href="#"><img class="icon" src="/images/settings-nonactive.png"/>Settings</a></li>

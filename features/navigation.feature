@@ -12,7 +12,10 @@ Feature: Interact with navigation bar
     When I go to the home page
     Then I should see the navigation bar
     When I follow "Master Trees"
-    And I follow "belinda's tree"
+    Then the "Master Trees" bar should be highlighted
+    And the "Profile Settings" bar should not be highlighted
+    And I should not see "Change Password"
+    When I follow "belinda's tree"
     Then I should be on the tree page for "belinda's tree"
 
   Scenario: Navigating to the edit profile page
@@ -20,3 +23,7 @@ Feature: Interact with navigation bar
     Then I should see the navigation bar
     When I follow "Profile Settings"
     Then I should be on the edit user settings page for "belinda@belew.com"
+    And the "Profile Settings" bar should be highlighted
+    And the "Master Trees" bar should not be highlighted
+    And I should see "Change Password"
+    And I should see "Sign out"

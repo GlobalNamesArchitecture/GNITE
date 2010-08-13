@@ -6,6 +6,7 @@ Feature: Change password
   Scenario: Changing the password for the current user
     Given I am signed up and confirmed as "email@person.com/password"
     When I sign in as "email@person.com/password"
+    And I follow "Profile Settings"
     And I follow "Change Password"
     And I fill in "Choose password" with "newpassword"
     And I fill in "Confirm password" with "newpassword"
