@@ -1,6 +1,6 @@
 <div id="bodywrap">
 <% content_for :header do %>
-  Edit Master Tree
+  <%= @tree.title %>
 <% end %>
 
 <!-- Start of Edit Tree Box -->
@@ -16,7 +16,7 @@
         </div>
         <%= form.buttons do -%>
           <%= form.commit_button "Update", :button_html => { :class => "green-submit" } %>
-          <%= link_to "Cancel", tree_path(@tree) %>
+          <%= link_to "Cancel", tree_path(@tree), :class => "cancel-button" %>
         <% end -%>
       <% end %>
   </div>

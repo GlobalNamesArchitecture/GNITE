@@ -17,9 +17,10 @@
         -->
       </div>
       <div class="searchbar">
-        <%= @tree.title %>
         <div class="grid-button">
-          <%= link_to "Edit Tree Description", edit_tree_path %>
+          <%= link_to edit_tree_path do %>
+            <%= image_tag 'settings-active.png', :class => 'icon' %>Edit Tree Information
+          <% end %>
         </div>
         <!--<div class="grid-button">
           <a href="#"><img class="icon" src="/images/gridview.png"/>Grid view</a>

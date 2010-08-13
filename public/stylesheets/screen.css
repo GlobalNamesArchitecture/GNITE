@@ -220,9 +220,14 @@ hr {
   }
 .green-submit{
   min-height:38px;
+}
+.cancel-button {
+  text-decoration: none;
+}
+.cancel-button,
+.green-submit{
   float:left;
   margin: 15px 0;
-  padding:10px 30px;
   color:#fff;
   font-size:16px;
   border:0;
@@ -239,18 +244,21 @@ hr {
     rgb(90,165,43) 58%,
     rgb(144,207,76) 98%);
 }
+  .cancel-button:hover,
   .green-submit:hover {
     box-shadow:1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
     -webkit-box-shadow:1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
     -moz-box-shadow:1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
     border:0px solid rgb(15, 18, 21);
   }
+  .cancel-button.shadow,
   .green-submit.shadow { 
     box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.9), 1px 1px 5px 1px rgb(98,179,34) inset !important;
     -webkit-box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.9), 1px 1px 5px 1px rgb(98,179,34) inset !important;
     -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.9), 1px 1px 5px 1px rgb(98,179,34) inset !important;
     margin:25px 0 !important;
   }
+  .cancel-button.shadow:hover,
   .green-submit.shadow:hover {
     box-shadow:1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.9) !important;
     -webkit-box-shadow:1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.9) !important;
@@ -424,6 +432,7 @@ hr {
 #add-node-wrap {
   position:relative;
 }
+
   #add-node {
     position:absolute;
     top:12px;
@@ -585,10 +594,10 @@ hr {
   margin:15px 0 10px;
   font-weight: bold;
 }
+
+#tree-metadata .cancel-button,
 #tree-metadata .green-submit{
   float:left;
-  margin: 15px 0;
-  padding:10px 30px;
   color:#fff;
   font-size:15px;
   font-weight: bold;
@@ -599,6 +608,10 @@ hr {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
+}
+
+#tree-metadata .green-submit{
+  padding:10px 30px;
   box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
   -webkit-box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
   -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
@@ -612,6 +625,25 @@ hr {
     rgb(90,165,43) 58%,
     rgb(144,207,76) 98%);
 }
+
+#tree-metadata .cancel-button{
+  padding: 12px 30px 11px;
+  margin-left: 15px;
+
+  text-shadow: 0px 1px 1px rgba(255,255,255,0.8);
+  color: #222;
+
+  background: #cecabb;
+  background: -moz-linear-gradient(100% 100% 90deg, #CECABB,#ECEAE2);
+  background:-webkit-gradient(linear,left bottom,left top,
+    color-stop(0.04, #CECABB),
+    color-stop(0.98, #ECEAE2));
+
+  box-shadow:0px 1.5px 3px 1px rgba(26, 26, 26, 0.4), 0px 1px 1px rgb(255, 255, 255) inset;
+  -webkit-box-shadow:0px 1.5px 3px 1px rgba(26, 26, 26, 0.4), 0px 1px 1px rgb(255, 255, 255) inset;
+  -moz-box-shadow: 0px 1.5px 3px 1px rgba(26, 26, 26, 0.4), 0px 1px 1px rgb(255, 255, 255) inset;
+}
+
 #tree-metadata fieldset input, #tree-metadata fieldset textarea {
   float:left;
   width:95%;
@@ -816,7 +848,7 @@ ul#treelist {
 /* Border Radius */
 /************************************************************************/
 #flash_error, #flash_success, #flash_failure, #flash_notice,
-ul#treelist li, #newtree, #search, .tree-background, #loginform .input, .green-submit,
+ul#treelist li, #newtree, #search, .tree-background, #loginform .input, .green-submit, .cancel-button,
 .infobox-wrap, .infobox, .tree-back-wrap, #tree-newimport li {
   border-radius:8px;
   -moz-border-radius:8px;
