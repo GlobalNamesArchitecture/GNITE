@@ -95,6 +95,14 @@
         $("#master-tree").jstree("create");
       });
 
+      $("#import-roots-button").click(function() {
+          for (rootname in $("#import-roots").val().split("\n"))
+          {
+            $("#master-tree").jstree("create");
+            $("#master-tree").rename_node($(".jstree-last"), rootname);
+          }
+      });
+
       $("#master-tree").jstree({
         "json_data": {
           "ajax": {
