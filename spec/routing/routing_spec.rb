@@ -116,3 +116,24 @@ describe "routing to nodes" do
     )
   end
 end
+
+describe "sign_up, sign_in, sign_out" do
+  it "route /sign_up to users#new" do
+    { :get => "/sign_up" }.should route_to(
+      :controller => 'users',
+      :action => 'new'
+    )
+  end
+  it "route /sign_in to sessions#new" do
+    { :get => "/sign_in" }.should route_to(
+      :controller => 'sessions',
+      :action => 'new'
+    )
+  end
+  it "route /sign_out to sessions#destroy" do
+    { :get => "/sign_out" }.should route_to(
+      :controller => 'sessions',
+      :action => 'destroy'
+    )
+  end
+end

@@ -1,4 +1,9 @@
 class UsersController < Clearance::UsersController
+  def new
+    @user = User.new
+    render :action => 'new', :layout => 'login'
+  end
+
   def edit
     @user = current_user
   end
