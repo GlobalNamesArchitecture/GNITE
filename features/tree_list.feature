@@ -11,7 +11,7 @@ Feature: Create and manage master trees
     And I select "Public domain" from "License"
     And I press "Create"
     Then I should see "Tree successfully created"
-    And I should be on the tree page for "My new tree"
+    And I should be on the master tree page for "My new tree"
 
   Scenario: User can view their list of trees
     Given I have signed in with "email@person.com/password"
@@ -22,11 +22,11 @@ Feature: Create and manage master trees
     And I fill in "Title" with "My new tree"
     And I select "Public domain" from "License"
     And I press "Create"
-    And I go to the trees page
+    And I go to the master trees page
     Then should see "My new tree"
 
     When I follow "My new tree"
-    Then I should be on the tree page for "My new tree"
+    Then I should be on the master tree page for "My new tree"
 
   Scenario: Tree details are displayed on the tree list
     Given I have signed in with "email@person.com/password"

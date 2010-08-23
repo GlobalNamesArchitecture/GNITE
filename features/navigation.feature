@@ -17,7 +17,7 @@ Feature: Interact with navigation bar
     And I should not see "Change Password"
     And I should see "Sign out"
     When I follow "belinda's tree"
-    Then I should be on the tree page for "belinda's tree"
+    Then I should be on the master tree page for "belinda's tree"
 
   Scenario: Navigating to the edit profile page
     Given I have signed in with "belinda@belew.com/password"

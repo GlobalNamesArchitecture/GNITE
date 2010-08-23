@@ -5,7 +5,7 @@ describe NodesController do
   context "when signed in with a tree" do
     let(:user) { Factory(:email_confirmed_user) }
     let(:tree) do
-      tree = Factory(:tree)
+      tree = Factory(:master_tree)
       Factory(:node, :tree => tree)
       tree
     end
@@ -16,7 +16,7 @@ describe NodesController do
 
       controller.stubs(:current_user => user)
       user_trees = [tree]
-      user.stubs(:trees => user_trees)
+      user.stubs(:master_trees => user_trees)
       user_trees.stubs(:find => tree)
       tree.stubs(:children_of => nodes)
     end
@@ -29,7 +29,7 @@ describe NodesController do
         @json      = '{}'
         @tree_id   = 456
         NodeJsonPresenter.stubs(:present => @json)
-        get :index, :tree_id => @tree_id, :format => 'json', :parent_id => @parent_id
+        get :index, :master_tree_id => @tree_id, :format => 'json', :parent_id => @parent_id
       end
 
       it { should respond_with(:success) }
@@ -52,7 +52,7 @@ describe NodesController do
         Node.stubs(:new => new_node)
         new_node.stubs(:save => true)
 
-        post :create, :tree_id => tree.id, :format => 'json', :node => node_attributes
+        post :create, :master_tree_id => tree.id, :format => 'json', :node => node_attributes
       end
 
       it "should create a new node" do
@@ -80,7 +80,7 @@ describe NodesController do
         Node.stubs(:find => node)
         node.stubs(:update_attributes => node)
         node.stubs(:save => true)
-        put :update, :id => node.id, :tree_id => node.tree.id, :format => 'json', :node => node_attributes
+        put :update, :id => node.id, :master_tree_id => node.tree.id, :format => 'json', :node => node_attributes
       end
 
       it "should find and update a node" do
@@ -101,7 +101,7 @@ describe NodesController do
       let(:node) { Factory(:node) }
       before do
         Node.stubs(:destroy)
-        delete :destroy, :id => node.id, :tree_id => node.tree.id, :format => 'json'
+        delete :destroy, :id => node.id, :master_tree_id => node.tree.id, :format => 'json'
       end
 
       it { should respond_with(:success) }

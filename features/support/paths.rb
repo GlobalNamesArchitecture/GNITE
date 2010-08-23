@@ -19,16 +19,16 @@ module NavigationHelpers
     when /the password reset request page/i
       new_password_path
     when /the master tree index page/i
-      trees_path
+      master_trees_path
     when /the edit user settings page for "(.+)"/i
       user = User.find_by_email($1)
       edit_user_path(user.id)
-    when /the tree page for "(.+)"/i
-      tree = Tree.find_by_title($1)
-      tree_path(tree.id)
-    when /the edit tree page for "(.+)"/i
-      tree = Tree.find_by_title($1)
-      edit_tree_path(tree.id)
+    when /the master tree page for "(.+)"/i
+      tree = MasterTree.find_by_title($1)
+      master_tree_path(tree.id)
+    when /the edit master tree page for "(.+)"/i
+      tree = MasterTree.find_by_title($1)
+      edit_master_tree_path(tree.id)
     # Here is an example that pulls values out of the Regexp:
     #
     #   when /^(.*)'s profile page$/i

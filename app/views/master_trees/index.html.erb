@@ -5,7 +5,7 @@
   
   <!-- New Tree Button -->
               <div id="newtree">
-                <a href="<%= new_tree_path %>">
+                <a href="<%= new_master_tree_path %>">
                   <div class="content">
                     <h1>Create New Master Tree</h1>
                     <p>Create and edit a new master tree</p>
@@ -14,10 +14,10 @@
               </div>
             
   <!-- Master Trees List -->
-  <% if current_user.trees.any? %>
+  <% if current_user.master_trees.any? %>
             <ul id="treelist">
-              <% current_user.trees.each do |tree| %>
-              <a href="<%= tree_url(tree.id) %>">
+              <% current_user.master_trees.each do |tree| %>
+              <a href="<%= master_tree_url(tree.id) %>">
                 <li>
                   <div class="content">
                     <h1><%= tree.title %></h1>

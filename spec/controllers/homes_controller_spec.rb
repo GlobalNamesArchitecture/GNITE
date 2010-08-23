@@ -27,7 +27,7 @@ describe HomesController do
 
       subject { controller }
 
-      it { should redirect_to(trees_url) }
+      it { should redirect_to(master_trees_url) }
     end
   end
 

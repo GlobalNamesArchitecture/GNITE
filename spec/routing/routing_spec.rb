@@ -1,41 +1,41 @@
 require 'spec/spec_helper'
 
-describe "routing to trees" do
-  it "routes /trees to trees#index" do
-    { :get => "/trees" }.should route_to(
-      :controller => "trees",
+describe "routing to master_trees" do
+  it "routes /master_trees to master_trees#index" do
+    { :get => "/master_trees" }.should route_to(
+      :controller => "master_trees",
       :action => "index"
     )
   end
-  it "routes /trees/new to trees#new" do
-    { :get => "trees/new" }.should route_to(
-      :controller => "trees",
+  it "routes /master_trees/new to master_trees#new" do
+    { :get => "master_trees/new" }.should route_to(
+      :controller => "master_trees",
       :action => "new"
     )
   end
-  it "routes /trees to trees#create" do
-    { :post => "/trees" }.should route_to(
-      :controller => "trees",
+  it "routes /master_trees to master_trees#create" do
+    { :post => "/master_trees" }.should route_to(
+      :controller => "master_trees",
       :action => "create"
     )
   end
-  it "routes /trees/abc to trees#show" do
-    { :get => "/trees/abc" }.should route_to(
-      :controller => "trees",
+  it "routes /master_trees/abc to master_trees#show" do
+    { :get => "/master_trees/abc" }.should route_to(
+      :controller => "master_trees",
       :action => "show",
       :id => "abc"
     )
   end
-  it "routes /trees/abc/edit to trees#edit" do
-    { :get => "/trees/abc/edit" }.should route_to(
-      :controller => "trees",
+  it "routes /master_trees/abc/edit to master_trees#edit" do
+    { :get => "/master_trees/abc/edit" }.should route_to(
+      :controller => "master_trees",
       :action => "edit",
       :id => "abc"
     )
   end
-    it "routes /trees/abc to trees#update" do
-    { :put => "/trees/abc" }.should route_to(
-      :controller => "trees",
+    it "routes /master_trees/abc to master_trees#update" do
+    { :put => "/master_trees/abc" }.should route_to(
+      :controller => "master_trees",
       :action => "update",
       :id => "abc"
     )
@@ -70,47 +70,47 @@ describe "routing to passwords" do
 end
 
 describe "routing to nodes" do
-  it "routes /trees/:id/nodes.json to nodes#index" do
-    { :get => "/trees/123/nodes.json" }.should route_to(
+  it "routes /master_trees/:id/nodes.json to nodes#index" do
+    { :get => "/master_trees/123/nodes.json" }.should route_to(
       :controller => "nodes",
       :action     => "index",
-      :tree_id    => "123",
+      :master_tree_id    => "123",
       :format     => "json"
     )
   end
 
-  it "routes POST /trees/:id/nodes.json to nodes#create" do
-    { :post => "/trees/123/nodes.json" }.should route_to(
+  it "routes POST /master_trees/:id/nodes.json to nodes#create" do
+    { :post => "/master_trees/123/nodes.json" }.should route_to(
       :controller => "nodes",
       :action     => "create",
-      :tree_id    => "123",
+      :master_tree_id    => "123",
       :format     => "json"
     )
   end
-  it "routes PUT /trees/:tree_id/nodes/:id.json to nodes#update" do
-    { :put => "/trees/123/nodes/abc.json" }.should route_to(
+  it "routes PUT /master_trees/:master_tree_id/nodes/:id.json to nodes#update" do
+    { :put => "/master_trees/123/nodes/abc.json" }.should route_to(
       :controller => "nodes",
       :action     => "update",
-      :tree_id    => "123",
+      :master_tree_id    => "123",
       :id         => "abc",
       :format     => "json"
     )
   end
-  it "routes DELETE /trees/:tree_id/nodes/:id.json to nodes#delete" do
-    { :delete => "/trees/123/nodes/abc.json" }.should route_to(
+  it "routes DELETE /master_trees/:master_tree_id/nodes/:id.json to nodes#delete" do
+    { :delete => "/master_trees/123/nodes/abc.json" }.should route_to(
       :controller => "nodes",
       :action     => "destroy",
-      :tree_id    => "123",
+      :master_tree_id    => "123",
       :id         => "abc",
       :format     => "json"
     )
   end
 
-  it "routes POST /trees/:tree_id/nodes/:id/clone.json to nodes/clones#create" do
-    { :post => "/trees/123/nodes/456/clone.json" }.should route_to(
+  it "routes POST /master_trees/:master_tree_id/nodes/:id/clone.json to nodes/clones#create" do
+    { :post => "/master_trees/123/nodes/456/clone.json" }.should route_to(
       :controller => "clones",
       :action     => "create",
-      :tree_id    => "123",
+      :master_tree_id    => "123",
       :node_id         => "456",
       :format     => "json"
     )

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe TreesController do
+describe MasterTreesController do
 
   context "signed in" do
     before do
@@ -9,11 +9,11 @@ describe TreesController do
     end
 
     context "on GET to #index" do
-      let(:trees) { [Factory(:tree)] }
+      let(:trees) { [Factory(:master_tree)] }
 
       before do
         controller.stubs(:current_user => @user)
-        @user.stubs(:trees => trees)
+        @user.stubs(:master_trees => trees)
 
         get :index
       end
@@ -26,10 +26,10 @@ describe TreesController do
     end
 
     context "on a valid GET to #new" do
-      let(:tree) { Factory(:tree) }
+      let(:tree) { Factory(:master_tree) }
 
       before do
-        Tree.stubs(:new => tree)
+        MasterTree.stubs(:new => tree)
         get :new
       end
 
@@ -41,11 +41,11 @@ describe TreesController do
     end
 
     context "on a valid POST to #create" do
-      let(:tree) { Factory(:tree) }
+      let(:master_tree) { Factory(:master_tree) }
 
       before do
-        Tree.stubs(:new => tree)
-        tree.stubs(:save => true)
+        MasterTree.stubs(:new => master_tree)
+        master_tree.stubs(:save => true)
         post :create
       end
 
@@ -55,16 +55,16 @@ describe TreesController do
         assigns(:tree).user.should == @user
       end
 
-      it { should assign_to(:tree).with(tree) }
-      it { should redirect_to(tree_url(tree)) }
+      it { should assign_to(:tree).with(master_tree) }
+      it { should redirect_to(master_tree_url(master_tree)) }
       it { should set_the_flash.to(/created/) }
     end
 
     context "on an invalid POST to #create" do
-      let(:tree) { Factory(:tree) }
+      let(:tree) { Factory(:master_tree) }
 
       before do
-        Tree.stubs(:new => tree)
+        MasterTree.stubs(:new => tree)
         tree.stubs(:save => false)
         post :create
       end
@@ -77,7 +77,7 @@ describe TreesController do
     end
 
     context "on a valid GET to #new" do
-      let(:tree) { Factory(:tree) }
+      let(:tree) { Factory(:master_tree) }
 
       before do
         get :edit, :id => tree.id
@@ -91,10 +91,10 @@ describe TreesController do
     end
 
     context "on a valid PUT to #upate" do
-      let(:tree) { Factory(:tree) }
+      let(:tree) { Factory(:master_tree) }
 
       before do
-        Tree.stubs(:find => tree)
+        MasterTree.stubs(:find => tree)
         tree.stubs(:save => true)
         put :update, :id => tree.id, :tree => {}
       end
@@ -102,15 +102,15 @@ describe TreesController do
       subject { controller }
 
       it { should assign_to(:tree).with(tree) }
-      it { should redirect_to(tree_url(tree)) }
+      it { should redirect_to(master_tree_url(tree)) }
       it { should set_the_flash.to(/updated/) }
     end
 
     context "on an invalid POST to #update" do
-      let(:tree) { Factory(:tree) }
+      let(:tree) { Factory(:master_tree) }
 
       before do
-        Tree.stubs(:find => tree)
+        MasterTree.stubs(:find => tree)
         tree.stubs(:save => false)
         put :update, :id => tree.id, :tree => {}
       end

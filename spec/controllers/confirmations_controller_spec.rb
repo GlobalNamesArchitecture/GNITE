@@ -12,6 +12,6 @@ describe ConfirmationsController do
 
     subject { controller }
 
-    it { should redirect_to(trees_path) }
+    it { should redirect_to(master_trees_path) }
   end
 end

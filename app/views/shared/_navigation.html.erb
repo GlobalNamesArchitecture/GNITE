@@ -3,12 +3,12 @@
   <div id="logo"><img src="/images/logo-nav.png"/></div>
   <div id="nav">
     <ul>
-      <% if controller.controller_name == "trees" %>
+      <% if controller.controller_name == "master_trees" %>
         <li id="active">
       <% else %>
         <li>
       <% end %>
-        <%= link_to trees_path do %>
+        <%= link_to master_trees_path do %>
           <img class="icon hover" src="/images/tree-active.png"/>Master Trees
         <% end %>
       </li>

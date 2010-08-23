@@ -8,7 +8,7 @@ Feature: Edit a master tree
     Given I have signed in with "email@person.com/password"
     And "email@person.com" has created an existing tree titled "Waterpigs" with:
       | hydrochaeris |
-    When I go to the trees page
+    When I go to the master tree index page
     And I follow "Waterpigs"
     Then I should see a node "hydrochaeris" at the root level in my master tree
 
@@ -162,7 +162,7 @@ Feature: Edit a master tree
     Then I should be on the master tree index page
     When I follow "Moose tree"
     And I follow "Edit Tree Information"
-    Then I should be on the edit tree page for "Moose tree"
+    Then I should be on the edit master tree page for "Moose tree"
     When I fill in "Title" with "Bullwinkle tree"
     And I select "Public domain" from "License"
     And I press "Update"
@@ -178,9 +178,9 @@ Feature: Edit a master tree
     Then I should be on the master tree index page
     When I follow "Moose tree"
     And I follow "Edit Tree Information"
-    Then I should be on the edit tree page for "Moose tree"
+    Then I should be on the edit master tree page for "Moose tree"
     When I follow "Cancel"
-    Then I should be on the tree page for "Moose tree"
+    Then I should be on the master tree page for "Moose tree"
 
 
   @javascript

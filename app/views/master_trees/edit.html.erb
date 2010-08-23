@@ -7,7 +7,7 @@
   <!-- Start of Tree -->
   <div class="tree-column">
     <div class="treewrap">
-      <%= semantic_form_for(:tree, :url => tree_path(@tree), :html => { :method => :put, :id => "tree-metadata" }) do |form| %>
+      <%= semantic_form_for(:master_tree, :url => master_tree_path(@tree), :html => { :method => :put, :id => "tree-metadata" }) do |form| %>
         <div class="tree-back-wrap">
           <div class="metadata-header">
             <h1>Edit Tree Information</h1>
@@ -16,7 +16,7 @@
         </div>
         <%= form.buttons do -%>
           <%= form.commit_button "Update", :button_html => { :class => "green-submit" } %>
-          <%= link_to "Cancel", tree_path(@tree), :class => "cancel-button" %>
+          <%= link_to "Cancel", master_tree_path(@tree), :class => "cancel-button" %>
         <% end -%>
       <% end %>
   </div>
