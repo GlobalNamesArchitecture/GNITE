@@ -206,6 +206,12 @@ hr {
     padding-bottom:15px;
     text-shadow: 1px 1px 0px rgba(26, 26, 26, 0.6);
   }
+  #loginform label {
+    font-size:1.2em;
+    display: block;
+    color: #fff;
+
+  }
   #loginform .input {
     width:380px;
     font-size:1.6em;
