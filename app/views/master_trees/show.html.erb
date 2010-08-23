@@ -48,31 +48,8 @@
   </div>
 </div>
 <!-- End of Left Tree -->
-<!-- Start of Right Tree -->
-<!--
-<div class="tree-column">
-  <div id="treewrap-right">
-    <div class="tree-nav">
-      <ul>
 
-      </ul>
-    </div>
-    <div class="tree">
-      <div class="breadcrumbs">
-        <p></p>
-      </div>
-      <div class="searchbar">
-        <div class="grid-button">
-
-        </div>
-
-        <div class="clearfix"></div>
-      </div>
-    </div>
-  </div>
-</div>
--->
-<!-- End of Right Tree -->
+<%= render :partial => 'right_tree' %>
 
 <% content_for :javascript do %>
   <%= javascript_include_tag 'jquery.jstree' %>

@@ -137,3 +137,20 @@ describe "sign_up, sign_in, sign_out" do
     )
   end
 end
+
+describe "GNACLR import" do
+  it "routes /gnaclr_classifications to gnaclr_classifications#index" do
+    { :get => "/gnaclr_classifications" }.should route_to(
+      :controller => 'gnaclr_classifications',
+      :action => 'index'
+    )
+  end
+
+  it "routes /gnaclr_classifications/:id to gnaclr_classifications#show" do
+    { :get => "/gnaclr_classifications/my-uuid-here" }.should route_to(
+      :controller => 'gnaclr_classifications',
+      :action => 'show',
+      :id => 'my-uuid-here'
+    )
+  end
+end

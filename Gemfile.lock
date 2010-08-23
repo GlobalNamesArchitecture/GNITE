@@ -32,11 +32,11 @@ dependencies:
     group: 
     - :development
     version: ">= 0"
-  uuid: 
+  ancestry: 
     group: 
     - :default
     version: ">= 0"
-  ancestry: 
+  uuid: 
     group: 
     - :default
     version: ">= 0"
@@ -47,6 +47,10 @@ dependencies:
   unicorn: 
     group: 
     - :staging
+    version: ">= 0"
+  crack: 
+    group: 
+    - :default
     version: ">= 0"
   formtastic: 
     group: 
@@ -76,7 +80,7 @@ dependencies:
     group: 
     - :test
     version: ">= 0"
-  hoptoad_notifier: 
+  engineyard: 
     group: 
     - :default
     version: ">= 0"
@@ -84,7 +88,7 @@ dependencies:
     group: 
     - :default
     version: = 0.9.0.rc5
-  engineyard: 
+  hoptoad_notifier: 
     group: 
     - :default
     version: ">= 0"
@@ -176,6 +180,8 @@ specs:
     version: 0.3.1
 - configuration: 
     version: 1.1.0
+- crack: 
+    version: 0.1.8
 - diff-lcs: 
     version: 1.1.2
 - trollop: 
@@ -248,7 +254,7 @@ specs:
     version: 1.1.2
 - uuid: 
     version: 2.3.1
-hash: fad390eb2e46bd874ceb380cb8f313fbbcc4b147
+hash: b63656532896b385a313c5137cbbd6a466dc6045
 sources: 
 - Git: 
     uri: git://github.com/thoughtbot/shoulda.git

@@ -1,0 +1,18 @@
+<ul id="treelist">
+  <li>
+    <div class="content">
+      <h2><%= @gnaclr_classification.title %></h2>
+      <% if @gnaclr_classification.description.present? %>
+        <p><%= @gnaclr_classification.description %></p>
+      <% end %>
+      <% if @gnaclr_classification.authors.try(:any?) %>
+        <p>Authors: <%= author_line_for_classification(@gnaclr_classification) %>.</p>
+      <% end %>
+      <div class="date-wrap">
+        <div class="date">Updated: <%= @gnaclr_classification.updated %></div>
+      </div>
+      <p>(Import is not implemented yet.)</p>
+    </div>
+    <div class="clearfix"></div>
+  </li>
+</ul>

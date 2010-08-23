@@ -1,0 +1,13 @@
+<div class="content">
+  <h2><%= classification.title %></h2>
+  <% if classification.description.present? %>
+    <p><%= classification.description %></p>
+  <% end %>
+  <% if classification.authors.try(:any?) %>
+    <p><%= author_line_for_classification(classification) %></p>
+  <% end %>
+  <div class="date-wrap">
+    <div class="date">Updated: <%= classification.updated %></div>
+  </div>
+</div>
+<div class="clearfix"></div>

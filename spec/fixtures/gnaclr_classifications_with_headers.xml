@@ -1,0 +1,55 @@
+HTTP/1.1 200 OK
+Date: Mon, 23 Aug 2010 19:36:27 GMT
+Server: Apache/2.2.14 (Unix) mod_ssl/2.2.8 OpenSSL/0.9.8g DAV/2 SVN/1.4.6 mod_python/3.3.1 Python/2.5.2 PHP/5.3.1 mod_jk/1.2.26 Phusion_Passenger/2.2.11
+X-Powered-By: Phusion Passenger (mod_rails/mod_rack) 2.2.11
+Status: 200
+Content-Type: application/xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<hash>
+  <next-page nil="true"></next-page>
+  <page type="integer">1</page>
+  <per-page type="integer">30</per-page>
+  <classifications type="array">
+    <classification>
+      <authors type="array">
+        <author>
+          <first-name>Dmitry</first-name>
+          <email>dmozzherin@gmail.com</email>
+          <last-name>Mozzherin</last-name>
+        </author>
+      </authors>
+      <file-url>http://gnaclr.globalnames.org/files/baaa4762cb1ef8118f2c20257a3c27c946f09375/ncbi.tar.gz</file-url>
+      <uuid>97d7633b-5f79-4307-a397-3c29402d9311</uuid>
+      <created type="datetime">2010-07-15T16:49:40-04:00</created>
+      <title>NCBI</title>
+      <citation></citation>
+      <url nil="true"></url>
+      <updated type="datetime">2010-07-15T16:49:40-04:00</updated>
+      <description>NCBI classification</description>
+    </classification>
+    <classification>
+      <authors type="array">
+        <author>
+          <first-name>Jadranka</first-name>
+          <email>jadranka.rota@gmail.com</email>
+          <last-name>Rota</last-name>
+        </author>
+      </authors>
+      <file-url>http://gnaclr.globalnames.org/files/d6781d6071d25a0e46dcb889d6bd1a40407f1b6e/choreutidae.tar.gz</file-url>
+      <uuid>91d08561-b72f-4159-9461-119690b67afa</uuid>
+      <created type="datetime">2010-05-26T10:57:31-04:00</created>
+      <title>Choreutidae Classification</title>
+      <citation>&amp;lt;p&amp;gt;Rota, Jadranka. 2010. The global Choreutidae classification.&amp;lt;/p&amp;gt;</citation>
+      <url>http://choreutidae.lifedesks.org/classification.tar.gz</url>
+      <updated type="datetime">2010-05-26T10:57:31-04:00</updated>
+      <description>&amp;lt;p&amp;gt;based on Heppner and Duckworth and new genera published since&amp;lt;/p&amp;gt;</description>
+    </classification>
+  </classifications>
+  <total-pages type="integer">1</total-pages>
+  <total-count type="integer">8</total-count>
+  <previous-page nil="true"></previous-page>
+  <url>http://gnaclr.globalnames.org/classifications?format=xml</url>
+  <search-term nil="true"></search-term>
+</hash>
+

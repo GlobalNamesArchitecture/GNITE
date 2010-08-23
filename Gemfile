@@ -13,6 +13,7 @@ gem 'engineyard'
 gem 'hoptoad_notifier'
 gem 'ancestry', :git => "git://github.com/thoughtbot/ancestry.git", :branch => "rails3"
 gem 'uuid'
+gem 'crack'
 
 # Deploy with Capistrano
 # gem 'capistrano'

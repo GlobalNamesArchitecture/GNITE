@@ -11,3 +11,5 @@ class Array
     ActiveSupport::JSON.encode(self)
   end
 end
+
+require 'open-uri'
