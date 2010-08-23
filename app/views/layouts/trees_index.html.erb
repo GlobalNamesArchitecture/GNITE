@@ -16,12 +16,15 @@
           <h1><%= yield :header %></h1>
         </div>
       <% end %>
+      <div id="bodywrap">
 
-      <div id="flash-wrapper">
         <%= render :partial => 'shared/flashes' -%>
+
+        <%= yield %>
       </div>
-      <%= yield %>
+      <div class="clearfix"></div> 
     </div>
+    <div class="clearfix"></div> 
     <%= render :partial => 'shared/javascript' %>
   </div>
 </body>

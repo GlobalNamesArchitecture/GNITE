@@ -378,10 +378,6 @@ hr {
 /************************************************************************/
 /* Main Tree Structure */
 /************************************************************************/
-#master-tree{
-  min-height:734px;
-}
-
 .tree-column {
   width:49%;
   min-width:480px;
@@ -463,6 +459,10 @@ hr {
     #add-node:hover {
     cursor: pointer;
   }
+    #add-node a {
+        color: #222;
+        text-decoration: none;
+    }
     #add-node .img {
       float:left;
       width:17px;
@@ -476,6 +476,16 @@ hr {
       text-decoration: none;
     }
 
+#master-tree{
+  min-height:734px;
+  height:100%;
+  -webkit-border-bottom-left-radius: 8px;
+  -webkit-border-bottom-right-radius: 8px;
+  -moz-border-radius-bottomleft: 8px;
+  -moz-border-radius-bottomright: 8px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
 /************************************************************************/
 /* Tab Bar */
 /************************************************************************/
@@ -849,6 +859,11 @@ ul#treelist {
 
 #flash_notice {
   background-color: #fff;
+}
+#flash-wrapper {
+  float: left;
+  margin: 0px 35px;
+  width: 100%;
 }
 /************************************************************************/
 /* Tabs */
