@@ -40,7 +40,15 @@ describe "routing to master_trees" do
       :id => "abc"
     )
   end
+end
 
+describe "routing to reference_trees" do
+  it "routes /reference_trees to reference_trees#create" do
+    {  :post => "/reference_trees" }.should route_to(
+       :controller => "reference_trees",
+       :action => "create"
+    )
+  end
 end
 
 describe "routing to users" do
@@ -115,6 +123,16 @@ describe "routing to nodes" do
       :format     => "json"
     )
   end
+
+  it "routes /reference_trees/:id/nodes.json to nodes#index" do
+    { :get => "/reference_trees/123/nodes.json" }.should route_to(
+      :controller => "nodes",
+      :action     => "index",
+      :reference_tree_id    => "123",
+      :format     => "json"
+    )
+  end
+
 end
 
 describe "sign_up, sign_in, sign_out" do

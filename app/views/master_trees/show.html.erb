@@ -32,12 +32,12 @@
         </form> -->
         <div class="clearfix"></div>
       </div>
-                <div id="add-node-wrap">
-                  <div id="add-node">
-                    <div class="img"></div>
-                    <a href="#">Add Node</a>
-                  </div>
-                </div>
+         <div id="add-node-wrap">
+            <div id="add-node">
+              <div class="img"></div>
+              <a href="#">Add Node</a>
+            </div>
+          </div>
       <div id="tree-container">
         <div id="master-tree"></div>
       </div>
@@ -46,7 +46,9 @@
 </div>
 <!-- End of Left Tree -->
 
-<%= render :partial => 'right_tree' %>
+<!-- Start of Right Tree -->
+<%= render :partial => "reference_trees" %>
+<!-- End of Right Tree -->
 
 <% content_for :javascript do %>
   <%= javascript_include_tag 'jquery.jstree' %>
@@ -96,11 +98,18 @@
       });
 
       $("#import-roots-button").click(function() {
-          for (rootname in $("#import-roots").val().split("\n"))
-          {
-            $("#master-tree").jstree("create");
-            $("#master-tree").rename_node($(".jstree-last"), rootname);
-          }
+         $.ajax({
+           type: "POST",
+           url: "<%= reference_trees_path(:format => 'json') %>",
+           contentType: "application/json",
+           dataType: 'json',
+           data: JSON.stringify({reference_tree: {title: "List",
+                                                  master_tree_id: <%= @tree.id %>},
+                                 nodes_list: $("#import-roots").val()}),
+           success: function(data, textStatus, xhr) {
+             //location.reload();
+           }
+         });
       });
 
       $("#master-tree").jstree({

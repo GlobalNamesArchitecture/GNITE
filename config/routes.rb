@@ -18,6 +18,11 @@ Gnite::Application.routes.draw do |map|
       resource :clone, :only => [:create]
     end
   end
+
+  resources :reference_trees, :only => [:create] do
+    resources :nodes, :only => [:index]
+  end
+
   root :to => "homes#show"
 
   resources :gnaclr_classifications, :only => [:index, :show]

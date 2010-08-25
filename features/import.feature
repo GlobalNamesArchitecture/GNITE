@@ -8,9 +8,10 @@ Feature: Import data to your master tree
    Given I have signed in with "email@person.com/password"
     Then I should be on the master tree index page
     When I follow "New Master Tree"
+    Then I should see a "New Tab" tab
     And I fill in "Title" with "My new tree"
     And I press "Create"
-    Then I should be on the tree page for "My new tree"
+    Then I should be on the master tree page for "My new tree"
     When I type the following node names into the import box:
       | root one   |
       | root two   |

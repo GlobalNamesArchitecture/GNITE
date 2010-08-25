@@ -2,7 +2,8 @@ class NodesController < ApplicationController
   def index
     respond_to do |format|
       format.json do
-        tree = current_user.master_trees.find(params[:master_tree_id])
+        tree_id = params[:master_tree_id] || params[:reference_tree_id]
+        tree = current_user.master_trees.find(tree_id)
         nodes = tree.children_of(params[:parent_id])
         render :json => NodeJsonPresenter.present(nodes)
       end

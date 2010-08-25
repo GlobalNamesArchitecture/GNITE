@@ -1,0 +1,106 @@
+<div class="tree-column">
+  <div id="treewrap-right">
+  <div id="tabs">
+    <ul id="tab-titles">
+      <% @tree.reference_trees.each do |reference_tree| %>
+        <li><a href="#<%=dom_id(reference_tree)%>"><%= reference_tree.title %></a></li>
+      <% end %>
+      <li><a href="#tabs-new">New Tab</a></li>
+      <li id="trash"><a href="#trash-tab">Trash</a></li>
+    </ul>
+
+    <!-- Start tab content -->
+    <% @tree.reference_trees.each do |reference_tree| %>
+      <div id=<%= dom_id(reference_tree) %>>
+        <div class="tree-background">
+          <div class="breadcrumbs">
+          </div>
+          <div class="searchbar">
+            <div class="grid-button">
+              <%= link_to edit_master_tree_path do %>
+                <%= image_tag 'settings-active.png', :class => 'icon' %>Edit Tree Information
+              <% end %>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="reference_tree_container">
+            <div id=<%= dom_id(reference_tree, "container_for") %>></div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <!-- End of reference trees tabs -->
+    <div id="tabs-new">
+      <div class="tree-background dark">
+
+          <div class="metadata-header">
+            <h1>New Import</h1>
+          </div>
+          <div>
+            <ul>
+              <li>
+                <div id="tree-newimport">
+                  <p><label for="import-roots">Import List of Nodes</label></p>
+                  <p><textarea rows="20" cols="20" id="import-roots"></textarea></p>
+                  <button type="button" id="import-roots-button">Import</button>
+                </div>
+              </li>
+            </ul>
+          </div>
+       </div>
+    </div>
+    <!-- End of tabs-new tab -->
+    <div id="trash-tab">
+      <div class="tree-background dark">
+        <div class="metadata-header">
+          <h1>Trash Bin</h1>
+        </div>
+        <p>Your Trash Bin is currently Empty.</p>
+      </div>
+   </div>
+   <!-- End of trash tab -->
+</div>
+
+<% content_for :javascript do %>
+  <%= javascript_include_tag 'jquery.jstree' %>
+
+  <script type="text/javascript" class="source">
+     $(document).ready(function() {
+
+      $("#import-roots-button").click(function() {
+         $.ajax({
+           type: "POST",
+           url: "<%= reference_trees_path(:format => 'json') %>",
+           contentType: "application/json",
+           dataType: 'json',
+           data: JSON.stringify({reference_tree: {title: "List",
+                                                  master_tree_id: <%= @tree.id %>},
+                                 nodes_list: $("#import-roots").val()}),
+           success: function(data, textStatus, xhr) {
+             location.reload();
+           }
+         });
+      });
+
+    <% @tree.reference_trees.each do |reference_tree| %>
+      $("#<%= dom_id(reference_tree, 'container_for')%>").jstree({
+        "json_data": {
+          "ajax": {
+          "url": "<%= reference_tree_nodes_path(:reference_tree_id => reference_tree.id, :format => 'json') %>",
+            "data" : function (node) {
+              if (node.attr) {
+                return { parent_id : node.attr("id") };
+              } else {
+                return {};
+              }
+            }
+          },
+        },
+        "plugins" : [ "themes", "json_data", "crrm", "ui",  "contextmenu", "dnd"]
+
+        });
+    <% end %>
+
+    });
+  </script>
+<% end %>

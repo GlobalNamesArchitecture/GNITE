@@ -3,5 +3,10 @@ Then /^I should see a node "([^"]*)" at the root level in my reference tree$/ do
 end
 
 Then /^I should see a "([^"]*)" tab$/ do |tab_name|
-  page.should have_css("li.tab>a:contains('#{tab_name}')")
+  page.should have_css("ul.ui-tabs-nav>li>a:contains('#{tab_name}')")
 end
+
+Then /^the "([^"]*)" tab should be active$/ do |tab_name|
+  page.should have_css("ul.ui-tabs-nav>li.ui-state-active>a:contains('#{tab_name}')")
+end
+
