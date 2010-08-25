@@ -21,4 +21,5 @@ Gnite::Application.routes.draw do |map|
   root :to => "homes#show"
 
   resources :gnaclr_classifications, :only => [:index, :show]
+  resources :imports, :only => [:new]
 end

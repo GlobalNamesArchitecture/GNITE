@@ -43,5 +43,19 @@ Feature: Browse GNACLR
     # And I should see "1 revision"
     # And I should see "2010-07-15 at 04:49:40 PM"
 
+  @javascript
   Scenario: View breadcrumb navigation while browsing GNACLR
+    When I follow "New Tab"
+    And I follow "Browse GNACLR Database"
+    And I follow "NCBI"
+    Then I should see "NCBI"
+    And I should see "Dmitry Mozzherin"
+
+    When I follow "GNACLR" within the right panel header
+    Then I should see "NCBI"
+    And I should see "Index Fungorum"
+
+    When I follow "New Import" within the right panel header
+    Then I should see "Browse GNACLR Database"
+
   Scenario: Browse GNACLR from "New Master Tree" screen

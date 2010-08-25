@@ -1,0 +1,17 @@
+<%= content_for :panel_header do %>
+  New Import
+<% end %>
+
+<ul>
+  <li>
+  <%= link_to gnaclr_classifications_path, :class => 'ajax-load-new-tab' do %>
+    <div class="btn-img search">
+      <div class="content">
+        <h1>Browse GNACLR Database</h1>
+        <p>Browse GNACLR database for master trees to import</p>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  <% end %>
+  </li>
+</ul>

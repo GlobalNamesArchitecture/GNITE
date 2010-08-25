@@ -5,6 +5,12 @@ $(document).ready(function() {
     return false;
   });
 
+  $('.ajax-load-new-tab').live('click', function() {
+    var url = $(this).attr("href");
+    $('#new-tab').load(url);
+    return false;
+  });
+
   $('.gnaclr_classification_show').live('click', function() {
     var url = $(this).attr("href");
     $('#new-tab').load(url);

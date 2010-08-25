@@ -138,6 +138,15 @@ describe "sign_up, sign_in, sign_out" do
   end
 end
 
+describe "imports" do
+  it "routes /imports/new to imports#new" do
+    { :get => "/imports/new" }.should route_to(
+      :controller => 'imports',
+      :action => 'new'
+    )
+  end
+end
+
 describe "GNACLR import" do
   it "routes /gnaclr_classifications to gnaclr_classifications#index" do
     { :get => "/gnaclr_classifications" }.should route_to(

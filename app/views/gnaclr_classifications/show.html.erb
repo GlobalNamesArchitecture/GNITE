@@ -1,3 +1,9 @@
+<%= content_for :panel_header do %>
+  <%= link_to 'New Import', new_import_path, :class => 'ajax-load-new-tab' %>:
+  <%= link_to 'GNACLR', gnaclr_classifications_path, :class => 'ajax-load-new-tab' %>:
+  <%= @gnaclr_classification.title %>
+<% end %>
+
 <ul id="treelist">
   <li>
     <div class="content">
