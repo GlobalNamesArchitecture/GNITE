@@ -25,7 +25,7 @@ Feature: Browse GNACLR
     And I have signed in with "email@person.com/password"
     And "email@person.com" has created an existing tree titled "Waterpigs" with:
       | hydrochaeris |
-    When I go to the trees page
+    When I go to the master trees page
     And I follow "Waterpigs"
 
   @javascript

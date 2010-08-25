@@ -27,11 +27,6 @@ Then /^(.*) should be visible/ do |named_element|
   locate(selector).should be_visible
 end
 
-When %r{^I click ([^\"].*)$} do |named_element|
-  selector = element_for(named_element)
-  locate(selector).click
-end
-
 When %r{^I follow "([^"]*)" within ([^"].*)$} do |link_text, named_element|
   selector = element_for(named_element)
   within selector do
