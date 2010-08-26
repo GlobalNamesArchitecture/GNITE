@@ -737,6 +737,12 @@ hr {
     #tree-newimport .btn-img:hover {
       cursor: pointer;
     }
+  #tree-newimport .result {
+    background:url(../images/tree-nonactive.png) no-repeat;
+  }
+  #tree-newimport .result:hover {
+    background:url(../images/tree-nonactive.png) no-repeat;
+  }
   #tree-newimport .search {
     background:url(../images/search.png) no-repeat;
   }
