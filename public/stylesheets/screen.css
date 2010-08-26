@@ -103,8 +103,8 @@ hr {
   border:none;
   height:1px;
   width:100%;
-  background:rgb(10,11,13);
-  border-bottom:1px solid rgb(83,95,112);
+  background: #31373b;
+  border-bottom: 1px solid #343a3f;
 }
 /************************************************************************/
 /* Body Content */
@@ -214,15 +214,18 @@ hr {
   }
   #loginform .input {
     width:380px;
-    font-size:1.6em;
+    font-size:1.4em;
     letter-spacing: -1px;
-    padding:10px;
+    padding:8px 10px;
     border:0px;
-    box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6) inset;
-    -webkit-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6) inset;
-    -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6) inset;
-    margin-bottom:15px;
+    box-shadow:         0px 1px 1px 0px rgba(26, 26, 26, 0.6) inset;
+    -webkit-box-shadow: 0px 1px 1px 0px rgba(26, 26, 26, 0.6) inset;
+    -moz-box-shadow:    0px 1px 1px 0px rgba(26, 26, 26, 0.6) inset;
+    margin-bottom:12px;
     color:grey;
+    -moz-border-radius:    3px;
+    -webkit-border-radius: 3px;
+    border-radius:         3px;    
   }
 .green-submit{
   min-height:38px;
@@ -274,7 +277,7 @@ hr {
   margin-bottom:35px;
 }
   #loginform p {
-    color:#999;
+    color:#a5acad;
   }
     #loginform p a {
       color:#fff;
@@ -889,9 +892,9 @@ ul#treelist {
 #flash_error, #flash_success, #flash_failure, #flash_notice,
 ul#treelist li, #newtree, #search, .tree-background, #loginform .input, .green-submit, .cancel-button,
 .infobox-wrap, .infobox, .tree-back-wrap, #tree-newimport li {
-  border-radius:8px;
-  -moz-border-radius:8px;
-  -webkit-border-radius:8px;
+  border-radius:        6px;
+  -moz-border-radius:   6px;
+  -webkit-border-radius:6px;
 }
 .tree-background, #treelist li, #newtree, .tree-back-wrap, #tree-newimport li {
   box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
