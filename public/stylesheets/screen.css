@@ -233,6 +233,7 @@ body form input {
   }
 .green-submit{
   min-height:38px;
+  padding: 7px 15px;
 }
 .cancel-button {
   text-decoration: none;
@@ -244,9 +245,9 @@ body form input {
   color:#fff;
   font-size:16px;
   border:0;
-  box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
-  -webkit-box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
-  -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
+  box-shadow:           0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
+  -webkit-box-shadow:   0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
+  -moz-box-shadow:      0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
   background: #5aa52b;
   background:-webkit-gradient(linear,left bottom,left top,
     color-stop(0.04, rgb(27,112,4)),
@@ -263,6 +264,7 @@ body form input {
     -webkit-box-shadow: 1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
     -moz-box-shadow:    1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
     border:0px solid rgb(15, 18, 21);
+    cursor: pointer;
   }
   .cancel-button.shadow,
   .green-submit.shadow { 
@@ -313,10 +315,9 @@ body form input {
   padding:20px 0;
   }
   #nav ul {
-    border-top:1px solid;
-    border-bottom:1px solid;
-    border-color:rgb(199, 195, 181);  
-    background:rgb(247,246,243);
+ 
+    background: rgb(247,246,243) url(/images/tan_ridge.png) bottom left repeat-x;
+    padding: 0 0 2px 0;
     }
     #nav ul li {
       line-height:38px;
@@ -337,8 +338,7 @@ body form input {
             color:white;
           } 
           #nav li:not(#active) {
-            border-top:1px solid;
-            border-color:rgb(199, 195, 181);
+            background: #ece9e1 url(/images/tan_ridge.png) top left repeat-x;
             position: relative;
             z-index: 10;
             }
@@ -381,6 +381,7 @@ body form input {
           #nav ul li ul, #nav ul li:first-child, #nav ul li#active ul li:first-child {
             border-top:none;
             border-bottom:none;
+            background: transparent;
           }
 /************************************************************************/
 /* Main Tree Structure */
@@ -690,12 +691,16 @@ body form input {
   -webkit-border-radius: 3px;
   padding:0 10px;
 }
+
+
+
 #tree-metadata fieldset input {
   padding: 6px;
 }
 #tree-metadata fieldset textarea {
-  height:56px;
-  padding:10px;
+  height:70px;
+  padding: 10px;
+  display: block;
   resize:none;
 }
 /************************************************************************/
@@ -772,7 +777,7 @@ body form input {
 /************************************************************************/
 /* Master Tree List */
 /************************************************************************/
-#treelist h1, #newtree h1 {
+#treelist h1 {
   text-shadow: 0px 1px 1px white;
 }
 #treelist{
@@ -785,14 +790,11 @@ body form input {
     margin:0px 0 15px 0;
   }
 
-#newtree {
-  
-}
 
 ul#treelist {
   padding:0;
 }
-  ul#treelist li, #newtree {
+  ul#treelist li{
     float:left;
     padding:10px 20px;
     margin:15px 0;
@@ -805,7 +807,14 @@ ul#treelist {
       margin:15px 0;
       line-height: 16px;
     }
-    ul#treelist a:link, ul#treelist a:visited, ul#treelist a:active, ul#treelist a:hover, #newtree a:link, #newtree a:hover, #newtree a:active, #newtree a:visited {
+    ul#treelist a:link, 
+    ul#treelist a:visited, 
+    ul#treelist a:active, 
+    ul#treelist a:hover, 
+    #newtree a:link, 
+    #newtree a:hover, 
+    #newtree a:active, 
+    #newtree a:visited {
       text-decoration: none;
       color:black;
     }
@@ -830,22 +839,45 @@ ul#treelist {
     text-shadow: 0px 1px 1px white;
     font-weight: bold;
   }
-#newtree{
-  width:320px;
+#newtree {
+  display: inline-block;
+
 }
-  #newtree p {
-    margin:0 0 8px;
-    padding:0px;
+  #newtree a {
+    display: block;
+    border-radius:         25px;
+    -moz-border-radius:    25px;
+    -webkit-border-radius: 25px;  
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, rgb(164,164,164)),color-stop(1, rgb(232,232,232)));
+    background: -moz-linear-gradient(center bottom,rgb(164,164,164) 0%,rgb(232,232,232) 100%);  
+    padding: 10px 15px;    
   }
+
+  #newtree a:hover {
+    display: block;
+    border-radius:         25px;
+    -moz-border-radius:    25px;
+    -webkit-border-radius: 25px;  
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, rgb(164,164,164)),color-stop(1, rgb(250,250,250)));
+    background: -moz-linear-gradient(center bottom,rgb(164,164,164) 0%,rgb(250,250,250) 100%);  
+    padding: 10px 15px;    
+  }
+
+  #newtree a:active {
+    position: relative;
+    top: 1px;
+  }
+
+  #newtree h1 {
+    color: #232323;
+    font-size: 1.1em;
+    padding: 0;
+  }
+
   #newtree .content {
-    width:92%;
-    background:url(/images/newtree.png) no-repeat;
-    background-position: 0px;
-    padding:0 0 0 55px;
+    padding:0 0 0 0px;
   }
     #newtree .content:hover {
-      background:url(/images/newtree-hover.png) no-repeat;
-      background-position: left;
     }
 /************************************************************************/
 /* Flash Notices */
@@ -899,13 +931,13 @@ ul#treelist {
 /* Border Radius */
 /************************************************************************/
 #flash_error, #flash_success, #flash_failure, #flash_notice,
-ul#treelist li, #newtree, #search, .tree-background, #loginform .input, .green-submit, .cancel-button,
+ul#treelist li,  #search, .tree-background, #loginform .input, .green-submit, .cancel-button,
 .infobox-wrap, .infobox, .tree-back-wrap, #tree-newimport li {
   border-radius:        6px;
   -moz-border-radius:   6px;
   -webkit-border-radius:6px;
 }
-.tree-background, #treelist li, #newtree, .tree-back-wrap, #tree-newimport li {
+.tree-background, #treelist li, #newtree a, .tree-back-wrap, #tree-newimport li {
   box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
   -webkit-box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
   -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
