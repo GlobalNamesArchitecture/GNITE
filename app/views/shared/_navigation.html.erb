@@ -9,12 +9,12 @@
         <li>
       <% end %>
         <%= link_to master_trees_path do %>
-          <img class="icon hover" src="/images/tree-active.png"/>Master Trees
+          <span class="nav_master_tree">Master Trees</span>
         <% end %>
       </li>
       <% if controller.controller_name == "users" || controller.controller_name == "passwords"%>
         <li id="active">
-          <img class="icon" src="/images/profile-nonactive.png"/>Profile Settings
+          <span class="nav_profile">Profile Settings</span>
         <ul>
           <% if controller.controller_name == "passwords"  && controller.action_name = "edit" %>
            <li class="active"><%= link_to "Change Password", edit_your_password_path %></li>
