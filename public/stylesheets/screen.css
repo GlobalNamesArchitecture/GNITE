@@ -60,7 +60,6 @@ table {
 #header {
   background: rgb(35, 41, 44); /* The Fallback */
   background: rgba(11, 12, 14, 0.25);
-  border-bottom: 1px solid rgba(72,85,95, .8);
   height:50px;
   width:100%;
   float:left;
@@ -523,10 +522,10 @@ body form input {
   border-bottom-right-radius: 8px;
 }
 
-.master_trees-show {
-  background-image: url(/images/browse.png), url(/images/background.jpg) ;
-  background-position: top center, top left;
-  background-repeat: repeat-y, repeat;
+.master_trees-show #content {
+  background-image: url(/images/middle_divider.png);
+  background-position: top center;
+  background-repeat: repeat-y;
 }
 
 
