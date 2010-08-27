@@ -180,6 +180,10 @@ hr {
   padding:5px 10px;
   line-height: 30px;
 }
+
+body form input {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 /************************************************************************/
 /* Login Screen */
 /************************************************************************/
@@ -255,9 +259,9 @@ hr {
 }
   .cancel-button:hover,
   .green-submit:hover {
-    box-shadow:1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
-    -webkit-box-shadow:1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
-    -moz-box-shadow:1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+    box-shadow:         1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+    -webkit-box-shadow: 1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+    -moz-box-shadow:    1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
     border:0px solid rgb(15, 18, 21);
   }
   .cancel-button.shadow,
@@ -780,6 +784,11 @@ hr {
     padding:0px;
     margin:0px 0 15px 0;
   }
+
+#newtree {
+  
+}
+
 ul#treelist {
   padding:0;
 }
@@ -830,12 +839,12 @@ ul#treelist {
   }
   #newtree .content {
     width:92%;
-    background:url(../images/newtree.png) no-repeat;
+    background:url(/images/newtree.png) no-repeat;
     background-position: 0px;
     padding:0 0 0 55px;
   }
     #newtree .content:hover {
-      background:url(../images/newtree-hover.png) no-repeat;
+      background:url(/images/newtree-hover.png) no-repeat;
       background-position: left;
     }
 /************************************************************************/
