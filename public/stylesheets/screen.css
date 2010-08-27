@@ -24,9 +24,8 @@ body {
   line-height: 1;
   font-size: 75%;
   color: #222; 
-  background: rgb(56,62,72);
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background:url(../images/background.jpg);
+  background: #3e4649 url(../images/background.jpg) top left repeat;
 }
 ol, ul {
   list-style: none;
@@ -523,6 +522,15 @@ body form input {
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
 }
+
+.master_trees-show {
+  background-image: url(/images/browse.png), url(/images/background.jpg) ;
+  background-position: top center, top left;
+  background-repeat: repeat-y, repeat;
+}
+
+
+
 /************************************************************************/
 /* Tab Bar */
 /************************************************************************/

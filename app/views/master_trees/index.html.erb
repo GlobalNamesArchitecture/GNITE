@@ -23,21 +23,21 @@
   <% if current_user.master_trees.any? %>
             <ul id="treelist">
               <% current_user.master_trees.each do |tree| %>
-              <a href="<%= master_tree_url(tree.id) %>">
-                <li>
-                  <div class="content">
-                    <h3><%= tree.title %></h3>
-                    <% if tree.abstract.present? %>
-                      <p><%= tree.abstract %></p>
-                    <% end %>
-                    <div class="date-wrap">
-                      <div class="date"><strong>Created:</strong> <%= tree.created_at.to_s(:short_date) %></div>
-                      <div class="date"><strong>Last Edited:</strong> <%= tree.updated_at.to_s(:short_date) %></div>
+              <li>
+                <a href="<%= master_tree_url(tree.id) %>">
+                    <div class="content">
+                      <h3><%= tree.title %></h3>
+                      <% if tree.abstract.present? %>
+                        <p><%= tree.abstract %></p>
+                      <% end %>
+                      <div class="date-wrap">
+                        <div class="date"><strong>Created:</strong> <%= tree.created_at.to_s(:short_date) %></div>
+                        <div class="date"><strong>Last Edited:</strong> <%= tree.updated_at.to_s(:short_date) %></div>
+                      </div>
                     </div>
-                  </div>
-                  <div class="clearfix"></div>
-                </li>
-              </a>
+                    <div class="clearfix"></div>
+                </a>
+              </li>
               <% end %>
             </ul>
   <% end %>
