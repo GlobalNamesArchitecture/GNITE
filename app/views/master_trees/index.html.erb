@@ -1,16 +1,23 @@
 <div id="bodywrap">
   <% content_for :header do %>
-    Your Master Trees
+    <div class="tree_list_header clearfix">
+      <h1>Your Master Trees</h1>
+      <div id="newtree" class="clearfix">
+        <a href="<%= new_master_tree_path %>">
+          <span class="content">
+            <strong>Create New Master Tree</strong>
+          </span>
+        </a>
+      </div>
+    </div>
+    
+    
+    
+    
   <% end %>
   
   <!-- New Tree Button -->
-              <div id="newtree">
-                <a href="<%= new_master_tree_path %>">
-                  <div class="content">
-                    <h1>Create New Master Tree</h1>
-                  </div>
-                </a>
-              </div>
+    
             
   <!-- Master Trees List -->
   <% if current_user.master_trees.any? %>
@@ -19,13 +26,13 @@
               <a href="<%= master_tree_url(tree.id) %>">
                 <li>
                   <div class="content">
-                    <h1><%= tree.title %></h1>
+                    <h3><%= tree.title %></h3>
                     <% if tree.abstract.present? %>
                       <p><%= tree.abstract %></p>
                     <% end %>
                     <div class="date-wrap">
-                      <div class="date">Created: <%= tree.created_at.to_s(:short_date) %></div>
-                      <div class="date">Last Edited: <%= tree.updated_at.to_s(:short_date) %></div>
+                      <div class="date"><strong>Created:</strong> <%= tree.created_at.to_s(:short_date) %></div>
+                      <div class="date"><strong>Last Edited:</strong> <%= tree.updated_at.to_s(:short_date) %></div>
                     </div>
                   </div>
                   <div class="clearfix"></div>
