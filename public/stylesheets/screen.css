@@ -54,15 +54,15 @@ table {
 /* Global Stucture */
 /************************************************************************/
 #wrapper {
-  height:100%;  
-  padding-left:200px;
+  background:url(../images/background.jpg);
+  margin-left:200px;
+  height:100%;
 }
 #header {
   background: rgb(35, 41, 44); /* The Fallback */
   background: rgba(11, 12, 14, 0.25);
   height:50px;
   width:100%;
-  float:left;
   padding:0;
 }
   #header h1 {
@@ -93,7 +93,10 @@ h1 {
   font-size: 1.5em;
   padding:10px 0px;
 }
-h2 {}
+h2 {  
+  font-size: 1.25em;
+  padding:6px 0px;
+  }
 h3 {}
 h4 {}
 
@@ -111,13 +114,14 @@ hr {
 
 #content {
   min-width:960px;
-  height:100%;
+  background:url(../images/background.jpg);
 }
 #bodywrap {
   width:760px;
   float:left;
   color:black;
   margin:20px 40px;
+  height:100%;
 }
 .infobox-wrap {
   width:600px;
@@ -314,8 +318,9 @@ body form input {
   background:rgb(236, 234, 226);
   text-align:left;
   font-weight:bold;
-  float:left;
-  margin-left:-200px;
+  position: absolute;
+  left:0;
+  top:0;
   }
 #logo {
   padding:20px 0px 0px 15px;
@@ -794,7 +799,6 @@ body form input {
   }
   #tree-newimport .btn-img {
     width:400px;
-    height:;
     float:left;
     margin: 10px 0px 10px 6px;
   }
@@ -802,10 +806,13 @@ body form input {
       cursor: pointer;
     }
   #tree-newimport .result {
-    background:url(../images/tree-nonactive.png) no-repeat;
+    background:url(../images/import.png) no-repeat;
+    background-position: right;
+    width:100%;
+    min-height: 45px;
   }
   #tree-newimport .result:hover {
-    background:url(../images/tree-nonactive.png) no-repeat;
+    background:url(../images/import-hover.png) no-repeat;
   }
   #tree-newimport .search {
     background:url(../images/search.png) no-repeat;
@@ -825,6 +832,17 @@ body form input {
     #tree-newimport .browse:hover {
       background:url(../images/browse-hover.png) no-repeat;
     }
+  #tree-newimport ul.list {
+    width:100% !important;
+  }
+  #tree-newimport ul.list li {
+    width:100%;
+    margin:0;
+    border-radius:0px;
+    -moz-border-radius:0px;
+    -webkit-border-radius:0px;
+    min-height:60px;
+  }
 
 /************************************************************************/
 /* Master Tree List */
@@ -845,8 +863,7 @@ body form input {
 }
 #treelist{
   width:640px;
-  height:140px;
-  float:left;
+
 }
   #treelist li h3 {
     padding:0px;
@@ -858,6 +875,7 @@ body form input {
 ul#treelist {
   padding:0;
 }
+
   ul#treelist li{
     float:left;
     margin:0 0 10px 0;
@@ -908,6 +926,7 @@ ul#treelist {
     }
       ul#treelist li .content:hover {
       }
+
 .date-wrap {
   padding: 0;
 }
@@ -996,7 +1015,6 @@ ul#treelist {
 }
 #flash-wrapper {
   float: left;
-  margin: 0px 35px;
   width: 100%;
 }
 /************************************************************************/
@@ -1018,6 +1036,7 @@ ul#treelist {
 #flash_error, #flash_success, #flash_failure, #flash_notice,
 ul#treelist li,  #search, .tree-background, #loginform .input, .green-submit, .cancel-button,
 .infobox-wrap, .infobox, .tree-back-wrap, #tree-newimport li {
+<<<<<<< HEAD
   border-radius:        6px;
   -moz-border-radius:   6px;
   -webkit-border-radius:6px;
@@ -1026,6 +1045,17 @@ ul#treelist li,  #search, .tree-background, #loginform .input, .green-submit, .c
   box-shadow:         0px 1px 4px 0 rgba(26, 26, 26, 0.5);
   -webkit-box-shadow: 0px 1px 4px 0 rgba(26, 26, 26, 0.5);
   -moz-box-shadow:    0px 1px 4px 0 rgba(26, 26, 26, 0.5);
+=======
+  border-radius:8px;
+  -moz-border-radius:8px;
+  -webkit-border-radius:8px;
+}
+#tree-nr
+.tree-background, #treelist li, #newtree, .tree-back-wrap, #tree-newimport li {
+  box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+  -webkit-box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+  -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+>>>>>>> Updates to stylesheet
 }
 /************************************************************************/
 /* Gradients */
