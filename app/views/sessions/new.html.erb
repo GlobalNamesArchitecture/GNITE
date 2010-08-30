@@ -2,8 +2,8 @@
 <div id="loginform">
   <%= semantic_form_for :session, :url => session_path, :id => "signin" do |form| %>
     <%= form.inputs :title => "Sign in to your account" do %>
-      <%= form.input :email, :input_html => { :class => "prefilled input" } %>
-      <%= form.input :password, :input_html => { :class => "prefilled input" } %>
+      <%= form.input :email, :input_html => { :class => "input" } %>
+      <%= form.input :password, :input_html => { :class => "input" } %>
     <% end %>
     <%= form.buttons do %>
       <%= form.commit_button "Sign in", :button_html => { :class => "green-submit" } %>

@@ -212,9 +212,14 @@ body form input {
   #loginform label {
     font-size:1.2em;
     display: block;
+    font-weight: bold;
     color: #fff;
-
   }
+
+  #loginform label abbr {
+    display: none; /*gets rid of useless asterisk*/
+  }
+  
   #loginform .input {
     width:380px;
     font-size:1.4em;
@@ -230,6 +235,11 @@ body form input {
     -webkit-border-radius: 3px;
     border-radius:         3px;    
   }
+  
+#loginform fieldset.buttons .green-submit {
+  margin-top: 5px;
+}  
+  
 .green-submit{
   min-height:38px;
   padding: 7px 15px;
