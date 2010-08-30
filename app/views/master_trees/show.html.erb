@@ -97,21 +97,6 @@
         $("#master-tree").jstree("create");
       });
 
-      $("#import-roots-button").click(function() {
-         $.ajax({
-           type: "POST",
-           url: "<%= reference_trees_path(:format => 'json') %>",
-           contentType: "application/json",
-           dataType: 'json',
-           data: JSON.stringify({reference_tree: {title: "List",
-                                                  master_tree_id: <%= @tree.id %>},
-                                 nodes_list: $("#import-roots").val()}),
-           success: function(data, textStatus, xhr) {
-             //location.reload();
-           }
-         });
-      });
-
       $("#master-tree").jstree({
         "json_data": {
           "ajax": {
