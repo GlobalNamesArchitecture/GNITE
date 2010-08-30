@@ -1,39 +1,39 @@
 class MasterTreesController < ApplicationController
 
   def index
-    @trees = current_user.master_trees
+    @master_trees = current_user.master_trees
   end
 
   def new
-    @tree = MasterTree.new
+    @master_tree = MasterTree.new
   end
 
   def create
-    @tree = MasterTree.new(params[:master_tree])
-    @tree.user = current_user
+    @master_tree = MasterTree.new(params[:master_tree])
+    @master_tree.user = current_user
 
-    if @tree.save
+    if @master_tree.save
       flash[:success] = "Master Tree successfully created"
-      redirect_to master_tree_url(@tree.id)
+      redirect_to master_tree_url(@master_tree.id)
     else
       render :new
     end
   end
 
   def show
-    @tree = MasterTree.find(params[:id])
+    @master_tree = MasterTree.find(params[:id])
   end
 
   def edit
-    @tree = MasterTree.find(params[:id])
+    @master_tree = MasterTree.find(params[:id])
   end
 
   def update
-    @tree = MasterTree.find(params[:id])
-    @tree.update_attributes(params[:master_tree])
-    if @tree.save
+    @master_tree = MasterTree.find(params[:id])
+    @master_tree.update_attributes(params[:master_tree])
+    if @master_tree.save
       flash[:success] = "Master Tree successfully updated"
-      redirect_to master_tree_url(@tree.id)
+      redirect_to master_tree_url(@master_tree.id)
     else
       render :edit
     end

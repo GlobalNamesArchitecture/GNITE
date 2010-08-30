@@ -145,7 +145,6 @@ Feature: Edit a master tree
       | Bullwinkle |
     And I sign in as "email@person.com/password"
     When I follow "Moose tree"
-
     And I select the node "Bullwinkle"
     When I click the master tree background
     Then no nodes should be selected in the master tree

@@ -22,7 +22,7 @@ describe MasterTreesController do
 
       it { should respond_with(:success) }
       it { should render_template(:index) }
-      it { should assign_to(:trees).with(trees) }
+      it { should assign_to(:master_trees).with(trees) }
     end
 
     context "on a valid GET to #new" do
@@ -36,7 +36,7 @@ describe MasterTreesController do
       subject { controller }
 
       it { should respond_with(:success) }
-      it { should assign_to(:tree).with(tree) }
+      it { should assign_to(:master_tree).with(tree) }
       it { should render_template(:new) }
     end
 
@@ -52,10 +52,10 @@ describe MasterTreesController do
       subject { controller }
 
       it "should assign the tree to the current user" do
-        assigns(:tree).user.should == @user
+        assigns(:master_tree).user.should == @user
       end
 
-      it { should assign_to(:tree).with(master_tree) }
+      it { should assign_to(:master_tree).with(master_tree) }
       it { should redirect_to(master_tree_url(master_tree)) }
       it { should set_the_flash.to(/created/) }
     end
@@ -71,7 +71,7 @@ describe MasterTreesController do
 
       subject { controller }
 
-      it { should assign_to(:tree).with(tree) }
+      it { should assign_to(:master_tree).with(tree) }
       it { should_not set_the_flash }
       it { should render_template(:new) }
     end
@@ -86,7 +86,7 @@ describe MasterTreesController do
       subject { controller }
 
       it { should respond_with(:success) }
-      it { should assign_to(:tree).with(tree) }
+      it { should assign_to(:master_tree).with(tree) }
       it { should render_template(:edit) }
     end
 
@@ -101,7 +101,7 @@ describe MasterTreesController do
 
       subject { controller }
 
-      it { should assign_to(:tree).with(tree) }
+      it { should assign_to(:master_tree).with(tree) }
       it { should redirect_to(master_tree_url(tree)) }
       it { should set_the_flash.to(/updated/) }
     end
@@ -112,12 +112,12 @@ describe MasterTreesController do
       before do
         MasterTree.stubs(:find => tree)
         tree.stubs(:save => false)
-        put :update, :id => tree.id, :tree => {}
+        put :update, :id => tree.id, :master_tree => {}
       end
 
       subject { controller }
 
-      it { should assign_to(:tree).with(tree) }
+      it { should assign_to(:master_tree).with(tree) }
       it { should_not set_the_flash }
       it { should render_template(:edit) }
     end

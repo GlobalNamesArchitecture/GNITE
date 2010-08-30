@@ -1,5 +1,5 @@
 <div id="header">
-  <h1><%= @tree.title %></h1>
+  <h1><%= @master_tree.title %></h1>
 </div>
 <!-- Start of Left Tree -->
 <div class="tree-column">
@@ -101,7 +101,7 @@
       $("#master-tree").jstree({
         "json_data": {
           "ajax": {
-          "url": "<%= master_tree_nodes_path(:master_tree_id => @tree, :format => 'json') %>",
+          "url": "<%= master_tree_nodes_path(:master_tree_id => @master_tree, :format => 'json') %>",
             "data" : function (node) {
               if (node.attr) {
                 return { parent_id : node.attr("id") };
@@ -132,7 +132,7 @@
 
         $.ajax({
           type: "POST",
-          url: "<%= master_tree_nodes_path(:master_tree_id => @tree, :format => 'json') %>",
+          url: "<%= master_tree_nodes_path(:master_tree_id => @master_tree, :format => 'json') %>",
           contentType: "application/json",
           dataType: 'json',
           data: JSON.stringify({node: {name: newNode.name, parent_id: parentId}}),
@@ -150,7 +150,7 @@
         var updatedNode = data.rslt;
         $.ajax({
           type: "PUT",
-          url: "/master_trees/<%= @tree.id %>/nodes/"+updatedNode.obj.attr("id")+".json",
+          url: "/master_trees/<%= @master_tree.id %>/nodes/"+updatedNode.obj.attr("id")+".json",
           contentType: "application/json",
           dataType: 'json',
           data: JSON.stringify({node: {name: updatedNode.new_name }}),
@@ -171,7 +171,7 @@
          if (isCopy) {
            $.ajax({
              type: "POST",
-             url: "/master_trees/<%= @tree.id %>/nodes/" + movedNodeId + "/clone.json",
+             url: "/master_trees/<%= @master_tree.id %>/nodes/" + movedNodeId + "/clone.json",
              contentType: "application/json",
              dataType: 'json',
              data: JSON.stringify({node: {parent_id: parentId }}),
@@ -182,7 +182,7 @@
          } else {
            $.ajax({
              type: "PUT",
-             url: "/master_trees/<%= @tree.id %>/nodes/"+result.o.attr("id")+".json",
+             url: "/master_trees/<%= @master_tree.id %>/nodes/"+result.o.attr("id")+".json",
              contentType: "application/json",
              dataType: 'json',
              data: JSON.stringify({node: {parent_id: parentId }}),
@@ -197,7 +197,7 @@
         var node = data.rslt;
         $.ajax({
           type: "DELETE",
-          url: "/master_trees/<%= @tree.id %>/nodes/"+node.obj.attr("id")+".json",
+          url: "/master_trees/<%= @master_tree.id %>/nodes/"+node.obj.attr("id")+".json",
           contentType: "application/json",
           dataType: 'json',
         });
