@@ -3,7 +3,11 @@ class NodesController < ApplicationController
     respond_to do |format|
       format.json do
         tree_id = params[:master_tree_id] || params[:reference_tree_id]
-        tree = current_user.master_trees.find(tree_id)
+        if params[:master_tree_id]
+          tree = current_user.master_trees.find(tree_id)
+        else
+          tree = current_user.reference_trees.find(tree_id)
+        end
         nodes = tree.children_of(params[:parent_id])
         render :json => NodeJsonPresenter.present(nodes)
       end

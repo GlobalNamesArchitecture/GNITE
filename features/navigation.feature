@@ -7,7 +7,7 @@ Feature: Interact with navigation bar
 
   Scenario: Navigating to Trees
     Given I have signed in with "belinda@belew.com/password"
-    And "belinda@belew.com" has created an existing tree titled "belinda's tree" with:
+    And "belinda@belew.com" has created an existing master tree titled "belinda's tree" with:
       | belinda's node |
     When I go to the home page
     Then I should see the navigation bar

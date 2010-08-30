@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100823173123) do
+ActiveRecord::Schema.define(:version => 20100830171207) do
 
   create_table "nodes", :force => true do |t|
     t.integer  "tree_id"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(:version => 20100823173123) do
     t.text     "abstract"
     t.string   "creative_commons"
     t.integer  "master_tree_id"
+    t.string   "type"
   end
 
   create_table "users", :force => true do |t|

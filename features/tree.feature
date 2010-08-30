@@ -4,9 +4,9 @@ Feature: Edit a master tree
   So that I can create and curate classifications
 
   @javascript
-  Scenario: User can see nodes on an existing tree
+  Scenario: User can see nodes on an existing master tree
     Given I have signed in with "email@person.com/password"
-    And "email@person.com" has created an existing tree titled "Waterpigs" with:
+    And "email@person.com" has created an existing master tree titled "Waterpigs" with:
       | hydrochaeris |
     When I go to the master tree index page
     And I follow "Waterpigs"
@@ -57,7 +57,7 @@ Feature: Edit a master tree
   @javascript
   Scenario: User can rename nodes in a tree
     Given I am signed up and confirmed as "email@person.com/password"
-    And "email@person.com" has created an existing tree titled "Moose tree" with:
+    And "email@person.com" has created an existing master tree titled "Moose tree" with:
       | Bullwinkle |
       | Rocky      |
     And I sign in as "email@person.com/password"
@@ -75,7 +75,7 @@ Feature: Edit a master tree
    @javascript
    Scenario: User can move nodes in a tree
     Given I am signed up and confirmed as "email@person.com/password"
-    And "email@person.com" has created an existing tree titled "Moose tree" with:
+    And "email@person.com" has created an existing master tree titled "Moose tree" with:
       | Bullwinkle |
       | Rocky      |
       | Natasha    |
@@ -102,7 +102,7 @@ Feature: Edit a master tree
   @javascript
   Scenario: User can remove nodes in a tree
     Given I am signed up and confirmed as "email@person.com/password"
-    And "email@person.com" has created an existing tree titled "Moose tree" with:
+    And "email@person.com" has created an existing master tree titled "Moose tree" with:
       | Bullwinkle |
       | Rocky      |
       | Natasha    |
@@ -121,7 +121,7 @@ Feature: Edit a master tree
   @javascript
   Scenario: User can automatically remove children nodes by deleting a parent in a tree
     Given I am signed up and confirmed as "email@person.com/password"
-    And "email@person.com" has created an existing tree titled "Moose tree" with:
+    And "email@person.com" has created an existing master tree titled "Moose tree" with:
       | Bullwinkle |
       | Rocky      |
       | Natasha    |
@@ -141,7 +141,7 @@ Feature: Edit a master tree
   @javascript
   Scenario: User can deselect a node
     Given I am signed up and confirmed as "email@person.com/password"
-    And "email@person.com" has created an existing tree titled "Moose tree" with:
+    And "email@person.com" has created an existing master tree titled "Moose tree" with:
       | Bullwinkle |
     And I sign in as "email@person.com/password"
     When I follow "Moose tree"
@@ -155,7 +155,7 @@ Feature: Edit a master tree
 
   Scenario: User can edit the metadata for a tree
     Given I am signed up and confirmed as "email@person.com/password"
-    And "email@person.com" has created an existing tree titled "Moose tree" with:
+    And "email@person.com" has created an existing master tree titled "Moose tree" with:
       | Bullwinkle |
     And I sign in as "email@person.com/password"
     Then I should be on the master tree index page
@@ -171,7 +171,7 @@ Feature: Edit a master tree
 
   Scenario: User can cancel editing the metadata for a tree
     Given I am signed up and confirmed as "email@person.com/password"
-    And "email@person.com" has created an existing tree titled "Moose tree" with:
+    And "email@person.com" has created an existing master tree titled "Moose tree" with:
       | Bullwinkle |
     And I sign in as "email@person.com/password"
     Then I should be on the master tree index page
@@ -185,7 +185,7 @@ Feature: Edit a master tree
   @javascript
   Scenario: User can cut and paste a node
     Given I am signed up and confirmed as "email@person.com/password"
-    And "email@person.com" has created an existing tree titled "Snacks" with:
+    And "email@person.com" has created an existing master tree titled "Snacks" with:
       | Get Cut    |
       | Paste Here |
     And I sign in as "email@person.com/password"
