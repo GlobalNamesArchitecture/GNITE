@@ -5,8 +5,6 @@
       <%= form.inputs do -%>
         <%= form.input :title %>
 
-        <%= form.input :uuid, :input_html => { :disabled => true } %>
-        <%= form.hidden_field :uuid %>
         <%= form.label :publication_date %>
         <%= form.date_select :publication_date %>
         <%= form.input :citation %>

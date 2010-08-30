@@ -153,35 +153,6 @@ Feature: Edit a master tree
     And I click a non-text area of a node in the master tree
     Then no nodes should be selected in the master tree
 
-  Scenario: User can edit the metadata for a tree
-    Given I am signed up and confirmed as "email@person.com/password"
-    And "email@person.com" has created an existing tree titled "Moose tree" with:
-      | Bullwinkle |
-    And I sign in as "email@person.com/password"
-    Then I should be on the master tree index page
-    When I follow "Moose tree"
-    And I follow "Edit Tree Information"
-    Then I should be on the edit master tree page for "Moose tree"
-    When I fill in "Title" with "Bullwinkle tree"
-    And I select "Public domain" from "License"
-    And I press "Update"
-    And I go to the master tree index page
-    Then I should see "Bullwinkle tree"
-    And I should not see "Moose tree"
-
-  Scenario: User can cancel editing the metadata for a tree
-    Given I am signed up and confirmed as "email@person.com/password"
-    And "email@person.com" has created an existing tree titled "Moose tree" with:
-      | Bullwinkle |
-    And I sign in as "email@person.com/password"
-    Then I should be on the master tree index page
-    When I follow "Moose tree"
-    And I follow "Edit Tree Information"
-    Then I should be on the edit master tree page for "Moose tree"
-    When I follow "Cancel"
-    Then I should be on the master tree page for "Moose tree"
-
-
   @javascript
   Scenario: User can cut and paste a node
     Given I am signed up and confirmed as "email@person.com/password"

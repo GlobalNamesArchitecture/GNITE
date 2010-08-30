@@ -55,9 +55,7 @@ end
 
 
 Then /^pause (\d+)$/ do |num|
-  time = Time.now
-  while Time.now - time < num.to_i
-  end
+  sleep(num.to_i)
 end
 
 When /^I drag "([^"]*)" under "([^"]*)"$/ do |child_node_text, parent_node_text|
