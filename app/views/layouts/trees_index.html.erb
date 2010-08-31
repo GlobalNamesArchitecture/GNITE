@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="../javascripts/equalheights.js" language="javascript" type="text/javascript"></script>
   <title>Gnite</title>
   <%= stylesheet_link_tag :all, :recursive => true %>
   <%= csrf_meta_tag %>
@@ -17,14 +18,10 @@
         </div>
       <% end %>
       <div id="bodywrap">
-
         <%= render :partial => 'shared/flashes' -%>
-
         <%= yield %>
-      </div>
-      <div class="clearfix"></div> 
+      </div> 
     </div>
-    <div class="clearfix"></div> 
     <%= render :partial => 'shared/javascript' %>
   </div>
 </body>

@@ -64,6 +64,10 @@ table {
   height:50px;
   width:100%;
   padding:0;
+  /*position:absolute;
+  margin-left:-200px;
+  z-index:0;*/
+
 }
   #header h1 {
     color:white;
@@ -113,6 +117,8 @@ hr {
 /************************************************************************/
 
 #content {
+  height:100%;
+  min-height:800px;
   min-width:960px;
   background:url(../images/background.jpg);
 }
@@ -314,11 +320,12 @@ body form input {
 #navbar {
   width:200px;
   height:100%;
-  min-height:920px;
+  min-height:800px;
   background:rgb(236, 234, 226);
   text-align:left;
   font-weight:bold;
   position: absolute;
+  z-index:10;
   left:0;
   top:0;
   }
@@ -437,20 +444,27 @@ body form input {
 .tree-column {
   width:49%;
   min-width:480px;
-  height:92%;
+  height:93%;
   float:left;
+  /*padding-top:50px;*/
 }
 .tree-background {
   width:100%;
-  min-height:800px;
+  height:100%;
+  min-height:700px;
   background:rgb(247, 246, 243);
   border:0px solid #fff;
   }
 #treewrap-left{
+  height:90%;
   margin:12px 20px 12px 40px;
 }
 #treewrap-right{
+  height:90%;
   margin:12px 20px 12px 20px;
+}
+#tree-container{
+  height:95%;
 }
 .tree-nav {
   width:100%;
@@ -497,8 +511,8 @@ body form input {
 
   #add-node {
     position:absolute;
-    top:12px;
-    right:12px;
+    top:15px;
+    right:20px;
     font-weight: bold;
     padding:10px 10px 8px;
     width:100px;
@@ -533,8 +547,9 @@ body form input {
     }
 
 #master-tree{
-  min-height:734px;
+  min-height:600px;
   height:100%;
+  overflow-y:auto;
   -webkit-border-bottom-left-radius: 8px;
   -webkit-border-bottom-right-radius: 8px;
   -moz-border-radius-bottomleft: 8px;
@@ -542,6 +557,7 @@ body form input {
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
 }
+<<<<<<< HEAD
 
 .master_trees-show #content {
   background-image: url(/images/middle_divider.png);
@@ -550,6 +566,15 @@ body form input {
 }
 
 
+=======
+.jstree ul {
+  height:100% !important;
+  
+}
+.jstree-default.jstree-focused {
+  height:100%;
+}
+>>>>>>> Updates to fluid layout
 
 /************************************************************************/
 /* Tab Bar */
@@ -646,7 +671,7 @@ body form input {
 }
 .node-meta-wrap {
   width:100%;
-  position: relative;
+  position:relative;
   bottom:0px;
   height:100%;
 }
@@ -863,7 +888,7 @@ body form input {
 }
 #treelist{
   width:640px;
-
+  margin:20px 40px 0;
 }
   #treelist li h3 {
     padding:0px;
@@ -925,6 +950,7 @@ ul#treelist {
     ul#treelist li .content{
     }
       ul#treelist li .content:hover {
+
       }
 
 .date-wrap {
@@ -1034,7 +1060,11 @@ ul#treelist {
 /* Border Radius */
 /************************************************************************/
 #flash_error, #flash_success, #flash_failure, #flash_notice,
+<<<<<<< HEAD
 ul#treelist li,  #search, .tree-background, #loginform .input, .green-submit, .cancel-button,
+=======
+#treelist li, #newtree, #search, .tree-background, #loginform .input, .green-submit, .cancel-button,
+>>>>>>> Updates to fluid layout
 .infobox-wrap, .infobox, .tree-back-wrap, #tree-newimport li {
 <<<<<<< HEAD
   border-radius:        6px;
