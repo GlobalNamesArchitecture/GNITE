@@ -23,7 +23,7 @@ Feature: Browse GNACLR
     #   | 2010-06-03 at 02:39:44 PM |
     #   | 2010-06-02 at 01:46:10 PM |
     And I have signed in with "email@person.com/password"
-    And "email@person.com" has created an existing tree titled "Waterpigs" with:
+    And "email@person.com" has created an existing master tree titled "Waterpigs" with:
       | hydrochaeris |
     When I go to the master trees page
     And I follow "Waterpigs"

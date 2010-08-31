@@ -1,5 +1,6 @@
-Then /^I should see a node "([^"]*)" at the root level in my reference tree$/ do |node_text|
-  page.should have_css("div#reference-tree>ul>li>a:contains('#{node_text}')")
+Then /^I should see a node "([^"]*)" at the root level in my reference tree "([^"]*)"$/ do |node_text, reference_tree_title|
+  reference_tree = ReferenceTree.find_by_title(reference_tree_title)
+  page.should have_css("div##{dom_id(reference_tree, "container_for")}>ul>li>a:contains('#{node_text}')")
 end
 
 Then /^I should see a "([^"]*)" tab$/ do |tab_name|

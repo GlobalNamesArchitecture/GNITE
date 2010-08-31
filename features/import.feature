@@ -19,6 +19,6 @@ Feature: Import data to your master tree
     And I press "Import"
     Then I should see a "List" tab
     And the "List" tab should be active
-    And I should see a node "root one" at the root level in my reference tree
-    And I should see a node "root two" at the root level in my reference tree
-    And I should see a node "root three" at the root level in my reference tree
+    And I should see a node "root one" at the root level in my reference tree "List"
+    And I should see a node "root two" at the root level in my reference tree "List"
+    And I should see a node "root three" at the root level in my reference tree "List"

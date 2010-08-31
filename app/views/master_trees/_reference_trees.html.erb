@@ -2,15 +2,15 @@
   <div id="treewrap-right">
   <div id="tabs">
     <ul id="tab-titles">
-      <% @tree.reference_trees.each do |reference_tree| %>
+      <% @master_tree.reference_trees.each do |reference_tree| %>
         <li><a href="#<%=dom_id(reference_tree)%>"><%= reference_tree.title %></a></li>
       <% end %>
-      <li><a href="#tabs-new">New Tab</a></li>
+      <li><a href="#new-tab">New Tab</a></li>
       <li id="trash"><a href="#trash-tab">Trash</a></li>
     </ul>
 
     <!-- Start tab content -->
-    <% @tree.reference_trees.each do |reference_tree| %>
+    <% @master_tree.reference_trees.each do |reference_tree| %>
       <div id=<%= dom_id(reference_tree) %>>
         <div class="tree-background">
           <div class="breadcrumbs">
@@ -30,24 +30,8 @@
       </div>
     <% end %>
     <!-- End of reference trees tabs -->
-    <div id="tabs-new">
-      <div class="tree-background dark">
-
-          <div class="metadata-header">
-            <h1>New Import</h1>
-          </div>
-          <div>
-            <ul>
-              <li>
-                <div id="tree-newimport">
-                  <p><label for="import-roots">Import List of Nodes</label></p>
-                  <p><textarea rows="20" cols="20" id="import-roots"></textarea></p>
-                  <button type="button" id="import-roots-button">Import</button>
-                </div>
-              </li>
-            </ul>
-          </div>
-       </div>
+    <div id="new-tab">
+        <%= render :template => 'imports/new', :layout => 'layouts/right_tree' %>
     </div>
     <!-- End of tabs-new tab -->
     <div id="trash-tab">
@@ -68,21 +52,22 @@
      $(document).ready(function() {
 
       $("#import-roots-button").click(function() {
+        var imports = $("#import-roots").val().split("\n")
          $.ajax({
            type: "POST",
            url: "<%= reference_trees_path(:format => 'json') %>",
            contentType: "application/json",
            dataType: 'json',
            data: JSON.stringify({reference_tree: {title: "List",
-                                                  master_tree_id: <%= @tree.id %>},
-                                 nodes_list: $("#import-roots").val()}),
+                                                  master_tree_id: <%= @master_tree.id %>},
+                                 nodes_list: imports}),
            success: function(data, textStatus, xhr) {
-             location.reload();
+           location.reload();
            }
          });
       });
 
-    <% @tree.reference_trees.each do |reference_tree| %>
+    <% @master_tree.reference_trees.each do |reference_tree| %>
       $("#<%= dom_id(reference_tree, 'container_for')%>").jstree({
         "json_data": {
           "ajax": {

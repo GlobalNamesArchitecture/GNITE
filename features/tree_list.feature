@@ -49,7 +49,6 @@ Feature: Create and manage master trees
       | Title       | Created At | Updated At | Abstract                                      | User                    |
       | Cats        | 08/18/09   | 08/18/09   | Cats documented by a super cat expert on cats | Email: email@person.com |
     When I go to the master tree index page
-    And show me the page
     Then I should see "Bananas"
     And I should see "Kittens"
     And I should not see "Cats"

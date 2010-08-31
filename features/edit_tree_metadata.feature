@@ -2,7 +2,7 @@ Feature: Edit the metadata for a master tree
 
   Scenario: User can edit the metadata for a tree
     Given I am signed up and confirmed as "email@person.com/password"
-    And "email@person.com" has created an existing tree titled "Moose tree" with:
+    And "email@person.com" has created an existing master tree titled "Moose tree" with:
       | Bullwinkle |
     And I sign in as "email@person.com/password"
     Then I should be on the master tree index page
@@ -18,7 +18,7 @@ Feature: Edit the metadata for a master tree
 
   Scenario: User can cancel editing the metadata for a tree
     Given I am signed up and confirmed as "email@person.com/password"
-    And "email@person.com" has created an existing tree titled "Moose tree" with:
+    And "email@person.com" has created an existing master tree titled "Moose tree" with:
       | Bullwinkle |
     And I sign in as "email@person.com/password"
     Then I should be on the master tree index page
@@ -32,7 +32,7 @@ Feature: Edit the metadata for a master tree
   @javascript
   Scenario: Editing the metadata for a master tree should not change node structure
     Given I am signed up and confirmed as "email@person.com/password"
-    And "email@person.com" has created an existing tree titled "Moose tree" with:
+    And "email@person.com" has created an existing master tree titled "Moose tree" with:
       | Bullwinkle |
       | Rocky      |
       | Natasha    |

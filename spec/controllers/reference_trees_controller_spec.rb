@@ -16,12 +16,12 @@ describe ReferenceTreesController do
 
     context "on POST to #create.json" do
       let(:tree) { Factory(:reference_tree, :title => "Awesome title") }
-      let(:node_list) { "Title One\nTitle Two\nTitle Three" }
+      let(:nodes_list) { ["Title One", "Title Two", "Title Three"] }
       before do
         ReferenceTree.stubs(:new => tree)
         post :create, :format => 'json',
                      :reference_tree => {:title => tree.title, :master_tree_id => master_tree.id },
-                      :node_list => node_list
+                      :nodes_list => nodes_list
       end
 
       it "should assign nodes to tree" do
