@@ -102,10 +102,11 @@
             "data" : function (node) {
               if (node.attr) {
                 //to fix bug of asigning children to root
-                //if(node.attr("id") == ""){
-                  $("#master-tree").jstree('refresh', node);
-                //};
-                return { parent_id : node.attr("id") };
+                if(node.attr("id") == ""){
+                return { parent_id : $(".jstree-last.jstree-open").id }
+                }else{
+                  return { parent_id : node.attr("id") };
+                };
               } else {
                 return {};
               }
