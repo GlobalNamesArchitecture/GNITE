@@ -10,9 +10,10 @@
         <%= form.input :citation %>
         <%= form.label :abstract %>
         <%= form.text_area :abstract %>
-        <%= form.input :creative_commons, :as         => :select,
-                                          :label      => "License",
-                                          :collection => Licenses::CC_LICENSES %>
+        <%= form.input :creative_commons, :as            => :select,
+                                          :label         => "License",
+                                          :include_blank => false,
+                                          :collection    => Licenses::CC_LICENSES %>
       <% end %>
   </div>
 <!-- End of Tree Background -->
