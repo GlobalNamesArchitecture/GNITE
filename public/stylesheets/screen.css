@@ -911,9 +911,9 @@ ul#treelist {
       background: #BABFC3 url(/images/master_tree_icon.png) left center no-repeat;
       background: url(/images/master_tree_icon.png) left center no-repeat, -webkit-gradient(linear, 0% 0%, 0% 100%, from(#BABFC3), to(#919598));
       background: url(/images/master_tree_icon.png) left center no-repeat, -moz-linear-gradient(19% 75% 90deg,#919598, #BABFC3);    
-      -moz-border-radius:    inherit;
-      -webkit-border-radius: inherit;
-      border-radius:         inherit;  
+      -moz-border-radius:    5px;
+      -webkit-border-radius: 5px;
+      border-radius:         5px;  
       border-top: 1px solid rgba(255,255,255,.6);            
     }
 
