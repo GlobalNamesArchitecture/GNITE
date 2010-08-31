@@ -555,7 +555,7 @@ body form input {
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
 }
-<<<<<<< HEAD
+
 
 .master_trees-show #content {
   background-image: url(/images/middle_divider.png);
@@ -564,7 +564,7 @@ body form input {
 }
 
 
-=======
+
 .jstree ul {
   height:100% !important;
   
@@ -572,7 +572,7 @@ body form input {
 .jstree-default.jstree-focused {
   height:100%;
 }
->>>>>>> Updates to fluid layout
+
 
 /************************************************************************/
 /* Tab Bar */
