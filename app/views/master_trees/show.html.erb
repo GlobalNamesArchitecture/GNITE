@@ -101,6 +101,10 @@
           "url": "<%= master_tree_nodes_path(:master_tree_id => @master_tree, :format => 'json') %>",
             "data" : function (node) {
               if (node.attr) {
+                //to fix bug of asigning children to root
+                //if(node.attr("id") == ""){
+                  $("#master-tree").jstree('refresh', node);
+                //};
                 return { parent_id : node.attr("id") };
               } else {
                 return {};
