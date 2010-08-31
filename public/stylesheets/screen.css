@@ -124,10 +124,8 @@ hr {
 }
 #bodywrap {
   width:760px;
-  float:left;
   color:black;
   margin:20px 40px;
-  height:100%;
 }
 .infobox-wrap {
   width:600px;
