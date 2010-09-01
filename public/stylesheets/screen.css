@@ -800,9 +800,13 @@ body form input {
   #tree-newimport li {
     width:400px;
     background: #e6e4dd;
-    background: -webkit-gradient(linear,left bottom,left top, color-stop(0, rgb(230,228,221)), color-stop(0.5, rgb(255,255,255)));
+    background: rgb(230,228,221);
     background:-moz-linear-gradient(center bottom, rgb(230,228,221) 0%, rgb(255,255,255) 50%);
     margin:25px 0;
+  }
+  #tree-newimport li:hover { 
+    background:rgb(255,255,255);
+    background:-moz-linear-gradient(center bottom, rgb(230,228,221) 0%, rgb(255,255,255) 50%);
   }
     #tree-newimport li .content {
       padding:10px;
@@ -860,6 +864,10 @@ body form input {
     width:100% !important;
   }
   #tree-newimport ul.list li {
+    box-shadow:         0px;
+    -webkit-box-shadow: 0px 0px 0px 0px !important;
+    -moz-box-shadow:    0px;
+    border-bottom:1px solid rgb(176, 173, 163);
     width:100%;
     margin:0;
     border-radius:0px;
@@ -867,9 +875,28 @@ body form input {
     -webkit-border-radius:0px;
     min-height:60px;
   }
+  #tree-newimport ul.list li:first-child {
+    border-top:1px solid rgb(176, 173, 163);
+  }
+  #tree-newimport ul.list li:last-child {
+    -webkit-border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    -moz-border-radius-bottomright: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
 #tree-newimport .result .content {
-  padding:0 0 0 12px !important;
+  padding:0 12px !important;
 }
+
+#gnaclr-description {
+  padding:12px 15px;
+}
+#gnaclr-description p {
+  margin:5px 0;
+}
+#gnaclr-description .date-wrap {}
 /************************************************************************/
 /* Master Tree List */
 /************************************************************************/
@@ -896,8 +923,7 @@ body form input {
     font-size: 1.3em;
     margin:0px 0 8px 0;
   }
-
-
+  
 ul#treelist {
   padding:0;
 }
@@ -954,10 +980,11 @@ ul#treelist {
 
 .date-wrap {
   padding: 0;
+  margin:5px 0 10px;
 }
-  .date-wrap .date {
+  .date-wrap .date, .date-wrap .author {
     display: inline-block;
-    margin-right:10px;
+    margin-right:20px;
     float:left;
     font-size: .9em;
     text-shadow: 0px 1px 1px rgba(255,255,255,.3);
@@ -1066,12 +1093,14 @@ ul#treelist li,  #search, .tree-background, #loginform .input, .green-submit, .c
   -webkit-border-radius:6px;
 }
 .tree-background, #treelist li, #newtree a, .tree-back-wrap, #tree-newimport li {
-  box-shadow:         0px 1px 4px 0 rgba(26, 26, 26, 0.5);
-  -webkit-box-shadow: 0px 1px 4px 0 rgba(26, 26, 26, 0.5);
-  -moz-box-shadow:    0px 1px 4px 0 rgba(26, 26, 26, 0.5);
   border-radius:8px;
   -moz-border-radius:8px;
   -webkit-border-radius:8px;
+}
+.tree-background, #treelist li, #newtree a, .tree-back-wrap, #tree-newimport li  {
+  box-shadow:         0px 1px 4px 0 rgba(26, 26, 26, 0.5);
+  -webkit-box-shadow: 0px 1px 4px 0 rgba(26, 26, 26, 0.5);
+  -moz-box-shadow:    0px 1px 4px 0 rgba(26, 26, 26, 0.5);
 }
 /************************************************************************/
 /* Gradients */

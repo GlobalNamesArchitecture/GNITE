@@ -3,35 +3,28 @@
   <%= link_to 'GNACLR', gnaclr_classifications_path, :class => 'ajax-load-new-tab' %> &raquo;
   <%= @gnaclr_classification.title %>
 <% end %>
+<div id="gnaclr-description" class="clearfix">
+  <h2><%= @gnaclr_classification.title %></h2>
+    <div class="date-wrap clearfix">
+    <% if @gnaclr_classification.authors.try(:any?) %>
+    <div class="author">Authors: <%= author_line_for_classification(@gnaclr_classification) %>.</div>
+  <% end %>
+    <div class="date">Updated: <%= @gnaclr_classification.updated %></div>
+  </div>
+  <% if @gnaclr_classification.description.present? %>
+    <p><%= @gnaclr_classification.description %></p>
+  <% end %>
+</div>
 
-<ul id="tree-newimport">
-  <li>
-    <div class="result">
-      <div class="content">
-        <h2><%= @gnaclr_classification.title %></h2>
-        <% if @gnaclr_classification.description.present? %>
-          <p><%= @gnaclr_classification.description %></p>
-        <% end %>
-        <% if @gnaclr_classification.authors.try(:any?) %>
-          <p>Authors: <%= author_line_for_classification(@gnaclr_classification) %>.</p>
-        <% end %>
-        <div class="date-wrap">
-          <div class="date">Updated: <%= @gnaclr_classification.updated %></div>
-        </div>
-      </div>
-    </div>
-    <div class="clearfix"></div>
-  </li>
-
+<ul id="tree-newimport" class="list">
   <% 3.times do |n| %>
-    <li>
-      <div class="btn-img">
+    <li class="clearfix">
+      <div class="btn-img result">
         <div class="content">
           <h2>Revision <%= n %>: <%= (5-n).months.ago.to_s(:short) %></h2>
           <p>(Import not yet implemented - these are not real revisions.)</p>
         </div>
       </div>
-      <div class="clearfix"></div>
     </li>
   <% end %>
 </ul>
