@@ -11,4 +11,8 @@ class ReferenceTreesController < ApplicationController
       end
     end
   end
+
+  def show
+    @reference_tree = ReferenceTree.find(params[:id])
+  end
 end

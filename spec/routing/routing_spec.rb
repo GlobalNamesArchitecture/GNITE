@@ -49,6 +49,13 @@ describe "routing to reference_trees" do
        :action => "create"
     )
   end
+  it "routes /reference_trees/abc to reference_trees#show" do
+    { :get => "/reference_trees/abc" }.should route_to(
+      :controller => "reference_trees",
+      :action => "show",
+      :id => "abc"
+    )
+  end
 end
 
 describe "routing to users" do

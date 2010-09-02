@@ -19,7 +19,7 @@ Gnite::Application.routes.draw do |map|
     end
   end
 
-  resources :reference_trees, :only => [:create] do
+  resources :reference_trees, :only => [:create, :show] do
     resources :nodes, :only => [:index]
   end
 
