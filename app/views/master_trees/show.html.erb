@@ -1,6 +1,9 @@
 <div id="header">
   <h1><%= @master_tree.title %></h1>
 </div>
+<div id="flash-wrapper">
+  <%= render :partial => 'shared/flashes' -%>
+</div>
 <!-- Start of Left Tree -->
 <div class="tree-column">
   <div id="treewrap-left">

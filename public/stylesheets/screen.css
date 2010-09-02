@@ -252,7 +252,7 @@ body form input {
 .green-submit{
   min-height:38px;
   padding: 7px 15px;
-  font-weight: bold;
+  /*font-weight: bold;*/
   text-shadow: 0 -1px 0 rgba(0,0,0,.25);
 }
 .cancel-button {
@@ -897,6 +897,10 @@ body form input {
   margin:5px 0;
 }
 #gnaclr-description .date-wrap {}
+
+#import-flat-list{
+  background:white;
+}
 /************************************************************************/
 /* Master Tree List */
 /************************************************************************/
@@ -1040,34 +1044,60 @@ ul#treelist {
 /************************************************************************/
 #flash_error, #flash_success, #flash_failure, #flash_notice {
   padding: 1em;
-  margin: 1em 0;
-
-  width: 810px;
+  margin: 10px 40px;
   background: #fff;
-
   border:0px;
-  box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+  /*box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
   -webkit-box-shadow:0px 1px 2px 1px rgba(26, 26, 26, 0.6);
-  -moz-box-shadow: 0px 1px 2px 1px rgba(26, 26, 26, 0.6);
-
-  color: #000;
-
+  -moz-box-shadow: 0px 1px 2px 1px rgba(26, 26, 26, 0.6);*/
+  color: #fff;
 }
 
 #flash_success {
-  background-color: #479d31;
+  background: #5aa52b;
+  background:-webkit-gradient(linear,left bottom,left top,
+    color-stop(0.0, rgba(98,161,38,0.5)),
+    color-stop(0.54, rgba(98,161,38,0.5)),
+    color-stop(1.0, rgba(30,117,5,0.5)));
+  background:-moz-linear-gradient(center bottom,
+    rgb(27,112,4) 4%,
+    rgb(90,165,43) 58%,
+    rgb(144,207,76) 98%);
+  -webkit-box-shadow:0px 0px 0px 1px rgb(21,74,6);
 }
 
 #flash_error, #flash_failure {
-  background-color: #ad3311;
+  background: #5aa52b;
+  background:-webkit-gradient(linear,left bottom,left top,
+    color-stop(0.0, rgba(187,12,12,0.5)),
+    color-stop(0.54, rgba(187,12,12,0.5)),
+    color-stop(1.0, rgba(138,5,5,0.5)));
+  background:-moz-linear-gradient(center bottom,
+    rgb(27,112,4) 4%,
+    rgb(90,165,43) 58%,
+    rgb(144,207,76) 98%);
+  -webkit-box-shadow:0px 0px 0px 1px rgb(126,1,1);
 }
 
 #flash_notice {
   background-color: #fff;
 }
 #flash-wrapper {
-  float: left;
-  width: 100%;
+  /*float: left;*/
+  width: 50%;
+}
+#flash_image_success {
+  background-image: url(../images/flash-success.png);
+}
+#flash_image_failure {
+  background-image: url(../images/flash-failure.png);
+}
+#flash_image_success, #flash_image_failure {
+  height:16px;
+  width:16px;
+  float:left;
+  margin-top:-3px;
+  margin-right:10px;
 }
 /************************************************************************/
 /* Tabs */
