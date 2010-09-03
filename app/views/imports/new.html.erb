@@ -1,7 +1,8 @@
 <%= content_for :panel_header do %>
+<li>
   New Import
+</li>
 <% end %>
-
 <ul>
   <li>
   <%= link_to gnaclr_classifications_path, :class => 'ajax-load-new-tab' do %>
@@ -18,8 +19,11 @@
   <li>
   </li>
 </ul>
-<div id="import-flat-list">
-  <label for="import-roots"><h2>Import List of Nodes</h2></label>
-  <p><textarea rows="10" cols="50" id="import-roots"></textarea></p>
-  <button type="button" id="import-roots-button" class="green-submit">Import</button>
+<div id="import-flat-list-wrap" class="clearfix">
+  <div id="import-flat-list" class="clearfix">
+    <label for="import-roots"><h2>Import List of Nodes</h2></label>
+    <p><textarea rows="10" cols="53" id="import-roots"></textarea></p>
+    <!--<button id="import-roots-button" class="green-submit">Import</button>-->
+    <input id="import-roots-button" class="green-submit" name="Import" type="submit" value="Import">
+  </div>
 </div>

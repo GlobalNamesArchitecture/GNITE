@@ -1,39 +1,27 @@
 <%= content_for :panel_header do %>
-  <%= link_to 'New Import', new_import_path, :class => 'ajax-load-new-tab' %> &raquo;
-  <%= link_to 'GNACLR', gnaclr_classifications_path, :class => 'ajax-load-new-tab' %> &raquo;
-  <%= @gnaclr_classification.title %>
+  <li>
+    <%= link_to 'New Import', new_import_path, :class => 'ajax-load-new-tab' %>
+  </li>
+  <li>
+    <%= link_to 'GNACLR', gnaclr_classifications_path, :class => 'ajax-load-new-tab' %>
+  </li>
+  <li>
+    <%= @gnaclr_classification.title %>
+  </li> 
 <% end %>
 <div id="gnaclr-description" class="clearfix">
   <h2><%= @gnaclr_classification.title %></h2>
     <div class="date-wrap clearfix">
-    <% if @gnaclr_classification.authors.try(:any?) %>
-    <div class="author">Authors: <%= author_line_for_classification(@gnaclr_classification) %>.</div>
-  <% end %>
-    <div class="date">Updated: <%= @gnaclr_classification.updated %></div>
-  </div>
-  <% if @gnaclr_classification.description.present? %>
+      <% if @gnaclr_classification.authors.try(:any?) %>
+        <div class="author">Authors: <%= author_line_for_classification(@gnaclr_classification) %>.</div>
+      <% end %>
+      <div class="date">Updated: <%= @gnaclr_classification.updated %></div>
+    </div>
+    <% if @gnaclr_classification.description.present? %>
     <p><%= @gnaclr_classification.description %></p>
   <% end %>
 </div>
 
-<ul id="tree-newimport">
-  <li>
-    <div class="btn-img result">
-      <div class="content">
-        <h2><%= @gnaclr_classification.title %></h2>
-        <% if @gnaclr_classification.description.present? %>
-          <p><%= @gnaclr_classification.description %></p>
-        <% end %>
-        <% if @gnaclr_classification.authors.try(:any?) %>
-          <p>Authors: <%= author_line_for_classification(@gnaclr_classification) %>.</p>
-        <% end %>
-        <div class="date-wrap">
-          <div class="date">Updated: <%= @gnaclr_classification.updated %></div>
-        </div>
-      </div>
-    </div>
-    <div class="clearfix"></div>
-  </li>
 
   <!--
     <li>

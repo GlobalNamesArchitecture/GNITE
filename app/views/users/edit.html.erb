@@ -7,8 +7,10 @@
                       :url => user_path(@user),
                       :html => { :method => :put }) do |form| %>
   <div class="infobox-wrap"> 
-    <div class="title"> 
-      <p>Account Information</p> 
+    <div class="breadcrumbs">
+      <ul>
+        <li>Account Information</li>
+      </ul> 
     </div> 
     <div class="infobox"> 
       <%= form.error_messages %>

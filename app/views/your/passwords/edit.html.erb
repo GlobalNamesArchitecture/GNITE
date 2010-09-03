@@ -4,8 +4,10 @@
 
 <%= semantic_form_for(:user, :url  => your_password_path, :html => { :method => :put }) do |form| %>
   <div class="infobox-wrap">
-    <div class="title">
-      <p>Choose a new password</p>
+    <div class="breadcrumbs">
+      <ul>
+        <li>Choose a new password</li>
+      </ul>
     </div>
     <div class="infobox">
       <%= form.error_messages %>

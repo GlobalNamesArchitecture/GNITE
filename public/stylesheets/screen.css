@@ -248,7 +248,7 @@ body form input {
 #loginform fieldset.buttons .green-submit {
   margin-top: 5px;
 }  
-  
+
 .green-submit{
   min-height:38px;
   padding: 7px 15px;
@@ -299,6 +299,10 @@ body form input {
     -webkit-box-shadow:1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.9) !important;
     -moz-box-shadow:1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.9) !important;
   }
+#import-roots-button {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size:16px;
+}
 #loginform form {
   margin-bottom: 20px;
 }
@@ -602,9 +606,10 @@ body form input {
     }
 
 .breadcrumbs, .metadata-header {
-  height:36px;
+  /*height:36px;*/
   color:#444;
   font-weight: bold;
+  font-size:14px;
   width:100%;
   background: #cecabb;
   background: -moz-linear-gradient(100% 100% 90deg, rgb(206,202,187),rgb(236, 234, 226));
@@ -618,11 +623,11 @@ body form input {
   border-top-right-radius: 8px;
 }
 .breadcrumbs ul {
-  padding:8px 5px;
+  padding:10px 10px;
 }
   .breadcrumbs ul li {
     display:inline-block;
-    padding:0 12px 0 3px;
+    padding:2px 16px 0 3px;
     line-height:20px;
     background:url(../images/angle.png) no-repeat;
     background-position:right;
@@ -633,11 +638,20 @@ body form input {
 .breadcrumbs p, .infobox .title legend {
   font-size:12px;
   }
+.breadcrumbs {
+  border-bottom:1px solid rgb(176, 173, 163);
+}
+  .breadcrumbs li a {
+    text-decoration: none;
+  }
+    .breadcrumbs li a:hover {
+      border-bottom:1px dotted #000;
+  }
 .searchbar, .controls {
   background: #cecabb;
   background: -moz-linear-gradient(100% 100% 90deg, rgb(206,202,187),rgb(236, 234, 226));
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgb(236, 234, 226)), color-stop(1, rgb(206,202,187)));
-  border-top:1px solid rgb(176, 173, 163);
+  /*border-top:1px solid rgb(176, 173, 163);*/
   border-bottom:1px solid rgb(176, 173, 163);
   padding:8px 5px;
 }
@@ -699,11 +713,10 @@ body form input {
   overflow:hidden;
 }
 .metadata-header {
-  height:52px;
   color:#444;
   border-bottom: 1px solid rgb(176, 173, 163);
 }
-  .metadata-header h1 {
+  .metadata-header h2 {
     padding:16px;
   }
 #tree-metadata label{
@@ -876,7 +889,7 @@ body form input {
     min-height:60px;
   }
   #tree-newimport ul.list li:first-child {
-    border-top:1px solid rgb(176, 173, 163);
+    border-top:0px solid rgb(176, 173, 163);
   }
   #tree-newimport ul.list li:last-child {
     -webkit-border-bottom-left-radius: 5px;
@@ -897,10 +910,20 @@ body form input {
   margin:5px 0;
 }
 #gnaclr-description .date-wrap {}
-
-#import-flat-list{
-  background:white;
+#import-flat-list-wrap{
+  border-top:1px solid rgb(176, 173, 163);
+  border-bottom:1px solid rgb(176, 173, 163);
+  background-color:rgb(214, 211, 198);
 }
+#import-flat-list{
+  margin:20px 20px 10px;
+}
+  #import-flat-list textarea{
+  padding:10px;
+  width:97%;
+  -webkit-border-radius:6px;
+  border:1px solid rgb(176, 173, 163);
+  }
 /************************************************************************/
 /* Master Tree List */
 /************************************************************************/
@@ -1143,6 +1166,6 @@ ul#treelist li,  #search, .tree-background, #loginform .input, .green-submit, .c
 /************************************************************************/
 /* Text Shadow Light Highlight */
 /************************************************************************/
-#add-node p {
+#nav li:not(#active), #add-node p, .breadcrumbs ul li, .metadata-header h2, #tree-newimport li h2, #add-node {
 text-shadow: 0px 1px 0px rgba(255,255,255,0.8);
 }

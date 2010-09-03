@@ -1,16 +1,20 @@
-<div id="bodywrap">
 <% content_for :header do %>
   <%= @master_tree.title %>
 <% end %>
 
-<!-- Start of Edit Tree Box -->
-  <!-- Start of Tree -->
+<!-- Start of New Tree Box -->
+  <!-- Start of Left Tree -->
   <div class="tree-column">
-    <div class="treewrap">
+    <div id="fluid-head">
+    
+    </div>
+    <div id="treewrap-left">
       <%= semantic_form_for(@master_tree, :url => master_tree_path(@master_tree), :html => { :method => :put, :id => "tree-metadata" }) do |form| %>
         <div class="tree-back-wrap">
-          <div class="metadata-header">
-            <h1>Edit Tree Information</h1>
+          <div class="breadcrumbs">
+            <ul>
+              <li>Edit Tree Information</li>
+            </ul>
           </div>
           <%= render :partial => "form", :locals => { :form => form } %>
         </div>
@@ -21,4 +25,3 @@
       <% end %>
   </div>
   <!-- End of Tree -->
-</div>

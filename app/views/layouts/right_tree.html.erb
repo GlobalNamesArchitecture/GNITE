@@ -1,10 +1,10 @@
 <div class="tree-background dark">
-
-  <div class="metadata-header"> 
-    <h1><%= content_for :panel_header %></h1>
+  <div class="breadcrumbs">
+    <ul> 
+      <%= content_for :panel_header %>
+    </ul>
   </div>
   <div id="tree-newimport">
     <%= yield %>
   </div>
-
 </div> <!-- End of .tree-background -->
