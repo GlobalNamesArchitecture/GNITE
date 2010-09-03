@@ -1,3 +1,3 @@
 $(window).load (function(){ 
-  $("#flash_success").delay(1600).fadeOut("slow");
+  $("#flash_success").delay(2000).fadeOut("400");
 });

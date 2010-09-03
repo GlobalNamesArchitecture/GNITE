@@ -1042,23 +1042,27 @@ ul#treelist {
 /************************************************************************/
 /* Flash Notices */
 /************************************************************************/
+#flash-login-wrap {
+  margin:0 0 30px;
+}
 #flash_error, #flash_success, #flash_failure, #flash_notice {
-  padding: 1em;
-  margin: 10px 40px;
+  padding: 15px;
+  margin: 15px 40px 15px;
   background: #fff;
   border:0px;
   /*box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
   -webkit-box-shadow:0px 1px 2px 1px rgba(26, 26, 26, 0.6);
   -moz-box-shadow: 0px 1px 2px 1px rgba(26, 26, 26, 0.6);*/
   color: #fff;
+  font-weight:bold;
 }
 
 #flash_success {
   background: #5aa52b;
   background:-webkit-gradient(linear,left bottom,left top,
-    color-stop(0.0, rgba(98,161,38,0.5)),
-    color-stop(0.54, rgba(98,161,38,0.5)),
-    color-stop(1.0, rgba(30,117,5,0.5)));
+    color-stop(0.0, rgba(98,161,38,0.6)),
+    color-stop(0.54, rgba(98,161,38,0.6)),
+    color-stop(1.0, rgba(30,117,5,0.6)));
   background:-moz-linear-gradient(center bottom,
     rgb(27,112,4) 4%,
     rgb(90,165,43) 58%,
@@ -1096,7 +1100,7 @@ ul#treelist {
   height:16px;
   width:16px;
   float:left;
-  margin-top:-3px;
+  margin-top:-2px;
   margin-right:10px;
 }
 /************************************************************************/
