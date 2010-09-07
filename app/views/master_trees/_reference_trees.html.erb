@@ -14,11 +14,16 @@
       <div id=<%= dom_id(reference_tree) %>>
         <div class="tree-background">
           <div class="breadcrumbs">
+            <ul>
+              <li>Breadcrumb</li>
+              <li>Breadcrumb</li>
+            </ul>
+            <%= image_tag 'close-tab.png', :class => 'close-tab' %>
           </div>
           <div class="searchbar">
             <div class="grid-button">
               <%= link_to reference_tree_path(reference_tree) do %>
-                <%= image_tag 'settings-active.png', :class => 'icon' %>View Tree Information
+                <%= image_tag 'metadata-basic.png', :class => 'icon' %>View Tree Information
               <% end %>
             </div>
             <div class="clearfix"></div>
