@@ -16,7 +16,7 @@ Then install bundler, and the GNITE dependencies:
 
 == Create your databases
 
-    bundle exec rake db:create rake db:migrate
+    bundle exec rake db:create db:migrate
     bundle exec rake db:create RAILS_ENV=test
     bundle exec rake db:schema:dump db:test:prepare
 
@@ -27,6 +27,26 @@ Run the cucumber features and rspec specifications:
     bundle exec rake
 
 We use capybara for cucumber.
+
+== Running the console and server
+
+Since the app uses Rails 3 and bundler, you start the console and server like this:
+
+    bundle exec script/rails console
+    bundle exec script/rails server
+
+== Troubleshooting
+
+* If, at some point, you run into an issue building the mysql gem, like this:
+
+    Installing mysql (2.8.1) with native extensions ~/.rvm/rubies/ree-1.8.7-2010.02/lib/ruby/site_ruby/1.8/rubygems/installer.rb:483:
+    in `build_extensions': ERROR: Failed to build gem native extension. (Gem::Installer::ExtensionBuildError)
+
+  Then try running:
+
+    bundle config build.mysql --with-mysql-config=/usr/local/mysql/bin/mysql_config
+
+with the appropriate path to mysql_config, and running the command again.
 
 == Deploying to staging
 
