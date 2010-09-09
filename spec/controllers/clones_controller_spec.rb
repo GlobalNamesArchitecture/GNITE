@@ -42,7 +42,7 @@ describe ClonesController do
 
       subject { controller }
 
-      it { should respond_with(:created) }
+      it { should respond_with(:success) }
 
       it "should render the newly created node as JSON" do
         response.body.should == @clone.to_json

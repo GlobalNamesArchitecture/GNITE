@@ -8,7 +8,7 @@ class ClonesController < ApplicationController
     clone.attributes = params[:node]
     clone.save
 
-    render :json => clone.to_json, :status => :created
+    render :json => clone.to_json
   end
 
 end

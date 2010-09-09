@@ -7,7 +7,7 @@ class ReferenceTreesController < ApplicationController
         node_list = params[:nodes_list]
         logger.debug(node_list)
         reference_tree = ReferenceTree.create_from_list(tree_params, node_list)
-        render :json => reference_tree, :status => :created
+        render :json => reference_tree
       end
     end
   end

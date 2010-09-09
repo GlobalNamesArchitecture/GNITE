@@ -21,7 +21,7 @@ class NodesController < ApplicationController
         node = Node.new(node_attributes)
 
         node.save
-        render :json => node, :status => :created
+        render :json => node
       end
     end
   end

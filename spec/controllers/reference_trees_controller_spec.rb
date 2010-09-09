@@ -28,7 +28,7 @@ describe ReferenceTreesController do
         tree.nodes.map{|node| node.name}.should == ["Title One", "Title Two", "Title Three"]
       end
 
-      it { should respond_with(:created) }
+      it { should respond_with(:success) }
 
       it "should render the new tree as JSON" do
         response.body.should == tree.to_json

@@ -63,7 +63,7 @@ describe NodesController do
         new_node.should have_received(:save)
       end
 
-      it { should respond_with(:created) }
+      it { should respond_with(:success) }
 
       it "should render the newly created node as JSON" do
         response.body.should == new_node.to_json
