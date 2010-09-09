@@ -8,7 +8,7 @@ gem 'rails', '3.0.0.beta4'
 gem 'mysql'
 gem 'clearance', "0.9.0.rc5"
 gem 'factory_girl'
-gem 'formtastic', :git => "git://github.com/justinfrench/formtastic.git", :branch => "rails3"
+gem 'formtastic', "1.1.0"
 gem 'engineyard'
 gem 'hoptoad_notifier'
 gem 'ancestry', :git => "git://github.com/thoughtbot/ancestry.git", :branch => "rails3"
