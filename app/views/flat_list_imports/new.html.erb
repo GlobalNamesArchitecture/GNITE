@@ -1,0 +1,35 @@
+<%= content_for :panel_header do %>
+  <li>
+    <%= link_to 'New Import', new_master_tree_import_path(@master_tree), :class => 'ajax-load-new-tab' %>
+  </li>
+  <li>
+    Import a flat list
+  </li>  
+<% end %>
+<div id="import-flat-list-wrap" class="clearfix">
+  <div id="import-flat-list" class="clearfix">
+    <h2><label for="import-roots">Import List of Nodes</label></h2>
+    <p><textarea rows="10" cols="53" id="import-roots"></textarea></p>
+    <input id="import-roots-button" class="green-submit" name="Import" type="submit" value="Import">
+  </div>
+</div>
+
+<script type="text/javascript" class="source">
+   $(document).ready(function() {
+    $("#import-roots-button").click(function() {
+      var imports = $("#import-roots").val().split("\n")
+       $.ajax({
+         type: "POST",
+         url: "<%= reference_trees_path(:format => 'json') %>",
+         contentType: "application/json",
+         dataType: 'json',
+         data: JSON.stringify({reference_tree: {title: "List",
+                                                master_tree_id: <%= @master_tree.id %>},
+                               nodes_list: imports}),
+         success: function(data, textStatus, xhr) {
+         location.reload();
+         }
+       });
+    });
+  });
+</script>

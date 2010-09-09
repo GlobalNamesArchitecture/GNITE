@@ -1,4 +1,4 @@
-class ImportsController < ApplicationController
+class FlatListImportsController < ApplicationController
   before_filter :authenticate
 
   def new

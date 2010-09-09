@@ -17,6 +17,9 @@ Gnite::Application.routes.draw do |map|
     resources :nodes, :only => [:index, :create, :update, :destroy] do
       resource :clone, :only => [:create]
     end
+    resources :flat_list_imports, :only => [:new]
+    resources :gnaclr_classifications, :only => [:index, :show]
+    resources :imports, :only => [:new]
   end
 
   resources :reference_trees, :only => [:create, :show] do
@@ -24,7 +27,4 @@ Gnite::Application.routes.draw do |map|
   end
 
   root :to => "homes#show"
-
-  resources :gnaclr_classifications, :only => [:index, :show]
-  resources :imports, :only => [:new]
 end

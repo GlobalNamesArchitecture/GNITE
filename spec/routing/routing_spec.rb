@@ -164,27 +164,40 @@ describe "sign_up, sign_in, sign_out" do
 end
 
 describe "imports" do
-  it "routes /imports/new to imports#new" do
-    { :get => "/imports/new" }.should route_to(
+  it "routes /master_trees/:master_tree_id/imports/new to imports#new" do
+    { :get => "/master_trees/123/imports/new" }.should route_to(
       :controller => 'imports',
-      :action => 'new'
+      :action => 'new',
+      :master_tree_id => "123"
     )
   end
 end
 
 describe "GNACLR import" do
-  it "routes /gnaclr_classifications to gnaclr_classifications#index" do
-    { :get => "/gnaclr_classifications" }.should route_to(
+  it "routes /master_trees/:master_tree_id/gnaclr_classifications to gnaclr_classifications#index" do
+    { :get => "/master_trees/123/gnaclr_classifications" }.should route_to(
       :controller => 'gnaclr_classifications',
-      :action => 'index'
+      :action => 'index',
+      :master_tree_id => '123'
     )
   end
 
-  it "routes /gnaclr_classifications/:id to gnaclr_classifications#show" do
-    { :get => "/gnaclr_classifications/my-uuid-here" }.should route_to(
+  it "routes /master_trees/:master_tree_id/gnaclr_classifications/:id to gnaclr_classifications#show" do
+    { :get => "/master_trees/123/gnaclr_classifications/my-uuid-here" }.should route_to(
       :controller => 'gnaclr_classifications',
       :action => 'show',
-      :id => 'my-uuid-here'
+      :id => 'my-uuid-here',
+      :master_tree_id => '123'
+    )
+  end
+end
+
+describe "Flat list import" do
+  it "routes /master_trees/:master_tree_id/flat_list_imports/new to flat_list_imports#new" do
+    { :get => "/master_trees/123/flat_list_imports/new" }.should route_to(
+      :controller => 'flat_list_imports',
+      :action => 'new',
+      :master_tree_id => '123'
     )
   end
 end

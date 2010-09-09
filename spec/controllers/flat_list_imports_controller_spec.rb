@@ -1,10 +1,11 @@
 require 'spec_helper'
 
-describe ImportsController do
+describe FlatListImportsController do
+
   context "when signed out" do
-    context "on GET to new" do
+    describe "on GET to index" do
       before do
-        get :new, :master_tree_id => 123
+        get :new, :master_tree_id => 1
       end
 
       subject { controller }
@@ -14,7 +15,7 @@ describe ImportsController do
     end
   end
 
-  context "signed in" do
+  context "signed in with some remote GNACLR classifications" do
     let(:user) { Factory(:email_confirmed_user) }
 
     before do
@@ -35,8 +36,7 @@ describe ImportsController do
       subject { controller }
 
       it { should respond_with(:success) }
-      it { should render_template('new') }
-
+      it { should render_template(:new) }
       it { should assign_to(:master_tree).with(master_tree) }
 
       it "should find the correct master tree" do
@@ -45,4 +45,5 @@ describe ImportsController do
       end
     end
   end
+
 end
