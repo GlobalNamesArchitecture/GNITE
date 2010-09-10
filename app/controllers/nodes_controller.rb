@@ -1,4 +1,6 @@
 class NodesController < ApplicationController
+  before_filter :authenticate
+
   def index
     respond_to do |format|
       format.json do
