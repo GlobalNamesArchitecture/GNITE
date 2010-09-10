@@ -7,7 +7,7 @@ Feature: Edit the metadata for a master tree
     And I sign in as "email@person.com/password"
     Then I should be on the master tree index page
     When I follow "Moose tree"
-    And I follow "Edit Tree Information"
+    And I follow "Edit Tree Info"
     Then I should be on the edit master tree page for "Moose tree"
     When I fill in "Title" with "Bullwinkle tree"
     And I select "Public domain" from "License"
@@ -23,7 +23,7 @@ Feature: Edit the metadata for a master tree
     And I sign in as "email@person.com/password"
     Then I should be on the master tree index page
     When I follow "Moose tree"
-    And I follow "Edit Tree Information"
+    And I follow "Edit Tree Info"
     Then I should be on the edit master tree page for "Moose tree"
     When I follow "Cancel"
     Then I should be on the master tree page for "Moose tree"
@@ -42,7 +42,7 @@ Feature: Edit the metadata for a master tree
     When I follow "Moose tree"
     And I drag "Rocky" under "Bullwinkle"
     Then I should see a node "Rocky" under "Bullwinkle"
-    When I follow "Edit Tree Information"
+    When I follow "Edit Tree Info"
     And I fill in "Title" with "New and improved title"
     And I press "Update"
     Then I should see "New and improved title"

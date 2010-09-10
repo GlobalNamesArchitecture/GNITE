@@ -15,7 +15,7 @@ Feature: Import data to your master tree
   @javascript
   Scenario: User can import flat list as root nodes
     When I follow "New Tab"
-    And I follow "Import a flat list"
+    And I follow "Import A Flat List"
     And I type the following node names into the import box:
       | root one   |
       | root two   |
@@ -30,7 +30,7 @@ Feature: Import data to your master tree
   @javascript
   Scenario: View breadcrumb navigation while importing a flat list
     When I follow "New Tab"
-    And I follow "Import a flat list"
+    And I follow "Import A Flat List"
     And I follow "New Import"
     Then I should see "Enter a flat list of names to import"
     # And I should be back on the main "New Import" right-hand panel.
