@@ -25,12 +25,11 @@ describe ClonesController do
       before do
         controller.stubs(:current_user => user)
 
-        @clone = stub('clone', :save  => true, :attributes= => true, :to_json => 'json')
+        @clone = stub('clone', :save  => true, :attributes= => true, :tree_id= => true, :to_json => 'json')
         @node  = stub('node',  :deep_copy => @clone, :id => 456)
+        Node.stubs(:find_by_id_for_user => @node)
         @nodes = stub('nodes', :find  => @node)
         @tree  = stub('master_tree',  :nodes => @nodes, :id => 123)
-        @trees = stub('master_trees', :find => @tree)
-        user.stubs(:master_trees => @trees)
 
         @new_attributes = { 'parent_id' => 'new_parent_id' }
 
@@ -48,14 +47,8 @@ describe ClonesController do
         response.body.should == @clone.to_json
       end
 
-      it "should find trees on the current user" do
-        user.should have_received(:master_trees).with()
-        @trees.should have_received(:find).with(@tree.id)
-      end
-
-      it "should find the specified node on the specified tree" do
-        @tree.should have_received(:nodes).with()
-        @nodes.should have_received(:find).with(@node.id)
+      it "should find the specified node scoped under the current user" do
+        Node.should have_received(:find_by_id_for_user).with(@node.id, user)
       end
 
       it "should clone the requested node" do
@@ -64,6 +57,10 @@ describe ClonesController do
 
       it "should apply the specified attributes to the clone" do
         @clone.should have_received(:attributes=).with(@new_attributes)
+      end
+
+      it "should place the clone into the specified master tree id" do
+        @clone.should have_received(:tree_id=).with(@tree.id)
       end
 
       it "should save the new clone" do

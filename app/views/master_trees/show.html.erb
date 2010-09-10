@@ -126,6 +126,11 @@
           select_node: true,
           items : contextMenuItems
         },
+        "crrm": {
+          "move": {
+            "always_copy": "multitree"
+          },
+        },
         "plugins" : [ "themes", "json_data", "crrm", "ui",  "contextmenu", "dnd"]
         });
 
@@ -214,7 +219,7 @@
         });
       });
 
-     $('.jstree-clicked').live('dblclick', function() { $(".jstree-focused").jstree("rename"); });
+     $('#master-tree .jstree-clicked').live('dblclick', function() { $(".jstree-focused").jstree("rename"); });
 
       $('.tree-background').live('click', function(event) {
         var hitNode = (event.target.tagName == 'A') ||

@@ -11,7 +11,7 @@
 
     <!-- Start tab content -->
     <% @master_tree.reference_trees.each do |reference_tree| %>
-      <div id=<%= dom_id(reference_tree) %>>
+      <div id="<%= dom_id(reference_tree) %>">
         <div class="tree-background">
           <div class="breadcrumbs">
             <ul>
@@ -78,7 +78,7 @@
       $("#<%= dom_id(reference_tree, 'container_for')%>").jstree({
         "json_data": {
           "ajax": {
-          "url": "<%= reference_tree_nodes_path(:reference_tree_id => reference_tree.id, :format => 'json') %>",
+            "url": "<%= reference_tree_nodes_path(:reference_tree_id => reference_tree.id, :format => 'json') %>",
             "data" : function (node) {
               if (node.attr) {
                 return { parent_id : node.attr("id") };
@@ -88,9 +88,15 @@
             }
           },
         },
-        "plugins" : [ "themes", "json_data", "crrm", "ui",  "contextmenu", "dnd"]
+        "crrm": {
+          "move": {
+            "check_move": function(move) { return false; },
+            "always_copy": "multitree"
+          },
+        },
+        "plugins" : [ "themes", "json_data", "ui", "dnd", "crrm"]
 
-        });
+      });
     <% end %>
 
     });

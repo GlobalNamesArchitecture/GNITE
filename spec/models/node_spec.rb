@@ -27,4 +27,18 @@ describe Node do
     another_root.children.first.children.size.should == 1
     another_root.children.first.children.first.name.should == 'Grandchild'
   end
+
+  it "can find a node by id scoped under a user" do
+    right_user = Factory(:user)
+    wrong_user = Factory(:user)
+    right_user_tree = Factory(:tree, :user => right_user)
+
+    Factory(:tree, :user => right_user)
+    Factory(:tree, :user => wrong_user)
+
+    node = Factory(:node, :tree => right_user_tree)
+
+    Node.find_by_id_for_user(node.id, right_user).should == node
+    Node.find_by_id_for_user(node.id, wrong_user).should be_nil
+  end
 end
