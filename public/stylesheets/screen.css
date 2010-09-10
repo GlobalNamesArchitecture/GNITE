@@ -569,18 +569,32 @@ body form input {
   background-position: top center;
   background-repeat: repeat-y;
 }
+.jstree ul, .jstree-default.jstree-focused {
+  height:100% !important; 
+}
 
-
-
-.jstree ul {
-  height:100% !important;
+#publish-wrap {
+  width:48%;
+  position:relative;
+  margin-top:-50px;
+}
+  #publish {
+    min-width:130px;
+    position:absolute;
+    top:0;
+    right:0;
+  }
+  #publish a {
+        display: block;
+    border-radius:         25px;
+    -moz-border-radius:    25px;
+    -webkit-border-radius: 25px;  
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, rgb(164,164,164)),color-stop(1, rgb(232,232,232)));
+    background: -moz-linear-gradient(center bottom,                        rgb(164,164,164)             0%,rgb(232,232,232) 100%);  
+    padding: 8px 15px;
+    font-size: 1em;  
   
-}
-.jstree-default.jstree-focused {
-  height:100%;
-}
-
-
+  }
 /************************************************************************/
 /* Tab Bar */
 /************************************************************************/
@@ -796,11 +810,10 @@ body form input {
   padding:0 10px;
 }
 
-
-
 #tree-metadata fieldset input {
   padding: 6px;
 }
+
 #tree-metadata fieldset textarea {
   height:70px;
   padding: 10px;
@@ -920,9 +933,6 @@ body form input {
 }
 #gnaclr-description .date-wrap {}
 #import-flat-list-wrap{
-  border-top:1px solid rgb(176, 173, 163);
-  border-bottom:1px solid rgb(176, 173, 163);
-  background-color:rgb(214, 211, 198);
 }
 #import-flat-list{
   margin:20px 20px 10px;
@@ -930,6 +940,7 @@ body form input {
   #import-flat-list textarea{
   padding:10px;
   width:97%;
+  max-width:97%;
   -webkit-border-radius:6px;
   border:1px solid rgb(176, 173, 163);
   }
@@ -1004,15 +1015,14 @@ ul#treelist {
     #newtree a:link, 
     #newtree a:hover, 
     #newtree a:active, 
-    #newtree a:visited {
+    #newtree a:visited,
+    #publish a:link,
+    #publish a:hover,
+    #publish a:active,
+    #publish a:visited {
       text-decoration: none;
       color:black;
     }
-    ul#treelist li .content{
-    }
-      ul#treelist li .content:hover {
-
-      }
 
 .date-wrap {
   padding: 0;
@@ -1048,13 +1058,13 @@ ul#treelist {
     font-size: 1em;    
   }
 
-  #newtree a:hover {
+  #newtree a:hover, #publish a:hover {
     display: block;
     background: -webkit-gradient(linear,left bottom,left top,color-stop(0, rgb(164,164,164)),color-stop(1, rgb(250,250,250)));
     background: -moz-linear-gradient(center bottom,rgb(164,164,164) 0%,rgb(250,250,250) 100%);    
   }
 
-  #newtree a:active {
+  #newtree a:active, #publish a:active {
     position: relative;
     top: 1px;
   }
@@ -1158,7 +1168,7 @@ ul#treelist li,  #search, .tree-background, #loginform .input, .green-submit, .c
   -moz-border-radius:   6px;
   -webkit-border-radius:6px;
 }
-.tree-background, #treelist li, #newtree a, .tree-back-wrap, #tree-newimport li {
+.tree-background, #treelist li, .tree-back-wrap, #tree-newimport li {
   border-radius:8px;
   -moz-border-radius:8px;
   -webkit-border-radius:8px;

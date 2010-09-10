@@ -1,5 +1,12 @@
 <div id="header">
   <h1><%= @master_tree.title %></h1>
+<!--  <div id="publish-wrap">
+    <div id="publish">
+      <a href="">
+        <span class=""><strong>Publish To GNACLR</strong></span>
+      </a>
+    </div>
+  </div> -->
 </div>
 <div id="flash-wrapper">
   <%= render :partial => 'shared/flashes' -%>
@@ -19,7 +26,12 @@
       <div class="searchbar">
         <div class="grid-button">
           <%= link_to edit_master_tree_path do %>
-            <%= image_tag 'metadata-basic.png', :class => 'icon' %>Edit Tree Information
+            <%= image_tag 'metadata-basic.png', :class => 'icon' %>Edit Tree Info
+          <% end %>
+        </div>
+        <div class="grid-button">
+          <%= link_to edit_master_tree_path do %>
+            <%= image_tag 'metadata-basic.png', :class => 'icon' %>Publish To GNACLR
           <% end %>
         </div>
         <!--<div class="grid-button">
@@ -29,7 +41,7 @@
           <fieldset>
             <input type="text" value="Search this tree" name="search" id="search" onclick="this.value='';this.onclick=null;" />
           </fieldset>
-        </form> -->
+        </form>-->
         <div class="clearfix"></div>
       </div>
          <div id="add-node-wrap">
