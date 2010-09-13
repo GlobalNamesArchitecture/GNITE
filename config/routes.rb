@@ -1,7 +1,7 @@
 Gnite::Application.routes.draw do |map|
   match 'sign_out' => 'sessions#destroy', :as => :sign_out
-  match 'sign_in' => 'sessions#new', :as => :sign_in
-  match 'sign_up' => 'users#new', :as => :sign_up
+  match 'sign_in'  => 'sessions#new',     :as => :sign_in
+  match 'sign_up'  => 'users#new',        :as => :sign_up
 
   resource :session, :only => [:new, :create, :destroy], :controller => "sessions"
 
@@ -17,13 +17,13 @@ Gnite::Application.routes.draw do |map|
     resources :nodes, :only => [:index, :create, :update, :destroy] do
       resource :clone, :only => [:create]
     end
-    resources :flat_list_imports, :only => [:new]
+    resources :flat_list_imports,      :only => [:new]
     resources :gnaclr_classifications, :only => [:index, :show]
-    resources :imports, :only => [:new]
+    resources :imports,                :only => [:new]
   end
 
   resources :reference_trees, :only => [:create, :show] do
-    resources :nodes, :only => [:index]
+    resources :nodes,         :only => [:index]
   end
 
   root :to => "homes#show"
