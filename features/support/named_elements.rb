@@ -3,6 +3,8 @@ module NamedElementHelper
     case named_element
     when /the right panel header/
       "#treewrap-right .breadcrumbs"
+    when /a spinner/
+      ".spinner"
 
     else
       raise "Can't find mapping for \"#{named_element}\"."

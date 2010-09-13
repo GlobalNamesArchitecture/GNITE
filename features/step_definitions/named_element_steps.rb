@@ -71,3 +71,13 @@ Then /^I should see ([\w\s]+) within ([\w\s]+)$/ do |named_element, scope_named_
   end
 end
 
+Then /^I should see ([^"]*)$/ do |named_element|
+  selector = element_for(named_element)
+  page.should have_css(selector)
+end
+
+Then /^I should not see ([^"]*)$/ do |named_element|
+  selector = element_for(named_element)
+  page.should have_no_css(selector)
+end
+

@@ -3,7 +3,7 @@ Then /^I should see a node "([^"]*)" at the root level in my reference tree "([^
   page.should have_css("div##{dom_id(reference_tree, "container_for")}>ul>li>a:contains('#{node_text}')")
 end
 
-Then /^I should see a "([^"]*)" tab$/ do |tab_name|
+Then /^I should see an? "([^"]*)" tab$/ do |tab_name|
   page.should have_css("ul.ui-tabs-nav>li>a:contains('#{tab_name}')")
 end
 

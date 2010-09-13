@@ -16,4 +16,8 @@ $(document).ready(function() {
     $('#new-tab').load(url);
     return false;
   });
+
+  $('#import-gnaclr-button').live('click', function() {
+    $('#gnaclr-description').append('<div class="spinner" />');
+  });
 });

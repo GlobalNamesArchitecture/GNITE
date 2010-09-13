@@ -1,14 +1,14 @@
 class GnaclrClassification
   URL = 'gnaclr.globalnames.org'
 
-  attr_accessor :title, :authors, :description, :updated, :uuid, :revisions
+  attr_accessor :title, :authors, :description, :updated, :uuid, :revisions, :file_url
 
   def initialize(new_attributes = {})
     new_attributes.symbolize_keys!
 
     self.revisions = []
 
-    [:title, :authors, :description, :updated, :uuid].each do |key|
+    [:title, :authors, :description, :updated, :uuid, :file_url].each do |key|
       self.send(:"#{key}=", new_attributes[key])
     end
   end
@@ -31,7 +31,8 @@ class GnaclrClassification
       :authors     => authors,
       :description => description,
       :updated     => updated,
-      :uuid        => uuid
+      :uuid        => uuid,
+      :file_url    => file_url
     }
   end
 

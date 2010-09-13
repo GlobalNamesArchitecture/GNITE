@@ -8,14 +8,16 @@ describe GnaclrClassification, "with remote classifications" do
         "authors" => [{ "first_name" => "Dmitry", "last_name" => "Mozzherin", "email" => "dmozzherin@gmail.com"}],
         "description" => "NCBI classification",
         "uuid" => "97d7633b-5f79-4307-a397-3c29402d9311",
-        "updated" => Time.parse("Thu Jul 15 20:49:40 UTC 2010")
+        "updated" => Time.parse("Thu Jul 15 20:49:40 UTC 2010"),
+        "file_url" => "http://gnaclr.globalnames.org/files/baaa4762cb1ef8118f2c20257a3c27c946f09375/ncbi.tar.gz"
       }),
       GnaclrClassification.new({
         "title" => "Choreutidae Classification",
         "authors" => [{"first_name" => "Jadranka", "last_name" => "Rota", "email" => "jadranka.rota@gmail.com"}],
         "description" => "&lt;p&gt;based on Heppner and Duckworth and new genera published since&lt;/p&gt;",
         "uuid" => "91d08561-b72f-4159-9461-119690b67afa",
-        "updated" => Time.parse("Wed May 26 14:57:31 UTC 2010")
+        "updated" => Time.parse("Wed May 26 14:57:31 UTC 2010"),
+        "file_url" => "http://gnaclr.globalnames.org/files/d6781d6071d25a0e46dcb889d6bd1a40407f1b6e/choreutidae.tar.gz"
       })
     ]
   end
@@ -45,11 +47,12 @@ describe GnaclrClassification, "attributes" do
       :authors     => ["Author 1", "Author 2"],
       :description => "Description",
       :updated     => @updated_time,
-      :uuid        => "abcdef-ghij-klmnop"
+      :uuid        => "abcdef-ghij-klmnop",
+      :file_url    => 'example.tar.gz'
     }
   end
 
-  it "should have a title, authors, a description, an updated, a uuid, and a constructor that accepts a hash" do
+  it "should have a title, authors, a description, an updated, a uuid, a file URL, and a constructor that accepts a hash" do
 
     gnaclr_classification = GnaclrClassification.new(@attributes)
 
@@ -60,6 +63,7 @@ describe GnaclrClassification, "attributes" do
     gnaclr_classification.description.should == "Description"
     gnaclr_classification.updated.should     == @updated_time
     gnaclr_classification.uuid.should        == "abcdef-ghij-klmnop"
+    gnaclr_classification.file_url.should    == "example.tar.gz"
   end
 
   it "should test equality on attributes" do

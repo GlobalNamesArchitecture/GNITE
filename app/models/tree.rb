@@ -14,6 +14,10 @@ class Tree < ActiveRecord::Base
     end
   end
 
+  def importing?
+    state == 'importing'
+  end
+
   private
 
   def set_defaults

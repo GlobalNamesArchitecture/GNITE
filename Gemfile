@@ -14,6 +14,9 @@ gem 'hoptoad_notifier'
 gem 'ancestry', :git => "git://github.com/thoughtbot/ancestry.git", :branch => "rails3"
 gem 'uuid'
 gem 'crack'
+gem 'delayed_job'
+gem 'dwc-archive', '0.3.0'
+gem 'fastercsv'
 
 # Deploy with Capistrano
 # gem 'capistrano'

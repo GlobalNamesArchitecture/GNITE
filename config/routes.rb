@@ -9,6 +9,8 @@ Gnite::Application.routes.draw do |map|
     resource :confirmation, :controller => 'confirmations', :only => [:new, :create]
   end
 
+  resources :gnaclr_imports, :only => [:create]
+
   namespace :your do
     resource :password, :only => [:edit, :update]
   end

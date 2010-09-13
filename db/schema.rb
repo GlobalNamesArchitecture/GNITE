@@ -9,7 +9,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100830171207) do
+ActiveRecord::Schema.define(:version => 20100913180300) do
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.string   "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "nodes", :force => true do |t|
     t.integer  "tree_id"
@@ -34,6 +47,7 @@ ActiveRecord::Schema.define(:version => 20100830171207) do
     t.string   "creative_commons"
     t.integer  "master_tree_id"
     t.string   "type"
+    t.string   "state",            :default => "active", :null => false
   end
 
   create_table "users", :force => true do |t|
