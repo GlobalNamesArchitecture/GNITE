@@ -441,10 +441,17 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
 .ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; } /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
 .ui-tabs .ui-tabs-panel { display: block; border: 0; /*padding: 1em 1.4em;*/ background: transparent; font-size: 12px; border-color: transparent; border-width: 0px 0px 1px 0px; border-style: solid; -moz-border-radius-topright: 0px; -webkit-border-top-right-radius: 0px; border-top-right-radius: 0px; -moz-border-radius-bottomright: 8px; -webkit-border-bottom-right-radius: 8px; border-bottom-right-radius: 8px; -moz-border-radius-bottomleft: 8px; -webkit-border-bottom-left-radius: 8px; border-bottom-left-radius: 8px; position: relative; position: 10; bottom:6px;}
 .ui-tabs .ui-tabs-hide { display: none !important; }
-.ui-tabs .ui-tabs-nav li.ui-state-default {   background: -moz-linear-gradient(100% 100% 90deg, rgb(177, 174, 158), rgb(221, 218, 207)); background: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgb(221, 218, 207)), color-stop(1, rgb(177, 174, 158))); 0px 0px repeat-x; border-color: transparent; position: relative; z-index:0;}
-.ui-tabs .ui-tabs-nav li.ui-state-default a { color: #4f4f4f !important; text-shadow: 0px 1px 0px rgba(255,255,255,0.8); }
-.ui-tabs .ui-tabs-nav li.ui-state-active { background: rgb(231, 228, 219); position: relative; z-index: 20;}
-.ui-tabs .ui-tabs-nav li.ui-state-active a { color: rgb(31,131,7) !important;}
+.ui-tabs .ui-tabs-nav li.ui-state-default {   
+  background: #979ea3;
+  color: #232323;
+  border-color: transparent; 
+  position: relative; 
+  z-index:0;
+  }
+  
+.ui-tabs .ui-tabs-nav li.ui-state-default a { color: #232323 !important;  text-shadow: 0px 1px 0px #dadee2;   }
+.ui-tabs .ui-tabs-nav li.ui-state-active { background: #babfc3; position: relative; z-index: 20;}
+.ui-tabs .ui-tabs-nav li.ui-state-active a { color: #232323 !important;}
 .ui-tabs-panel .ui-button { border-width: 0px; background: transparent; }
 
 /* === Datepicker === */

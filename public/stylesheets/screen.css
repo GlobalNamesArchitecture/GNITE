@@ -216,11 +216,12 @@ body form input {
               rgb(90,165,43) 58%,
               rgb(144,207,76) 98%);
   border: 0;
-  box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
-  -webkit-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
-  -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
+  box-shadow:         0px 1px 2px rgba(0,0,0, 1), 0 -1px 0 #114503 inset;
+  -moz-box-shadow:    0px 1px 2px rgba(0,0,0, 1), 0 -1px 0 #114503 inset;
+  -webkit-box-shadow: 0px 1px 2px rgba(0,0,0, 1), 0 -1px 0 #114503 inset;
   color: #fff;
   float: left;
+  font-weight: bold;
   font-size: 16px;
   margin: 15px 0;
 }
@@ -228,9 +229,9 @@ body form input {
 .cancel-button:hover,
 .green-submit:hover {
   border: 0px solid rgb(15, 18, 21);
-  box-shadow: 1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
-  -moz-box-shadow: 1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
-  -webkit-box-shadow: 1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+  box-shadow:         1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1px 2px rgba(0,0,0, 1);
+  -moz-box-shadow:    1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1px 2px rgba(0,0,0, 1);
+  -webkit-box-shadow: 1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1px 2px rgba(0,0,0, 1);
   cursor: pointer;
 }
 
@@ -483,19 +484,31 @@ body form input {
 }
 
 #add-node {
-  background: #cecabb;
-  background: -moz-linear-gradient(100% 100% 90deg, rgb(206,202,187),rgb(236, 234, 226));
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgb(236, 234, 226)), color-stop(1, rgb(206,202,187)));
-  border-radius: 15px;
-  -moz-border-radius: 15px;
-  -webkit-border-radius: 15px;
-  box-shadow: 0px 1.5px 3px 1px rgba(26, 26, 26, 0.4), 0px 1px 1px rgb(255, 255, 255) inset;
-  -moz-box-shadow: 0px 1.5px 3px 1px rgba(26, 26, 26, 0.4), 0px 1px 1px rgb(255, 255, 255) inset;
-  -webkit-box-shadow: 0px 1.5px 3px 1px rgba(26, 26, 26, 0.4), 0px 1px 1px rgb(255, 255, 255) inset;
+  background: #cfd3d7;
+  background: 
+  -webkit-gradient(
+      linear,
+      left bottom,
+      left top,
+      color-stop(0, rgb(208,212,215)),
+      color-stop(1, rgb(241,246,249))
+  );
+  background: 
+  -moz-linear-gradient(
+      center bottom,
+      rgb(208,212,215) 0,
+      rgb(241,246,249) 100%
+  );
+  border-radius:         12px;
+  -moz-border-radius:    12px;
+  -webkit-border-radius: 12px;
+  box-shadow:         0px 1px 2px   rgba(0,0,0, 0.7), 0px 1px 0 rgb(255, 255, 255) inset;
+  -moz-box-shadow:    0px 1px 2px   rgba(0,0,0, 0.7), 0px 1px 0 rgb(255, 255, 255) inset;
+  -webkit-box-shadow: 0px 1px 2px   rgba(0,0,0, 0.7), 0px 1px 0 rgb(255, 255, 255) inset;
   font-weight: bold;
   float: right;
-  height: 14px;
-  padding: 10px 10px 8px;
+  height:  14px;
+  padding: 6px 8px 6px;
   width: 100px;
 }
 
@@ -504,7 +517,8 @@ body form input {
 }
 
 #add-node:active {
-  top:16px;
+  position: relative;
+  top: 1px;
 }
 
 #add-node a {
@@ -592,12 +606,14 @@ body form input {
 }
 
 .breadcrumbs, .metadata-header {
-  background: #cecabb;
-  background: -moz-linear-gradient(100% 100% 90deg, rgb(206,202,187),rgb(236, 234, 226));
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgb(236, 234, 226)), color-stop(1, rgb(206,202,187)));
-  border-radius: 8px 8px 0 0;
-  -moz-border-radius: 8px 8px 0 0;
-  -webkit-border-radius: 8px 8px 0 0;
+  background: #babfc3;
+  border-radius:         6px 6px 0 0;
+  -moz-border-radius:    6px 6px 0 0;
+  -webkit-border-radius: 6px 6px 0 0;
+  -moz-box-shadow:    0 1px 0 #dee4e8 inset;
+  -webkit-box-shadow: 0 1px 0 #dee4e8 inset;
+  box-shadow:         0 1px 0 #dee4e8 inset;    
+  border-bottom: 1px solid #dadddf;
   color: #444;
   display: block;
   font-size: 14px;
@@ -607,13 +623,18 @@ body form input {
 
 .breadcrumbs ul {
   padding:10px 10px;
+  
+  border-bottom: 1px solid #868d92;  
 }
 
 .breadcrumbs ul li {
-  background: url("../images/angle.png") right no-repeat;
+  background: url(/images/angle.png) right no-repeat;
   display: inline-block;
   padding: 0 16px 0 3px;
   line-height: 20px;
+  font-size: .9em;
+  color: #232323;
+ text-shadow: 0px 1px 0px #dadee2;  
 }
 
 .breadcrumbs ul li:last-child {
@@ -625,9 +646,6 @@ body form input {
   font-size:12px;
 }
 
-.breadcrumbs {
-  border-bottom: 1px solid rgb(176, 173, 163);
-}
 
 .breadcrumbs li a {
   text-decoration: none;
@@ -647,10 +665,8 @@ body form input {
 }
 
 .searchbar, .controls {
-  background: #cecabb;
-  background: rgb(224, 223, 211);
-  background: -moz-linear-gradient(100% 100% 90deg, rgb(206,202,187),rgb(236, 234, 226));
-  border-bottom: 1px solid rgb(176, 173, 163);
+  background: #babfc3;
+  border-bottom: 1px solid #8c9195;
   padding: 6px 5px;
 }
 
@@ -714,7 +730,7 @@ body form input {
 }
 
 .dark {
-  background: rgb(236, 234, 226);
+  background: #eef1f3;
 }
 
 .tree-back {
@@ -763,9 +779,9 @@ body form input {
               rgb(27,112,4) 4%,
               rgb(90,165,43) 58%,
               rgb(144,207,76) 98%);
-  box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
-  -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
-  -webkit-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6), 1px 1px 5px 1px rgb(98,179,34) inset;
+  box-shadow:         0px 1px 3px rgba(0,0,0, 0.6), 0 1px 0 rgb(255,255,255,.4) inset;
+  -moz-box-shadow:    0px 1px 3px rgba(0,0,0, 0.6), 0 1px 0 rgb(255,255,255,.4) inset;
+  -webkit-box-shadow: 0px 1px 3px rgba(0,0,0, 0.6), 0 1px 0 rgb(255,255,255,.4) inset;
   padding: 10px 30px;
 }
 
@@ -1165,6 +1181,8 @@ ul#treelist a:hover,
   margin-right:0em;
 }
 
+
+
 /* Border Radius */
 /************************************************************************/
 #flash_error, #flash_success, #flash_failure, #flash_notice,
@@ -1181,13 +1199,13 @@ ul#treelist li,  #search, .tree-background, #loginform .input, .green-submit, .c
 }
 
 .tree-background, #treelist li, #newtree a, .tree-back-wrap, #tree-newimport li  {
-  box-shadow: 0px 1px 4px 0 rgba(26, 26, 26, 0.5);
-  -moz-box-shadow: 0px 1px 4px 0 rgba(26, 26, 26, 0.5);
-  -webkit-box-shadow: 0px 1px 4px 0 rgba(26, 26, 26, 0.5);
+  box-shadow:         0px 1px 7px 0 rgba(0,0,0,.7);
+  -moz-box-shadow:    0px 1px 7px 0 rgba(0,0,0,.7);
+  -webkit-box-shadow: 0px 1px 7px 0 rgba(0,0,0,.7);
 }
 
 /* Text Shadow Light Highlight */
 /************************************************************************/
-#nav li:not(#active), #add-node p, .breadcrumbs ul li, .metadata-header h2, #tree-newimport li h2, #add-node {
+#nav li:not(#active), #add-node p, .metadata-header h2, #tree-newimport li h2, #add-node {
   text-shadow: 0px 1px 0px rgba(255,255,255,0.8);
 }
