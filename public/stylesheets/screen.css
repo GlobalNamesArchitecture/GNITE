@@ -1,58 +1,12 @@
-/* Eric Meyer's Reset Reloaded */
-/* http://meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/ */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, font, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  outline: 0;
-  font-size: 100%;
-  vertical-align: baseline;
-  background: transparent;
-}
-html,body {
-  height:100%;
-  }
-body {
-  line-height: 1;
-  font-size: 75%;
-  color: #222; 
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background: #3e4649 url(../images/background.jpg) top left repeat;
-}
-ol, ul {
-  list-style: none;
-}
-blockquote, q {
-  quotes: none;
-}
-/* remember to define focus styles! */
-:focus {
-  outline: 0;
-}
-/* remember to highlight inserts somehow! */
-ins {
-  text-decoration: none;
-}
-del {
-  text-decoration: line-through;
-  }
-/* tables still need 'cellspacing="0"' in the markup */
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
 /************************************************************************/
 /* Global Stucture */
 /************************************************************************/
+body {
+  background: #3e4649 url(../images/background.jpg) top left repeat;
+  color: #222;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 #wrapper {
   background:url(../images/background.jpg);
   margin-left:200px;
@@ -79,25 +33,13 @@ table {
   margin:0 0 0 30px;
   color:rgb(236, 234, 226);
 }
-/* =Clearfix (all browsers)
---------------------------------*/
-.clearfix:after {
-  content: ".";
-  display: block;
-  height: 0;
-  clear: both;
-  visibility: hidden;
-}
-/* IE6 */ 
-* html .clearfix {height: 1%;}
-/* IE7 */
-*:first-child+html .clearfix {min-height: 1px;}
+
 
 h1 {
   font-size: 1.5em;
   padding:10px 0px;
 }
-h2 {  
+h2 {
   font-size: 1.25em;
   padding:6px 0px;
   }
@@ -148,13 +90,13 @@ hr {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     background: #eceae2;
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(236, 234, 226)), to(rgb(206, 203, 188))); 
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(236, 234, 226)), to(rgb(206, 203, 188)));
     background: -moz-linear-gradient(center bottom, rgb(184,184,184), rgb(220, 222, 222));
   }
 .infobox {
   padding:10px 10px 20px;
   background:rgb(247, 246, 243);
-  color:#000;  
+  color:#000;
 }
   .infobox p {
     padding:10px 0 10px;
@@ -194,7 +136,7 @@ body form input {
 /************************************************************************/
 /* Login Screen */
 /************************************************************************/
-#loginwrap { 
+#loginwrap {
   width: 960px;
   padding:150px 0;
   text-align: left;
@@ -222,13 +164,13 @@ body form input {
     display: block;
     font-weight: bold;
     color: #fff;
-    text-shadow: 0 1px 1px rgba(0,0,0,.25);    
+    text-shadow: 0 1px 1px rgba(0,0,0,.25);
   }
 
   #loginform label abbr {
     display: none; /*gets rid of useless asterisk*/
   }
-  
+
   #loginform .input {
     width:380px;
     font-size:1.4em;
@@ -242,12 +184,12 @@ body form input {
     text-shadow: 0 0 1px rgba(0,0,0,.25);
     -moz-border-radius:    3px;
     -webkit-border-radius: 3px;
-    border-radius:         3px;    
+    border-radius:         3px;
   }
-  
+
 #loginform fieldset.buttons .green-submit {
   margin-top: 5px;
-}  
+}
 
 .green-submit{
   min-height:38px;
@@ -287,7 +229,7 @@ body form input {
     cursor: pointer;
   }
   .cancel-button.shadow,
-  .green-submit.shadow { 
+  .green-submit.shadow {
     box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.9), 1px 1px 5px 1px rgb(98,179,34) inset !important;
     -webkit-box-shadow:0px 1.5px 2px 1px rgba(26, 26, 26, 0.9), 1px 1px 5px 1px rgb(98,179,34) inset !important;
     -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.9), 1px 1px 5px 1px rgb(98,179,34) inset !important;
@@ -335,7 +277,7 @@ body form input {
   padding:20px 0px 0px 15px;
   color:rgb(142,155,162);
   }
-  
+
 #nav {
   font-size:14px;
   padding:20px 0;
@@ -348,7 +290,7 @@ body form input {
       line-height:38px;
       padding:0px 26px 0 15px;
       background: #ece9e1;
-      background: #ece9e1 url(/images/tan_ridge.png) top left repeat-x;      
+      background: #ece9e1 url(/images/tan_ridge.png) top left repeat-x;
       }
       #nav li#active {
         background:url(../images/sidebar-active.png) no-repeat;
@@ -358,11 +300,11 @@ body form input {
         border:none;
         position:relative;
         z-index: 100;
-        
+
         }
           #nav li#active a {
             color:white;
-          } 
+          }
           #nav li:not(#active) {
             background: #ece9e1 url(/images/tan_ridge.png) top left repeat-x;
             position: relative;
@@ -373,7 +315,7 @@ body form input {
     color: #000;
     text-decoration: none;
   }
-  
+
 
 #nav ul li a {
   display: block;
@@ -400,7 +342,7 @@ body form input {
   background: transparent url(/images/profile-active.png) left center no-repeat;
 }
 
-  
+
 .icon {
   float:left;
   margin:11px 10px 0 0;
@@ -429,8 +371,8 @@ body form input {
         color:#555;
       }
         #nav ul li#active ul li.active a{
-          color:rgb(58, 114, 24); 
-          font-weight: bold; 
+          color:rgb(58, 114, 24);
+          font-weight: bold;
         }
           #nav ul li ul, #nav ul li:first-child, #nav ul li#active ul li:first-child {
             border-top:none;
@@ -533,7 +475,7 @@ body form input {
   }
     #add-node:active {
     top:16px;
-  }  
+  }
     #add-node a {
         color: #222;
         text-decoration: none;
@@ -570,7 +512,7 @@ body form input {
   background-repeat: repeat-y;
 }
 .jstree ul, .jstree-default.jstree-focused {
-  height:100% !important; 
+  height:100% !important;
 }
 
 #publish-wrap {
@@ -588,12 +530,12 @@ body form input {
         display: block;
     border-radius:         25px;
     -moz-border-radius:    25px;
-    -webkit-border-radius: 25px;  
+    -webkit-border-radius: 25px;
     background: -webkit-gradient(linear,left bottom,left top,color-stop(0, rgb(164,164,164)),color-stop(1, rgb(232,232,232)));
-    background: -moz-linear-gradient(center bottom,                        rgb(164,164,164)             0%,rgb(232,232,232) 100%);  
+    background: -moz-linear-gradient(center bottom,                        rgb(164,164,164)             0%,rgb(232,232,232) 100%);
     padding: 8px 15px;
-    font-size: 1em;  
-  
+    font-size: 1em;
+
   }
 /************************************************************************/
 /* Tab Bar */
@@ -839,7 +781,7 @@ body form input {
     background:-moz-linear-gradient(center bottom, rgb(230,228,221) 0%, rgb(255,255,255) 50%);
     margin:25px 0;
   }
-  #tree-newimport li:hover { 
+  #tree-newimport li:hover {
     background:rgb(255,255,255);
     background:-moz-linear-gradient(center bottom, rgb(230,228,221) 0%, rgb(255,255,255) 50%);
   }
@@ -955,7 +897,7 @@ body form input {
 }
 
 .tree_list_header {
-  
+
 }
 
 #treelist h1 {
@@ -970,7 +912,7 @@ body form input {
     font-size: 1.3em;
     margin:0px 0 8px 0;
   }
-  
+
 ul#treelist {
   padding:0;
 }
@@ -978,17 +920,17 @@ ul#treelist {
   ul#treelist li{
     margin:0 0 10px 0;
   }
-  
+
     ul#treelist li a {
       display: block;
-      padding:12px 15px 12px 52px; 
+      padding:12px 15px 12px 52px;
       background: #BABFC3 url(/images/master_tree_icon.png) left center no-repeat;
       background: url(/images/master_tree_icon.png) left center no-repeat, -webkit-gradient(linear, 0% 0%, 0% 100%, from(#BABFC3), to(#919598));
-      background: url(/images/master_tree_icon.png) left center no-repeat, -moz-linear-gradient(19% 75% 90deg,#919598, #BABFC3);    
+      background: url(/images/master_tree_icon.png) left center no-repeat, -moz-linear-gradient(19% 75% 90deg,#919598, #BABFC3);
       -moz-border-radius:    5px;
       -webkit-border-radius: 5px;
-      border-radius:         5px;  
-      border-top: 1px solid rgba(255,255,255,.6);            
+      border-radius:         5px;
+      border-top: 1px solid rgba(255,255,255,.6);
     }
 
     ul#treelist li a:hover {
@@ -1001,20 +943,20 @@ ul#treelist {
       position: relative;
       top: 1px;
     }
-  
+
     ul#treelist li p {
       margin:3px 0;
       line-height: 1.4;
       font-size: .95em;
       display: none;
     }
-    ul#treelist a:link, 
-    ul#treelist a:visited, 
-    ul#treelist a:active, 
-    ul#treelist a:hover, 
-    #newtree a:link, 
-    #newtree a:hover, 
-    #newtree a:active, 
+    ul#treelist a:link,
+    ul#treelist a:visited,
+    ul#treelist a:active,
+    ul#treelist a:hover,
+    #newtree a:link,
+    #newtree a:hover,
+    #newtree a:active,
     #newtree a:visited,
     #publish a:link,
     #publish a:hover,
@@ -1051,17 +993,17 @@ ul#treelist {
     display: block;
     border-radius:         25px;
     -moz-border-radius:    25px;
-    -webkit-border-radius: 25px;  
+    -webkit-border-radius: 25px;
     background: -webkit-gradient(linear,left bottom,left top,color-stop(0, rgb(164,164,164)),color-stop(1, rgb(232,232,232)));
-    background: -moz-linear-gradient(center bottom,                        rgb(164,164,164)             0%,rgb(232,232,232) 100%);  
+    background: -moz-linear-gradient(center bottom,                        rgb(164,164,164)             0%,rgb(232,232,232) 100%);
     padding: 8px 15px;
-    font-size: 1em;    
+    font-size: 1em;
   }
 
   #newtree a:hover, #publish a:hover {
     display: block;
     background: -webkit-gradient(linear,left bottom,left top,color-stop(0, rgb(164,164,164)),color-stop(1, rgb(250,250,250)));
-    background: -moz-linear-gradient(center bottom,rgb(164,164,164) 0%,rgb(250,250,250) 100%);    
+    background: -moz-linear-gradient(center bottom,rgb(164,164,164) 0%,rgb(250,250,250) 100%);
   }
 
   #newtree a:active, #publish a:active {
