@@ -1,20 +1,16 @@
 <div id="header">
   <h1><%= @master_tree.title %></h1>
-<!--  <div id="publish-wrap">
-    <div id="publish">
-      <a href="">
-        <span class=""><strong>Publish To GNACLR</strong></span>
-      </a>
-    </div>
-  </div> -->
 </div>
+
 <div id="flash-wrapper">
   <%= render :partial => 'shared/flashes' -%>
 </div>
+
 <!-- Start of Left Tree -->
 <div class="tree-column">
   <div id="fluid-head"></div>
   <div id="treewrap-left">
+
     <div class="tree-background">
       <div class="breadcrumbs">
         <ul>
@@ -22,18 +18,21 @@
           <li>Breadcrumb</li>
           <li>Breadcrumb</li>
         </ul>
-      </div>
+      </div><!-- /.breadcrumbs -->
+
       <div class="searchbar">
         <div class="grid-button">
           <%= link_to edit_master_tree_path do %>
             <%= image_tag 'metadata-basic.png', :class => 'icon' %>Edit Tree Info
           <% end %>
-        </div>
+        </div><!-- /.grid-button -->
+
         <div class="grid-button">
           <%= link_to edit_master_tree_path do %>
             <%= image_tag 'metadata-basic.png', :class => 'icon' %>Publish To GNACLR
           <% end %>
-        </div>
+        </div><!-- /.grid-button -->
+
         <!--<div class="grid-button">
           <a href="#"><img class="icon" src="/images/gridview.png"/>Grid view</a>
         </div>
@@ -42,20 +41,24 @@
             <input type="text" value="Search this tree" name="search" id="search" onclick="this.value='';this.onclick=null;" />
           </fieldset>
         </form>-->
+
         <div class="clearfix"></div>
-      </div>
-         <div id="add-node-wrap">
-            <div id="add-node">
-              <div class="img"></div>
-              <a href="#">Add Node</a>
-            </div>
+      </div><!-- /.searchbar -->
+
+      <div id="add-node-wrap">
+        <div id="add-node">
+          <div class="img"></div>
+            <a href="#">Add Node</a>
           </div>
-      <div id="tree-container">
-        <div id="master-tree"></div>
-      </div>
-    </div>
-  </div>
-</div>
+        </div><!-- /#add-node -->
+
+        <div id="tree-container">
+          <div id="master-tree"></div>
+        </div>
+      </div><!-- /#add-node-wrap -->
+
+    </div><!-- /.tree-background -->
+  </div><!-- /#treewrap-left -->
 <!-- End of Left Tree -->
 
 <!-- Start of Right Tree -->
