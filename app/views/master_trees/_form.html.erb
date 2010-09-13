@@ -5,11 +5,11 @@
       <%= form.inputs do -%>
         <%= form.input :title %>
 
-        <%= form.label :publication_date %>
-        <%= form.date_select :publication_date %>
         <%= form.input :citation %>
         <%= form.label :abstract %>
         <%= form.text_area :abstract %>
+        <%= form.label :publication_date %>
+        <%= form.date_select :publication_date %>
         <%= form.input :creative_commons, :as            => :select,
                                           :label         => "License",
                                           :include_blank => false,

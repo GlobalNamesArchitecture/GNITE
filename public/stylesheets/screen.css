@@ -485,7 +485,7 @@ body form input {
 
 #add-node {
   background: #cfd3d7;
-  background: 
+  background:
   -webkit-gradient(
       linear,
       left bottom,
@@ -493,7 +493,7 @@ body form input {
       color-stop(0, rgb(208,212,215)),
       color-stop(1, rgb(241,246,249))
   );
-  background: 
+  background:
   -moz-linear-gradient(
       center bottom,
       rgb(208,212,215) 0,
@@ -507,8 +507,9 @@ body form input {
   -webkit-box-shadow: 0px 1px 2px   rgba(0,0,0, 0.7), 0px 1px 0 rgb(255, 255, 255) inset;
   font-weight: bold;
   float: right;
-  height:  14px;
-  padding: 6px 8px 6px;
+  height: 14px;
+  margin: 1px 3px 0 0;
+  padding: 7px 10px 5px 10px;
   width: 100px;
 }
 
@@ -612,7 +613,7 @@ body form input {
   -webkit-border-radius: 6px 6px 0 0;
   -moz-box-shadow:    0 1px 0 #dee4e8 inset;
   -webkit-box-shadow: 0 1px 0 #dee4e8 inset;
-  box-shadow:         0 1px 0 #dee4e8 inset;    
+  box-shadow:         0 1px 0 #dee4e8 inset;
   border-bottom: 1px solid #dadddf;
   color: #444;
   display: block;
@@ -623,8 +624,8 @@ body form input {
 
 .breadcrumbs ul {
   padding:10px 10px;
-  
-  border-bottom: 1px solid #868d92;  
+
+  border-bottom: 1px solid #868d92;
 }
 
 .breadcrumbs ul li {
@@ -634,7 +635,7 @@ body form input {
   line-height: 20px;
   font-size: .9em;
   color: #232323;
- text-shadow: 0px 1px 0px #dadee2;  
+ text-shadow: 0px 1px 0px #dadee2;
 }
 
 .breadcrumbs ul li:last-child {
@@ -1007,7 +1008,6 @@ ul#treelist li a:hover {
   background: #ccd0d4;
   background: url("/images/master_tree_icon.png") left center no-repeat, -moz-linear-gradient(19% 75% 90deg,#919598, #ccd0d4);
   background: url("/images/master_tree_icon.png") left center no-repeat, -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccd0d4), to(#919598));
-
 }
 
 ul#treelist li a:active {
@@ -1181,8 +1181,6 @@ ul#treelist a:hover,
   margin-right:0em;
 }
 
-
-
 /* Border Radius */
 /************************************************************************/
 #flash_error, #flash_success, #flash_failure, #flash_notice,
@@ -1192,6 +1190,7 @@ ul#treelist li,  #search, .tree-background, #loginform .input, .green-submit, .c
   -moz-border-radius: 6px;
   -webkit-border-radius: 6px;
 }
+
 .tree-background, #treelist li, .tree-back-wrap, #tree-newimport li {
   border-radius: 8px;
   -moz-border-radius: 8px;
