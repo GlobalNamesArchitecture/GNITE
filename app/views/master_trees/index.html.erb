@@ -1,36 +1,37 @@
 <% content_for :header do %>
-   <div class="tree_list_header clearfix">
-     <h1>Your Master Trees</h1>
-     <div id="newtree" class="clearfix">
+  <div class="tree_list_header clearfix">
+  <h1>Your Master Trees</h1>
+    <div id="newtree" class="clearfix">
       <!-- New Tree Button -->
-       <a href="<%= new_master_tree_path %>">
-         <span class="content">
-           <strong>Create New Master Tree</strong>
-         </span>
-       </a>
-     </div>
-   </div> 
- <% end %>   
- <!-- Master Trees List -->
- <% if current_user.master_trees.any? %>
-           <ul id="treelist" class="clearfix">
-             <% current_user.master_trees.each do |tree| %>
-             <li>
-               <a href="<%= master_tree_url(tree.id) %>" class="clearfix">
-                   <span class="content">
-                     <h3><%= tree.title %></h3>
-                     <% if tree.abstract.present? %>
-                       <p><%= tree.abstract %></p>
-                     <% end %>
-                     <span class="date-wrap">
-                       <div class="date"><strong>Created:</strong> <%= tree.created_at.to_s(:short_date) %></div>
-                       <div class="date"><strong>Last Edited:</strong> <%= tree.updated_at.to_s(:short_date) %></div>
-                     </span>
-                   </span>
-               </a>
-             </li>
-             <% end %>
-             </ul>
-           </div>
- <% end %>
- <!-- End Tree List -->
+      <a href="<%= new_master_tree_path %>">
+        <span class="content">
+          <strong>Create New Master Tree</strong>
+        </span>
+      </a>
+    </div>
+  </div>
+<% end %>
+
+<!-- Master Trees List -->
+<% if current_user.master_trees.any? %>
+  <ul id="treelist" class="clearfix">
+    <% current_user.master_trees.each do |tree| %>
+      <li>
+        <a href="<%= master_tree_url(tree.id) %>" class="clearfix">
+          <span class="content">
+            <h3><%= tree.title %></h3>
+            <% if tree.abstract.present? %>
+              <p><%= tree.abstract %></p>
+            <% end %>
+
+            <span class="date-wrap">
+              <div class="date"><strong>Created:</strong> <%= tree.created_at.to_s(:short_date) %></div>
+              <div class="date"><strong>Last Edited:</strong> <%= tree.updated_at.to_s(:short_date) %></div>
+            </span>
+          </span>
+        </a>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+<!-- End Tree List -->
