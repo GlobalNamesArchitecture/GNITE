@@ -190,15 +190,26 @@ Feature: Edit a master tree
       | Paste Here |
     And I sign in as "email@person.com/password"
     When I follow "Snacks"
-
     And I wait for the tree to load
     And I select the node "Get Cut"
     And I click "Cut" in the context menu
     And I select the node "Paste Here"
     And I click "Paste" in the context menu
-
     When I reload the page
     And I wait for the tree to load
     And I expand the node "Paste Here"
     Then I should see a node "Get Cut" under "Paste Here"
     And I should not see a node "Get Cut" at the root level in my master tree
+
+  @javascript
+  Scenario: User can add nodes from the context menu
+    Given I am signed up and confirmed as "email@person.com/password"
+    And "email@person.com" has created an existing master tree titled "Snacks" with:
+      | oxiae |
+    And I sign in as "email@person.com/password"
+    When I follow "Snacks"
+    And I wait for the tree to load
+    And I select the node "oxiae"
+    And I click "Create" in the context menu
+    And I enter "cat" in the new node and press enter
+    Then I should see 1 node "cat" at the root level in my master tree
