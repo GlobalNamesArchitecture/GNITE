@@ -14,5 +14,16 @@ class ReferenceTreesController < ApplicationController
 
   def show
     @reference_tree = ReferenceTree.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.js do
+        if @reference_tree.importing?
+          head :no_content
+        else
+          render :partial => 'reference_tree'
+        end
+      end
+    end
   end
 end

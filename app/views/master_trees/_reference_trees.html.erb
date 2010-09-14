@@ -11,28 +11,7 @@
 
     <!-- Start tab content -->
     <% @master_tree.reference_trees.each do |reference_tree| %>
-      <div id="<%= dom_id(reference_tree) %>">
-        <div class="tree-background">
-          <div class="breadcrumbs">
-            <ul>
-              <li>Breadcrumb</li>
-              <li>Breadcrumb</li>
-            </ul>
-            <%= image_tag 'close-tab.png', :class => 'close-tab' %>
-          </div>
-          <div class="searchbar">
-            <div class="grid-button">
-              <%= link_to reference_tree_path(reference_tree) do %>
-                View Tree Information
-              <% end %>
-            </div>
-            <div class="clearfix"></div>
-          </div>
-          <div class="reference_tree_container">
-            <div id=<%= dom_id(reference_tree, "container_for") %>></div>
-          </div>
-        </div>
-      </div>
+      <%= render :partial => 'reference_trees/reference_tree', :locals => { :reference_tree => reference_tree } %>
     <% end %>
     <!-- End of reference trees tabs -->
     <div id="new-tab">

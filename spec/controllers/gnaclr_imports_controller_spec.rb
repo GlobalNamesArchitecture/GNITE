@@ -43,3 +43,4 @@ describe GnaclrImportsController, 'html POST create' do
   end
   it { should respond_with(:bad_request) }
 end
+

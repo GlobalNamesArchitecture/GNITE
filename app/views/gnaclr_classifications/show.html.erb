@@ -19,7 +19,7 @@
     </div>
     <% if @gnaclr_classification.description.present? %>
     <p><%= @gnaclr_classification.description %></p>
-    <input id="import-gnaclr-button" class="green-submit" name="Import" type="submit" value="Import">
+    <input id="import-gnaclr-button" class="green-submit" name="Import" type="submit" value="Import" data-tree-url="<%= @gnaclr_classification.file_url %>">
   <% end %>
 </div>
 
