@@ -1284,6 +1284,12 @@ ul#treelist a:hover,
   margin-right:0em;
 }
 
+.no_content_message {
+  padding: 20px;
+  font-size: 1.3em;
+  text-align: center;
+}
+
 /* Border Radius */
 /************************************************************************/
 #flash_error, #flash_success, #flash_failure, #flash_notice,
