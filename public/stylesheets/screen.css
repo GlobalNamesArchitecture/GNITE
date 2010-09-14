@@ -499,6 +499,7 @@ body form input {
       rgb(208,212,215) 0,
       rgb(241,246,249) 100%
   );
+
   border-radius:         12px;
   -moz-border-radius:    12px;
   -webkit-border-radius: 12px;
@@ -507,14 +508,30 @@ body form input {
   -webkit-box-shadow: 0px 1px 2px   rgba(0,0,0, 0.7), 0px 1px 0 rgb(255, 255, 255) inset;
   font-weight: bold;
   float: right;
-  height: 14px;
-  margin: 1px 3px 0 0;
-  padding: 7px 10px 5px 10px;
-  width: 100px;
+  height:  14px;
+  padding: 6px 14px 6px 10px;
+  margin: 0px 0px 0  0;
 }
+
+
 
 #add-node:hover {
   cursor: pointer;
+  background: #dde0e4;
+     background: 
+     -webkit-gradient(
+         linear,
+         left bottom,
+         left top,
+         color-stop(0, rgb(208,212,215)),
+         color-stop(1, rgb(255,255,255))
+     );
+     background: 
+     -moz-linear-gradient(
+         center bottom,
+         rgb(208,212,215) 0,
+         rgb(255,255,255) 100%
+     );  
 }
 
 #add-node:active {
@@ -531,8 +548,10 @@ body form input {
   background: url("../images/add-node.png") no-repeat;
   float: left;
   height: 16px;
-  margin: -1px 8px 0 8px;
+  margin: 0 1px 0 0;
   width: 16px;
+  position: relative;
+  top: 1px;
 }
 
 #add-node a {
@@ -629,9 +648,9 @@ body form input {
 }
 
 .breadcrumbs ul li {
-  background: url(/images/angle.png) right no-repeat;
+  background: transparent url(/images/angle.png) right 3px no-repeat;
   display: inline-block;
-  padding: 0 16px 0 3px;
+  padding: 0 12px 0 1px;
   line-height: 20px;
   font-size: .9em;
   color: #232323;
@@ -657,18 +676,61 @@ body form input {
 }
 
 .breadcrumbs .close-tab {
-  bottom: 30px;
+  bottom: 32px;
   cursor: pointer;
   float: right;
-  padding: 5px 10px;
+  padding: 4px 5px;
   position: relative;
-  right: 5px;
+  right: 9px;
+  background: #cfd3d7;
+   background: 
+   -webkit-gradient(
+       linear,
+       left bottom,
+       left top,
+       color-stop(0, rgb(208,212,215)),
+       color-stop(1, rgb(241,246,249))
+   );
+   background: 
+   -moz-linear-gradient(
+       center bottom,
+       rgb(208,212,215) 0,
+       rgb(241,246,249) 100%
+   );
+
+   border-radius:         5px;
+   -moz-border-radius:    5px;
+   -webkit-border-radius: 5px;
+   box-shadow:         0px 1px 2px   rgba(0,0,0, 0.7), 0px 1px 0 rgb(255, 255, 255) inset;
+   -moz-box-shadow:    0px 1px 2px   rgba(0,0,0, 0.7), 0px 1px 0 rgb(255, 255, 255) inset;
+   -webkit-box-shadow: 0px 1px 2px   rgba(0,0,0, 0.7), 0px 1px 0 rgb(255, 255, 255) inset;  
 }
+
+.breadcrumbs .close-tab:hover {
+  background: #dde0e4;
+    background: 
+    -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0, rgb(208,212,215)),
+        color-stop(1, rgb(248,253,255))
+    );
+    background: 
+    -moz-linear-gradient(
+        center bottom,
+        rgb(208,212,215) 0,
+        rgb(248,253,255) 100%
+    );  
+}
+
+
 
 .searchbar, .controls {
   background: #babfc3;
   border-bottom: 1px solid #8c9195;
-  padding: 6px 5px;
+  padding: 6px 10px 0 10px;
+  height: 32px;
 }
 
 .searchbar a {
@@ -680,9 +742,32 @@ body form input {
 .controls .tree-btn {
   display: block;
   float: left;
-  line-height: 30px;
-  margin: 0 10px;
-  padding: 0;
+  padding: 6px 9px;
+  margin: 0 10px 0 0;
+  background: #d4d7da;
+  -moz-box-shadow:    0 1px 2px rgba(0,0,0,.7);
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.7);
+  box-shadow:         0 1px 2px rgba(0,0,0,.7); 
+  border-radius:         6px;
+  -moz-border-radius:    6px;
+  -webkit-border-radius: 6px;   
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#e0e2e4), to(#bbc0c4));
+  background-image: -moz-linear-gradient(top,                  #e0e2e4,     #bbc0c4);  
+  font-weight: bold;
+  font-size: .9em;
+}
+
+
+.searchbar .grid-button:hover,
+.controls .tree-btn:hover {
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f2f4f5), to(#bbc0c4));
+  background-image: -moz-linear-gradient(top,                  #f2f4f5,     #bbc0c4);  
+}
+
+.searchbar .grid-button:active,
+.controls .tree-btn:active {
+  position: relative;
+  top: 1px;  
 }
 
 .grid-button .icon {
@@ -1197,11 +1282,18 @@ ul#treelist li,  #search, .tree-background, #loginform .input, .green-submit, .c
   -webkit-border-radius: 8px;
 }
 
-.tree-background, #treelist li, #newtree a, .tree-back-wrap, #tree-newimport li  {
+.tree-background, #treelist li, #newtree a, .tree-back-wrap  {
   box-shadow:         0px 1px 7px 0 rgba(0,0,0,.7);
   -moz-box-shadow:    0px 1px 7px 0 rgba(0,0,0,.7);
   -webkit-box-shadow: 0px 1px 7px 0 rgba(0,0,0,.7);
 }
+
+#tree-newimport li {
+  box-shadow:         0px 1px 3px rgba(0,0,0,.7);
+  -moz-box-shadow:    0px 1px 3px rgba(0,0,0,.7);
+  -webkit-box-shadow: 0px 1px 3px rgba(0,0,0,.7);  
+}
+
 
 /* Text Shadow Light Highlight */
 /************************************************************************/
