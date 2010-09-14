@@ -5,7 +5,6 @@ describe GnaclrImporter, 'new' do
 
   subject { GnaclrImporter.new(:reference_tree_id => reference_tree.id,
                                :url               => 'foo') }
-
   before do
     Delayed::Job.stubs(:enqueue)
   end
@@ -65,5 +64,75 @@ describe GnaclrImporter, 'read_tarball' do
 
   it 'extracts parent ID index' do
     subject.parent_id_index.should == 3
+  end
+end
+
+describe GnaclrImporter, 'store_tree for an invalid dwc archive' do
+  let(:reference_tree) { Factory(:reference_tree) }
+  subject { GnaclrImporter.new(:url               => "file:///#{Rails.root.join('features', 'support', 'fixtures', 'cyphophthalmi.tar.gz')}",
+                               :reference_tree_id => reference_tree.id) }
+
+  before do
+    Delayed::Job.stubs(:enqueue)
+    core_mock = mock('dwc-core')
+    subject.dwc.stubs(:core => core_mock)
+    core_mock.stubs(:read => [[], ['some error']])
+  end
+
+  it 'calls dwc.core.read' do
+    lambda { subject.store_tree }.should raise_error GnaclrImporter::InvalidDwcArchiveError
+  end
+end
+
+describe GnaclrImporter, 'store_tree for a valid dwc archive' do
+  let(:reference_tree) { Factory(:reference_tree) }
+  subject { GnaclrImporter.new(:url               => "file:///#{Rails.root.join('features', 'support', 'fixtures', 'cyphophthalmi.tar.gz')}",
+                               :reference_tree_id => reference_tree.id) }
+  let(:data) {
+    [
+      ["cyphophthalmi:tid:314", "http://cyphophthalmi.lifedesks.org/pages/314", "Cyphophthalmi incertae sedis", "/N", "family", nil],
+      ["cyphophthalmi:tid:302", "http://cyphophthalmi.lifedesks.org/pages/302", "Opiliones", "/N", "order", nil],
+      ["cyphophthalmi:tid:328", "http://cyphophthalmi.lifedesks.org/pages/328", "Dyspnoi", "cyphophthalmi:tid:302", nil, nil]
+    ]
+  }
+  before do
+    Delayed::Job.stubs(:enqueue)
+    core_mock = mock('dwc-core')
+    subject.dwc.stubs(:core => core_mock)
+    core_mock.stubs(:read => [data, []])
+
+    subject.stubs(:id_index        => 0,
+                  :name_index      => 2,
+                  :parent_id_index => 3)
+    subject.store_tree
+  end
+
+  it 'creates node records' do
+    first_node = Node.find_by_name!('Cyphophthalmi incertae sedis')
+    first_node.parent.should be_nil
+    second_node = Node.find_by_name!('Opiliones')
+    second_node.parent.should be_nil
+    third_node = Node.find_by_name!('Dyspnoi')
+    third_node.parent.should == second_node
+  end
+end
+
+describe GnaclrImporter, 'perform' do
+  let(:reference_tree) { Factory(:reference_tree) }
+  subject { GnaclrImporter.new(:url               => "",
+                               :reference_tree_id => reference_tree.id) }
+
+  before do
+    Delayed::Job.stubs(:enqueue)
+    subject.stubs(:fetch_tarball => nil,
+                  :store_tree    => nil,
+                  :read_tarball  => nil)
+  end
+
+  it 'fetches, reads and stores the tree' do
+    subject.perform
+    subject.should have_received(:fetch_tarball)
+    subject.should have_received(:read_tarball)
+    subject.should have_received(:store_tree)
   end
 end
