@@ -45,9 +45,9 @@ describe ReferenceTreesController, 'xhr GET show for a tree that is importing' d
   subject { controller }
   before do
     sign_in_as user
-    xhr :get,
-        :show,
-        :id => reference_tree.id
+    get :show,
+        :id     => reference_tree.id,
+        :format => 'json'
   end
 
   it 'responds with a 206 No Content and no layout' do

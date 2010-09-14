@@ -5,7 +5,7 @@ class GnaclrImporter
   attr_accessor :reference_tree_id, :url
 
   def initialize(opts)
-    @reference_tree_id = opts[:reference_tree_id]
+    @reference_tree_id = opts[:reference_tree_id].to_i
     @url               = opts[:url]
     enqueue
   end
@@ -27,8 +27,8 @@ class GnaclrImporter
     raise GnaclrImporter::InvalidDwcArchiveError if errors.any?
     id_hash = {}
     data.each do |row|
-      node = Node.create!(:name   => row[name_index],
-                        :tree_id => reference_tree_id)
+      node = Node.create!(:name    => row[name_index],
+                          :tree_id => reference_tree_id)
       id_hash.store(row[id_index], node.id)
     end
     if parent_id_index.present?
@@ -40,10 +40,15 @@ class GnaclrImporter
     end
   end
 
+  def activate_tree
+    ReferenceTree.update_all 'state = "active"', "id = #{reference_tree_id}"
+  end
+
   def perform
     fetch_tarball
     read_tarball
     store_tree
+    activate_tree
   end
 
   def enqueue

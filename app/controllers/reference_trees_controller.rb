@@ -17,7 +17,7 @@ class ReferenceTreesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.js do
+      format.json do
         if @reference_tree.importing?
           head :no_content
         else

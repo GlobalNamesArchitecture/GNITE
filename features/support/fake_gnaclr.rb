@@ -27,7 +27,10 @@ module FakeGnaclr
 
     def self.insert(*hashes)
       hashes.each do |hash|
-        hash['file_url'] = Rails.root.join('features/support/fixtures', hash['file_url'])
+        if hash['file_url']
+          hash['file_url'] = 'file:///' + Rails.root.join('features/support/fixtures', hash['file_url']).to_s
+        end
+
         extract_author_list(hash)
         @@classifications.push(GnaclrClassification.new(hash))
       end

@@ -1,7 +1,0 @@
-<%= {
-  :title => @reference_tree.title,
-  :url   => reference_tree_nodes_path(:reference_tree_id => reference_tree.id, :format => 'json'),
-  :domid => dom_id(@reference_tree),
-  :tree  => render(:partial => 'reference_tree', :format => 'html', :locals => { :reference_tree => reference_tree })
-}.to_json
-%>

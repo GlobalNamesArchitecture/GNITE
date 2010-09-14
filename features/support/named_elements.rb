@@ -5,6 +5,8 @@ module NamedElementHelper
       "#treewrap-right .breadcrumbs"
     when /a spinner/
       ".spinner"
+    when /the navigation bar/
+      "#navbar"
 
     else
       raise "Can't find mapping for \"#{named_element}\"."

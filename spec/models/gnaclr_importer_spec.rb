@@ -10,6 +10,7 @@ describe GnaclrImporter, 'new' do
   end
 
   it 'sets reference_tree_id' do
+    subject.reference_tree_id.should be_a(Integer)
     subject.reference_tree_id.should == reference_tree.id
   end
 
@@ -117,6 +118,21 @@ describe GnaclrImporter, 'store_tree for a valid dwc archive' do
   end
 end
 
+describe GnaclrImporter, 'activate_tree' do
+  let(:reference_tree) { Factory(:reference_tree, :state => 'importing') }
+  subject { GnaclrImporter.new(:url               => "file:///#{Rails.root.join('features', 'support', 'fixtures', 'cyphophthalmi.tar.gz')}",
+                               :reference_tree_id => reference_tree.id) }
+
+  before do
+    Delayed::Job.stubs(:enqueue)
+    subject.activate_tree
+  end
+
+  it 'activates the reference tree' do
+    reference_tree.reload.state.should == 'active'
+  end
+end
+
 describe GnaclrImporter, 'perform' do
   let(:reference_tree) { Factory(:reference_tree) }
   subject { GnaclrImporter.new(:url               => "",
@@ -126,7 +142,8 @@ describe GnaclrImporter, 'perform' do
     Delayed::Job.stubs(:enqueue)
     subject.stubs(:fetch_tarball => nil,
                   :store_tree    => nil,
-                  :read_tarball  => nil)
+                  :read_tarball  => nil,
+                  :activate_tree => nil)
   end
 
   it 'fetches, reads and stores the tree' do
@@ -134,5 +151,6 @@ describe GnaclrImporter, 'perform' do
     subject.should have_received(:fetch_tarball)
     subject.should have_received(:read_tarball)
     subject.should have_received(:store_tree)
+    subject.should have_received(:activate_tree)
   end
 end
