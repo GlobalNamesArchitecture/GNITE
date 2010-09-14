@@ -216,9 +216,10 @@ body form input {
               rgb(90,165,43) 58%,
               rgb(144,207,76) 98%);
   border: 0;
-  box-shadow:         0px 1px 2px rgba(0,0,0, 1), 0 -1px 0 #114503 inset;
+
   -moz-box-shadow:    0px 1px 2px rgba(0,0,0, 1), 0 -1px 0 #114503 inset;
   -webkit-box-shadow: 0px 1px 2px rgba(0,0,0, 1), 0 -1px 0 #114503 inset;
+  box-shadow:         0px 1px 2px rgba(0,0,0, 1), 0 -1px 0 #114503 inset;  
   color: #fff;
   float: left;
   font-weight: bold;
@@ -852,6 +853,11 @@ body form input {
   float: left;
   height: auto;
   text-shadow: 0 1px 1px rgba(0,0,0,.4);
+  -moz-box-shadow:    0px 1px 2px rgba(0,0,0, 1);
+  -webkit-box-shadow: 0px 1px 2px rgba(0,0,0, 1);  
+  box-shadow:         0px 1px 2px rgba(0,0,0, 1);  
+  
+  
   width: auto;
 }
 
@@ -877,9 +883,9 @@ body form input {
   background: -webkit-gradient(linear,left bottom,left top,
               color-stop(0.04, #CECABB),
               color-stop(0.98, #ECEAE2));
-  box-shadow: 0px 1.5px 3px 1px rgba(26, 26, 26, 0.4), 0px 1px 1px rgb(255, 255, 255) inset;
-  -moz-box-shadow: 0px 1.5px 3px 1px rgba(26, 26, 26, 0.4), 0px 1px 1px rgb(255, 255, 255) inset;
-  -webkit-box-shadow: 0px 1.5px 3px 1px rgba(26, 26, 26, 0.4), 0px 1px 1px rgb(255, 255, 255) inset;
+  -moz-box-shadow:    0px 1px 2px rgba(0,0,0, 1);
+  -webkit-box-shadow: 0px 1px 2px rgba(0,0,0, 1);  
+  box-shadow:         0px 1px 2px rgba(0,0,0, 1);
   color: #222;
   margin-left: 15px;
   padding: 12px 30px 11px;
@@ -888,14 +894,17 @@ body form input {
 
 #tree-metadata fieldset input, #tree-metadata fieldset textarea {
   background: #fff;
-  border: 1px solid #d1cdc1;
-  border-top-color: #b3ae9d;
+  border: 1px solid #c1c1c1;
+  border-top-color: #a8a8a8;
   border-radius: 3px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   float: left;
   padding: 0 10px;
   width: 95%;
+  -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2) inset;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2) inset;
+  box-shadow: 0 1px 2px rgba(0,0,0,.2) inset;    
 }
 
 #tree-metadata fieldset input {
@@ -1048,6 +1057,14 @@ body form input {
 
 /* Master Tree List */
 /************************************************************************/
+#header .tree_list_header {
+  position: relative;
+}
+
+#header .tree_list_header_inner {
+  width: 635px;
+}
+
 #header .tree_list_header h1 {
   float: left;
   font-size: 1em;
@@ -1147,6 +1164,7 @@ ul#treelist a:hover,
   float: right;
   position: relative;
   top: -5px;
+
 }
 
 #newtree a {

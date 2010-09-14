@@ -1,13 +1,15 @@
 <% content_for :header do %>
   <div class="tree_list_header clearfix">
-  <h1>Your Master Trees</h1>
-    <div id="newtree" class="clearfix">
-      <!-- New Tree Button -->
-      <a href="<%= new_master_tree_path %>">
-        <span class="content">
-          <strong>Create New Master Tree</strong>
-        </span>
-      </a>
+    <div class="tree_list_header_inner clearfix">
+      <h1>Your Master Trees</h1>
+        <div id="newtree" class="clearfix">
+          <!-- New Tree Button -->
+          <a href="<%= new_master_tree_path %>">
+            <span class="content">
+              <strong>Create New Master Tree</strong>
+            </span>
+          </a>
+        </div>      
     </div>
   </div>
 <% end %>
