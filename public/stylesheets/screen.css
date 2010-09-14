@@ -808,7 +808,7 @@ body form input {
 /* Master Tree Metadata Back */
 /************************************************************************/
 .tree-back-wrap {
-  background: rgb(236, 234, 226);
+  background: #eef1f3;
   border: 0px;
   height: 100%;
   min-height: 400px;
