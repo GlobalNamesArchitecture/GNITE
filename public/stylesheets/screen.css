@@ -926,7 +926,7 @@ body form input {
   width: 400px;
 }
 
-#tree-newimport li {
+#tree-newimport ul li {
   background: #e6e4dd;
   background: rgb(230,228,221);
   background: -moz-linear-gradient(center bottom, rgb(230,228,221) 0%, rgb(255,255,255) 50%);
@@ -934,22 +934,22 @@ body form input {
   width: 400px;
 }
 
-#tree-newimport li:hover {
+#tree-newimport ul li:hover {
   background: rgb(255,255,255);
   background: -moz-linear-gradient(center bottom, rgb(230,228,221) 0%, rgb(255,255,255) 50%);
 }
 
-#tree-newimport li .content {
+#tree-newimport ul li .content {
   float: left;
   padding: 0 0 0 65px;
 }
 
-#tree-newimport li h1 {
+#tree-newimport ul li h1 {
   margin: 0;
   padding: 5px 0;
 }
 
-#tree-newimport li p {
+#tree-newimport ul li p {
   color:#555;
   margin:5px 0;
   padding:0;
@@ -1039,6 +1039,48 @@ body form input {
 
 #gnaclr-description p {
   margin: 5px 0;
+}
+
+#tree-revisions {
+  border-top: 1px solid #c8cacc;
+  margin: 7px 15px 15px 15px;
+  padding: 8px 0 0 0;
+}
+
+ul#revisions {
+  margin: 6px 0 0 0;
+  width: auto;
+}
+
+ul#revisions li {
+  background: 0;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  margin: 0 0 8px 0;
+  padding: 4px 0;
+  position: relative;
+}
+
+ul#revisions li input[type="radio"] {
+  font-size: 3em;
+  margin-left: 0;
+  position: absolute;
+  top: 0px;
+}
+
+ul#revisions li p.revision-number {
+  color: #111;
+  font-weight: bold;
+  margin: 0 0 4px 20px;
+}
+
+ul#revisions li p.date {
+  font-weight: normal;
+  margin: 0 0 0 20px;
+}
+
+ul#revisions li:hover {
+  background: none;
 }
 
 #import-flat-list{

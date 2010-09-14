@@ -4,9 +4,9 @@
     </li>
     <li>
       GNACLR
-    </li>  
+    </li>
 <% end %>
-<ul id="tree-newimport" class="list">
+<ul id="tree-import-list" class="list">
   <% @gnaclr_classifications.each do |classification| %>
     <li>
       <%= link_to master_tree_gnaclr_classification_path(@master_tree, classification), :class => "ajax-load-new-tab" do %>

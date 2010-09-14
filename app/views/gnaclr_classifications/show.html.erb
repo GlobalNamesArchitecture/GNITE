@@ -7,7 +7,7 @@
   </li>
   <li>
     <%= @gnaclr_classification.title %>
-  </li> 
+  </li>
 <% end %>
 <div id="gnaclr-description" class="clearfix">
   <h2><%= @gnaclr_classification.title %></h2>
@@ -23,14 +23,22 @@
   <% end %>
 </div>
 
-
-  <!--
+<div id="tree-revisions">
+  <h3>Choose a revision to import</h3>
+  <form>
+  <ul id="revisions">
     <li>
-      <div class="btn-img">
-        <div class="content">
-          <h2>Revision 0: 01 Apr 18:37 </h2>
-          <p>(Import not yet implemented - these are not real revisions.)</p>
-        </div>
-      </div>
+      <input type="radio">
+      <p class="revision-number">Revision 0</p>
+      <p class="date">01 Apr 18:37</p>
     </li>
-  -->
+    <li>
+      <input type="radio">
+      <p class="revision-number">Revision 0</p>
+      <p class="date">01 Apr 18:37</p>
+    </li>
+  </ul>
+
+  <input id="import-gnaclr-button" class="green-submit" name="Import" type="submit" value="Import">
+  </form>
+</div>
