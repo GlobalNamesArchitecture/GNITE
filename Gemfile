@@ -15,8 +15,9 @@ gem 'ancestry', :git => "git://github.com/thoughtbot/ancestry.git", :branch => "
 gem 'uuid'
 gem 'crack'
 gem 'delayed_job'
-gem 'dwc-archive', '0.3.0'
+gem 'dwc-archive', '0.4.5'
 gem 'fastercsv'
+gem 'parsley-store'
 
 # Deploy with Capistrano
 # gem 'capistrano'

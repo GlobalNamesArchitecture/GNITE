@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml
+packageId="eml.1.1" system="knb"
+xmlns:eml="eml://ecoinformatics.org/eml-2.1.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.0 eml.xsd">
+<dataset id="cyphophthalmi:version:0.1">
+<title>eCyphophthalmi Classification</title>
+<creator id="3" scope="document">
+<individualName>
+<givenName>Gonzalo</givenName>
+<surName>Giribet</surName>
+</individualName>
+<electronicMailAddress>ggiribet@oeb.harvard.edu</electronicMailAddress>
+</creator>
+<metadataProvider>
+<organizationName>Encyclopedia of Life: LifeDesks (http://www.lifedesks.org)</organizationName>
+</metadataProvider>
+<pubDate>2010-05-27T00:21:01+00:00</pubDate>
+<abstract>&amp;lt;p&amp;gt;This classification cover all the genera of Cyphophthalmi. The complete species catalog will be completed soon.&amp;lt;/p&amp;gt;</abstract>
+<intellectualRights>Creative Commons: by-nc-sa</intellectualRights>
+<distribution>
+<online>
+<url function="download">http://cyphophthalmi.lifedesks.org/classification.tar.gz</url>
+</online>
+</distribution>
+<contact>
+<references>3</references>
+</contact>
+<publisher>
+<organizationName>The Marine Biological Laboratory</organizationName>
+</publisher>
+</dataset>
+<additionalMetadata>
+<metadata>
+<citation>&amp;lt;p&amp;gt;An updated&amp;amp;nbsp;classification of Cyphophthalmi.&amp;lt;/p&amp;gt;</citation>
+</metadata>
+</additionalMetadata>
+</eml:eml>

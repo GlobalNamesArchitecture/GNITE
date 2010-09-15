@@ -19,7 +19,7 @@ Feature: Edit a master tree
     When I follow "New Master Tree"
     And I fill in "Title" with "My new tree"
     And I press "Create"
-    When I follow "Add Node"
+    And I follow "Add Node"
     And I enter "hydrochaeris" in the new node and press enter
     Then I should see a node "hydrochaeris" at the root level in my master tree
     When I follow "Master Trees"

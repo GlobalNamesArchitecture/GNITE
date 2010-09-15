@@ -8,6 +8,6 @@ describe ReferenceTree do
     tree = Factory :tree, :title => "My title"
     ReferenceTree.stubs(:new => tree)
     ReferenceTree.create_from_list({:title => "My title"}, ["kitten", "bunny"])
-    tree.nodes.map{|node| node.name}.should == ["kitten", "bunny"]
+    tree.nodes.map{ |node| node.name_string }.should == ["kitten", "bunny"]
   end
 end

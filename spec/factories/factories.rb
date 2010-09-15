@@ -1,3 +1,7 @@
+Factory.sequence(:name_string) do |i|
+  "taxon #{i}"
+end
+
 Factory.define :master_tree do |tree|
   tree.title { "My Tree" }
   tree.association :user
@@ -17,11 +21,11 @@ Factory.define :tree, :class => 'MasterTree' do |tree|
   tree.creative_commons { 'cc0' }
 end
 
-Factory.sequence :node_name do |n|
-  "Node #{n}"
-end
-
 Factory.define :node do |node|
   node.association :tree
-  node.name { Factory.next(:node_name) }
+  node.name_id { Factory(:name).id }
+end
+
+Factory.define :name do |name|
+  name.name_string { Factory.next(:name_string) }
 end

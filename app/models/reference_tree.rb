@@ -6,7 +6,8 @@ class ReferenceTree < Tree
     tree = ReferenceTree.new(tree_params)
     tree.save
     node_list.each do |node_name|
-      n = Node.new(:tree => tree, :name => node_name)
+      name = Name.find_or_create_by_name_string(node_name)
+      n = Node.new(:tree => tree, :name => name)
       n.save
     end
     tree

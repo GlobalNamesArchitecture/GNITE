@@ -44,13 +44,13 @@ When /^I wait for the tree to load$/ do
 end
 
 When /^I expand the node "([^"]*)"$/ do |node_name|
-  node = Node.find_by_name(node_name)
+  node = first_node_by_name(node_name)
   page.execute_script("jQuery('#master-tree').jstree('open_node', '##{node.id}');")
   sleep 1
 end
 
 When /^I expand the node "([^"]*)" under "([^"]*)"$/ do |child_node_name, parent_node_name|
-  child_node = Node.all.detect { |node| node.parent && node.name == child_node_name && node.parent.name == parent_node_name }
+  child_node = Node.all.detect { |node| node.parent && node.name_string == child_node_name && node.parent.name_string == parent_node_name }
   child_node.should_not be_nil
   page.execute_script("jQuery('#master-tree').jstree('open_node', '##{child_node.id}');")
   sleep 1
@@ -62,21 +62,21 @@ Then /^pause (\d+)$/ do |num|
 end
 
 When /^I drag "([^"]*)" under "([^"]*)"$/ do |child_node_text, parent_node_text|
-  child_node = Node.find_by_name(child_node_text)
-  parent_node = Node.find_by_name(parent_node_text)
+  child_node = first_node_by_name(child_node_text)
+  parent_node = first_node_by_name(parent_node_text)
   #This calls the "move_node" function from the core api directly
   #but the same function is also called during mouse drag and drops
-  When %{I select the node "#{child_node.name}"}
+  When %{I select the node "#{child_node.name_string}"}
   page.execute_script("jQuery('#master-tree').jstree('move_node', '##{child_node.id}', '##{parent_node.id}', 'first', false);")
 end
 
 When /^I delete the node "([^"]*)"$/ do |node_text|
-  node = Node.find_by_name(node_text)
+  node = first_node_by_name(node_text)
   page.execute_script("jQuery('#master-tree').jstree('remove', '##{node.id}');")
 end
 
 Then /^the "([^"]*)" tree node should be selected$/ do |node_text|
-  node = Node.find_by_name(node_text)
+  node = first_node_by_name(node_text)
   page.should have_css("li##{node.id} a.jstree-clicked")
 end
 
@@ -101,7 +101,7 @@ end
 
 Given /^the "([^"]*)" tree has a child node "([^"]*)" under "([^"]*)"$/ do |tree_title, child_node_name, parent_node_name|
   tree = Tree.find_by_title(tree_title)
-  parent = tree.nodes.find_by_name(parent_node_name)
+  parent = first_node_by_name_for_tree(parent_node_name, tree)
   Factory(:node, :parent => parent, :name => child_node_name)
 end
 

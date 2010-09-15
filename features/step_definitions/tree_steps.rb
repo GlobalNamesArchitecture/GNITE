@@ -2,6 +2,6 @@ Given /^"([^"]*)" has created an existing master tree titled "([^"]*)" with:$/ d
   user = User.find_by_email(user_email)
   tree = Factory :master_tree, :title => tree_title, :user => user
   table.raw.each do |row|
-    Factory :node, :name => row.first, :tree => tree
+    Factory(:node, :name => Factory(:name, :name_string => row.first), :tree => tree)
   end
 end

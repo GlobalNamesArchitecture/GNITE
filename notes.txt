@@ -1,0 +1,23 @@
+GNITE:
+
+Goals:
+* Unification of information
+* Access to info
+* "Ed Wilson" - came up with an EOL. Problem: Deals with large data of objects. Paragraphs, pictures, etc don't work. Need to fragment into atoms, numbers, that can be analyzed.
+* Deliver information at the atomic level.
+
+Combine EOL data and IRMNG reference structure and create a fusion. GNITE is the toolkit that allows us to do that.
+
+Complexity around different representations of the same thing: Ex: HSapiens, HomoSapiens, etc. They have accumulated these in the Global Names Index.
+
+Sept 20, Annual taxonomist conference. Would be nice to show something.
+
+Tasks:
+
+* Merge two simple trees
+  * I have a master tree and a reference tree. We already have the ability of copying.
+  * Merging - Click on a node on the right hand, then click on a node on the left, and click on Merge. Resolve conflicts.
+    * Conflicts can happen on the following:
+       - Name normalization - there's a gem for this.
+       - Tree path
+       - Metadata - synonyms, current name

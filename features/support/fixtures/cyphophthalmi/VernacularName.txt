@@ -1,0 +1,9 @@
+TaxonID	vernacularName	languageCode
+cyphophthalmi:tid:302	Aranha bode	pt
+cyphophthalmi:tid:302	Aranha de chão	pt
+cyphophthalmi:tid:302	Daddy longlegs	en
+cyphophthalmi:tid:302	Giramundo	pt
+cyphophthalmi:tid:302	Harvestmen	en
+cyphophthalmi:tid:302	Opilhões	pt
+cyphophthalmi:tid:302	Tabijuá	pt
+cyphophthalmi:tid:305	Bee creek cave harvestman	

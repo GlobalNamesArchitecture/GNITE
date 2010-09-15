@@ -17,7 +17,8 @@ Gnite::Application.routes.draw do |map|
 
   resources :master_trees, :only => [:index, :new, :create, :show, :edit, :update] do
     resources :nodes, :only => [:index, :create, :update, :destroy] do
-      resource :clone, :only => [:create]
+      resource :clone,         :only => [:create]
+      resources :name_updates, :only => [:create]
     end
     resources :flat_list_imports,      :only => [:new]
     resources :gnaclr_classifications, :only => [:index, :show]

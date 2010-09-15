@@ -1,7 +1,11 @@
 class Node < ActiveRecord::Base
   validates_presence_of :name, :tree_id
   belongs_to :tree
+  belongs_to :name
+
   has_ancestry
+
+  delegate :name_string, :to => :name
 
   def self.find_by_id_for_user(id_to_find, user)
     # If we just called user.master_tree_ids here,

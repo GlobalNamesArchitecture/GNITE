@@ -1,20 +1,15 @@
 require 'spec_helper'
 
-describe NodesController do
-
-  context "when signed out" do
-    context "on POST to create" do
-      before do
-        post :create, :master_tree_id => 123, :node_id => 456
-      end
-
-      subject { controller }
-
-      it { should redirect_to(sign_in_url) }
-      it { should set_the_flash.to(/sign in/) }
-    end
+describe NodesController, 'when signed out on POST to create' do
+  before do
+    post :create, :master_tree_id => 123, :node_id => 456
   end
+  subject { controller }
+  it { should redirect_to(sign_in_url) }
+  it { should set_the_flash.to(/sign in/) }
+end
 
+describe NodesController do
   context "signed in with a tree and nodes" do
     let(:user)        { Factory(:email_confirmed_user) }
 
@@ -61,62 +56,6 @@ describe NodesController do
         end
       end
 
-      context "on POST to create" do
-        let(:node_attributes) do
-          { :name => "My new node" }
-        end
-
-        let(:new_node) { Factory.build(:node, node_attributes) }
-
-        before do
-          Node.stubs(:new => new_node)
-          new_node.stubs(:save => true)
-
-          post :create, :master_tree_id => tree.id, :format => 'json', :node => node_attributes
-        end
-
-        it "should create a new node" do
-          Node.should have_received(:new).with(node_attributes.merge({
-            :tree_id => tree.id
-          }).stringify_keys)
-
-          new_node.should have_received(:save)
-        end
-
-        it { should respond_with(:success) }
-
-        it "should render the newly created node as JSON" do
-          response.body.should == new_node.to_json
-        end
-      end
-
-      context "on PUT to update" do
-        let(:node_attributes) do
-          { :name => "My renamed node" }
-        end
-        let(:node) { Factory(:node, node_attributes) }
-
-        before do
-          Node.stubs(:find => node)
-          node.stubs(:update_attributes => node)
-          node.stubs(:save => true)
-          put :update, :id => node.id, :master_tree_id => node.tree.id, :format => 'json', :node => node_attributes
-        end
-
-        it "should find and update a node" do
-          Node.should have_received(:find).with(node.id)
-          node.should have_received(:update_attributes).with(node_attributes.merge({ :tree_id => node.tree.id }).stringify_keys)
-
-          node.should have_received(:save)
-        end
-
-        it { should respond_with(:success) }
-
-        it "should render the updated node as JSON" do
-          response.body.should == node.to_json
-        end
-      end
-
       context "on DELETE to destroy" do
         let(:node) { Factory(:node) }
         before do
@@ -129,9 +68,76 @@ describe NodesController do
         it "should delete the node" do
           Node.should have_received(:destroy).with(node.id)
         end
-
       end
-
     end
   end
 end
+
+describe NodesController, 'POST to create' do
+  subject { controller }
+  let(:user) { Factory(:email_confirmed_user) }
+  let(:tree) do
+    tree = Factory(:master_tree)
+    Factory(:node, :tree => tree)
+    tree
+  end
+  let(:nodes) { tree.nodes }
+  let(:node_attributes) do
+    { :name => Factory(:name, :name_string => "My new node") }
+  end
+  let(:new_node) { Factory.build(:node, node_attributes) }
+
+  before do
+    sign_in_as(user)
+    controller.stubs(:current_user => user)
+    user_trees = [tree]
+    user.stubs(:master_trees => user_trees)
+    user_trees.stubs(:find => tree)
+    tree.stubs(:children_of => nodes)
+    Node.stubs(:new => new_node)
+    new_node.stubs(:save => true)
+    post :create, :master_tree_id => tree.id, :format => 'json', :node => node_attributes
+  end
+
+  it 'creates a new node' do
+    Node.should have_received(:new).with(node_attributes.merge({
+      :tree_id => tree.id
+    }).stringify_keys)
+    new_node.should have_received(:save)
+  end
+
+  it { should respond_with(:success) }
+
+  it 'renders the newly created node as JSON' do
+    response.body.should == new_node.to_json
+  end
+end
+
+describe NodesController, 'PUT to update' do
+  let(:user) { Factory(:email_confirmed_user) }
+  let(:tree) { Factory(:master_tree, :user => user) }
+  let(:new_parent_node) { Factory(:node, :tree => tree) }
+  let(:node)  { Factory(:node, :tree => tree) }
+  let(:node_attributes) { { :parent_id => new_parent_node.id } }
+  subject { controller }
+
+  before do
+    sign_in_as(user)
+    put :update,
+      :id => node.id,
+      :master_tree_id => tree.id,
+      :format => 'json',
+      :node => node_attributes
+  end
+
+  it "should update the node's parent" do
+    node.reload.parent.should == new_parent_node
+  end
+
+  it { should respond_with(:success) }
+
+  it "should render the updated node as JSON" do
+    response.body.should == node.reload.to_json
+  end
+end
+

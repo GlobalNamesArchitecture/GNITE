@@ -154,7 +154,7 @@
           url: "<%= master_tree_nodes_path(:master_tree_id => @master_tree, :format => 'json') %>",
           contentType: "application/json",
           dataType: 'json',
-          data: JSON.stringify({node: {name: newNode.name, parent_id: parentId}}),
+          data: JSON.stringify({node: {name: { name_string : newNode.name }, parent_id: parentId}}),
           success: function(data, textStatus, xhr) {
             newNode.obj.attr("id", data.node.id);
           }
@@ -168,11 +168,11 @@
       $("#master-tree").bind("rename.jstree", function(event, data) {
         var updatedNode = data.rslt;
         $.ajax({
-          type: "PUT",
-          url: "/master_trees/<%= @master_tree.id %>/nodes/"+updatedNode.obj.attr("id")+".json",
+          type: "POST",
+          url: "/master_trees/<%= @master_tree.id %>/nodes/"+updatedNode.obj.attr("id")+"/name_updates.json",
           contentType: "application/json",
           dataType: 'json',
-          data: JSON.stringify({node: {name: updatedNode.new_name }}),
+          data: JSON.stringify({name: { name_string: updatedNode.new_name } }),
           success: function(data, textStatus, xhr) {
             updatedNode.obj.attr("id", data.node.id);
           }

@@ -19,13 +19,13 @@ describe ReferenceTreesController, 'html GET show' do
       let(:nodes_list) { ["Title One", "Title Two", "Title Three"] }
       before do
         ReferenceTree.stubs(:new => tree)
-        post :create, :format => 'json',
-                     :reference_tree => {:title => tree.title, :master_tree_id => master_tree.id },
-                      :nodes_list => nodes_list
+        post :create, :format         => 'json',
+                      :reference_tree => {:title => tree.title, :master_tree_id => master_tree.id },
+                      :nodes_list     => nodes_list
       end
 
       it "should assign nodes to tree" do
-        tree.nodes.map{|node| node.name}.should == ["Title One", "Title Two", "Title Three"]
+        tree.nodes.map{|node| node.name_string}.should == ["Title One", "Title Two", "Title Three"]
       end
 
       it { should respond_with(:success) }

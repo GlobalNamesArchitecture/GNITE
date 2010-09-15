@@ -1,0 +1,6 @@
+URL:::http://cyphophthalmi.lifedesks.org
+UNIXTIMEUPDATED:::1274919661
+VERSION:::0.1
+CITATION:::&lt;p&gt;An updated&amp;nbsp;classification of Cyphophthalmi.&lt;/p&gt;
+DESCRIPTION:::&lt;p&gt;This classification cover all the genera of Cyphophthalmi. The complete species catalog will be completed soon.&lt;/p&gt;
+LICENSE:::by-nc-sa

@@ -1,0 +1,155 @@
+TaxonID	dc:source	ScientificName	HigherTaxonID	TaxonRank	TaxonomicStatus
+cyphophthalmi:tid:314	http://cyphophthalmi.lifedesks.org/pages/314	Cyphophthalmi incertae sedis	/N	family	
+cyphophthalmi:tid:302	http://cyphophthalmi.lifedesks.org/pages/302	Opiliones	/N	order	
+cyphophthalmi:tid:328	http://cyphophthalmi.lifedesks.org/pages/328	Dyspnoi	cyphophthalmi:tid:302		
+cyphophthalmi:tid:326	http://cyphophthalmi.lifedesks.org/pages/326	Cyphophthalmi	cyphophthalmi:tid:302		
+cyphophthalmi:tid:327	http://cyphophthalmi.lifedesks.org/pages/327	Eupnoi	cyphophthalmi:tid:302		
+cyphophthalmi:tid:329	http://cyphophthalmi.lifedesks.org/pages/329	Laniatores	cyphophthalmi:tid:302		
+cyphophthalmi:tid:304	http://cyphophthalmi.lifedesks.org/pages/304	Texella	cyphophthalmi:tid:303	genus	
+cyphophthalmi:tid:305	http://cyphophthalmi.lifedesks.org/pages/305	Texella reddelli	cyphophthalmi:tid:304	species	
+cyphophthalmi:tid:315	http://cyphophthalmi.lifedesks.org/pages/315	Miopsalis	cyphophthalmi:tid:314	genus	
+cyphophthalmi:tid:323	http://cyphophthalmi.lifedesks.org/pages/323	Siro ere	cyphophthalmi:tid:314	species	
+cyphophthalmi:tid:317	http://cyphophthalmi.lifedesks.org/pages/317	Siro cyphopselaphus	cyphophthalmi:tid:314	species	
+cyphophthalmi:tid:457	http://cyphophthalmi.lifedesks.org/pages/457	New taxon	cyphophthalmi:tid:314		
+cyphophthalmi:tid:318	http://cyphophthalmi.lifedesks.org/pages/318	Siro duricorius	cyphophthalmi:tid:314	species	
+cyphophthalmi:tid:325	http://cyphophthalmi.lifedesks.org/pages/325	Siro zetae	cyphophthalmi:tid:314	species	
+cyphophthalmi:tid:324	http://cyphophthalmi.lifedesks.org/pages/324	Siro martensi	cyphophthalmi:tid:314	species	
+cyphophthalmi:tid:316	http://cyphophthalmi.lifedesks.org/pages/316	Miopsalis pulicaria	cyphophthalmi:tid:315	species	
+cyphophthalmi:tid:321	http://cyphophthalmi.lifedesks.org/pages/321	Siro duricorius corfuanus	cyphophthalmi:tid:318		
+cyphophthalmi:tid:319	http://cyphophthalmi.lifedesks.org/pages/319	Siro duricorius bithynicus	cyphophthalmi:tid:318		
+cyphophthalmi:tid:320	http://cyphophthalmi.lifedesks.org/pages/320	Siro duricorius bolei	cyphophthalmi:tid:318		
+cyphophthalmi:tid:322	http://cyphophthalmi.lifedesks.org/pages/322	Siro duricorius yalovensis	cyphophthalmi:tid:318		
+cyphophthalmi:tid:395	http://cyphophthalmi.lifedesks.org/pages/395	Ankaratra	cyphophthalmi:tid:326	genus	
+cyphophthalmi:tid:332	http://cyphophthalmi.lifedesks.org/pages/332	Ogoveidae	cyphophthalmi:tid:326	family	
+cyphophthalmi:tid:335	http://cyphophthalmi.lifedesks.org/pages/335	Stylocellidae	cyphophthalmi:tid:326	family	
+cyphophthalmi:tid:330	http://cyphophthalmi.lifedesks.org/pages/330	Sironidae	cyphophthalmi:tid:326	family	
+cyphophthalmi:tid:333	http://cyphophthalmi.lifedesks.org/pages/333	Troglosironidae	cyphophthalmi:tid:326	family	
+cyphophthalmi:tid:334	http://cyphophthalmi.lifedesks.org/pages/334	Pettalidae	cyphophthalmi:tid:326	family	
+cyphophthalmi:tid:331	http://cyphophthalmi.lifedesks.org/pages/331	Neogoveidae	cyphophthalmi:tid:326	family	
+cyphophthalmi:tid:399	http://cyphophthalmi.lifedesks.org/pages/399	'Neogovea'	cyphophthalmi:tid:326	genus	
+cyphophthalmi:tid:397	http://cyphophthalmi.lifedesks.org/pages/397	Marwe	cyphophthalmi:tid:326	genus	
+cyphophthalmi:tid:406	http://cyphophthalmi.lifedesks.org/pages/406	Caddidae	cyphophthalmi:tid:327	family	
+cyphophthalmi:tid:408	http://cyphophthalmi.lifedesks.org/pages/408	Neopilionidae	cyphophthalmi:tid:327	family	
+cyphophthalmi:tid:409	http://cyphophthalmi.lifedesks.org/pages/409	Phalangiidae	cyphophthalmi:tid:327	family	
+cyphophthalmi:tid:411	http://cyphophthalmi.lifedesks.org/pages/411	Sclerosomatidae	cyphophthalmi:tid:327	family	
+cyphophthalmi:tid:407	http://cyphophthalmi.lifedesks.org/pages/407	Monoscutidae	cyphophthalmi:tid:327	family	
+cyphophthalmi:tid:410	http://cyphophthalmi.lifedesks.org/pages/410	Protolophidae	cyphophthalmi:tid:327	family	
+cyphophthalmi:tid:423	http://cyphophthalmi.lifedesks.org/pages/423	Troguloidea	cyphophthalmi:tid:328		
+cyphophthalmi:tid:422	http://cyphophthalmi.lifedesks.org/pages/422	Ischyropsalidoidea	cyphophthalmi:tid:328		
+cyphophthalmi:tid:442	http://cyphophthalmi.lifedesks.org/pages/442	Stygnommatidae	cyphophthalmi:tid:329	family	
+cyphophthalmi:tid:443	http://cyphophthalmi.lifedesks.org/pages/443	Stygnopsidae	cyphophthalmi:tid:329	family	
+cyphophthalmi:tid:444	http://cyphophthalmi.lifedesks.org/pages/444	Synthetonychiidae	cyphophthalmi:tid:329		
+cyphophthalmi:tid:436	http://cyphophthalmi.lifedesks.org/pages/436	Oncopodidae	cyphophthalmi:tid:435		synonym (objective = homotypic)
+cyphophthalmi:tid:435	http://cyphophthalmi.lifedesks.org/pages/435	Sandokanidae	cyphophthalmi:tid:329		
+cyphophthalmi:tid:441	http://cyphophthalmi.lifedesks.org/pages/441	Stygnidae	cyphophthalmi:tid:329	family	
+cyphophthalmi:tid:440	http://cyphophthalmi.lifedesks.org/pages/440	Samoidae	cyphophthalmi:tid:329	family	
+cyphophthalmi:tid:424	http://cyphophthalmi.lifedesks.org/pages/424	Cladonychiidae	cyphophthalmi:tid:329	family	
+cyphophthalmi:tid:437	http://cyphophthalmi.lifedesks.org/pages/437	Pentanychidae	cyphophthalmi:tid:438		synonym (objective = homotypic)
+cyphophthalmi:tid:438	http://cyphophthalmi.lifedesks.org/pages/438	Briggsidae	cyphophthalmi:tid:329	family	
+cyphophthalmi:tid:425	http://cyphophthalmi.lifedesks.org/pages/425	Cosmetidae	cyphophthalmi:tid:329	family	
+cyphophthalmi:tid:426	http://cyphophthalmi.lifedesks.org/pages/426	Cranaidae	cyphophthalmi:tid:329	family	
+cyphophthalmi:tid:433	http://cyphophthalmi.lifedesks.org/pages/433	Manaosbiidae	cyphophthalmi:tid:329	family	
+cyphophthalmi:tid:421	http://cyphophthalmi.lifedesks.org/pages/421	Biantidae	cyphophthalmi:tid:329	family	
+cyphophthalmi:tid:303	http://cyphophthalmi.lifedesks.org/pages/303	Phalangodidae	cyphophthalmi:tid:329	family	
+cyphophthalmi:tid:447	http://cyphophthalmi.lifedesks.org/pages/447	Zalmoxidae	cyphophthalmi:tid:329	family	
+cyphophthalmi:tid:420	http://cyphophthalmi.lifedesks.org/pages/420	Agoristenidae	cyphophthalmi:tid:329	family	
+cyphophthalmi:tid:439	http://cyphophthalmi.lifedesks.org/pages/439	Podoctidae	cyphophthalmi:tid:329	family	
+cyphophthalmi:tid:419	http://cyphophthalmi.lifedesks.org/pages/419	Assamiidae	cyphophthalmi:tid:329		
+cyphophthalmi:tid:427	http://cyphophthalmi.lifedesks.org/pages/427	Epedanidae	cyphophthalmi:tid:329	family	
+cyphophthalmi:tid:446	http://cyphophthalmi.lifedesks.org/pages/446	Triaenonychidae	cyphophthalmi:tid:329	family	
+cyphophthalmi:tid:431	http://cyphophthalmi.lifedesks.org/pages/431	Guasiniidae	cyphophthalmi:tid:329	family	
+cyphophthalmi:tid:428	http://cyphophthalmi.lifedesks.org/pages/428	Escadabiidae	cyphophthalmi:tid:329		
+cyphophthalmi:tid:445	http://cyphophthalmi.lifedesks.org/pages/445	Travuniidae	cyphophthalmi:tid:329	family	
+cyphophthalmi:tid:432	http://cyphophthalmi.lifedesks.org/pages/432	Icaleptidae	cyphophthalmi:tid:329	family	
+cyphophthalmi:tid:430	http://cyphophthalmi.lifedesks.org/pages/430	Gonyleptidae	cyphophthalmi:tid:329	family	
+cyphophthalmi:tid:434	http://cyphophthalmi.lifedesks.org/pages/434	Kimulidae	cyphophthalmi:tid:329	family	
+cyphophthalmi:tid:429	http://cyphophthalmi.lifedesks.org/pages/429	Fissiphaliidae	cyphophthalmi:tid:329	family	
+cyphophthalmi:tid:371	http://cyphophthalmi.lifedesks.org/pages/371	Odontosiro	cyphophthalmi:tid:330	genus	
+cyphophthalmi:tid:373	http://cyphophthalmi.lifedesks.org/pages/373	Parasiro	cyphophthalmi:tid:330	genus	
+cyphophthalmi:tid:375	http://cyphophthalmi.lifedesks.org/pages/375	Suzukielus	cyphophthalmi:tid:330	genus	
+cyphophthalmi:tid:370	http://cyphophthalmi.lifedesks.org/pages/370	Iberosiro	cyphophthalmi:tid:330	genus	
+cyphophthalmi:tid:405	http://cyphophthalmi.lifedesks.org/pages/405	Tranteeva	cyphophthalmi:tid:369		synonym
+cyphophthalmi:tid:369	http://cyphophthalmi.lifedesks.org/pages/369	Cyphophthalmus	cyphophthalmi:tid:330	genus	
+cyphophthalmi:tid:374	http://cyphophthalmi.lifedesks.org/pages/374	Siro	cyphophthalmi:tid:330	genus	
+cyphophthalmi:tid:372	http://cyphophthalmi.lifedesks.org/pages/372	Paramiopsalis	cyphophthalmi:tid:330	genus	
+cyphophthalmi:tid:336	http://cyphophthalmi.lifedesks.org/pages/336	Parogovia	cyphophthalmi:tid:331	genus	
+cyphophthalmi:tid:339	http://cyphophthalmi.lifedesks.org/pages/339	Metagovea	cyphophthalmi:tid:331	genus	
+cyphophthalmi:tid:352	http://cyphophthalmi.lifedesks.org/pages/352	Metasiro	cyphophthalmi:tid:331	genus	
+cyphophthalmi:tid:338	http://cyphophthalmi.lifedesks.org/pages/338	Huitaca	cyphophthalmi:tid:331	genus	
+cyphophthalmi:tid:403	http://cyphophthalmi.lifedesks.org/pages/403	?Gen.	cyphophthalmi:tid:331	genus	
+cyphophthalmi:tid:337	http://cyphophthalmi.lifedesks.org/pages/337	Neogovea	cyphophthalmi:tid:331	genus	
+cyphophthalmi:tid:451	http://cyphophthalmi.lifedesks.org/pages/451	Ogovia	cyphophthalmi:tid:354		basionym
+cyphophthalmi:tid:354	http://cyphophthalmi.lifedesks.org/pages/354	Ogovea	cyphophthalmi:tid:332	genus	
+cyphophthalmi:tid:390	http://cyphophthalmi.lifedesks.org/pages/390	Troglosiro	cyphophthalmi:tid:333	genus	
+cyphophthalmi:tid:362	http://cyphophthalmi.lifedesks.org/pages/362	Manangotria	cyphophthalmi:tid:334	genus	
+cyphophthalmi:tid:365	http://cyphophthalmi.lifedesks.org/pages/365	Pettalus	cyphophthalmi:tid:334	genus	
+cyphophthalmi:tid:361	http://cyphophthalmi.lifedesks.org/pages/361	Karripurcellia	cyphophthalmi:tid:334	genus	
+cyphophthalmi:tid:360	http://cyphophthalmi.lifedesks.org/pages/360	Chileogovea	cyphophthalmi:tid:334	genus	
+cyphophthalmi:tid:364	http://cyphophthalmi.lifedesks.org/pages/364	Parapurcellia	cyphophthalmi:tid:334	genus	
+cyphophthalmi:tid:363	http://cyphophthalmi.lifedesks.org/pages/363	Neopurcellia	cyphophthalmi:tid:334	genus	
+cyphophthalmi:tid:367	http://cyphophthalmi.lifedesks.org/pages/367	Rakaia	cyphophthalmi:tid:334	genus	
+cyphophthalmi:tid:358	http://cyphophthalmi.lifedesks.org/pages/358	Aoraki	cyphophthalmi:tid:334	genus	
+cyphophthalmi:tid:366	http://cyphophthalmi.lifedesks.org/pages/366	Purcellia	cyphophthalmi:tid:334	genus	
+cyphophthalmi:tid:359	http://cyphophthalmi.lifedesks.org/pages/359	Austropurcellia	cyphophthalmi:tid:334	genus	
+cyphophthalmi:tid:368	http://cyphophthalmi.lifedesks.org/pages/368	Speleosiro	cyphophthalmi:tid:334	genus	
+cyphophthalmi:tid:376	http://cyphophthalmi.lifedesks.org/pages/376	Fangensis	cyphophthalmi:tid:335	genus	
+cyphophthalmi:tid:377	http://cyphophthalmi.lifedesks.org/pages/377	Leptopsalis	cyphophthalmi:tid:335	genus	
+cyphophthalmi:tid:379	http://cyphophthalmi.lifedesks.org/pages/379	Miopsalis	cyphophthalmi:tid:335	genus	
+cyphophthalmi:tid:380	http://cyphophthalmi.lifedesks.org/pages/380	Stylocellus	cyphophthalmi:tid:335	genus	
+cyphophthalmi:tid:378	http://cyphophthalmi.lifedesks.org/pages/378	Meghalaya	cyphophthalmi:tid:335	genus	
+cyphophthalmi:tid:350	http://cyphophthalmi.lifedesks.org/pages/350	Parogovia pabsgarnoni	cyphophthalmi:tid:336	species	
+cyphophthalmi:tid:351	http://cyphophthalmi.lifedesks.org/pages/351	Parogovia sironoides	cyphophthalmi:tid:336	species	
+cyphophthalmi:tid:349	http://cyphophthalmi.lifedesks.org/pages/349	Parogovia gabonica	cyphophthalmi:tid:336	species	
+cyphophthalmi:tid:456	http://cyphophthalmi.lifedesks.org/pages/456	Brasilogovea microphaga	cyphophthalmi:tid:347		basionym
+cyphophthalmi:tid:347	http://cyphophthalmi.lifedesks.org/pages/347	Neogovea microphaga	cyphophthalmi:tid:337	species	
+cyphophthalmi:tid:454	http://cyphophthalmi.lifedesks.org/pages/454	Siro kartabo	cyphophthalmi:tid:346		basionym
+cyphophthalmi:tid:455	http://cyphophthalmi.lifedesks.org/pages/455	Sirula kartabo	cyphophthalmi:tid:346		replaced name
+cyphophthalmi:tid:346	http://cyphophthalmi.lifedesks.org/pages/346	Neogovea kartabo	cyphophthalmi:tid:337	species	
+cyphophthalmi:tid:344	http://cyphophthalmi.lifedesks.org/pages/344	Neogovea immsi	cyphophthalmi:tid:337	species	
+cyphophthalmi:tid:345	http://cyphophthalmi.lifedesks.org/pages/345	Neogovea kamakusa	cyphophthalmi:tid:337	species	
+cyphophthalmi:tid:343	http://cyphophthalmi.lifedesks.org/pages/343	Huitaca ventralis	cyphophthalmi:tid:338	species	
+cyphophthalmi:tid:342	http://cyphophthalmi.lifedesks.org/pages/342	Metagovea philipi	cyphophthalmi:tid:339	species	
+cyphophthalmi:tid:340	http://cyphophthalmi.lifedesks.org/pages/340	Metagovea disparunguis	cyphophthalmi:tid:339	species	
+cyphophthalmi:tid:341	http://cyphophthalmi.lifedesks.org/pages/341	Metagovea oviformis	cyphophthalmi:tid:339	species	
+cyphophthalmi:tid:448	http://cyphophthalmi.lifedesks.org/pages/448	Floridogovea americana	cyphophthalmi:tid:353		replaced name
+cyphophthalmi:tid:449	http://cyphophthalmi.lifedesks.org/pages/449	Siro americanus	cyphophthalmi:tid:353		basionym
+cyphophthalmi:tid:450	http://cyphophthalmi.lifedesks.org/pages/450	Parasiro americanus	cyphophthalmi:tid:353		synonym
+cyphophthalmi:tid:353	http://cyphophthalmi.lifedesks.org/pages/353	Metasiro americanus	cyphophthalmi:tid:352	species	
+cyphophthalmi:tid:452	http://cyphophthalmi.lifedesks.org/pages/452	Ogovia nasuta	cyphophthalmi:tid:356		basionym
+cyphophthalmi:tid:356	http://cyphophthalmi.lifedesks.org/pages/356	Ogovea nasuta	cyphophthalmi:tid:354	species	
+cyphophthalmi:tid:453	http://cyphophthalmi.lifedesks.org/pages/453	Ogovia grossa	cyphophthalmi:tid:355		basionym
+cyphophthalmi:tid:355	http://cyphophthalmi.lifedesks.org/pages/355	Ogovea grossa	cyphophthalmi:tid:354	species	
+cyphophthalmi:tid:357	http://cyphophthalmi.lifedesks.org/pages/357	Ogovea cameroonensis	cyphophthalmi:tid:354	species	
+cyphophthalmi:tid:460	http://cyphophthalmi.lifedesks.org/pages/460	Iberosiro distylos	cyphophthalmi:tid:370		
+cyphophthalmi:tid:461	http://cyphophthalmi.lifedesks.org/pages/461	Odontosiro lusitanicus	cyphophthalmi:tid:371		
+cyphophthalmi:tid:462	http://cyphophthalmi.lifedesks.org/pages/462	Paramiopsalis ramulosus	cyphophthalmi:tid:372		
+cyphophthalmi:tid:463	http://cyphophthalmi.lifedesks.org/pages/463	Paramiopsalis eduardoi	cyphophthalmi:tid:372		
+cyphophthalmi:tid:466	http://cyphophthalmi.lifedesks.org/pages/466	Parasiro minor	cyphophthalmi:tid:373		
+cyphophthalmi:tid:467	http://cyphophthalmi.lifedesks.org/pages/467	Parasiro corsicus	cyphophthalmi:tid:373		
+cyphophthalmi:tid:465	http://cyphophthalmi.lifedesks.org/pages/465	Parasiro coiffaiti	cyphophthalmi:tid:373		
+cyphophthalmi:tid:468	http://cyphophthalmi.lifedesks.org/pages/468	Siro rubens	cyphophthalmi:tid:374		
+cyphophthalmi:tid:402	http://cyphophthalmi.lifedesks.org/pages/402	Suzukielus sauteri	cyphophthalmi:tid:375	species	
+cyphophthalmi:tid:391	http://cyphophthalmi.lifedesks.org/pages/391	Troglosiro sheari	cyphophthalmi:tid:390	species	
+cyphophthalmi:tid:381	http://cyphophthalmi.lifedesks.org/pages/381	Troglosiro aelleni	cyphophthalmi:tid:390	species	
+cyphophthalmi:tid:384	http://cyphophthalmi.lifedesks.org/pages/384	Troglosiro longifossa	cyphophthalmi:tid:390	species	
+cyphophthalmi:tid:385	http://cyphophthalmi.lifedesks.org/pages/385	Troglosiro monteithi	cyphophthalmi:tid:390	species	
+cyphophthalmi:tid:383	http://cyphophthalmi.lifedesks.org/pages/383	Troglosiro juberthiei	cyphophthalmi:tid:390	species	
+cyphophthalmi:tid:382	http://cyphophthalmi.lifedesks.org/pages/382	Troglosiro brevifossa	cyphophthalmi:tid:390	species	
+cyphophthalmi:tid:394	http://cyphophthalmi.lifedesks.org/pages/394	Troglosiro wilsoni	cyphophthalmi:tid:390	species	
+cyphophthalmi:tid:387	http://cyphophthalmi.lifedesks.org/pages/387	Troglosiro oscitatio	cyphophthalmi:tid:390	species	
+cyphophthalmi:tid:388	http://cyphophthalmi.lifedesks.org/pages/388	Troglosiro platnicki	cyphophthalmi:tid:390	species	
+cyphophthalmi:tid:392	http://cyphophthalmi.lifedesks.org/pages/392	Troglosiro tillierorum	cyphophthalmi:tid:390	species	
+cyphophthalmi:tid:386	http://cyphophthalmi.lifedesks.org/pages/386	Troglosiro ninqua	cyphophthalmi:tid:390	species	
+cyphophthalmi:tid:393	http://cyphophthalmi.lifedesks.org/pages/393	Troglosiro urbanus	cyphophthalmi:tid:390	species	
+cyphophthalmi:tid:389	http://cyphophthalmi.lifedesks.org/pages/389	Troglosiro raveni	cyphophthalmi:tid:390	species	
+cyphophthalmi:tid:396	http://cyphophthalmi.lifedesks.org/pages/396	Ankaratra franzi	cyphophthalmi:tid:395	species	
+cyphophthalmi:tid:398	http://cyphophthalmi.lifedesks.org/pages/398	Marwe coarctata	cyphophthalmi:tid:397	species	
+cyphophthalmi:tid:400	http://cyphophthalmi.lifedesks.org/pages/400	'Neogovea' mexasca	cyphophthalmi:tid:399	species	
+cyphophthalmi:tid:404	http://cyphophthalmi.lifedesks.org/pages/404	?Gen. enigmaticus	cyphophthalmi:tid:403	species	
+cyphophthalmi:tid:412	http://cyphophthalmi.lifedesks.org/pages/412	Ceratolasmatidae	cyphophthalmi:tid:422	family	
+cyphophthalmi:tid:414	http://cyphophthalmi.lifedesks.org/pages/414	Ischyropsalididae	cyphophthalmi:tid:422	family	
+cyphophthalmi:tid:417	http://cyphophthalmi.lifedesks.org/pages/417	Sabaconidae	cyphophthalmi:tid:422	family	
+cyphophthalmi:tid:418	http://cyphophthalmi.lifedesks.org/pages/418	Trogulidae	cyphophthalmi:tid:423	family	
+cyphophthalmi:tid:416	http://cyphophthalmi.lifedesks.org/pages/416	Nipponopsalididae	cyphophthalmi:tid:423	family	
+cyphophthalmi:tid:415	http://cyphophthalmi.lifedesks.org/pages/415	Nemastomatidae	cyphophthalmi:tid:423	family	
+cyphophthalmi:tid:413	http://cyphophthalmi.lifedesks.org/pages/413	Dicranolasmatidae	cyphophthalmi:tid:423	family	

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100913180300) do
+ActiveRecord::Schema.define(:version => 20100915190423) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -24,15 +24,22 @@ ActiveRecord::Schema.define(:version => 20100913180300) do
     t.datetime "updated_at"
   end
 
+  create_table "names", :force => true do |t|
+    t.string   "name_string", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "nodes", :force => true do |t|
     t.integer  "tree_id"
-    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "ancestry"
+    t.integer  "name_id",    :null => false
   end
 
   add_index "nodes", ["ancestry"], :name => "index_nodes_on_ancestry"
+  add_index "nodes", ["name_id"], :name => "index_nodes_on_name_id"
   add_index "nodes", ["tree_id"], :name => "index_nodes_on_tree_id"
 
   create_table "trees", :force => true do |t|

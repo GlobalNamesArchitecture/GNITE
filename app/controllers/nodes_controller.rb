@@ -19,9 +19,10 @@ class NodesController < ApplicationController
   def create
     respond_to do |format|
       format.json do
-        node_attributes = params[:node].merge(:tree_id => params[:master_tree_id])
-        node = Node.new(node_attributes)
-
+        name_attributes = params[:node].delete(:name)
+        name            = Name.find_or_create_by_name_string(name_attributes[:name_string])
+        node_attributes = params[:node].merge(:tree_id => params[:master_tree_id], :name => name)
+        node            = Node.new(node_attributes)
         node.save
         render :json => node
       end
@@ -31,11 +32,9 @@ class NodesController < ApplicationController
   def update
     respond_to do |format|
       format.json do
-        node_attributes = params[:node].merge(:tree_id => params[:master_tree_id])
-        node = Node.find(params[:id])
-        node.update_attributes(node_attributes)
-
-        node.save
+        master_tree = current_user.master_trees.find(params[:master_tree_id])
+        node        = master_tree.nodes.find(params[:id])
+        node.update_attributes(params[:node])
         render :json => node
       end
     end

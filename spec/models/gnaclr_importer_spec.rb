@@ -51,37 +51,8 @@ describe GnaclrImporter, 'read_tarball' do
     subject.read_tarball
   end
 
-  it 'sets dwc archive' do
-    subject.dwc.should be_a(DarwinCore)
-  end
-
-  it 'extracts ID index' do
-    subject.id_index.should == 0
-  end
-
-  it 'extracts name index' do
-    subject.name_index.should == 2
-  end
-
-  it 'extracts parent ID index' do
-    subject.parent_id_index.should == 3
-  end
-end
-
-describe GnaclrImporter, 'store_tree for an invalid dwc archive' do
-  let(:reference_tree) { Factory(:reference_tree) }
-  subject { GnaclrImporter.new(:url               => "file:///#{Rails.root.join('features', 'support', 'fixtures', 'cyphophthalmi.tar.gz')}",
-                               :reference_tree_id => reference_tree.id) }
-
-  before do
-    Delayed::Job.stubs(:enqueue)
-    core_mock = mock('dwc-core')
-    subject.dwc.stubs(:core => core_mock)
-    core_mock.stubs(:read => [[], ['some error']])
-  end
-
-  it 'calls dwc.core.read' do
-    lambda { subject.store_tree }.should raise_error GnaclrImporter::InvalidDwcArchiveError
+  it 'sets normalized node data' do
+    subject.darwin_core_data.should be_a(Hash)
   end
 end
 
@@ -89,32 +60,53 @@ describe GnaclrImporter, 'store_tree for a valid dwc archive' do
   let(:reference_tree) { Factory(:reference_tree) }
   subject { GnaclrImporter.new(:url               => "file:///#{Rails.root.join('features', 'support', 'fixtures', 'cyphophthalmi.tar.gz')}",
                                :reference_tree_id => reference_tree.id) }
-  let(:data) {
-    [
-      ["cyphophthalmi:tid:314", "http://cyphophthalmi.lifedesks.org/pages/314", "Cyphophthalmi incertae sedis", "/N", "family", nil],
-      ["cyphophthalmi:tid:302", "http://cyphophthalmi.lifedesks.org/pages/302", "Opiliones", "/N", "order", nil],
-      ["cyphophthalmi:tid:328", "http://cyphophthalmi.lifedesks.org/pages/328", "Dyspnoi", "cyphophthalmi:tid:302", nil, nil]
-    ]
-  }
-  before do
-    Delayed::Job.stubs(:enqueue)
-    core_mock = mock('dwc-core')
-    subject.dwc.stubs(:core => core_mock)
-    core_mock.stubs(:read => [data, []])
+  let(:data) do
+    { "cyphophthalmi:tid:402" => @taxon1,
+      "cyphophthalmi:tid:375" => @taxon2,
+      "cyphophthalmi:tid:330" => @taxon3 }
+  end
 
-    subject.stubs(:id_index        => 0,
-                  :name_index      => 2,
-                  :parent_id_index => 3)
+  before do
+    @taxon1 = DarwinCore::TaxonNormalized.new
+    @taxon1.current_name="Suzukielus sauteri"
+    @taxon1.classification_path=["Opiliones", "Cyphophthalmi", "Sironidae", "Suzukielus", "Suzukielus sauteri"]
+    @taxon1.id="cyphophthalmi:tid:402"
+    @taxon1.rank="species"
+    @taxon1.parent_id="cyphophthalmi:tid:375"
+    @taxon1.current_name_canonical="Suzukielus sauteri"
+
+    @taxon2 = DarwinCore::TaxonNormalized.new
+    @taxon2.current_name="Suzukielus"
+    @taxon2.classification_path=["Opiliones", "Cyphophthalmi", "Sironidae", "Suzukielus"]
+    @taxon2.id="cyphophthalmi:tid:375"
+    @taxon2.rank="genus"
+    @taxon2.parent_id="cyphophthalmi:tid:330"
+    @taxon2.current_name_canonical="Suzukielus"
+
+    @taxon3 = DarwinCore::TaxonNormalized.new
+    @taxon3.current_name="Sironidae"
+    @taxon3.classification_path=["Opiliones", "Cyphophthalmi", "Sironidae"]
+    @taxon3.id="cyphophthalmi:tid:330"
+    @taxon3.rank="family"
+    @taxon3.current_name_canonical="Sironidae"
+
+    Delayed::Job.stubs(:enqueue)
+    subject.stubs(:darwin_core_data => data)
     subject.store_tree
   end
 
-  it 'creates node records' do
-    first_node = Node.find_by_name!('Cyphophthalmi incertae sedis')
-    first_node.parent.should be_nil
-    second_node = Node.find_by_name!('Opiliones')
-    second_node.parent.should be_nil
-    third_node = Node.find_by_name!('Dyspnoi')
-    third_node.parent.should == second_node
+  it 'creates name records with associated nodes' do
+    root_name = Name.find_by_name_string!("Sironidae")
+    root_node = root_name.nodes.first
+    root_node.parent.should be_nil
+
+    branch_name = Name.find_by_name_string!("Suzukielus")
+    branch_node = branch_name.nodes.first
+    branch_node.parent.should == root_node
+
+    leaf_name = Name.find_by_name_string!("Suzukielus sauteri")
+    leaf_node = leaf_name.nodes.first
+    leaf_node.parent.should == branch_node
   end
 end
 
