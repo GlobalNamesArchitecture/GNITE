@@ -9,7 +9,11 @@ describe GnaclrClassification, "with remote classifications" do
         "description" => "paraThis is a sample classification used as a template for inclusion in the Global Names Architecture Classification and List Repository.",
         "uuid"        => "853437dc-6d9f-4ab5-ba30-5ae006fccae2",
         "updated"     => Time.parse("Tue Sep 14 04:11:40 UTC 2010"),
-        "file_url"    => "http://gnaclr.globalnames.org/files/853437dc-6d9f-4ab5-ba30-5ae006fccae2/853437dc-6d9f-4ab5-ba30-5ae006fccae2.gzip"
+        "file_url"    => "http://gnaclr.globalnames.org/files/853437dc-6d9f-4ab5-ba30-5ae006fccae2/853437dc-6d9f-4ab5-ba30-5ae006fccae2.gzip",
+        "revisions"   => ["url"        => "http://gnaclr.globalnames.org/classification_file/9/64ff3af4018c3e8fd27f5590387fbdc65289e682",
+                           "message"   => Time.parse("2010-09-14 at 12:11:40 AM"),
+                           "file_name" => "853437dc-6d9f-4ab5-ba30-5ae006fccae2.gzip",
+                           "tree_id"   => "64ff3af4018c3e8fd27f5590387fbdc65289e682"]
       }),
       GnaclrClassification.new({
         "title"       => "Index Fungorum",
@@ -17,7 +21,15 @@ describe GnaclrClassification, "with remote classifications" do
         "description" => "Classification of Fungi",
         "uuid"        => "a9995ace-f04f-49e2-8e14-4fdbc810b08a",
         "updated"     => Time.parse("Wed Sep 08 15:08:05 UTC 2010"),
-        "file_url"    => "http://gnaclr.globalnames.org/files/a9995ace-f04f-49e2-8e14-4fdbc810b08a/index_fungorum.tar.gz"
+        "file_url"    => "http://gnaclr.globalnames.org/files/a9995ace-f04f-49e2-8e14-4fdbc810b08a/index_fungorum.tar.gz",
+        "revisions"   => [{"url"       => "http://gnaclr.globalnames.org/classification_file/8/45f5a87e1182c90c3ed98f3a52f45b58f0ab6380",
+                           "message"   =>  Time.parse("2010-09-08 at 11:17:42 AM"),
+                           "file_name" => "index_fungorum.tar.gz",
+                           "tree_id"   => "45f5a87e1182c90c3ed98f3a52f45b58f0ab6380"},
+                          {"url"       => "http://gnaclr.globalnames.org/classification_file/8/0fb47e2f984942d7f034ddeb43d86aef2552b360",
+                           "message"   => Time.parse("2010-09-08 at 11:08:05 AM"),
+                           "file_name" => "index_fungorum.tar.gz",
+                           "tree_id"   => "0fb47e2f984942d7f034ddeb43d86aef2552b360"}]
       })
     ]
   end
@@ -29,8 +41,9 @@ describe GnaclrClassification, "with remote classifications" do
   end
 
   it "returns all the classifications" do
-    GnaclrClassification.all.size.should == 2
-    GnaclrClassification.all.should == expected_classifications
+    classifications = GnaclrClassification.all
+    classifications.size.should == 2
+    classifications.should      == expected_classifications
   end
 
   it "finds a classification by uuid" do

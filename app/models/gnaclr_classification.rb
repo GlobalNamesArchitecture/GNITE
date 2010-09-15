@@ -6,10 +6,12 @@ class GnaclrClassification
   def initialize(new_attributes = {})
     new_attributes.symbolize_keys!
 
-    self.revisions = []
-
     [:title, :authors, :description, :updated, :uuid, :file_url].each do |key|
       self.send(:"#{key}=", new_attributes[key])
+    end
+
+    self.revisions = (new_attributes[:revisions] || []).map do |revision_attributes|
+      GnaclrClassificationRevision.new(revision_attributes)
     end
   end
 
