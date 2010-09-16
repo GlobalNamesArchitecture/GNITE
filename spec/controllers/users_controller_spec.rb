@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe UsersController do
-
   context "on GET to #edit" do
     let (:user) { Factory(:email_confirmed_user) }
 
@@ -47,6 +46,15 @@ describe UsersController do
     it { should assign_to(:user).with(user) }
     it { should_not set_the_flash }
     it { should render_template(:edit) }
-
   end
+end
+
+describe UsersController, 'GET edit without authenticating' do
+  before { get :edit, :id => 1 }
+  it     { should redirect_to(sign_in_url) }
+end
+
+describe UsersController, 'PUT update without authenticating' do
+  before { put :update, :id => 1 }
+  it     { should redirect_to(sign_in_url) }
 end

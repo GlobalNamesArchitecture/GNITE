@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe MasterTreesController do
-
   context "signed in" do
     before do
       @user = Factory(:email_confirmed_user)
@@ -122,4 +121,34 @@ describe MasterTreesController do
       it { should render_template(:edit) }
     end
   end
+end
+
+describe MasterTreesController, 'GET index without authenticating' do
+  before { get :index }
+  it     { should redirect_to(sign_in_url) }
+end
+
+describe MasterTreesController, 'GET new without authenticating' do
+  before { get :new }
+  it     { should redirect_to(sign_in_url) }
+end
+
+describe MasterTreesController, 'POST create without authenticating' do
+  before { post :create }
+  it     { should redirect_to(sign_in_url) }
+end
+
+describe MasterTreesController, 'GET show without authenticating' do
+  before { get :show, :id => 1 }
+  it     { should redirect_to(sign_in_url) }
+end
+
+describe MasterTreesController, 'GET edit without authenticating' do
+  before { get :edit, :id => 1 }
+  it     { should redirect_to(sign_in_url) }
+end
+
+describe MasterTreesController, 'PUT update without authenticating' do
+  before { put :update, :id => 1 }
+  it     { should redirect_to(sign_in_url) }
 end

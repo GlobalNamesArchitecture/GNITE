@@ -1,7 +1,6 @@
 require 'spec_helper'
 
-describe ReferenceTreesController, 'html GET show' do
-
+describe ReferenceTreesController, 'html POST create' do
   context "when signed in with a master tree" do
     let(:user) { Factory(:email_confirmed_user) }
     let(:master_tree) { Factory(:master_tree) }
@@ -37,6 +36,11 @@ describe ReferenceTreesController, 'html GET show' do
   end
 end
 
+describe ReferenceTreesController, 'POST create without authenticating' do
+  before { post :create }
+  it     { should redirect_to(sign_in_url) }
+end
+
 describe ReferenceTreesController, 'xhr GET show for a tree that is importing' do
   let(:user) { Factory(:user) }
   let(:reference_tree) { Factory(:reference_tree,
@@ -70,8 +74,11 @@ describe ReferenceTreesController, 'xhr GET show for a tree that is active' do
 
   end
 
-  it 'renders the reference tree' do
-    should respond_with(:success)
-    should render_template(:reference_tree)
-  end
+  it { should respond_with(:success) }
+  it { should render_template(:reference_tree) }
+end
+
+describe ReferenceTreesController, 'GET show without authenticating' do
+  before { get :show, :id => 1 }
+  it     { should redirect_to(sign_in_url) }
 end

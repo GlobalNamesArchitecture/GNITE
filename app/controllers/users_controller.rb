@@ -1,4 +1,6 @@
 class UsersController < Clearance::UsersController
+  before_filter :authenticate, :only => [:edit, :update]
+
   def new
     @user = User.new
     render :action => 'new', :layout => 'login'
