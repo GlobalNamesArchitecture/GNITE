@@ -100,7 +100,7 @@ GEM
       trollop (~> 1.16.2)
     high_voltage (0.9.1)
     highline (1.5.2)
-    hoptoad_notifier (2.3.6)
+    hoptoad_notifier (2.3.7)
       activesupport
     i18n (0.4.1)
     json (1.4.6)
@@ -205,7 +205,7 @@ DEPENDENCIES
   fastercsv
   formtastic (= 1.1.0)
   high_voltage
-  hoptoad_notifier
+  hoptoad_notifier (= 2.3.7)
   launchy
   mocha
   mysql

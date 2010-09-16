@@ -10,7 +10,7 @@ gem 'clearance', "0.9.0.rc5"
 gem 'factory_girl'
 gem 'formtastic', "1.1.0"
 gem 'engineyard'
-gem 'hoptoad_notifier'
+gem 'hoptoad_notifier', '2.3.7'
 gem 'ancestry', :git => "git://github.com/thoughtbot/ancestry.git", :branch => "rails3"
 gem 'uuid'
 gem 'crack'
