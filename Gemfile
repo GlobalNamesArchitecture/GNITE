@@ -18,6 +18,7 @@ gem 'delayed_job'
 gem 'dwc-archive', '0.4.5'
 gem 'fastercsv'
 gem 'parsley-store'
+gem 'SystemTimer'
 
 # Deploy with Capistrano
 # gem 'capistrano'
