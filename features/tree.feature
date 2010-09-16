@@ -212,4 +212,4 @@ Feature: Edit a master tree
     And I select the node "oxiae"
     And I click "Create" in the context menu
     And I enter "cat" in the new node and press enter
-    Then I should see 1 node "cat" at the root level in my master tree
+    Then I should see 1 child node for the "oxiae" node in my master tree

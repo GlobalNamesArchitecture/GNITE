@@ -2,8 +2,8 @@ Then /^I should see a node "([^"]*)" at the root level in my master tree$/ do |n
   page.should have_css("div#master-tree>ul>li>a:contains('#{node_text}')")
 end
 
-Then /^I should see (\d+) node "([^"]*)" at the root level in my master tree$/ do |node_count, node_text|
-  locate("div#master-tree>ul>li>a:contains('#{node_text}')").count.should == node_count.to_i
+Then /^I should see (\d+) child nodes? for the "([^"]*)" node in my master tree$/ do |node_count, parent_node_text|
+  all("div#master-tree > ul > li > a:contains('#{parent_node_text}') + ul > li").count.should == node_count.to_i
 end
 
 Then /^I should not see a node "([^"]*)" at the root level in my master tree$/ do |node_text|
