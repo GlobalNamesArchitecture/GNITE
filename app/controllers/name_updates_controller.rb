@@ -1,8 +1,10 @@
-class NameUpdatesController < ActionController::Base
+class NameUpdatesController < ApplicationController
+  before_filter :authenticate
+
   def create
     respond_to do |format|
       format.json do
-        master_tree = MasterTree.find(params[:master_tree_id])
+        master_tree = current_user.master_trees.find(params[:master_tree_id])
         node        = master_tree.nodes.find(params[:node_id])
         name        = node.name
         if name.used_only_once?

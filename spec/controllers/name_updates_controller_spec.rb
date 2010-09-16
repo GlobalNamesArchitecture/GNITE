@@ -8,21 +8,23 @@ describe NameUpdatesController, 'routes' do
 end
 
 describe NameUpdatesController, 'POST to create' do
-  let(:node) { Factory(:node) }
+  let(:user) { Factory(:email_confirmed_user) }
   let(:name) { node.name }
-  let(:master_tree) { Factory(:master_tree, :nodes => [node]) }
+  let(:master_tree) { Factory(:master_tree, :user => user) }
   subject { controller }
 
   before do
+    Factory(:node, :tree => master_tree)
+    sign_in_as user
     post :create,
-        :master_tree_id => node.tree.id,
-        :node_id        => node.id,
+        :master_tree_id => master_tree.id,
+        :node_id        => master_tree.nodes.first.id,
         :format         => 'json',
         :name           => { :name_string    => 'new name' }
   end
 
   it 'updates the name string' do
-    name.reload.name_string.should == 'new name'
+    master_tree.nodes.first.name.reload.name_string.should == 'new name'
   end
 
   it { should respond_with(:success) }
