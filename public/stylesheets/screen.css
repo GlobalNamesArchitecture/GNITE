@@ -937,22 +937,17 @@ body form input {
 /* Tree New Import */
 /************************************************************************/
 #tree-newimport ul {
-  margin: 0 auto;
+  margin: 0 15px;
   padding: 0px;
-  width: 400px;
+  /*width: 400px;*/
 }
 
 #tree-newimport ul li {
   background: #e6e4dd;
   background: rgb(230,228,221);
   background: -moz-linear-gradient(center bottom, rgb(230,228,221) 0%, rgb(255,255,255) 50%);
-  margin: 25px 0;
-  width: 400px;
-}
-
-#tree-newimport ul li:hover {
-  background: rgb(255,255,255);
-  background: -moz-linear-gradient(center bottom, rgb(230,228,221) 0%, rgb(255,255,255) 50%);
+  margin: 20px 0;
+  /*width: 400px;*/
 }
 
 #tree-newimport ul li .content {
@@ -965,10 +960,29 @@ body form input {
   padding: 5px 0;
 }
 
+#tree-newimport ul li.gnaclr-search h1 {
+  padding: 10px 0 0 10px;
+}
+
 #tree-newimport ul li p {
   color:#555;
   margin:5px 0;
   padding:0;
+}
+
+#tree-newimport ul li.gnaclr-search p {
+  margin: 5px 0 0 10px;
+}
+
+#tree-newimport ul li input {
+  font-size: 16px;
+  margin: 10px 4% 14px 2%;
+  padding: 8px 5px;
+  width: 94%;
+}
+
+#tree-newimport ul li p.text-label a {
+  text-decoration: underline;
 }
 
 #tree-newimport a:link, #tree-newimport a:hover, #tree-newimport a:active, #tree-newimport a:visited {
@@ -1018,8 +1032,21 @@ body form input {
   background:url("../images/browse-hover.png") no-repeat;
 }
 
+#tree-newimport .flat-list {
+  background: url("../images/flat-list.png") no-repeat;
+}
+
+#tree-newimport .flat-list:hover {
+  background: url("../images/flat-list.png") 0 -52px no-repeat;
+}
+
 #tree-newimport ul.list {
-  width:100% !important;
+  margin: 0;
+}
+
+#tree-newimport ul.list li:hover {
+  background: rgb(255,255,255);
+  background: -moz-linear-gradient(center bottom, rgb(230,228,221) 0%, rgb(255,255,255) 50%);
 }
 
 #tree-newimport ul.list li {
