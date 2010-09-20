@@ -1,5 +1,9 @@
 <div id="header">
-  <h1><%= @master_tree.title %></h1>
+  <% if @master_tree.title == 'New Master Tree' %>
+    <input type="text" id="master_tree_title"><span class="error"></span>
+  <% else %>
+    <h1><%= @master_tree.title %></h1>
+  <% end %>
 </div>
 
 <div id="flash-wrapper">
@@ -236,6 +240,33 @@
       $('.tree-background').live('click', function(event) {
         $(event.target).find('.jstree').jstree('deselect_all');
       });
+
+      $('#master_tree_title')
+        .focus()
+        .blur(function() {
+          var self = $(this);
+
+          if ($.trim(self.val()) == '') {
+            setTimeout(function() {
+              self.focus();
+            }, 10);
+
+            self.next().text('Please enter a title for your tree.');
+          } else {
+            var title = self.val();
+
+            $.post(<%= raw master_tree_path(@master_tree).to_json %>, { 'master_tree[title]' : title, '_method' : 'put' }, function() {
+              self
+                .next()
+                  .remove()
+                .end()
+                .parent()
+                  .append('<h1>' + title + '</h1>')
+                .end()
+                .remove();
+            });
+          }
+        });
     });
 </script>
 

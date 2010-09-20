@@ -3,25 +3,31 @@ Feature: Create and manage master trees
   I can create a new master tree, or edit an existing one
   So I can manage my classification work
 
+  @javascript
   Scenario: User can create a new tree
     Given I have signed in with "email@person.com/password"
     Then I should be on the master tree index page
     When I follow "New Master Tree"
-    And I fill in "Title" with "My new tree"
-    And I select "Public domain" from "License"
-    And I press "Create"
-    Then I should see "Tree successfully created"
-    And I should be on the master tree page for "My new tree"
+    Then I should be on the master tree page for "New Master Tree"
+    And I should be focused on the master tree title field
+    When I click on the page
+    Then I should see "Please enter a title for your tree."
+    And I should be focused on the master tree title field
+    When I fill in "master_tree_title" with "My new tree"
+    And I click on the page
+    Then I should not see the master tree title field
+    And I should see "My new tree"
+    When I go to the master tree page for "My new tree"
+    Then I should see "My new tree"
 
   Scenario: User can view their list of trees
     Given I have signed in with "email@person.com/password"
     Then I should be on the master tree index page
     And I should not see "Or choose an existing tree to edit"
 
-    When I follow "New Master Tree"
-    And I fill in "Title" with "My new tree"
-    And I select "Public domain" from "License"
-    And I press "Create"
+    When the following master tree exists:
+      | user                    | title       |
+      | email: email@person.com | My new tree |
     And I go to the master trees page
     Then should see "My new tree"
 

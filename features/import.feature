@@ -4,13 +4,11 @@ Feature: Import data to your master tree
   So that I don't have to manipulate everything by hand
 
   Background: I have a tree
-   Given I have signed in with "email@person.com/password"
-   Then I should be on the master tree index page
-   When I follow "New Master Tree"
-   Then I should see a "New Tab" tab
-   And I fill in "Title" with "My new tree"
-   And I press "Create"
-   Then I should be on the master tree page for "My new tree"
+    Given I have signed in with "email@person.com/password"
+    And the following master tree exists:
+      | user                    | title       |
+      | email: email@person.com | My new tree |
+    And I go to the master tree page for "My new tree"
 
   @javascript
   Scenario: User can import flat list as root nodes

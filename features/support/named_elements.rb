@@ -7,6 +7,8 @@ module NamedElementHelper
       ".spinner"
     when /the navigation bar/
       "#navbar"
+    when /the master tree title field/
+      "#master_tree_title"
 
     else
       raise "Can't find mapping for \"#{named_element}\"."

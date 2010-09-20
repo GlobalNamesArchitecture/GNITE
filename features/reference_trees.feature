@@ -5,11 +5,10 @@ Feature: Work with reference trees
 
   Background: I have a reference tree
     Given I have signed in with "email@person.com/password"
-    Then I should be on the master tree index page
-    When I follow "New Master Tree"
-    Then I should see a "New Tab" tab
-    And I fill in "Title" with "My new tree"
-    And I press "Create"
+    And the following master tree exists:
+      | user                    | title       |
+      | email: email@person.com | My new tree |
+    And I go to the master tree page for "My new tree"
     And I follow "Add Node"
     And I enter "master node" in the new node and press enter
     And I import a flat list tree with the following nodes:

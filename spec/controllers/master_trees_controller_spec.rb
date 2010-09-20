@@ -25,27 +25,12 @@ describe MasterTreesController do
     end
 
     context "on a valid GET to #new" do
-      let(:tree) { Factory(:master_tree) }
-
-      before do
-        MasterTree.stubs(:new => tree)
-        get :new
-      end
-
-      subject { controller }
-
-      it { should respond_with(:success) }
-      it { should assign_to(:master_tree).with(tree) }
-      it { should render_template(:new) }
-    end
-
-    context "on a valid POST to #create" do
       let(:master_tree) { Factory(:master_tree) }
 
       before do
         MasterTree.stubs(:new => master_tree)
         master_tree.stubs(:save => true)
-        post :create
+        get :new
       end
 
       subject { controller }
@@ -56,23 +41,6 @@ describe MasterTreesController do
 
       it { should assign_to(:master_tree).with(master_tree) }
       it { should redirect_to(master_tree_url(master_tree)) }
-      it { should set_the_flash.to(/created/) }
-    end
-
-    context "on an invalid POST to #create" do
-      let(:tree) { Factory(:master_tree) }
-
-      before do
-        MasterTree.stubs(:new => tree)
-        tree.stubs(:save => false)
-        post :create
-      end
-
-      subject { controller }
-
-      it { should assign_to(:master_tree).with(tree) }
-      it { should_not set_the_flash }
-      it { should render_template(:new) }
     end
 
     context "on a valid GET to #new" do
@@ -130,11 +98,6 @@ end
 
 describe MasterTreesController, 'GET new without authenticating' do
   before { get :new }
-  it     { should redirect_to(sign_in_url) }
-end
-
-describe MasterTreesController, 'POST create without authenticating' do
-  before { post :create }
   it     { should redirect_to(sign_in_url) }
 end
 

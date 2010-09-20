@@ -15,10 +15,10 @@ Feature: Edit a master tree
   @javascript
   Scenario: User can add nodes to a tree
     Given I have signed in with "email@person.com/password"
-    Then I should be on the master tree index page
-    When I follow "New Master Tree"
-    And I fill in "Title" with "My new tree"
-    And I press "Create"
+    And the following master tree exists:
+      | user                    | title       |
+      | email: email@person.com | My new tree |
+    When I go to the master tree page for "My new tree"
     And I follow "Add Node"
     And I enter "hydrochaeris" in the new node and press enter
     Then I should see a node "hydrochaeris" at the root level in my master tree
@@ -30,11 +30,11 @@ Feature: Edit a master tree
   @javascript
   Scenario: User can add child nodes to a tree
     Given I have signed in with "email@person.com/password"
-    Then I should be on the master tree index page
-    When I follow "New Master Tree"
-    And I fill in "Title" with "My new tree"
-    And I press "Create"
-    When I follow "Add Node"
+    And the following master tree exists:
+      | user                    | title       |
+      | email: email@person.com | My new tree |
+    When I go to the master tree page for "My new tree"
+    And I follow "Add Node"
     And I enter "Caviidae" in the new node and press enter
     Then I should see a node "Caviidae" at the root level in my master tree
 

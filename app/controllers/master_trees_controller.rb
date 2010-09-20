@@ -6,20 +6,24 @@ class MasterTreesController < ApplicationController
   end
 
   def new
-    @master_tree = MasterTree.new
-  end
-
-  def create
-    @master_tree = MasterTree.new(params[:master_tree])
+    @master_tree = MasterTree.new(:title => 'New Master Tree')
     @master_tree.user = current_user
+    @master_tree.save
 
-    if @master_tree.save
-      flash[:success] = "Master Tree successfully created"
-      redirect_to master_tree_url(@master_tree.id)
-    else
-      render :new
-    end
+    redirect_to master_tree_url(@master_tree.id)
   end
+
+  #def create
+  #  @master_tree = MasterTree.new(params[:master_tree])
+  #  @master_tree.user = current_user
+  #
+  #  if @master_tree.save
+  #    flash[:success] = "Master Tree successfully created"
+  #    redirect_to master_tree_url(@master_tree.id)
+  #  else
+  #    render :new
+  #  end
+  #end
 
   def show
     @master_tree = MasterTree.find(params[:id])
