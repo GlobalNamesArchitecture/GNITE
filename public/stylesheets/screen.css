@@ -25,6 +25,18 @@ body {
   padding:15px 45px;
 }
 
+#header #master_tree_title {
+  font-size: 14px;
+  margin: 9px 0 0 40px;
+  padding: 3px;
+  width: 20%;
+}
+
+#header span.error {
+  color: #d10000;
+  margin: 0 0 0 10px;
+}
+
 #fluid-head {
   color:rgb(236, 234, 226);
   height:27px;
@@ -219,7 +231,7 @@ body form input {
 
   -moz-box-shadow:    0px 1px 2px rgba(0,0,0, 1), 0 -1px 0 #114503 inset;
   -webkit-box-shadow: 0px 1px 2px rgba(0,0,0, 1), 0 -1px 0 #114503 inset;
-  box-shadow:         0px 1px 2px rgba(0,0,0, 1), 0 -1px 0 #114503 inset;  
+  box-shadow:         0px 1px 2px rgba(0,0,0, 1), 0 -1px 0 #114503 inset;
   color: #fff;
   float: left;
   font-weight: bold;
@@ -519,7 +531,7 @@ body form input {
 #add-node:hover {
   cursor: pointer;
   background: #dde0e4;
-     background: 
+     background:
      -webkit-gradient(
          linear,
          left bottom,
@@ -527,12 +539,12 @@ body form input {
          color-stop(0, rgb(208,212,215)),
          color-stop(1, rgb(255,255,255))
      );
-     background: 
+     background:
      -moz-linear-gradient(
          center bottom,
          rgb(208,212,215) 0,
          rgb(255,255,255) 100%
-     );  
+     );
 }
 
 #add-node:active {
@@ -684,7 +696,7 @@ body form input {
   position: relative;
   right: 9px;
   background: #cfd3d7;
-   background: 
+   background:
    -webkit-gradient(
        linear,
        left bottom,
@@ -692,7 +704,7 @@ body form input {
        color-stop(0, rgb(208,212,215)),
        color-stop(1, rgb(241,246,249))
    );
-   background: 
+   background:
    -moz-linear-gradient(
        center bottom,
        rgb(208,212,215) 0,
@@ -704,12 +716,12 @@ body form input {
    -webkit-border-radius: 5px;
    box-shadow:         0px 1px 2px   rgba(0,0,0, 0.7), 0px 1px 0 rgb(255, 255, 255) inset;
    -moz-box-shadow:    0px 1px 2px   rgba(0,0,0, 0.7), 0px 1px 0 rgb(255, 255, 255) inset;
-   -webkit-box-shadow: 0px 1px 2px   rgba(0,0,0, 0.7), 0px 1px 0 rgb(255, 255, 255) inset;  
+   -webkit-box-shadow: 0px 1px 2px   rgba(0,0,0, 0.7), 0px 1px 0 rgb(255, 255, 255) inset;
 }
 
 .breadcrumbs .close-tab:hover {
   background: #dde0e4;
-    background: 
+    background:
     -webkit-gradient(
         linear,
         left bottom,
@@ -717,12 +729,12 @@ body form input {
         color-stop(0, rgb(208,212,215)),
         color-stop(1, rgb(248,253,255))
     );
-    background: 
+    background:
     -moz-linear-gradient(
         center bottom,
         rgb(208,212,215) 0,
         rgb(248,253,255) 100%
-    );  
+    );
 }
 
 
@@ -748,12 +760,12 @@ body form input {
   background: #d4d7da;
   -moz-box-shadow:    0 1px 2px rgba(0,0,0,.7);
   -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.7);
-  box-shadow:         0 1px 2px rgba(0,0,0,.7); 
+  box-shadow:         0 1px 2px rgba(0,0,0,.7);
   border-radius:         6px;
   -moz-border-radius:    6px;
-  -webkit-border-radius: 6px;   
+  -webkit-border-radius: 6px;
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#e0e2e4), to(#bbc0c4));
-  background-image: -moz-linear-gradient(top,                  #e0e2e4,     #bbc0c4);  
+  background-image: -moz-linear-gradient(top,                  #e0e2e4,     #bbc0c4);
   font-weight: bold;
   font-size: .9em;
 }
@@ -762,13 +774,13 @@ body form input {
 .searchbar .grid-button:hover,
 .controls .tree-btn:hover {
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f2f4f5), to(#bbc0c4));
-  background-image: -moz-linear-gradient(top,                  #f2f4f5,     #bbc0c4);  
+  background-image: -moz-linear-gradient(top,                  #f2f4f5,     #bbc0c4);
 }
 
 .searchbar .grid-button:active,
 .controls .tree-btn:active {
   position: relative;
-  top: 1px;  
+  top: 1px;
 }
 
 .grid-button .icon {
@@ -854,10 +866,10 @@ body form input {
   height: auto;
   text-shadow: 0 1px 1px rgba(0,0,0,.4);
   -moz-box-shadow:    0px 1px 2px rgba(0,0,0, 1);
-  -webkit-box-shadow: 0px 1px 2px rgba(0,0,0, 1);  
-  box-shadow:         0px 1px 2px rgba(0,0,0, 1);  
-  
-  
+  -webkit-box-shadow: 0px 1px 2px rgba(0,0,0, 1);
+  box-shadow:         0px 1px 2px rgba(0,0,0, 1);
+
+
   width: auto;
 }
 
@@ -884,7 +896,7 @@ body form input {
               color-stop(0.04, #CECABB),
               color-stop(0.98, #ECEAE2));
   -moz-box-shadow:    0px 1px 2px rgba(0,0,0, 1);
-  -webkit-box-shadow: 0px 1px 2px rgba(0,0,0, 1);  
+  -webkit-box-shadow: 0px 1px 2px rgba(0,0,0, 1);
   box-shadow:         0px 1px 2px rgba(0,0,0, 1);
   color: #222;
   margin-left: 15px;
@@ -904,7 +916,7 @@ body form input {
   width: 95%;
   -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2) inset;
   -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2) inset;
-  box-shadow: 0 1px 2px rgba(0,0,0,.2) inset;    
+  box-shadow: 0 1px 2px rgba(0,0,0,.2) inset;
 }
 
 #tree-metadata fieldset input {
@@ -1357,7 +1369,7 @@ ul#treelist li,  #search, .tree-background, #loginform .input, .green-submit, .c
 #tree-newimport li {
   box-shadow:         0px 1px 3px rgba(0,0,0,.7);
   -moz-box-shadow:    0px 1px 3px rgba(0,0,0,.7);
-  -webkit-box-shadow: 0px 1px 3px rgba(0,0,0,.7);  
+  -webkit-box-shadow: 0px 1px 3px rgba(0,0,0,.7);
 }
 
 
