@@ -1,10 +1,11 @@
 class GnaclrClassificationRevision
-  attr_accessor :url, :file_name, :tree_id, :message, :number, :created, :updated
+  attr_accessor :url, :file_name, :tree_id, :message,
+                :number, :created, :updated, :classification
 
   def initialize(attributes)
     attributes.symbolize_keys!
 
-    [:url, :file_name, :tree_id, :message, :number, :created, :updated].each do |key|
+    [:url, :file_name, :tree_id, :message, :number, :created, :updated, :classification].each do |key|
       self.send(:"#{key}=", attributes[key])
     end
   end

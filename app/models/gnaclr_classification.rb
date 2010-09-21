@@ -48,7 +48,7 @@ class GnaclrClassification
   end
 
   def add_revision_from_attributes(revision_attributes)
-    (self.revisions ||= []) << GnaclrClassificationRevision.new(revision_attributes)
+    (self.revisions ||= []) << GnaclrClassificationRevision.new(revision_attributes.merge(:classification => self))
   end
 
   def revision_count

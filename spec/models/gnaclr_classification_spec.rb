@@ -65,22 +65,22 @@ describe GnaclrClassification, "attributes" do
   end
 
   let(:revision_1) do
-    { :number     => 1,
-      :message    => 'first',
-      :tree_id    => '123',
-      :file_name  => 'first_file_name',
-      :url        => 'first_url',
-      :created_at => Time.now,
-      :updated_at => Time.now}
+    { :number    => 1,
+      :message   => 'first',
+      :tree_id   => '123',
+      :file_name => 'first_file_name',
+      :url       => 'first_url',
+      :created   => Time.now,
+      :updated   => Time.now}
   end
   let(:revision_2) do
-    { :number     => 2,
-      :message    => 'second',
-      :tree_id    => '234',
-      :file_name  => 'second_file_name',
-      :url        => 'second_url',
-      :created_at => Time.now,
-      :updated_at => Time.now }
+    { :number    => 2,
+      :message   => 'second',
+      :tree_id   => '234',
+      :file_name => 'second_file_name',
+      :url       => 'second_url',
+      :created   => Time.now,
+      :updated   => Time.now }
   end
 
   before do
@@ -104,7 +104,6 @@ describe GnaclrClassification, "attributes" do
     gnaclr_classification.updated.should     == Time.now
     gnaclr_classification.uuid.should        == "abcdef-ghij-klmnop"
     gnaclr_classification.file_url.should    == "example.tar.gz"
-    gnaclr_classification
   end
 
   it "tests equality on attributes" do
@@ -139,8 +138,8 @@ describe GnaclrClassification, 'adding a revision' do
       :file_name  => 'example.tgz',
       :tree_id    => 'some id',
       :message    => 'revision message',
-      :created_at => Time.now,
-      :updated_at => Time.now,
+      :created    => Time.now,
+      :updated    => Time.now,
       :number     => 1 }
   end
 
@@ -148,6 +147,11 @@ describe GnaclrClassification, 'adding a revision' do
     subject.add_revision_from_attributes(revision_attributes)
     subject.revisions.count.should == 1
     subject.revisions.first.to_hash.should == revision_attributes
+  end
+
+  it "sets the revision's classification to itself" do
+    subject.add_revision_from_attributes(revision_attributes)
+    subject.revisions.first.classification.should == subject
   end
 
   it 'accepts a revision when it already has revisions' do

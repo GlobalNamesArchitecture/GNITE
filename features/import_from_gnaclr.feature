@@ -34,13 +34,13 @@ Feature: Importing trees from GNACLR
     When I follow "Moose tree"
     And I follow "Browse GNACLR Database"
     And I follow "NCBI"
-    Then "this is really the best revision" should be selected
+    #Then "this is really the best revision" should be checked
     When I choose "this is the best revision"
     And I press "Import"
     Then I should see a spinner
     When delayed jobs are run
     Then I should not see a spinner
-    And IU should see an "NCBI rev. 1" tab
+    And I should see an "NCBI rev. 1" tab
     And the "NCBI rev. 1" tab should be active
     And I should see a node "Cyphophthalmi incertae sedis" at the root level in my reference tree "NCBI"
     And I should see a node "Opiliones" at the root level in my reference tree "NCBI"

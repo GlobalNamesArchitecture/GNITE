@@ -11,3 +11,8 @@ When /^I click on the page$/ do
   page.execute_script("jQuery('a').focus();")
   page.execute_script("jQuery('#master_tree_title').blur();")
 end
+
+Then /^"([^"]*)" should be checked/ do |label|
+  field = find_field(label)
+  field['checked'].should == 'checked'
+end
