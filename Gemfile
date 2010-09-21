@@ -57,6 +57,7 @@ group :test do
   gem 'bourne'
   gem 'sham_rack'
   gem 'sinatra'
+  gem 'timecop'
 end
 
 group :staging do

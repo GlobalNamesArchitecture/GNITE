@@ -26,6 +26,9 @@ Feature: Importing trees from GNACLR
   @javascript
   Scenario: Importing an older revision of the sample NCBI tree
     Given the GNACLR classification "NCBI" has the following revisions:
-      | number | message                          | file_name                            |
-      | 2      | this is the really best revision | 853437dc-6d9f-ba30-5ae006fccae3.gzip |
-      | 1      | this is the best revision        | 853437dc-4ab5-ba30-5ae006fccae2.gzip |
+      | number | message                          | file_name                            | created_at |
+      | 2      | this is really the best revision | 853437dc-6d9f-ba30-5ae006fccae3.gzip | 2010-01-01 |
+      | 1      | this is the best revision        | 853437dc-4ab5-ba30-5ae006fccae2.gzip | 2009-01-01 |
+    Then I should see "this is the best revision"
+    And I should see "this is really the best revision"
+    When I follow "this is really the best revision"

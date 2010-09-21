@@ -23,23 +23,21 @@
   <% end %>
 </div>
 
-<!--<div id="tree-revisions">
+<div id="tree-revisions">
   <h3>Choose a revision to import</h3>
   <form>
 
   <ul id="revisions">
-    <li>
-      <input type="radio">
-      <p class="revision-number">Revision 0</p>
-      <p class="date">01 Apr 18:37</p>
-    </li>
-    <li>
-      <input type="radio">
-      <p class="revision-number">Revision 0</p>
-      <p class="date">01 Apr 18:37</p>
-    </li>
+    <% @gnaclr_classification.revisions.each do |revision| -%>
+      <li>
+        <input type="radio" name="revision">
+        <p class="revision-number"><%= revision.number -%></p>
+        <p class="revision-message"><%= revision.message -%></p>
+        <p class="revision-created_at"><%= revision.created_at -%></p>
+      </li>
+    <% end -%>
   </ul>
 
   <input id="import-gnaclr-button" class="green-submit" name="Import" type="submit" value="Import">
   </form>
-</div>-->
+</div>

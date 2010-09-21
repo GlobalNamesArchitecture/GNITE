@@ -108,10 +108,13 @@ describe GnaclrClassification, 'adding a revision' do
   end
 
   let(:revision_attributes) do
-    { :url       => 'http://gnaclr.globalnames.org',
-      :file_name => 'example.tgz',
-      :tree_id   => 'some id',
-      :message   => 'revision message' }
+    { :url        => 'http://gnaclr.globalnames.org',
+      :file_name  => 'example.tgz',
+      :tree_id    => 'some id',
+      :message    => 'revision message',
+      :created_at => Time.now,
+      :updated_at => Time.now,
+      :number     => 1 }
   end
 
   it 'accepts a revision when it has no revisions' do
