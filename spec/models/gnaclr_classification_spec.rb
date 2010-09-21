@@ -95,3 +95,55 @@ describe GnaclrClassification, "attributes" do
     GnaclrClassification.new.revisions.should == []
   end
 end
+
+describe GnaclrClassification, 'adding a revision' do
+  subject do
+    GnaclrClassification.new(
+      :title       => "Title",
+      :authors     => ["Author 1", "Author 2"],
+      :description => "Description",
+      :uuid        => "abcdef-ghij-klmnop",
+      :file_url    => 'example.tar.gz'
+      )
+  end
+
+  let(:revision_attributes) do
+    { :url       => 'http://gnaclr.globalnames.org',
+      :file_name => 'example.tgz',
+      :tree_id   => 'some id',
+      :message   => 'revision message' }
+  end
+
+  it 'accepts a revision when it has no revisions' do
+    subject.add_revision_from_attributes(revision_attributes)
+    subject.revisions.count.should == 1
+    subject.revisions.first.to_hash.should == revision_attributes
+  end
+
+  it 'accepts a revision when it already has revisions' do
+    subject.add_revision_from_attributes(revision_attributes)
+    subject.add_revision_from_attributes(revision_attributes)
+    subject.revisions.count.should == 2
+  end
+end
+
+describe GnaclrClassification, 'with two revisions' do
+  subject do
+    GnaclrClassification.new(
+      :title       => "Title",
+      :authors     => ["Author 1", "Author 2"],
+      :description => "Description",
+      :uuid        => "abcdef-ghij-klmnop",
+      :file_url    => 'example.tar.gz'
+      )
+  end
+
+  before do
+    2.times { subject.add_revision_from_attributes({}) }
+  end
+
+  it 'returns 2 for revision_count' do
+    subject.revision_count.should == 2
+  end
+
+end

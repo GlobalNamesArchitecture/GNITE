@@ -5,8 +5,7 @@ Given /^GNACLR contains the following classifications:$/ do |table|
 end
 
 Given /^the GNACLR classification "([^"]*)" has the following revisions:$/ do |classification_title, table|
-  pending
-  # table.hashes.each do |hash|
-  #   FakeGnaclr::Store.insert_revision_with_message_for_classification_title(hash['message'], classification_title)
-  # end
+  table.hashes.each do |revision_attributes|
+    FakeGnaclr::Store.insert_revision_for_classification_title(revision_attributes, classification_title)
+  end
 end

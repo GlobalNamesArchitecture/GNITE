@@ -46,6 +46,14 @@ class GnaclrClassification
     uuid
   end
 
+  def add_revision_from_attributes(revision_attributes)
+    (self.revisions ||= []) << GnaclrClassificationRevision.new(revision_attributes)
+  end
+
+  def revision_count
+    self.revisions.count
+  end
+
   private
 
   def self.from_xml(xml)
