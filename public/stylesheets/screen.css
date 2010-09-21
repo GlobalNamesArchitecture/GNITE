@@ -1377,15 +1377,59 @@ ul#treelist a:hover,
   padding: 0px;
 }
 
-#trash {
-  float:right;
-  margin-right:0em;
+#tab-titles #all-tabs {
+  position: relative;
+}
+
+#tab-titles #import {
+  float: right;
+  margin-right: 3px;
+}
+
+#tab-titles #trash {
+  float: right;
+  margin-right: 0;
 }
 
 .no_content_message {
   padding: 20px;
   font-size: 1.3em;
   text-align: center;
+}
+
+ul#working-trees {
+  background: #BABFC3;
+  border: 1px solid #888;
+  border-width: 0 1px 1px 0;
+  left: -1px;
+  padding: 15px 15px 15px 15px;
+  position: absolute;
+  top: 26px;
+  width: 270px;
+  z-index: -1;
+}
+
+.ui-tabs .ui-tabs-nav li ul#working-trees li {
+  border-bottom: 1px solid #eee;
+  -webkit-box-shadow: none;
+  clear: both;
+  display: block;
+  float: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  width: 100%;
+}
+
+.ui-tabs .ui-tabs-nav li ul#working-trees li a {
+  cursor: pointer;
+  display: block;
+  padding: 8px 4px;
+  width: 263px;
+}
+
+ul#working-trees li a:hover {
+  background: #a0a5a8;
 }
 
 /* Border Radius */
