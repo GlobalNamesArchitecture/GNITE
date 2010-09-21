@@ -37,7 +37,6 @@ module FakeGnaclr
     end
 
     def self.insert_revision_for_classification_title(opts)
-      debugger
       revision_attributes  = opts[:revision_attributes]
       classification_title = opts[:classification_title]
       classification = @@classifications.detect { |c| c.title == classification_title }

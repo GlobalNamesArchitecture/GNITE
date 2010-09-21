@@ -34,7 +34,8 @@ class GnaclrClassification
       :description => description,
       :updated     => updated,
       :uuid        => uuid,
-      :file_url    => file_url
+      :file_url    => file_url,
+      :revisions   => revisions.map(&:to_hash)
     }
   end
 

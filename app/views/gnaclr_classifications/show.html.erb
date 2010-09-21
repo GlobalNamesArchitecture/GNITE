@@ -30,10 +30,12 @@
   <ul id="revisions">
     <% @gnaclr_classification.revisions.each do |revision| -%>
       <li>
-        <input type="radio" name="revision">
-        <p class="revision-number"><%= revision.number -%></p>
-        <p class="revision-message"><%= revision.message -%></p>
-        <p class="revision-created_at"><%= revision.created_at -%></p>
+        <label>
+          <input type="radio" name="revision" value="<%=revision.number-%>" id="revision_<%=revision.number-%> />
+          <p class="revision-message"><%= revision.message -%></p>
+          <p class="revision-number"><%= revision.number -%></p>
+          <p class="revision-created"><%= revision.created -%></p>
+        </label>
       </li>
     <% end -%>
   </ul>

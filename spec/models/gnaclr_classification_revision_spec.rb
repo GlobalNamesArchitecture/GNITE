@@ -8,8 +8,8 @@ describe GnaclrClassificationRevision, 'valid' do
       'tree_id'    => '64ff3af4018c3e8fd27f5590387fbdc65289e682',
       'message'    => 'My revision message',
       'number'     => '1',
-      'created_at' => Time.now,
-      'updated_at' => Time.now
+      'created' => Time.now,
+      'updated' => Time.now
     }
   end
 
@@ -28,7 +28,7 @@ describe GnaclrClassificationRevision, 'valid' do
     revision.tree_id.should    == '64ff3af4018c3e8fd27f5590387fbdc65289e682'
     revision.message.should    == 'My revision message'
     revision.number.should     == '1'
-    revision.created_at.should == Time.now
-    revision.updated_at.should == Time.now
+    revision.created.should == Time.now
+    revision.updated.should == Time.now
   end
 end

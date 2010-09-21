@@ -11,7 +11,7 @@ describe GnaclrClassification, "with remote classifications" do
         "updated"     => Time.parse("Tue Sep 14 04:11:40 UTC 2010"),
         "file_url"    => "http://gnaclr.globalnames.org/files/853437dc-6d9f-4ab5-ba30-5ae006fccae2/853437dc-6d9f-4ab5-ba30-5ae006fccae2.gzip",
         "revisions"   => ["url"        => "http://gnaclr.globalnames.org/classification_file/9/64ff3af4018c3e8fd27f5590387fbdc65289e682",
-                           "message"   => Time.parse("2010-09-14 at 12:11:40 AM"),
+                           "message"   => "2010-09-14 at 12:11:40 AM",
                            "file_name" => "853437dc-6d9f-4ab5-ba30-5ae006fccae2.gzip",
                            "tree_id"   => "64ff3af4018c3e8fd27f5590387fbdc65289e682"]
       }),
@@ -23,11 +23,11 @@ describe GnaclrClassification, "with remote classifications" do
         "updated"     => Time.parse("Wed Sep 08 15:08:05 UTC 2010"),
         "file_url"    => "http://gnaclr.globalnames.org/files/a9995ace-f04f-49e2-8e14-4fdbc810b08a/index_fungorum.tar.gz",
         "revisions"   => [{"url"       => "http://gnaclr.globalnames.org/classification_file/8/45f5a87e1182c90c3ed98f3a52f45b58f0ab6380",
-                           "message"   =>  Time.parse("2010-09-08 at 11:17:42 AM"),
+                           "message"   =>  "2010-09-08 at 11:17:42 AM",
                            "file_name" => "index_fungorum.tar.gz",
                            "tree_id"   => "45f5a87e1182c90c3ed98f3a52f45b58f0ab6380"},
                           {"url"       => "http://gnaclr.globalnames.org/classification_file/8/0fb47e2f984942d7f034ddeb43d86aef2552b360",
-                           "message"   => Time.parse("2010-09-08 at 11:08:05 AM"),
+                           "message"   => "2010-09-08 at 11:08:05 AM",
                            "file_name" => "index_fungorum.tar.gz",
                            "tree_id"   => "0fb47e2f984942d7f034ddeb43d86aef2552b360"}]
       })
@@ -58,26 +58,53 @@ describe GnaclrClassification, "attributes" do
       :title       => "Title",
       :authors     => ["Author 1", "Author 2"],
       :description => "Description",
-      :updated     => @updated_time,
+      :updated     => Time.now,
       :uuid        => "abcdef-ghij-klmnop",
       :file_url    => 'example.tar.gz'
     }
   end
-  before do
-    @updated_time  = Time.now
+
+  let(:revision_1) do
+    { :number     => 1,
+      :message    => 'first',
+      :tree_id    => '123',
+      :file_name  => 'first_file_name',
+      :url        => 'first_url',
+      :created_at => Time.now,
+      :updated_at => Time.now}
+  end
+  let(:revision_2) do
+    { :number     => 2,
+      :message    => 'second',
+      :tree_id    => '234',
+      :file_name  => 'second_file_name',
+      :url        => 'second_url',
+      :created_at => Time.now,
+      :updated_at => Time.now }
   end
 
-  it "has a title, authors, a description, an updated, a uuid, a file URL and a constructor that accepts a hash" do
-    gnaclr_classification = GnaclrClassification.new(attributes)
+  before do
+    Timecop.freeze
+  end
 
-    gnaclr_classification.attributes.should  == attributes
+  after do
+    Timecop.return
+  end
+
+  it "has a title, authors, a description, an updated, a uuid, a file URL, revisions and a constructor that accepts a hash" do
+    gnaclr_classification = GnaclrClassification.new(attributes)
+    gnaclr_classification.add_revision_from_attributes(revision_1)
+    gnaclr_classification.add_revision_from_attributes(revision_2)
+
+    gnaclr_classification.attributes.should  == attributes.merge(:revisions => [revision_1, revision_2])
 
     gnaclr_classification.title.should       == "Title"
     gnaclr_classification.authors.should     == ["Author 1", "Author 2"]
     gnaclr_classification.description.should == "Description"
-    gnaclr_classification.updated.should     == @updated_time
+    gnaclr_classification.updated.should     == Time.now
     gnaclr_classification.uuid.should        == "abcdef-ghij-klmnop"
     gnaclr_classification.file_url.should    == "example.tar.gz"
+    gnaclr_classification
   end
 
   it "tests equality on attributes" do
