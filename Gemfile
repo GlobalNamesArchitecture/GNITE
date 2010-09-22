@@ -14,7 +14,7 @@ gem 'hoptoad_notifier', '2.3.7'
 gem 'ancestry', '1.2.1.beta.1', :git => "git://github.com/thoughtbot/ancestry.git", :branch => "rails3"
 gem 'uuid'
 gem 'crack'
-gem 'delayed_job'
+gem 'delayed_job', '2.1.0.pre2'
 gem 'dwc-archive', '0.4.5'
 gem 'fastercsv'
 gem 'parsley-store'

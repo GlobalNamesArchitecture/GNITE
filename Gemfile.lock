@@ -74,7 +74,8 @@ GEM
     culerity (0.2.12)
     daemons (1.1.0)
     database_cleaner (0.5.2)
-    delayed_job (2.0.3)
+    delayed_job (2.1.0.pre2)
+      activesupport (~> 3.0)
       daemons
     diff-lcs (1.1.2)
     dwc-archive (0.4.5)
@@ -201,7 +202,7 @@ DEPENDENCIES
   cucumber
   cucumber-rails
   database_cleaner
-  delayed_job
+  delayed_job (= 2.1.0.pre2)
   dwc-archive (= 0.4.5)
   engineyard
   factory_girl
