@@ -11,7 +11,7 @@ class GnaclrClassification
     end
 
     self.revisions = (new_attributes[:revisions] || []).map do |revision_attributes|
-      GnaclrClassificationRevision.new(revision_attributes)
+      GnaclrClassificationRevision.new(revision_attributes.merge(:classification => self))
     end
   end
 

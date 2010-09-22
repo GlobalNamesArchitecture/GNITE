@@ -28,15 +28,16 @@
   <form>
 
   <ul id="revisions">
+    <% first = true %>
     <% @gnaclr_classification.revisions.each do |revision| -%>
       <li>
         <label>
-          <input type="radio" name="revision" value="<%=revision.number-%>" id="revision_<%=revision.number-%> />
+          <input type="radio" name="revision" value="<%=revision.number-%>" <%= 'checked' if first -%> data-tree-url="<%= revision.url %>"/>
           <p class="revision-message"><%= revision.message -%></p>
           <p class="revision-number"><%= revision.number -%></p>
-          <p class="revision-created"><%= revision.created -%></p>
         </label>
       </li>
+      <% first = false %>
     <% end -%>
   </ul>
 

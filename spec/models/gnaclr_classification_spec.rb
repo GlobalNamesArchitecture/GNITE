@@ -69,18 +69,14 @@ describe GnaclrClassification, "attributes" do
       :message   => 'first',
       :tree_id   => '123',
       :file_name => 'first_file_name',
-      :url       => 'first_url',
-      :created   => Time.now,
-      :updated   => Time.now}
+      :url       => 'first_url' }
   end
   let(:revision_2) do
     { :number    => 2,
       :message   => 'second',
       :tree_id   => '234',
       :file_name => 'second_file_name',
-      :url       => 'second_url',
-      :created   => Time.now,
-      :updated   => Time.now }
+      :url       => 'second_url' }
   end
 
   before do
@@ -138,8 +134,6 @@ describe GnaclrClassification, 'adding a revision' do
       :file_name  => 'example.tgz',
       :tree_id    => 'some id',
       :message    => 'revision message',
-      :created    => Time.now,
-      :updated    => Time.now,
       :number     => 1 }
   end
 

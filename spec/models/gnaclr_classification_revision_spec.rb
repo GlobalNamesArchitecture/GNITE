@@ -9,18 +9,8 @@ describe GnaclrClassificationRevision, 'valid' do
       'tree_id'    => '64ff3af4018c3e8fd27f5590387fbdc65289e682',
       'message'    => 'My revision message',
       'number'     => '1',
-      'classification' => classification,
-      'created' => Time.now,
-      'updated' => Time.now
+      'classification' => classification
     }
-  end
-
-  before do
-    Timecop.freeze
-  end
-
-  after do
-    Timecop.return
   end
 
   it 'has an url, a file_name, a tree_id, a message and a number' do
@@ -30,8 +20,6 @@ describe GnaclrClassificationRevision, 'valid' do
     revision.tree_id.should        == '64ff3af4018c3e8fd27f5590387fbdc65289e682'
     revision.message.should        == 'My revision message'
     revision.number.should         == '1'
-    revision.created.should        == Time.now
-    revision.updated.should        == Time.now
     revision.classification.should == classification
   end
 end

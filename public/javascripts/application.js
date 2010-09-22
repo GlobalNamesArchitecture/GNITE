@@ -20,10 +20,12 @@ $(document).ready(function() {
   $('#import-gnaclr-button').live('click', function() {
     $('#gnaclr-description').append('<div class="spinner" />');
 
-    $.post('/gnaclr_imports', { master_tree_id : $('#tree-container').attr('data-database-id'), title : $('#gnaclr-description h2').text(), url : $(this).attr('data-tree-url') }, function(response) {
+    var checkedRadioButton = $("#tree-revisions form input:checked");
+    $.post('/gnaclr_imports', { master_tree_id : $('#tree-container').attr('data-database-id'), title : $('#gnaclr-description h2').text(), url : checkedRadioButton.attr('data-tree-url') }, function(response) {
       var tree_id = response.tree_id;
       var timeout = setTimeout(function checkImportStatus() {
         $.get('/reference_trees/' + tree_id, { format : 'json' }, function(response, status, xhr) {
+          console.log(response);
           if (xhr.status == 200) {
             $('.spinner').remove();
             $('#new-tab').before(response.tree);

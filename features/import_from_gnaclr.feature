@@ -6,6 +6,10 @@ Feature: Importing trees from GNACLR
     And GNACLR contains the following classifications:
       | title          | author_list                           | description             | updated             | uuid | file_url             |
       | NCBI           | Dmitry Mozzherin <dmitry@example.com> | NCBI classification     | 2010-07-15 16:49:40 | 1    | cyphophthalmi.tar.gz |
+    And the GNACLR classification "NCBI" has the following revisions:
+      | number | message                          | file_name                            | created    |
+      | 2      | this is really the best revision | 853437dc-6d9f-ba30-5ae006fccae3.gzip | 2010-01-01 |
+      | 1      | this is the best revision        | 853437dc-4ab5-ba30-5ae006fccae2.gzip | 2009-01-01 |
 
   @javascript
   Scenario: Importing the sample NCBI tree
@@ -25,16 +29,12 @@ Feature: Importing trees from GNACLR
 
   @javascript
   Scenario: Importing an older revision of the sample NCBI tree
-    Given the GNACLR classification "NCBI" has the following revisions:
-      | number | message                          | file_name                            | created    |
-      | 2      | this is really the best revision | 853437dc-6d9f-ba30-5ae006fccae3.gzip | 2010-01-01 |
-      | 1      | this is the best revision        | 853437dc-4ab5-ba30-5ae006fccae2.gzip | 2009-01-01 |
     When I sign in as "email@person.com/password"
     Then I should be on the master tree index page
     When I follow "Moose tree"
     And I follow "Browse GNACLR Database"
     And I follow "NCBI"
-    #Then "this is really the best revision" should be checked
+    Then "this is really the best revision" should be checked
     When I choose "this is the best revision"
     And I press "Import"
     Then I should see a spinner
