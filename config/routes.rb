@@ -1,7 +1,7 @@
-Gnite::Application.routes.draw do |map|
-  match 'sign_out' => 'sessions#destroy', :as => :sign_out
-  match 'sign_in'  => 'sessions#new',     :as => :sign_in
-  match 'sign_up'  => 'users#new',        :as => :sign_up
+Gnite::Application.routes.draw do
+  match 'sign_out', :to => 'sessions#destroy', :as => :sign_out
+  match 'sign_in',  :to => 'sessions#new',     :as => :sign_in
+  match 'sign_up',  :to => 'users#new',        :as => :sign_up
 
   resource :session, :only => [:new, :create, :destroy], :controller => "sessions"
 

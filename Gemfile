@@ -1,12 +1,12 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.0.beta4'
+gem 'rails', '3.0.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql'
-gem 'clearance', "0.9.0.rc5"
+gem 'clearance', "0.9.0.rc9"
 gem 'factory_girl'
 gem 'formtastic', "1.1.0"
 gem 'engineyard'
