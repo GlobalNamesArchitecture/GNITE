@@ -1,4 +1,6 @@
 class GnaclrImporter
+  NAME_BATCH_SIZE = 10_000.freeze
+
   attr_reader   :darwin_core_data, :name_strings, :tree
   attr_accessor :reference_tree_id, :url
 
@@ -21,47 +23,35 @@ class GnaclrImporter
   end
 
   def store_tree
-    names = {}
-    cache = {}
+    name_strings.in_groups_of(NAME_BATCH_SIZE).each do |group|
+      group = group.compact.collect do |name_string|
+        Name.__send__(:quote_bound_value, name_string)
+      end.join('), (')
 
-    puts "\n\n"
-
-    Benchmark.bm do |x|
-      x.report('Names') do
-        name_strings.each do |name_string|
-          name_id = Name.connection.select_value('SELECT id FROM names WHERE ' + Name.__send__(:sanitize_sql_for_conditions, :name_string => name_string))
-
-          if name_id.nil?
-            name_id = Name.connection.insert("INSERT INTO names (name_string) VALUES (" + Name.__send__(:quote_bound_value, name_string) + ")")
-          end
-
-          names[name_string] = name_id
-        end
-      end
+      Name.connection.execute "BEGIN"
+      Name.connection.insert  "INSERT IGNORE INTO names (name_string) VALUES (#{group})"
+      Name.connection.execute "COMMIT"
     end
 
-    Benchmark.bm do |x|
-      x.report('Nodes') do
-        build_tree(tree, names, cache)
-      end
-    end
-
-    puts "\n\n"
+    build_tree(tree)
   end
 
-  def build_tree(root, names, cache)
+  def build_tree(root, ancestry = nil)
     taxon_ids = root.keys
     taxon_ids.each do |taxon_id|
-      name_id   = names[darwin_core_data[taxon_id].current_name]
-      parent_id = cache[darwin_core_data[taxon_id].parent_id] if darwin_core_data[taxon_id].parent_id
+      next unless taxon_id && darwin_core_data[taxon_id]
 
-      node = Node.create!(:name_id => name_id, :tree_id => reference_tree_id, :parent_id => parent_id)
+      name_sql       = Name.__send__(:quote_bound_value, darwin_core_data[taxon_id].current_name)
+      ancestry_sql   = Node.__send__(:quote_bound_value, ancestry) if ancestry.present?
+      ancestry_sql ||= 'NULL'
 
-      cache[taxon_id] = node.id
+      node_id = Node.connection.insert("INSERT INTO nodes (name_id, tree_id, ancestry) VALUES ((SELECT id FROM names WHERE name_string = #{name_sql} LIMIT 1), #{reference_tree_id}, #{ancestry_sql})")
 
-      build_tree(root[taxon_id], names, cache)
+      next_ancestry = ancestry ? ancestry.dup : ''
+      next_ancestry << '/' unless next_ancestry.empty?
+      next_ancestry << node_id.to_s
 
-      cache.delete(taxon_id)
+      build_tree(root[taxon_id], next_ancestry)
     end
   end
 

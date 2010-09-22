@@ -63,7 +63,8 @@ describe GnaclrImporter, 'store_tree for a valid dwc archive' do
   let(:data) do
     { "cyphophthalmi:tid:402" => @taxon1,
       "cyphophthalmi:tid:375" => @taxon2,
-      "cyphophthalmi:tid:330" => @taxon3 }
+      "cyphophthalmi:tid:330" => @taxon3,
+      "cyphophthalmi:tid:378" => @taxon4 }
   end
 
   before do
@@ -90,10 +91,18 @@ describe GnaclrImporter, 'store_tree for a valid dwc archive' do
     @taxon3.rank="family"
     @taxon3.current_name_canonical="Sironidae"
 
+    @taxon4 = DarwinCore::TaxonNormalized.new
+    @taxon4.current_name="Opiliones"
+    @taxon4.classification_path=["Opiliones", "Sironidae"]
+    @taxon4.id="cyphophthalmi:tid:378"
+    @taxon4.rank="family"
+    @taxon2.parent_id="cyphophthalmi:tid:330"
+    @taxon4.current_name_canonical="Opiliones"
+
     Delayed::Job.stubs(:enqueue)
     subject.stubs(:darwin_core_data => data,
                   :name_strings     => data.values.collect(&:current_name),
-                  :tree             => { @taxon3.id => { @taxon2.id => { @taxon1.id => {} } } })
+                  :tree             => { @taxon3.id => { @taxon2.id => { @taxon1.id => {} }, @taxon4.id => {} } })
     subject.store_tree
   end
 
@@ -109,6 +118,10 @@ describe GnaclrImporter, 'store_tree for a valid dwc archive' do
     leaf_name = Name.find_by_name_string!("Suzukielus sauteri")
     leaf_node = leaf_name.nodes.first
     leaf_node.parent.should == branch_node
+
+    root_name_2 = Name.find_by_name_string!("Opiliones")
+    root_node_2 = root_name_2.nodes.first
+    root_node_2.parent.should == root_node
   end
 end
 
