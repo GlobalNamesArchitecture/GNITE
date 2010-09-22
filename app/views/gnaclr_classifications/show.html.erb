@@ -19,7 +19,6 @@
     </div>
     <% if @gnaclr_classification.description.present? %>
     <p><%= @gnaclr_classification.description %></p>
-    <input id="import-gnaclr-button" class="green-submit" name="Import" type="submit" value="Import" data-tree-url="<%= @gnaclr_classification.file_url %>">
   <% end %>
 </div>
 
@@ -31,16 +30,16 @@
     <% first = true %>
     <% @gnaclr_classification.revisions.each do |revision| -%>
       <li>
-        <label>
-          <input type="radio" name="revision" value="<%=revision.number-%>" <%= 'checked' if first -%> data-tree-url="<%= revision.url %>"/>
-          <p class="revision-message"><%= revision.message -%></p>
-          <p class="revision-number"><%= revision.number -%></p>
-        </label>
+          <p class="revision-number"><%= revision.sequence_number -%></p>
+          <p class="revision-commited-date"><%= revision.commited_date -%></p>
+          <label for="revision<%=revision.sequence_number-%>">
+            <input type="radio" name="revision" value="<%=revision.sequence_number-%>" id="revision_<%=revision.sequence_number-%>" <%= 'checked' if first -%> data-tree-url="<%= revision.url %>"/>
+            <%= revision.message -%>
+          </label>
       </li>
       <% first = false %>
     <% end -%>
   </ul>
-
   <input id="import-gnaclr-button" class="green-submit" name="Import" type="submit" value="Import">
   </form>
 </div>

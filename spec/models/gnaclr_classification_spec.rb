@@ -65,18 +65,18 @@ describe GnaclrClassification, "attributes" do
   end
 
   let(:revision_1) do
-    { :number    => 1,
-      :message   => 'first',
-      :tree_id   => '123',
-      :file_name => 'first_file_name',
-      :url       => 'first_url' }
+    { :sequence_number => 1,
+      :message         => 'first',
+      :tree_id         => '123',
+      :file_name       => 'first_file_name',
+      :url             => 'first_url' }
   end
   let(:revision_2) do
-    { :number    => 2,
-      :message   => 'second',
-      :tree_id   => '234',
-      :file_name => 'second_file_name',
-      :url       => 'second_url' }
+    { :sequence_number => 2,
+      :message         => 'second',
+      :tree_id         => '234',
+      :file_name       => 'second_file_name',
+      :url             => 'second_url' }
   end
 
   before do
@@ -130,11 +130,11 @@ describe GnaclrClassification, 'adding a revision' do
   end
 
   let(:revision_attributes) do
-    { :url        => 'http://gnaclr.globalnames.org',
-      :file_name  => 'example.tgz',
-      :tree_id    => 'some id',
-      :message    => 'revision message',
-      :number     => 1 }
+    { :url             => 'http://gnaclr.globalnames.org',
+      :file_name       => 'example.tgz',
+      :tree_id         => 'some id',
+      :message         => 'revision message',
+      :sequence_number => 1 }
   end
 
   it 'accepts a revision when it has no revisions' do

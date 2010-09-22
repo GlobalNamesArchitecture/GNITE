@@ -7,9 +7,9 @@ Feature: Importing trees from GNACLR
       | title          | author_list                           | description             | updated             | uuid | file_url             |
       | NCBI           | Dmitry Mozzherin <dmitry@example.com> | NCBI classification     | 2010-07-15 16:49:40 | 1    | cyphophthalmi.tar.gz |
     And the GNACLR classification "NCBI" has the following revisions:
-      | number | message                          | url                | created    |
-      | 2      | this is really the best revision | cyphophthalmi.gzip | 2010-01-01 |
-      | 1      | this is the best revision        | cyphophthalmi.gzip | 2009-01-01 |
+      | sequence_number | message                          | url                  | commited_date |
+      | 2               | this is really the best revision | cyphophthalmi.tar.gz | 2010-02-01    |
+      | 1               | this is the best revision        | cyphophthalmi.tar.gz | 2010-01-01    |
 
   @javascript
   Scenario: Importing the sample NCBI tree
@@ -40,7 +40,7 @@ Feature: Importing trees from GNACLR
     Then I should see a spinner
     When delayed jobs are run
     Then I should not see a spinner
-    And I should see an "NCBI rev. 1" tab
-    And the "NCBI rev. 1" tab should be active
+    And I should see an "NCBI" tab
+    And the "NCBI" tab should be active
     And I should see a node "Cyphophthalmi incertae sedis" at the root level in my reference tree "NCBI"
     And I should see a node "Opiliones" at the root level in my reference tree "NCBI"

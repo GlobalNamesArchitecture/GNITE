@@ -1378,3 +1378,10 @@ ul#treelist li,  #search, .tree-background, #loginform .input, .green-submit, .c
 #nav li:not(#active), #add-node p, .metadata-header h2, #tree-newimport li h2, #add-node {
   text-shadow: 0px 1px 0px rgba(255,255,255,0.8);
 }
+
+.spinner {
+  background: white url("/images/loading.gif") no-repeat center center;
+  opacity: 0.75;
+  filter: alpha(opacity=75);
+  -moz-opacity: 0.75;
+  -khtml-opacity: 0.75; }

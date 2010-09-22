@@ -30,7 +30,6 @@ module FakeGnaclr
         if hash['file_url']
           hash['file_url'] = 'file:///' + Rails.root.join('features/support/fixtures', hash['file_url']).to_s
         end
-
         extract_author_list(hash)
         @@classifications.push(GnaclrClassification.new(hash))
       end
@@ -38,6 +37,9 @@ module FakeGnaclr
 
     def self.insert_revision_for_classification_title(opts)
       revision_attributes  = opts[:revision_attributes]
+        if revision_attributes['url']
+          revision_attributes['url'] = 'file:///' + Rails.root.join('features/support/fixtures', revision_attributes['url']).to_s
+        end
       classification_title = opts[:classification_title]
       classification = @@classifications.detect { |c| c.title == classification_title }
       classification.add_revision_from_attributes(revision_attributes)

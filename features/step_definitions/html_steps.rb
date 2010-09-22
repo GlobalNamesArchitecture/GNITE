@@ -14,5 +14,5 @@ end
 
 Then /^"([^"]*)" should be checked/ do |label|
   field = find_field(label)
-  field['checked'].should == 'checked'
+  field['checked'].should == 'true'
 end

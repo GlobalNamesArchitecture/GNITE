@@ -1,4 +1,37 @@
 $(document).ready(function() {
+
+  $.fn.spinner = function() {
+    if (this[0].spinnerElement) {
+      return;
+    }
+
+    var spinnerElement = $('<div class="spinner"></div>')
+    .css({
+      position:  "absolute",
+      display:   "none",
+      "z-index": 2,
+      top:       this.offset().top,
+      left:      this.offset().left,
+      width:     this.outerWidth(),
+      height:    this.outerHeight()
+    })
+    $("body").append(spinnerElement);
+    spinnerElement.fadeIn("fast");
+    this.each(function () { this.spinnerElement = spinnerElement[0]; });
+    return this;
+  };
+
+  $.fn.unspinner = function() {
+    this.each(function () {
+      var spinnerElement = $(this.spinnerElement);
+      spinnerElement.fadeOut("fast", function() {
+        spinnerElement.remove();
+      });
+      this.spinnerElement = null;
+    });
+    return this;
+  };
+
   $('#browse-gnaclr-button').live('click', function() {
     var url = $(this).attr("href");
     $('#new-tab').load(url);
@@ -18,16 +51,15 @@ $(document).ready(function() {
   });
 
   $('#import-gnaclr-button').live('click', function() {
-    $('#gnaclr-description').append('<div class="spinner" />');
+    $('#tree-newimport').spinner();
 
     var checkedRadioButton = $("#tree-revisions form input:checked");
     $.post('/gnaclr_imports', { master_tree_id : $('#tree-container').attr('data-database-id'), title : $('#gnaclr-description h2').text(), url : checkedRadioButton.attr('data-tree-url') }, function(response) {
       var tree_id = response.tree_id;
       var timeout = setTimeout(function checkImportStatus() {
         $.get('/reference_trees/' + tree_id, { format : 'json' }, function(response, status, xhr) {
-          console.log(response);
           if (xhr.status == 200) {
-            $('.spinner').remove();
+            $('#tree-newimport').unspinner()
             $('#new-tab').before(response.tree);
             $('#tabs').tabs('add', '#' + response.domid, response.title, $('#tabs').tabs('length') - 2)
 
@@ -61,5 +93,7 @@ $(document).ready(function() {
         });
       }, 2000);
     }, 'json');
+    return false;
   });
+
 });
