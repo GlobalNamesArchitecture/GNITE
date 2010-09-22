@@ -1,5 +1,5 @@
 class GnaclrImporter
-  attr_reader   :darwin_core_data
+  attr_reader   :darwin_core_data, :name_strings, :tree
   attr_accessor :reference_tree_id, :url
 
   def initialize(opts)
@@ -14,23 +14,54 @@ class GnaclrImporter
 
   def read_tarball
     dwc               = DarwinCore.new(tarball_path)
-    @darwin_core_data = DarwinCore::ClassificationNormalizer.new(dwc).normalize
+    normalizer        = DarwinCore::ClassificationNormalizer.new(dwc)
+    @darwin_core_data = normalizer.normalize
+    @tree             = normalizer.tree
+    @name_strings     = normalizer.name_strings
   end
 
   def store_tree
-    id_hash = {}
-    darwin_core_data.each do |taxon_id, taxon_normalized|
-      name = Name.find_or_create_by_name_string(taxon_normalized.current_name)
-      node = Node.create!(:name    => name,
-                          :tree_id => reference_tree_id)
-      id_hash[taxon_normalized.id] = node.id
-    end
-    id_hash.each do |taxon_id, node_id|
-      if parent_id = id_hash[darwin_core_data[taxon_id].parent_id]
-        node           = Node.find(node_id)
-        node.parent_id = parent_id
-        node.save
+    names = {}
+    cache = {}
+
+    puts "\n\n"
+
+    Benchmark.bm do |x|
+      x.report('Names') do
+        name_strings.each do |name_string|
+          name_id = Name.connection.select_value('SELECT id FROM names WHERE ' + Name.__send__(:sanitize_sql_for_conditions, :name_string => name_string))
+
+          if name_id.nil?
+            name_id = Name.connection.insert("INSERT INTO names (name_string) VALUES (" + Name.__send__(:quote_bound_value, name_string) + ")")
+          end
+
+          names[name_string] = name_id
+        end
       end
+    end
+
+    Benchmark.bm do |x|
+      x.report('Nodes') do
+        build_tree(tree, names, cache)
+      end
+    end
+
+    puts "\n\n"
+  end
+
+  def build_tree(root, names, cache)
+    taxon_ids = root.keys
+    taxon_ids.each do |taxon_id|
+      name_id   = names[darwin_core_data[taxon_id].current_name]
+      parent_id = cache[darwin_core_data[taxon_id].parent_id] if darwin_core_data[taxon_id].parent_id
+
+      node = Node.create!(:name_id => name_id, :tree_id => reference_tree_id, :parent_id => parent_id)
+
+      cache[taxon_id] = node.id
+
+      build_tree(root[taxon_id], names, cache)
+
+      cache.delete(taxon_id)
     end
   end
 

@@ -91,7 +91,9 @@ describe GnaclrImporter, 'store_tree for a valid dwc archive' do
     @taxon3.current_name_canonical="Sironidae"
 
     Delayed::Job.stubs(:enqueue)
-    subject.stubs(:darwin_core_data => data)
+    subject.stubs(:darwin_core_data => data,
+                  :name_strings     => data.values.collect(&:current_name),
+                  :tree             => { @taxon3.id => { @taxon2.id => { @taxon1.id => {} } } })
     subject.store_tree
   end
 

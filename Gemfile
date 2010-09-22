@@ -15,7 +15,7 @@ gem 'ancestry', '1.2.1.beta.1', :git => "git://github.com/thoughtbot/ancestry.gi
 gem 'uuid'
 gem 'crack'
 gem 'delayed_job', '2.1.0.pre2'
-gem 'dwc-archive', '0.4.5'
+gem 'dwc-archive', '0.4.11'
 gem 'fastercsv'
 gem 'parsley-store'
 gem 'SystemTimer'
