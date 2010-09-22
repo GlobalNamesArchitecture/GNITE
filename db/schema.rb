@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(:version => 20100921200015) do
     t.datetime "updated_at"
   end
 
-  add_index "names", ["name_string"], :name => "index_names_on_name_string"
+  add_index "names", ["name_string"], :name => "index_names_on_name_string", :unique => true
 
   create_table "nodes", :force => true do |t|
     t.integer  "tree_id"

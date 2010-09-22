@@ -1,6 +1,6 @@
 class IndexNameStringOnNames < ActiveRecord::Migration
   def self.up
-    add_index :names, :name_string
+    add_index :names, :name_string, :unique => true
   end
 
   def self.down
