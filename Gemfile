@@ -39,7 +39,7 @@ group :development do
   # # see http://blog.davidchelimsky.net/2010/07/11/rspec-rails-2-generators-and-rake-tasks-part-ii/
   # gem 'rspec-rails', "2.0.0.beta.19"
   gem 'shoulda', :git => 'git://github.com/thoughtbot/shoulda.git'
-  gem 'rspec-rails', "2.0.0.beta.19"
+  gem 'rspec-rails', "2.0.0.beta.22"
   gem 'high_voltage'
 end
 
@@ -49,7 +49,7 @@ group :test do
   gem 'database_cleaner'
   gem 'cucumber-rails'
   gem 'cucumber'
-  gem 'rspec-rails', "2.0.0.beta.19"
+  gem 'rspec-rails', "2.0.0.beta.22"
   gem 'bourne'
   gem 'spork'
   gem 'launchy'    # So you can do Then show me the page
