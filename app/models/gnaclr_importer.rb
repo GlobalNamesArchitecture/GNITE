@@ -29,11 +29,12 @@ class GnaclrImporter
       end.join('), (')
 
       Name.connection.execute "BEGIN"
-      Name.connection.insert  "INSERT IGNORE INTO names (name_string) VALUES (#{group})"
+      Name.connection.execute "INSERT IGNORE INTO names (name_string) VALUES (#{group})"
       Name.connection.execute "COMMIT"
     end
 
     build_tree(tree)
+    insert_synonyms_and_vernacular_names
   end
 
   def build_tree(root, ancestry = nil)
@@ -51,9 +52,41 @@ class GnaclrImporter
       next_ancestry << '/' unless next_ancestry.empty?
       next_ancestry << node_id.to_s
 
+      add_synonyms_and_vernacular_names(node_id, taxon_id)
       build_tree(root[taxon_id], next_ancestry)
     end
   end
+
+  def add_synonyms_and_vernacular_names(node_id, taxon_id)
+    (@synonyms ||= []) << [node_id, darwin_core_data[taxon_id].synonyms]
+    (@vernacular_names ||= []) << [node_id, darwin_core_data[taxon_id].vernacular_names]
+  end
+  private :add_synonyms_and_vernacular_names
+
+  def insert_synonyms_and_vernacular_names
+    (@synonyms + @vernacular_names).collect do |node_id, names|
+      names.map(&:name)
+    end.flatten.in_groups_of(NAME_BATCH_SIZE).each do |group|
+      group = group.compact.collect do |name_string|
+        Name.__send__(:quote_bound_value, name_string)
+      end.join('), (')
+      Name.connection.execute "BEGIN"
+      Name.connection.execute "INSERT IGNORE INTO names (name_string) VALUES (#{group})"
+      Name.connection.execute "COMMIT"
+    end
+
+    { 'synonyms'         => @synonyms,
+      'vernacular_names' => @vernacular_names }.each do |table, alternate_names|
+      alternate_names.each do |node_id, names|
+        names.map(&:name).each do |name_string|
+          name_sql = Name.__send__(:quote_bound_value, name_string)
+
+          Name.connection.execute "INSERT INTO #{table} (node_id, name_id) VALUES (#{node_id.to_i}, (SELECT id FROM names WHERE name_string = #{name_sql} LIMIT 1))"
+        end
+      end
+    end
+  end
+  private :insert_synonyms_and_vernacular_names
 
   def activate_tree
     ReferenceTree.update_all 'state = "active"', "id = #{reference_tree_id}"

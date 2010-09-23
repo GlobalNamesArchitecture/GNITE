@@ -29,3 +29,13 @@ end
 Factory.define :name do |name|
   name.name_string { Factory.next(:name_string) }
 end
+
+Factory.define :synonym do |synonym|
+  synonym.association :node
+  synonym.association :name
+end
+
+Factory.define :vernacular_name do |vernacular|
+  vernacular.association :node
+  vernacular.association :name
+end

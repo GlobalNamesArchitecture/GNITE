@@ -3,6 +3,9 @@ class Node < ActiveRecord::Base
   belongs_to :tree
   belongs_to :name
 
+  has_many :synonyms
+  has_many :vernacular_names
+
   has_ancestry
 
   delegate :name_string, :to => :name
