@@ -52,6 +52,7 @@ $(document).ready(function() {
 
   $('#import-gnaclr-button').live('click', function() {
     $('#tree-newimport').spinner();
+    $('#import-gnaclr-button').remove();
 
     var checkedRadioButton = $("#tree-revisions form input:checked");
     $.post('/gnaclr_imports', { master_tree_id : $('#tree-container').attr('data-database-id'), title : $('#gnaclr-description h2').text(), url : checkedRadioButton.attr('data-tree-url') }, function(response) {

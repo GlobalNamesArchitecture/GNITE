@@ -9,6 +9,8 @@ module NamedElementHelper
       "#navbar"
     when /the master tree title field/
       "#master_tree_title"
+    when /the gnaclr import button/
+      '#import-gnaclr-button'
 
     else
       raise "Can't find mapping for \"#{named_element}\"."

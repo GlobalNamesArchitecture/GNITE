@@ -20,6 +20,7 @@ Feature: Importing trees from GNACLR
     And I follow "NCBI"
     And I press "Import"
     Then I should see a spinner
+    And I should not see the gnaclr import button
     When delayed jobs are run
     Then I should not see a spinner
     And I should see an "NCBI" tab
@@ -38,6 +39,7 @@ Feature: Importing trees from GNACLR
     When I choose "this is the best revision"
     And I press "Import"
     Then I should see a spinner
+    And I should not see the gnaclr import button
     When delayed jobs are run
     Then I should not see a spinner
     And I should see an "NCBI" tab
