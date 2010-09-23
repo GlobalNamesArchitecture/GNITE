@@ -9,6 +9,7 @@ Feature: Create and manage master trees
     Then I should be on the master tree index page
     When I follow "New Master Tree"
     Then I should be on the master tree page for "New Master Tree"
+    And I should see "Enter a title for your newly created tree."
     And I should be focused on the master tree title field
     When I click on the page
     Then I should see "Please enter a title for your tree."

@@ -1,6 +1,6 @@
 <div id="header">
   <% if @master_tree.title == 'New Master Tree' %>
-    <input type="text" id="master_tree_title"><span class="error"></span>
+    <input type="text" id="master_tree_title"><span>Enter a title for your newly created tree.</span>
   <% else %>
     <h1><%= @master_tree.title %></h1>
   <% end %>
@@ -251,7 +251,7 @@
               self.focus();
             }, 10);
 
-            self.next().text('Please enter a title for your tree.');
+            self.next().text('Please enter a title for your tree.').addClass('error');
           } else {
             var title = self.val();
 
@@ -265,6 +265,11 @@
                 .end()
                 .remove();
             });
+          }
+        })
+        .keypress(function(event) {
+          if (event.which == 13) {
+            $(this).blur();
           }
         });
     });

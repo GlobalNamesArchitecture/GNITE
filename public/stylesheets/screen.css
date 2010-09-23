@@ -32,9 +32,13 @@ body {
   width: 20%;
 }
 
+#header span {
+  color: #FFF;
+  margin: 0 0 0 10px;
+}
+
 #header span.error {
   color: #d10000;
-  margin: 0 0 0 10px;
 }
 
 #fluid-head {
