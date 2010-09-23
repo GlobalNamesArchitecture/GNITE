@@ -1095,7 +1095,7 @@ ul#revisions li p.revision-number {
   margin: 0 0 4px 20px;
 }
 
-ul#revisions li p.revision-message {
+ul#revisions li span.revision-message {
   margin: 0 0 0 20px;
 }
 

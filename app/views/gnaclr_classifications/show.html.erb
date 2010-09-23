@@ -34,7 +34,7 @@
           <p class="revision-commited-date"><%= revision.commited_date -%></p>
           <label for="revision<%=revision.sequence_number-%>">
             <input type="radio" name="revision" value="<%=revision.sequence_number-%>" id="revision_<%=revision.sequence_number-%>" <%= 'checked' if first -%> data-tree-url="<%= revision.url %>"/>
-            <p class="revision-message"><%= revision.message -%></p>
+            <span class="revision-message"><%= revision.message -%></span>
           </label>
       </li>
       <% first = false %>
