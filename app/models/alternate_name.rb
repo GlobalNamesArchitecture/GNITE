@@ -10,9 +10,3 @@ module AlternateName
     end
   end
 end
-
-ActiveRecord::Base.class_eval do
-  def self.acts_as_alternate_name
-    include AlternateName
-  end
-end
