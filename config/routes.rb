@@ -29,5 +29,7 @@ Gnite::Application.routes.draw do
     resources :nodes,         :only => [:index, :show]
   end
 
+  resource :search, :only => [:show]
+
   root :to => "homes#show"
 end

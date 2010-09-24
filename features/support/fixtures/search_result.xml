@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hash>
+  <search_term>Leptogaster weslacensis</search_term>
+  <scientific_name_search>
+    <next_page nil="true"></next_page>
+    <total_count type="integer">1</total_count>
+    <per_page type="integer">5</per_page>
+    <total_pages type="integer">1</total_pages>
+    <classifications type="array">
+      <classification>
+        <rank>species</rank>
+        <authors type="array">
+          <author>
+            <first_name>Keith</first_name>
+            <last_name>Bayless</last_name>
+            <email>keith.bayless@gmail.com</email>
+          </author>
+          <author>
+            <first_name>Torsten</first_name>
+            <last_name>Dikow</last_name>
+            <email>dshorthouse@eol.org</email>
+          </author>
+        </authors>
+        <url>http://leptogastrinae.lifedesks.org/files/leptogastrinae/classification_export/shared/leptogastrinae.tar.gz</url>
+        <uuid>f02f9ac3-4500-5e8e-8a5d-68c9917f3bde</uuid>
+        <path>Leptogastrinae|Leptogastrini|Apachekolos|Apachekolos weslacensis</path>
+        <found_as>synonym</found_as>
+        <current_name>Apachekolos weslacensis (Bromley, 1951)</current_name>
+        <citation>Dikow, Torsten. 2010. The Leptogastrinae classification.</citation>
+        <file_url>/files/f02f9ac3-4500-5e8e-8a5d-68c9917f3bde/data_v1.tar.gz</file_url>
+        <revisions type="array">
+          <revision>
+            <url_path>/classification_file/1/b79783b37d458f158dd830e966815c5913217dbe</url_path>
+            <tree_id>b79783b37d458f158dd830e966815c5913217dbe</tree_id>
+            <message>2010-09-24 at 09:18:46 AM</message>
+            <committed_date type="datetime">2010-09-24T09:18:46-04:00</committed_date>
+            <file_name>data_v1.tar.gz</file_name>
+            <id>8788ab78e8804099c881baf65822674ba1a9e003</id>
+            <sequence_number type="integer">1</sequence_number>
+          </revision>
+        </revisions>
+        <title>Leptogastrinae (Diptera: Asilidae) Classification</title>
+        <synonyms nil="true"></synonyms>
+        <updated type="datetime">2010-09-24T09:18:46-04:00</updated>
+        <vernacular_names nil="true"></vernacular_names>
+        <created type="datetime">2010-09-24T09:18:46-04:00</created>
+        <id type="integer">1</id>
+        <description>These are all the names in the Leptogastrinae classification.</description>
+      </classification>
+    </classifications>
+    <previous_page nil="true"></previous_page>
+    <page type="integer">1</page>
+  </scientific_name_search>
+  <vernacular_name_search>
+    <next_page nil="true"></next_page>
+    <total_count type="integer">1</total_count>
+    <per_page type="integer">5</per_page>
+    <total_pages type="integer">1</total_pages>
+    <classifications type="array">
+      <classification>
+        <rank>subfamily</rank>
+        <authors type="array">
+          <author>
+            <first_name>Keith</first_name>
+            <last_name>Bayless</last_name>
+            <email>keith.bayless@gmail.com</email>
+          </author>
+          <author>
+            <first_name>Torsten</first_name>
+            <last_name>Dikow</last_name>
+            <email>dshorthouse@eol.org</email>
+          </author>
+        </authors>
+        <url>http://leptogastrinae.lifedesks.org/files/leptogastrinae/classification_export/shared/leptogastrinae.tar.gz</url>
+        <uuid>f02f9ac3-4500-5e8e-8a5d-68c9917f3bde</uuid>
+        <path>Leptogastrinae</path>
+        <current_name>Leptogastrinae</current_name>
+        <citation>Dikow, Torsten. 2010. The Leptogastrinae classification.</citation>
+        <file_url>/files/f02f9ac3-4500-5e8e-8a5d-68c9917f3bde/data_v1.tar.gz</file_url>
+        <revisions type="array">
+          <revision>
+            <url_path>/classification_file/1/b79783b37d458f158dd830e966815c5913217dbe</url_path>
+            <tree_id>b79783b37d458f158dd830e966815c5913217dbe</tree_id>
+            <message>2010-09-24 at 09:18:46 AM</message>
+            <committed_date type="datetime">2010-09-24T09:18:46-04:00</committed_date>
+            <file_name>data_v1.tar.gz</file_name>
+            <id>8788ab78e8804099c881baf65822674ba1a9e003</id>
+            <sequence_number type="integer">1</sequence_number>
+          </revision>
+        </revisions>
+        <title>Leptogastrinae (Diptera: Asilidae) Classification</title>
+        <synonyms nil="true"></synonyms>
+        <updated type="datetime">2010-09-24T09:18:46-04:00</updated>
+        <vernacular_names type="array">
+          <vernacular_name>Grass flies</vernacular_name>
+        </vernacular_names>
+        <created type="datetime">2010-09-24T09:18:46-04:00</created>
+        <id type="integer">1</id>
+        <description>These are all the names in the Leptogastrinae classification.</description>
+      </classification>
+    </classifications>
+    <previous_page nil="true"></previous_page>
+    <page type="integer">1</page>
+  </vernacular_name_search>
+  <classification_metadata_search>
+    <next_page nil="true"></next_page>
+    <total_count type="integer">1</total_count>
+    <per_page type="integer">5</per_page>
+    <total_pages type="integer">1</total_pages>
+    <classifications type="array">
+      <classification>
+        <authors type="array">
+          <author>
+            <first_name>Keith</first_name>
+            <last_name>Bayless</last_name>
+            <email>keith.bayless@gmail.com</email>
+          </author>
+          <author>
+            <first_name>Torsten</first_name>
+            <last_name>Dikow</last_name>
+            <email>dshorthouse@eol.org</email>
+          </author>
+        </authors>
+        <url>http://leptogastrinae.lifedesks.org/files/leptogastrinae/classification_export/shared/leptogastrinae.tar.gz</url>
+        <uuid>f02f9ac3-4500-5e8e-8a5d-68c9917f3bde</uuid>
+        <citation>Dikow, Torsten. 2010. The Leptogastrinae classification.</citation>
+        <file_url>/files/f02f9ac3-4500-5e8e-8a5d-68c9917f3bde/data_v1.tar.gz</file_url>
+        <revisions type="array">
+          <revision>
+            <url_path>/classification_file/1/b79783b37d458f158dd830e966815c5913217dbe</url_path>
+            <tree_id>b79783b37d458f158dd830e966815c5913217dbe</tree_id>
+            <message>2010-09-24 at 09:18:45 AM</message>
+            <committed_date type="datetime">2010-09-24T09:18:45-04:00</committed_date>
+            <file_name>data_v1.tar.gz</file_name>
+            <id>3ae77caa9f5a557d04395214c4b8fe18475db741</id>
+            <sequence_number type="integer">1</sequence_number>
+          </revision>
+        </revisions>
+        <title>Leptogastrinae (Diptera: Asilidae) Classification</title>
+        <updated type="datetime">2010-09-24T09:18:45-04:00</updated>
+        <created type="datetime">2010-09-24T09:18:45-04:00</created>
+        <id type="integer">1</id>
+        <description>These are all the names in the Leptogastrinae classification.</description>
+      </classification>
+    </classifications>
+    <previous_page nil="true"></previous_page>
+    <page type="integer">1</page>
+  </classification_metadata_search>
+</hash>

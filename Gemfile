@@ -34,7 +34,7 @@ group :test do
   gem 'mocha'
   gem 'bourne'
   gem 'sham_rack'
-  gem 'sinatra'
+  gem 'sinatra', :require => false
   gem 'timecop'
   gem 'factory_girl'
   gem 'shoulda', :git => 'git://github.com/thoughtbot/shoulda.git'

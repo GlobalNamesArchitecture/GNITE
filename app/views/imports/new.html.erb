@@ -5,8 +5,10 @@
 <ul>
   <li class="gnaclr-search">
     <h1>Search GNACLR database</h1>
-    <p>Full search on nodes and metadata</p>
-    <input type="text">
+    <label for="search">
+      <p>Full search on nodes and metadata</p>
+      <input type="text" id="search">
+    </label>
   </li>
   <li>
     <%= link_to master_tree_gnaclr_classifications_path(@master_tree), :class => 'ajax-load-new-tab' do %>
@@ -39,3 +41,28 @@
     <% end %>
   </li>
 </ul>
+
+<% content_for :javascript do -%>
+  <script type="text/javascript">
+    $(function() {
+      $("#search")
+        .focus()
+        .blur(function(){
+          var searchBox  = $(this);
+          var searchTerm = searchBox.val().trim();
+          if (searchTerm.length > 0) {
+            searchBox.parents(".gnaclr-search").first().spinner();
+            $.get('/search', { 'search_term': searchTerm }, function(search_results){
+              $('#new-tab .tree-background').html(search_results);
+              searchBox.parents(".gnaclr-search").first().unspinner();
+            });
+          }
+        })
+        .keypress(function(event) {
+          if (event.which == 13) {
+            $(this).blur();
+          }
+        });
+    });
+  </script>
+<% end -%>

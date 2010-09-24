@@ -1,19 +1,32 @@
 require 'sham_rack'
-require 'sinatra'
+require 'sinatra/base'
 require 'builder'
 
 module FakeGnaclr
   class App < Sinatra::Base
     get '/classifications' do
       xml = {
-        :classifications => Store.all.map do |classification|
+        :classifications => ClassificationStore.all.map do |classification|
           classification.attributes
         end
       }.to_xml
     end
+
+    get '/search' do
+       SearchXml.xml_response
+    end
   end
 
-  class Store
+  class SearchXml
+    attr_accessor :xml_response
+
+    def self.xml_response
+      @xml_response ||= File.read(Rails.root.join('features', 'support', 'fixtures', 'search_result.xml'))
+    end
+
+  end
+
+  class ClassificationStore
     cattr_accessor :classifications
     @@classifications = []
 
@@ -68,5 +81,5 @@ ShamRack.at(GnaclrClassification::URL).rackup do
 end
 
 Before do
-  FakeGnaclr::Store.clear!
+  FakeGnaclr::ClassificationStore.clear!
 end

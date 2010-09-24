@@ -11,7 +11,8 @@ module NamedElementHelper
       "#master_tree_title"
     when /the gnaclr import button/
       '#import-gnaclr-button'
-
+    when /the Scientific Name tab/
+      'li#scientific-name-tab'
     else
       raise "Can't find mapping for \"#{named_element}\"."
     end

@@ -1,40 +1,42 @@
 <div class="tree-column">
   <div id="treewrap-right">
-  <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
-    <ul id="tab-titles" class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-      <li class="ui-state-default ui-corner-top">
-        <a href="#" id="all-tabs">All working trees</a>
+    <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+      <ul id="tab-titles" class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+        <li class="ui-state-default ui-corner-top">
+          <a href="#" id="all-tabs">All working trees</a>
 
-        <ul id="working-trees">
-          <% @master_tree.reference_trees.each do |reference_tree| %>
-            <li><a href="#<%= dom_id(reference_tree) %>"><%= reference_tree.title %></a></li>
-          <% end %>
-        </ul>
-      </li>
-      <li id="trash" class="ui-state-default ui-corner-top"><a href="#trash-tab">Trash</a></li>
-      <li id="import" class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#new-tab">Import</a></li>
-    </ul>
-
-    <!-- Start tab content -->
-    <% @master_tree.reference_trees.each do |reference_tree| %>
-      <%= render :partial => 'reference_trees/reference_tree', :locals => { :reference_tree => reference_tree } %>
-    <% end %>
-    <!-- End of reference trees tabs -->
-    <div id="new-tab" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
-        <%= render :template => 'imports/new', :layout => 'layouts/right_tree' %>
-    </div>
-    <!-- End of tabs-new tab -->
-    <div id="trash-tab" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
-      <div class="tree-background dark">
-        <div class="breadcrumbs">
-          <ul>
-            <li>Trash Bin</li>
+          <ul id="working-trees">
+            <% @master_tree.reference_trees.each do |reference_tree| %>
+              <li><a href="#<%= dom_id(reference_tree) %>"><%= reference_tree.title %></a></li>
+            <% end %>
           </ul>
-        </div>
-        <p class="no_content_message">Your Trash Bin is currently Empty.</p>
+        </li>
+        <li id="trash" class="ui-state-default ui-corner-top"><a href="#trash-tab">Trash</a></li>
+        <li id="import" class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#new-tab">Import</a></li>
+      </ul>
+
+      <!-- Start tab content -->
+      <% @master_tree.reference_trees.each do |reference_tree| %>
+        <%= render :partial => 'reference_trees/reference_tree', :locals => { :reference_tree => reference_tree } %>
+      <% end %>
+      <!-- End of reference trees tabs -->
+      <div id="new-tab" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+          <%= render :template => 'imports/new', :layout => 'layouts/right_tree' %>
       </div>
-   </div>
-   <!-- End of trash tab -->
+      <!-- End of tabs-new tab -->
+      <div id="trash-tab" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+        <div class="tree-background dark">
+          <div class="breadcrumbs">
+            <ul>
+              <li>Trash Bin</li>
+            </ul>
+          </div>
+          <p class="no_content_message">Your Trash Bin is currently Empty.</p>
+        </div>
+      </div>
+      <!-- End of trash tab -->
+    </div>
+  </div>
 </div>
 
 <% content_for :javascript do %>

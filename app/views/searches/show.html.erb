@@ -1,0 +1,42 @@
+<div class="breadcrumbs">
+  <ul>
+    <li>GNACLR search</li>
+    <li><%= @results['search_term'] -%></li>
+  </ul>
+
+</div>
+
+<div id="search-results">
+  <ul>
+    <li id="scientific-name-tab">
+      <a href="#scientific-name-search-results">
+        Scientific Name
+        <div class="count"><%= @results['scientific_name_search']['total_count'] -%></div>
+      </a>
+    </li>
+    <li id="vernacular_name_tab">
+      <a href="#vernacular-name-search-results">
+        Vernacular Name
+        <div class="count"><%= @results['vernacular_name_search']['total_count'] -%></div>
+      </a>
+    </li>
+    <li id="metadata-search-tab">
+      <a href="#metadata-search-results">
+        Metadata
+        <div class="count"><%= @results['classification_metadata_search']['total_count'] -%></div>
+      </a>
+    </li>
+  </ul>
+  <div id="scientific-name-search-results">
+    <h3>Scientific Name</h3>
+    <%= render :partial => 'search_results', :locals => { :results_hash => @results['scientific_name_search'] } %>
+  </div>
+  <div id="vernacular-name-search-results">
+    <h3>Vernacular Name</h3>
+    <%= render :partial => 'search_results', :locals => { :results_hash => @results['vernacular_name_search'] } %>
+  </div>
+  <div id="classification-metadata-search">
+    <h3>Classification Metadata</h3>
+    <%= render :partial => 'search_results', :locals => { :results_hash => @results['classification_metadata_search'] } %>
+  </div>
+</div>

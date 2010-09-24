@@ -1,0 +1,21 @@
+<ul class="classifications">
+  <% results_hash['classifications'].each do |classification| -%>
+    <li id="<%= classification['uuid'] -%>">
+      <div class="title"> <%= classification['title'] -%> </div>
+      <div class="description"> <%= classification['description'] -%></div>
+      <div class="rank"> <%= classification['rank'] -%></div>
+      <div class="path"> <%= classification['path'] -%></div>
+      <div class="current_name"> <%= classification['current_name'] -%></div>
+      <h4>Authors</h4>
+      <ul class="authors">
+        <% classification['authors'].each do |author| %>
+          <li>
+            <div class="name"><%= "#{author['first_name']} #{author['last_name']}"-%></div>
+            <div class="email"><%= mail_to(author['email']) -%></div>
+          </li>
+        <% end %>
+      </ul>
+      <a href="#">Import</a>
+    </li>
+  <% end %>
+</ul>
