@@ -3,18 +3,16 @@
   <div id="tabs">
     <ul id="tab-titles">
       <li>
-        <a href="#new-tab" id="all-tabs">All working trees</a>
+        <a href="#" id="all-tabs">All working trees</a>
+
         <ul id="working-trees" style="display: block;">
-          <li><a href="#1">First tree</a></li>
-          <li><a href="#2">Second tree</a></li>
-          <li><a href="#3">Third tree</a></li>
-          <li><a href="#4">Fourth tree</a></li>
-          <li><a href="#5">Fifth tree</a></li>
-          <li><a href="#6">Sixth tree</a></li>
+          <% @master_tree.reference_trees.each do |reference_tree| %>
+            <li><a href="#<%= dom_id(reference_tree) %>"><%= reference_tree.title %></a></li>
+          <% end %>
         </ul>
       </li>
       <li id="trash"><a href="#trash-tab">Trash</a></li>
-      <li id="import"><a href="#import-tab">Import</a></li>
+      <li id="import"><a href="#new-tab">Import</a></li>
     </ul>
 
     <!-- Start tab content -->

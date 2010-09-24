@@ -29,9 +29,9 @@ Feature: Browse GNACLR
     And I follow "Waterpigs"
 
   @javascript
-  Scenario: Browse GNACLR from "New Tab" interface
-    When I follow "New Tab"
-    And I follow "Browse GNACLR Database"
+  Scenario: Browse GNACLR from "Import" interface
+    When I follow "Import"
+    And I follow "Browse GNACLR database"
     And I follow "NCBI"
     Then I should see "NCBI"
     And I should see "Dmitry Mozzherin"
@@ -45,8 +45,8 @@ Feature: Browse GNACLR
 
   @javascript
   Scenario: View breadcrumb navigation while browsing GNACLR
-    When I follow "New Tab"
-    And I follow "Browse GNACLR Database"
+    When I follow "Import"
+    And I follow "Browse GNACLR database"
     And I follow "NCBI"
     Then I should see "NCBI"
     And I should see "Dmitry Mozzherin"
@@ -56,6 +56,6 @@ Feature: Browse GNACLR
     And I should see "Index Fungorum"
 
     When I follow "New Import" within the right panel header
-    Then I should see "Browse GNACLR Database"
+    Then I should see "Browse GNACLR database"
 
   Scenario: Browse GNACLR from "New Master Tree" screen

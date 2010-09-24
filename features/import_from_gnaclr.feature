@@ -16,7 +16,7 @@ Feature: Importing trees from GNACLR
     When I sign in as "email@person.com/password"
     Then I should be on the master tree index page
     When I follow "Moose tree"
-    And I follow "Browse GNACLR Database"
+    And I follow "Browse GNACLR database"
     And I follow "NCBI"
     And I press "Import"
     Then I should see a spinner
@@ -33,7 +33,7 @@ Feature: Importing trees from GNACLR
     When I sign in as "email@person.com/password"
     Then I should be on the master tree index page
     When I follow "Moose tree"
-    And I follow "Browse GNACLR Database"
+    And I follow "Browse GNACLR database"
     And I follow "NCBI"
     Then "this is really the best revision" should be checked
     When I choose "this is the best revision"
