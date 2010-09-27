@@ -11,7 +11,7 @@
 </div>
 
 <!-- Start of Left Tree -->
-<div class="tree-column">
+<div class="tree-column clearfix">
   <div id="fluid-head"></div>
 
   <div id="treewrap-left">
@@ -41,21 +41,50 @@
           <a href="#">Add Node</a>
         </div><!-- /#add-node -->
 
-        <!--<div class="grid-button">
-          <a href="#"><img class="icon" src="/images/gridview.png"/>Grid view</a>
-        </div>
-        <form method="get" id="searchform" action="">
-          <fieldset>
-            <input type="text" value="Search this tree" name="search" id="search" onclick="this.value='';this.onclick=null;" />
-          </fieldset>
-        </form>-->
-
         <div class="clearfix"></div>
       </div><!-- /.searchbar -->
 
       <div id="add-node-wrap">
         <div id="tree-container" data-database-id="<%= @master_tree.id %>">
           <div id="master-tree"></div>
+
+          <div class="node-meta-wrap clearfix">
+            <div class="node-meta">
+              <h3>Node metadata</h3>
+
+              <div class="metadata-section clearfix">
+                <h4>Authors</h4>
+                <ul class="clearfix">
+                  <li>Author Name</li>
+                  <li>Another Name</li>
+                  <li>Content</li>
+                  <li>Content</li>
+                  <li>Content</li>
+                  <li>Content</li>
+                  <li>Content</li>
+                </ul>
+              </div>
+
+              <div class="metadata-section clearfix">
+                <h4>Authors</h4>
+                <ul class="clearfix">
+                  <li>Author Name</li>
+                  <li>Another Name</li>
+                  <li>Content</li>
+                </ul>
+              </div>
+
+              <div class="metadata-section clearfix">
+                <h4>Authors</h4>
+                <ul class="clearfix">
+                  <li>Author Name</li>
+                  <li>Another Name</li>
+                  <li>Content</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div><!-- /#add-node-wrap -->
 

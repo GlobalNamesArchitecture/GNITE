@@ -437,7 +437,6 @@ body form input {
 }
 
 #treewrap-left {
-  height: 90%;
   margin: 12px 20px 12px 40px;
 }
 
@@ -788,18 +787,59 @@ body form input {
 }
 
 .node-meta-wrap {
+  background: #fff;
+  border-radius: 0 0 8px 8px;
+  -moz-border-radius: 0 0 8px 8px;
+  -webkit-border-radius: 0 0 8px 8px;
   bottom: 0px;
   height: 100%;
+  margin: 10px 0 0 0;
   position: relative;
   width: 100%;
 }
 
 .node-meta {
-  bottom: 0;
-  height: 20px;
-  position: absolute;
-  width: 100%;
+
 }
+
+.node-meta h3 {
+  background: #BABFC3;
+  border-bottom: 1px solid #DADDDF;
+  font-size: 14px;
+  margin: 0;
+  padding: 10px;
+  text-shadow: #DADEE2 0px 1px 0px;
+}
+
+.metadata-section {
+  border-bottom: 1px solid #999;
+  padding: 0 10px;
+}
+
+.node-meta h4 {
+  background: #BABFC3;
+  border-bottom: 1px solid #DADDDF;
+  float: left;
+  margin: 0 0 0 -10px;
+  padding: 10px 0 10px 10px;
+  text-shadow: #DADEE2 0px 1px 0px;
+  width: 20%;
+}
+
+.node-meta ul {
+  float: left;
+  margin: 0 0 0 5px;
+  width: 75%;
+}
+
+.node-meta ul li {
+  background: #cdd3d7;
+  border-radius: 8px;
+  float: left;
+  margin: 6px 5px 0 0;
+  padding: 5px 8px;
+}
+
 
 /* Master Tree Metadata Back */
 /************************************************************************/
