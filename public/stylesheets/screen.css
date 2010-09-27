@@ -618,6 +618,29 @@ body form input {
   padding: 8px 15px;
 }
 
+/* Tree Scrolling */
+/************************************************************************/
+.tree-background {
+  position: relative;
+}
+
+#add-node-wrap,
+.reference_tree_container {
+  position: absolute;
+  top: 82px;
+  right: 0;
+  left: 0;
+  overflow: auto;
+}
+
+#add-node-wrap {
+  bottom: -20px;
+}
+
+#treewrap-right .reference_tree_container {
+  bottom: 20px;
+}
+
 /* Tab Bar */
 /************************************************************************/
 .tab-wrap {
