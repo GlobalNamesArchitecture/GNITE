@@ -1410,7 +1410,6 @@ ul#working-trees {
 }
 
 .ui-tabs .ui-tabs-nav li ul#working-trees li {
-  border-bottom: 1px solid #eee;
   -webkit-box-shadow: none;
   clear: both;
   display: block;
@@ -1421,11 +1420,20 @@ ul#working-trees {
   width: 100%;
 }
 
+#treewrap-right .ui-state-default ul#working-trees li.ui-state-default {
+  border-top: 0;
+}
+
 .ui-tabs .ui-tabs-nav li ul#working-trees li a {
+  border-bottom: 1px solid #a0a5a8;
   cursor: pointer;
   display: block;
   padding: 8px 4px;
   width: 263px;
+}
+
+.ui-tabs .ui-tabs-nav li ul#working-trees li:first-child a {
+  border-top: 1px solid #a0a5a8;
 }
 
 ul#working-trees li a:hover {
