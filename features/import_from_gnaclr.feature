@@ -16,7 +16,7 @@ Feature: Importing trees from GNACLR
     When I sign in as "email@person.com/password"
     Then I should be on the master tree index page
     When I follow "Moose tree"
-    And I follow "Browse GNACLR Database"
+    And I follow "Browse GNACLR database"
     And I follow "NCBI"
     And I press "Import"
     Then I should see a spinner
@@ -24,7 +24,7 @@ Feature: Importing trees from GNACLR
     When delayed jobs are run
     Then I should not see a spinner
     And I should see an "NCBI" tab
-    And the "NCBI" tab should be active
+    And I should see the breadcrumb path "Working Trees > NCBI"
     And I should see a node "Cyphophthalmi incertae sedis" at the root level in my reference tree "NCBI"
     And I should see a node "Opiliones" at the root level in my reference tree "NCBI"
 
@@ -33,7 +33,7 @@ Feature: Importing trees from GNACLR
     When I sign in as "email@person.com/password"
     Then I should be on the master tree index page
     When I follow "Moose tree"
-    And I follow "Browse GNACLR Database"
+    And I follow "Browse GNACLR database"
     And I follow "NCBI"
     Then "this is really the best revision" should be checked
     When I choose "this is the best revision"
@@ -43,6 +43,6 @@ Feature: Importing trees from GNACLR
     When delayed jobs are run
     Then I should not see a spinner
     And I should see an "NCBI" tab
-    And the "NCBI" tab should be active
+    And I should see the breadcrumb path "Working Trees > NCBI"
     And I should see a node "Cyphophthalmi incertae sedis" at the root level in my reference tree "NCBI"
     And I should see a node "Opiliones" at the root level in my reference tree "NCBI"

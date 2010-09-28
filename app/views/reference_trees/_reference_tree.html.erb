@@ -1,11 +1,10 @@
-<div id="<%= dom_id(reference_tree) %>">
+<div id="<%= dom_id(reference_tree) %>" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
   <div class="tree-background">
     <div class="breadcrumbs">
       <ul>
-        <li>Breadcrumb</li>
-        <li>Breadcrumb</li>
+        <li>Working Trees</li>
+        <li><%= reference_tree.title %></li>
       </ul>
-      <%= image_tag 'close-tab.png', :class => 'close-tab' %>
     </div>
     <div class="searchbar">
       <div class="grid-button">

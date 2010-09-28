@@ -15,6 +15,9 @@ Feature: Work with reference trees
       | root one   |
       | root two   |
       | root three |
+    And pause 1
+    And I follow "All working trees"
+    And I follow "List"
 
   @javascript
   Scenario: Reference trees are not editable
@@ -31,6 +34,7 @@ Feature: Work with reference trees
 
     When I follow "Master Trees"
     And I follow "My new tree"
+    And I follow "All working trees"
     And I follow "List"
     And I wait for the tree to load
 

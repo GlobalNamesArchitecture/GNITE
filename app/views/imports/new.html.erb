@@ -4,28 +4,42 @@
 </li>
 <% end %>
 <ul>
+  <li class="gnaclr-search">
+    <h1>Search GNACLR database</h1>
+    <p>Full search on nodes and metadata</p>
+    <input type="text">
+  </li>
   <li>
-  <%= link_to master_tree_gnaclr_classifications_path(@master_tree), :class => 'ajax-load-new-tab' do %>
-    <div class="btn-img browse">
-      <div class="content">
-        <h1>Browse GNACLR Database</h1>
-        <p>Browse GNACLR database for master trees to import</p>
-
+    <%= link_to master_tree_gnaclr_classifications_path(@master_tree), :class => 'ajax-load-new-tab' do %>
+      <div class="btn-img browse">
+        <div class="content">
+          <h1>Browse GNACLR database</h1>
+          <p>Browse GNACLR database for master trees to import</p>
+        </div>
       </div>
-    </div>
-    <div class="clearfix"></div>
-  <% end %>
+      <div class="clearfix"></div>
+    <% end %>
   </li>
   <li>
     <%= link_to new_master_tree_flat_list_import_path(@master_tree), :class => 'ajax-load-new-tab' do %>
-    <div class="btn-img upload">
-      <div class="content">
-        <h1>Import A Flat List</h1>
-        <p>Enter a flat list of names to import</p>
+      <div class="btn-img upload">
+        <div class="content">
+          <h1>Import file</h1>
+          <p>Upload a file to import</p>
+        </div>
       </div>
-    </div>
-    <div class="clearfix"></div>
-
+      <div class="clearfix"></div>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to new_master_tree_flat_list_import_path(@master_tree), :class => 'ajax-load-new-tab' do %>
+      <div class="btn-img flat-list">
+        <div class="content">
+          <h1>Enter flat list</h1>
+          <p>Enter a flat list to import</p>
+        </div>
+      </div>
+      <div class="clearfix"></div>
     <% end %>
   </li>
 </ul>

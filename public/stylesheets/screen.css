@@ -960,22 +960,17 @@ body form input {
 /* Tree New Import */
 /************************************************************************/
 #tree-newimport ul {
-  margin: 0 auto;
+  margin: 0 15px;
   padding: 0px;
-  width: 400px;
+  /*width: 400px;*/
 }
 
 #tree-newimport ul li {
   background: #e6e4dd;
   background: rgb(230,228,221);
   background: -moz-linear-gradient(center bottom, rgb(230,228,221) 0%, rgb(255,255,255) 50%);
-  margin: 25px 0;
-  width: 400px;
-}
-
-#tree-newimport ul li:hover {
-  background: rgb(255,255,255);
-  background: -moz-linear-gradient(center bottom, rgb(230,228,221) 0%, rgb(255,255,255) 50%);
+  margin: 20px 0;
+  /*width: 400px;*/
 }
 
 #tree-newimport ul li .content {
@@ -988,10 +983,29 @@ body form input {
   padding: 5px 0;
 }
 
+#tree-newimport ul li.gnaclr-search h1 {
+  padding: 10px 0 0 10px;
+}
+
 #tree-newimport ul li p {
   color:#555;
   margin:5px 0;
   padding:0;
+}
+
+#tree-newimport ul li.gnaclr-search p {
+  margin: 5px 0 0 10px;
+}
+
+#tree-newimport ul li input {
+  font-size: 16px;
+  margin: 10px 4% 14px 2%;
+  padding: 8px 5px;
+  width: 94%;
+}
+
+#tree-newimport ul li p.text-label a {
+  text-decoration: underline;
 }
 
 #tree-newimport a:link, #tree-newimport a:hover, #tree-newimport a:active, #tree-newimport a:visited {
@@ -1041,8 +1055,21 @@ body form input {
   background:url("../images/browse-hover.png") no-repeat;
 }
 
+#tree-newimport .flat-list {
+  background: url("../images/flat-list.png") no-repeat;
+}
+
+#tree-newimport .flat-list:hover {
+  background: url("../images/flat-list.png") 0 -52px no-repeat;
+}
+
 #tree-newimport ul.list {
-  width:100% !important;
+  margin: 0;
+}
+
+#tree-newimport ul.list li:hover {
+  background: rgb(255,255,255);
+  background: -moz-linear-gradient(center bottom, rgb(230,228,221) 0%, rgb(255,255,255) 50%);
 }
 
 #tree-newimport ul.list li {
@@ -1373,15 +1400,67 @@ ul#treelist a:hover,
   padding: 0px;
 }
 
-#trash {
-  float:right;
-  margin-right:0em;
+#tab-titles #all-tabs {
+  position: relative;
+}
+
+#tab-titles #import {
+  float: right;
+  margin-right: 3px;
+}
+
+#tab-titles #trash {
+  float: right;
+  margin-right: 0;
 }
 
 .no_content_message {
   padding: 20px;
   font-size: 1.3em;
   text-align: center;
+}
+
+ul#working-trees {
+  background: #BABFC3;
+  border: 1px solid #888;
+  border-width: 0 1px 1px 0;
+  left: -1px;
+  padding: 15px 15px 15px 15px;
+  position: absolute;
+  top: 26px;
+  width: 270px;
+  z-index: -1;
+}
+
+.ui-tabs .ui-tabs-nav li ul#working-trees li {
+  -webkit-box-shadow: none;
+  clear: both;
+  display: block;
+  float: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  width: 100%;
+}
+
+#treewrap-right .ui-state-default ul#working-trees li.ui-state-default {
+  border-top: 0;
+}
+
+.ui-tabs .ui-tabs-nav li ul#working-trees li a {
+  border-bottom: 1px solid #a0a5a8;
+  cursor: pointer;
+  display: block;
+  padding: 8px 4px;
+  width: 263px;
+}
+
+.ui-tabs .ui-tabs-nav li ul#working-trees li:first-child a {
+  border-top: 1px solid #a0a5a8;
+}
+
+ul#working-trees li a:hover {
+  background: #a0a5a8;
 }
 
 /* Border Radius */

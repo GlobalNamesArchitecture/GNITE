@@ -4,13 +4,15 @@ Then /^I should see a node "([^"]*)" at the root level in my reference tree "([^
 end
 
 Then /^I should see an? "([^"]*)" tab$/ do |tab_name|
-  page.should have_css("ul.ui-tabs-nav>li>a:contains('#{tab_name}')")
+  page.should have_css("ul.ui-tabs-nav > li:first-child > ul > li a:contains('#{tab_name}')")
 end
 
-Then /^the "([^"]*)" tab should be active$/ do |tab_name|
-  page.should have_css("ul.ui-tabs-nav>li.ui-state-active>a:contains('#{tab_name}')")
+Then /^I should see the breadcrumb path "([^"]*)"$/ do |path|
+  parts = path.split(' > ')
+  parts.each_with_index do |part, index|
+    page.should have_css("#treewrap-right .ui-tabs-panel .breadcrumbs li:nth-child(#{index + 1}):contains('#{part}')")
+  end
 end
-
 
 Then /^I should not be able to show a context menu for my reference tree "(.*)"$/ do |reference_tree_title|
   reference_tree = ReferenceTree.find_by_title(reference_tree_title)
