@@ -232,7 +232,9 @@
       });
 
       $('#master-tree .jstree-clicked').live('click', function() {
-        $.getJSON('/master_trees/<%= @master_tree.id %>/nodes/' + $(this).parent('li').attr('id'), function(data) {
+        var self = $(this);
+
+        $.getJSON('/master_trees/<%= @master_tree.id %>/nodes/' + self.parent('li').attr('id'), function(data) {
           var synonyms         = data.synonyms;
           var vernacular_names = data.vernacular_names;
 
@@ -260,7 +262,7 @@
           metadata.show();
           wrapper.css('bottom', $('.node-metadata').height());
 
-          var nodePosition  = $(this)[0].offsetTop - wrapper[0].scrollTop;
+          var nodePosition  = self[0].offsetTop - wrapper[0].scrollTop;
           var visibleHeight = wrapper.height();
 
           if (nodePosition >= visibleHeight) {
@@ -273,7 +275,7 @@
         $(".jstree-focused").jstree("rename");
       });
 
-      $('.tree-background').live('click', function(event) {
+      $('#add-node-wrap').live('click', function(event) {
         var hitNode = (event.target.tagName == 'A') ||
                       (event.target.tagName == 'INS');
 
@@ -284,7 +286,7 @@
         }
       });
 
-      $('.tree-background').live('click', function(event) {
+      $('#add-node-wrap').live('click', function(event) {
         $(event.target).find('.jstree').jstree('deselect_all');
       });
 

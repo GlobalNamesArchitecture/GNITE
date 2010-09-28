@@ -81,7 +81,7 @@ Then /^the "([^"]*)" tree node should be selected$/ do |node_text|
 end
 
 When /^I click the master tree background$/ do
-  page.execute_script("jQuery('#master-tree').closest('.tree-background').click();")
+  page.execute_script("jQuery('#add-node-wrap').click();")
   sleep 1
 end
 
