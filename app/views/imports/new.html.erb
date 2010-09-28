@@ -9,7 +9,7 @@
     <p>Full search on nodes and metadata</p>
     <input type="text">
   </li>
-  <li class="clearfix">
+  <li>
     <%= link_to master_tree_gnaclr_classifications_path(@master_tree), :class => 'ajax-load-new-tab' do %>
       <div class="btn-img browse">
         <div class="content">
@@ -17,9 +17,10 @@
           <p>Browse GNACLR database for master trees to import</p>
         </div>
       </div>
+      <div class="clearfix"></div>
     <% end %>
   </li>
-  <li class="clearfix">
+  <li>
     <%= link_to new_master_tree_flat_list_import_path(@master_tree), :class => 'ajax-load-new-tab' do %>
       <div class="btn-img upload">
         <div class="content">
@@ -27,9 +28,10 @@
           <p>Upload a file to import</p>
         </div>
       </div>
+      <div class="clearfix"></div>
     <% end %>
   </li>
-  <li class="clearfix">
+  <li>
     <%= link_to new_master_tree_flat_list_import_path(@master_tree), :class => 'ajax-load-new-tab' do %>
       <div class="btn-img flat-list">
         <div class="content">
@@ -37,6 +39,7 @@
           <p>Enter a flat list to import</p>
         </div>
       </div>
+      <div class="clearfix"></div>
     <% end %>
   </li>
 </ul>

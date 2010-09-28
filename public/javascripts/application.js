@@ -62,7 +62,8 @@ $(document).ready(function() {
           if (xhr.status == 200) {
             $('#tree-newimport').unspinner()
             $('#new-tab').before(response.tree);
-            $('#tabs').tabs('add', '#' + response.domid, response.title, $('#tabs').tabs('length') - 2)
+
+            $('#tabs li:first-child ul').append('<li><a href="#' + response.domid + '">' + response.title + '</a></li>');
 
             $("#container_for_" + response.domid).jstree({
               "json_data": {
@@ -86,8 +87,7 @@ $(document).ready(function() {
               "plugins" : [ "themes", "json_data", "ui", "dnd", "crrm"]
             }).addClass('ui-tabs-panel ui-widget-content ui-corner-bottom');
 
-            $('#tabs').tabs();
-            $('#tab-titles li:last').prev().prev().find('a').trigger('click');
+            $('#tabs li:first-child ul li:last-child a').trigger('click');
           } else if (xhr.status == 204) {
             timeout = setTimeout(checkImportStatus, 2000);
           }

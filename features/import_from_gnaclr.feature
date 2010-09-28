@@ -24,7 +24,7 @@ Feature: Importing trees from GNACLR
     When delayed jobs are run
     Then I should not see a spinner
     And I should see an "NCBI" tab
-    And the "NCBI" tab should be active
+    And I should see the breadcrumb path "Working Trees > NCBI"
     And I should see a node "Cyphophthalmi incertae sedis" at the root level in my reference tree "NCBI"
     And I should see a node "Opiliones" at the root level in my reference tree "NCBI"
 
@@ -43,6 +43,6 @@ Feature: Importing trees from GNACLR
     When delayed jobs are run
     Then I should not see a spinner
     And I should see an "NCBI" tab
-    And the "NCBI" tab should be active
+    And I should see the breadcrumb path "Working Trees > NCBI"
     And I should see a node "Cyphophthalmi incertae sedis" at the root level in my reference tree "NCBI"
     And I should see a node "Opiliones" at the root level in my reference tree "NCBI"

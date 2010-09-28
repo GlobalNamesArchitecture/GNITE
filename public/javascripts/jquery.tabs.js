@@ -1,15 +1,19 @@
 $(function() {
-  $('#tabs').tabs({
-    select: function(event, ui) {
-      if ($(ui.tab).text() == 'All working trees') {
-        $(ui.tab).parent().addClass('ui-tabs-selected ui-state-active');
+  $('#tab-titles a').live('click', function() {
+    if ($(this).attr('id') == 'all-tabs') {
+      $('#working-trees').parent().toggleClass('ui-tabs-selected ui-state-active');
+    } else {
+      var id = $(this).attr('href');
 
-        return false;
-      }
+      $('.ui-tabs-panel:visible').addClass('ui-tabs-hide');
+      $('.ui-tabs-selected.ui-state-active').removeClass('ui-tabs-selected ui-state-active');
+
+      $(id).removeClass('ui-tabs-hide');
+      $(this).parent().addClass('ui-tabs-selected ui-state-active');
     }
-  });
 
-  $('#import a').trigger('click');
+    return false;
+  });
 
   $('body').click(function(event) {
     if ($(event.target).parent('#tabs').length == 0 || event.target.nodeName != 'A') {

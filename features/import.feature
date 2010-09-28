@@ -20,7 +20,7 @@ Feature: Import data to your master tree
       | root three |
     And I press "Import"
     Then I should see a "List" tab
-    And the "List" tab should be active
+    And I should see the breadcrumb path "Working Trees > List"
     And I should see a node "root one" at the root level in my reference tree "List"
     And I should see a node "root two" at the root level in my reference tree "List"
     And I should see a node "root three" at the root level in my reference tree "List"
@@ -30,5 +30,5 @@ Feature: Import data to your master tree
     When I follow "Import"
     And I follow "Enter flat list"
     And I follow "New Import"
-    Then I should see "Enter a flat list of names to import"
+    Then I should see "Enter a flat list to import"
     # And I should be back on the main "New Import" right-hand panel.
