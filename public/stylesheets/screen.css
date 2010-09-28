@@ -446,7 +446,6 @@ body form input {
 }
 
 #tree-container {
-  height: 95%;
 }
 
 .tree-nav {
@@ -584,16 +583,9 @@ body form input {
   position: absolute;
   top: 82px;
   right: 0;
+  bottom: 20px;
   left: 0;
   overflow: auto;
-}
-
-#add-node-wrap {
-  bottom: -20px;
-}
-
-#treewrap-right .reference_tree_container {
-  bottom: 20px;
 }
 
 /* Tab Bar */
@@ -791,11 +783,12 @@ body form input {
   border-radius: 0 0 8px 8px;
   -moz-border-radius: 0 0 8px 8px;
   -webkit-border-radius: 0 0 8px 8px;
-  bottom: 0px;
-  height: 100%;
+  top: auto;
+  bottom: 0;
   margin: 10px 0 0 0;
-  position: relative;
+  position: absolute;
   width: 100%;
+  display: none;
 }
 
 .node-metadata h3 {

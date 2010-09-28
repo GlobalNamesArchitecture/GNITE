@@ -47,55 +47,54 @@
       <div id="add-node-wrap">
         <div id="tree-container" data-database-id="<%= @master_tree.id %>">
           <div id="master-tree"></div>
-
-            <div class="node-metadata clearfix">
-              <h3>Node metadata</h3>
-
-              <div class="metadata-section clearfix">
-                <h4><span>Authors</span></h4>
-                <ul class="clearfix">
-                  <li>Content</li>
-                  <li>Content</li>
-                  <li>Content</li>
-                  <li>Content</li>
-                  <li>Content</li>
-                </ul>
-              </div>
-
-              <div class="metadata-section clearfix">
-                <h4><span>Synonyms</span></h4>
-                <ul class="clearfix">
-                  <li>Content</li>
-                  <li>Content</li>
-                  <li>Content</li>
-                  <li>Content</li>
-                  <li>Content</li>
-                </ul>
-              </div>
-
-              <div class="metadata-section clearfix">
-                <h4><span>Vernacular names</span></h4>
-                <ul class="clearfix">
-                  <li>Author Name</li>
-                  <li>Another Name</li>
-                  <li>Content</li>
-                </ul>
-              </div>
-
-              <div class="metadata-section clearfix">
-                <h4><span>Ranks</span></h4>
-                <ul class="clearfix">
-                  <li>Content</li>
-                  <li>Content</li>
-                  <li>Content</li>
-                  <li>Content</li>
-                  <li>Content</li>
-                </ul>
-              </div>
-          </div>
-
         </div>
       </div><!-- /#add-node-wrap -->
+
+          <div class="node-metadata clearfix">
+            <h3>Node metadata</h3>
+
+            <div class="metadata-section clearfix">
+              <h4><span>Authors</span></h4>
+              <ul class="clearfix">
+                <li>Content</li>
+                <li>Content</li>
+                <li>Content</li>
+                <li>Content</li>
+                <li>Content</li>
+              </ul>
+            </div>
+
+            <div class="metadata-section clearfix">
+              <h4><span>Synonyms</span></h4>
+              <ul class="clearfix">
+                <li>Content</li>
+                <li>Content</li>
+                <li>Content</li>
+                <li>Content</li>
+                <li>Content</li>
+              </ul>
+            </div>
+
+            <div class="metadata-section clearfix">
+              <h4><span>Vernacular names</span></h4>
+              <ul class="clearfix">
+                <li>Author Name</li>
+                <li>Another Name</li>
+                <li>Content</li>
+              </ul>
+            </div>
+
+            <div class="metadata-section clearfix">
+              <h4><span>Ranks</span></h4>
+              <ul class="clearfix">
+                <li>Content</li>
+                <li>Content</li>
+                <li>Content</li>
+                <li>Content</li>
+                <li>Content</li>
+              </ul>
+            </div>
+          </div>
 
     </div><!-- /.tree-background -->
   </div><!-- /#treewrap-left -->
@@ -263,7 +262,24 @@
         });
       });
 
-     $('#master-tree .jstree-clicked').live('dblclick', function() { $(".jstree-focused").jstree("rename"); });
+    $('#master-tree .jstree-clicked').live('click', function() {
+      var wrapper  = $('#add-node-wrap');
+      var metadata = $('.node-metadata');
+
+      metadata.show();
+      wrapper.css('bottom', $('.node-metadata').height());
+
+      var nodePosition  = $(this)[0].offsetTop - wrapper[0].scrollTop;
+      var visibleHeight = wrapper.height();
+
+      if (nodePosition >= visibleHeight) {
+        wrapper[0].scrollTop += nodePosition - visibleHeight + 36;
+      }
+    });
+
+    $('#master-tree .jstree-clicked').live('dblclick', function() {
+      $(".jstree-focused").jstree("rename");
+    });
 
       $('.tree-background').live('click', function(event) {
         var hitNode = (event.target.tagName == 'A') ||
@@ -271,11 +287,9 @@
 
         if (! hitNode) {
           $(event.target).closest('.jstree').jstree('deselect_all');
+          $('.node-metadata').hide();
+          $('#add-node-wrap').css('bottom', '20px');
         }
-      });
-
-      $('.tree-background').live('click', function(event) {
-        $(event.target).find('.jstree').jstree('deselect_all');
       });
 
       $('#master_tree_title')
