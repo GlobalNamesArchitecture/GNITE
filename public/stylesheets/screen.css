@@ -786,7 +786,7 @@ body form input {
   border-top: 0px;
 }
 
-.node-meta-wrap {
+.node-metadata {
   background: #fff;
   border-radius: 0 0 8px 8px;
   -moz-border-radius: 0 0 8px 8px;
@@ -798,13 +798,8 @@ body form input {
   width: 100%;
 }
 
-.node-meta {
-
-}
-
-.node-meta h3 {
+.node-metadata h3 {
   background: #BABFC3;
-  border-bottom: 1px solid #DADDDF;
   font-size: 14px;
   margin: 0;
   padding: 10px;
@@ -812,31 +807,42 @@ body form input {
 }
 
 .metadata-section {
-  border-bottom: 1px solid #999;
+  background: #BABFC3;
+  border-top: 1px solid #dadddf;
+  margin: 0;
+  padding: 0;
+}
+
+.node-metadata h4 {
+  float: left;
+  margin: 0;
+  padding: 10px 0 0 0;
+  text-shadow: #DADEE2 0px 1px 0px;
+  width: 23%;
+}
+
+.metadata-section:last-child {
+  border-radius: 0 0 0 8px;
+  -moz-border-radius: 0 0 0 8px;
+  -webkit-border-radius: 0 0 0 8px;
+}
+
+.node-metadata h4 span {
   padding: 0 10px;
 }
 
-.node-meta h4 {
-  background: #BABFC3;
-  border-bottom: 1px solid #DADDDF;
+.node-metadata ul {
+  background: #fff;
   float: left;
-  margin: 0 0 0 -10px;
-  padding: 10px 0 10px 10px;
-  text-shadow: #DADEE2 0px 1px 0px;
-  width: 20%;
+  padding: 0 0 5px 0;
+  width: 77%;
 }
 
-.node-meta ul {
-  float: left;
-  margin: 0 0 0 5px;
-  width: 75%;
-}
-
-.node-meta ul li {
+.node-metadata ul li {
   background: #cdd3d7;
   border-radius: 8px;
   float: left;
-  margin: 6px 5px 0 0;
+  margin: 6px 5px 0 5px;
   padding: 5px 8px;
 }
 
