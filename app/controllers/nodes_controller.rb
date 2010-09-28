@@ -16,6 +16,16 @@ class NodesController < ApplicationController
     end
   end
 
+  def show
+    tree = current_user.master_trees.find(params[:master_tree_id])
+    node = tree.nodes.find(params[:id])
+
+    render :json => {
+      :synonyms         => node.synonyms.map(&:name).map(&:name_string),
+      :vernacular_names => node.vernacular_names.map(&:name).map(&:name_string)
+    }
+  end
+
   def create
     respond_to do |format|
       format.json do

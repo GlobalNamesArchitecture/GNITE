@@ -14,7 +14,6 @@ Factory.define :reference_tree do |reference_tree|
   reference_tree.creative_commons { 'cc0' }
 end
 
-
 Factory.define :tree, :class => 'MasterTree' do |tree|
   tree.title { "My Tree" }
   tree.association :user
@@ -23,7 +22,7 @@ end
 
 Factory.define :node do |node|
   node.association :tree
-  node.name_id { Factory(:name).id }
+  node.association :name
 end
 
 Factory.define :name do |name|

@@ -141,3 +141,30 @@ describe NodesController, 'PUT to update' do
   end
 end
 
+describe NodesController, 'GET to show' do
+  let(:user) { Factory(:email_confirmed_user) }
+  let(:node) { Factory(:node, :tree => tree) }
+  let(:tree) { Factory(:master_tree, :user => user) }
+
+  subject { controller }
+
+  before do
+    sign_in_as(user)
+
+    Factory(:synonym, :node => node, :name => Factory(:name, :name_string => 'Point'))
+    Factory(:vernacular_name, :node => node, :name => Factory(:name, :name_string => 'Coordinate'))
+
+    @expected = {
+      :synonyms         => ['Point'],
+      :vernacular_names => ['Coordinate']
+    }
+
+    get :show, :id => node.id, :master_tree_id => tree.id, :format => 'json'
+  end
+
+  it { should respond_with(:success) }
+
+  it 'should render synonyms and vernacular names as JSON' do
+    response.body.should == @expected.to_json
+  end
+end

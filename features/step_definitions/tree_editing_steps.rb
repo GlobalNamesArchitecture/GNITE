@@ -82,6 +82,7 @@ end
 
 When /^I click the master tree background$/ do
   page.execute_script("jQuery('#master-tree').closest('.tree-background').click();")
+  sleep 1
 end
 
 Then /^no nodes should be selected in the master tree$/ do
