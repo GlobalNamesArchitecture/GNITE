@@ -9,3 +9,7 @@ Then /^I should see "([^"]*)" as vernacular names$/ do |vernacular_names|
     page.should have_css(".node-metadata .metadata-vernacular-names ul li:contains('#{vernacular_name.strip}')")
   end
 end
+
+Then /^I should see "([^"]*)" as rank$/ do |rank|
+  page.should have_css(".node-metadata .metadata-rank ul li:contains('#{rank.strip}')")
+end

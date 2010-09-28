@@ -155,6 +155,7 @@ describe NodesController, 'GET to show' do
     Factory(:vernacular_name, :node => node, :name => Factory(:name, :name_string => 'Coordinate'))
 
     @expected = {
+      :rank             => node.rank,
       :synonyms         => ['Point'],
       :vernacular_names => ['Coordinate']
     }

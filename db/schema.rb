@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100923161612) do
+ActiveRecord::Schema.define(:version => 20100928201057) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20100923161612) do
     t.datetime "updated_at"
     t.string   "ancestry"
     t.integer  "name_id",    :null => false
+    t.string   "rank"
   end
 
   add_index "nodes", ["ancestry"], :name => "index_nodes_on_ancestry"

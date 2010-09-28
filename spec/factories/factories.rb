@@ -23,6 +23,7 @@ end
 Factory.define :node do |node|
   node.association :tree
   node.association :name
+  node.rank { 'Family' }
 end
 
 Factory.define :name do |name|

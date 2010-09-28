@@ -21,6 +21,7 @@ class NodesController < ApplicationController
     node = tree.nodes.find(params[:id])
 
     render :json => {
+      :rank             => node.rank,
       :synonyms         => node.synonyms.map(&:name).map(&:name_string),
       :vernacular_names => node.vernacular_names.map(&:name).map(&:name_string)
     }

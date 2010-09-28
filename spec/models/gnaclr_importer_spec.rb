@@ -95,7 +95,6 @@ describe GnaclrImporter, 'store_tree for a valid dwc archive' do
     @taxon4.current_name           = "Opiliones"
     @taxon4.classification_path    = ["Opiliones", "Sironidae"]
     @taxon4.id                     = "cyphophthalmi:tid:378"
-    @taxon4.rank                   = "family"
     @taxon2.parent_id              = "cyphophthalmi:tid:330"
     @taxon4.current_name_canonical = "Opiliones"
 
@@ -106,22 +105,26 @@ describe GnaclrImporter, 'store_tree for a valid dwc archive' do
     subject.store_tree
   end
 
-  it 'creates name records with associated nodes' do
+  it 'creates name records with associated nodes with rank' do
     root_name = Name.find_by_name_string!("Sironidae")
     root_node = root_name.nodes.first
     root_node.parent.should be_nil
+    root_node.rank.should == 'family'
 
     branch_name = Name.find_by_name_string!("Suzukielus")
     branch_node = branch_name.nodes.first
     branch_node.parent.should == root_node
+    branch_node.rank.should == 'genus'
 
     leaf_name = Name.find_by_name_string!("Suzukielus sauteri")
     leaf_node = leaf_name.nodes.first
     leaf_node.parent.should == branch_node
+    leaf_node.rank.should == 'species'
 
     root_name_2 = Name.find_by_name_string!("Opiliones")
     root_node_2 = root_name_2.nodes.first
     root_node_2.parent.should == root_node
+    root_node_2.rank.should be_nil
   end
 end
 

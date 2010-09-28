@@ -43,10 +43,11 @@ class GnaclrImporter
       next unless taxon_id && darwin_core_data[taxon_id]
 
       name_sql       = Name.__send__(:quote_bound_value, darwin_core_data[taxon_id].current_name)
+      rank_sql       = Node.__send__(:quote_bound_value, darwin_core_data[taxon_id].rank)
       ancestry_sql   = Node.__send__(:quote_bound_value, ancestry) if ancestry.present?
       ancestry_sql ||= 'NULL'
 
-      node_id = Node.connection.insert("INSERT INTO nodes (name_id, tree_id, ancestry) VALUES ((SELECT id FROM names WHERE name_string = #{name_sql} LIMIT 1), #{reference_tree_id}, #{ancestry_sql})")
+      node_id = Node.connection.insert("INSERT INTO nodes (name_id, tree_id, ancestry, rank) VALUES ((SELECT id FROM names WHERE name_string = #{name_sql} LIMIT 1), #{reference_tree_id}, #{ancestry_sql}, #{rank_sql})")
 
       next_ancestry = ancestry ? ancestry.dup : ''
       next_ancestry << '/' unless next_ancestry.empty?
@@ -70,6 +71,7 @@ class GnaclrImporter
       group = group.compact.collect do |name_string|
         Name.__send__(:quote_bound_value, name_string)
       end.join('), (')
+
       Name.connection.execute "BEGIN"
       Name.connection.execute "INSERT IGNORE INTO names (name_string) VALUES (#{group})"
       Name.connection.execute "COMMIT"
