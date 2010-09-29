@@ -1134,13 +1134,12 @@ ul#revisions li {
   -webkit-box-shadow: none;
   margin: 0 0 8px 0;
   padding: 4px 0;
-  position: relative;
 }
 
 ul#revisions li input[type="radio"] {
-  margin-left: 0;
-  position: absolute;
-  top: 0px;
+  width: auto;
+  margin: 6px 8px 10px 0;
+  float: left;
 }
 
 ul#revisions li p.revision-number {
@@ -1150,7 +1149,6 @@ ul#revisions li p.revision-number {
 }
 
 ul#revisions li span.revision-message {
-  margin: 0 0 0 20px;
 }
 
 ul#revisions li p.date {
@@ -1495,8 +1493,15 @@ ul#treelist li,  #search, .tree-background, #loginform .input, .green-submit, .c
 }
 
 .spinner {
-  background: white url("/images/loading.gif") no-repeat center center;
+  position: absolute;
+  background: #FFF url(/images/loading.gif) no-repeat center center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
   opacity: 0.75;
   filter: alpha(opacity=75);
   -moz-opacity: 0.75;
-  -khtml-opacity: 0.75; }
+  -khtml-opacity: 0.75;
+}

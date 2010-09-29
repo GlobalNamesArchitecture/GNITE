@@ -5,20 +5,17 @@ $(document).ready(function() {
       return;
     }
 
-    var spinnerElement = $('<div class="spinner"></div>')
-    .css({
-      position:  "absolute",
-      display:   "none",
-      "z-index": 2,
-      top:       this.offset().top,
-      left:      this.offset().left,
-      width:     this.outerWidth(),
-      height:    this.outerHeight()
-    })
-    $("body").append(spinnerElement);
-    spinnerElement.fadeIn("fast");
-    this.each(function () { this.spinnerElement = spinnerElement[0]; });
-    return this;
+    var spinnerElement = $('<div class="spinner"></div>');
+
+    this
+      .css('position', 'relative')
+      .prepend(spinnerElement);
+
+    spinnerElement.fadeIn('fast');
+
+    return this.each(function () {
+      this.spinnerElement = spinnerElement[0];
+    });
   };
 
   $.fn.unspinner = function() {
