@@ -11,6 +11,10 @@ body {
   margin-left: 200px;
 }
 
+body.sessions #wrapper {
+  margin: 0;
+}
+
 #header {
   background: rgb(35, 41, 44); /* The Fallback */
   background: rgba(11, 12, 14, 0.25);
@@ -29,6 +33,11 @@ body {
   margin: 9px 0 0 40px;
   padding: 3px;
   width: 20%;
+}
+
+#header span {
+  color: #fff;
+  margin: 0 0 0 10px;
 }
 
 #header span.error {
@@ -161,14 +170,14 @@ body form input {
 
 #loginform {
   float: left;
-  padding: 0px 20px;
+  padding: 0 20px;
 }
 
 #loginform legend {
   color: rgb(127, 196, 67);
   font-size: 1.8em;
   padding-bottom: 15px;
-  text-shadow: 1px 1px 0px rgba(26, 26, 26, 0.6);
+  text-shadow: 1px 1px 0 rgba(26, 26, 26, 0.6);
 }
 
 #loginform label {
@@ -188,9 +197,9 @@ body form input {
   border-radius: 3px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
-  box-shadow: 0px 1px 1px 0px rgba(26, 26, 26, 0.6) inset;
-  -webkit-box-shadow: 0px 1px 1px 0px rgba(26, 26, 26, 0.6) inset;
-  -moz-box-shadow: 0px 1px 1px 0px rgba(26, 26, 26, 0.6) inset;
+  box-shadow: 0 1px 1px 0 rgba(26, 26, 26, 0.6) inset;
+  -webkit-box-shadow: 0 1px 1px 0 rgba(26, 26, 26, 0.6) inset;
+  -moz-box-shadow: 0 1px 1px 0 rgba(26, 26, 26, 0.6) inset;
   color: #232323;
   font-size:1.4em;
   margin-bottom: 12px;
@@ -216,18 +225,12 @@ body form input {
 .cancel-button,
 .green-submit {
   background: #5aa52b;
-  background: -webkit-gradient(linear,left bottom,left top,
-              color-stop(0.04, rgb(27,112,4)),
-              color-stop(0.58, rgb(90,165,43)),
-              color-stop(0.98, rgb(144,207,76)));
-  background: -moz-linear-gradient(center bottom,
-              rgb(27,112,4) 4%,
-              rgb(90,165,43) 58%,
-              rgb(144,207,76) 98%);
+  background: -moz-linear-gradient(center bottom, rgb(27,112,4) 4%, rgb(90,165,43) 58%, rgb(144,207,76) 98%);
+  background: -webkit-gradient(linear,left bottom,left top, color-stop(0.04, rgb(27,112,4)), color-stop(0.58, rgb(90,165,43)), color-stop(0.98, rgb(144,207,76)));
   border: 0;
-  box-shadow: 0px 1px 2px rgba(0,0,0, 1), 0 -1px 0 #114503 inset;
-  -moz-box-shadow: 0px 1px 2px rgba(0,0,0, 1), 0 -1px 0 #114503 inset;
-  -webkit-box-shadow: 0px 1px 2px rgba(0,0,0, 1), 0 -1px 0 #114503 inset;
+  box-shadow: inset 0 1px 2px rgba(0,0,0, 1), 0 -1px 0 #114503;
+  -moz-box-shadow: inset 0 1px 2px rgba(0,0,0, 1), 0 -1px 0 #114503;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0, 1), 0 -1px 0 #114503;
   color: #fff;
   float: left;
   font-weight: bold;
@@ -238,26 +241,26 @@ body form input {
 
 .cancel-button:hover,
 .green-submit:hover {
-  border: 0px solid rgb(15, 18, 21);
-  box-shadow:         1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1px 2px rgba(0,0,0, 1);
-  -moz-box-shadow:    1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1px 2px rgba(0,0,0, 1);
-  -webkit-box-shadow: 1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1px 2px rgba(0,0,0, 1);
+  border: 0 solid rgb(15, 18, 21);
+  box-shadow: inset 1px 1px 5px 1px rgb(126, 229, 44), 0 1px 2px rgba(0,0,0, 1);
+  -moz-box-shadow: inset 1px 1px 5px 1px rgb(126, 229, 44), 0 1px 2px rgba(0,0,0, 1);
+  -webkit-box-shadow: inset 1px 1px 5px 1px rgb(126, 229, 44), 0 1px 2px rgba(0,0,0, 1);
   cursor: pointer;
 }
 
 .cancel-button.shadow,
 .green-submit.shadow {
-  box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.9), 1px 1px 5px 1px rgb(98,179,34) inset !important;
-  -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.9), 1px 1px 5px 1px rgb(98,179,34) inset !important;
-  -webkit-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.9), 1px 1px 5px 1px rgb(98,179,34) inset !important;
+  box-shadow: 0 1.5px 2px 1px rgba(26, 26, 26, 0.9), 1px 1px 5px 1px rgb(98,179,34) inset !important;
+  -moz-box-shadow: 0 1.5px 2px 1px rgba(26, 26, 26, 0.9), 1px 1px 5px 1px rgb(98,179,34) inset !important;
+  -webkit-box-shadow: 0 1.5px 2px 1px rgba(26, 26, 26, 0.9), 1px 1px 5px 1px rgb(98,179,34) inset !important;
   margin: 25px 0 !important;
 }
 
 .cancel-button.shadow:hover,
 .green-submit.shadow:hover {
-  box-shadow: 1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.9) !important;
-  -moz-box-shadow: 1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.9) !important;
-  -webkit-box-shadow: 1px 1px 5px 1px rgb(126, 229, 44) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.9) !important;
+  box-shadow: 1px 1px 5px 1px rgb(126, 229, 44) inset, 0 1.5px 2px 1px rgba(26, 26, 26, 0.9) !important;
+  -moz-box-shadow: 1px 1px 5px 1px rgb(126, 229, 44) inset, 0 1.5px 2px 1px rgba(26, 26, 26, 0.9) !important;
+  -webkit-box-shadow: 1px 1px 5px 1px rgb(126, 229, 44) inset, 0 1.5px 2px 1px rgba(26, 26, 26, 0.9) !important;
 }
 
 #import-roots-button {
@@ -299,7 +302,7 @@ body form input {
 
 #logo {
   color: rgb(142,155,162);
-  padding: 20px 0px 0px 15px;
+  padding: 20px 0 0px 15px;
 }
 
 #nav {
@@ -315,7 +318,7 @@ body form input {
 #nav ul li {
   background: #ece9e1 url("/images/tan_ridge.png") top left repeat-x;
   line-height: 38px;
-  padding: 0px 26px 0 15px;
+  padding: 0 26px 0 15px;
 }
 
 #nav li#active {
@@ -427,7 +430,7 @@ body form input {
 
 .tree-background {
   background: #FFF;
-  border: 0px solid #FFF;
+  border: 0 solid #FFF;
   height: 100%;
   min-height: 700px;
   width: 100%;
@@ -466,11 +469,11 @@ body form input {
   border-radius: 15px;
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
-  box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
-  -moz-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
-  -webkit-box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+  box-shadow: 0 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+  -moz-box-shadow: 0 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+  -webkit-box-shadow: 0 1.5px 2px 1px rgba(26, 26, 26, 0.6);
   display:inline;
-  margin: 0px 5px;
+  margin: 0 5px;
   padding: 8px 10px;
 }
 
@@ -484,9 +487,9 @@ body form input {
   background: #fcffff;
   background: -moz-linear-gradient(100% 100% 90deg, rgb(252, 255, 255),rgb(176, 176, 176));
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgb(176, 176, 176)), color-stop(1, rgb(252, 255, 255)));
-  box-shadow: 1px 1px 5px 1px rgb(255, 255, 255) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
-  -moz-box-shadow: 1px 1px 5px 1px rgb(255, 255, 255) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
-  -webkit-box-shadow: 1px 1px 5px 1px rgb(255, 255, 255) inset, 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+  box-shadow: 1px 1px 5px 1px rgb(255, 255, 255) inset, 0 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+  -moz-box-shadow: 1px 1px 5px 1px rgb(255, 255, 255) inset, 0 1.5px 2px 1px rgba(26, 26, 26, 0.6);
+  -webkit-box-shadow: 1px 1px 5px 1px rgb(255, 255, 255) inset, 0 1.5px 2px 1px rgba(26, 26, 26, 0.6);
 }
 
 #add-node-wrap {
@@ -495,53 +498,26 @@ body form input {
 
 #add-node {
   background: #cfd3d7;
-  background:
-  -webkit-gradient(
-      linear,
-      left bottom,
-      left top,
-      color-stop(0, rgb(208,212,215)),
-      color-stop(1, rgb(241,246,249))
-  );
-  background:
-  -moz-linear-gradient(
-      center bottom,
-      rgb(208,212,215) 0,
-      rgb(241,246,249) 100%
-  );
-
-  border-radius:         12px;
-  -moz-border-radius:    12px;
+  background: -moz-linear-gradient(center bottom, rgb(208,212,215) 0, rgb(241,246,249) 100%);
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, rgb(208,212,215)), color-stop(1, rgb(241,246,249)));
+  border-radius: 12px;
+  -moz-border-radius: 12px;
   -webkit-border-radius: 12px;
-  box-shadow:         0px 1px 2px   rgba(0,0,0, 0.7), 0px 1px 0 rgb(255, 255, 255) inset;
-  -moz-box-shadow:    0px 1px 2px   rgba(0,0,0, 0.7), 0px 1px 0 rgb(255, 255, 255) inset;
-  -webkit-box-shadow: 0px 1px 2px   rgba(0,0,0, 0.7), 0px 1px 0 rgb(255, 255, 255) inset;
+  box-shadow: inset 0 1px 2px rgba(0,0,0, 0.7), 0 1px 0 rgb(255, 255, 255);
+  -moz-box-shadow: inset 0 1px 2px rgba(0,0,0, 0.7), 0 1px 0 rgb(255, 255, 255);
+  -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0, 0.7), 0 1px 0 rgb(255, 255, 255);
   font-weight: bold;
   float: right;
-  height:  14px;
+  height: 14px;
   padding: 6px 14px 6px 10px;
-  margin: 0px 0px 0  0;
+  margin: 0;
 }
-
-
 
 #add-node:hover {
   cursor: pointer;
   background: #dde0e4;
-     background:
-     -webkit-gradient(
-         linear,
-         left bottom,
-         left top,
-         color-stop(0, rgb(208,212,215)),
-         color-stop(1, rgb(255,255,255))
-     );
-     background:
-     -moz-linear-gradient(
-         center bottom,
-         rgb(208,212,215) 0,
-         rgb(255,255,255) 100%
-     );
+  background: -moz-linear-gradient(center bottom, rgb(208,212,215) 0, rgb(255,255,255) 100%);
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, rgb(208,212,215)),color-stop(1, rgb(255,255,255)));
 }
 
 #add-node:active {
@@ -550,22 +526,9 @@ body form input {
 }
 
 #add-node a {
+  background: url("../images/add-node.png") 0 2px no-repeat;
   color: #222;
-  text-decoration: none;
-}
-
-#add-node .img {
-  background: url("../images/add-node.png") no-repeat;
-  float: left;
-  height: 16px;
-  margin: 0 1px 0 0;
-  width: 16px;
-  position: relative;
-  top: 1px;
-}
-
-#add-node a {
-  color: #222;
+  padding: 0 0 0 20px;
   text-decoration: none;
 }
 
@@ -687,7 +650,7 @@ body form input {
   line-height: 20px;
   font-size: .9em;
   color: #232323;
- text-shadow: 0px 1px 0px #dadee2;
+ text-shadow: 0 1px 0 #dadee2;
 }
 
 .breadcrumbs ul li:last-child {
@@ -734,9 +697,9 @@ body form input {
    border-radius:         5px;
    -moz-border-radius:    5px;
    -webkit-border-radius: 5px;
-   box-shadow:         0px 1px 2px   rgba(0,0,0, 0.7), 0px 1px 0 rgb(255, 255, 255) inset;
-   -moz-box-shadow:    0px 1px 2px   rgba(0,0,0, 0.7), 0px 1px 0 rgb(255, 255, 255) inset;
-   -webkit-box-shadow: 0px 1px 2px   rgba(0,0,0, 0.7), 0px 1px 0 rgb(255, 255, 255) inset;
+   box-shadow:         0 1px 2px   rgba(0,0,0, 0.7), 0 1px 0 rgb(255, 255, 255) inset;
+   -moz-box-shadow:    0 1px 2px   rgba(0,0,0, 0.7), 0 1px 0 rgb(255, 255, 255) inset;
+   -webkit-box-shadow: 0 1px 2px   rgba(0,0,0, 0.7), 0 1px 0 rgb(255, 255, 255) inset;
 }
 
 .breadcrumbs .close-tab:hover {
@@ -812,10 +775,10 @@ body form input {
 }
 
 #search {
-  border: 0px solid #fff;
-  box-shadow: 0px 1.5px 2px 1px rgba(26, 26, 26, 0.6) inset;
-  -moz-box-shadow: 0px 1px 2px 1px rgba(26, 26, 26, 0.6) inset;
-  -webkit-box-shadow: 0px 1px 2px 1px rgba(26, 26, 26, 0.6) inset;
+  border: 0 solid #fff;
+  box-shadow: 0 1.5px 2px 1px rgba(26, 26, 26, 0.6) inset;
+  -moz-box-shadow: 0 1px 2px 1px rgba(26, 26, 26, 0.6) inset;
+  -webkit-box-shadow: 0 1px 2px 1px rgba(26, 26, 26, 0.6) inset;
   min-width: 50px;
   padding: 6px;
 }
@@ -885,9 +848,9 @@ body form input {
   float: left;
   height: auto;
   text-shadow: 0 1px 1px rgba(0,0,0,.4);
-  -moz-box-shadow:    0px 1px 2px rgba(0,0,0, 1);
-  -webkit-box-shadow: 0px 1px 2px rgba(0,0,0, 1);
-  box-shadow:         0px 1px 2px rgba(0,0,0, 1);
+  -moz-box-shadow:    0 1px 2px rgba(0,0,0, 1);
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0, 1);
+  box-shadow:         0 1px 2px rgba(0,0,0, 1);
 
 
   width: auto;
@@ -903,9 +866,9 @@ body form input {
               rgb(27,112,4) 4%,
               rgb(90,165,43) 58%,
               rgb(144,207,76) 98%);
-  box-shadow:         0px 1px 3px rgba(0,0,0, 0.6), 0 1px 0 rgb(255,255,255,.4) inset;
-  -moz-box-shadow:    0px 1px 3px rgba(0,0,0, 0.6), 0 1px 0 rgb(255,255,255,.4) inset;
-  -webkit-box-shadow: 0px 1px 3px rgba(0,0,0, 0.6), 0 1px 0 rgb(255,255,255,.4) inset;
+  box-shadow:         0 1px 3px rgba(0,0,0, 0.6), 0 1px 0 rgb(255,255,255,.4) inset;
+  -moz-box-shadow:    0 1px 3px rgba(0,0,0, 0.6), 0 1px 0 rgb(255,255,255,.4) inset;
+  -webkit-box-shadow: 0 1px 3px rgba(0,0,0, 0.6), 0 1px 0 rgb(255,255,255,.4) inset;
   padding: 10px 30px;
 }
 
@@ -915,13 +878,13 @@ body form input {
   background: -webkit-gradient(linear,left bottom,left top,
               color-stop(0.04, #CECABB),
               color-stop(0.98, #ECEAE2));
-  -moz-box-shadow:    0px 1px 2px rgba(0,0,0, 1);
-  -webkit-box-shadow: 0px 1px 2px rgba(0,0,0, 1);
-  box-shadow:         0px 1px 2px rgba(0,0,0, 1);
+  -moz-box-shadow:    0 1px 2px rgba(0,0,0, 1);
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0, 1);
+  box-shadow:         0 1px 2px rgba(0,0,0, 1);
   color: #222;
   margin-left: 15px;
   padding: 12px 30px 11px;
-  text-shadow: 0px 1px 1px rgba(255,255,255,0.8);
+  text-shadow: 0 1px 1px rgba(255,255,255,0.8);
 }
 
 #tree-metadata fieldset input, #tree-metadata fieldset textarea {
@@ -1008,7 +971,7 @@ body form input {
 
 #tree-newimport .btn-img {
   float: left;
-  margin: 10px 0px 10px 6px;
+  margin: 10px 0 10px 6px;
   width: 400px;
 }
 
@@ -1070,7 +1033,7 @@ body form input {
   -moz-border-radius: 0px;
   -webkit-border-radius: 0px;
   box-shadow: 0px;
-  -webkit-box-shadow: 0px 0px 0px 0px !important;
+  -webkit-box-shadow: 0 0px 0 0px !important;
   -moz-box-shadow: 0px;
   border-bottom: 1px solid rgb(176, 173, 163);
   min-height:60px;
@@ -1079,7 +1042,7 @@ body form input {
 }
 
 #tree-newimport ul.list li:first-child {
-  border-top: 0px solid rgb(176, 173, 163);
+  border-top: 0 solid rgb(176, 173, 163);
 }
 
 #tree-newimport ul.list li:last-child {
@@ -1184,7 +1147,7 @@ ul#revisions li:hover {
 }
 
 #treelist h1 {
-  text-shadow: 0px 1px 1px rgba(255,255,255,.3);
+  text-shadow: 0 1px 1px rgba(255,255,255,.3);
 }
 
 #treelist{
@@ -1264,7 +1227,7 @@ ul#treelist a:hover,
   font-size: .9em;
   font-weight: normal;
   margin-right: 20px;
-  text-shadow: 0px 1px 1px rgba(255,255,255,.3);
+  text-shadow: 0 1px 1px rgba(255,255,255,.3);
 }
 
 .date-wrap .date strong {
@@ -1276,16 +1239,16 @@ ul#treelist a:hover,
   float: right;
   position: relative;
   top: -5px;
-
 }
 
 #newtree a {
-  background: -webkit-gradient(linear,left bottom,left top,color-stop(0, rgb(164,164,164)),color-stop(1, rgb(232,232,232)));
+  background: #a4a4a4;
   background: -moz-linear-gradient(center bottom, rgb(164,164,164) 0%,rgb(232,232,232) 100%);
+  background: -webkit-gradient(linear,left bottom,left top,color-stop(0, rgb(164,164,164)),color-stop(1, rgb(232,232,232)));
   border-radius: 25px;
   -moz-border-radius: 25px;
   -webkit-border-radius: 25px;
-  font-size: 1em;
+  font-size: 12px;
   display: block;
   padding: 8px 15px;
 }
@@ -1329,32 +1292,20 @@ ul#treelist a:hover,
 
 #flash_success, #flash_notice {
   background: #5aa52b;
-  background: -moz-linear-gradient(center bottom,
-              rgba(98,161,38,0.6) 0%,
-              rgba(98,161,38,0.6) 54%,
-              rgba(30,117,5,0.6) 100%);
-  background: -webkit-gradient(linear,left bottom,left top,
-              color-stop(0.0, rgba(98,161,38,0.6)),
-              color-stop(0.54, rgba(98,161,38,0.6)),
-              color-stop(1.0, rgba(30,117,5,0.6)));
-  box-shadow: 0px 0px 0px 1px rgb(21,74,6);
-  -moz-box-shadow: 0px 0px 0px 1px rgb(21,74,6);
-  -webkit-box-shadow: 0px 0px 0px 1px rgb(21,74,6);
+  background: -moz-linear-gradient(center bottom, rgba(98,161,38,0.6) 0%, rgba(98,161,38,0.6) 54%, rgba(30,117,5,0.6) 100%);
+  background: -webkit-gradient(linear,left bottom,left top, color-stop(0.0, rgba(98,161,38,0.6)), color-stop(0.54, rgba(98,161,38,0.6)), color-stop(1.0, rgba(30,117,5,0.6)));
+  box-shadow: 0 0 0 1px rgb(21,74,6);
+  -moz-box-shadow: 0 0 0 1px rgb(21,74,6);
+  -webkit-box-shadow: 0 0 0 1px rgb(21,74,6);
 }
 
 #flash_error, #flash_failure {
   background: #5aa52b;
-  background: -moz-linear-gradient(center bottom,
-              rgba(187,12,12,0.5) 0%,
-              rgba(187,12,12,0.5) 54%,
-              rgba(138,5,5,0.5) 100%);
-  background: -webkit-gradient(linear,left bottom,left top,
-              color-stop(0.0, rgba(187,12,12,0.5)),
-              color-stop(0.54, rgba(187,12,12,0.5)),
-              color-stop(1.0, rgba(138,5,5,0.5)));
-  box-shadow: 0px 0px 0px 1px rgb(126,1,1);
-  -moz-box-shadow: 0px 0px 0px 1px rgb(126,1,1);
-  -webkit-box-shadow: 0px 0px 0px 1px rgb(126,1,1);
+  background: -moz-linear-gradient(center bottom, rgba(187,12,12,0.5) 0%, rgba(187,12,12,0.5) 54%, rgba(138,5,5,0.5) 100%);
+  background: -webkit-gradient(linear,left bottom,left top, color-stop(0.0, rgba(187,12,12,0.5)), color-stop(0.54, rgba(187,12,12,0.5)), color-stop(1.0, rgba(138,5,5,0.5)));
+  box-shadow: 0 0 0 1px rgb(126,1,1);
+  -moz-box-shadow: 0 0 0 1px rgb(126,1,1);
+  -webkit-box-shadow: 0 0 0 1px rgb(126,1,1);
 }
 
 #flash-wrapper {
@@ -1467,34 +1418,33 @@ ul#treelist li,  #search, .tree-background, #loginform .input, .green-submit, .c
 }
 
 .tree-background, #treelist li, #newtree a, .tree-back-wrap  {
-  box-shadow:         0px 1px 7px 0 rgba(0,0,0,.7);
-  -moz-box-shadow:    0px 1px 7px 0 rgba(0,0,0,.7);
-  -webkit-box-shadow: 0px 1px 7px 0 rgba(0,0,0,.7);
+  box-shadow: 0 1px 7px 0 rgba(0,0,0,.7);
+  -moz-box-shadow: 0 1px 7px 0 rgba(0,0,0,.7);
+  -webkit-box-shadow: 0 1px 7px 0 rgba(0,0,0,.7);
 }
 
 #tree-newimport li {
-  box-shadow:         0px 1px 3px rgba(0,0,0,.7);
-  -moz-box-shadow:    0px 1px 3px rgba(0,0,0,.7);
-  -webkit-box-shadow: 0px 1px 3px rgba(0,0,0,.7);
+  box-shadow: 0 1px 3px rgba(0,0,0,.7);
+  -moz-box-shadow: 0 1px 3px rgba(0,0,0,.7);
+  -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.7);
 }
-
 
 /* Text Shadow Light Highlight */
 /************************************************************************/
 #nav li:not(#active), #add-node p, .metadata-header h2, #tree-newimport li h2, #add-node {
-  text-shadow: 0px 1px 0px rgba(255,255,255,0.8);
+  text-shadow: 0 1px 0rgba(255,255,255,0.8);
 }
 
 .spinner {
-  position: absolute;
-  background: #FFF url(/images/loading.gif) no-repeat center center;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  background: #FFF url("/images/loading.gif") no-repeat center center;
   display: none;
+  height: 100%;
+  position: absolute;
+  left: 0;
   opacity: 0.75;
   filter: alpha(opacity=75);
   -moz-opacity: 0.75;
   -khtml-opacity: 0.75;
+  top: 0;
+  width: 100%;
 }
