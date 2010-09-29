@@ -5,7 +5,7 @@ $(function() {
     } else {
       var id = $(this).attr('href');
 
-      $('.ui-tabs-panel:visible').addClass('ui-tabs-hide');
+      $('#tabs > .ui-tabs-panel:visible').addClass('ui-tabs-hide');
       $('.ui-tabs-selected.ui-state-active').removeClass('ui-tabs-selected ui-state-active');
 
       $(id).removeClass('ui-tabs-hide');

@@ -82,6 +82,9 @@
       });
     <% end %>
 
+      if ($('#working-trees li').length == 0) {
+        $('#tab-titles li:first-child').hide();
+      }
     });
   </script>
 <% end %>

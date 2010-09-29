@@ -60,6 +60,7 @@ $(document).ready(function() {
             $('#tree-newimport').unspinner()
             $('#new-tab').before(response.tree);
 
+            $('#tab-titles li:first-child').show();
             $('#tabs li:first-child ul').append('<li><a href="#' + response.domid + '">' + response.title + '</a></li>');
 
             $("#container_for_" + response.domid).jstree({
@@ -82,7 +83,7 @@ $(document).ready(function() {
                 },
               },
               "plugins" : [ "themes", "json_data", "ui", "dnd", "crrm"]
-            }).addClass('ui-tabs-panel ui-widget-content ui-corner-bottom');
+            });
 
             $('#tabs li:first-child ul li:last-child a').trigger('click');
           } else if (xhr.status == 204) {
