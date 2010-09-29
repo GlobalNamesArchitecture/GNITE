@@ -22,10 +22,10 @@ describe Search, 'issuing a search' do
   before do
     response = File.open(Rails.root.join('features', 'support', 'fixtures', 'search_result.json')).read
     stub_app = ShamRack.at(Search::URL).stub
-    stub_app.register_resource("/search?format=json&show_revisions=true&search_term=#{subject.search_term}", response, 'application/xml')
+    stub_app.register_resource("/search?format=json&show_revisions=true&search_term=#{subject.search_term}", response, 'application/json')
   end
 
-  it 'parses the resulting xml' do
+  it 'parses the resulting json' do
     subject.results.should be_kind_of Hash
 
     subject.results['scientific_name_search'].should_not be_empty
