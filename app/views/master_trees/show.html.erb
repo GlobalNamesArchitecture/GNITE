@@ -121,7 +121,7 @@
           "url": "<%= master_tree_nodes_path(:master_tree_id => @master_tree, :format => 'json') %>",
             "data" : function (node) {
               if (node.attr) {
-                return { parent_id : node.attr("id") };
+                return { parent_id : node.attr('id').replace('copy_', '') };
               } else {
                 return {};
               }
@@ -198,7 +198,7 @@
              dataType: 'json',
              data: JSON.stringify({node: {parent_id: parentId }}),
              success: function(data, textStatus, xhr) {
-               result.o.attr("id", data.node.id);
+               result.oc.attr('id', data.node.id);
              }
            });
          } else {

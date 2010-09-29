@@ -32,19 +32,25 @@ describe Node, 'valid' do
   end
 end
 
-describe Node, '#deep_copy' do
+describe Node, '#deep_copy_to' do
   it 'produces a deep copy of its subtree, with node names' do
-    root = Factory(:node, :name => Factory(:name, :name_string => 'Root'))
-    child = Factory(:node, :parent => root, :name => Factory(:name, :name_string => 'Child'))
-    grandchild = Factory(:node, :parent => child, :name => Factory(:name, :name_string => 'Grandchild'))
+    tree        = Factory(:reference_tree)
+    root        = Factory(:node, :tree => tree, :name => Factory(:name, :name_string => 'Root'))
+    child       = Factory(:node, :tree => tree, :parent => root, :name => Factory(:name, :name_string => 'Child'))
+    grandchild  = Factory(:node, :tree => tree, :parent => child, :name => Factory(:name, :name_string => 'Grandchild'))
+    master_tree = Factory(:master_tree)
 
-    another_root = root.deep_copy
-
+    another_root = root.deep_copy_to(master_tree)
     another_root.name_string.should == 'Root'
+    another_root.tree.should == master_tree
+
     another_root.children.size.should == 1
     another_root.children.first.name_string.should == 'Child'
+    another_root.children.first.tree.should == master_tree
+
     another_root.children.first.children.size.should == 1
     another_root.children.first.children.first.name_string.should == 'Grandchild'
+    another_root.children.first.children.first.tree.should == master_tree
   end
 end
 

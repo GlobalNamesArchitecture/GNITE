@@ -17,12 +17,13 @@ class Node < ActiveRecord::Base
     find(:first, :conditions => ["id = ? and tree_id in (?)", id_to_find, tree_ids])
   end
 
-  def deep_copy
+  def deep_copy_to(tree)
     copy = self.clone
+    copy.tree = tree
     copy.save
 
     children.each do |child|
-      child_copy = child.deep_copy
+      child_copy = child.deep_copy_to(tree)
       child_copy.parent = copy
       child_copy.save
     end
