@@ -821,10 +821,12 @@ body form input {
   width: 23%;
 }
 
-.metadata-section:last-child {
-  border-radius: 0 0 0 8px;
-  -moz-border-radius: 0 0 0 8px;
-  -webkit-border-radius: 0 0 0 8px;
+.node-metadata .spinner,
+.metadata-section:last-child,
+.metadata-section:last-child ul {
+  border-radius: 0 0 8px 8px;
+  -moz-border-radius: 0 0 8px 8px;
+  -webkit-border-radius: 0 0 8px 8px;
 }
 
 .node-metadata h4 span {

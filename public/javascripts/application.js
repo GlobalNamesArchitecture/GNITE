@@ -1,12 +1,15 @@
 $(document).ready(function() {
-
   $.fn.spinner = function() {
     if (this[0].spinnerElement) {
       return;
     }
 
+    var position       = this.css('position');
     var spinnerElement = $('<div class="spinner"></div>');
-    var position       = this.css('position') == 'absolute' || this.css('position') == 'relative' ? this.css('position') : 'relative';
+
+    if (position != 'absolute' && position != 'relative') {
+      position = 'relative';
+    }
 
     this
       .css('position', position)
@@ -97,5 +100,4 @@ $(document).ready(function() {
     }, 'json');
     return false;
   });
-
 });
