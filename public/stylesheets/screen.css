@@ -840,6 +840,105 @@ body form input {
   padding: 5px 8px;
 }
 
+/* Search results */
+/************************************************************************/
+#search-results {
+  padding: 10px;
+}
+
+#search-results ul#search-nav {
+}
+
+#search-results ul#search-nav li {
+  float: left;
+  margin: 0 4px 0 0;
+  width: 140px;
+}
+
+#search-results ul#search-nav li a {
+  background: #ddd;
+  border-radius: 5px 5px 0 0;
+  display: block;
+  padding: 4px 4px;
+}
+
+#search-results ul#search-nav li a div.count {
+  display: inline;
+  float: right;
+}
+
+.search-text {
+  background: #ddd;
+  padding: 10px;
+}
+
+.search-text h3 {
+  font-size: 14px;
+  margin: 0 0 6px 0;
+}
+
+.search-text ul.classifications li {
+  border-bottom: 1px solid #999;
+  font-size: 13px;
+  margin: 0 0 18px 0;
+  padding: 0 0 18px 0;
+}
+
+div.title,
+div.description,
+div.rank,
+div.path,
+div.current_name {
+  margin: 0 0 4px 0;
+}
+
+div.title:before,
+div.description:before,
+div.rank:before,
+div.path:before,
+div.current_name:before {
+  font-weight: bold;
+}
+
+div.title {
+  font-size: 14px;
+  margin: 0 0 4px 0;
+}
+
+div.title:before {
+}
+
+div.description:before {
+}
+
+div.description {
+  color: #666;
+  margin: 0 0 8px 0;
+}
+
+div.rank:before {
+  content: "Rank:";
+}
+
+div.path:before {
+  content: "Path:";
+}
+
+div.current_name:before {
+  content: "Current name:";
+}
+
+.search-text ul.authors li {
+  border-bottom: 0;
+}
+
+.search-text a.import {
+  background: #bbb;
+  border-radius: 4px;
+  padding: 6px 8px;
+  text-decoration: none;
+}
+
 
 /* Master Tree Metadata Back */
 /************************************************************************/

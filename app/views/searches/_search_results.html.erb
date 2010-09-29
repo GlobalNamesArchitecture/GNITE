@@ -1,6 +1,6 @@
 <ul class="classifications">
   <% results_hash['classifications'].each do |classification| -%>
-    <li id="<%= classification['uuid'] -%>">
+    <li id="<%= classification['uuid'] -%>" class="search-result">
       <div class="title"> <%= classification['title'] -%> </div>
       <div class="description"> <%= classification['description'] -%></div>
       <div class="rank"> <%= classification['rank'] -%></div>
@@ -10,12 +10,11 @@
       <ul class="authors">
         <% classification['authors'].each do |author| %>
           <li>
-            <div class="name"><%= "#{author['first_name']} #{author['last_name']}"-%></div>
-            <div class="email"><%= mail_to(author['email']) -%></div>
+            <div class="name"><%= "#{author['first_name']} #{author['last_name']}"-%> (<%= mail_to(author['email']) -%>)</div>
           </li>
         <% end %>
       </ul>
-      <a href="#">Import</a>
+      <a href="#" class="import">Import</a>
     </li>
   <% end %>
 </ul>
