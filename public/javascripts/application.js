@@ -6,9 +6,10 @@ $(document).ready(function() {
     }
 
     var spinnerElement = $('<div class="spinner"></div>');
+    var position       = this.css('position') == 'absolute' || this.css('position') == 'relative' ? this.css('position') : 'relative';
 
     this
-      .css('position', 'relative')
+      .css('position', position)
       .prepend(spinnerElement);
 
     spinnerElement.fadeIn('fast');
@@ -20,11 +21,13 @@ $(document).ready(function() {
 
   $.fn.unspinner = function() {
     this.each(function () {
-      var spinnerElement = $(this.spinnerElement);
-      spinnerElement.fadeOut("fast", function() {
-        spinnerElement.remove();
-      });
-      this.spinnerElement = null;
+      if (this.spinnerElement) {
+        $(this.spinnerElement).fadeOut('fast', function() {
+          $(this).remove();
+        });
+
+        this.spinnerElement = null;
+      }
     });
     return this;
   };

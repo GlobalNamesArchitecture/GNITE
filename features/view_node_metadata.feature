@@ -17,6 +17,9 @@ Feature: View metadata for master tree nodes
     And I should see "Almond, Peanut" as vernacular names
     And I should see "Species" as rank
     When I select the node "Pop"
-    Then I should see "Soda, Softdrink" as synonyms
+    Then I should see a spinner
+    When pause 1
+    Then I should not see a spinner
+    And I should see "Soda, Softdrink" as synonyms
     And I should see "Coke, Dr. Pepper" as vernacular names
     And I should see "Family" as rank

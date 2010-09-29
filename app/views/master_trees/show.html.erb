@@ -240,6 +240,8 @@
       $('#master-tree .jstree-clicked').live('click', function() {
         var self = $(this);
 
+        $('.node-metadata').spinner();
+
         $.getJSON('/master_trees/<%= @master_tree.id %>/nodes/' + self.parent('li').attr('id'), function(data) {
           var rank             = $.trim(data.rank);
           var synonyms         = data.synonyms;
@@ -273,7 +275,7 @@
           var metadata = $('.node-metadata');
 
           metadata.show();
-          wrapper.css('bottom', $('.node-metadata').height());
+          wrapper.css('bottom', metadata.height());
 
           var nodePosition  = self[0].offsetTop - wrapper[0].scrollTop;
           var visibleHeight = wrapper.height();
@@ -281,6 +283,8 @@
           if (nodePosition >= visibleHeight) {
             wrapper[0].scrollTop += nodePosition - visibleHeight + 36;
           }
+
+          metadata.unspinner();
         });
       });
 
