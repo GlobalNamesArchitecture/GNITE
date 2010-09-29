@@ -5,7 +5,7 @@ describe SearchesController, 'route' do
 end
 
 describe SearchesController, 'xhr GET to show' do
-  let(:search_results) { File.open('features/support/fixtures/search_result.xml') }
+  let(:search_results) { File.open('features/support/fixtures/search_result.json') }
   before do
     search_mock = mock('search')
     Search.stubs(:new => search_mock)

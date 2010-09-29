@@ -192,6 +192,7 @@ GEM
       rack
     uuid (2.3.1)
       macaddr (~> 1.0)
+    yajl-ruby (0.7.8)
 
 PLATFORMS
   ruby
@@ -229,3 +230,4 @@ DEPENDENCIES
   timecop
   unicorn
   uuid
+  yajl-ruby

@@ -20,9 +20,9 @@ describe Search, 'issuing a search' do
   subject { Search.new(:search_term => 'asfd') }
 
   before do
-    response = File.open(Rails.root.join('features', 'support', 'fixtures', 'search_result.xml')).read
+    response = File.open(Rails.root.join('features', 'support', 'fixtures', 'search_result.json')).read
     stub_app = ShamRack.at(Search::URL).stub
-    stub_app.register_resource("/search?format=xml&show_revisions=true&search_term=#{subject.search_term}", response, 'application/xml')
+    stub_app.register_resource("/search?format=json&show_revisions=true&search_term=#{subject.search_term}", response, 'application/xml')
   end
 
   it 'parses the resulting xml' do

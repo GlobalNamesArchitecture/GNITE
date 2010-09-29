@@ -13,15 +13,15 @@ module FakeGnaclr
     end
 
     get '/search' do
-       SearchXml.xml_response
+       SearchJson.json_response
     end
   end
 
-  class SearchXml
-    attr_accessor :xml_response
+  class SearchJson
+    attr_accessor :json_response
 
-    def self.xml_response
-      @xml_response ||= File.read(Rails.root.join('features', 'support', 'fixtures', 'search_result.xml'))
+    def self.json_response
+      @json_response ||= File.read(Rails.root.join('features', 'support', 'fixtures', 'search_result.json'))
     end
 
   end

@@ -12,9 +12,9 @@ class Search
   end
 
   def search
-    path     = "http://#{URL}/search?format=xml&show_revisions=true&search_term=#{search_term}"
-    xml      = open(path).read
-    Crack::XML.parse(xml)['hash']
+    path     = "http://#{URL}/search?format=json&show_revisions=true&search_term=#{search_term}"
+    json      = open(path).read
+    Yajl::Parser.new.parse(json)
   end
   private :search
 end

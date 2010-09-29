@@ -18,13 +18,12 @@ Feature: User searches gnaclr
     And I follow "Moose tree"
     And I follow "Import"
     Then I should see "Search GNACLR database"
-    When I search for "Leptogastrinae weslacensis"
+    When I search for "agaricus"
     And the search results return
-    Then I should see that "the Scientific Name tab" has 1 result
+    Then I should see that "the Scientific Name tab" has 5 results
     And the search results should contain the following classifications:
-      | rank    | url                                                                                                         | path                                                             | found as | current name                            | citation                                                 | title                                             | description                                                   | uuid                                 |
-      | species | http://leptogastrinae.lifedesks.org/files/leptogastrinae/classification_export/shared/leptogastrinae.tar.gz | Leptogastrinae/Leptogastrini/Apachekolos/Apachekolos weslacensis | synonym  | Apachekolos weslacensis (Bromley, 1951) | Dikow, Torsten. 2010. The Leptogastrinae classification. | Leptogastrinae (Diptera: Asilidae) Classification | These are all the names in the Leptogastrinae classification. | f02f9ac3-4500-5e8e-8a5d-68c9917f3bde |
-    And the result with uuid "f02f9ac3-4500-5e8e-8a5d-68c9917f3bde" should have the following authors:
-      | first name | last name | email                   |
-      | Keith      | Bayless   | keith.bayless@gmail.com |
-      | Torsten    | Dikow     | dshorthouse@eol.org     |
+      | rank | url                      | path                                                               | found as     | current name     | title          | description             | uuid                                 |
+      | gen. | http://indexfungorum.org | Fungi/Basidiomycota/Agaricomycetes/Agaricales/Agaricaceae/Agaricus | current_name | Agaricus L. 1753 | Index Fungorum | Classification of Fungi | a9995ace-f04f-49e2-8e14-4fdbc810b08a |
+    And the result with uuid "a9995ace-f04f-49e2-8e14-4fdbc810b08a" should have the following authors:
+      | first name | last name | email           |
+      | Paul       | Kirk      | p.kirk@cabi.org |

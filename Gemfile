@@ -14,6 +14,7 @@ gem 'dwc-archive', '0.4.11'
 gem 'fastercsv'
 gem 'parsley-store'
 gem 'SystemTimer'
+gem 'yajl-ruby', :require => 'yajl'
 gem 'ruby-debug'
 
 group :development do
