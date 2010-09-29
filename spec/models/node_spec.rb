@@ -33,12 +33,15 @@ describe Node, 'valid' do
 end
 
 describe Node, '#deep_copy_to' do
-  it 'produces a deep copy of its subtree, with node names' do
+  it 'produces a deep copy of its subtree, with node names, synonyms, and vernacular names' do
     tree        = Factory(:reference_tree)
     root        = Factory(:node, :tree => tree, :name => Factory(:name, :name_string => 'Root'))
     child       = Factory(:node, :tree => tree, :parent => root, :name => Factory(:name, :name_string => 'Child'))
     grandchild  = Factory(:node, :tree => tree, :parent => child, :name => Factory(:name, :name_string => 'Grandchild'))
     master_tree = Factory(:master_tree)
+
+    synonym         = Factory(:synonym, :node => grandchild)
+    vernacular_name = Factory(:vernacular_name, :node => child)
 
     another_root = root.deep_copy_to(master_tree)
     another_root.name_string.should == 'Root'
@@ -47,10 +50,14 @@ describe Node, '#deep_copy_to' do
     another_root.children.size.should == 1
     another_root.children.first.name_string.should == 'Child'
     another_root.children.first.tree.should == master_tree
+    another_root.children.first.vernacular_names.size.should == 1
+    another_root.children.first.vernacular_names.first.name.should == vernacular_name.name
 
     another_root.children.first.children.size.should == 1
     another_root.children.first.children.first.name_string.should == 'Grandchild'
     another_root.children.first.children.first.tree.should == master_tree
+    another_root.children.first.children.first.synonyms.size.should == 1
+    another_root.children.first.children.first.synonyms.first.name.should == synonym.name
   end
 end
 
