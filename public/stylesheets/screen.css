@@ -1,13 +1,12 @@
 /* Global Stucture */
 /************************************************************************/
 body {
-  background: #3e4649 url(../images/background.jpg) top left repeat;
+  background: #3e4649 url("../images/background.jpg") top left repeat;
   color: #222;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 #wrapper {
-  background:url(../images/background.jpg);
   height: 100%;
   margin-left: 200px;
 }
@@ -30,11 +29,6 @@ body {
   margin: 9px 0 0 40px;
   padding: 3px;
   width: 20%;
-}
-
-#header span {
-  color: #FFF;
-  margin: 0 0 0 10px;
 }
 
 #header span.error {
@@ -70,7 +64,6 @@ hr {
 /* Body Content */
 /************************************************************************/
 #content {
-  background:url("../images/background.jpg)");
   height:100%;
   min-height:800px;
   min-width:960px;
@@ -232,15 +225,15 @@ body form input {
               rgb(90,165,43) 58%,
               rgb(144,207,76) 98%);
   border: 0;
-
-  -moz-box-shadow:    0px 1px 2px rgba(0,0,0, 1), 0 -1px 0 #114503 inset;
+  box-shadow: 0px 1px 2px rgba(0,0,0, 1), 0 -1px 0 #114503 inset;
+  -moz-box-shadow: 0px 1px 2px rgba(0,0,0, 1), 0 -1px 0 #114503 inset;
   -webkit-box-shadow: 0px 1px 2px rgba(0,0,0, 1), 0 -1px 0 #114503 inset;
-  box-shadow:         0px 1px 2px rgba(0,0,0, 1), 0 -1px 0 #114503 inset;
   color: #fff;
   float: left;
   font-weight: bold;
   font-size: 16px;
   margin: 15px 0;
+  text-shadow: 0 -1px 1px #2c5015;
 }
 
 .cancel-button:hover,
@@ -297,7 +290,7 @@ body form input {
   height: 100%;
   min-height: 800px;
   left: 0;
-  position: absolute;
+  position: fixed;
   text-align: left;
   top: 0;
   width: 200px;
@@ -1288,7 +1281,7 @@ ul#treelist a:hover,
 
 #newtree a {
   background: -webkit-gradient(linear,left bottom,left top,color-stop(0, rgb(164,164,164)),color-stop(1, rgb(232,232,232)));
-  background: -moz-linear-gradient(center bottom,                        rgb(164,164,164)             0%,rgb(232,232,232) 100%);
+  background: -moz-linear-gradient(center bottom, rgb(164,164,164) 0%,rgb(232,232,232) 100%);
   border-radius: 25px;
   -moz-border-radius: 25px;
   -webkit-border-radius: 25px;
