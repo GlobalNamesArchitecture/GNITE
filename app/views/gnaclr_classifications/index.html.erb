@@ -11,14 +11,13 @@
     <li>
       <%= link_to master_tree_gnaclr_classification_path(@master_tree, classification), :class => "ajax-load-new-tab" do %>
         <div class="btn-img result">
-          <div class="content">
+          <div class="content clearfix">
             <h2><%= classification.title %></h2>
             <% if classification.description.present? %>
               <p><%= classification.description %></p>
             <% end %>
           </div>
         </div>
-        <div class="clearfix"></div>
       <% end %>
     </li>
   <% end %>

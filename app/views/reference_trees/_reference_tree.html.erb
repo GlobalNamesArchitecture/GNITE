@@ -6,13 +6,12 @@
         <li><%= reference_tree.title %></li>
       </ul>
     </div>
-    <div class="searchbar">
+    <div class="searchbar clearfix">
       <div class="grid-button">
         <%= link_to reference_tree_path(reference_tree) do %>
           View Tree Information
         <% end %>
       </div>
-      <div class="clearfix"></div>
     </div>
     <div class="reference_tree_container">
       <div id=<%= dom_id(reference_tree, "container_for") %>></div>

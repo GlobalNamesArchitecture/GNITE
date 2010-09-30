@@ -5,7 +5,7 @@
 <!-- Start of New Tree Box -->
   <!-- Start of Left Tree -->
   <div class="tree-column">
-    <div id="fluid-head">   
+    <div id="fluid-head">
     </div>
     <div id="treewrap-left">
       <%= semantic_form_for(:master_tree, :url => master_trees_path, :html => { :method => :post, :id => "tree-metadata" }) do |form| %>
@@ -15,7 +15,7 @@
           <div class="breadcrumbs">
             <ul>
               <li>Tree Description</li>
-            </ul> 
+            </ul>
           </div>
           <div class="tree-back">
             <%= render :partial => "form", :locals => { :form => form } %>
@@ -42,42 +42,39 @@
                     <div class="breadcrumbs">
                       <ul>
                         <li>New Import</li>
-                      </ul> 
+                      </ul>
                     </div>
                     <div id="tree-newimport">
                     	<ul>
                         <li>
                         <a href="#">
                           <div class="btn-img search">
-                            <div class="content">
+                            <div class="content clearfix">
                               <h1>Search GNACLR Database</h1>
                               <p>Search GNACLR database for master trees to import</p>
                             </div>
                           </div>
-                          <div class="clearfix"></div>
                           </a>
                         </li>
                         <li>
-                          <div class="btn-img upload">
+                          <div class="btn-img upload clearfix">
                             <div class="content">
                               <h1>Upload New File</h1>
                               <p>Upload an Excel spreadsheet or plain text file</p>
                             </div>
                           </div>
-                          <div class="clearfix"></div>
                         </li>
                         <li>
                           <div class="btn-img browse">
-                            <div class="content">
+                            <div class="content clearfix">
                               <h1>Open an Existing File</h1>
                               <p>Open one of my previously created master trees</p>
                             </div>
                           </div>
-                          <div class="clearfix"></div>
                         </li>
                   		</ul>
                     </div>
-                    
+
                   <!-- End of .tree-back-wrap -->
             	 </div>
             	 <!-- End of .tree-background -->
@@ -88,7 +85,7 @@
                   <div class="breadcrumbs">
                     <ul>
                       <li>Trash Bin</li>
-                    </ul> 
+                    </ul>
                   </div>
                   <p>Your Trash Bin is currently Empty.</p>
                 </div>

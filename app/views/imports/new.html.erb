@@ -1,7 +1,5 @@
 <%= content_for :panel_header do %>
-<li>
-  New Import
-</li>
+<li>New Import</li>
 <% end %>
 <ul>
   <li class="gnaclr-search">
@@ -11,35 +9,32 @@
   </li>
   <li>
     <%= link_to master_tree_gnaclr_classifications_path(@master_tree), :class => 'ajax-load-new-tab' do %>
-      <div class="btn-img browse">
+      <div class="btn-img browse clearfix">
         <div class="content">
           <h1>Browse GNACLR database</h1>
           <p>Browse GNACLR database for master trees to import</p>
         </div>
       </div>
-      <div class="clearfix"></div>
     <% end %>
   </li>
   <li>
     <%= link_to new_master_tree_flat_list_import_path(@master_tree), :class => 'ajax-load-new-tab' do %>
-      <div class="btn-img upload">
+      <div class="btn-img upload clearfix">
         <div class="content">
           <h1>Import file</h1>
           <p>Upload a file to import</p>
         </div>
       </div>
-      <div class="clearfix"></div>
     <% end %>
   </li>
   <li>
     <%= link_to new_master_tree_flat_list_import_path(@master_tree), :class => 'ajax-load-new-tab' do %>
-      <div class="btn-img flat-list">
+      <div class="btn-img flat-list clearfix">
         <div class="content">
           <h1>Enter flat list</h1>
           <p>Enter a flat list to import</p>
         </div>
       </div>
-      <div class="clearfix"></div>
     <% end %>
   </li>
 </ul>

@@ -714,8 +714,6 @@ body form input {
     );
 }
 
-
-
 .searchbar, .controls {
   background: #babfc3;
   border-bottom: 1px solid #8c9195;
@@ -742,16 +740,15 @@ body form input {
   -moz-border-radius:    6px;
   -webkit-border-radius: 6px;
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#e0e2e4), to(#bbc0c4));
-  background-image: -moz-linear-gradient(top,                  #e0e2e4,     #bbc0c4);
+  background-image: -moz-linear-gradient(top, #e0e2e4, #bbc0c4);
   font-weight: bold;
   font-size: .9em;
 }
 
-
 .searchbar .grid-button:hover,
 .controls .tree-btn:hover {
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f2f4f5), to(#bbc0c4));
-  background-image: -moz-linear-gradient(top,                  #f2f4f5,     #bbc0c4);
+  background-image: -moz-linear-gradient(top, #f2f4f5, #bbc0c4);
 }
 
 .searchbar .grid-button:active,
@@ -1022,9 +1019,7 @@ body form input {
 }
 
 #tree-newimport .btn-img {
-  float: left;
   margin: 10px 0 10px 6px;
-  width: 400px;
 }
 
 #tree-newimport .btn-img:hover {

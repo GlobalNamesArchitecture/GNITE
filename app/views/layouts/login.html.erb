@@ -9,7 +9,7 @@
   <div id="wrapper">
 
     <!-- Start of Login Content -->
-    <div id="loginwrap">
+    <div id="loginwrap" class="clearfix">
       <div id="flash-login-wrap">
         <%= render :partial => 'shared/flashes' -%>
       </div>
@@ -20,8 +20,6 @@
       <!-- End of Logo -->
 
       <%= yield %>
-    <div class="clearfix"></div>
-
     </div>
     <!-- End of Body Content -->
 
