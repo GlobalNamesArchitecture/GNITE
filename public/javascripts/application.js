@@ -126,7 +126,7 @@ $(document).ready(function() {
                   metadata.find('.metadata-rank ul').append('<li>' + rank + '</li>');
                 }
 
-                var wrapper = $('#add-node-wrap');
+                var wrapper = $('#container_for_' + response.domid);
 
                 metadata.show();
                 wrapper.css('bottom', metadata.height());
