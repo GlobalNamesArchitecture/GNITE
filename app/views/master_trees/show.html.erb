@@ -278,7 +278,7 @@
 
         if (!hitNode) {
           $(event.target).closest('.jstree').jstree('deselect_all');
-          $('.node-metadata').hide();
+          $('#add-node-wrap + .node-metadata').hide();
           $('#add-node-wrap').css('bottom', '20px');
         }
       });
