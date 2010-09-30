@@ -1,6 +1,6 @@
 Feature: Importing trees from GNACLR
   Background:
-    Given I am signed up and confirmed as "email@person.com/password"
+    Given I have signed in with "email@person.com/password"
     And "email@person.com" has created an existing master tree titled "Moose tree" with:
       | Bullwinkle |
     And GNACLR contains the following classifications:
@@ -10,11 +10,10 @@ Feature: Importing trees from GNACLR
       | sequence_number | message                          | url                  | commited_date |
       | 2               | this is really the best revision | cyphophthalmi.tar.gz | 2010-02-01    |
       | 1               | this is the best revision        | cyphophthalmi.tar.gz | 2010-01-01    |
+    And I am on the master tree index page
 
   @javascript
   Scenario: Importing the sample NCBI tree
-    When I sign in as "email@person.com/password"
-    Then I should be on the master tree index page
     When I follow "Moose tree"
     And I follow "Browse GNACLR database"
     And I follow "NCBI"
@@ -32,8 +31,6 @@ Feature: Importing trees from GNACLR
 
   @javascript
   Scenario: Importing an older revision of the sample NCBI tree
-    When I sign in as "email@person.com/password"
-    Then I should be on the master tree index page
     When I follow "Moose tree"
     And I follow "Browse GNACLR database"
     And I follow "NCBI"

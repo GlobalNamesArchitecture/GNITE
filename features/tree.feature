@@ -56,12 +56,11 @@ Feature: Edit a master tree
 
   @javascript
   Scenario: User can rename nodes in a tree
-    Given I am signed up and confirmed as "email@person.com/password"
+    Given I have signed in with "email@person.com/password"
     And "email@person.com" has created an existing master tree titled "Moose tree" with:
       | Bullwinkle |
       | Rocky      |
-    And I sign in as "email@person.com/password"
-    Then I should be on the master tree index page
+    And I am on the master tree index page
     When I follow "Moose tree"
     And I wait for the tree to load
     And I double click "Bullwinkle" and change it to "Monkey"
@@ -74,14 +73,13 @@ Feature: Edit a master tree
 
    @javascript
    Scenario: User can move nodes in a tree
-    Given I am signed up and confirmed as "email@person.com/password"
+    Given I have signed in with "email@person.com/password"
     And "email@person.com" has created an existing master tree titled "Moose tree" with:
       | Bullwinkle |
       | Rocky      |
       | Natasha    |
       | Boris      |
-    And I sign in as "email@person.com/password"
-    Then I should be on the master tree index page
+    And I am on the master tree index page
     When I follow "Moose tree"
     And I wait for the tree to load
     And I drag "Rocky" under "Bullwinkle"
@@ -101,14 +99,13 @@ Feature: Edit a master tree
 
   @javascript
   Scenario: User can remove nodes in a tree
-    Given I am signed up and confirmed as "email@person.com/password"
+    Given I have signed in with "email@person.com/password"
     And "email@person.com" has created an existing master tree titled "Moose tree" with:
       | Bullwinkle |
       | Rocky      |
       | Natasha    |
       | Boris      |
-    And I sign in as "email@person.com/password"
-    Then I should be on the master tree index page
+    And I am on the master tree index page
     When I follow "Moose tree"
     And I wait for the tree to load
     And I should see a node "Boris" at the root level in my master tree
@@ -120,14 +117,13 @@ Feature: Edit a master tree
 
   @javascript
   Scenario: User can automatically remove children nodes by deleting a parent in a tree
-    Given I am signed up and confirmed as "email@person.com/password"
+    Given I have signed in with "email@person.com/password"
     And "email@person.com" has created an existing master tree titled "Moose tree" with:
       | Bullwinkle |
       | Rocky      |
       | Natasha    |
       | Boris      |
-    And I sign in as "email@person.com/password"
-    Then I should be on the master tree index page
+    And I am on the master tree index page
     When I follow "Moose tree"
     And I drag "Rocky" under "Bullwinkle"
     And I delete the node "Bullwinkle"
@@ -140,10 +136,10 @@ Feature: Edit a master tree
 
   @javascript
   Scenario: User can deselect a node
-    Given I am signed up and confirmed as "email@person.com/password"
+    Given I have signed in with "email@person.com/password"
     And "email@person.com" has created an existing master tree titled "Moose tree" with:
       | Bullwinkle |
-    And I sign in as "email@person.com/password"
+    And I am on the master tree index page
     When I follow "Moose tree"
     And I select the node "Bullwinkle"
     When I click the master tree background
@@ -154,11 +150,10 @@ Feature: Edit a master tree
     Then no nodes should be selected in the master tree
 
   Scenario: User can edit the metadata for a tree
-    Given I am signed up and confirmed as "email@person.com/password"
+    Given I have signed in with "email@person.com/password"
     And "email@person.com" has created an existing master tree titled "Moose tree" with:
       | Bullwinkle |
-    And I sign in as "email@person.com/password"
-    Then I should be on the master tree index page
+    And I am on the master tree index page
     When I follow "Moose tree"
     And I follow "Edit Tree Info"
     Then I should be on the edit master tree page for "Moose tree"
@@ -170,11 +165,10 @@ Feature: Edit a master tree
     And I should not see "Moose tree"
 
   Scenario: User can cancel editing the metadata for a tree
-    Given I am signed up and confirmed as "email@person.com/password"
+    Given I have signed in with "email@person.com/password"
     And "email@person.com" has created an existing master tree titled "Moose tree" with:
       | Bullwinkle |
-    And I sign in as "email@person.com/password"
-    Then I should be on the master tree index page
+    And I am on the master tree index page
     When I follow "Moose tree"
     And I follow "Edit Tree Info"
     Then I should be on the edit master tree page for "Moose tree"
@@ -184,11 +178,11 @@ Feature: Edit a master tree
 
   @javascript
   Scenario: User can cut and paste a node
-    Given I am signed up and confirmed as "email@person.com/password"
+    Given I have signed in with "email@person.com/password"
     And "email@person.com" has created an existing master tree titled "Snacks" with:
       | Get Cut    |
       | Paste Here |
-    And I sign in as "email@person.com/password"
+    And I am on the master tree index page
     When I follow "Snacks"
     And I wait for the tree to load
     And I select the node "Get Cut"
@@ -203,10 +197,10 @@ Feature: Edit a master tree
 
   @javascript
   Scenario: User can add nodes from the context menu
-    Given I am signed up and confirmed as "email@person.com/password"
+    Given I have signed in with "email@person.com/password"
     And "email@person.com" has created an existing master tree titled "Snacks" with:
       | oxiae |
-    And I sign in as "email@person.com/password"
+    And I am on the master tree index page
     When I follow "Snacks"
     And I wait for the tree to load
     And I select the node "oxiae"
