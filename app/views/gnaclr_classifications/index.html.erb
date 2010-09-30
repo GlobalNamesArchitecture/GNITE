@@ -10,8 +10,8 @@
   <% @gnaclr_classifications.each do |classification| %>
     <li>
       <%= link_to master_tree_gnaclr_classification_path(@master_tree, classification), :class => "ajax-load-new-tab" do %>
-        <div class="btn-img result">
-          <div class="content clearfix">
+        <div class="result clearfix">
+          <div class="result-text clearfix">
             <h2><%= classification.title %></h2>
             <% if classification.description.present? %>
               <p><%= classification.description %></p>
