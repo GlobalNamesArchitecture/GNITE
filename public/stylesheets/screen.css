@@ -856,19 +856,25 @@ body form input {
 }
 
 #search-results ul#search-nav li a {
-  background: #ddd;
+  background: #edebe4;
   border-radius: 5px 5px 0 0;
   display: block;
-  padding: 4px 4px;
+  padding: 8px 8px 6px 8px;
+  text-decoration: none;
+}
+
+#search-results ul#search-nav li.active a {
+  background: #E6E4DD;
 }
 
 #search-results ul#search-nav li a div.count {
   display: inline;
   float: right;
+  font-weight: bold;
 }
 
 .search-text {
-  background: #ddd;
+  background: #E6E4DD;
   padding: 10px;
 }
 
@@ -878,7 +884,7 @@ body form input {
 }
 
 .search-text ul.classifications li {
-  border-bottom: 1px solid #999;
+  border-bottom: 1px solid #c1bfb9;
   font-size: 13px;
   margin: 0 0 18px 0;
   padding: 0 0 18px 0;
@@ -902,6 +908,7 @@ div.current_name:before {
 
 div.title {
   font-size: 14px;
+  font-weight: bold;
   margin: 0 0 4px 0;
 }
 
@@ -913,6 +920,12 @@ div.description:before {
 
 div.description {
   color: #666;
+  margin: 0 0 12px 0;
+}
+
+div.rank,
+div.path,
+div.current_name {
   margin: 0 0 8px 0;
 }
 
@@ -930,13 +943,28 @@ div.current_name:before {
 
 .search-text ul.authors li {
   border-bottom: 0;
+  margin-bottom: 6px;
 }
 
 .search-text a.import {
-  background: #bbb;
+  background: #5aa52b;
+  background: -webkit-gradient(linear,left bottom,left top,
+              color-stop(0.04, rgb(27,112,4)),
+              color-stop(0.58, rgb(90,165,43)),
+              color-stop(0.98, rgb(144,207,76)));
+  background: -moz-linear-gradient(center bottom,
+              rgb(27,112,4) 4%,
+              rgb(90,165,43) 58%,
+              rgb(144,207,76) 98%);
+  box-shadow:         0 1px 3px rgba(0,0,0, 0.6), 0 1px 0 rgb(255,255,255,.4) inset;
+  -moz-box-shadow:    0 1px 3px rgba(0,0,0, 0.6), 0 1px 0 rgb(255,255,255,.4) inset;
+  -webkit-box-shadow: 0 1px 3px rgba(0,0,0, 0.6), 0 1px 0 rgb(255,255,255,.4) inset;
   border-radius: 4px;
+  color: #fff;
+  font-weight: bold;
   padding: 6px 8px;
   text-decoration: none;
+  text-shadow: 0 -1px 1px #2c5015;
 }
 
 
@@ -990,8 +1018,6 @@ div.current_name:before {
   -moz-box-shadow:    0 1px 2px rgba(0,0,0, 1);
   -webkit-box-shadow: 0 1px 2px rgba(0,0,0, 1);
   box-shadow:         0 1px 2px rgba(0,0,0, 1);
-
-
   width: auto;
 }
 

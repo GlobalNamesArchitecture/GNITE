@@ -3,12 +3,11 @@
     <li>GNACLR search</li>
     <li><%= @results['search_term'] -%></li>
   </ul>
-
 </div>
 
 <div id="search-results">
   <ul id="search-nav" class="clearfix">
-    <li id="scientific-name-tab">
+    <li id="scientific-name-tab" class="active">
       <a href="#scientific-name-search-results">
         Scientific Name
         <div class="count"><%= @results['scientific_name_search']['total_count'] -%></div>
@@ -28,15 +27,12 @@
     </li>
   </ul>
   <div id="scientific-name-search-results" class="search-text">
-    <h3>Scientific Name</h3>
     <%= render :partial => 'search_results', :locals => { :results_hash => @results['scientific_name_search'] } %>
   </div>
   <div id="vernacular-name-search-results" class="search-text">
-    <h3>Vernacular Name</h3>
     <%= render :partial => 'search_results', :locals => { :results_hash => @results['vernacular_name_search'] } %>
   </div>
   <div id="classification-metadata-search" class="search-text">
-    <h3>Classification Metadata</h3>
     <%= render :partial => 'search_results', :locals => { :results_hash => @results['classification_metadata_search'] } %>
   </div>
 </div>
