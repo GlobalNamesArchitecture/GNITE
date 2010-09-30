@@ -1,4 +1,3 @@
-<!-- Start of Forms -->
 <div id="loginform">
   <%= semantic_form_for :session, :url => session_path, :id => "signin" do |form| %>
     <%= form.inputs :title => "Sign in to your account" do %>
@@ -10,7 +9,6 @@
     <% end %>
   <% end %>
   <p>Forgot your password? <%= link_to "Reset it here", new_password_path %></p>
-  <hr/>
+  <hr>
   <p>Need a GNITE account? <%= link_to "Sign up here", sign_up_path %></p>
 </div>
-<!-- End of Forms -->

@@ -2,30 +2,27 @@
   Account Settings
 <% end %>
 
-<!-- Start of Profile Information Box --> 
 <%= semantic_form_for(:user,
                       :url => user_path(@user),
                       :html => { :method => :put }) do |form| %>
-  <div class="infobox-wrap"> 
+  <div class="infobox-wrap">
     <div class="breadcrumbs">
       <ul>
         <li>Account Information</li>
-      </ul> 
-    </div> 
-    <div class="infobox"> 
+      </ul>
+    </div>
+    <div class="infobox">
       <%= form.error_messages %>
 
-      <!-- form -->
       <div class="info-content">
         <%= form.inputs do -%>
           <%= form.input :email %>
         <% end -%>
       </div>
-    </div> 
-  </div> 
+    </div>
+  </div>
   <div class="clearfix"></div>
   <%= form.buttons do -%>
     <%= form.commit_button "Save changes", :button_html => { :class => "green-submit" } %>
   <% end %>
 <% end %>
-<!-- End of Profile Information Box --> 
