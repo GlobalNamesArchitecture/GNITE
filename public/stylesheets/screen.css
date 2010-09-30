@@ -965,15 +965,22 @@ body form input {
 #tree-newimport ul {
   margin: 0 15px;
   padding: 0px;
-  /*width: 400px;*/
 }
 
 #tree-newimport ul li {
-  background: #e6e4dd;
-  background: rgb(230,228,221);
-  background: -moz-linear-gradient(center bottom, rgb(230,228,221) 0%, rgb(255,255,255) 50%);
+  background: #E0E2E4;
+  background: -moz-linear-gradient(0% 100% 90deg,#BBC0C4, #E0E2E4);
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#E0E2E4), to(#BBC0C4));
+  border: 1px solid #aaa;
+  box-shadow: inset 0px 1px 0px #fff;
+  -moz-box-shadow: inset 0px 1px 0px #fff;
+  -webkit-box-shadow: inset 0px 1px 0px #fff;
   margin: 20px 0;
-  /*width: 400px;*/
+}
+
+#tree-newimport ul li:hover {
+  background: -moz-linear-gradient(0% 100% 90deg,#aeb3b8, #d2d4d6);
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#d2d4d6), to(#aeb3b8));
 }
 
 #tree-newimport ul li .content {
@@ -984,6 +991,7 @@ body form input {
 #tree-newimport ul li h1 {
   margin: 0;
   padding: 5px 0;
+  text-shadow: 0 1px 0 #fff;
 }
 
 #tree-newimport ul li.gnaclr-search h1 {
@@ -1047,7 +1055,7 @@ body form input {
 }
 
 #tree-newimport .upload:hover {
-  background: url("../images/upload-hover.png") no-repeat;
+  background: url("../images/upload.png") 0 -52px no-repeat;
 }
 
 #tree-newimport .browse {
@@ -1055,7 +1063,7 @@ body form input {
 }
 
 #tree-newimport .browse:hover {
-  background:url("../images/browse-hover.png") no-repeat;
+  background:url("../images/browse.png") 0 -52px no-repeat;
 }
 
 #tree-newimport .flat-list {
@@ -1068,11 +1076,6 @@ body form input {
 
 #tree-newimport ul.list {
   margin: 0;
-}
-
-#tree-newimport ul.list li:hover {
-  background: rgb(255,255,255);
-  background: -moz-linear-gradient(center bottom, rgb(230,228,221) 0%, rgb(255,255,255) 50%);
 }
 
 #tree-newimport ul.list li {
