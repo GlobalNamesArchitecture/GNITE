@@ -10,7 +10,6 @@
   <%= render :partial => 'shared/flashes' -%>
 </div>
 
-<!-- Start of Left Tree -->
 <div class="tree-column clearfix">
   <div id="fluid-head"></div>
 
@@ -22,42 +21,38 @@
           <li>Breadcrumb</li>
           <li>Breadcrumb</li>
         </ul>
-      </div><!-- /.breadcrumbs -->
+      </div>
 
       <div class="searchbar clearfix">
         <div class="grid-button">
           <%= link_to edit_master_tree_path do %>
             Edit Tree Info
           <% end %>
-        </div><!-- /.grid-button -->
+        </div>
 
         <div class="grid-button">
           <%= link_to edit_master_tree_path do %>
             Publish To GNACLR
           <% end %>
-        </div><!-- /.grid-button -->
+        </div>
 
         <div id="add-node">
           <a href="#">Add Node</a>
-        </div><!-- /#add-node -->
-
-      </div><!-- /.searchbar -->
+        </div>
+      </div>
 
       <div id="add-node-wrap">
         <div id="tree-container" data-database-id="<%= @master_tree.id %>">
           <div id="master-tree"></div>
         </div>
-      </div><!-- /#add-node-wrap -->
+      </div>
 
       <%= render :partial => 'metadata' %>
-    </div><!-- /.tree-background -->
-  </div><!-- /#treewrap-left -->
+    </div>
+  </div>
 </div>
-<!-- End of Left Tree -->
 
-<!-- Start of Right Tree -->
 <%= render :partial => "reference_trees" %>
-<!-- End of Right Tree -->
 
 <% content_for :javascript do %>
   <%= javascript_include_tag 'jquery.jstree.min' %>

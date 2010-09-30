@@ -3,14 +3,12 @@
     <div class="tree_list_header_inner clearfix">
       <h1>Your Master Trees</h1>
         <div id="newtree" class="clearfix">
-          <!-- New Tree Button -->
           <a href="<%= new_master_tree_path %>">Create New Master Tree</a>
         </div>
     </div>
   </div>
 <% end %>
 
-<!-- Master Trees List -->
 <% if current_user.master_trees.any? %>
   <ul id="treelist" class="clearfix">
     <% current_user.master_trees.each do |tree| %>
@@ -32,4 +30,3 @@
     <% end %>
   </ul>
 <% end %>
-<!-- End Tree List -->

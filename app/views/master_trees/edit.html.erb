@@ -2,25 +2,24 @@
   <%= @master_tree.title %>
 <% end %>
 
-<!-- Start of New Tree Box -->
-  <!-- Start of Left Tree -->
-  <div class="tree-column">
-    <div id="fluid-head"></div>
+<div class="tree-column">
+  <div id="fluid-head"></div>
 
-    <div id="treewrap-left">
-      <%= semantic_form_for(@master_tree, :url => master_tree_path(@master_tree), :html => { :method => :put, :id => "tree-metadata" }) do |form| %>
-        <div class="tree-back-wrap">
-          <div class="breadcrumbs">
-            <ul>
-              <li>Edit Tree Info</li>
-            </ul>
-          </div>
-          <%= render :partial => "form", :locals => { :form => form } %>
+  <div id="treewrap-left">
+    <%= semantic_form_for(@master_tree, :url => master_tree_path(@master_tree), :html => { :method => :put, :id => "tree-metadata" }) do |form| %>
+      <div class="tree-back-wrap">
+        <div class="breadcrumbs">
+          <ul>
+            <li>Edit Tree Info</li>
+          </ul>
         </div>
-        <%= form.buttons do -%>
-          <%= form.commit_button "Update", :button_html => { :class => "green-submit" } %>
-          <%= link_to "Cancel", master_tree_path(@master_tree), :class => "cancel-button" %>
-        <% end -%>
-      <% end %>
+
+        <%= render :partial => "form", :locals => { :form => form } %>
+      </div>
+      <%= form.buttons do -%>
+        <%= form.commit_button "Update", :button_html => { :class => "green-submit" } %>
+        <%= link_to "Cancel", master_tree_path(@master_tree), :class => "cancel-button" %>
+      <% end -%>
+    <% end %>
   </div>
-<!-- End of Tree -->
+</div>

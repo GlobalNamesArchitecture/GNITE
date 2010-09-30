@@ -1,19 +1,17 @@
-<!-- Start of Tree Background -->
-    <div class="tree-back">
-      <%= form.error_messages %>
+<div class="tree-back">
+  <%= form.error_messages %>
 
-      <%= form.inputs do -%>
-        <%= form.input :title %>
+  <%= form.inputs do -%>
+    <%= form.input :title %>
 
-        <%= form.input :citation %>
-        <%= form.label :abstract %>
-        <%= form.text_area :abstract %>
-        <%= form.label :publication_date %>
-        <%= form.date_select :publication_date %>
-        <%= form.input :creative_commons, :as            => :select,
-                                          :label         => "License",
-                                          :include_blank => false,
-                                          :collection    => Licenses::CC_LICENSES %>
-      <% end %>
-  </div>
-<!-- End of Tree Background -->
+    <%= form.input :citation %>
+    <%= form.label :abstract %>
+    <%= form.text_area :abstract %>
+    <%= form.label :publication_date %>
+    <%= form.date_select :publication_date %>
+    <%= form.input :creative_commons, :as            => :select,
+                                      :label         => "License",
+                                      :include_blank => false,
+                                      :collection    => Licenses::CC_LICENSES %>
+  <% end %>
+</div>
