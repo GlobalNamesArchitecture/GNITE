@@ -26,7 +26,7 @@ Feature: User searches gnaclr
     And the search results should contain the following classifications:
       | rank | url                      | path                                                               | found as     | current name     | title          | description             | uuid                                 |
       | gen. | http://indexfungorum.org | Fungi/Basidiomycota/Agaricomycetes/Agaricales/Agaricaceae/Agaricus | current_name | Agaricus L. 1753 | Index Fungorum | Classification of Fungi | a9995ace-f04f-49e2-8e14-4fdbc810b08a |
-    And the result with uuid "a9995ace-f04f-49e2-8e14-4fdbc810b08a" should have the following authors:
+    And the "Agaricus L. 1753" result should have the following authors:
       | first name | last name | email           |
       | Paul       | Kirk      | p.kirk@cabi.org |
 

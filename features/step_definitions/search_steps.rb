@@ -39,12 +39,10 @@ Then /^the search results should contain the following classifications:$/ do |cl
   end
 end
 
-# TODO: This should be the current name, not id.
-# within("div.current_name:contains('#{current_name}') ~ .authors") might do the trick
-Then /^the result with uuid "([^\"]+)" should have the following authors:$/ do |result_uuid, authors|
-  within(".classifications li##{result_uuid} .authors") do
+Then /^the "([^\"]+)" result should have the following authors:$/ do |current_name, authors|
+  within("div.current_name:contains('#{current_name}') ~ .authors") do
     authors.hashes.each do |row|
-      page.should have_css('div.name', :text => "#{row['first name']} #{row['last name']} ( #{row['email']} )")
+        page.should have_css('div.name', :text => "#{row['first name']} #{row['last name']} ( #{row['email']} )")
     end
   end
 end
