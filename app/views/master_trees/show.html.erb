@@ -52,11 +52,13 @@
   </div>
 </div>
 
+<% content_for :javascript do %>
+  <%= javascript_include_tag 'jquery.jstree.min' %>
+<% end %>
+
 <%= render :partial => "reference_trees" %>
 
 <% content_for :javascript do %>
-  <%= javascript_include_tag 'jquery.jstree.min' %>
-
   <script type="text/javascript" class="source">
     $(document).ready(function() {
       function contextMenuItems() {
