@@ -11,6 +11,7 @@ end
 Factory.define :reference_tree do |reference_tree|
   reference_tree.title { "My Tree" }
   reference_tree.association :user
+  reference_tree.association :master_tree
   reference_tree.creative_commons { 'cc0' }
 end
 

@@ -50,27 +50,7 @@
         </div>
       </div><!-- /#add-node-wrap -->
 
-      <div class="node-metadata clearfix">
-        <h3>Node metadata</h3>
-
-        <div class="metadata-section metadata-synonyms clearfix">
-          <h4><span>Synonyms</span></h4>
-          <ul class="clearfix">
-          </ul>
-        </div>
-
-        <div class="metadata-section metadata-vernacular-names clearfix">
-          <h4><span>Vernacular names</span></h4>
-          <ul class="clearfix">
-          </ul>
-        </div>
-
-        <div class="metadata-section metadata-rank clearfix">
-          <h4><span>Rank</span></h4>
-          <ul class="clearfix">
-          </ul>
-        </div>
-      </div>
+      <%= render :partial => 'metadata' %>
     </div><!-- /.tree-background -->
   </div><!-- /#treewrap-left -->
 </div>
@@ -238,41 +218,41 @@
       });
 
       $('#master-tree .jstree-clicked').live('click', function() {
-        var self = $(this);
+        var self     = $(this);
+        var metadata = $('#treewrap-left .node-metadata');
 
-        $('.node-metadata').spinner();
+        metadata.spinner();
 
         $.getJSON('/master_trees/<%= @master_tree.id %>/nodes/' + self.parent('li').attr('id'), function(data) {
           var rank             = $.trim(data.rank);
           var synonyms         = data.synonyms;
           var vernacular_names = data.vernacular_names;
 
-          $('.node-metadata .metadata-section ul').empty();
+          metadata.find('.metadata-section ul').empty();
 
           if (synonyms.length == 0) {
-            $('.node-metadata .metadata-synonyms ul').append('<li>None</li>');
+            metadata.find('.metadata-synonyms ul').append('<li>None</li>');
           } else {
             $.each(synonyms, function(index, synonym) {
-              $('.node-metadata .metadata-synonyms ul').append('<li>' + synonym + '</li>');
+              metadata.find('.metadata-synonyms ul').append('<li>' + synonym + '</li>');
             });
           }
 
           if (vernacular_names.length == 0) {
-            $('.node-metadata .metadata-vernacular-names ul').append('<li>None</li>');
+            metadata.find('.metadata-vernacular-names ul').append('<li>None</li>');
           } else {
             $.each(vernacular_names, function(index, vernacular_name) {
-              $('.node-metadata .metadata-vernacular-names ul').append('<li>' + vernacular_name + '</li>');
+              metadata.find('.metadata-vernacular-names ul').append('<li>' + vernacular_name + '</li>');
             });
           }
 
           if (rank == '') {
-            $('.node-metadata .metadata-rank ul').append('<li>None</li>');
+            metadata.find('.metadata-rank ul').append('<li>None</li>');
           } else {
-            $('.node-metadata .metadata-rank ul').append('<li>' + rank + '</li>');
+            metadata.find('.metadata-rank ul').append('<li>' + rank + '</li>');
           }
 
-          var wrapper  = $('#add-node-wrap');
-          var metadata = $('.node-metadata');
+          var wrapper = $('#add-node-wrap');
 
           metadata.show();
           wrapper.css('bottom', metadata.height());

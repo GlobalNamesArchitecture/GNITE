@@ -1,5 +1,5 @@
 Given /^the following nodes exist with metadata for the "([^"]*)" tree:$/ do |tree_title, table|
-  tree = MasterTree.find_by_title!(tree_title)
+  tree = Tree.find_by_title!(tree_title)
 
   table.hashes.each do |hash|
     node = Factory(:node, :name => Factory(:name, :name_string => hash['name']), :tree => tree, :rank => hash['rank'])

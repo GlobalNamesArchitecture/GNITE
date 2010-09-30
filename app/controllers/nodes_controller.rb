@@ -17,7 +17,14 @@ class NodesController < ApplicationController
   end
 
   def show
-    tree = current_user.master_trees.find(params[:master_tree_id])
+    tree_id = params[:master_tree_id] || params[:reference_tree_id]
+
+    if params[:master_tree_id]
+      tree = current_user.master_trees.find(tree_id)
+    else
+      tree = current_user.reference_trees.find(tree_id)
+    end
+
     node = tree.nodes.find(params[:id])
 
     render :json => {

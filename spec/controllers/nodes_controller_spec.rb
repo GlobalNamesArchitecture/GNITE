@@ -141,7 +141,7 @@ describe NodesController, 'PUT to update' do
   end
 end
 
-describe NodesController, 'GET to show' do
+describe NodesController, 'GET to show for master tree' do
   let(:user) { Factory(:email_confirmed_user) }
   let(:node) { Factory(:node, :tree => tree) }
   let(:tree) { Factory(:master_tree, :user => user) }
@@ -165,7 +165,36 @@ describe NodesController, 'GET to show' do
 
   it { should respond_with(:success) }
 
-  it 'should render synonyms and vernacular names as JSON' do
+  it 'should render synonyms, vernacular names, and rank as JSON' do
+    response.body.should == @expected.to_json
+  end
+end
+
+describe NodesController, 'GET to show for reference tree' do
+  let(:user) { Factory(:email_confirmed_user) }
+  let(:node) { Factory(:node, :tree => tree) }
+  let(:tree) { Factory(:reference_tree, :user => user) }
+
+  subject { controller }
+
+  before do
+    sign_in_as(user)
+
+    Factory(:synonym, :node => node, :name => Factory(:name, :name_string => 'Point'))
+    Factory(:vernacular_name, :node => node, :name => Factory(:name, :name_string => 'Coordinate'))
+
+    @expected = {
+      :rank             => node.rank,
+      :synonyms         => ['Point'],
+      :vernacular_names => ['Coordinate']
+    }
+
+    get :show, :id => node.id, :reference_tree_id => tree.id, :format => 'json'
+  end
+
+  it { should respond_with(:success) }
+
+  it 'should render synonyms, vernacular names, and rank as JSON' do
     response.body.should == @expected.to_json
   end
 end

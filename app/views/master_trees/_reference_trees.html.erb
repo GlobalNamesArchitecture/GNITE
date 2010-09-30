@@ -58,7 +58,7 @@
       });
 
     <% @master_tree.reference_trees.each do |reference_tree| %>
-      $("#<%= dom_id(reference_tree, 'container_for')%>").jstree({
+      $("#<%= dom_id(reference_tree, 'container_for') %>").jstree({
         "json_data": {
           "ajax": {
             "url": "<%= reference_tree_nodes_path(:reference_tree_id => reference_tree.id, :format => 'json') %>",
@@ -79,6 +79,57 @@
         },
         "plugins" : [ "themes", "json_data", "ui", "dnd", "crrm"]
 
+      });
+
+      $("#<%= dom_id(reference_tree, 'container_for') %> .jstree-clicked").live('click', function() {
+        var self     = $(this);
+        var metadata = $("#<%= dom_id(reference_tree) %> .node-metadata");
+
+        metadata.spinner();
+
+        $.getJSON('/reference_trees/<%= reference_tree.id %>/nodes/' + self.parent('li').attr('id'), function(data) {
+          var rank             = $.trim(data.rank);
+          var synonyms         = data.synonyms;
+          var vernacular_names = data.vernacular_names;
+
+          metadata.find('.metadata-section ul').empty();
+
+          if (synonyms.length == 0) {
+            metadata.find('.metadata-synonyms ul').append('<li>None</li>');
+          } else {
+            $.each(synonyms, function(index, synonym) {
+              metadata.find('.metadata-synonyms ul').append('<li>' + synonym + '</li>');
+            });
+          }
+
+          if (vernacular_names.length == 0) {
+            metadata.find('.metadata-vernacular-names ul').append('<li>None</li>');
+          } else {
+            $.each(vernacular_names, function(index, vernacular_name) {
+              metadata.find('.metadata-vernacular-names ul').append('<li>' + vernacular_name + '</li>');
+            });
+          }
+
+          if (rank == '') {
+            metadata.find('.metadata-rank ul').append('<li>None</li>');
+          } else {
+            metadata.find('.metadata-rank ul').append('<li>' + rank + '</li>');
+          }
+
+          var wrapper = $('#add-node-wrap');
+
+          metadata.show();
+          wrapper.css('bottom', metadata.height());
+
+          var nodePosition  = self[0].offsetTop - wrapper[0].scrollTop;
+          var visibleHeight = wrapper.height();
+
+          if (nodePosition >= visibleHeight) {
+            wrapper[0].scrollTop += nodePosition - visibleHeight + 36;
+          }
+
+          metadata.unspinner();
+        });
       });
     <% end %>
 
