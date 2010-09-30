@@ -1,15 +1,14 @@
-// clear inputs with starter values
-new function($) {
+(function($) {
   $.fn.prefilledInput = function() {
-
-    var focus = function () {
+    var focus = function() {
       $(this).removeClass('prefilled');
+
       if (this.value == this.prefilledValue) {
         this.value = '';
       }
     };
 
-    var blur = function () {
+    var blur = function() {
       if (this.value == '') {
         $(this).addClass('prefilled').val(this.prefilledValue);
       } else if (this.value != this.prefilledValue) {
@@ -17,7 +16,7 @@ new function($) {
       }
     };
 
-    var extractPrefilledValue = function () {
+    var extractPrefilledValue = function() {
       if (this.title) {
         this.prefilledValue = this.title;
         this.title = '';
@@ -26,29 +25,26 @@ new function($) {
       }
     };
 
-    var initialize = function (index) {
+    var initialize = function() {
       if (!this.prefilledValue) {
-        this.extractPrefilledValue = extractPrefilledValue;
-        this.extractPrefilledValue();
+        extractPrefilledValue.call(this);
+
         $(this).trigger('blur');
       }
     };
 
-    return this.filter(":input").
-      focus(focus).
-      blur(blur).
-      each(initialize);
+    return this.filter(':input').
+                focus(focus).
+                blur(blur).
+                each(initialize);
   };
 
-  var clearPrefilledInputs = function () {
-    $(this).find("input").blur();
-    $(this).find("input.prefilled").val("");
-  };
+  $(document).ready(function() {
+    $('form').submit(function() {
+      $(this).find('input').blur();
+      $(this).find('input.prefilled').val('');
+    });
 
-  var prefilledSetup = function () {
     $('input.prefilled').prefilledInput();
-    $('form').submit(clearPrefilledInputs);
-  };
-
-  $(document).ready(prefilledSetup);
-}(jQuery);
+  });
+})(jQuery);
