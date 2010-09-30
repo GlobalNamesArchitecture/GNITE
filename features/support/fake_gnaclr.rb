@@ -21,7 +21,10 @@ module FakeGnaclr
     attr_accessor :json_response
 
     def self.json_response
-      @json_response ||= File.read(Rails.root.join('features', 'support', 'fixtures', 'search_result.json'))
+      @json_response ||= begin
+                           response = File.read(Rails.root.join('features', 'support', 'fixtures', 'search_result.json'))
+                           response.gsub(/\"file_url\":\"([\w\.]+)\",/, '"file_url": "file:///' + Rails.root.join('features', 'support', 'fixtures', '\1') + '",')
+                         end
     end
 
   end
@@ -41,7 +44,7 @@ module FakeGnaclr
     def self.insert(*hashes)
       hashes.each do |hash|
         if hash['file_url']
-          hash['file_url'] = 'file:///' + Rails.root.join('features/support/fixtures', hash['file_url']).to_s
+          hash['file_url'] = 'file:///' + Rails.root.join('features', 'support', 'fixtures', hash['file_url']).to_s
         end
         extract_author_list(hash)
         @@classifications.push(GnaclrClassification.new(hash))

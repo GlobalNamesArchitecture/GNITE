@@ -953,7 +953,7 @@ div.found_as:before {
   margin-bottom: 6px;
 }
 
-.search-text a.import {
+.search-text button.import {
   background: #5aa52b;
   background: -webkit-gradient(linear,left bottom,left top,
               color-stop(0.04, rgb(27,112,4)),

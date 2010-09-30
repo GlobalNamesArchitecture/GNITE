@@ -39,10 +39,19 @@ Then /^the search results should contain the following classifications:$/ do |cl
   end
 end
 
+# TODO: This should be the current name, not id.
+# within("div.current_name:contains('#{current_name}') ~ .authors") might do the trick
 Then /^the result with uuid "([^\"]+)" should have the following authors:$/ do |result_uuid, authors|
   within(".classifications li##{result_uuid} .authors") do
     authors.hashes.each do |row|
       page.should have_css('div.name', :text => "#{row['first name']} #{row['last name']} ( #{row['email']} )")
     end
+  end
+end
+
+When /^I press "([^\"]+)" next to the "([^\"]+)" classification$/ do |button_label, classification_current_name|
+  within('.classifications') do
+    button = page.locate("div.current_name:contains('#{classification_current_name}') ~ button", :text => button_label)
+    button.click
   end
 end

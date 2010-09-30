@@ -53,17 +53,14 @@ $(document).ready(function() {
     return false;
   });
 
-  $('#import-gnaclr-button').live('click', function() {
-    $('#tree-newimport').spinner();
-    $('#import-gnaclr-button').remove();
-
-    var checkedRadioButton = $("#tree-revisions form input:checked");
-    $.post('/gnaclr_imports', { master_tree_id : $('#tree-container').attr('data-database-id'), title : $('#gnaclr-description h2').text(), url : checkedRadioButton.attr('data-tree-url') }, function(response) {
+  var importTree = function(opts){
+    opts.spinnedElement.spinner()
+    $.post('/gnaclr_imports', { master_tree_id : opts.master_tree_id, title : opts.title, url : opts.url }, function(response) {
       var tree_id = response.tree_id;
       var timeout = setTimeout(function checkImportStatus() {
         $.get('/reference_trees/' + tree_id, { format : 'json' }, function(response, status, xhr) {
           if (xhr.status == 200) {
-            $('#tree-newimport').unspinner()
+            opts.spinnedElement.unspinner()
             $('#new-tab').before(response.tree);
 
             $('#tab-titles li:first-child').show();
@@ -150,12 +147,34 @@ $(document).ready(function() {
       }, 2000);
     }, 'json');
     return false;
+  };
+
+  $('#import-gnaclr-button').live('click', function() {
+    $('#tree-newimport').spinner();
+    $('#import-gnaclr-button').remove();
+
+    var checkedRadioButton = $("#tree-revisions form input:checked");
+    var opts = { master_tree_id : $("#tree-container").attr("data-database-id"),
+                 title          : $('#gnaclr-description h2').text(),
+                 url            : checkedRadioButton.attr('data-tree-url'),
+                 spinnedElement : $("#tree-newimport") };
+    importTree(opts);
   });
 
   $("#search-nav li").live("click", function(){
     var target = $(this).find("a").attr("href");
     $(".search-text").fadeOut("fast");
     $(target).fadeIn("fast");
+    return false;
+  });
+
+  $("button.import").live("click", function(){
+    self = $(this);
+    var opts = { master_tree_id : $("#tree-container").attr("data-database-id"),
+                 title          : self.siblings("div.current_name").text(),
+                 url            : self.attr('data-tree-url'),
+                 spinnedElement : $("#search-results") };
+    importTree(opts);
     return false;
   });
 

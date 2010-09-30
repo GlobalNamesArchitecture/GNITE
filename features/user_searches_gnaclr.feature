@@ -3,8 +3,7 @@ Feature: User searches gnaclr
   I can search the gnaclr database
   so that it is easier to find the taxons I'm interested in
 
-  @javascript
-  Scenario: Type in a search term
+  Background:
     Given I have signed in with "email@person.com/password"
     And GNACLR contains the following classifications:
       | title          | author_list                           | description             | updated             | uuid | file_url             |
@@ -17,9 +16,12 @@ Feature: User searches gnaclr
     When I go to the master tree index page
     And I follow "Moose tree"
     And I follow "Import"
+
+  @javascript
+  Scenario: Type in a search term
     Then I should see "Search GNACLR database"
     When I search for "agaricus"
-    And the search results return
+    When the search results return
     Then I should see that "the Scientific Name tab" has 5 results
     And the search results should contain the following classifications:
       | rank | url                      | path                                                               | found as     | current name     | title          | description             | uuid                                 |
@@ -27,3 +29,14 @@ Feature: User searches gnaclr
     And the result with uuid "a9995ace-f04f-49e2-8e14-4fdbc810b08a" should have the following authors:
       | first name | last name | email           |
       | Paul       | Kirk      | p.kirk@cabi.org |
+
+  @javascript
+  Scenario: User imports a search classification
+    When I search for "agaricus"
+    And the search results return
+    And I press "Import" next to the "Agaricus L. 1753" classification
+    Then I should see a spinner
+    When delayed jobs are run
+    Then I should not see a spinner
+    And I should see an "Agaricus L. 1753" tab
+    And I should see the breadcrumb path "Working Trees > Agaricus L. 1753"
