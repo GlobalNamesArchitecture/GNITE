@@ -29,10 +29,10 @@
   <div id="scientific-name-search-results" class="search-text">
     <%= render :partial => 'search_results', :locals => { :results_hash => @results['scientific_name_search'] } %>
   </div>
-  <div id="vernacular-name-search-results" class="search-text">
+  <div id="vernacular-name-search-results" class="search-text" style="display:none;">
     <%= render :partial => 'search_results', :locals => { :results_hash => @results['vernacular_name_search'] } %>
   </div>
-  <div id="classification-metadata-search" class="search-text">
+  <div id="classification-metadata-search" class="search-text" style="display:none;">
     <%= render :partial => 'search_results', :locals => { :results_hash => @results['classification_metadata_search'] } %>
   </div>
 </div>

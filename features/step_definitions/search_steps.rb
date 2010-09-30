@@ -32,8 +32,9 @@ Then /^the search results should contain the following classifications:$/ do |cl
       page.should have_css('div.title', :text => row['title'])
       page.should have_css('div.description', :text => row['description'])
       page.should have_css('div.rank', :text => row['rank'])
-      page.should have_css('div.path', :text => row['path'].gsub("/", "|"))
+      page.should have_css('div.path', :text => row['path'].gsub("/", " › "))
       page.should have_css('div.current_name', :text => row['current name'].gsub("/", "|"))
+      page.should have_css('div.found_as', :text => row['found as'])
     end
   end
 end

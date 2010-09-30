@@ -4,8 +4,9 @@
       <div class="title"> <%= classification['title'] -%> </div>
       <div class="description"> <%= classification['description'] -%></div>
       <div class="rank"> <%= classification['rank'] -%></div>
-      <div class="path"> <%= classification['path'] -%></div>
+      <div class="path"> <%= classification['path'].gsub("|", " &rsaquo; ").html_safe -%></div>
       <div class="current_name"> <%= classification['current_name'] -%></div>
+      <div class="found_as"> <%= classification['found_as'] -%></div>
       <h4>Authors</h4>
       <ul class="authors">
         <% classification['authors'].each do |author| %>

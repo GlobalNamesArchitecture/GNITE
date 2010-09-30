@@ -894,7 +894,8 @@ div.title,
 div.description,
 div.rank,
 div.path,
-div.current_name {
+div.current_name,
+div.found_as {
   margin: 0 0 4px 0;
 }
 
@@ -902,7 +903,8 @@ div.title:before,
 div.description:before,
 div.rank:before,
 div.path:before,
-div.current_name:before {
+div.current_name:before,
+div.found_as:before {
   font-weight: bold;
 }
 
@@ -925,7 +927,8 @@ div.description {
 
 div.rank,
 div.path,
-div.current_name {
+div.current_name,
+div.found_as {
   margin: 0 0 8px 0;
 }
 
@@ -939,6 +942,10 @@ div.path:before {
 
 div.current_name:before {
   content: "Current name:";
+}
+
+div.found_as:before {
+  content: "Found as:";
 }
 
 .search-text ul.authors li {
