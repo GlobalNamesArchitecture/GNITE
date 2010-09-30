@@ -41,8 +41,7 @@ end
 Then /^the result with uuid "([^\"]+)" should have the following authors:$/ do |result_uuid, authors|
   within(".classifications li##{result_uuid} .authors") do
     authors.hashes.each do |row|
-      page.should have_css('div.name', :text => "#{row['first name']} #{row['last name']}")
-      page.should have_css('div.email', :text => row['email'])
+      page.should have_css('div.name', :text => "#{row['first name']} #{row['last name']} ( #{row['email']} )")
     end
   end
 end

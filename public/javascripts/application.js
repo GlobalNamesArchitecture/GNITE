@@ -151,4 +151,12 @@ $(document).ready(function() {
     }, 'json');
     return false;
   });
+
+  $("#search-nav li").live("click", function(){
+    var target = $(this).find("a").attr("href");
+    $(".search-text").fadeOut("fast");
+    $(target).fadeIn("fast");
+    return false;
+  });
+
 });
