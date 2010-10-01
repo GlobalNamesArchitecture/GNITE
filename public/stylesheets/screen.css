@@ -846,9 +846,6 @@ body form input {
   padding: 10px;
 }
 
-#search-results ul#search-nav {
-}
-
 #search-results ul#search-nav li {
   float: left;
   margin: 0 4px 0 0;
@@ -856,7 +853,7 @@ body form input {
 }
 
 #search-results ul#search-nav li a {
-  background: #edebe4;
+  background: #e6e6e6;
   border-radius: 5px 5px 0 0;
   display: block;
   padding: 8px 8px 6px 8px;
@@ -864,7 +861,7 @@ body form input {
 }
 
 #search-results ul#search-nav li.active a {
-  background: #E6E4DD;
+  background: #e0e0e0;
 }
 
 #search-results ul#search-nav li a div.count {
@@ -874,7 +871,7 @@ body form input {
 }
 
 .search-text {
-  background: #E6E4DD;
+  background: #e0e0e0;
   padding: 10px;
 }
 
@@ -1265,6 +1262,7 @@ ul#revisions {
 
 ul#revisions li {
   background: 0;
+  border: 0;
   border-radius: 0;
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
