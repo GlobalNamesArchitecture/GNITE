@@ -810,7 +810,7 @@ body form input {
   margin: 0;
   padding: 10px 0 0 0;
   text-shadow: #DADEE2 0  1px 0px;
-  width: 23%;
+  width: 26%;
 }
 
 .node-metadata .spinner,
@@ -829,7 +829,7 @@ body form input {
   background: #fff;
   float: left;
   padding: 0 0 5px 0;
-  width: 77%;
+  width: 74%;
 }
 
 .node-metadata ul li {
