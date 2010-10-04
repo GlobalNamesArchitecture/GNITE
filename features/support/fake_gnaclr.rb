@@ -79,10 +79,10 @@ module FakeGnaclr
   end
 end
 
-ShamRack.at(GnaclrClassification::URL).rackup do
-  run FakeGnaclr::App
-end
-
 Before do
+  ShamRack.at(GnaclrClassification::URL).rackup do
+    run FakeGnaclr::App
+  end
+
   FakeGnaclr::ClassificationStore.clear!
 end
