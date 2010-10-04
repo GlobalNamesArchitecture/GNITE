@@ -1,7 +1,3 @@
-$(function() {
-  $.jstree._themes = '/javascripts/themes/';
-});
-
 /*
  * Import a Flat List
  */

@@ -54,6 +54,10 @@
 
 <% content_for :javascript do %>
   <%= javascript_include_tag 'jquery.jstree.min' %>
+
+  <script type="text/javascript">
+    $.jstree._themes = '/javascripts/themes/';
+  </script>
 <% end %>
 
 <%= render :partial => "reference_trees" %>
