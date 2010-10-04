@@ -122,3 +122,34 @@ $(function() {
     $('#tab-titles li:first-child').hide();
   }
 });
+
+
+
+
+/*
+ * Search
+ */
+$(function() {
+  $('#search')
+    .live('blur', function(){
+      var self = $(this);
+      var term = self.val().trim();
+
+      if (term.length > 0) {
+        var
+        container = self.parents('.gnaclr-search').first();
+        container.spinner();
+
+        $.get('/search', { 'search_term' : term }, function(results) {
+          container.unspinner();
+
+          $('#new-tab .tree-background').html(results);
+        });
+      }
+    })
+    .live('keypress', function(event) {
+      if (event.which == 13) {
+        $(this).blur();
+      }
+    });
+});

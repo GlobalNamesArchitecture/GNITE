@@ -44,25 +44,6 @@
 
 <% content_for :javascript do -%>
   <script type="text/javascript">
-    $(function() {
-      $("#search")
-        .focus()
-        .blur(function(){
-          var searchBox  = $(this);
-          var searchTerm = searchBox.val().trim();
-          if (searchTerm.length > 0) {
-            searchBox.parents(".gnaclr-search").first().spinner();
-            $.get('/search', { 'search_term': searchTerm }, function(search_results){
-              $('#new-tab .tree-background').html(search_results);
-              searchBox.parents(".gnaclr-search").first().unspinner();
-            });
-          }
-        })
-        .keypress(function(event) {
-          if (event.which == 13) {
-            $(this).blur();
-          }
-        });
-    });
+    $('#search').focus()
   </script>
 <% end -%>
