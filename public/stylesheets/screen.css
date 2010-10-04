@@ -11,7 +11,9 @@ body {
   margin-left: 200px;
 }
 
-body.sessions #wrapper {
+body.sessions #wrapper,
+body.clearance-passwords #wrapper,
+body.users #wrapper {
   margin: 0;
 }
 
