@@ -6,6 +6,17 @@ class UsersController < Clearance::UsersController
     render :action => 'new', :layout => 'login'
   end
 
+  def create
+    @user = User.new(params[:user])
+
+    if @user.save
+      flash_notice_after_create
+      redirect_to(url_after_create)
+    else
+      render :action => 'new', :layout => 'login'
+    end
+  end
+
   def edit
     @user = current_user
   end
