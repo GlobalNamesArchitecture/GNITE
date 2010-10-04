@@ -12,6 +12,7 @@ Feature: Import data to your master tree
 
   @javascript
   Scenario: User can import flat list as root nodes
+    Then I should see "All working trees (0)"
     When I follow "Import"
     And I follow "Enter flat list"
     And I type the following node names into the import box:
@@ -20,6 +21,7 @@ Feature: Import data to your master tree
       | root three |
     And I press "Import"
     Then I should see a "List" tab
+    And I should see "All working trees (1)"
     And I should see the breadcrumb path "Working Trees > List"
     And I should see a node "root one" at the root level in my reference tree "List"
     And I should see a node "root two" at the root level in my reference tree "List"

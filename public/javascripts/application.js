@@ -60,6 +60,11 @@ $(function() {
       var timeout = setTimeout(function checkImportStatus() {
         $.get('/reference_trees/' + tree_id, { format : 'json' }, function(response, status, xhr) {
           if (xhr.status == 200) {
+            var tab   = $('#all-tabs');
+            var count = parseInt(tab.text().replace(/[^0-9]+/, ''), 10);
+
+            tab.text('All working trees (' + (count + 1) + ')');
+
             opts.spinnedElement.unspinner()
             $('#new-tab').before(response.tree);
 

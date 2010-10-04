@@ -11,11 +11,12 @@ Feature: Importing trees from GNACLR
       | 2               | this is really the best revision | cyphophthalmi.tar.gz | 2010-02-01    |
       | 1               | this is the best revision        | cyphophthalmi.tar.gz | 2010-01-01    |
     And I am on the master tree index page
+    And I follow "Moose tree"
 
   @javascript
   Scenario: Importing the sample NCBI tree
-    When I follow "Moose tree"
-    And I follow "Browse GNACLR database"
+    Then I should see "All working trees (0)"
+    When I follow "Browse GNACLR database"
     And I follow "NCBI"
     And I press "Import"
     Then I should see a spinner
@@ -23,6 +24,7 @@ Feature: Importing trees from GNACLR
     When delayed jobs are run
     Then I should not see a spinner
     And I should see an "NCBI" tab
+    Then I should see "All working trees (1)"
     And I should see the breadcrumb path "Working Trees > NCBI"
     And I should see a node "Cyphophthalmi incertae sedis" at the root level in my reference tree "NCBI"
     And I should see a node "Opiliones" at the root level in my reference tree "NCBI"
@@ -31,8 +33,8 @@ Feature: Importing trees from GNACLR
 
   @javascript
   Scenario: Importing an older revision of the sample NCBI tree
-    When I follow "Moose tree"
-    And I follow "Browse GNACLR database"
+    Then I should see "All working trees (0)"
+    When I follow "Browse GNACLR database"
     And I follow "NCBI"
     Then "this is really the best revision" should be checked
     When I choose "this is the best revision"
@@ -42,6 +44,7 @@ Feature: Importing trees from GNACLR
     When delayed jobs are run
     Then I should not see a spinner
     And I should see an "NCBI" tab
+    Then I should see "All working trees (1)"
     And I should see the breadcrumb path "Working Trees > NCBI"
     And I should see a node "Cyphophthalmi incertae sedis" at the root level in my reference tree "NCBI"
     And I should see a node "Opiliones" at the root level in my reference tree "NCBI"

@@ -3,7 +3,7 @@
     <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
       <ul id="tab-titles" class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
         <li class="ui-state-default ui-corner-top">
-          <a href="#" id="all-tabs">All working trees</a>
+          <a href="#" id="all-tabs">All working trees (<%= @master_tree.reference_trees.size %>)</a>
 
           <ul id="working-trees">
             <% @master_tree.reference_trees.each do |reference_tree| %>
