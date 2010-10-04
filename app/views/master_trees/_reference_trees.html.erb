@@ -7,7 +7,7 @@
 
           <ul id="working-trees">
             <% @master_tree.reference_trees.each do |reference_tree| %>
-              <li><a href="#<%= dom_id(reference_tree) %>"><%= reference_tree.title %></a></li>
+              <li class="clearfix"><a href="#<%= dom_id(reference_tree) %>"><%= reference_tree.title %></a></li>
             <% end %>
           </ul>
         </li>
