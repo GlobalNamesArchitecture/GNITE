@@ -13,7 +13,7 @@ body {
 
 body.sessions #wrapper,
 body.clearance-passwords #wrapper,
-body.users #wrapper {
+body.users-new #wrapper {
   margin: 0;
 }
 
@@ -1208,9 +1208,9 @@ div.found_as:before {
 }
 
 #tree-newimport ul.list li:last-child {
-  border-radius: 0 0 5px 5px;
-  -moz-border-radius: 0 0 5px 5px;
-  -webkit-border-radius: 0 0 5px 5px;
+  border-radius: 0;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
 }
 
 #tree-newimport .result .content {
@@ -1333,26 +1333,27 @@ ul#treelist li {
 }
 
 ul#treelist li a {
-  background: #BABFC3 url("/images/master_tree_icon.png") left center no-repeat;
-  background: url("/images/master_tree_icon.png") left center no-repeat, -moz-linear-gradient(0% 100% 90deg,#BBC0C4, #E0E2E4);
-  background: url("/images/master_tree_icon.png") left center no-repeat, -webkit-gradient(linear, 0 0, 0 100%, from(#E0E2E4), to(#BBC0C4));
+  background: #E0E2E4 url("/images/master_tree_icon.png") 5px 15px no-repeat;
+  background: url("/images/master_tree_icon.png") 5px 15px no-repeat, -moz-linear-gradient(0% 100% 90deg,#BBC0C4, #E0E2E4);
+  background: url("/images/master_tree_icon.png") 5px 15px no-repeat, -webkit-gradient(linear, 0 0, 0 100%, from(#E0E2E4), to(#BBC0C4));
   border-top: 1px solid rgba(255,255,255,.6);
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   display: block;
-  padding: 12px 15px 12px 52px;
+  padding: 12px 15px 12px 57px;
 }
 
 ul#treelist li a:hover {
-  background: #ccd0d4;
-  background: url("/images/master_tree_icon.png") left center no-repeat, -moz-linear-gradient(19% 75% 90deg,#919598, #ccd0d4);
-  background: url("/images/master_tree_icon.png") left center no-repeat, -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccd0d4), to(#919598));
+  background: #ccd0d4 url("/images/master_tree_icon.png") 5px 15px no-repeat;
+  background: url("/images/master_tree_icon.png") 5px 15px no-repeat, -moz-linear-gradient(19% 75% 90deg,#919598, #ccd0d4);
+  background: url("/images/master_tree_icon.png") 5px 15px no-repeat, -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccd0d4), to(#919598));
 }
 
 ul#treelist li a:active {
-  position: relative;
-  top: 1px;
+  background: #b3b6ba url("/images/master_tree_icon.png") 5px 15px no-repeat;
+  background: url("/images/master_tree_icon.png") 5px 15px no-repeat, -moz-linear-gradient(19% 75% 90deg,#797d80, #b3b6ba);
+  background: url("/images/master_tree_icon.png") 5px 15px no-repeat, -webkit-gradient(linear, 0% 0%, 0% 100%, from(#b3b6ba), to(#797d80));
 }
 
 ul#treelist li p {
@@ -1405,33 +1406,35 @@ ul#treelist a:hover,
 }
 
 #newtree a {
-  background: #a4a4a4;
-  background: -moz-linear-gradient(center bottom, rgb(164,164,164) 0%,rgb(232,232,232) 100%);
-  background: -webkit-gradient(linear,left bottom,left top,color-stop(0, rgb(164,164,164)),color-stop(1, rgb(232,232,232)));
-  border-radius: 25px;
-  -moz-border-radius: 25px;
-  -webkit-border-radius: 25px;
+  background: #E0E2E4;
+  background: -moz-linear-gradient(0% 100% 90deg,#BBC0C4, #E0E2E4);
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#E0E2E4), to(#BBC0C4));
+  border-radius: 15px;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
   font-size: 12px;
   display: block;
-  padding: 8px 15px;
+  padding: 8px 16px 8px 4px;
 }
 
 #newtree a:hover, #publish a:hover {
-  background: -moz-linear-gradient(center bottom,rgb(164,164,164) 0%,rgb(250,250,250) 100%);
-  background: -webkit-gradient(linear,left bottom,left top,color-stop(0, rgb(164,164,164)),color-stop(1, rgb(250,250,250)));
-  display: block;
+  background: #ccd0d4;
+  background: -moz-linear-gradient(19% 75% 90deg,#919598, #ccd0d4);
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccd0d4), to(#919598));
 }
 
 #newtree a:active, #publish a:active {
-  position: relative;
-  top: 1px;
+  background: #b3b6ba;
+  background: -moz-linear-gradient(19% 75% 90deg,#797d80, #b3b6ba);
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#b3b6ba), to(#797d80));
 }
 
 #newtree span {
+  background: url("/images/add-node.png") no-repeat;
   color: #232323;
   display: block;
   font-size: 12px;
-  padding: 0;
+  padding: 0 0 0 20px;
 }
 
 #newtree .content {
