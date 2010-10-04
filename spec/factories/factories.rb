@@ -2,23 +2,17 @@ Factory.sequence(:name_string) do |i|
   "taxon #{i}"
 end
 
-Factory.define :master_tree do |tree|
+Factory.define :tree do |tree|
   tree.title { "My Tree" }
-  tree.association :user
+  tree.association      :user, :factory => :email_confirmed_user
   tree.creative_commons { 'cc0' }
 end
 
-Factory.define :reference_tree do |reference_tree|
-  reference_tree.title { "My Tree" }
-  reference_tree.association :user
+Factory.define :master_tree, :parent => :tree, :class => 'MasterTree' do |master_tree|
+end
+
+Factory.define :reference_tree, :parent => :tree, :class => 'ReferenceTree' do |reference_tree|
   reference_tree.association :master_tree
-  reference_tree.creative_commons { 'cc0' }
-end
-
-Factory.define :tree, :class => 'MasterTree' do |tree|
-  tree.title { "My Tree" }
-  tree.association :user
-  tree.creative_commons { 'cc0' }
 end
 
 Factory.define :node do |node|
