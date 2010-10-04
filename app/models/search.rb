@@ -1,4 +1,5 @@
 class Search
+  class ServiceUnavailable < Exception; end
   URL = 'gnaclr.globalnames.org'
 
   attr_accessor :search_term
@@ -13,9 +14,13 @@ class Search
 
   def search
     path     = "http://#{URL}/search?format=json&show_revisions=true&search_term=#{search_term}"
-    json      = open(path).read
+    begin
+      json      = open(path).read
+    rescue OpenURI::HTTPError
+      raise Search::ServiceUnavailable
+    end
     Yajl::Parser.new.parse(json)
   end
   private :search
-end
 
+end

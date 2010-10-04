@@ -34,3 +34,17 @@ describe Search, 'issuing a search' do
   end
 end
 
+describe Search, 'when GNACLR search service fails' do
+  subject { Search.new(:search_term => 'asdf') }
+
+  before do
+    OpenURI.stubs(:open).raises("OpenURI::HTTPError")
+  end
+
+  it 'raises ServiceUnavailable when there is an HTTP error' do
+    expect { subject.results }.to raise_error(Search::ServiceUnavailable)
+  end
+
+
+
+end
