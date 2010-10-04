@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/GlobalNamesArchitecture/dwc-archive.git
+  revision: 186c916bc96591fc184f8c5649d8ba256d4b9757
+  branch: master
+  specs:
+    dwc-archive (0.4.11)
+
+GIT
   remote: git://github.com/thoughtbot/ancestry.git
   revision: 46ae364d5739b07bfe290aa01f9dd83c1407cb1c
   branch: rails3
@@ -78,8 +85,6 @@ GEM
       activesupport (~> 3.0)
       daemons
     diff-lcs (1.1.2)
-    dwc-archive (0.4.11)
-      parsley-store
     engineyard (1.3.1)
       engineyard-serverside-adapter (= 1.3.3)
       escape (~> 0.0.4)
@@ -208,7 +213,7 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   delayed_job (= 2.1.0.pre2)
-  dwc-archive (= 0.4.11)
+  dwc-archive (= 0.4.11)!
   engineyard
   factory_girl
   fastercsv
