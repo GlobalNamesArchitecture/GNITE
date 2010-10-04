@@ -9,9 +9,9 @@
   </div>
 <% end %>
 
-<% if current_user.master_trees.any? %>
+<% if @master_trees.any? %>
   <ul id="treelist" class="clearfix">
-    <% current_user.master_trees.each do |tree| %>
+    <% @master_trees.each do |tree| %>
       <li>
         <a href="<%= master_tree_url(tree.id) %>" class="clearfix">
           <span class="content">

@@ -13,6 +13,7 @@ describe MasterTreesController do
       before do
         controller.stubs(:current_user => @user)
         @user.stubs(:master_trees => trees)
+        trees.stubs(:by_title => trees)
 
         get :index
       end
@@ -22,6 +23,10 @@ describe MasterTreesController do
       it { should respond_with(:success) }
       it { should render_template(:index) }
       it { should assign_to(:master_trees).with(trees) }
+
+      it 'sorts the tress by title' do
+        trees.should have_received(:by_title)
+      end
     end
 
     context "on a valid GET to #new" do

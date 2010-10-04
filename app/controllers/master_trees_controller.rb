@@ -2,7 +2,7 @@ class MasterTreesController < ApplicationController
   before_filter :authenticate
 
   def index
-    @master_trees = current_user.master_trees
+    @master_trees = current_user.master_trees.by_title
   end
 
   def new

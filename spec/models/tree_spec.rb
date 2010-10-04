@@ -4,6 +4,7 @@ describe Tree do
   it { should validate_presence_of :title }
   it { should validate_presence_of :user_id }
   it { should have_many(:nodes) }
+  it { should belong_to(:user) }
   it { should allow_value('publicdomain').for(:creative_commons) }
   it { should_not allow_value('something else').for(:creative_commons) }
 
@@ -52,5 +53,16 @@ describe Tree do
     child1 = Factory(:node, :parent => root1, :tree => tree)
 
     tree.children_of(nil).should == [root1, root2]
+  end
+end
+
+describe Tree, 'finding in sorted by title' do
+  let(:user) { Factory(:email_confirmed_user) }
+  let(:z_tree) { Factory(:master_tree, :title => 'z', :user => user) }
+  let(:b_tree) { Factory(:master_tree, :title => 'b', :user => user) }
+  let(:a_tree) { Factory(:master_tree, :title => 'a', :user => user) }
+
+  it 'finds the trees in ascending title order' do
+    user.master_trees.by_title.should == [a_tree, b_tree, z_tree]
   end
 end
