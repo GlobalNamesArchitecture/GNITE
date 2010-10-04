@@ -576,6 +576,7 @@ body form input {
 /* Tree Scrolling */
 /************************************************************************/
 .tree-background {
+  overflow: auto;
   position: relative;
 }
 
@@ -829,15 +830,16 @@ body form input {
 }
 
 #search-results ul#search-nav li a {
-  background: #e6e6e6;
+  background: #BABFC3;
   border-radius: 5px 5px 0 0;
   display: block;
+  font-weight: bold;
   padding: 8px 8px 6px 8px;
   text-decoration: none;
 }
 
 #search-results ul#search-nav li.active a {
-  background: #e0e0e0;
+  background: #d0d6db;
 }
 
 #search-results ul#search-nav li a div.count {
@@ -847,7 +849,10 @@ body form input {
 }
 
 .search-text {
-  background: #e0e0e0;
+  background: #d0d6db;
+  border-radius: 0 5px 5px 5px;
+  -moz-border-radius: 0 5px 5px 5px;
+  -webkit-border-radius: 0 5px 5px 5px;
   padding: 10px;
 }
 
@@ -857,10 +862,15 @@ body form input {
 }
 
 .search-text ul.classifications li {
-  border-bottom: 1px solid #c1bfb9;
+  border-bottom: 1px solid #868D92;
   font-size: 13px;
   margin: 0 0 18px 0;
   padding: 0 0 18px 0;
+}
+
+.search-text ul.classifications li:last-child {
+  border-bottom: 0;
+  margin: 0;
 }
 
 div.title,
@@ -921,8 +931,13 @@ div.found_as:before {
   content: "Found as:";
 }
 
-.search-text ul.authors li {
+.search-text ul.authors {
+  margin: 4px 0 0 0;
+}
+
+.search-text ul.authors li .name {
   border-bottom: 0;
+  margin-left: 6px;
   margin-bottom: 6px;
 }
 
@@ -930,13 +945,15 @@ div.found_as:before {
   background: #5aa52b;
   background: -moz-linear-gradient(center bottom, rgb(27,112,4) 4%, rgb(90,165,43) 58%, rgb(144,207,76) 98%);
   background: -webkit-gradient(linear,left bottom,left top, color-stop(0.04, rgb(27,112,4)), color-stop(0.58, rgb(90,165,43)), color-stop(0.98, rgb(144,207,76)));
+  border: 0;
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0,0,0, 0.6), 0 1px 0 rgb(255,255,255,.4) inset;
   -moz-box-shadow: 0 1px 3px rgba(0,0,0, 0.6), 0 1px 0 rgb(255,255,255,.4) inset;
   -webkit-box-shadow: 0 1px 3px rgba(0,0,0, 0.6), 0 1px 0 rgb(255,255,255,.4) inset;
   color: #fff;
+  cursor: pointer;
   font-weight: bold;
-  padding: 6px 8px;
+  padding: 8px 12px;
   text-decoration: none;
   text-shadow: 0 -1px 1px #2c5015;
 }
