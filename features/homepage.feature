@@ -15,10 +15,10 @@ Feature: Sign in, sign up, and reset password from the homepage
 
   Scenario: Signing up from the homepage
     When I go to the home page
-    And I follow "Sign up here"
+    And I follow "Need a GNITE account?"
     Then I should be on the sign up page
 
   Scenario: Resetting my password from the homepage
     When I go to the home page
-    And I follow "Reset it here"
+    And I follow "Forgot your password?"
     Then I should be on the password reset request page

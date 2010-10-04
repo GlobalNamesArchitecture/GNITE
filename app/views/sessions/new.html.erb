@@ -8,7 +8,5 @@
       <%= form.commit_button "Sign in", :button_html => { :class => "green-submit" } %>
     <% end %>
   <% end %>
-  <p>Forgot your password? <%= link_to "Reset it here", new_password_path %></p>
-  <hr>
-  <p>Need a GNITE account? <%= link_to "Sign up here", sign_up_path %></p>
+  <p><%= link_to "Forgot your password?", new_password_path %> / <%= link_to "Need a GNITE account?", sign_up_path %></p>
 </div>
