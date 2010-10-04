@@ -4,6 +4,7 @@
 
 <ul>
   <li class="gnaclr-search">
+    <p id="gnaclr-error" style="display:none" class="error">Your search request could not be processed. Please try again later.</p>
     <h1>Search GNACLR database</h1>
     <label for="search">
       <p>Full search on nodes and metadata</p>
@@ -44,6 +45,6 @@
 
 <% content_for :javascript do -%>
   <script type="text/javascript">
-    $('#search').focus()
+    $('#search').focus();
   </script>
 <% end -%>

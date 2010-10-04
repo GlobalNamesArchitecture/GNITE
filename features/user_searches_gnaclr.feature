@@ -21,7 +21,7 @@ Feature: User searches gnaclr
   Scenario: Type in a search term
     Then I should see "Search GNACLR database"
     When I search for "agaricus"
-    When the search results return
+    And the search results return
     Then I should see that "the Scientific Name tab" has 5 results
     And the search results should contain the following classifications:
       | rank | url                      | path                                                               | found as     | current name     | title          | description             | uuid                                 |
@@ -40,3 +40,10 @@ Feature: User searches gnaclr
     Then I should not see a spinner
     And I should see an "Agaricus L. 1753" tab
     And I should see the breadcrumb path "Working Trees > Agaricus L. 1753"
+
+  @javascript
+  Scenario: User searches but GNACLR responds with an error
+    Given the GNACLR search service is unavailable
+    When I search for "anything"
+    And the search results return
+    Then I should see "search request could not be processed"

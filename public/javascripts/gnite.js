@@ -123,27 +123,33 @@ $(function() {
   }
 });
 
-
-
-
 /*
  * Search
  */
 $(function() {
+
   $('#search')
     .live('blur', function(){
       var self = $(this);
       var term = self.val().trim();
 
       if (term.length > 0) {
-        var
-        container = self.parents('.gnaclr-search').first();
+        var container = self.parents('.gnaclr-search').first();
         container.spinner();
 
-        $.get('/search', { 'search_term' : term }, function(results) {
-          container.unspinner();
-
-          $('#new-tab .tree-background').html(results);
+        $.ajax({
+          url: '/search',
+          type: 'GET',
+          data: 'search_term=' + term,
+          success: function(results){
+            container.unspinner();
+            $("#gnaclr-error").hide();
+            $('#new-tab .tree-background').html(results);
+          },
+          error: function(){
+            container.unspinner();
+            $("#gnaclr-error").show();
+          }
         });
       }
     })

@@ -15,7 +15,7 @@ When /^the search results return$/ do
   loaded = false
   When %{pause 1}
   until loaded
-    loaded = page.has_css?("#search-results")
+    loaded = page.has_css?("#search-results") || page.has_css?("#gnaclr-error")
   end
 end
 
@@ -51,5 +51,12 @@ When /^I press "([^\"]+)" next to the "([^\"]+)" classification$/ do |button_lab
   within('.classifications') do
     button = page.locate("div.current_name:contains('#{classification_current_name}') ~ button", :text => button_label)
     button.click
+  end
+end
+
+Given /^the GNACLR search service is unavailable$/ do
+  ShamRack.unmount_all
+  ShamRack.at(Search::URL) do
+    [ 500,  {}, ' ' ]
   end
 end

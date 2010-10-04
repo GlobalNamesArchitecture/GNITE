@@ -13,9 +13,9 @@ class Search
   end
 
   def search
-    path     = "http://#{URL}/search?format=json&show_revisions=true&search_term=#{search_term}"
+    path = "http://#{URL}/search?format=json&show_revisions=true&search_term=#{search_term}"
     begin
-      json      = open(path).read
+      json = open(path).read
     rescue OpenURI::HTTPError
       raise Search::ServiceUnavailable
     end
