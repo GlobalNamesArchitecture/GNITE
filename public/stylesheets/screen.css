@@ -493,40 +493,42 @@ body form input {
   position: relative;
 }
 
-#add-node {
-  background: #cfd3d7;
-  background: -moz-linear-gradient(center bottom, rgb(208,212,215) 0, rgb(241,246,249) 100%);
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, rgb(208,212,215)), color-stop(1, rgb(241,246,249)));
-  border-radius: 12px;
-  -moz-border-radius: 12px;
-  -webkit-border-radius: 12px;
-  box-shadow: 0 1px 2px rgba(0,0,0, 0.7), 0 1px 0 rgb(255, 255, 255);
-  -moz-box-shadow: 0 1px 2px rgba(0,0,0, 0.7), 0 1px 0 rgb(255, 255, 255);
-  -webkit-box-shadow: 0 1px 2px rgba(0,0,0, 0.7), 0 1px 0 rgb(255, 255, 255);
+#add-node a {
+  background: #d4d7da;
+  background-image: -moz-linear-gradient(top, #e0e2e4, #bbc0c4);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#e0e2e4), to(#bbc0c4));
+  border: 1px solid rgba(50, 50, 50, 0.4);
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.9);
+  -moz-box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.9);
+  -webkit-box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.9);
+  color: #222;
   font-weight: bold;
   float: right;
-  height: 14px;
+  margin: 0 4px 0 0;
   padding: 6px 14px 6px 10px;
-  margin: 0;
+  text-decoration: none;
 }
 
-#add-node:hover {
+#add-node a:hover {
   cursor: pointer;
   background: #dde0e4;
   background: -moz-linear-gradient(center bottom, rgb(208,212,215) 0, rgb(255,255,255) 100%);
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, rgb(208,212,215)),color-stop(1, rgb(255,255,255)));
 }
 
-#add-node:active {
-  position: relative;
-  top: 1px;
+#add-node a:active {
+  background: #d4d7da;
+  background-image: -moz-linear-gradient(top, #c5c7c9, #a2a7ab);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#c5c7c9), to(#a2a7ab));
 }
 
-#add-node a {
-  background: url("../images/add-node.png") 0 2px no-repeat;
+#add-node a span {
+  background: url("../images/add-node.png") 0 1px no-repeat;
   color: #222;
   padding: 0 0 0 20px;
-  text-decoration: none;
 }
 
 #master-tree {
@@ -691,38 +693,44 @@ body form input {
   height: 32px;
 }
 
-.searchbar a {
-  color: rgb(51,51,51);
-  text-decoration: none;
-}
-
-.searchbar .grid-button,
-.controls .tree-btn {
-  background: #d4d7da;
-  background-image: -moz-linear-gradient(top, #e0e2e4, #bbc0c4);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#e0e2e4), to(#bbc0c4));
-  border-radius: 6px;
-  -moz-border-radius: 6px;
-  -webkit-border-radius: 6px;
-  box-shadow: 0 1px 2px rgba(0,0,0,.7);
-  -moz-box-shadow: 0 1px 2px rgba(0,0,0,.7);
-  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.7);
+.searchbar .grid-button a,
+.controls .tree-btn a {
+  background: #bbc0c4;
+  background: -moz-linear-gradient(top, #e0e2e4, #bbc0c4);
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#e0e2e4), to(#bbc0c4));
+  border: 1px solid rgba(50, 50, 50, 0.4);
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.9);
+  -moz-box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.9);
+  -webkit-box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.9);
+  color: #333;
   display: block;
   float: left;
   font-weight: bold;
   font-size: .9em;
   margin: 0 10px 0 0;
   padding: 6px 9px;
+  text-decoration: none;
 }
 
-.searchbar .grid-button:hover,
-.controls .tree-btn:hover {
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f2f4f5), to(#bbc0c4));
-  background-image: -moz-linear-gradient(top, #f2f4f5, #bbc0c4);
+.searchbar .grid-button a:hover,
+.controls .tree-btn a:hover {
+  background: #d3d9de;
+  background: -moz-linear-gradient(top, #f7fafc, #d3d9de);
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#f7fafc), to(#d3d9de));
 }
 
-.searchbar .grid-button:active,
-.controls .tree-btn:active {
+.searchbar .grid-button a:active,
+.controls .tree-btn a:active {
+  background: #a2a7ab;
+  background: -moz-linear-gradient(top, #c5c7c9, #a2a7ab);
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#c5c7c9), to(#a2a7ab));
+}
+
+.searchbar a {
+  /*color: rgb(51,51,51);*/
 }
 
 .grid-button .icon {
