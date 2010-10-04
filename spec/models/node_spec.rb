@@ -16,17 +16,16 @@ describe Node, 'valid' do
     root.children.should == [child]
     grandchild.parent.parent.should == root
   end
+end
+
+describe Node, 'finding by id scoped to a user' do
+  let(:right_user) { Factory(:user) }
+  let(:right_tree) { Factory(:master_tree, :user => right_user) }
+  let(:wrong_user) { Factory(:user) }
+  let(:wrong_tree) { Factory(:master_tree, :user => wrong_user) }
+  let(:node)       { Factory(:node, :tree => right_tree) }
 
   it "can find a node by id scoped under a user" do
-    right_user = Factory(:user)
-    wrong_user = Factory(:user)
-    right_user_tree = Factory(:tree, :user => right_user)
-
-    Factory(:tree, :user => right_user)
-    Factory(:tree, :user => wrong_user)
-
-    node = Factory(:node, :tree => right_user_tree)
-
     Node.find_by_id_for_user(node.id, right_user).should == node
     Node.find_by_id_for_user(node.id, wrong_user).should be_nil
   end
