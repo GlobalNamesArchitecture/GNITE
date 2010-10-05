@@ -1,6 +1,6 @@
 module SessionHelpers
   def sign_in_as(user)
-    @controller.current_user = user
+    controller.current_user = user
     return user
   end
 
@@ -9,6 +9,6 @@ module SessionHelpers
   end
 
   def sign_out
-    @controller.current_user = nil
+    controller.current_user = nil
   end
 end
