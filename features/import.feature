@@ -29,6 +29,15 @@ Feature: Import data to your master tree
     And I should see a node "root three" at the root level in my reference tree "My Sweet List"
 
   @javascript
+  Scenario: User attempting to import an invalid flat list
+    When I follow "Import"
+    And I follow "Enter flat list"
+    And I press "Import"
+    Then I should see "Title is required"
+    And I should see "List of Nodes is required"
+    And I should see "All working trees (0)"
+
+  @javascript
   Scenario: View breadcrumb navigation while importing a flat list
     When I follow "Import"
     And I follow "Enter flat list"

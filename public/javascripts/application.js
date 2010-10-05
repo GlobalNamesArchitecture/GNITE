@@ -85,10 +85,36 @@ $(function() {
    * Import a Flat List
    */
   $('#import-roots-button').live('click', function() {
+    var title = $('#import-title').val().trim();
+    var roots = $('#import-roots').val().trim();
+
+    var titleLabel = $('#import-title').parent().prev().find('label');
+    var rootsLabel = $('#import-roots').parent().prev().find('label');
+
+    if (title == '') {
+      if (titleLabel.find('span').length == 0) {
+        titleLabel.addClass('error').append('<span> is required.</span>');
+      }
+    } else {
+      titleLabel.removeClass('error').find('span').remove();
+    }
+
+    if (roots == '') {
+      if (rootsLabel.find('span').length == 0) {
+        rootsLabel.addClass('error').append('<span> is required.</span>');
+      }
+    } else {
+      rootsLabel.removeClass('error').find('span').remove();
+    }
+
+    if (title == '' || roots == '') {
+      return false;
+    }
+
     var data = JSON.stringify({
-      'nodes_list'     : $('#import-roots').val().split("\n"),
+      'nodes_list'     : roots.split("\n"),
       'reference_tree' : {
-        'title'          : $('#import-title').val().trim(),
+        'title'          : title,
         'master_tree_id' : $('#tree-container').attr('data-database-id')
       }
     });

@@ -1291,6 +1291,10 @@ ul#revisions li:hover {
   max-width: 97%;
 }
 
+#import-flat-list .error {
+  color: #d10000;
+}
+
 /* Master Tree List */
 /************************************************************************/
 #header .tree_list_header {
