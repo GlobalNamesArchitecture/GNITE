@@ -367,6 +367,10 @@ body form input {
   background: transparent url("/images/profile-active.png") left center no-repeat;
 }
 
+#nav li#active .nav_profile {
+  background: transparent url("/images/profile-active.png") left center no-repeat;
+}
+
 .icon {
   float: left;
   margin: 11px 10px 0 0;
