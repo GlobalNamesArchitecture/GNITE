@@ -223,6 +223,7 @@ DEPENDENCIES
   launchy
   mocha
   mysql
+  nokogiri
   parsley-store
   polyglot
   rails (= 3.0.0)
