@@ -28,9 +28,9 @@ class GnaclrImporter
         Name.__send__(:quote_bound_value, name_string)
       end.join('), (')
 
-      Name.connection.execute "BEGIN"
-      Name.connection.execute "INSERT IGNORE INTO names (name_string) VALUES (#{group})"
-      Name.connection.execute "COMMIT"
+      Name.transaction do
+        Name.connection.execute "INSERT IGNORE INTO names (name_string) VALUES (#{group})"
+      end
     end
 
     build_tree(tree)
