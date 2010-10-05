@@ -1,21 +1,46 @@
 <ul class="classifications">
   <% results_hash['classifications'].each do |classification| -%>
     <li id="<%= classification['uuid'] -%>" class="search-result">
-      <div class="title"> <%= classification['title'] -%> </div>
-      <div class="description"> <%= classification['description'] -%></div>
-      <div class="rank"> <%= classification['rank'] -%></div>
-      <div class="path"> <%= classification['path'].gsub("|", " &rsaquo; ").html_safe -%></div>
-      <div class="current_name"> <%= classification['current_name'] -%></div>
-      <div class="found_as"> <%= classification['found_as'] -%></div>
-      <h4>Authors</h4>
-      <ul class="authors">
-        <% classification['authors'].each do |author| %>
-          <li>
-            <div class="name"><%= "#{author['first_name']} #{author['last_name']}"-%> (<%= mail_to(author['email']) -%>)</div>
-          </li>
-        <% end %>
-      </ul>
-      <button class="import" data-tree-url="<%= classification['file_url'] -%>">Import</button>
+
+      <div class="title">
+        <%= classification['title'] -%>
+      </div>
+
+      <div class="description">
+        <%= classification['description'] -%>
+      </div>
+
+      <table>
+        <tr>
+          <td class="label">Rank:</td>
+          <td><%= classification['rank'] -%></td>
+        </tr>
+        <tr>
+          <td class="label">Path:</td>
+          <td><%= classification['path'].gsub("|", " &rsaquo; ").html_safe -%></td>
+        </tr>
+        <tr>
+          <td class="label">Current&nbsp;name:</td>
+          <td><%= classification['current_name'] -%></td>
+        </tr>
+        <tr>
+          <td class="label">Found as:</td>
+          <td><%= classification['found_as'] -%></td>
+        <tr>
+          <td class="label">Authors:</td>
+          <td>
+            <ul class="authors">
+              <% classification['authors'].each do |author| %>
+                <li>
+                  <div class="name"><%= "#{author['first_name']} #{author['last_name']}"-%> (<%= mail_to(author['email']) -%>)</div>
+                </li>
+              <% end %>
+            </ul>
+          </td>
+        </tr>
+      </table>
+
+      <div class="import-button"><button class="import" data-tree-url="<%= classification['file_url'] -%>">Import</button></div>
     </li>
   <% end %>
 </ul>

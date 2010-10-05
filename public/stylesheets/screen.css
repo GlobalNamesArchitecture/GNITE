@@ -864,7 +864,7 @@ body form input {
 }
 
 .search-text ul.classifications li {
-  border-bottom: 1px solid #868D92;
+  border-bottom: 1px solid #b8bdc2;
   font-size: 13px;
   margin: 0 0 18px 0;
   padding: 0 0 18px 0;
@@ -873,24 +873,6 @@ body form input {
 .search-text ul.classifications li:last-child {
   border-bottom: 0;
   margin: 0;
-}
-
-div.title,
-div.description,
-div.rank,
-div.path,
-div.current_name,
-div.found_as {
-  margin: 0 0 4px 0;
-}
-
-div.title:before,
-div.description:before,
-div.rank:before,
-div.path:before,
-div.current_name:before,
-div.found_as:before {
-  font-weight: bold;
 }
 
 div.title {
@@ -904,37 +886,47 @@ div.description {
   margin: 0 0 12px 0;
 }
 
-div.rank,
-div.path,
-div.current_name,
-div.found_as {
-  margin: 0 0 8px 0;
+ul.classifications table {
+  margin-bottom: 4px;
 }
 
-div.rank:before {
-  content: "Rank:";
+ul.classifications table tr {
+  border-bottom: 1px solid #e9eff5;
 }
 
-div.path:before {
-  content: "Path:";
+ul.classifications table tr:last-child {
+  border: none;
 }
 
-div.current_name:before {
-  content: "Current name:";
+ul.classifications table tr td {
+  padding: 6px 0;
+  line-height: 130%;
 }
 
-div.found_as:before {
-  content: "Found as:";
+ul.classifications table tr td.label {
+  font-weight: bold;
+  padding: 0 10px 0 0;
+  text-align: right;
 }
 
 .search-text ul.authors {
-  margin: 4px 0 0 0;
+  margin: 0;
+  padding: 0;
+}
+
+.search-text ul.authors li {
+  border: 0;
+  margin: 0 0 2px 0;
+  padding: 0;
 }
 
 .search-text ul.authors li .name {
-  border-bottom: 0;
-  margin-left: 6px;
-  margin-bottom: 6px;
+  margin: 0;
+  padding: 0;
+}
+
+ul.classifications div.import-button {
+  text-align: right;
 }
 
 .search-text button.import {
