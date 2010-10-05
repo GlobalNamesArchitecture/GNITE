@@ -546,9 +546,6 @@ body form input {
   overflow-y: auto;
 }
 
-.master_trees-show #content {
-}
-
 .jstree ul,
 .jstree-default.jstree-focused {
   height: 100% !important;
@@ -642,7 +639,7 @@ body form input {
 }
 
 .breadcrumbs ul li {
-  background: transparent url(/images/angle.png) right 3px no-repeat;
+  background: transparent url("/images/angle.png") right 3px no-repeat;
   color: #232323;
   display: inline-block;
   font-size: .9em;
