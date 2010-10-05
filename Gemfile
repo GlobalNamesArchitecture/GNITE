@@ -18,8 +18,11 @@ gem 'yajl-ruby', :require => 'yajl'
 gem 'ruby-debug'
 
 group :development do
-  gem 'rspec-rails', '2.0.0.beta.22'
   gem 'high_voltage'
+end
+
+group :test, :development do
+  gem 'rspec-rails', '2.0.0.rc'
 end
 
 group :test do
@@ -28,7 +31,6 @@ group :test do
   gem 'database_cleaner'
   gem 'cucumber-rails'
   gem 'cucumber'
-  gem 'rspec-rails', '2.0.0.beta.22'
   gem 'bourne'
   gem 'spork'
   gem 'launchy' # So you can do "Then show me the page".
