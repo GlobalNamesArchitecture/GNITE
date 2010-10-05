@@ -13,6 +13,8 @@ module NamedElementHelper
       '#import-gnaclr-button'
     when /the Scientific Name tab/
       'li#scientific-name-tab'
+    when /the signout link/
+      "a[href^='#{sign_out_path}']"
     else
       raise "Can't find mapping for \"#{named_element}\"."
     end

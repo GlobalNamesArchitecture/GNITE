@@ -15,7 +15,7 @@ Feature: Interact with navigation bar
     Then the "Master Trees" bar should be highlighted
     And the "Profile Settings" bar should not be highlighted
     And I should not see "Change Password"
-    And I should see "Sign out"
+    And I should see the signout link
     When I follow "belinda's tree"
     Then I should be on the master tree page for "belinda's tree"
 
@@ -27,4 +27,4 @@ Feature: Interact with navigation bar
     And the "Profile Settings" bar should be highlighted
     And the "Master Trees" bar should not be highlighted
     And I should see "Change Password"
-    And I should see "Sign out"
+    And I should see the signout link
