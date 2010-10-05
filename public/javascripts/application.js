@@ -447,7 +447,7 @@ $(function() {
   var importTree = function(opts) {
     opts.spinnedElement.spinner()
 
-    $.post('/gnaclr_imports', { master_tree_id : opts.master_tree_id, title : opts.title, url : opts.url }, function(response) {
+    $.post('/gnaclr_imports', { master_tree_id : opts.master_tree_id, title : opts.title, url : opts.url, source_id: opts.source_id }, function(response) {
       var tree_id = response.tree_id;
       var timeout = setTimeout(function checkImportStatus() {
         $.get('/reference_trees/' + tree_id, { format : 'json' }, function(response, status, xhr) {
@@ -470,6 +470,7 @@ $(function() {
     var opts = { master_tree_id : $('#tree-container').attr('data-database-id'),
                  title          : $('#gnaclr-description h2').text(),
                  url            : checkedRadioButton.attr('data-tree-url'),
+                 source_id      : checkedRadioButton.attr('data-source-id'),
                  spinnedElement : $('#tree-newimport') };
 
     importTree(opts);
@@ -487,6 +488,7 @@ $(function() {
     var opts = { master_tree_id : $('#tree-container').attr('data-database-id'),
                  title          : self.parent().siblings('table').find('.current-name').text(),
                  url            : self.attr('data-tree-url'),
+                 source_id      : self.attr('data-source-id'),
                  spinnedElement : $('#search-results') };
 
     importTree(opts);
@@ -536,3 +538,4 @@ $.fn.unspinner = function() {
   });
   return this;
 };
+

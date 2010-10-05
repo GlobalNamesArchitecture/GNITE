@@ -96,6 +96,7 @@ class GnaclrImporter
 
   def perform
     if tree_already_imported?
+      copy_nodes_from_prior_import
     else
       fetch_tarball
       read_tarball
@@ -105,9 +106,27 @@ class GnaclrImporter
   end
 
   def tree_already_imported?
-    ReferenceTree.count(['source_id = ?', reference_tree.source_id]) > 1
+    ReferenceTree.count(['source_id = ? and state = ?',
+                        reference_tree.source_id,
+                        'active']) > 1
   end
   private :tree_already_imported?
+
+  def copy_nodes_from_prior_import
+    now = Time.now
+    prior_tree = ReferenceTree.where(['source_id = ?', reference_tree.source_id]).order('created_at asc').first
+    nodes = prior_tree.nodes
+    unless nodes.empty?
+      nodes_sql = nodes.
+        map { |node| "(#{reference_tree.id}, #{Node.connection.quote(node.ancestry)}, \
+          #{node.name_id}, #{Node.connection.quote(node.rank)}, \
+          #{Node.connection.quote(now.to_s(:db))}, #{Node.connection.quote(now.to_s(:db))})" }.
+        join(',')
+      sql = "INSERT INTO nodes (tree_id, ancestry, name_id, rank, created_at, updated_at) VALUES #{nodes_sql}"
+      Node.connection.execute(sql)
+    end
+  end
+  private :copy_nodes_from_prior_import
 
   def copy_existing_tree(uuid)
     ref_tree = ReferenceTree.find_by_uuid!(uuid)

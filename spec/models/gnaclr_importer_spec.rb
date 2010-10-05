@@ -181,8 +181,8 @@ describe GnaclrImporter, 'activate_tree' do
   end
 end
 
-describe GnaclrImporter, 'perform' do
-  let(:reference_tree) { Factory(:reference_tree) }
+describe GnaclrImporter, 'perform when the classification has not been imported' do
+  let!(:reference_tree) { Factory.build(:reference_tree) }
   subject { GnaclrImporter.new(:url               => "",
                                :reference_tree    => reference_tree) }
 
@@ -192,10 +192,10 @@ describe GnaclrImporter, 'perform' do
                   :store_tree    => nil,
                   :read_tarball  => nil,
                   :activate_tree => nil)
+    subject.perform
   end
 
   it 'fetches, reads and stores the tree' do
-    subject.perform
     subject.should have_received(:fetch_tarball)
     subject.should have_received(:read_tarball)
     subject.should have_received(:store_tree)
@@ -203,26 +203,51 @@ describe GnaclrImporter, 'perform' do
   end
 end
 
-describe GnaclrImporter, 'for a previously imported tree' do
-  let(:previous_tree) { Factory(:reference_tree) }
-  let(:new_tree) { Factory(:reference_tree, :source_id => previous_tree.id) }
+describe GnaclrImporter, 'when the classification has already been imported' do
+  let(:prior_tree) { Factory(:reference_tree, :source_id => '123', :state => 'active') }
+  let!(:nodes) do
+    [Factory(:node, :tree => prior_tree, :ancestry => '1', :rank => 'species'),
+     Factory(:node, :tree => prior_tree, :ancestry => '1/2', :rank => 'species')]
+  end
+  let(:new_tree) { Factory(:reference_tree, :source_id => prior_tree.source_id, :state => 'importing') }
 
-  subject { GnaclrImporter.new(:url               => "",
-                               :reference_tree    => new_tree) }
+  subject do
+    GnaclrImporter.new(:url               => "",
+                       :reference_tree    => new_tree)
+  end
 
   before do
     Kernel.stubs(:system)
     subject.stubs(:fetch_tarball)
-    subject.stubs(:read_tarball)
-    subject.stubs(:store_tree)
-    subject.stubs(:active_tree)
     subject.perform
   end
-
 
   it 'does not fetch the tarball from gnaclr' do
     Kernel.should_not have_received(:system)
     subject.should_not have_received(:fetch_tarball)
+  end
+
+  it 'copies all nodes from the prior tree' do
+    new_tree.nodes.count.should == nodes.count
+    new_tree.nodes.each do |new_node|
+      nodes.detect do |n|
+        new_node.ancestry == n.ancestry &&
+        new_node.name_id  == n.name_id &&
+        new_node.rank     == n.rank
+      end.should be
+    end
+  end
+
+  it 'activates the new tree' do
+    new_tree.reload
+    new_tree.should be_active
+  end
+
+  it 'sets timestamps on the new nodes' do
+    new_tree.nodes.each do |new_node|
+      new_node.created_at.should be
+      new_node.updated_at.should be
+    end
   end
 
 end

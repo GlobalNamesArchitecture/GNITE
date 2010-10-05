@@ -19,6 +19,10 @@ class Tree < ActiveRecord::Base
     state == 'importing'
   end
 
+  def active?
+    state == 'active'
+  end
+
   def self.by_title
     self.order('title asc')
   end

@@ -7,6 +7,7 @@ class GnaclrImportsController < ApplicationController
         master_tree    = current_user.master_trees.find(params[:master_tree_id])
         reference_tree = current_user.reference_trees.create(:title          => params[:title],
                                                              :master_tree_id => master_tree.id,
+                                                             :source_id      => params[:source_id],
                                                              :state          => 'importing')
 
         GnaclrImporter.new(:reference_tree => reference_tree,

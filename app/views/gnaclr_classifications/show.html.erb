@@ -31,7 +31,12 @@
     <% first = true %>
     <% @gnaclr_classification.revisions.each do |revision| -%>
       <li>
-        <input type="radio" name="revision" value="<%= revision.sequence_number -%>" id="revision_<%= revision.sequence_number -%>" <%= 'checked' if first -%> data-tree-url="<%= revision.url %>"/>
+      <input type="radio" name="revision"
+                value="<%= revision.sequence_number -%>"
+                id="revision_<%= revision.sequence_number -%>"
+                <%= 'checked' if first -%>
+                data-tree-url="<%= revision.url %>"
+                data-source-id="<%= revision.id -%>"/>
         <p class="revision-number"><%= revision.sequence_number -%></p>
         <p class="revision-commited-date"><%= revision.commited_date -%></p>
         <label for="revision_<%= revision.sequence_number -%>">
