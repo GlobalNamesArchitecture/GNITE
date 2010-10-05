@@ -42,4 +42,12 @@ class Node < ActiveRecord::Base
 
     copy.reload
   end
+
+  def synonym_name_strings
+    synonyms.all(:include => :name).map(&:name).compact.map(&:name_string)
+  end
+
+  def vernacular_name_strings
+    vernacular_names.all(:include => :name).map(&:name).compact.map(&:name_string)
+  end
 end

@@ -151,16 +151,8 @@ describe NodesController, 'GET to show for master tree' do
   before do
     sign_in_as(user)
 
-    old_synonym         = Factory(:name, :name_string => 'Old Synonym')
-    old_vernacular_name = Factory(:name, :name_string => 'Old Vernacular Name')
-
     Factory(:synonym, :node => node, :name => Factory(:name, :name_string => 'Point'))
-    Factory(:synonym, :node => node, :name => old_synonym)
     Factory(:vernacular_name, :node => node, :name => Factory(:name, :name_string => 'Coordinate'))
-    Factory(:vernacular_name, :node => node, :name => old_vernacular_name)
-
-    old_synonym.destroy
-    old_vernacular_name.destroy
 
     @expected = {
       :rank             => node.rank,

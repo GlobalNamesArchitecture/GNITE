@@ -70,3 +70,31 @@ describe Node, 'name' do
     subject.name_string.should == 'a new name'
   end
 end
+
+describe Node, 'synonym_name_strings' do
+  let(:node) { Factory(:node) }
+
+  before do
+    @valid_synonym   = Factory(:synonym, :node => node)
+    @invalid_synonym = Factory(:synonym, :node => node)
+    @invalid_synonym.name.destroy
+  end
+
+  it 'returns name strings from valid synonyms' do
+    node.synonym_name_strings.should == [@valid_synonym.name.name_string]
+  end
+end
+
+describe Node, 'vernacular_name_strings' do
+  let(:node) { Factory(:node) }
+
+  before do
+    @valid_vernacular_name   = Factory(:vernacular_name, :node => node)
+    @invalid_vernacular_name = Factory(:vernacular_name, :node => node)
+    @invalid_vernacular_name.name.destroy
+  end
+
+  it 'returns name strings from valid vernacular names' do
+    node.vernacular_name_strings.should == [@valid_vernacular_name.name.name_string]
+  end
+end
