@@ -16,7 +16,6 @@ gem 'parsley-store'
 gem 'SystemTimer'
 gem 'yajl-ruby', :require => 'yajl'
 gem 'ruby-debug'
-gem 'nokogiri'
 
 group :development do
   gem 'high_voltage'
