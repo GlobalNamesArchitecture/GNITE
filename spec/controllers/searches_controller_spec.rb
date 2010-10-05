@@ -5,24 +5,26 @@ describe SearchesController, 'route' do
 end
 
 describe SearchesController, 'xhr GET to show' do
+  let(:user)           { Factory(:email_confirmed_user) }
+  let(:master_tree)    { Factory(:master_tree, :user => user) }
   let(:search_results) { File.open('features/support/fixtures/search_result.json') }
+
   before do
     search_mock = mock('search')
     Search.stubs(:new => search_mock)
     search_mock.stubs(:results => search_results)
 
-    sign_in
+    sign_in_as(user)
 
     xhr :get,
         :show,
-        :search_term => 'abc'
+        :search_term => 'abc',
+        :master_tree_id => master_tree.id
   end
 
-  it 'responds with the :show template' do
-    should respond_with(:success)
-    should render_template(:show)
-    should_not render_template
-  end
+  it { should respond_with(:success) }
+  it { should assign_to(:master_tree).with(master_tree) }
+  it { should render_template(:show) }
 end
 
 describe SearchesController, 'xhr GET to show with GNACLR service down' do

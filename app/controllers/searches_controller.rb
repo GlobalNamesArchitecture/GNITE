@@ -4,7 +4,8 @@ class SearchesController < ApplicationController
     respond_to do |wants|
       wants.js do
         begin
-          @results = Search.new(:search_term => params[:search_term]).results
+          @results     = Search.new(:search_term => params[:search_term]).results
+          @master_tree = current_user.master_trees.find(params[:master_tree_id])
         rescue Search::ServiceUnavailable
           head :service_unavailable
           return

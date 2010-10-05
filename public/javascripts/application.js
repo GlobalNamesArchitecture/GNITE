@@ -323,14 +323,16 @@ $(function() {
       var term = self.val().trim();
 
       if (term.length > 0) {
-        var container = self.parents('.gnaclr-search').first();
+        var container      = self.parents('.gnaclr-search').first();
+        var master_tree_id = $('#tree-container').attr('data-database-id');
+
         container.spinner();
 
         $.ajax({
           url: '/search',
           type: 'GET',
-          data: 'search_term=' + term,
-          success: function(results){
+          data: { 'search_term' : term, 'master_tree_id' : master_tree_id },
+          success: function(results) {
             container.unspinner();
             $("#gnaclr-error").hide();
             $('#new-tab .tree-background').html(results);

@@ -47,3 +47,10 @@ Feature: User searches gnaclr
     When I search for "anything"
     And the search results return
     Then I should see "search request could not be processed"
+
+  @javascript
+  Scenario: User searches but returns to import
+    Given I search for "agaricus"
+    And the search results return
+    When I follow "New Import"
+    Then I should see "Browse GNACLR database"
