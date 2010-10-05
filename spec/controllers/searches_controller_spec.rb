@@ -19,8 +19,9 @@ describe SearchesController, 'xhr GET to show' do
   end
 
   it 'responds with the :show template' do
+    should respond_with(:success)
     should render_template(:show)
-    response.code.should == "200"
+    should_not render_template
   end
 end
 
@@ -38,7 +39,7 @@ describe SearchesController, 'xhr GET to show with GNACLR service down' do
   end
 
   it 'responds with a 503 status code and empty body' do
-    response.code.should == "503"
+    should respond_with :service_unavailable
     response.body.strip.should be_empty
   end
 end
