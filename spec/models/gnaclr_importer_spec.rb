@@ -3,15 +3,14 @@ require 'spec_helper'
 describe GnaclrImporter, 'new' do
   let(:reference_tree) { Factory(:reference_tree) }
 
-  subject { GnaclrImporter.new(:reference_tree_id => reference_tree.id,
+  subject { GnaclrImporter.new(:reference_tree => reference_tree,
                                :url               => 'foo') }
   before do
     Delayed::Job.stubs(:enqueue)
   end
 
-  it 'sets reference_tree_id' do
-    subject.reference_tree_id.should be_a(Integer)
-    subject.reference_tree_id.should == reference_tree.id
+  it 'sets reference_tree' do
+    subject.reference_tree.should == reference_tree
   end
 
   it 'sets the url' do
@@ -25,7 +24,8 @@ end
 
 describe GnaclrImporter, 'fetch_tarball with a successful download' do
   let(:reference_tree) { Factory(:reference_tree) }
-  subject { GnaclrImporter.new(:reference_tree_id => reference_tree.id) }
+  subject { GnaclrImporter.new(:reference_tree => reference_tree,
+                               :url => 'foo') }
 
   before do
     Kernel.stubs(:system => 0)
@@ -42,8 +42,8 @@ end
 
 describe GnaclrImporter, 'read_tarball' do
   let(:reference_tree) { Factory(:reference_tree) }
-  subject { GnaclrImporter.new(:url               => "file:///#{Rails.root.join('features', 'support', 'fixtures', 'cyphophthalmi.tar.gz')}",
-                               :reference_tree_id => reference_tree.id) }
+  subject { GnaclrImporter.new(:url            => "file:///#{Rails.root.join('features', 'support', 'fixtures', 'cyphophthalmi.tar.gz')}",
+                               :reference_tree => reference_tree) }
 
   before do
     Delayed::Job.stubs(:enqueue)
@@ -58,8 +58,8 @@ end
 
 describe GnaclrImporter, 'store_tree for a valid dwc archive' do
   let(:reference_tree) { Factory(:reference_tree) }
-  subject { GnaclrImporter.new(:url               => "file:///#{Rails.root.join('features', 'support', 'fixtures', 'cyphophthalmi.tar.gz')}",
-                               :reference_tree_id => reference_tree.id) }
+  subject { GnaclrImporter.new(:url            => "file:///#{Rails.root.join('features', 'support', 'fixtures', 'cyphophthalmi.tar.gz')}",
+                               :reference_tree => reference_tree) }
   let(:data) do
     { "cyphophthalmi:tid:402" => @taxon1,
       "cyphophthalmi:tid:375" => @taxon2,
@@ -130,8 +130,8 @@ end
 
 describe GnaclrImporter, 'store tree with nodes that have synonyms and vernacular names' do
   let(:reference_tree) { Factory(:reference_tree) }
-  subject { GnaclrImporter.new(:url               => "file:///#{Rails.root.join('features', 'support', 'fixtures', 'cyphophthalmi.tar.gz')}",
-                               :reference_tree_id => reference_tree.id) }
+  subject { GnaclrImporter.new(:url            => "file:///#{Rails.root.join('features', 'support', 'fixtures', 'cyphophthalmi.tar.gz')}",
+                               :reference_tree => reference_tree) }
   let(:data) { { 'cyphophthalmi:tid:402' => @taxon } }
   let(:synonyms) { %w(one two three) }
   let(:vernacular_names) { %w(four five six seven) }
@@ -168,8 +168,8 @@ end
 
 describe GnaclrImporter, 'activate_tree' do
   let(:reference_tree) { Factory(:reference_tree, :state => 'importing') }
-  subject { GnaclrImporter.new(:url               => "file:///#{Rails.root.join('features', 'support', 'fixtures', 'cyphophthalmi.tar.gz')}",
-                               :reference_tree_id => reference_tree.id) }
+  subject { GnaclrImporter.new(:url            => "file:///#{Rails.root.join('features', 'support', 'fixtures', 'cyphophthalmi.tar.gz')}",
+                               :reference_tree => reference_tree) }
 
   before do
     Delayed::Job.stubs(:enqueue)

@@ -29,8 +29,8 @@ describe GnaclrImportsController, 'xhr POST create' do
   end
 
   it 'creates a new GNACLR importer' do
-    GnaclrImporter.should have_received(:new).with(:reference_tree_id => user.reference_trees.first.id,
-                                                   :url               => 'foo')
+    GnaclrImporter.should have_received(:new).with(:reference_tree => user.reference_trees.first,
+                                                   :url            => 'foo')
   end
 end
 
@@ -43,4 +43,3 @@ describe GnaclrImportsController, 'html POST create' do
   end
   it { should respond_with(:bad_request) }
 end
-

@@ -2,11 +2,11 @@ class GnaclrImporter
   NAME_BATCH_SIZE = 10_000.freeze
 
   attr_reader   :darwin_core_data, :name_strings, :tree
-  attr_accessor :reference_tree_id, :url
+  attr_accessor :reference_tree, :url
 
   def initialize(opts)
-    @reference_tree_id = opts[:reference_tree_id].to_i
-    @url               = opts[:url]
+    @reference_tree = opts[:reference_tree]
+    @url            = opts[:url]
     enqueue
   end
 
@@ -47,7 +47,7 @@ class GnaclrImporter
       ancestry_sql   = Node.__send__(:quote_bound_value, ancestry) if ancestry.present?
       ancestry_sql ||= 'NULL'
 
-      node_id = Node.connection.insert("INSERT INTO nodes (name_id, tree_id, ancestry, rank) VALUES ((SELECT id FROM names WHERE name_string = #{name_sql} LIMIT 1), #{reference_tree_id}, #{ancestry_sql}, #{rank_sql})")
+      node_id = Node.connection.insert("INSERT INTO nodes (name_id, tree_id, ancestry, rank) VALUES ((SELECT id FROM names WHERE name_string = #{name_sql} LIMIT 1), #{reference_tree.id}, #{ancestry_sql}, #{rank_sql})")
 
       next_ancestry = ancestry ? ancestry.dup : ''
       next_ancestry << '/' unless next_ancestry.empty?
@@ -91,7 +91,7 @@ class GnaclrImporter
   private :insert_synonyms_and_vernacular_names
 
   def activate_tree
-    ReferenceTree.update_all 'state = "active"', "id = #{reference_tree_id}"
+    ReferenceTree.update_all 'state = "active"', "id = #{reference_tree.id}"
   end
 
   def perform
@@ -101,13 +101,25 @@ class GnaclrImporter
     activate_tree
   end
 
+  def tree_already_imported?(uuid)
+    ReferenceTree.exists?(['uuid = ?', uuid])
+  end
+  private :tree_already_imported?
+
+  def copy_existing_tree(uuid)
+    ref_tree = ReferenceTree.find_by_uuid!(uuid)
+    # copy tree to new master tree
+    # copy nodes
+  end
+  private :copy_existing_tree
+
   def enqueue
     Delayed::Job.enqueue(self)
   end
   private :enqueue
 
   def tarball_path
-    Rails.root.join('tmp', reference_tree_id.to_s).to_s
+    Rails.root.join('tmp', reference_tree.id.to_s).to_s
   end
   private :tarball_path
 end

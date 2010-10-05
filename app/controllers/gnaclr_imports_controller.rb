@@ -9,8 +9,8 @@ class GnaclrImportsController < ApplicationController
                                                              :master_tree_id => master_tree.id,
                                                              :state          => 'importing')
 
-        GnaclrImporter.new(:reference_tree_id => reference_tree.id,
-                           :url => params[:url])
+        GnaclrImporter.new(:reference_tree => reference_tree,
+                           :url            => params[:url])
 
         render :json => { :tree_id => reference_tree.id }
       end
