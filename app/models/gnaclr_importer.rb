@@ -95,14 +95,17 @@ class GnaclrImporter
   end
 
   def perform
-    fetch_tarball
-    read_tarball
-    store_tree
+    if tree_already_imported?
+    else
+      fetch_tarball
+      read_tarball
+      store_tree
+    end
     activate_tree
   end
 
-  def tree_already_imported?(uuid)
-    ReferenceTree.exists?(['uuid = ?', uuid])
+  def tree_already_imported?
+    ReferenceTree.count(['source_id = ?', reference_tree.source_id]) > 1
   end
   private :tree_already_imported?
 

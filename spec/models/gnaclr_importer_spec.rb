@@ -184,7 +184,7 @@ end
 describe GnaclrImporter, 'perform' do
   let(:reference_tree) { Factory(:reference_tree) }
   subject { GnaclrImporter.new(:url               => "",
-                               :reference_tree_id => reference_tree.id) }
+                               :reference_tree    => reference_tree) }
 
   before do
     Delayed::Job.stubs(:enqueue)
@@ -201,4 +201,28 @@ describe GnaclrImporter, 'perform' do
     subject.should have_received(:store_tree)
     subject.should have_received(:activate_tree)
   end
+end
+
+describe GnaclrImporter, 'for a previously imported tree' do
+  let(:previous_tree) { Factory(:reference_tree) }
+  let(:new_tree) { Factory(:reference_tree, :source_id => previous_tree.id) }
+
+  subject { GnaclrImporter.new(:url               => "",
+                               :reference_tree    => new_tree) }
+
+  before do
+    Kernel.stubs(:system)
+    subject.stubs(:fetch_tarball)
+    subject.stubs(:read_tarball)
+    subject.stubs(:store_tree)
+    subject.stubs(:active_tree)
+    subject.perform
+  end
+
+
+  it 'does not fetch the tarball from gnaclr' do
+    Kernel.should_not have_received(:system)
+    subject.should_not have_received(:fetch_tarball)
+  end
+
 end
