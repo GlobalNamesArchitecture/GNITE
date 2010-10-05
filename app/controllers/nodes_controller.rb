@@ -29,8 +29,8 @@ class NodesController < ApplicationController
 
     render :json => {
       :rank             => node.rank,
-      :synonyms         => node.synonyms.map(&:name).map(&:name_string),
-      :vernacular_names => node.vernacular_names.map(&:name).map(&:name_string)
+      :synonyms         => node.synonyms.map(&:name).compact.map(&:name_string),
+      :vernacular_names => node.vernacular_names.map(&:name).compact.map(&:name_string)
     }
   end
 
