@@ -15,17 +15,18 @@ Feature: Import data to your master tree
     Then I should see "All working trees (0)"
     When I follow "Import"
     And I follow "Enter flat list"
+    And I fill in "Title" with "My Sweet List"
     And I type the following node names into the import box:
       | root one   |
       | root two   |
       | root three |
     And I press "Import"
-    Then I should see a "List" tab
+    Then I should see a "My Sweet List" tab
     And I should see "All working trees (1)"
-    And I should see the breadcrumb path "Working Trees > List"
-    And I should see a node "root one" at the root level in my reference tree "List"
-    And I should see a node "root two" at the root level in my reference tree "List"
-    And I should see a node "root three" at the root level in my reference tree "List"
+    And I should see the breadcrumb path "Working Trees > My Sweet List"
+    And I should see a node "root one" at the root level in my reference tree "My Sweet List"
+    And I should see a node "root two" at the root level in my reference tree "My Sweet List"
+    And I should see a node "root three" at the root level in my reference tree "My Sweet List"
 
   @javascript
   Scenario: View breadcrumb navigation while importing a flat list

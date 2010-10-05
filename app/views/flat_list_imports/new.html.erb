@@ -10,7 +10,10 @@
 <div id="import-flat-list-wrap" class="clearfix">
   <div id="import-flat-list" class="clearfix">
     <%= form_tag reference_trees_path do -%>
-      <h2><label for="import-roots">Import List of Nodes</label></h2>
+      <h2><label for="import-title">Title</label></h2>
+      <p><input type="text" id="import-title"></p>
+
+      <h2><label for="import-roots">List of Nodes</label></h2>
       <p><textarea rows="10" cols="53" id="import-roots"></textarea></p>
       <input type="submit" id="import-roots-button" class="green-submit" value="Import">
     <% end -%>

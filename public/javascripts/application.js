@@ -88,7 +88,7 @@ $(function() {
     var data = JSON.stringify({
       'nodes_list'     : $('#import-roots').val().split("\n"),
       'reference_tree' : {
-        'title'          : 'List',
+        'title'          : $('#import-title').val().trim(),
         'master_tree_id' : $('#tree-container').attr('data-database-id')
       }
     });
