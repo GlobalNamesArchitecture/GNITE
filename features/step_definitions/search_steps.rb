@@ -31,25 +31,25 @@ Then /^the search results should contain the following classifications:$/ do |cl
     within("ul.classifications li##{row['uuid']}") do
       page.should have_css('div.title', :text => row['title'])
       page.should have_css('div.description', :text => row['description'])
-      page.should have_css('div.rank', :text => row['rank'])
-      page.should have_css('div.path', :text => row['path'].gsub("/", " › "))
-      page.should have_css('div.current_name', :text => row['current name'].gsub("/", "|"))
-      page.should have_css('div.found_as', :text => row['found as'])
+      page.should have_css('td.rank', :text => row['rank'])
+      page.should have_css('td.path', :text => row['path'].gsub("/", " › "))
+      page.should have_css('td.current-name', :text => row['current name'].gsub("/", "|"))
+      page.should have_css('td.found-as', :text => row['found as'])
     end
   end
 end
 
-Then /^the "([^\"]+)" result should have the following authors:$/ do |current_name, authors|
-  within("div.current_name:contains('#{current_name}') ~ .authors") do
+Then /^the "([^\"]+)" result should have the following authors:$/ do |title, authors|
+  within("div.title:contains('#{title}') ~ table .authors") do
     authors.hashes.each do |row|
-        page.should have_css('div.name', :text => "#{row['first name']} #{row['last name']} ( #{row['email']} )")
+      page.should have_css('div.name', :text => "#{row['first name']} #{row['last name']} ( #{row['email']} )")
     end
   end
 end
 
-When /^I press "([^\"]+)" next to the "([^\"]+)" classification$/ do |button_label, classification_current_name|
+When /^I press "([^\"]+)" next to the "([^\"]+)" classification$/ do |button_label, title|
   within('.classifications') do
-    button = page.locate("div.current_name:contains('#{classification_current_name}') ~ button", :text => button_label)
+    button = page.locate("div.title:contains('#{title}') ~ .import-button button", :text => button_label)
     button.click
   end
 end

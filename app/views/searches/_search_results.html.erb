@@ -13,19 +13,19 @@
       <table>
         <tr>
           <td class="label">Rank:</td>
-          <td><%= classification['rank'] -%></td>
+          <td class="rank"><%= classification['rank'] -%></td>
         </tr>
         <tr>
           <td class="label">Path:</td>
-          <td><%= classification['path'].gsub("|", " &rsaquo; ").html_safe -%></td>
+          <td class="path"><%= classification['path'].gsub("|", " &rsaquo; ").html_safe -%></td>
         </tr>
         <tr>
           <td class="label">Current&nbsp;name:</td>
-          <td><%= classification['current_name'] -%></td>
+          <td class="current-name"><%= classification['current_name'] -%></td>
         </tr>
         <tr>
           <td class="label">Found as:</td>
-          <td><%= classification['found_as'] -%></td>
+          <td class="found-as"><%= classification['found_as'] -%></td>
         <tr>
           <td class="label">Authors:</td>
           <td>

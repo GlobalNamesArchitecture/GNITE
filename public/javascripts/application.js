@@ -166,19 +166,19 @@ $(function() {
     importTree(opts);
   });
 
-  $("#search-nav li").live("click", function(){
-    var target = $(this).find("a").attr("href");
-    $(".search-text").fadeOut("fast");
-    $(target).fadeIn("fast");
+  $('#search-nav li').live('click', function() {
+    var target = $(this).find('a').attr('href');
+    $('.search-text').fadeOut('fast');
+    $(target).fadeIn('fast');
     return false;
   });
 
-  $("button.import").live("click", function(){
-    self = $(this);
-    var opts = { master_tree_id : $("#tree-container").attr("data-database-id"),
-                 title          : self.siblings("div.current_name").text(),
+  $('button.import').live('click', function() {
+    var self = $(this);
+    var opts = { master_tree_id : $('#tree-container').attr('data-database-id'),
+                 title          : self.parent().siblings('table').find('.current-name').text(),
                  url            : self.attr('data-tree-url'),
-                 spinnedElement : $("#search-results") };
+                 spinnedElement : $('#search-results') };
     importTree(opts);
     return false;
   });
