@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101004202645) do
+ActiveRecord::Schema.define(:version => 20101005162708) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -68,7 +68,10 @@ ActiveRecord::Schema.define(:version => 20101004202645) do
     t.integer  "master_tree_id"
     t.string   "type"
     t.string   "state",            :default => "active", :null => false
+    t.string   "source_id"
   end
+
+  add_index "trees", ["source_id"], :name => "index_trees_on_source_id"
 
   create_table "users", :force => true do |t|
     t.string   "email"
