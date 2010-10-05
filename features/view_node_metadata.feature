@@ -9,6 +9,7 @@ Feature: View metadata for master tree nodes
       | name | synonyms        | vernacular_names | rank    |
       | Nut  | Kernel, Nutmeat | Almond, Peanut   | Species |
       | Pop  | Soda, Softdrink | Coke, Dr. Pepper | Family  |
+      | Cat  |                 |                  |         |
     And the following reference trees exist:
       | user                    | master_tree  | title  |
       | email: email@person.com | title: Foods | Snacks |
@@ -17,8 +18,9 @@ Feature: View metadata for master tree nodes
       | name    | synonyms | vernacular_names | rank |
       | Twinkie | Cake     | Twinkie Cake     | Good |
     And the following nodes exist with metadata for the "Fruits" tree:
-      | name  | synonyms | vernacular_names | rank  |
-      | Apple | Orange   | Red Apple        | Round |
+      | name     | synonyms | vernacular_names | rank  |
+      | Apple    | Orange   | Red Apple        | Round |
+      | Cucumber |          |                  |       |
     And I go to the master tree page for "Foods"
     And I wait for the tree to load
 
@@ -35,6 +37,13 @@ Feature: View metadata for master tree nodes
     And I should see "Soda, Softdrink" as synonyms for the "Foods" tree
     And I should see "Coke, Dr. Pepper" as vernacular names for the "Foods" tree
     And I should see "Family" as rank for the "Foods" tree
+    When I select the node "Cat"
+    Then I should see a spinner
+    When pause 1
+    Then I should not see a spinner
+    And I should see "None" as synonyms for the "Foods" tree
+    And I should see "None" as vernacular names for the "Foods" tree
+    And I should see "None" as rank for the "Foods" tree
 
   @javascript
   Scenario: User can view metadata for nodes on reference trees
@@ -56,3 +65,10 @@ Feature: View metadata for master tree nodes
     And I should see "Orange" as synonyms for the "Fruits" tree
     And I should see "Red Apple" as vernacular names for the "Fruits" tree
     And I should see "Round" as rank for the "Fruits" tree
+    When I select the node "Cucumber"
+    Then I should see a spinner
+    When pause 1
+    Then I should not see a spinner
+    And I should see "None" as synonyms for the "Fruits" tree
+    And I should see "None" as vernacular names for the "Fruits" tree
+    And I should see "None" as rank for the "Fruits" tree

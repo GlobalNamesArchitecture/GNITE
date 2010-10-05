@@ -71,7 +71,24 @@ describe Node, 'name' do
   end
 end
 
-describe Node, 'synonym_name_strings' do
+describe Node, '#rank_string' do
+  it 'returns None if rank is nil' do
+    node = Factory(:node, :rank => nil)
+    node.rank_string.should == 'None'
+  end
+
+  it 'returns None if rank is empty' do
+    node = Factory(:node, :rank => '  ')
+    node.rank_string.should == 'None'
+  end
+
+  it 'returns rank if present' do
+    node = Factory(:node, :rank => 'Family')
+    node.rank_string.should == 'Family'
+  end
+end
+
+describe Node, '#synonym_name_strings with valid and invalid names' do
   let(:node) { Factory(:node) }
 
   before do
@@ -85,7 +102,15 @@ describe Node, 'synonym_name_strings' do
   end
 end
 
-describe Node, 'vernacular_name_strings' do
+describe Node, '#synonym_name_strings with no synonyms' do
+  let(:node) { Factory(:node) }
+
+  it 'returns None' do
+    node.synonym_name_strings.should == ['None']
+  end
+end
+
+describe Node, '#vernacular_name_strings with valid and invalid names' do
   let(:node) { Factory(:node) }
 
   before do
@@ -96,5 +121,13 @@ describe Node, 'vernacular_name_strings' do
 
   it 'returns name strings from valid vernacular names' do
     node.vernacular_name_strings.should == [@valid_vernacular_name.name.name_string]
+  end
+end
+
+describe Node, '#vernacular_name_strings with no synonyms' do
+  let(:node) { Factory(:node) }
+
+  it 'returns None' do
+    node.vernacular_name_strings.should == ['None']
   end
 end

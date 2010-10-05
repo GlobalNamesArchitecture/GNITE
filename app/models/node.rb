@@ -43,11 +43,21 @@ class Node < ActiveRecord::Base
     copy.reload
   end
 
+  def rank_string
+    rank_string = rank.to_s.strip
+    rank_string = 'None' if rank_string.empty?
+    rank_string
+  end
+
   def synonym_name_strings
-    synonyms.all(:include => :name).map(&:name).compact.map(&:name_string)
+    synonyms.all(:include => :name).map(&:name).compact.map(&:name_string).tap do |name_strings|
+      name_strings << 'None' if name_strings.empty?
+    end
   end
 
   def vernacular_name_strings
-    vernacular_names.all(:include => :name).map(&:name).compact.map(&:name_string)
+    vernacular_names.all(:include => :name).map(&:name).compact.map(&:name_string).tap do |name_strings|
+      name_strings << 'None' if name_strings.empty?
+    end
   end
 end

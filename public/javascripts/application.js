@@ -112,6 +112,45 @@ $(function() {
 
 
   /*
+   * Nodes
+   */
+  GNITE.Node = GNITE.Node || {
+    getMetadata: function(url, container, wrapper) {
+      container.spinner();
+
+      $.getJSON(url, function(data) {
+        var rank             = $.trim(data.rank);
+        var synonyms         = data.synonyms;
+        var vernacular_names = data.vernacular_names;
+
+        container.find('.metadata-section ul').empty();
+        container.find('.metadata-rank ul').append('<li>' + rank + '</li>');
+
+        $.each(synonyms, function(index, synonym) {
+          container.find('.metadata-synonyms ul').append('<li>' + synonym + '</li>');
+        });
+
+        $.each(vernacular_names, function(index, vernacular_name) {
+          container.find('.metadata-vernacular-names ul').append('<li>' + vernacular_name + '</li>');
+        });
+
+        container.unspinner().show();
+        wrapper.css('bottom', container.height());
+
+        var nodePosition  = self[0].offsetTop - wrapper[0].scrollTop;
+        var visibleHeight = wrapper.height();
+
+        if (nodePosition >= visibleHeight) {
+          wrapper[0].scrollTop += nodePosition - visibleHeight + 36;
+        }
+      });
+    }
+  };
+
+
+
+
+  /*
    * Reference Trees
    */
   // TODO: Clean up.
@@ -121,52 +160,10 @@ $(function() {
     var metadata = tree.find('.node-metadata');
     var tree_id  = tree.attr('id').split('_')[2];
     var node_id  = self.parent('li').attr('id');
+    var wrapper  = tree.find('.reference_tree_container > div');
+    var url      = '/reference_trees/' + tree_id + '/nodes/' + node_id;
 
-    metadata.spinner();
-
-    $.getJSON('/reference_trees/' + tree_id + '/nodes/' + node_id, function(data) {
-      var rank             = $.trim(data.rank);
-      var synonyms         = data.synonyms;
-      var vernacular_names = data.vernacular_names;
-
-      metadata.find('.metadata-section ul').empty();
-
-      if (synonyms.length == 0) {
-        metadata.find('.metadata-synonyms ul').append('<li>None</li>');
-      } else {
-        $.each(synonyms, function(index, synonym) {
-          metadata.find('.metadata-synonyms ul').append('<li>' + synonym + '</li>');
-        });
-      }
-
-      if (vernacular_names.length == 0) {
-        metadata.find('.metadata-vernacular-names ul').append('<li>None</li>');
-      } else {
-        $.each(vernacular_names, function(index, vernacular_name) {
-          metadata.find('.metadata-vernacular-names ul').append('<li>' + vernacular_name + '</li>');
-        });
-      }
-
-      if (rank == '') {
-        metadata.find('.metadata-rank ul').append('<li>None</li>');
-      } else {
-        metadata.find('.metadata-rank ul').append('<li>' + rank + '</li>');
-      }
-
-      var wrapper = tree.find('.reference_tree_container > div');
-
-      metadata.show();
-      wrapper.css('bottom', metadata.height());
-
-      var nodePosition  = self[0].offsetTop - wrapper[0].scrollTop;
-      var visibleHeight = wrapper.height();
-
-      if (nodePosition >= visibleHeight) {
-        wrapper[0].scrollTop += nodePosition - visibleHeight + 36;
-      }
-
-      metadata.unspinner();
-    });
+    GNITE.Node.getMetadata(url, metadata, wrapper);
   });
 
   if ($('#working-trees li').length == 0) {
@@ -320,52 +317,10 @@ $(function() {
   $('#master-tree .jstree-clicked').live('click', function() {
     var self     = $(this);
     var metadata = $('#treewrap-left .node-metadata');
+    var wrapper  = $('#add-node-wrap');
+    var url      = '/master_trees/' + master_tree_id + '/nodes/' + self.parent('li').attr('id');
 
-    metadata.spinner();
-
-    $.getJSON('/master_trees/' + master_tree_id + '/nodes/' + self.parent('li').attr('id'), function(data) {
-      var rank             = $.trim(data.rank);
-      var synonyms         = data.synonyms;
-      var vernacular_names = data.vernacular_names;
-
-      metadata.find('.metadata-section ul').empty();
-
-      if (synonyms.length == 0) {
-        metadata.find('.metadata-synonyms ul').append('<li>None</li>');
-      } else {
-        $.each(synonyms, function(index, synonym) {
-          metadata.find('.metadata-synonyms ul').append('<li>' + synonym + '</li>');
-        });
-      }
-
-      if (vernacular_names.length == 0) {
-        metadata.find('.metadata-vernacular-names ul').append('<li>None</li>');
-      } else {
-        $.each(vernacular_names, function(index, vernacular_name) {
-          metadata.find('.metadata-vernacular-names ul').append('<li>' + vernacular_name + '</li>');
-        });
-      }
-
-      if (rank == '') {
-        metadata.find('.metadata-rank ul').append('<li>None</li>');
-      } else {
-        metadata.find('.metadata-rank ul').append('<li>' + rank + '</li>');
-      }
-
-      var wrapper = $('#add-node-wrap');
-
-      metadata.show();
-      wrapper.css('bottom', metadata.height());
-
-      var nodePosition  = self[0].offsetTop - wrapper[0].scrollTop;
-      var visibleHeight = wrapper.height();
-
-      if (nodePosition >= visibleHeight) {
-        wrapper[0].scrollTop += nodePosition - visibleHeight + 36;
-      }
-
-      metadata.unspinner();
-    });
+    GNITE.Node.getMetadata(url, metadata, wrapper);
   });
 
   $('#master-tree .jstree-clicked').live('dblclick', function() {
