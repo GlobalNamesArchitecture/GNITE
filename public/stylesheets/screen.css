@@ -313,9 +313,28 @@ body form input {
   background: #e9e9e9;
   border-bottom: 1px solid #c2c6ca;
   line-height: 38px;
-  padding: 0 26px 0 15px;
   position: relative;
   z-index: 10;
+}
+
+#nav ul li:last-child {
+  border-bottom: 1px solid #fff;
+}
+
+#nav a:link, #nav a:hover, #nav a:focus, #nav a:visited, #nav a:active {
+  border-top: 1px solid #fff;
+  color: #000;
+  display: block;
+  padding: 0 26px 0 15px;
+  text-decoration: none;
+}
+
+#nav a:hover {
+  color: #666;
+}
+
+#nav ul li:last-child a {
+  border-bottom: 1px solid #c2c6ca;
 }
 
 #nav li#active {
@@ -323,19 +342,16 @@ body form input {
   border: none;
   color: white;
   line-height: 36px;
+  padding: 0 26px 0 15px;
   position: relative;
   width: 175px;
   z-index: 100;
 }
 
 #nav li#active a {
+  border-top: 0;
   color: white;
-}
-
-#nav a:link, #nav a:hover, #nav a:focus, #nav a:visited, #nav a:active {
-  color: #000;
-  display: block;
-  text-decoration: none;
+  padding: 0;
 }
 
 #nav ul li a {
@@ -377,21 +393,27 @@ body form input {
 }
 
 #nav ul li ul {
-  margin: 6px 0;
+  background: #fff;
+  margin: 0 -9px 0 -14px;
+  padding: 4px 0;
 }
 
 #nav ul li ul li {
+  background: #fff;
+  border: 0;
   color: #000;
   font-size: 12px;
   font-weight: normal;
-  height: 30px;
-  line-height: 32px;
-  margin: 0 0 0 25px;
   overflow: hidden;
-  padding: 0;
+  padding: 4px 0 4px 38px;
 }
 
-#nav li#active ul li a{
+#nav ul li ul li {
+  line-height: 28px;
+}
+
+#nav li#active ul li a {
+  border: 0;
   color: #000;
 }
 
@@ -410,7 +432,7 @@ body form input {
 }
 
 #nav ul li ul, #nav ul li ul li, #nav li:not(#active) ul li  {
-  background: none !important; /*not sure why this needs important. better solution welcomed.*/
+  /*background: none !important;*/ /*not sure why this needs important. better solution welcomed.*/
 }
 
 /* Main Tree Structure */
