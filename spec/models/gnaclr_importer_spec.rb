@@ -182,7 +182,7 @@ describe GnaclrImporter, 'activate_tree' do
 end
 
 describe GnaclrImporter, 'perform when the classification has not been imported' do
-  let!(:reference_tree) { Factory.build(:reference_tree) }
+  let(:reference_tree) { Factory(:reference_tree) }
   subject { GnaclrImporter.new(:url               => "",
                                :reference_tree    => reference_tree) }
 

@@ -106,6 +106,7 @@ class GnaclrImporter
   end
 
   def tree_already_imported?
+    return false unless reference_tree.source_id
     ReferenceTree.count(['source_id = ? and state = ?',
                         reference_tree.source_id,
                         'active']) > 1
