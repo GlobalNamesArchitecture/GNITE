@@ -67,6 +67,7 @@ Feature: Importing trees from GNACLR
     When delayed jobs are run
     And pause 2
     Then I should not see a spinner
+    And I should see "All working trees (1)"
     And I should see a node "Cyphophthalmi incertae sedis" at the root level in my reference tree "NCBI"
     And I should see a node "Opiliones" at the root level in my reference tree "NCBI"
     When I select the node "Opiliones"

@@ -82,15 +82,17 @@ GNITE.ReferenceTree.configuration = $.extend(true, {}, GNITE.Tree.configuration,
 });
 
 GNITE.ReferenceTree.add = function(response, options) {
-  var tab   = $('#all-tabs');
-  var count = parseInt(tab.text().replace(/[^0-9]+/, ''), 10);
+  if ($('a[href="#' + response.domid + '"]').length == 0) {
+    var tab   = $('#all-tabs');
+    var count = parseInt(tab.text().replace(/[^0-9]+/, ''), 10);
 
-  tab.text('All working trees (' + (count + 1) + ')');
+    tab.text('All working trees (' + (count + 1) + ')');
 
-  $('#new-tab').before(response.tree);
+    $('#new-tab').before(response.tree);
 
-  $('#tab-titles li:first-child').show();
-  $('#tabs li:first-child ul').append('<li><a href="#' + response.domid + '">' + response.title + '</a></li>');
+    $('#tab-titles li:first-child').show();
+    $('#tabs li:first-child ul').append('<li><a href="#' + response.domid + '">' + response.title + '</a></li>');
+  }
 
   $('#container_for_' + response.domid).jstree($.extend(true, {},
     GNITE.ReferenceTree.configuration, {
