@@ -25,7 +25,7 @@ class GnaclrImporter
   def store_tree
     name_strings.in_groups_of(NAME_BATCH_SIZE).each do |group|
       group = group.compact.collect do |name_string|
-        Name.__send__(:quote_bound_value, name_string)
+        Name.connection.quote(name_string)
       end.join('), (')
 
       Name.transaction do
@@ -42,9 +42,9 @@ class GnaclrImporter
     taxon_ids.each do |taxon_id|
       next unless taxon_id && darwin_core_data[taxon_id]
 
-      name_sql       = Name.__send__(:quote_bound_value, darwin_core_data[taxon_id].current_name)
-      rank_sql       = Node.__send__(:quote_bound_value, darwin_core_data[taxon_id].rank)
-      ancestry_sql   = Node.__send__(:quote_bound_value, ancestry) if ancestry.present?
+      name_sql       = Name.connection.quote(darwin_core_data[taxon_id].current_name)
+      rank_sql       = Node.connection.quote(darwin_core_data[taxon_id].rank)
+      ancestry_sql   = Node.connection.quote(ancestry) if ancestry.present?
       ancestry_sql ||= 'NULL'
 
       node_id = Node.connection.insert("INSERT INTO nodes (name_id, tree_id, ancestry, rank) VALUES ((SELECT id FROM names WHERE name_string = #{name_sql} LIMIT 1), #{reference_tree.id}, #{ancestry_sql}, #{rank_sql})")
@@ -69,19 +69,19 @@ class GnaclrImporter
       names.map(&:name)
     end.flatten.in_groups_of(NAME_BATCH_SIZE).each do |group|
       group = group.compact.collect do |name_string|
-        Name.__send__(:quote_bound_value, name_string)
+        Name.connection.quote(name_string)
       end.join('), (')
 
-      Name.connection.execute "BEGIN"
-      Name.connection.execute "INSERT IGNORE INTO names (name_string) VALUES (#{group})"
-      Name.connection.execute "COMMIT"
+      Name.transaction do
+        Name.connection.execute "INSERT IGNORE INTO names (name_string) VALUES (#{group})"
+      end
     end
 
     { 'synonyms'         => @synonyms,
       'vernacular_names' => @vernacular_names }.each do |table, alternate_names|
       alternate_names.each do |node_id, names|
         names.map(&:name).each do |name_string|
-          name_sql = Name.__send__(:quote_bound_value, name_string)
+          name_sql = Name.connection.quote(name_string)
 
           Name.connection.execute "INSERT INTO #{table} (node_id, name_id) VALUES (#{node_id.to_i}, (SELECT id FROM names WHERE name_string = #{name_sql} LIMIT 1))"
         end
