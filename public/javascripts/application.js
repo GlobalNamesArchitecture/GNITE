@@ -221,6 +221,35 @@ $(function() {
     GNITE.Node.getMetadata(url, metadata, wrapper);
   });
 
+  $('.reference_tree_container > div').each(function() {
+    var self   = $(this);
+    var id     = self.attr('id').split('_')[4];
+    var active = self.parents('.reference-tree').hasClass('reference-tree-active');
+
+    if (active) {
+      self.jstree($.extend(true, {}, GNITE.ReferenceTree.configuration, {
+        'json_data' : {
+          'ajax' : {
+            'url' : '/reference_trees/' + id + '/nodes.json'
+          }
+        }
+      }));
+    } else {
+      self.parent().spinner();
+
+      var timeout = setTimeout(function checkImportStatus() {
+        $.get('/reference_trees/' + id + '.json', function(response, status, xhr) {
+          if (xhr.status == 200) {
+            self.parent().unspinner();
+            GNITE.ReferenceTree.add(response);
+          } else if (xhr.status == 204) {
+            timeout = setTimeout(checkImportStatus, 2000);
+          }
+        });
+      }, 2000);
+    }
+  });
+
   if ($('#working-trees li').length == 0) {
     $('#tab-titles li:first-child').hide();
   }

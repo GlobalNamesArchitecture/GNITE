@@ -8,11 +8,10 @@ end
 
 Then /^I should not see a node "([^"]*)" at the root level in my master tree$/ do |node_text|
   page.should_not have_css("div#master-tree>ul>li>a:contains('#{node_text}')")
-  # page.should_not have_xpath("//div[@id='master-tree']/ul/li/a[contains(., '#{node_text}')]")
 end
 
 When /^I enter "([^"]*)" in the new node and press enter$/ do |text|
-  field = find(:css, ".jstree-last input")
+  field = locate(:css, ".jstree-last input")
   field.set(text)
 
   page.execute_script("jQuery('.jstree-last input').blur();")

@@ -48,3 +48,26 @@ Feature: Importing trees from GNACLR
     And I should see the breadcrumb path "Working Trees > NCBI"
     And I should see a node "Cyphophthalmi incertae sedis" at the root level in my reference tree "NCBI"
     And I should see a node "Opiliones" at the root level in my reference tree "NCBI"
+
+  @javascript
+  Scenario: Importing the sample NCBI tree and reloading the page before it finishes
+    Then I should see "All working trees (0)"
+    When I follow "Browse GNACLR database"
+    And I follow "NCBI"
+    And I press "Import"
+    Then I should see a spinner
+    And I should not see the gnaclr import button
+    When I reload the page
+    Then I should see "All working trees (1)"
+    When I follow "All working trees"
+    And I follow "NCBI"
+    Then I should see the breadcrumb path "Working Trees > NCBI"
+    And I should not see any reference tree nodes
+    And I should see a spinner
+    When delayed jobs are run
+    And pause 2
+    Then I should not see a spinner
+    And I should see a node "Cyphophthalmi incertae sedis" at the root level in my reference tree "NCBI"
+    And I should see a node "Opiliones" at the root level in my reference tree "NCBI"
+    When I select the node "Opiliones"
+    Then I should see "Daddy longlegs" as vernacular names for the "NCBI" tree

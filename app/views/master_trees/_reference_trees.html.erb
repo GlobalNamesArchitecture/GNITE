@@ -36,19 +36,3 @@
     </div>
   </div>
 </div>
-
-<% content_for :javascript do %>
-  <script>
-    <% @master_tree.reference_trees.each do |reference_tree| %>
-      $("#<%= dom_id(reference_tree, 'container_for') %>").jstree($.extend(true, {},
-        GNITE.ReferenceTree.configuration, {
-          'json_data' : {
-            'ajax' : {
-              'url' : '<%= reference_tree_nodes_path(:reference_tree_id => reference_tree.id, :format => 'json') %>'
-            }
-          }
-        }
-      ));
-    <% end %>
-  </script>
-<% end %>

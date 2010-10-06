@@ -15,6 +15,8 @@ module NamedElementHelper
       'li#scientific-name-tab'
     when /the signout link/
       "a[href^='#{sign_out_path}']"
+    when /any reference tree nodes/
+      ".reference-tree .jstree-leaf"
     else
       raise "Can't find mapping for \"#{named_element}\"."
     end
