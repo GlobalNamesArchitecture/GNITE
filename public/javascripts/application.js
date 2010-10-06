@@ -1,9 +1,13 @@
 /*
  * Options
  */
-var GNITE = GNITE || {};
+var GNITE = {
+  Tree          : {},
+  MasterTree    : {},
+  ReferenceTree : {}
+};
 
-GNITE.Tree = GNITE.Tree || {
+GNITE.Tree.configuration = {
   'json_data' : {
     'ajax' : {
       'data' : function(node) {
@@ -23,7 +27,7 @@ GNITE.Tree = GNITE.Tree || {
   }
 };
 
-GNITE.MasterTree = GNITE.MasterTree || $.extend(true, {}, GNITE.Tree, {
+GNITE.MasterTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
   'contextmenu' : {
     'select_node' : true,
     'items'       : function() {
@@ -67,7 +71,7 @@ GNITE.MasterTree = GNITE.MasterTree || $.extend(true, {}, GNITE.Tree, {
   'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'contextmenu']
 });
 
-GNITE.ReferenceTree =  GNITE.ReferenceTree || $.extend(true, {}, GNITE.Tree, {
+GNITE.ReferenceTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
   'crrm' : {
     'move' : {
       'check_move' : function() { return false; },
@@ -76,6 +80,34 @@ GNITE.ReferenceTree =  GNITE.ReferenceTree || $.extend(true, {}, GNITE.Tree, {
 
   'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm']
 });
+
+GNITE.ReferenceTree.add = function(response, options) {
+  var tab   = $('#all-tabs');
+  var count = parseInt(tab.text().replace(/[^0-9]+/, ''), 10);
+
+  tab.text('All working trees (' + (count + 1) + ')');
+
+  $('#new-tab').before(response.tree);
+
+  $('#tab-titles li:first-child').show();
+  $('#tabs li:first-child ul').append('<li><a href="#' + response.domid + '">' + response.title + '</a></li>');
+
+  $('#container_for_' + response.domid).jstree($.extend(true, {},
+    GNITE.ReferenceTree.configuration, {
+      'json_data' : {
+        'ajax' : {
+          'url' : response.url
+        }
+      }
+    }
+  ));
+
+  $('#tabs li:first-child ul li:last-child a').trigger('click');
+
+  if (options) {
+    options.spinnedElement.unspinner()
+  }
+};
 
 
 
@@ -124,10 +156,8 @@ $(function() {
       type        : 'POST',
       data        : data,
       contentType : 'application/json',
-      success     : function() {
-        // TODO: Don't do this.
-        // TODO: Actually render and show the newly created reference tree.
-        location.reload();
+      success     : function(response) {
+        GNITE.ReferenceTree.add(response);
       }
     });
 
@@ -140,7 +170,7 @@ $(function() {
   /*
    * Nodes
    */
-  GNITE.Node = GNITE.Node || {
+  GNITE.Node = {
     getMetadata: function(url, container, wrapper) {
       container.spinner();
 
@@ -247,13 +277,15 @@ $(function() {
     $('#master-tree').jstree('create');
   });
 
-  $('#master-tree').jstree($.extend(true, {}, GNITE.MasterTree, {
-    'json_data': {
-      'ajax' : {
-        'url' : '/master_trees/' + master_tree_id + '/nodes.json'
+  if ($.fn.jstree) {
+    $('#master-tree').jstree($.extend(true, {}, GNITE.MasterTree.configuration, {
+      'json_data': {
+        'ajax' : {
+          'url' : '/master_trees/' + master_tree_id + '/nodes.json'
+        }
       }
-    }
-  }));
+    }));
+  }
 
   $('#master-tree')
   .bind('create.jstree', function(event, data) {
@@ -337,9 +369,8 @@ $(function() {
     var id   = node.obj.attr('id');
 
     $.ajax({
-      type        : 'DELETE',
-      url         : '/master_trees/' + master_tree_id + '/nodes/' + id + '.json'//,
-      //contentType : 'application/json'
+      type : 'DELETE',
+      url  : '/master_trees/' + master_tree_id + '/nodes/' + id + '.json'
     });
   });
 
@@ -421,28 +452,7 @@ $(function() {
       var timeout = setTimeout(function checkImportStatus() {
         $.get('/reference_trees/' + tree_id, { format : 'json' }, function(response, status, xhr) {
           if (xhr.status == 200) {
-            var tab   = $('#all-tabs');
-            var count = parseInt(tab.text().replace(/[^0-9]+/, ''), 10);
-
-            tab.text('All working trees (' + (count + 1) + ')');
-
-            opts.spinnedElement.unspinner()
-            $('#new-tab').before(response.tree);
-
-            $('#tab-titles li:first-child').show();
-            $('#tabs li:first-child ul').append('<li><a href="#' + response.domid + '">' + response.title + '</a></li>');
-
-            $('#container_for_' + response.domid).jstree($.extend(true, {},
-              GNITE.ReferenceTree, {
-                'json_data' : {
-                  'ajax' : {
-                    'url' : response.url
-                  }
-                }
-              }
-            ));
-
-            $('#tabs li:first-child ul li:last-child a').trigger('click');
+            GNITE.ReferenceTree.add(response, opts);
           } else if (xhr.status == 204) {
             timeout = setTimeout(checkImportStatus, 2000);
           }

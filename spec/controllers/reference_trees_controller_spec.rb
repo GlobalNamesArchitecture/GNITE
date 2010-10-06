@@ -28,10 +28,7 @@ describe ReferenceTreesController, 'html POST create' do
       end
 
       it { should respond_with(:success) }
-
-      it "should render the new tree as JSON" do
-        response.body.should == tree.to_json
-      end
+      it { should render_template(:reference_tree) }
     end
   end
 end
