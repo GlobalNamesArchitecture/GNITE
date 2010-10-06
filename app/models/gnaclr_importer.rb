@@ -47,7 +47,9 @@ class GnaclrImporter
       ancestry_sql   = Node.connection.quote(ancestry) if ancestry.present?
       ancestry_sql ||= 'NULL'
 
-      node_id = Node.connection.insert("INSERT INTO nodes (name_id, tree_id, ancestry, rank) VALUES ((SELECT id FROM names WHERE name_string = #{name_sql} LIMIT 1), #{reference_tree.id}, #{ancestry_sql}, #{rank_sql})")
+      node_id = Node.connection.insert("INSERT INTO nodes (name_id, tree_id, ancestry, rank) \
+                    VALUES ((SELECT id FROM names WHERE name_string = #{name_sql} LIMIT 1), \
+                            #{reference_tree.id}, #{ancestry_sql}, #{rank_sql})")
 
       next_ancestry = ancestry ? ancestry.dup : ''
       next_ancestry << '/' unless next_ancestry.empty?
