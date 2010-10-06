@@ -129,13 +129,6 @@ class GnaclrImporter
   end
   private :copy_nodes_from_prior_import
 
-  def copy_existing_tree(uuid)
-    ref_tree = ReferenceTree.find_by_uuid!(uuid)
-    # copy tree to new master tree
-    # copy nodes
-  end
-  private :copy_existing_tree
-
   def enqueue
     Delayed::Job.enqueue(self)
   end
