@@ -17,7 +17,7 @@
         </tr>
         <tr>
           <td class="label">Path:</td>
-          <td class="path"><%= classification['path'].gsub("|", " &rsaquo; ").html_safe -%></td>
+          <td class="path"><%= classification['path'].to_s.gsub("|", " &rsaquo; ").html_safe -%></td>
         </tr>
         <tr>
           <td class="label">Current&nbsp;name:</td>
