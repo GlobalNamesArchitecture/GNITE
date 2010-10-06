@@ -789,10 +789,11 @@ body form input {
 
 .node-metadata h3 {
   background: #BABFC3;
+  border-top: 1px solid #a0a5a8;
   font-size: 14px;
   margin: 0;
   padding: 10px;
-  text-shadow: #DADEE2 0  1px 0px;
+  text-shadow: 0 1px 0px #DADEE2;
 }
 
 .metadata-section {
@@ -807,16 +808,16 @@ body form input {
   margin: 0;
   padding: 10px 0 0 0;
   text-shadow: #DADEE2 0  1px 0px;
-  width: 26%;
+  width: 30%;
 }
 
 .node-metadata .spinner,
 .metadata-section:last-child,
 .metadata-section:last-child ul {
-  border-radius: 0 0 8px 8px;
+/*  border-radius: 0 0 8px 8px;
   -moz-border-radius: 0 0 8px 8px;
   -webkit-border-radius: 0 0 8px 8px;
-}
+*/}
 
 .node-metadata h4 span {
   padding: 0 10px;
@@ -826,7 +827,7 @@ body form input {
   background: #fff;
   float: left;
   padding: 0 0 5px 0;
-  width: 74%;
+  width: 70%;
 }
 
 .node-metadata ul li {
@@ -1092,6 +1093,15 @@ ul.classifications div.import-button {
   margin: 20px 0;
 }
 
+#tree-newimport #tree-import-list li {
+  border: 0;
+  border-bottom: 1px solid #aaa;
+}
+
+#tree-newimport #tree-import-list li h2 {
+  padding-bottom: 0;
+}
+
 #tree-newimport ul li:hover {
   background: -moz-linear-gradient(0% 100% 90deg,#aeb3b8, #d2d4d6);
   background: -webkit-gradient(linear, 0 0, 0 100%, from(#d2d4d6), to(#aeb3b8));
@@ -1113,7 +1123,8 @@ ul.classifications div.import-button {
 }
 
 #tree-newimport ul li p {
-  color: #555;
+  color: #333;
+  line-height: 140%;
   margin: 5px 0;
   padding: 0;
 }
