@@ -280,6 +280,14 @@ $(function() {
           success : function(results) {
             $('#gnaclr-error').hide();
             $('#new-tab .tree-background').html(results);
+
+            $('#search-nav li').each(function() {
+              if ($(this).find('.count').text() != '0') {
+                $(this).trigger('click');
+
+                return false;
+              }
+            });
           },
           error : function() {
             $('#gnaclr-error').show();
@@ -508,8 +516,11 @@ $(function() {
   });
 
   $('#search-nav li').live('click', function() {
-    $('.search-text').fadeOut('fast');
-    $($(this).find('a').attr('href')).fadeIn('fast');
+    $('#search-nav li.active').removeClass('active');
+    $(this).addClass('active');
+
+    $('.search-text').hide();
+    $($(this).find('a').attr('href')).show();
 
     return false;
   });
