@@ -530,7 +530,7 @@ body form input {
   color: #222;
   font-weight: bold;
   float: right;
-  margin: 0 4px 0 0;
+  margin: 0 0px 0 0;
   padding: 6px 14px 6px 10px;
   text-decoration: none;
 }
@@ -1304,7 +1304,7 @@ ul#revisions li:hover {
   margin: 20px 20px 10px;
 }
 
-#import-flat-list input,
+#import-flat-list input[type="text"],
 #import-flat-list textarea {
   border: 1px solid rgb(176, 173, 163);
   border-radius: 6px;
