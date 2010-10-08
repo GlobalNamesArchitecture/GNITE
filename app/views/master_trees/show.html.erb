@@ -24,6 +24,12 @@
           <% end %>
         </div>
 
+        <div class="grid-button">
+          <%= button_to "Delete Tree", master_tree_path(@master_tree),
+                        :method => :delete,
+                        :confirm => "Are you sure you want to delete your master tree?" -%>
+        </div>
+
         <div id="add-node" class="clearfix">
           <a href="#"><span>Add Node</span></a>
         </div>

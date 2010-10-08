@@ -31,4 +31,13 @@ class MasterTreesController < ApplicationController
       render :edit
     end
   end
+
+  def destroy
+    @master_tree = MasterTree.find(params[:id])
+    if @master_tree.destroy
+      redirect_to :action => :index
+      flash[:notice] = 'Tree deleted successfully'
+    end
+  end
+
 end
