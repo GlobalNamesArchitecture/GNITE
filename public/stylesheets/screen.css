@@ -1530,18 +1530,7 @@ ul#treelist a:hover,
 
 #tab-titles #import {
   float: right;
-  margin-right: 3px;
-}
-
-#tab-titles #trash {
-  float: right;
   margin-right: 0;
-}
-
-.no_content_message {
-  font-size: 1.3em;
-  padding: 20px;
-  text-align: center;
 }
 
 ul#working-trees {
