@@ -714,7 +714,8 @@ body form input {
 }
 
 .searchbar .grid-button a,
-.controls .tree-btn a {
+.controls .tree-btn a,
+.searchbar .grid-button input[type="submit"] {
   background: #bbc0c4;
   background: -moz-linear-gradient(top, #e0e2e4, #bbc0c4);
   background: -webkit-gradient(linear, 0 0, 0 100%, from(#e0e2e4), to(#bbc0c4));
@@ -733,6 +734,11 @@ body form input {
   margin: 0 10px 0 0;
   padding: 6px 9px;
   text-decoration: none;
+}
+
+.searchbar .grid-button input[type="submit"] {
+  height: 25px;
+  padding: 4px 9px;
 }
 
 .searchbar .grid-button a:hover,
