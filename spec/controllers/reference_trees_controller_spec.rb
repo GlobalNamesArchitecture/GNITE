@@ -39,7 +39,7 @@ describe ReferenceTreesController, 'POST create without authenticating' do
 end
 
 describe ReferenceTreesController, 'xhr GET show for a tree that is importing' do
-  let(:user) { Factory(:user) }
+  let(:user) { Factory(:email_confirmed_user) }
   let(:reference_tree) { Factory(:reference_tree,
                                 :user  => user,
                                 :state => 'importing') }
@@ -48,7 +48,7 @@ describe ReferenceTreesController, 'xhr GET show for a tree that is importing' d
     sign_in_as user
     get :show,
         :id     => reference_tree.id,
-        :format => 'json'
+        :format => :json
   end
 
   it 'responds with a 206 No Content and no layout' do
@@ -58,7 +58,7 @@ describe ReferenceTreesController, 'xhr GET show for a tree that is importing' d
 end
 
 describe ReferenceTreesController, 'xhr GET show for a tree that is active' do
-  let(:user) { Factory(:user) }
+  let(:user) { Factory(:email_confirmed_user) }
   let(:reference_tree) { Factory(:reference_tree,
                                 :user  => user,
                                 :state => 'active') }
@@ -67,7 +67,8 @@ describe ReferenceTreesController, 'xhr GET show for a tree that is active' do
     sign_in_as user
     xhr :get,
         :show,
-        :id => reference_tree.id
+        :id => reference_tree.id,
+        :format => :json
 
   end
 
@@ -75,7 +76,16 @@ describe ReferenceTreesController, 'xhr GET show for a tree that is active' do
   it { should render_template(:reference_tree) }
 end
 
+describe ReferenceTreesController, 'html GET to show' do
+  before do
+    sign_in
+    get :show, :id => 1
+  end
+
+  it { should respond_with(:bad_request) }
+end
+
 describe ReferenceTreesController, 'GET show without authenticating' do
-  before { get :show, :id => 1 }
+  before { xhr :get, :show, :id => 1, :format => :json }
   it     { should redirect_to(sign_in_url) }
 end
