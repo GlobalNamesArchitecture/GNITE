@@ -11,7 +11,6 @@
             <% end %>
           </ul>
         </li>
-        <li id="trash" class="ui-state-default ui-corner-top"><a href="#trash-tab">Trash</a></li>
         <li id="import" class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#new-tab">Import</a></li>
       </ul>
 
@@ -21,17 +20,6 @@
 
       <div id="new-tab" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
           <%= render :template => 'imports/new', :layout => 'layouts/right_tree' %>
-      </div>
-
-      <div id="trash-tab" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
-        <div class="tree-background dark">
-          <div class="breadcrumbs">
-            <ul>
-              <li>Trash Bin</li>
-            </ul>
-          </div>
-          <p class="no_content_message">Your Trash Bin is currently Empty.</p>
-        </div>
       </div>
     </div>
   </div>
