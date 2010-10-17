@@ -16,7 +16,7 @@ gem 'SystemTimer' # remove for ruby 1.9.x
 gem 'yajl-ruby', :require => 'yajl'
 gem 'ruby-debug' # change to ruby-debug19 for ruby 1.9.x
 gem 'nokogiri'
-gem 'resque'
+gem 'resque', '1.10.0'
 
 group :development do
   gem 'high_voltage'
