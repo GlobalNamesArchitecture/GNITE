@@ -15,13 +15,9 @@ class GnaclrImporter < ActiveRecord::Base
   end
 
   def import
-    if tree_already_imported?
-      copy_nodes_from_prior_import
-    else
-      fetch_tarball
-      read_tarball
-      store_tree
-    end
+    fetch_tarball
+    read_tarball
+    store_tree
     activate_tree
   end
 
@@ -110,13 +106,14 @@ class GnaclrImporter < ActiveRecord::Base
       end
       end
   end
-
-  def tree_already_imported?
-    return false unless reference_tree.source_id
-    ReferenceTree.count(['source_id = ? and state = ?',
-                        reference_tree.source_id,
-                        'active']) > 1
-  end
+  
+  # TODO: not used, either delete or use it right
+  # def tree_already_imported?
+  #   return false unless reference_tree.source_id
+  #   ReferenceTree.count(['source_id = ? and state = ?',
+  #                       reference_tree.source_id,
+  #                       'active']) > 1
+  # end
 
   def copy_nodes_from_prior_import
     now = Time.now
