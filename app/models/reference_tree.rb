@@ -1,5 +1,6 @@
 class ReferenceTree < Tree
   belongs_to :master_tree
+  has_many :gnaclr_importers
 
   def self.create_from_list(tree_params, node_list)
     tree = ReferenceTree.new(tree_params)

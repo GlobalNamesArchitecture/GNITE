@@ -21,7 +21,7 @@ Feature: Importing trees from GNACLR
     And I press "Import"
     Then I should see a spinner
     And I should not see the gnaclr import button
-    When delayed jobs are run
+    When resque jobs are run
     Then I should not see a spinner
     And I should see an "NCBI" tab
     Then I should see "All working trees (1)"
@@ -41,7 +41,7 @@ Feature: Importing trees from GNACLR
     And I press "Import"
     Then I should see a spinner
     And I should not see the gnaclr import button
-    When delayed jobs are run
+    When resque jobs are run
     Then I should not see a spinner
     And I should see an "NCBI" tab
     Then I should see "All working trees (1)"
@@ -64,7 +64,7 @@ Feature: Importing trees from GNACLR
     Then I should see the breadcrumb path "Working Trees > NCBI"
     And I should not see any reference tree nodes
     And I should see a spinner
-    When delayed jobs are run
+    When resque jobs are run
     And pause 2
     Then I should not see a spinner
     And I should see "All working trees (1)"

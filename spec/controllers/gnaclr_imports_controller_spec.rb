@@ -3,8 +3,10 @@ require 'spec_helper'
 describe GnaclrImportsController, 'xhr POST create' do
   let(:user) { Factory(:user) }
   let(:master_tree) { Factory(:master_tree, :user => user) }
+  let(:reference_tree) { Factory(:reference_tree) }
+  let(:gnaclr_importer) { Factory(:gnaclr_importer, :reference_tree => reference_tree, :url => 'foo') }
   before do
-    GnaclrImporter.stubs(:new)
+    GnaclrImporter.stubs(:create!).returns(gnaclr_importer)
 
     sign_in_as user
 
@@ -29,7 +31,7 @@ describe GnaclrImportsController, 'xhr POST create' do
   end
 
   it 'creates a new GNACLR importer' do
-    GnaclrImporter.should have_received(:new).with(:reference_tree => user.reference_trees.first,
+    GnaclrImporter.should have_received(:create!).with(:reference_tree => user.reference_trees.first,
                                                    :url            => 'foo')
   end
 end

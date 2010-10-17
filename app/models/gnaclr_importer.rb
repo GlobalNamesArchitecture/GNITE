@@ -1,13 +1,28 @@
-class GnaclrImporter
-  NAME_BATCH_SIZE = 10_000.freeze
+class GnaclrImporter < ActiveRecord::Base
+  belongs_to :reference_tree
+
+  unless defined? GNACLR_IMPORTER_DEFINED
+    NAME_BATCH_SIZE = 10_000
+    GNACLR_IMPORTER_DEFINED = true
+  end
+  @queue = :gnaclr_importer
 
   attr_reader   :darwin_core_data, :name_strings, :tree
-  attr_accessor :reference_tree, :url
 
-  def initialize(opts)
-    @reference_tree = opts[:reference_tree]
-    @url            = opts[:url]
-    enqueue
+  def self.perform(gnaclr_importer_id)
+    gi = GnaclrImporter.find(gnaclr_importer_id)
+    gi.import
+  end
+
+  def import
+    if tree_already_imported?
+      copy_nodes_from_prior_import
+    else
+      fetch_tarball
+      read_tarball
+      store_tree
+    end
+    activate_tree
   end
 
   def fetch_tarball
@@ -49,7 +64,7 @@ class GnaclrImporter
 
       node_id = Node.connection.insert("INSERT INTO nodes (name_id, tree_id, ancestry, rank) \
                     VALUES ((SELECT id FROM names WHERE name_string = #{name_sql} LIMIT 1), \
-                            #{reference_tree.id}, #{ancestry_sql}, #{rank_sql})")
+                                       #{reference_tree.id}, #{ancestry_sql}, #{rank_sql})")
 
       next_ancestry = ancestry ? ancestry.dup : ''
       next_ancestry << '/' unless next_ancestry.empty?
@@ -60,11 +75,16 @@ class GnaclrImporter
     end
   end
 
+  def activate_tree
+    ReferenceTree.update_all 'state = "active"', "id = #{reference_tree.id}"
+  end
+
+  private
+
   def add_synonyms_and_vernacular_names(node_id, taxon_id)
     (@synonyms ||= []) << [node_id, darwin_core_data[taxon_id].synonyms]
     (@vernacular_names ||= []) << [node_id, darwin_core_data[taxon_id].vernacular_names]
   end
-  private :add_synonyms_and_vernacular_names
 
   def insert_synonyms_and_vernacular_names
     (@synonyms + @vernacular_names).collect do |node_id, names|
@@ -88,23 +108,7 @@ class GnaclrImporter
           Name.connection.execute "INSERT INTO #{table} (node_id, name_id) VALUES (#{node_id.to_i}, (SELECT id FROM names WHERE name_string = #{name_sql} LIMIT 1))"
         end
       end
-    end
-  end
-  private :insert_synonyms_and_vernacular_names
-
-  def activate_tree
-    ReferenceTree.update_all 'state = "active"', "id = #{reference_tree.id}"
-  end
-
-  def perform
-    if tree_already_imported?
-      copy_nodes_from_prior_import
-    else
-      fetch_tarball
-      read_tarball
-      store_tree
-    end
-    activate_tree
+      end
   end
 
   def tree_already_imported?
@@ -113,7 +117,6 @@ class GnaclrImporter
                         reference_tree.source_id,
                         'active']) > 1
   end
-  private :tree_already_imported?
 
   def copy_nodes_from_prior_import
     now = Time.now
@@ -124,20 +127,13 @@ class GnaclrImporter
         map { |node| "(#{reference_tree.id}, #{Node.connection.quote(node.ancestry)}, \
           #{node.name_id}, #{Node.connection.quote(node.rank)}, \
           #{Node.connection.quote(now.to_s(:db))}, #{Node.connection.quote(now.to_s(:db))})" }.
-        join(',')
+          join(',')
       sql = "INSERT INTO nodes (tree_id, ancestry, name_id, rank, created_at, updated_at) VALUES #{nodes_sql}"
       Node.connection.execute(sql)
     end
   end
-  private :copy_nodes_from_prior_import
-
-  def enqueue
-    Delayed::Job.enqueue(self)
-  end
-  private :enqueue
 
   def tarball_path
     Rails.root.join('tmp', reference_tree.id.to_s).to_s
   end
-  private :tarball_path
 end

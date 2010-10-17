@@ -36,7 +36,7 @@ Feature: User searches gnaclr
     And the search results return
     And I press "Import" next to the "Index Fungorum" classification
     Then I should see a spinner
-    When delayed jobs are run
+    When resque jobs are run
     Then I should not see a spinner
     And I should see an "Agaricus L. 1753" tab
     And I should see the breadcrumb path "Working Trees > Agaricus L. 1753"

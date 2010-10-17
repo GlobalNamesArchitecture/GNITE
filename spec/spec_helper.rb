@@ -21,6 +21,10 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
   end
 
+  config.after(:suite) do
+    Resque.remove_queue(:gnaclr_importer)
+  end
+
   config.before(:each) do
     DatabaseCleaner.start
   end
@@ -28,4 +32,5 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
+
 end

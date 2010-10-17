@@ -34,3 +34,8 @@ Factory.define :vernacular_name do |vernacular|
   vernacular.association :node
   vernacular.association :name
 end
+
+Factory.define :gnaclr_importer do |gnaclr_importer|
+  gnaclr_importer.association :reference_tree
+  gnaclr_importer.url {'foo'}
+end

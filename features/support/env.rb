@@ -60,6 +60,7 @@ if defined?(ActiveRecord::Base)
 end
 
 After do |scenario|
+  Resque.remove_queue(:gnaclr_importer)
   if(scenario.failed?)
     puts
     puts "*"*80

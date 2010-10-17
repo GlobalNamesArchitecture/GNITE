@@ -9,21 +9,21 @@ gem 'hoptoad_notifier', '2.3.7'
 gem 'ancestry', '1.2.1.beta.1', :git => 'git://github.com/thoughtbot/ancestry.git', :branch => 'rails3'
 gem 'uuid'
 gem 'crack'
-gem 'delayed_job', '2.1.0.pre2'
 gem 'dwc-archive', '0.4.11', :git => 'git://github.com/GlobalNamesArchitecture/dwc-archive.git', :branch => 'master'
 gem 'fastercsv'
 gem 'parsley-store'
-gem 'SystemTimer'
+gem 'SystemTimer' # remove for ruby 1.9.x
 gem 'yajl-ruby', :require => 'yajl'
-gem 'ruby-debug'
+gem 'ruby-debug' # change to ruby-debug19 for ruby 1.9.x
 gem 'nokogiri'
+gem 'resque'
 
 group :development do
   gem 'high_voltage'
 end
 
 group :test, :development do
-  gem 'rspec-rails', '2.0.0.rc'
+  gem 'rspec-rails', '2.0.1'
 end
 
 group :test do
