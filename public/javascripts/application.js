@@ -206,11 +206,11 @@ $(function() {
         container.unspinner().show();
         wrapper.css('bottom', container.height());
 
-        var nodePosition  = self[0].offsetTop - wrapper[0].scrollTop;
+        var nodePosition  = container[0].offsetTop - wrapper[0].scrollTop;
         var visibleHeight = wrapper.height();
 
         if (nodePosition >= visibleHeight) {
-          wrapper[0].scrollTop += nodePosition - visibleHeight + 36;
+//          wrapper[0].scrollTop += nodePosition - visibleHeight + 36;
         }
       });
     }
@@ -465,7 +465,7 @@ $(function() {
 
   $('#master-tree .jstree-clicked').live('click', function() {
     var self     = $(this);
-    var metadata = $('#treewrap-left .node-metadata');
+    var metadata = $('#treewrap-main .node-metadata');
     var wrapper  = $('#add-node-wrap');
     var url      = '/master_trees/' + master_tree_id + '/nodes/' + self.parent('li').attr('id');
 
