@@ -38,38 +38,43 @@ GNITE.MasterTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
     'select_node' : true,
     'items'       : function() {
       return {
-        'create' : {
-          'label'            : 'Create',
-          'action'           : function(obj) { this.create(obj); },
-          'separator_after'  : true,
-          'separator_before' : false
-        },
         'rename' : {
           'label'            : 'Rename',
           'action'           : function(obj) { this.rename(obj); },
           'separator_after'  : false,
-          'separator_before' : false
+          'separator_before' : false,
+          'icon'           : 'context-rename',
         },
-        'remove' : {
-          'icon'             : false,
-          'label'            : 'Delete',
-          'action'           : function(obj) { this.remove(obj); },
+        'create' : {
+          'label'            : 'New child',
+          'action'           : function(obj) { this.create(obj); },
           'separator_after'  : true,
-          'separator_before' : false
+          'separator_before' : false,
+          'icon'             : 'context-create',
         },
         'cut' : {
           'label'            : 'Cut',
           'action'           : function(obj) { this.cut(obj); },
           'separator_after'  : false,
-          'separator_before' : false
+          'separator_before' : false,
+          'icon'           : 'context-cut',
         },
         'paste' : {
           'icon'             : false,
           'label'            : 'Paste',
           'action'           : function(obj) { this.paste(obj); },
           'separator_after'  : false,
-          'separator_before' : false
-        }
+          'separator_before' : false,
+          'icon'           : 'context-paste',
+        },
+        'remove' : {
+          'icon'             : false,
+          'label'            : 'Delete',
+          'action'           : function(obj) { this.remove(obj); },
+          'separator_after'  : false,
+          'separator_before' : true,
+          'icon'           : 'context-delete',
+        },
       };
     }
   },
