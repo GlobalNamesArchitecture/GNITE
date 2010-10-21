@@ -8,6 +8,11 @@ var GNITE = {
 };
 
 GNITE.Tree.configuration = {
+  'themes' : {
+    'theme' : 'gnite',
+    'icons' : false,
+  },
+
   'json_data' : {
     'ajax' : {
       'data' : function(node) {
@@ -25,6 +30,7 @@ GNITE.Tree.configuration = {
       'always_copy' : 'multitree'
     }
   }
+
 };
 
 GNITE.MasterTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
@@ -68,7 +74,7 @@ GNITE.MasterTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
     }
   },
 
-  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'contextmenu']
+  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'contextmenu', 'cookies', 'search']
 });
 
 GNITE.ReferenceTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
@@ -78,7 +84,7 @@ GNITE.ReferenceTree.configuration = $.extend(true, {}, GNITE.Tree.configuration,
     }
   },
 
-  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm']
+  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'search']
 });
 
 GNITE.ReferenceTree.add = function(response, options) {
@@ -260,7 +266,7 @@ $(function() {
 
 
   /*
-   * Search
+   * Search GNACLR
    */
   $('#search')
     .live('blur', function(){
@@ -322,9 +328,34 @@ $(function() {
         'ajax' : {
           'url' : '/master_trees/' + master_tree_id + '/nodes.json'
         }
-      }
+      },
+      'search' : {
+
+      'case_insensitive' : true,
+        'ajax' : {
+          'url' : '/master_trees/' + master_tree_id + '/name_search.json' 
+        },
+      }, 
     }));
   }
+
+  /*
+   * Search within master tree
+   */
+  $('#master-tree-search')
+    .live('blur', function(){
+      var self = $(this);
+      var term = self.val().trim();
+
+      if (term.length > 0) {
+        $('#master-tree').jstree("search", term);
+      }
+    })
+    .live('keypress', function(event) {
+      if (event.which == 13) {
+        $(this).blur();
+      }
+    });
 
   $('#master-tree')
   .bind('create.jstree', function(event, data) {
