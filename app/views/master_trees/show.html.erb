@@ -9,7 +9,7 @@
 <div class="tree-column clearfix">
   <div id="fluid-head"></div>
 
-  <div id="treewrap-left">
+  <div id="treewrap-main">
     <div class="tree-background">
       <div class="breadcrumbs">
         <ul>
@@ -18,10 +18,8 @@
       </div>
 
       <div class="searchbar clearfix">
-        <div class="grid-button">
-          <%= link_to edit_master_tree_path do %>
-            Edit Tree Info
-          <% end %>
+        <div id="edit-tree" class="grid-button">
+          <a href="#" class="quickFlipCta"><span>Edit Tree Info</span></a>
         </div>
 
         <div class="grid-button">
@@ -44,14 +42,17 @@
       <%= render :partial => 'metadata' %>
     </div>
   </div>
+
+  <%= render :partial => 'edit' %>
+
 </div>
 
+<%= render :partial => "reference_trees" %>
+
 <% content_for :javascript do %>
-  <%= javascript_include_tag 'jstree/jquery.jstree', 'jquery.cookie', 'autocomplete-rails' %>
+  <%= javascript_include_tag 'jstree/jquery.jstree', 'jquery.cookie', 'autocomplete-rails', 'jquery.flip.min' %>
 
   <script type="text/javascript">
     $.jstree._themes = '/javascripts/jstree/themes/';
   </script>
 <% end %>
-
-<%= render :partial => "reference_trees" %>

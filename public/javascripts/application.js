@@ -318,6 +318,20 @@ $(function() {
    */
   var master_tree_id = $('#tree-container').attr('data-database-id');
 
+  /*
+   * Flip the tree to edit the metadata
+   */
+  $('#edit-tree').click(function() {
+    $('#treewrap-main').flip({
+      direction: 'lr',
+      content: $('#edit-tree-metadata'),
+      dontChangeColor: true,
+      onBefore: function() { },
+      onAnimation: function() { },
+      onEnd: function() { }
+    });
+  });
+
   $('#add-node').click(function() {
     $('#master-tree').jstree('create');
   });

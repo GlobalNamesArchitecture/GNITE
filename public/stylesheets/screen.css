@@ -435,6 +435,14 @@ body form input {
   /*background: none !important;*/ /*not sure why this needs important. better solution welcomed.*/
 }
 
+/* Tree Metadata */
+/************************************************************************/
+#edit-tree-metadata { display: none; }
+
+#treewrap-metadata {
+  height: 90%;
+}
+
 /* Main Tree Structure */
 /************************************************************************/
 .tree-column {
@@ -452,7 +460,7 @@ body form input {
   height: 100%;
 }
 
-#treewrap-left {
+#treewrap-main {
   height: 90%;
   margin: 22px 20px 12px 40px;
 }
