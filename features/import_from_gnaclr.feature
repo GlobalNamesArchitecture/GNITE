@@ -16,7 +16,7 @@ Feature: Importing trees from GNACLR
   @javascript
   Scenario: Importing the sample NCBI tree
     Then I should see "All working trees (0)"
-    When I follow "Browse GNACLR database"
+    When I follow "Browse Classifications"
     And I follow "NCBI"
     And I press "Import"
     Then I should see a spinner
@@ -34,7 +34,7 @@ Feature: Importing trees from GNACLR
   @javascript
   Scenario: Importing an older revision of the sample NCBI tree
     Then I should see "All working trees (0)"
-    When I follow "Browse GNACLR database"
+    When I follow "Browse Classifications"
     And I follow "NCBI"
     Then "this is really the best revision" should be checked
     When I choose "this is the best revision"
@@ -52,7 +52,7 @@ Feature: Importing trees from GNACLR
   @javascript
   Scenario: Importing the sample NCBI tree and reloading the page before it finishes
     Then I should see "All working trees (0)"
-    When I follow "Browse GNACLR database"
+    When I follow "Browse Classifications"
     And I follow "NCBI"
     And I press "Import"
     Then I should see a spinner

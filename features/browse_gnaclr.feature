@@ -18,7 +18,7 @@ Feature: Browse GNACLR
   @javascript
   Scenario: Browse GNACLR from "Import" interface
     When I follow "Import"
-    And I follow "Browse GNACLR database"
+    And I follow "Browse Classifications"
     And I follow "NCBI"
     Then I should see "NCBI"
     And I should see "Dmitry Mozzherin"
@@ -29,7 +29,7 @@ Feature: Browse GNACLR
   @javascript
   Scenario: View breadcrumb navigation while browsing GNACLR
     When I follow "Import"
-    And I follow "Browse GNACLR database"
+    And I follow "Browse Classifications"
     And I follow "NCBI"
     Then I should see "NCBI"
     And I should see "Dmitry Mozzherin"
@@ -39,6 +39,6 @@ Feature: Browse GNACLR
     And I should see "Index Fungorum"
 
     When I follow "New Import" within the right panel header
-    Then I should see "Browse GNACLR database"
+    Then I should see "Browse Classifications"
 
   Scenario: Browse GNACLR from "New Master Tree" screen

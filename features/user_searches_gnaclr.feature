@@ -19,7 +19,7 @@ Feature: User searches gnaclr
 
   @javascript
   Scenario: Type in a search term
-    Then I should see "Search GNACLR database"
+    Then I should see "Search Classifications"
     When I search for "agaricus"
     And the search results return
     Then I should see that "the Scientific Name tab" has 5 results
@@ -53,4 +53,4 @@ Feature: User searches gnaclr
     Given I search for "agaricus"
     And the search results return
     When I follow "New Import"
-    Then I should see "Browse GNACLR database"
+    Then I should see "Browse Classifications"
