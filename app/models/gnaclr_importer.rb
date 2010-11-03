@@ -53,13 +53,14 @@ class GnaclrImporter < ActiveRecord::Base
     taxon_ids.each do |taxon_id|
       next unless taxon_id && darwin_core_data[taxon_id]
 
+      local_id_sql   = Name.connection.quote(taxon_id)
       name_sql       = Name.connection.quote(darwin_core_data[taxon_id].current_name)
       rank_sql       = Node.connection.quote(darwin_core_data[taxon_id].rank)
       ancestry_sql   = Node.connection.quote(ancestry) if ancestry.present?
       ancestry_sql ||= 'NULL'
 
-      node_id = Node.connection.insert("INSERT INTO nodes (name_id, tree_id, ancestry, rank) \
-                    VALUES ((SELECT id FROM names WHERE name_string = #{name_sql} LIMIT 1), \
+      node_id = Node.connection.insert("INSERT INTO nodes (local_id, name_id, tree_id, ancestry, rank) \
+                    VALUES (#{local_id_sql}, (SELECT id FROM names WHERE name_string = #{name_sql} LIMIT 1), \
                                        #{reference_tree.id}, #{ancestry_sql}, #{rank_sql})")
 
       next_ancestry = ancestry ? ancestry.dup : ''

@@ -189,51 +189,51 @@ describe GnaclrImporter, 'import when the classification has not been imported' 
   end
 end
 
-describe GnaclrImporter, 'when the classification has already been imported' do
-  let(:prior_tree) { Factory(:reference_tree, :source_id => '123', :state => 'active') }
-  let!(:nodes) do
-    [Factory(:node, :tree => prior_tree, :ancestry => '1', :rank => 'species'),
-     Factory(:node, :tree => prior_tree, :ancestry => '1/2', :rank => 'species')]
-  end
-  let(:new_tree) { Factory(:reference_tree, :source_id => prior_tree.source_id, :state => 'importing') }
-
-  subject do
-    GnaclrImporter.create(:url               => "",
-                       :reference_tree    => new_tree)
-  end
-
-  before do
-    Kernel.stubs(:system)
-    subject.stubs(:fetch_tarball)
-    subject.import
-  end
-
-  it 'does not fetch the tarball from gnaclr' do
-    Kernel.should_not have_received(:system)
-    subject.should_not have_received(:fetch_tarball)
-  end
-
-  it 'copies all nodes from the prior tree' do
-    new_tree.nodes.count.should == nodes.count
-    new_tree.nodes.each do |new_node|
-      nodes.detect do |n|
-        new_node.ancestry == n.ancestry &&
-        new_node.name_id  == n.name_id &&
-        new_node.rank     == n.rank
-      end.should be
-    end
-  end
-
-  it 'activates the new tree' do
-    new_tree.reload
-    new_tree.should be_active
-  end
-
-  it 'sets timestamps on the new nodes' do
-    new_tree.nodes.each do |new_node|
-      new_node.created_at.should be
-      new_node.updated_at.should be
-    end
-  end
-
-end
+# describe GnaclrImporter, 'when the classification has already been imported' do
+#   let(:prior_tree) { Factory(:reference_tree, :source_id => '123', :state => 'active') }
+#   let!(:nodes) do
+#     [Factory(:node, :tree => prior_tree, :ancestry => '1', :rank => 'species'),
+#      Factory(:node, :tree => prior_tree, :ancestry => '1/2', :rank => 'species')]
+#   end
+#   let(:new_tree) { Factory(:reference_tree, :source_id => prior_tree.source_id, :state => 'importing') }
+# 
+#   subject do
+#     GnaclrImporter.create(:url               => "",
+#                        :reference_tree    => new_tree)
+#   end
+# 
+#   before do
+#     Kernel.stubs(:system)
+#     subject.stubs(:fetch_tarball)
+#     subject.import
+#   end
+# 
+#   it 'does not fetch the tarball from gnaclr' do
+#     Kernel.should_not have_received(:system)
+#     subject.should_not have_received(:fetch_tarball)
+#   end
+# 
+#   it 'copies all nodes from the prior tree' do
+#     new_tree.nodes.count.should == nodes.count
+#     new_tree.nodes.each do |new_node|
+#       nodes.detect do |n|
+#         new_node.ancestry == n.ancestry &&
+#         new_node.name_id  == n.name_id &&
+#         new_node.rank     == n.rank
+#       end.should be
+#     end
+#   end
+# 
+#   it 'activates the new tree' do
+#     new_tree.reload
+#     new_tree.should be_active
+#   end
+# 
+#   it 'sets timestamps on the new nodes' do
+#     new_tree.nodes.each do |new_node|
+#       new_node.created_at.should be
+#       new_node.updated_at.should be
+#     end
+#   end
+# 
+# end

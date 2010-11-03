@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101017015839) do
+ActiveRecord::Schema.define(:version => 20101103161716) do
 
   create_table "gnaclr_importers", :force => true do |t|
     t.integer  "reference_tree_id"
@@ -36,9 +36,11 @@ ActiveRecord::Schema.define(:version => 20101017015839) do
     t.string   "ancestry"
     t.integer  "name_id",    :null => false
     t.string   "rank"
+    t.string   "local_id"
   end
 
   add_index "nodes", ["ancestry"], :name => "index_nodes_on_ancestry"
+  add_index "nodes", ["local_id", "tree_id"], :name => "index_nodes_on_local_id_and_tree_id", :unique => true
   add_index "nodes", ["name_id"], :name => "index_nodes_on_name_id"
   add_index "nodes", ["tree_id"], :name => "index_nodes_on_tree_id"
 
