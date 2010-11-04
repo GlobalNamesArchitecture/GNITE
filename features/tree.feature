@@ -204,6 +204,6 @@ Feature: Edit a master tree
     When I follow "Snacks"
     And I wait for the tree to load
     And I select the node "oxiae"
-    And I click "Create" in the context menu
+    And I click "New child" in the context menu
     And I enter "cat" in the new node and press enter
     Then I should see 1 child node for the "oxiae" node in my master tree
