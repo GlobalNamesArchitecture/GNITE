@@ -7,7 +7,6 @@ Feature: Edit the metadata for a master tree
     And I am on the master tree index page
     When I follow "Moose tree"
     And I follow "Edit Tree Info"
-    Then I should see "Edit Tree Info" within "#treewrap-main #edit-tree span"
     When I fill in "Title" with "Bullwinkle tree"
     And I select "Public domain" from "License"
     And I press "Update"
@@ -15,18 +14,16 @@ Feature: Edit the metadata for a master tree
     Then I should see "Bullwinkle tree"
     And I should not see "Moose tree"
 
-  @javascript
   Scenario: User can cancel editing the metadata for a tree
     Given I have signed in with "email@person.com/password"
     And "email@person.com" has created an existing master tree titled "Moose tree" with:
       | Bullwinkle |
-    And I am on the master tree index page   
+    And I am on the master tree index page
     When I follow "Moose tree"
     And I follow "Edit Tree Info"
-    Then I should see "Edit Tree Info" within "#treewrap-main #edit-tree span"
+    Then I should be on the edit master tree page for "Moose tree"
     When I follow "Cancel"
     Then I should be on the master tree page for "Moose tree"
-    And I should not see "Edit Tree Info" within "#treewrap-main #edit-tree span"
 
   @wip
   @javascript

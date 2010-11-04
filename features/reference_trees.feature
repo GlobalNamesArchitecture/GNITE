@@ -23,24 +23,24 @@ Feature: Work with reference trees
   Scenario: Reference trees are not editable
     Then I should not be able to show a context menu for my reference tree "List"
 
-  @javascript
-  Scenario: Drag-and-drop reordering is not possible in reference trees
-    When I wait for the tree to load
-    And I drag "root three" under "root two" in my reference tree "List"
+  # @javascript
+  # Scenario: Drag-and-drop reordering is not possible in reference trees
+  #   When I wait for the tree to load
+  #   And I drag "root three" under "root two" in my reference tree "List"
 
-    Then I should see a node "root one" at the root level in my reference tree "List"
-    And I should see a node "root two" at the root level in my reference tree "List"
-    And I should see a node "root three" at the root level in my reference tree "List"
+  #   Then I should see a node "root one" at the root level in my reference tree "List"
+  #   And I should see a node "root two" at the root level in my reference tree "List"
+  #   And I should see a node "root three" at the root level in my reference tree "List"
 
-    When I follow "Master Trees"
-    And I follow "My new tree"
-    And I follow "All working trees"
-    And I follow "List"
-    And I wait for the tree to load
+  #   When I follow "Master Trees"
+  #   And I follow "My new tree"
+  #   And I follow "All working trees"
+  #   And I follow "List"
+  #   And I wait for the tree to load
 
-    Then I should see a node "root one" at the root level in my reference tree "List"
-    And I should see a node "root two" at the root level in my reference tree "List"
-    And I should see a node "root three" at the root level in my reference tree "List"
+  #   Then I should see a node "root one" at the root level in my reference tree "List"
+  #   And I should see a node "root two" at the root level in my reference tree "List"
+  #   And I should see a node "root three" at the root level in my reference tree "List"
 
   @javascript
   Scenario: Reference tree metadata is viewable but not editable

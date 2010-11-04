@@ -8,7 +8,7 @@ module NamedElementHelper
     when /the navigation bar/
       "#navbar"
     when /the master tree title field/
-      "#master_tree_title"
+      "#master_tree_title_input"
     when /the gnaclr import button/
       '#import-gnaclr-button'
     when /the Scientific Name tab/
