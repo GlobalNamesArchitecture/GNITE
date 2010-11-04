@@ -30,7 +30,7 @@ body.users-new #wrapper {
   padding:15px 45px;
 }
 
-#header #master_tree_title {
+#header #master_tree_title_input {
   font-size: 14px;
   margin: 9px 0 0 40px;
   padding: 3px;
@@ -435,14 +435,6 @@ body form input {
   /*background: none !important;*/ /*not sure why this needs important. better solution welcomed.*/
 }
 
-/* Tree Metadata */
-/************************************************************************/
-#edit-tree-metadata { display: none; }
-
-#treewrap-metadata {
-  height: 90%;
-}
-
 /* Main Tree Structure */
 /************************************************************************/
 .tree-column {
@@ -766,6 +758,8 @@ body form input {
 .searchbar a {
   /*color: rgb(51,51,51);*/
 }
+
+.searchbar input { float:left; }
 
 .grid-button .icon {
   margin: 8px 8px 0 0;

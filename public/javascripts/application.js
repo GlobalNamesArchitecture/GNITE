@@ -267,9 +267,6 @@ $(function() {
     $('#tab-titles li:first-child').hide();
   }
 
-
-
-
   /*
    * Search GNACLR
    */
@@ -322,20 +319,6 @@ $(function() {
    * Master Tree
    */
   var master_tree_id = $('#tree-container').attr('data-database-id');
-
-  /*
-   * Flip the tree to edit the metadata
-   */
-  $('#edit-tree').click(function() {
-    $('#treewrap-main').flip({
-      direction: 'lr',
-      content: $('#edit-tree-metadata'),
-      dontChangeColor: true,
-      onBefore: function() { },
-      onAnimation: function() { },
-      onEnd: function() { }
-    });
-  });
 
   $('#add-node').click(function() {
     $('#master-tree').jstree('create');
@@ -489,7 +472,7 @@ $(function() {
     target.find('.jstree').jstree('deselect_all');
   });
 
-  $('#master_tree_title')
+  $('#master_tree_title_input')
     .focus()
     .blur(function() {
       var self = $(this);
@@ -503,7 +486,7 @@ $(function() {
       } else {
         var title = self.val();
 
-        $.post('/master_trees/' + master_tree_id, { 'master_tree[title]' : title, '_method' : 'put' }, function() {
+        $.post('/master_trees/' + master_tree_id, { 'master_tree[title]' : title, '_method' : 'put' }, function(response) {
           self
             .next()
               .remove()
@@ -512,7 +495,7 @@ $(function() {
               .append('<h1>' + title + '</h1>')
             .end()
             .remove();
-        });
+        }, 'json');
       }
     })
     .keypress(function(event) {

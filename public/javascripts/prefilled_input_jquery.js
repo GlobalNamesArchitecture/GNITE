@@ -40,9 +40,10 @@
   };
 
   $(document).ready(function() {
+	
     $('form').submit(function() {
-      $(this).find('input').blur();
-      $(this).find('input.prefilled').val('');
+	  $(this).find('input').blur();
+	  $(this).find('input.prefilled').val('');
     });
 
     $('input.prefilled').prefilledInput();

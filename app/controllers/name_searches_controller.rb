@@ -1,4 +1,4 @@
-class NameSearchController < ApplicationController
+class NameSearchesController < ApplicationController
   before_filter :authenticate
 
   def show
@@ -10,12 +10,12 @@ class NameSearchController < ApplicationController
       tree = current_user.reference_trees.find(tree_id)
     end
 
-    node = tree.nodes.find(params[:id])
+#    query = params[:search_string]
+
+    node = tree.nodes.find_by_name_id(params[:search_string])
 
     render :json => {
-      :rank             => node.rank_string,
-      :synonyms         => node.synonym_name_strings,
-      :vernacular_names => node.vernacular_name_strings
+      :results             => node.rank_string,
     }
   end
 

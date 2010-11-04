@@ -1,6 +1,6 @@
 <div id="header">
   <% if @master_tree.title == 'New Master Tree' %>
-    <input type="text" id="master_tree_title"><span>Enter a title for your newly created tree.</span>
+    <input type="text" id="master_tree_title_input"><span>Enter a title for your newly created tree.</span>
   <% else %>
     <h1><%= @master_tree.title %></h1>
   <% end %>
@@ -18,14 +18,20 @@
       </div>
 
       <div class="searchbar clearfix">
-        <div id="edit-tree" class="grid-button">
-          <a href="#" class="quickFlipCta"><span>Edit Tree Info</span></a>
+        <div class="grid-button">
+              <%= link_to edit_master_tree_path do %>
+                Edit Tree Info
+               <% end %>
         </div>
 
         <div class="grid-button">
           <%= button_to "Delete Tree", master_tree_path(@master_tree),
                         :method => :delete,
                         :confirm => "Are you sure you want to delete your master tree?" -%>
+        </div>
+
+        <div id="search-node">
+          <input id="master-tree-search" type="text" size="30">
         </div>
 
         <div id="add-node" class="clearfix">
@@ -43,14 +49,12 @@
     </div>
   </div>
 
-  <%= render :partial => 'edit' %>
-
 </div>
 
 <%= render :partial => "reference_trees" %>
 
 <% content_for :javascript do %>
-  <%= javascript_include_tag 'jstree/jquery.jstree', 'jquery.cookie', 'autocomplete-rails', 'jquery.flip.min' %>
+  <%= javascript_include_tag 'jstree/jquery.jstree', 'jquery.cookie', 'autocomplete-rails' %>
 
   <script type="text/javascript">
     $.jstree._themes = '/javascripts/jstree/themes/';

@@ -25,8 +25,12 @@ class MasterTreesController < ApplicationController
     @master_tree = MasterTree.find(params[:id])
     @master_tree.update_attributes(params[:master_tree])
     if @master_tree.save
-      flash[:success] = "Master Tree successfully updated"
-      redirect_to master_tree_url(@master_tree.id)
+      if request.xhr?
+        render :json => { :status => "OK"}
+      else
+        flash[:success] = "Master Tree successfully updated"
+        redirect_to master_tree_url(@master_tree.id)
+      end
     else
       render :edit
     end
@@ -35,8 +39,8 @@ class MasterTreesController < ApplicationController
   def destroy
     @master_tree = MasterTree.find(params[:id])
     if @master_tree.destroy
-      redirect_to :action => :index
       flash[:notice] = 'Tree deleted successfully'
+      redirect_to :action => :index
     end
   end
 

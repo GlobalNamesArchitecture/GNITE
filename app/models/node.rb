@@ -60,4 +60,5 @@ class Node < ActiveRecord::Base
       name_strings << 'None' if name_strings.empty?
     end
   end
+  
 end
