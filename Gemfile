@@ -9,9 +9,9 @@ gem 'hoptoad_notifier', '2.3.7'
 gem 'ancestry', '1.2.1.beta.1', :git => 'git://github.com/thoughtbot/ancestry.git', :branch => 'rails3'
 gem 'uuid'
 gem 'crack'
-gem 'dwc-archive', '0.4.11', :git => 'git://github.com/GlobalNamesArchitecture/dwc-archive.git', :branch => 'master'
+gem 'dwc-archive', '0.5.3'
 gem 'fastercsv'
-gem 'parsley-store'
+gem 'parsley-store', '0.2.2'
 gem 'SystemTimer' # remove for ruby 1.9.x
 gem 'yajl-ruby', :require => 'yajl'
 gem 'ruby-debug' # change to ruby-debug19 for ruby 1.9.x
