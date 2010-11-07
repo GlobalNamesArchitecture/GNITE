@@ -1,0 +1,1 @@
+DarwinCore.logger = GnaclrImporterLogger.new

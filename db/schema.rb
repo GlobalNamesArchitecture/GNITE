@@ -10,7 +10,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101103161716) do
+ActiveRecord::Schema.define(:version => 20101107004954) do
+
+  create_table "gnaclr_importer_logs", :force => true do |t|
+    t.integer  "reference_tree_id"
+    t.string   "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "gnaclr_importer_logs", ["reference_tree_id"], :name => "index_gnaclr_importer_logs_on_reference_tree_id"
 
   create_table "gnaclr_importers", :force => true do |t|
     t.integer  "reference_tree_id"

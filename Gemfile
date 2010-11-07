@@ -9,7 +9,7 @@ gem 'hoptoad_notifier', '2.3.7'
 gem 'ancestry', '1.2.1.beta.1', :git => 'git://github.com/thoughtbot/ancestry.git', :branch => 'rails3'
 gem 'uuid'
 gem 'crack'
-gem 'dwc-archive', '0.5.4'
+gem 'dwc-archive', '0.5.5'
 gem 'fastercsv'
 gem 'parsley-store', '0.2.2'
 gem 'SystemTimer' # remove for ruby 1.9.x

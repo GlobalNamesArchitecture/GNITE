@@ -26,8 +26,9 @@ class GnaclrImporter < ActiveRecord::Base
   end
 
   def read_tarball
-    dwc               = DarwinCore.new(tarball_path)
-    normalizer        = DarwinCore::ClassificationNormalizer.new(dwc)
+    @dwc               = DarwinCore.new(tarball_path)
+    DarwinCore.logger.subscribe(:dwc_object_id => @dwc.object_id, :reference_tree_id => self.reference_tree_id)
+    normalizer        = DarwinCore::ClassificationNormalizer.new(@dwc)
     @darwin_core_data = normalizer.normalize
     @tree             = normalizer.tree
     @name_strings     = normalizer.name_strings
