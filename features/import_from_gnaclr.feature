@@ -65,7 +65,7 @@ Feature: Importing trees from GNACLR
     And I should not see any reference tree nodes
     And I should see a spinner
     When resque jobs are run
-    And pause 2
+    And pause 3
     Then I should not see a spinner
     And I should see "All working trees (1)"
     And I should see a node "Cyphophthalmi incertae sedis" at the root level in my reference tree "NCBI"

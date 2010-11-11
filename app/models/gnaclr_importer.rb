@@ -15,14 +15,27 @@ class GnaclrImporter < ActiveRecord::Base
   end
 
   def import
-    fetch_tarball
-    read_tarball
-    store_tree
-    activate_tree
+    begin
+      fetch_tarball
+      read_tarball
+      store_tree
+      activate_tree
+    rescue RuntimeError => e
+      DarwinCore.logger_write(@dwc.object_id, "Import Failed: %s" % e)
+    end
   end
 
   def fetch_tarball
-    Kernel.system("curl -s #{url} > #{tarball_path}")
+    if url.match(/^\s*http:\/\//)
+      dlr = Gnite::Downloader.new(url, tarball_path)
+      downloaded_length = dlr.download_with_percentage do |r|
+        msg = sprintf("Downloaded %.0f%% in %.0f seconds ETA is %.0f seconds", r[:percentage], r[:elapsed_time], r[:eta])
+        GnaclrImporterLog.create(:reference_tree_id => self.reference_tree_id, :message => msg)
+      end
+      GnaclrImporterLog.create(:reference_tree_id => self.reference_tree_id, :message => "Download finished, Size: %s" % downloaded_length)
+    else
+      Kernel.system("curl -s #{url} > #{tarball_path}")
+    end
   end
 
   def read_tarball
@@ -35,6 +48,7 @@ class GnaclrImporter < ActiveRecord::Base
   end
 
   def store_tree
+    DarwinCore.logger_write(@dwc.object_id, "Populating local database")
     name_strings.in_groups_of(NAME_BATCH_SIZE).each do |group|
       group = group.compact.collect do |name_string|
         Name.connection.quote(name_string)
@@ -44,14 +58,17 @@ class GnaclrImporter < ActiveRecord::Base
         Name.connection.execute "INSERT IGNORE INTO names (name_string) VALUES (#{group})"
       end
     end
-
+    @nodes_count = 0
     build_tree(tree)
+    DarwinCore.logger_write(@dwc.object_id, "Adding synonyms and vernacular names")
     insert_synonyms_and_vernacular_names
   end
 
   def build_tree(root, ancestry = nil)
     taxon_ids = root.keys
     taxon_ids.each do |taxon_id|
+      @nodes_count += 1
+      DarwinCore.logger_write(@dwc.object_id, "Inserting %s record into database" % @nodes_count) if @nodes_count % 10000 == 0
       next unless taxon_id && darwin_core_data[taxon_id]
 
       local_id_sql   = Name.connection.quote(taxon_id)
@@ -75,6 +92,7 @@ class GnaclrImporter < ActiveRecord::Base
 
   def activate_tree
     ReferenceTree.update_all 'state = "active"', "id = #{reference_tree.id}"
+    DarwinCore.logger_write(@dwc.object_id, "Import is successful")
   end
 
   private
@@ -103,7 +121,7 @@ class GnaclrImporter < ActiveRecord::Base
         names.map(&:name).each do |name_string|
           name_sql = Name.connection.quote(name_string)
 
-          Name.connection.execute "INSERT INTO #{table} (node_id, name_id) VALUES (#{node_id.to_i}, (SELECT id FROM names WHERE name_string = #{name_sql} LIMIT 1))"
+          Name.connection.execute "INSERT IGNORE INTO #{table} (node_id, name_id) VALUES (#{node_id.to_i}, (SELECT id FROM names WHERE name_string = #{name_sql} LIMIT 1))"
         end
       end
       end

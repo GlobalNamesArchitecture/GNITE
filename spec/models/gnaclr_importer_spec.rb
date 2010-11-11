@@ -4,47 +4,51 @@ describe GnaclrImporter, 'create' do
   let(:reference_tree) { Factory(:reference_tree) }
 
   subject { GnaclrImporter.create(:reference_tree => reference_tree,
-                               :url               => 'foo') }
+                               :url               => 'http://example.com') }
   it 'sets reference_tree' do
     subject.reference_tree.should == reference_tree
   end
 
   it 'sets the url' do
-    subject.url.should == 'foo'
+    subject.url.should == 'http://example.com'
   end
 end
 
-describe GnaclrImporter, 'fetch_tarball with a successful download' do
-  let(:reference_tree) { Factory(:reference_tree) }
-  subject { GnaclrImporter.create(:reference_tree => reference_tree,
-                               :url => 'foo') }
-
-  before do
-    Kernel.stubs(:system => 0)
-    subject.fetch_tarball
-  end
-
-  it 'curls the provided url' do
-    Kernel.should have_received(:system).
-      with("curl -s #{subject.url} > #{Rails.root.join('tmp', reference_tree.id.to_s)}")
-  end
-
-end
-
-describe GnaclrImporter, 'read_tarball' do
-  let(:reference_tree) { Factory(:reference_tree) }
-  subject { GnaclrImporter.create(:url            => "file:///#{Rails.root.join('features', 'support', 'fixtures', 'cyphophthalmi.tar.gz')}",
-                               :reference_tree => reference_tree) }
-
-  before do
-    subject.fetch_tarball
-    subject.read_tarball
-  end
-
-  it 'sets normalized node data' do
-    subject.darwin_core_data.should be_a(Hash)
-  end
-end
+# describe GnaclrImporter, 'fetch_tarball with a successful download' do
+#   let(:reference_tree) { Factory(:reference_tree) }
+#   subject { GnaclrImporter.create(:url            => "file://#{Rails.root.join('features', 'support', 'fixtures', 'cyphophthalmi.tar.gz')}",
+#                                :reference_tree => reference_tree) }
+# 
+#   before do
+#     Gnite::Url.any_instance.expects(:get_header).returns(nil)
+#     Gnite::Downloader.any_instance.expects(:download_with_percentage).returns(1000)
+#     subject.fetch_tarball
+#   end
+# 
+#   it 'should download using profied url' do
+#     GnaclrImporterLog.last.message.should == "Download finished, Size: 1000"
+#     GnaclrImporterLog.last.reference_tree_id.should == subject.reference_tree_id
+#   end
+# 
+# end
+# 
+# describe GnaclrImporter, 'read_tarball' do
+#   let(:reference_tree) { Factory(:reference_tree) }
+#   subject { GnaclrImporter.create(:url            => "file:///#{Rails.root.join('features', 'support', 'fixtures', 'cyphophthalmi.tar.gz')}",
+#                                :reference_tree => reference_tree) }
+# 
+#   before do
+#     File.cp(Rails.root.join('features', 'support', 'fixtures', 'cyphophthalmi.tar.gz').to_s, Rails.root.join('tmp', reference_tree.id.to_s).to_s)
+#     Gnite::Url.any_instance.expects(:get_header).returns(nil)
+#     Gnite::Downloader.any_instance.expects(:download_with_percentage).returns(1000)
+#     subject.fetch_tarball
+#     subject.read_tarball
+#   end
+# 
+#   it 'sets normalized node data' do
+#     subject.darwin_core_data.should be_a(Hash)
+#   end
+# end
 
 describe GnaclrImporter, 'store_tree for a valid dwc archive' do
   let(:reference_tree) { Factory(:reference_tree) }
@@ -189,51 +193,3 @@ describe GnaclrImporter, 'import when the classification has not been imported' 
   end
 end
 
-# describe GnaclrImporter, 'when the classification has already been imported' do
-#   let(:prior_tree) { Factory(:reference_tree, :source_id => '123', :state => 'active') }
-#   let!(:nodes) do
-#     [Factory(:node, :tree => prior_tree, :ancestry => '1', :rank => 'species'),
-#      Factory(:node, :tree => prior_tree, :ancestry => '1/2', :rank => 'species')]
-#   end
-#   let(:new_tree) { Factory(:reference_tree, :source_id => prior_tree.source_id, :state => 'importing') }
-# 
-#   subject do
-#     GnaclrImporter.create(:url               => "",
-#                        :reference_tree    => new_tree)
-#   end
-# 
-#   before do
-#     Kernel.stubs(:system)
-#     subject.stubs(:fetch_tarball)
-#     subject.import
-#   end
-# 
-#   it 'does not fetch the tarball from gnaclr' do
-#     Kernel.should_not have_received(:system)
-#     subject.should_not have_received(:fetch_tarball)
-#   end
-# 
-#   it 'copies all nodes from the prior tree' do
-#     new_tree.nodes.count.should == nodes.count
-#     new_tree.nodes.each do |new_node|
-#       nodes.detect do |n|
-#         new_node.ancestry == n.ancestry &&
-#         new_node.name_id  == n.name_id &&
-#         new_node.rank     == n.rank
-#       end.should be
-#     end
-#   end
-# 
-#   it 'activates the new tree' do
-#     new_tree.reload
-#     new_tree.should be_active
-#   end
-# 
-#   it 'sets timestamps on the new nodes' do
-#     new_tree.nodes.each do |new_node|
-#       new_node.created_at.should be
-#       new_node.updated_at.should be
-#     end
-#   end
-# 
-# end
