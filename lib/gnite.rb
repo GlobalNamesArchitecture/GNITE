@@ -1,8 +1,8 @@
 require 'net/http'
 require 'uri'
 
-require 'lib/gnite/url'
-require 'lib/gnite/downloader'
+require Rails.root.join('lib', 'gnite', 'url').to_s
+require Rails.root.join('lib', 'gnite', 'downloader').to_s
 
 module Gnite
 end

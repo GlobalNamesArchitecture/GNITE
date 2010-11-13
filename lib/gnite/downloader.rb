@@ -1,3 +1,4 @@
+# encoding: utf-8
 module Gnite
   class Downloader
     
@@ -14,7 +15,7 @@ module Gnite
     #downloads a given file into a specified filename. If block is given returns download progress
     def download
       raise "#{@source_url} is not accessible" unless @url.valid?
-      f = open(@file_path,'w')
+      f = open(@file_path,'wb')
       count = 0
       @url.net_http.request_get(@url.path) do |r|
         r.read_body do |s|

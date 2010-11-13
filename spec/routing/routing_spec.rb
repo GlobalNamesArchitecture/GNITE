@@ -1,4 +1,4 @@
-require 'spec/spec_helper'
+require 'spec_helper'
 
 describe "routing to master_trees" do
   it "routes /master_trees to master_trees#index" do

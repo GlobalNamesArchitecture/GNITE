@@ -6,15 +6,16 @@ gem 'clearance', '0.9.0.rc9'
 gem 'formtastic', '1.1.0'
 gem 'engineyard'
 gem 'hoptoad_notifier', '2.3.7'
-gem 'ancestry', '1.2.1.beta.1', :git => 'git://github.com/thoughtbot/ancestry.git', :branch => 'rails3'
+gem 'ancestry', '1.2.1.beta.1', :git => 'git://github.com/GlobalNamesArchitecture/ancestry.git', :branch => 'rails3'
 gem 'uuid'
 gem 'crack'
-gem 'dwc-archive', '0.5.6'
-gem 'fastercsv'
+gem 'biodiversity19'
+gem 'dwc-archive', '0.5.8'
+# gem 'fastercsv' #remove for ruby 1.9.x
 gem 'parsley-store', '0.2.2'
-gem 'SystemTimer' # remove for ruby 1.9.x
+# gem 'SystemTimer' # remove for ruby 1.9.x
 gem 'yajl-ruby', :require => 'yajl'
-gem 'ruby-debug' # change to ruby-debug19 for ruby 1.9.x
+gem 'ruby-debug19' # change to ruby-debug19 for ruby 1.9.x
 gem 'nokogiri'
 gem 'resque', '1.10.0'
 
@@ -28,10 +29,10 @@ end
 
 group :test do
   gem 'polyglot'
-  gem 'capybara'
+  gem 'capybara', '0.3.9'
   gem 'database_cleaner'
-  gem 'cucumber-rails'
-  gem 'cucumber'
+  gem 'cucumber', '0.9.0'
+  gem 'cucumber-rails', '0.3.2'
   gem 'bourne'
   gem 'spork'
   gem 'launchy' # So you can do "Then show me the page".

@@ -49,7 +49,10 @@ class GnaclrImporter < ActiveRecord::Base
 
   def store_tree
     DarwinCore.logger_write(@dwc.object_id, "Populating local database")
+    DarwinCore.logger_write(@dwc.object_id, "Processing name strings")
+    count = 0
     name_strings.in_groups_of(NAME_BATCH_SIZE).each do |group|
+      count += NAME_BATCH_SIZE
       group = group.compact.collect do |name_string|
         Name.connection.quote(name_string)
       end.join('), (')
@@ -57,6 +60,7 @@ class GnaclrImporter < ActiveRecord::Base
       Name.transaction do
         Name.connection.execute "INSERT IGNORE INTO names (name_string) VALUES (#{group})"
       end
+      DarwinCore.logger_write(@dwc.object_id, "Traversed %s scientific name strings" % count)
     end
     @nodes_count = 0
     build_tree(tree)
@@ -77,7 +81,7 @@ class GnaclrImporter < ActiveRecord::Base
       ancestry_sql   = Node.connection.quote(ancestry) if ancestry.present?
       ancestry_sql ||= 'NULL'
 
-      node_id = Node.connection.insert("INSERT INTO nodes (local_id, name_id, tree_id, ancestry, rank) \
+      node_id = Node.connection.insert("INSERT IGNORE INTO nodes (local_id, name_id, tree_id, ancestry, rank) \
                     VALUES (#{local_id_sql}, (SELECT id FROM names WHERE name_string = #{name_sql} LIMIT 1), \
                                        #{reference_tree.id}, #{ancestry_sql}, #{rank_sql})")
 
@@ -103,22 +107,13 @@ class GnaclrImporter < ActiveRecord::Base
   end
 
   def insert_synonyms_and_vernacular_names
-    (@synonyms + @vernacular_names).collect do |node_id, names|
-      names.map(&:name)
-    end.flatten.in_groups_of(NAME_BATCH_SIZE).each do |group|
-      group = group.compact.collect do |name_string|
-        Name.connection.quote(name_string)
-      end.join('), (')
-
-      Name.transaction do
-        Name.connection.execute "INSERT IGNORE INTO names (name_string) VALUES (#{group})"
-      end
-    end
-
+    count = 0
     { 'synonyms'         => @synonyms,
       'vernacular_names' => @vernacular_names }.each do |table, alternate_names|
       alternate_names.each do |node_id, names|
         names.map(&:name).each do |name_string|
+          count += 1
+          DarwinCore.logger_write(@dwc.object_id, "Added %s synonyms and vernacular names" % count) if count % 10000 == 0
           name_sql = Name.connection.quote(name_string)
 
           Name.connection.execute "INSERT IGNORE INTO #{table} (node_id, name_id) VALUES (#{node_id.to_i}, (SELECT id FROM names WHERE name_string = #{name_sql} LIMIT 1))"
@@ -127,14 +122,6 @@ class GnaclrImporter < ActiveRecord::Base
       end
   end
   
-  # TODO: not used, either delete or use it right
-  # def tree_already_imported?
-  #   return false unless reference_tree.source_id
-  #   ReferenceTree.count(['source_id = ? and state = ?',
-  #                       reference_tree.source_id,
-  #                       'active']) > 1
-  # end
-
   def copy_nodes_from_prior_import
     now = Time.now
     prior_tree = ReferenceTree.where(['source_id = ?', reference_tree.source_id]).order('created_at asc').first
@@ -145,7 +132,7 @@ class GnaclrImporter < ActiveRecord::Base
           #{node.name_id}, #{Node.connection.quote(node.rank)}, \
           #{Node.connection.quote(now.to_s(:db))}, #{Node.connection.quote(now.to_s(:db))})" }.
           join(',')
-      sql = "INSERT INTO nodes (tree_id, ancestry, name_id, rank, created_at, updated_at) VALUES #{nodes_sql}"
+      sql = "INSERT IGNORE INTO nodes (tree_id, ancestry, name_id, rank, created_at, updated_at) VALUES #{nodes_sql}"
       Node.connection.execute(sql)
     end
   end
