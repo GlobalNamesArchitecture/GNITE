@@ -93,6 +93,7 @@ GEM
     erubis (2.6.6)
       abstract (>= 1.0.0)
     escape (0.0.4)
+    escape_utils (0.1.9)
     factory_girl (1.3.2)
     ffi (0.6.3)
       rake (>= 0.8.7)
@@ -117,16 +118,16 @@ GEM
     linecache19 (0.5.11)
       ruby_core_source (>= 0.1.4)
     macaddr (1.0.0)
-    mail (2.2.9)
+    mail (2.2.9.1)
       activesupport (>= 2.3.6)
-      i18n (~> 0.4.1)
+      i18n (>= 0.4.1)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
     mocha (0.9.8)
       rake
     mysql (2.8.1)
-    nokogiri (1.4.3.1)
+    nokogiri (1.4.4)
     parsley-store (0.2.2)
       biodiversity
       redis
@@ -197,7 +198,7 @@ GEM
     thor (0.14.4)
     tilt (1.1)
     timecop (0.3.5)
-    treetop (1.4.8)
+    treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.23)
     unicorn (2.0.0)
@@ -224,6 +225,7 @@ DEPENDENCIES
   database_cleaner
   dwc-archive (= 0.5.8)
   engineyard
+  escape_utils
   factory_girl
   formtastic (= 1.1.0)
   high_voltage

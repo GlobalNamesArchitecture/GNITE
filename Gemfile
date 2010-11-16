@@ -25,6 +25,7 @@ end
 
 group :test, :development do
   gem 'rspec-rails', '2.0.1'
+  gem "escape_utils"
 end
 
 group :test do

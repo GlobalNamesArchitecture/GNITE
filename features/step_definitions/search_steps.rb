@@ -1,3 +1,4 @@
+# encoding: utf-8
 When /^I search for "([^"]*)"$/ do |search_term|
   field = find("#search")
   field.set(search_term)
