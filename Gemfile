@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.0'
-gem 'mysql'
+gem 'rails', '3.0.1'
+gem 'mysql2'
 gem 'clearance', '0.9.0.rc9'
 gem 'formtastic', '1.1.0'
 gem 'engineyard'
