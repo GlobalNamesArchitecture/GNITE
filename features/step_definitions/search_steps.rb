@@ -43,7 +43,7 @@ end
 Then /^the "([^\"]+)" result should have the following authors:$/ do |title, authors|
   within("div.title:contains('#{title}') ~ table .authors") do
     authors.hashes.each do |row|
-      page.should have_css('div.name', :text => "#{row['first name']} #{row['last name']} ( #{row['email']} )")
+      page.should have_css('div.name', :text => /#{row['first name']} #{row['last name']}/)
     end
   end
 end
@@ -58,6 +58,6 @@ end
 Given /^the GNACLR search service is unavailable$/ do
   ShamRack.unmount_all
   ShamRack.at(Search::URL) do
-    [ 500,  {}, ' ' ]
+    [ 500,  {}, [' '] ]
   end
 end

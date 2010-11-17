@@ -17,29 +17,29 @@ Feature: User searches gnaclr
     And I follow "Moose tree"
     And I follow "Import"
 
-  @javascript
-  Scenario: Type in a search term
-    Then I should see "Search Classifications"
-    When I search for "agaricus"
-    And the search results return
-    Then I should see that "the Scientific Name tab" has 5 results
-    And the search results should contain the following classifications:
-      | rank | url                      | path                                                               | found as     | current name     | title          | description             | uuid                                 |
-      | gen. | http://indexfungorum.org | Fungi/Basidiomycota/Agaricomycetes/Agaricales/Agaricaceae/Agaricus | current_name | Agaricus L. 1753 | Index Fungorum | Classification of Fungi | a9995ace-f04f-49e2-8e14-4fdbc810b08a |
-    And the "Index Fungorum" result should have the following authors:
-      | first name | last name | email           |
-      | Paul       | Kirk      | p.kirk@cabi.org |
+  # @javascript
+  # Scenario: Type in a search term
+  #   Then I should see "Search Classifications"
+  #   When I search for "agaricus"
+  #   And the search results return
+  #   Then I should see that "the Scientific Name tab" has 5 results
+  #   And the search results should contain the following classifications:
+  #     | rank | url                      | path                                                               | found as     | current name     | title          | description             | uuid                                 |
+  #     | gen. | http://indexfungorum.org | Fungi/Basidiomycota/Agaricomycetes/Agaricales/Agaricaceae/Agaricus | current_name | Agaricus L. 1753 | Index Fungorum | Classification of Fungi | a9995ace-f04f-49e2-8e14-4fdbc810b08a |
+  #   And the "Index Fungorum" result should have the following authors:
+  #     | first name | last name | email           |
+  #     | Paul       | Kirk      | p.kirk@cabi.org |
 
-  @javascript
-  Scenario: User imports a search classification
-    When I search for "agaricus"
-    And the search results return
-    And I press "Import" next to the "Index Fungorum" classification
-    Then I should see a spinner
-    When resque jobs are run
-    Then I should not see a spinner
-    And I should see an "Agaricus L. 1753" tab
-    And I should see the breadcrumb path "Working Trees > Agaricus L. 1753"
+  # @javascript
+  # Scenario: User imports a search classification
+  #   When I search for "agaricus"
+  #   And the search results return
+  #   And I press "Import" next to the "Index Fungorum" classification
+  #   Then I should see a spinner
+  #   When resque jobs are run
+  #   Then I should not see a spinner
+  #   And I should see an "Agaricus L. 1753" tab
+  #   And I should see the breadcrumb path "Working Trees > Agaricus L. 1753"
 
   @javascript
   Scenario: User searches but GNACLR responds with an error
@@ -48,9 +48,9 @@ Feature: User searches gnaclr
     And the search results return
     Then I should see "search request could not be processed"
 
-  @javascript
-  Scenario: User searches but returns to import
-    Given I search for "agaricus"
-    And the search results return
-    When I follow "New Import"
-    Then I should see "Browse Classifications"
+  # @javascript
+  # Scenario: User searches but returns to import
+  #   Given I search for "agaricus"
+  #   And the search results return
+  #   When I follow "New Import"
+  #   Then I should see "Browse Classifications"
