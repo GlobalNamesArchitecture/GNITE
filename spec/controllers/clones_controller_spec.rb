@@ -32,7 +32,7 @@ describe ClonesController do
         clone.stubs(:save)
         clone.stubs(:attributes=)
         node.stubs(:deep_copy_to).with(master_tree).returns(clone)
-        Node.stubs(:find_by_id_for_user).with(node.id, user).returns(node)
+        ::Node.stubs(:find_by_id_for_user).with(node.id, user).returns(node)
 
         @new_attributes = { 'parent_id' => parent.id }
 
@@ -49,7 +49,7 @@ describe ClonesController do
       end
 
       it "should find the specified node scoped under the current user" do
-        Node.should have_received(:find_by_id_for_user).with(node.id, user)
+        ::Node.should have_received(:find_by_id_for_user).with(node.id, user)
       end
 
       it "should clone the requested node" do

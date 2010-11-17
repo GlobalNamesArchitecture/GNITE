@@ -59,14 +59,16 @@ describe NodesController do
       context "on DELETE to destroy" do
         let(:node) { Factory(:node) }
         before do
-          Node.stubs(:destroy)
+          # we have a conflict between Capybara::Node and apps' Node, 
+          # so Node needs to be prepended with root namespace to be explicit
+          ::Node.stubs(:destroy => true)
           delete :destroy, :id => node.id, :master_tree_id => node.tree.id, :format => 'json'
         end
 
         it { should respond_with(:success) }
 
         it "should delete the node" do
-          Node.should have_received(:destroy).with(node.id)
+          ::Node.should have_received(:destroy).with(node.id)
         end
       end
     end
@@ -94,13 +96,13 @@ describe NodesController, 'POST to create' do
     user.stubs(:master_trees => user_trees)
     user_trees.stubs(:find => tree)
     tree.stubs(:children_of => nodes)
-    Node.stubs(:new => new_node)
+    ::Node.stubs(:new => new_node)
     new_node.stubs(:save => true)
     post :create, :master_tree_id => tree.id, :format => 'json', :node => node_attributes
   end
 
   it 'creates a new node' do
-    Node.should have_received(:new).with(node_attributes.merge({
+    ::Node.should have_received(:new).with(node_attributes.merge({
       :tree_id => tree.id
     }).stringify_keys)
     new_node.should have_received(:save)
