@@ -15,7 +15,9 @@ describe Your::PasswordsController do
 
       subject { controller }
 
-      it { should assign_to(:user) }
+      it 'should assign_to(:user)' do
+        assigns(:user).should_not be_nil
+      end
       it { should render_template('your/passwords/edit') }
     end
 
@@ -55,7 +57,9 @@ describe Your::PasswordsController do
 
       it { should respond_with(:success) }
       it { should render_template(:edit) }
-      it { should assign_to(:user) }
+      it 'should assign_to(:user)' do
+        assigns(:user).should_not be_nil
+      end
     end
   end
 

@@ -37,7 +37,10 @@ describe FlatListImportsController do
 
       it { should respond_with(:success) }
       it { should render_template(:new) }
-      it { should assign_to(:master_tree).with(master_tree) }
+
+      it 'should assign_to(:master_tree).with(master_tree)' do
+        assigns(:master_tree).should == master_tree
+      end
 
       it "should find the correct master tree" do
         user.should have_received(:master_trees).with()

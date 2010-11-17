@@ -38,13 +38,18 @@ describe GnaclrClassificationsController do
 
       it { should respond_with(:success) }
       it { should render_template('index') }
-      it { should assign_to(:gnaclr_classifications).with(gnaclr_classifications) }
+
+      it 'should assign_to(:gnaclr_classifications).with(gnaclr_classifications)' do
+        assigns(:gnaclr_classifications).should == gnaclr_classifications
+      end
 
       it "should find all the GnaclrClassifications" do
         GnaclrClassification.should have_received(:all).with()
       end
 
-      it { should assign_to(:master_tree).with(master_tree) }
+      it 'should assign_to(:master_tree).with(master_tree)' do
+        assigns(:master_tree).should == master_tree
+      end
 
       it "should find the correct master tree" do
         user.should have_received(:master_trees).with()
@@ -66,13 +71,18 @@ describe GnaclrClassificationsController do
 
       it { should respond_with(:success) }
       it { should render_template('show') }
-      it { should assign_to(:gnaclr_classification).with(gnaclr_classification) }
+
+      it 'should assign_to(:gnaclr_classification).with(gnaclr_classification)' do
+        assigns(:gnaclr_classification).should == gnaclr_classification
+      end
 
       it "should find all the GnaclrClassifications" do
         GnaclrClassification.should have_received(:find_by_uuid).with('the-uuid')
       end
 
-      it { should assign_to(:master_tree).with(master_tree) }
+      it 'should assign_to(:master_tree).with(master_tree)' do
+        assigns(:master_tree).should == master_tree
+      end
 
       it "should find the correct master tree" do
         user.should have_received(:master_trees).with()

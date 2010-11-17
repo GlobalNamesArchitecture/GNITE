@@ -22,7 +22,10 @@ describe MasterTreesController do
 
       it { should respond_with(:success) }
       it { should render_template(:index) }
-      it { should assign_to(:master_trees).with(trees) }
+
+      it "should assign_to(:master_trees).with(trees)" do
+        assigns(:master_trees).should == trees
+      end
 
       it 'sorts the tress by title' do
         trees.should have_received(:by_title)
@@ -44,7 +47,10 @@ describe MasterTreesController do
         assigns(:master_tree).user.should == @user
       end
 
-      it { should assign_to(:master_tree).with(master_tree) }
+      it "should assign_to(:master_tree).with(master_tree)" do
+        assigns(:master_tree).should == master_tree
+      end
+      
       it { should redirect_to(master_tree_url(master_tree)) }
     end
 
@@ -58,7 +64,11 @@ describe MasterTreesController do
       subject { controller }
 
       it { should respond_with(:success) }
-      it { should assign_to(:master_tree).with(tree) }
+
+      it "should assign_to(:master_tree).with(tree)" do
+        assigns(:master_tree).should == tree
+      end
+      
       it { should render_template(:edit) }
     end
 
@@ -73,7 +83,10 @@ describe MasterTreesController do
 
       subject { controller }
 
-      it { should assign_to(:master_tree).with(tree) }
+      it "should assign_to(:master_tree).with(tree)" do
+        assigns(:master_tree).should == tree
+      end
+
       it { should redirect_to(master_tree_url(tree)) }
       it { should set_the_flash.to(/updated/) }
     end
@@ -89,7 +102,10 @@ describe MasterTreesController do
 
       subject { controller }
 
-      it { should assign_to(:master_tree).with(tree) }
+      it "should assign_to(:master_tree).with(tree)" do
+        assigns(:master_tree).should == tree
+      end
+
       it { should_not set_the_flash }
       it { should render_template(:edit) }
     end

@@ -12,7 +12,11 @@ describe UsersController do
     subject { controller }
 
     it { should respond_with(:success) }
-    it { should assign_to(:user).with(user) }
+
+    it 'should assign_to(:user).with(user)' do
+      assigns(:user).should == user
+    end
+    
     it { should render_template(:edit) }
   end
 
@@ -27,7 +31,10 @@ describe UsersController do
 
     subject { controller }
 
-    it { should assign_to(:user).with(user) }
+    it 'should assign_to(:user).with(user)' do
+      assigns(:user).should == user
+    end
+
     it { should set_the_flash.to(/success/) }
     it { should redirect_to(:root) }
   end
@@ -43,7 +50,10 @@ describe UsersController do
 
     subject { controller }
 
-    it { should assign_to(:user).with(user) }
+    it 'should assign_to(:user).with(user)' do
+      assigns(:user).should == user
+    end
+
     it { should_not set_the_flash }
     it { should render_template(:edit) }
   end

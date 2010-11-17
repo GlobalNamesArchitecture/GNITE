@@ -23,7 +23,11 @@ describe SearchesController, 'xhr GET to show' do
   end
 
   it { should respond_with(:success) }
-  it { should assign_to(:master_tree).with(master_tree) }
+
+  it "should assign_to(:master_tree).with(master_tree)" do
+    assigns(:master_tree).should == master_tree
+  end
+
   it { should render_template(:show) }
 end
 
