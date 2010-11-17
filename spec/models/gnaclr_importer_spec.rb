@@ -14,42 +14,6 @@ describe GnaclrImporter, 'create' do
   end
 end
 
-# describe GnaclrImporter, 'fetch_tarball with a successful download' do
-#   let(:reference_tree) { Factory(:reference_tree) }
-#   subject { GnaclrImporter.create(:url            => "file://#{Rails.root.join('features', 'support', 'fixtures', 'cyphophthalmi.tar.gz')}",
-#                                :reference_tree => reference_tree) }
-# 
-#   before do
-#     Gnite::Url.any_instance.expects(:get_header).returns(nil)
-#     Gnite::Downloader.any_instance.expects(:download_with_percentage).returns(1000)
-#     subject.fetch_tarball
-#   end
-# 
-#   it 'should download using profied url' do
-#     GnaclrImporterLog.last.message.should == "Download finished, Size: 1000"
-#     GnaclrImporterLog.last.reference_tree_id.should == subject.reference_tree_id
-#   end
-# 
-# end
-# 
-# describe GnaclrImporter, 'read_tarball' do
-#   let(:reference_tree) { Factory(:reference_tree) }
-#   subject { GnaclrImporter.create(:url            => "file:///#{Rails.root.join('features', 'support', 'fixtures', 'cyphophthalmi.tar.gz')}",
-#                                :reference_tree => reference_tree) }
-# 
-#   before do
-#     File.cp(Rails.root.join('features', 'support', 'fixtures', 'cyphophthalmi.tar.gz').to_s, Rails.root.join('tmp', reference_tree.id.to_s).to_s)
-#     Gnite::Url.any_instance.expects(:get_header).returns(nil)
-#     Gnite::Downloader.any_instance.expects(:download_with_percentage).returns(1000)
-#     subject.fetch_tarball
-#     subject.read_tarball
-#   end
-# 
-#   it 'sets normalized node data' do
-#     subject.darwin_core_data.should be_a(Hash)
-#   end
-# end
-
 describe GnaclrImporter, 'store_tree for a valid dwc archive' do
   let(:reference_tree) { Factory(:reference_tree) }
   subject { GnaclrImporter.create(:url            => "file:///#{Rails.root.join('features', 'support', 'fixtures', 'cyphophthalmi.tar.gz')}",
@@ -139,9 +103,11 @@ describe GnaclrImporter, 'store tree with nodes that have synonyms and vernacula
     @taxon.current_name_canonical = "Suzukielus sauteri"
     @taxon.synonyms               = synonyms.map { |name| name_struct.new(name) }
     @taxon.vernacular_names       = vernacular_names.map { |name| name_struct.new(name) }
+    #name_strings contain all name_strings processed during import
+    name_strings = ([@taxon.current_name, @taxon.current_name_canonical] + @taxon.classification_path + synonyms + vernacular_names).flatten
 
     subject.stubs(:darwin_core_data => data,
-                  :name_strings     => data.values.collect(&:current_name),
+                  :name_strings     => name_strings,
                   :tree             =>  { @taxon.id => {} } )
     subject.store_tree
   end
