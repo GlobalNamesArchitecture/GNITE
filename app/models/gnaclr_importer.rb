@@ -122,20 +122,21 @@ class GnaclrImporter < ActiveRecord::Base
       end
   end
   
-  def copy_nodes_from_prior_import
-    now = Time.now
-    prior_tree = ReferenceTree.where(['source_id = ?', reference_tree.source_id]).order('created_at asc').first
-    nodes = prior_tree.nodes
-    unless nodes.empty?
-      nodes_sql = nodes.
-        map { |node| "(#{reference_tree.id}, #{Node.connection.quote(node.ancestry)}, \
-          #{node.name_id}, #{Node.connection.quote(node.rank)}, \
-          #{Node.connection.quote(now.to_s(:db))}, #{Node.connection.quote(now.to_s(:db))})" }.
-          join(',')
-      sql = "INSERT IGNORE INTO nodes (tree_id, ancestry, name_id, rank, created_at, updated_at) VALUES #{nodes_sql}"
-      Node.connection.execute(sql)
-    end
-  end
+  #TODO not used anymore?
+  # def copy_nodes_from_prior_import
+  #   now = Time.now
+  #   prior_tree = ReferenceTree.where(['source_id = ?', reference_tree.source_id]).order('created_at asc').first
+  #   nodes = prior_tree.nodes
+  #   unless nodes.empty?
+  #     nodes_sql = nodes.
+  #       map { |node| "(#{reference_tree.id}, #{Node.connection.quote(node.ancestry)}, \\
+  #         #{node.name_id}, #{Node.connection.quote(node.rank)}, \\
+  #         #{Node.connection.quote(now.to_s(:db))}, #{Node.connection.quote(now.to_s(:db))})" }.
+  #         join(',')
+  #     sql = "INSERT IGNORE INTO nodes (tree_id, ancestry, name_id, rank, created_at, updated_at) VALUES #{nodes_sql}"
+  #     Node.connection.execute(sql)
+  #   end
+  # end
 
   def tarball_path
     Rails.root.join('tmp', reference_tree.id.to_s).to_s
