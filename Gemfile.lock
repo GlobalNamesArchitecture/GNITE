@@ -1,14 +1,11 @@
-GIT
-  remote: git://github.com/GlobalNamesArchitecture/ancestry.git
-  revision: 46ae364
-  branch: rails3
+PATH
+  remote: vendor/git/ancestry
   specs:
     ancestry (1.2.1.beta.1)
       activerecord (>= 2.1.0)
 
-GIT
-  remote: git://github.com/thoughtbot/shoulda.git
-  revision: acb71a6
+PATH
+  remote: vendor/git/shoulda
   specs:
     shoulda (2.11.3)
 

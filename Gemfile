@@ -6,7 +6,7 @@ gem 'clearance', '0.9.0.rc9'
 gem 'formtastic', '1.1.0'
 gem 'engineyard'
 gem 'hoptoad_notifier', '2.3.7'
-gem 'ancestry', '1.2.1.beta.1', :git => 'git://github.com/GlobalNamesArchitecture/ancestry.git', :branch => 'rails3'
+gem 'ancestry', '1.2.1.beta.1', :path => "vendor/git/ancestry", :branch => 'rails3'
 gem 'uuid'
 gem 'crack'
 gem 'biodiversity19'
@@ -43,7 +43,7 @@ group :test do
   gem 'sinatra', :require => false
   gem 'timecop'
   gem 'factory_girl'
-  gem 'shoulda', :git => 'git://github.com/thoughtbot/shoulda.git'
+  gem 'shoulda', :path => "vendor/git/shoulda"
 end
 
 group :staging do
