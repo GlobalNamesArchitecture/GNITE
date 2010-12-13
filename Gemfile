@@ -6,11 +6,11 @@ gem 'clearance', '0.9.0.rc9'
 gem 'formtastic', '1.1.0'
 gem 'engineyard'
 gem 'hoptoad_notifier', '2.3.7'
-gem 'ancestry', '1.2.1.beta.1', :path => "vendor/git/ancestry", :branch => 'rails3'
+# gem 'ancestry', '1.2.1.beta.1', :path => "vendor/git/ancestry", :branch => 'rails3'
 gem 'uuid'
 gem 'crack'
 gem 'biodiversity19'
-gem 'dwc-archive', '0.5.8'
+gem 'dwc-archive', '0.5.11'
 # gem 'fastercsv' #remove for ruby 1.9.x
 gem 'parsley-store', '0.2.2'
 # gem 'SystemTimer' # remove for ruby 1.9.x

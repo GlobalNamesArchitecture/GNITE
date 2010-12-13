@@ -1,10 +1,4 @@
 PATH
-  remote: vendor/git/ancestry
-  specs:
-    ancestry (1.2.1.beta.1)
-      activerecord (>= 2.1.0)
-
-PATH
   remote: vendor/git/shoulda
   specs:
     shoulda (2.11.3)
@@ -76,7 +70,7 @@ GEM
     daemons (1.1.0)
     database_cleaner (0.6.0)
     diff-lcs (1.1.2)
-    dwc-archive (0.5.8)
+    dwc-archive (0.5.11)
       parsley-store (>= 0.2.0)
     engineyard (1.3.4)
       engineyard-serverside-adapter (= 1.3.5)
@@ -217,7 +211,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  ancestry (= 1.2.1.beta.1)!
   biodiversity19
   bourne
   capybara (= 0.3.9)
@@ -226,7 +219,7 @@ DEPENDENCIES
   cucumber (= 0.9.0)
   cucumber-rails (= 0.3.2)
   database_cleaner
-  dwc-archive (= 0.5.8)
+  dwc-archive (= 0.5.11)
   engineyard
   escape_utils
   factory_girl

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101107004954) do
+ActiveRecord::Schema.define(:version => 20101213153746) do
 
   create_table "gnaclr_importer_logs", :force => true do |t|
     t.integer  "reference_tree_id"
@@ -42,15 +42,15 @@ ActiveRecord::Schema.define(:version => 20101107004954) do
     t.integer  "tree_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "ancestry"
     t.integer  "name_id",    :null => false
     t.string   "rank"
     t.string   "local_id"
+    t.integer  "parent_id"
   end
 
-  add_index "nodes", ["ancestry"], :name => "index_nodes_on_ancestry"
   add_index "nodes", ["local_id", "tree_id"], :name => "index_nodes_on_local_id_and_tree_id", :unique => true
   add_index "nodes", ["name_id"], :name => "index_nodes_on_name_id"
+  add_index "nodes", ["parent_id"], :name => "index_nodes_on_parent_id"
   add_index "nodes", ["tree_id"], :name => "index_nodes_on_tree_id"
 
   create_table "synonyms", :force => true do |t|

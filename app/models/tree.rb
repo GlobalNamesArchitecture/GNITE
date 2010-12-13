@@ -11,7 +11,7 @@ class Tree < ActiveRecord::Base
     if parent_id && Node.exists?(parent_id)
       nodes.find(parent_id).children
     else
-      nodes.roots
+      Node.roots(id)
     end
   end
 

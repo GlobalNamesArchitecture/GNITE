@@ -69,29 +69,23 @@ class GnaclrImporter < ActiveRecord::Base
     insert_synonyms_and_vernacular_names
   end
 
-  def build_tree(root, ancestry = nil)
+  def build_tree(root, parent_id = nil)
     taxon_ids = root.keys
     taxon_ids.each do |taxon_id|
       @nodes_count += 1
       DarwinCore.logger_write(@dwc.object_id, "Inserting %s record into database" % @nodes_count) if @nodes_count % 10000 == 0
       next unless taxon_id && darwin_core_data[taxon_id]
 
-      local_id_sql   = Name.connection.quote(taxon_id)
-      name_sql       = Name.connection.quote(darwin_core_data[taxon_id].current_name)
-      rank_sql       = Node.connection.quote(darwin_core_data[taxon_id].rank)
-      ancestry_sql   = Node.connection.quote(ancestry) if ancestry.present?
-      ancestry_sql ||= 'NULL'
+      local_id_sql   = Name.connection.quote(taxon_id).force_encoding('utf-8')
+      name_sql       = Name.connection.quote(darwin_core_data[taxon_id].current_name).force_encoding('utf-8')
+      rank_sql       = Node.connection.quote(darwin_core_data[taxon_id].rank).force_encoding('utf-8')
+      parent_id ||= 'NULL'
 
-      node_id = Node.connection.insert("INSERT IGNORE INTO nodes (local_id, name_id, tree_id, ancestry, rank) \
+      node_id = Node.connection.insert("INSERT IGNORE INTO nodes (local_id, name_id, tree_id, parent_id, rank) \
                     VALUES (#{local_id_sql}, (SELECT id FROM names WHERE name_string = #{name_sql} LIMIT 1), \
-                                       #{reference_tree.id}, #{ancestry_sql}, #{rank_sql})")
-
-      next_ancestry = ancestry ? ancestry.dup : ''
-      next_ancestry << '/' unless next_ancestry.empty?
-      next_ancestry << node_id.to_s
-
+                                       #{reference_tree.id}, #{parent_id}, #{rank_sql})")
       add_synonyms_and_vernacular_names(node_id, taxon_id)
-      build_tree(root[taxon_id], next_ancestry)
+      build_tree(root[taxon_id], node_id)
     end
   end
 

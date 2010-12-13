@@ -6,7 +6,7 @@ class Node < ActiveRecord::Base
   has_many :synonyms
   has_many :vernacular_names
 
-  has_ancestry
+  # has_ancestry
 
   delegate :name_string, :to => :name
 
@@ -15,6 +15,10 @@ class Node < ActiveRecord::Base
     # AR wouldn't load all the tree columns, causing Tree#after_initialize to fail when trying to read self.uuid
     tree_ids = user.master_trees.map(&:id) | user.reference_trees.map(&:id)
     find(:first, :conditions => ["id = ? and tree_id in (?)", id_to_find, tree_ids])
+  end
+
+  def self.roots(tree_id)
+    Node.find_by_sql("select * from nodes where parent_id is null and tree_id = #{tree_id}")
   end
 
   def deep_copy_to(tree)
@@ -59,6 +63,23 @@ class Node < ActiveRecord::Base
     vernacular_names.all(:include => :name).map(&:name).compact.map(&:name_string).tap do |name_strings|
       name_strings << 'None' if name_strings.empty?
     end
+  end
+
+  def parent
+    return unless parent_id
+    Node.find(parent_id)
+  end
+
+  def parent=(node)
+    self.update_attributes(:parent_id => node.id)
+  end
+
+  def children
+    Node.find_all_by_parent_id(id)
+  end
+
+  def has_children?
+    !Node.find_by_sql("select id from nodes where parent_id = #{id} limit 1").empty?
   end
   
 end
