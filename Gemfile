@@ -49,3 +49,7 @@ end
 group :staging do
   gem 'unicorn'
 end
+
+group :production do
+  gem 'thin'
+end

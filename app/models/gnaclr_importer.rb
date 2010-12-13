@@ -1,3 +1,4 @@
+# encoding: utf-8
 class GnaclrImporter < ActiveRecord::Base
   belongs_to :reference_tree
 
@@ -54,7 +55,7 @@ class GnaclrImporter < ActiveRecord::Base
     name_strings.in_groups_of(NAME_BATCH_SIZE).each do |group|
       count += NAME_BATCH_SIZE
       group = group.compact.collect do |name_string|
-        Name.connection.quote(name_string)
+        Name.connection.quote(name_string).force_encoding('utf-8')
       end.join('), (')
 
       Name.transaction do
