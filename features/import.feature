@@ -14,7 +14,7 @@ Feature: Import data to your master tree
   Scenario: User can import flat list as root nodes
     Then I should see "All working trees (0)"
     When I follow "Import"
-    And I follow "Enter flat list"
+    And I follow "Enter Flat List"
     And I fill in "Title" with "My Sweet List"
     And I type the following node names into the import box:
       | root one   |
@@ -31,16 +31,16 @@ Feature: Import data to your master tree
   @javascript
   Scenario: User attempting to import an invalid flat list
     When I follow "Import"
-    And I follow "Enter flat list"
+    And I follow "Enter Flat List"
     And I press "Import"
     Then I should see "Title is required"
-    And I should see "List of Nodes is required"
+    And I should see "List of Taxa is required"
     And I should see "All working trees (0)"
 
   @javascript
   Scenario: View breadcrumb navigation while importing a flat list
     When I follow "Import"
-    And I follow "Enter flat list"
+    And I follow "Enter Flat List"
     And I follow "New Import"
     Then I should see "Enter a flat list to import"
     # And I should be back on the main "New Import" right-hand panel.
