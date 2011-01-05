@@ -3,4 +3,5 @@ class User < ActiveRecord::Base
 
   has_many :master_trees
   has_many :reference_trees
+  has_many :deleted_tree
 end

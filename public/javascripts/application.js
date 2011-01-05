@@ -4,6 +4,7 @@
 var GNITE = {
   Tree          : {},
   MasterTree    : {},
+  DeletedTree   : {},
   ReferenceTree : {}
 };
 
@@ -90,6 +91,14 @@ GNITE.ReferenceTree.configuration = $.extend(true, {}, GNITE.Tree.configuration,
   },
 
   'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'search']
+});
+
+GNITE.DeletedTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
+  'crrm' : {
+    'move' : {
+      'check_move' : function() { return false; },
+    }
+  }
 });
 
 GNITE.ReferenceTree.add = function(response, options) {
@@ -267,6 +276,29 @@ $(function() {
     }
   });
 
+  /*
+   * Deleted Names
+   */
+  $('.deleted_tree_container > div').each(function() {
+    var self   = $(this);
+    var id     = self.attr('id').split('_')[4];
+    var active = self.parents('.deleted-tree').hasClass('deleted-tree-active');
+
+    if (active) {
+      $('#deleted a').click(function() {
+        if(self.find('ul').length == 0) {
+          self.jstree($.extend(true, {}, GNITE.ReferenceTree.configuration, {
+            'json_data' : {
+              'ajax' : {
+                'url' : '/deleted_tree/' + id + '/nodes.json'
+              }
+            }
+          }));
+        }
+      });
+    }
+  });
+
   if ($('#working-trees li').length == 0) {
     $('#tab-titles li:first-child').hide();
   }
@@ -336,14 +368,17 @@ $(function() {
         }
       },
       'search' : {
-
-      'case_insensitive' : true,
+        'case_insensitive' : true,
         'ajax' : {
           'url' : '/master_trees/' + master_tree_id + '/name_search.json' 
         },
       }, 
     }));
   }
+
+  /*
+   * Deleted Names
+   */
 
   /*
    * Search within master tree
@@ -359,6 +394,12 @@ $(function() {
     })
     .live('keypress', function(event) {
       if (event.which == 13) {
+        var self = $(this);
+        var term = self.val().trim();
+
+        if(term.length > 0) {
+          $('#master-tree').jstree("search", term);
+        }
         $(this).blur();
       }
     });

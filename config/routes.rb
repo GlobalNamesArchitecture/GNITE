@@ -30,6 +30,10 @@ Gnite::Application.routes.draw do
     resources :nodes,         :only => [:index, :show]
     resource :name_search,    :only => [:show]
   end
+  
+  resources :deleted_tree, :only => [:show] do
+    resources :nodes,         :only => [:index, :show]
+  end
 
   resource :search, :only => [:show]
 

@@ -600,7 +600,7 @@ body form input {
 }
 
 #add-node-wrap,
-.reference_tree_container {
+.reference_tree_container, .deleted_tree_container {
   position: absolute;
   top: 82px;
   right: 0;
