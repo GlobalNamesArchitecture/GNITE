@@ -3,7 +3,7 @@
     <%= link_to 'New Import', new_master_tree_import_path(@master_tree), :class => 'ajax-load-new-tab' %>
   </li>
   <li>
-    Import A Flat List
+    Enter a Flat List
   </li>
 <% end %>
 
@@ -13,7 +13,7 @@
       <h2><label for="import-title">Title</label></h2>
       <p><input type="text" id="import-title"></p>
 
-      <h2><label for="import-roots">List of Nodes</label></h2>
+      <h2><label for="import-roots">List of Taxa</label></h2>
       <p><textarea rows="10" cols="53" id="import-roots"></textarea></p>
       <input type="submit" id="import-roots-button" class="green-submit" value="Import">
     <% end -%>

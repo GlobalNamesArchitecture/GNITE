@@ -596,7 +596,6 @@ body form input {
 /* Tree Scrolling */
 /************************************************************************/
 .tree-background {
-  overflow: auto;
   position: relative;
 }
 

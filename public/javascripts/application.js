@@ -240,13 +240,17 @@ $(function() {
     var active = self.parents('.reference-tree').hasClass('reference-tree-active');
 
     if (active) {
-      self.jstree($.extend(true, {}, GNITE.ReferenceTree.configuration, {
-        'json_data' : {
-          'ajax' : {
-            'url' : '/reference_trees/' + id + '/nodes.json'
+        $('#working-trees li a').click(function() {
+          if($(this).attr('href').split('_')[2] == id && self.find('ul').length == 0) {
+              self.jstree($.extend(true, {}, GNITE.ReferenceTree.configuration, {
+                'json_data' : {
+                  'ajax' : {
+                    'url' : '/reference_trees/' + id + '/nodes.json'
+                  }
+                }
+              })); 
           }
-        }
-      }));
+        });
     } else {
       self.parent().spinner();
 
