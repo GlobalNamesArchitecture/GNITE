@@ -1,0 +1,14 @@
+<div id="<%= dom_id(deleted_tree) %>" class="deleted-tree deleted-tree-<%= deleted_tree.state %> ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+  <div class="tree-background">
+    <div class="breadcrumbs">
+      <ul>
+        <li>Deleted Names</li>
+      </ul>
+    </div>
+    <div class="deleted_tree_container">
+      <div id=<%= dom_id(deleted_tree, "container_for") %>></div>
+    </div>
+
+    <%= render :partial => 'master_trees/metadata.html' %>
+  </div>
+</div>

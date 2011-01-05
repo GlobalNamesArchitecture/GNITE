@@ -1,0 +1,6 @@
+{
+  "title" : <%= raw @deleted_tree.title.to_json %>,
+  "url"   : <%= raw deleted_tree_nodes_path(:deleted_tree_id => @deleted_tree.id, :format => 'json').to_json %>,
+  "domid" : <%= raw dom_id(@deleted_tree).to_json %>,
+  "tree"  : <%= raw render(:partial => 'deleted_tree.html', :locals => { :deleted_tree => @deleted_tree }).to_json %>
+}
