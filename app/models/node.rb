@@ -75,7 +75,8 @@ class Node < ActiveRecord::Base
   end
 
   def children
-    Node.where(:parent_id => id).joins(:name).order("name_string")
+    #readonly is true by default, we set it false
+    Node.where(:parent_id => id).joins(:name).order("name_string").readonly(false)
   end
 
   def has_children?
