@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101213153746) do
+ActiveRecord::Schema.define(:version => 20110105210018) do
 
   create_table "gnaclr_importer_logs", :force => true do |t|
     t.integer  "reference_tree_id"
@@ -29,6 +29,15 @@ ActiveRecord::Schema.define(:version => 20101213153746) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "gnaclr_publishers", :force => true do |t|
+    t.integer  "master_tree_id"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "gnaclr_publishers", ["master_tree_id"], :name => "index_gnaclr_publishers_on_master_tree_id"
 
   create_table "names", :force => true do |t|
     t.string   "name_string", :null => false

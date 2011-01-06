@@ -234,6 +234,7 @@ DEPENDENCIES
   polyglot
   rails (= 3.0.1)
   resque (= 1.10.0)
+  rest-client (= 1.6.1)
   rspec-rails (= 2.0.1)
   ruby-debug19
   sham_rack

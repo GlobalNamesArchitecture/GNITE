@@ -18,6 +18,7 @@ gem 'yajl-ruby', :require => 'yajl'
 gem 'ruby-debug19' # change to ruby-debug19 for ruby 1.9.x
 gem 'nokogiri'
 gem 'resque', '1.10.0'
+gem 'rest-client', '1.6.1'
 
 group :development do
   gem 'high_voltage'

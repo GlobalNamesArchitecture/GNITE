@@ -75,11 +75,11 @@ class Node < ActiveRecord::Base
   end
 
   def children
-    Node.find_all_by_parent_id(id)
+    Node.where(:parent_id => id).joins(:name).order("name_string")
   end
 
   def has_children?
-    !Node.find_by_sql("select id from nodes where parent_id = #{id} limit 1").empty?
+    Node.select(:id).where(:parent_id => id).limit(1).exists?
   end
   
 end

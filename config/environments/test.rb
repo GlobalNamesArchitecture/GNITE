@@ -32,3 +32,4 @@ Gnite::Application.configure do
   config.action_mailer.default_url_options = { :host => "example.com" }
   config.active_support.deprecation = :stderr
 end
+Gnite::Config.gnaclr_url = "http://example.com"
