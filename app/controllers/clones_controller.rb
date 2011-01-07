@@ -11,4 +11,5 @@ class ClonesController < ApplicationController
 
     render :json => clone.to_json
   end
+  
 end

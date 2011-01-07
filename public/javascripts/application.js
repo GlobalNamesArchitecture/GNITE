@@ -30,7 +30,9 @@ GNITE.Tree.configuration = {
     'move': {
       'always_copy' : 'multitree'
     }
-  }
+  },
+
+  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'search']
 
 };
 
@@ -80,7 +82,7 @@ GNITE.MasterTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
     }
   },
 
-  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'contextmenu', 'cookies', 'search']
+  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'search', 'contextmenu']
 });
 
 GNITE.ReferenceTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
@@ -88,15 +90,14 @@ GNITE.ReferenceTree.configuration = $.extend(true, {}, GNITE.Tree.configuration,
     'move' : {
       'check_move' : function() { return false; },
     }
-  },
-
-  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'search']
+  }
 });
 
 GNITE.DeletedTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
   'crrm' : {
     'move' : {
       'check_move' : function() { return false; },
+      'always_copy' : false
     }
   }
 });
@@ -133,8 +134,13 @@ GNITE.ReferenceTree.add = function(response, options) {
 
 
 
-
 $(function() {
+
+   //hide the working tree tabs unless there's something to show
+   if ($('#working-trees li').length == 0) {
+     $('#tab-titles li:first-child').hide();
+   }
+
   /*
    * Import a Flat List
    */
@@ -299,10 +305,6 @@ $(function() {
     }
   });
 
-  if ($('#working-trees li').length == 0) {
-    $('#tab-titles li:first-child').hide();
-  }
-
   /*
    * Search GNACLR
    */
@@ -370,7 +372,7 @@ $(function() {
       'search' : {
         'case_insensitive' : true,
         'ajax' : {
-          'url' : '/master_trees/' + master_tree_id + '/name_search.json' 
+          'url' : '/master_trees/' + master_tree_id + '/name_searches.json' 
         },
       }, 
     }));
@@ -450,6 +452,7 @@ $(function() {
   $('#master-tree').bind('move_node.jstree', function(event, data) {
      var result      = data.rslt;
      var isCopy      = result.cy;
+
      var parentID    = result.np.attr('id');
      var movedNodeID = result.o.attr('id');
 

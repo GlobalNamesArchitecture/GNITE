@@ -65,8 +65,8 @@ class NodesController < ApplicationController
   def destroy
     respond_to do |format|
       format.json do
-        Node.destroy(params[:id])
-        head :ok
+#        Node.destroy(params[:id])
+#        head :ok
       end
     end
   end

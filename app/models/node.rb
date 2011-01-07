@@ -20,6 +20,12 @@ class Node < ActiveRecord::Base
   def self.roots(tree_id)
     Node.find_by_sql("select * from nodes where parent_id is null and tree_id = #{tree_id}")
   end
+  
+  def self.search(search_string, tree_id)
+    b = []              
+    f = "%#{search_string}%"
+    Name.includes(:nodes).where("name_string like ?", f).each { |c| b << c.nodes.where("tree_id = ?", tree_id) unless c.nodes.empty? }
+  end
 
   def deep_copy_to(tree)
     copy = self.clone
@@ -81,6 +87,12 @@ class Node < ActiveRecord::Base
 
   def has_children?
     Node.select(:id).where(:parent_id => id).limit(1).exists?
+  end
+  
+  def ancestors
+    node, nodes = self, []
+    nodes << node = node.parent while node.parent
+    nodes.reverse
   end
   
 end
