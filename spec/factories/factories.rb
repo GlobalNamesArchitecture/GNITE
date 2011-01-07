@@ -15,6 +15,12 @@ Factory.define :reference_tree, :parent => :tree, :class => 'ReferenceTree' do |
   reference_tree.association :master_tree
 end
 
+Factory.define :deleted_tree, :parent => :tree, :class => "DeletedTree" do |deleted_tree|
+  deleted_tree.title { "Deleted Names" }
+  deleted_tree.association :master_tree
+  # deleted_tree.user { deleted_tree.master_tree.user }
+end
+
 Factory.define :node do |node|
   node.association :tree
   node.association :name

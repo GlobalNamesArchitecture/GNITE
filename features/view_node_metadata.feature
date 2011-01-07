@@ -5,6 +5,9 @@ Feature: View metadata for master tree nodes
     And the following master tree exists:
       | user                    | title |
       | email: email@person.com | Foods |
+    And the following deleted tree exists:
+      | user | master_tree |
+      | email: email@person.com | title: Foods |
     And the following nodes exist with metadata for the "Foods" tree:
       | name | synonyms        | vernacular_names | rank    |
       | Nut  | Kernel, Nutmeat | Almond, Peanut   | Species |

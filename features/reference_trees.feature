@@ -8,6 +8,9 @@ Feature: Work with reference trees
     And the following master tree exists:
       | user                    | title       |
       | email: email@person.com | My new tree |
+    And the following deleted tree exists:
+      | user | master_tree |
+      | email: email@person.com |title: My new tree |
     And I go to the master tree page for "My new tree"
     And I follow "Add Node"
     And I enter "master node" in the new node and press enter

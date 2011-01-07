@@ -34,7 +34,7 @@ Factory.factories.values.each do |factory|
     Factory(factory.factory_name)
   end
 
-  Given /^(\d+) #{factory.human_name.pluralize} exist$/ do |count|
+  Given /^(\\\\d+) #{factory.human_name.pluralize} exist$/ do |count|
     count.to_i.times { Factory(factory.factory_name) }
   end
 
@@ -45,7 +45,7 @@ Factory.factories.values.each do |factory|
         Factory(factory.factory_name, column.name => value)
       end
 
-      Given /^(\d+) #{factory.human_name.pluralize} exist with an? #{human_column_name} of "([^"]*)"$/i do |count, value|
+      Given /^(\\\\d+) #{factory.human_name.pluralize} exist with an? #{human_column_name} of "([^"]*)"$/i do |count, value|
         count.to_i.times { Factory(factory.factory_name, column.name => value) }
       end
     end
