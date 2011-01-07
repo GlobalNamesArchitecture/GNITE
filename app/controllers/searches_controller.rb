@@ -1,5 +1,6 @@
 class SearchesController < ApplicationController
   before_filter :authenticate
+
   def show
     respond_to do |wants|
       wants.js do

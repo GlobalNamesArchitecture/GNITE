@@ -11,16 +11,17 @@ class NameSearchesController < ApplicationController
       tree = current_user.deleted_tree.find(tree_id)
     end
     
-    ancestors = []
-    
-    results = Node.search(params[:search_string].downcase, tree_id)
-    results.each do |result|
-      node = tree.nodes.find_by_name_id(result.id)
-      node.ancestors.each do |parent|
-        ancestors << "#" + parent.id.to_s
+    names = Node.search(params[:search_string].downcase, tree_id)
+    result = []
+    names.each do |name|
+      nodes = tree.nodes.find_all_by_name_id(name.id)
+      nodes.each do |node|
+        node.ancestors.each do |parent|
+          result << "#" + parent.id.to_s
+        end
       end
     end
-    render :json => ancestors
+    render :json => result.uniq!
   end
 
 end
