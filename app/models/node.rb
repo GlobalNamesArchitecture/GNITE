@@ -22,9 +22,9 @@ class Node < ActiveRecord::Base
   end
   
   def self.search(search_string, tree_id)
-    b = []              
-    f = "%#{search_string}%"
-    Name.includes(:nodes).where("name_string like ?", f).each { |c| b << c.nodes.where("tree_id = ?", tree_id) unless c.nodes.empty? }
+    names = []              
+    clean_search = "%#{search_string}%"
+    Name.includes(:nodes).where("name_string like ?", clean_search).each { |c| names << c.nodes.where("tree_id = ?", tree_id) unless c.nodes.empty? }
   end
 
   def deep_copy_to(tree)

@@ -23,7 +23,7 @@ Gnite::Application.routes.draw do
     resources :flat_list_imports,      :only => [:new]
     resources :gnaclr_classifications, :only => [:index, :show]
     resources :imports,                :only => [:new]
-    resource :name_searches,             :only => [:show]
+    resource :name_searches,           :only => [:show]
   end
 
   resources :reference_trees, :only => [:create, :show] do
@@ -33,6 +33,7 @@ Gnite::Application.routes.draw do
   
   resources :deleted_tree, :only => [:show] do
     resources :nodes,         :only => [:index, :show]
+    resource :name_searches,  :only => [:show]
   end
 
   resource :search, :only => [:show]

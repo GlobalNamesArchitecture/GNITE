@@ -705,16 +705,27 @@ body form input {
   background: -moz-linear-gradient(center bottom, rgb(208,212,215) 0, rgb(248,253,255) 100%);
 }
 
-.searchbar, .controls {
+.searchbar {
+  position:absolute;
+  top:0px;
+  right:0px;
+   padding: 8px 10px;
+}
+
+.searchbar input {
+  width:150px;
+}
+
+.toolsbar, .controls {
   background: #babfc3;
   border-bottom: 1px solid #8c9195;
   padding: 6px 10px 0 10px;
   height: 32px;
 }
 
-.searchbar .grid-button a,
+.toolsbar .grid-button a,
 .controls .tree-btn a,
-.searchbar .grid-button input[type="submit"] {
+.toolsbar .grid-button input[type="submit"] {
   background: #bbc0c4;
   background: -moz-linear-gradient(top, #e0e2e4, #bbc0c4);
   background: -webkit-gradient(linear, 0 0, 0 100%, from(#e0e2e4), to(#bbc0c4));
@@ -735,30 +746,28 @@ body form input {
   text-decoration: none;
 }
 
-.searchbar .grid-button input[type="submit"] {
+.toolsbar .grid-button input[type="submit"] {
   height: 25px;
   padding: 4px 9px;
 }
 
-.searchbar .grid-button a:hover,
+.toolsbar .grid-button a:hover,
 .controls .tree-btn a:hover {
   background: #d3d9de;
   background: -moz-linear-gradient(top, #f7fafc, #d3d9de);
   background: -webkit-gradient(linear, 0 0, 0 100%, from(#f7fafc), to(#d3d9de));
 }
 
-.searchbar .grid-button a:active,
+.toolsbar .grid-button a:active,
 .controls .tree-btn a:active {
   background: #a2a7ab;
   background: -moz-linear-gradient(top, #c5c7c9, #a2a7ab);
   background: -webkit-gradient(linear, 0 0, 0 100%, from(#c5c7c9), to(#a2a7ab));
 }
 
-.searchbar a {
+.toolsbar a {
   /*color: rgb(51,51,51);*/
 }
-
-.searchbar input { float:left; }
 
 .grid-button .icon {
   margin: 8px 8px 0 0;

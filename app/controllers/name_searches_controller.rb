@@ -21,7 +21,7 @@ class NameSearchesController < ApplicationController
         end
       end
     end
-    render :json => result.uniq!
+    render :json => result.uniq
   end
 
 end
