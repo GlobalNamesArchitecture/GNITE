@@ -16,16 +16,24 @@ describe NameUpdatesController, 'POST to create' do
   before do
     Factory(:node, :tree => master_tree)
     sign_in_as user
-    post :create,
-        :master_tree_id => master_tree.id,
-        :node_id        => master_tree.nodes.first.id,
-        :format         => 'json',
-        :name           => { :name_string    => 'new name' }
+    @new_name_string = "renamed name"
+    @node = master_tree.nodes.first
   end
 
   it 'updates the name string' do
-    master_tree.nodes.first.name.reload.name_string.should == 'new name'
+    Name.find_by_name_string(@new_name_string).should be_nil
+    old_name = @node.name
+    post :create,
+        :master_tree_id => master_tree.id,
+        :node_id        => @node.id,
+        :format         => 'json',
+        :name           => { :name_string => @new_name_string }
+    @node.reload.name.should_not == old_name
+    renamed_name = Name.find_by_name_string(@new_name_string)
+    renamed_name.should_not be_nil
+    @node.name.should == renamed_name
+    @node.name_string.should == @new_name_string
+    response.code.should == "200"
   end
 
-  it { should respond_with(:success) }
 end

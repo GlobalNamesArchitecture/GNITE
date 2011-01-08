@@ -131,3 +131,23 @@ describe Node, '#vernacular_name_strings with no synonyms' do
     node.vernacular_name_strings.should == ['None']
   end
 end
+
+describe Node, "#children" do
+  let (:parent) { Factory(:node) }
+  let (:names) do
+    %w{ Gossleriellaceae 
+      Stictodiscaceae 
+      Arachnoidiscaceae 
+      Leptocylindraceae 
+      Corethraceae 
+      Heliopeltaceae 
+      Ethmodiscaceae }.map { |n| Factory(:name, :name_string => n) }
+  end
+  let (:children_nodes) { names.map{ |name| Factory(:node, :tree_id => parent.tree_id, :parent_id => parent.id, :name => name) } }
+
+  it 'should sort names by alphabet' do
+    unsorted_names = children_nodes.map { |node| node.name.name_string }
+    unsorted_names.should_not == unsorted_names.sort
+    parent.children.map { |node| node.name.name_string }.should == names.map { |name| name.name_string }.sort
+  end
+end
