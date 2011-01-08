@@ -50,7 +50,7 @@ Feature: View metadata for master tree nodes
 
   @javascript
   Scenario: User can view metadata for nodes on reference trees
-    When I follow "All working trees"
+    When I follow "All reference trees"
     And I follow "Snacks"
     And I select the node "Twinkie"
     Then I should see a spinner
@@ -59,7 +59,7 @@ Feature: View metadata for master tree nodes
     And I should see "Cake" as synonyms for the "Snacks" tree
     And I should see "Twinkie Cake" as vernacular names for the "Snacks" tree
     And I should see "Good" as rank for the "Snacks" tree
-    When I follow "All working trees"
+    When I follow "All reference trees"
     And I follow "Fruits"
     And I select the node "Apple"
     Then I should see a spinner

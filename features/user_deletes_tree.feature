@@ -18,6 +18,6 @@ Feature: Delete a master tree
     When I go to the master tree page for "Delete me"
     And I press "Delete Tree"
     Then I should be on the master tree index page
-    And I should see "Tree deleted successfully"
+    And I should see "Tree successfully deleted"
     And I should not see "Delete me"
     But I should see "My new tree"

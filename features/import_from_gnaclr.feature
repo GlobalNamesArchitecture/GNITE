@@ -15,7 +15,7 @@ Feature: Importing trees from GNACLR
 
   @javascript
   Scenario: Importing the sample NCBI tree
-    Then I should see "All working trees (0)"
+    Then I should see "All reference trees (0)"
     When I follow "Browse Classifications"
     And I follow "NCBI"
     And I press "Import"
@@ -24,8 +24,8 @@ Feature: Importing trees from GNACLR
     When resque jobs are run
     Then I should not see a spinner
     And I should see an "NCBI" tab
-    Then I should see "All working trees (1)"
-    And I should see the breadcrumb path "Working Trees > NCBI"
+    Then I should see "All reference trees (1)"
+    And I should see the breadcrumb path "Reference Trees > NCBI"
     And I should see a node "Cyphophthalmi incertae sedis" at the root level in my reference tree "NCBI"
     And I should see a node "Opiliones" at the root level in my reference tree "NCBI"
     When I select the node "Opiliones"
@@ -33,7 +33,7 @@ Feature: Importing trees from GNACLR
 
   @javascript
   Scenario: Importing an older revision of the sample NCBI tree
-    Then I should see "All working trees (0)"
+    Then I should see "All reference trees (0)"
     When I follow "Browse Classifications"
     And I follow "NCBI"
     Then "this is really the best revision" should be checked
@@ -44,30 +44,30 @@ Feature: Importing trees from GNACLR
     When resque jobs are run
     Then I should not see a spinner
     And I should see an "NCBI" tab
-    Then I should see "All working trees (1)"
-    And I should see the breadcrumb path "Working Trees > NCBI"
+    Then I should see "All reference trees (1)"
+    And I should see the breadcrumb path "Reference Trees > NCBI"
     And I should see a node "Cyphophthalmi incertae sedis" at the root level in my reference tree "NCBI"
     And I should see a node "Opiliones" at the root level in my reference tree "NCBI"
 
   @javascript
   Scenario: Importing the sample NCBI tree and reloading the page before it finishes
-    Then I should see "All working trees (0)"
+    Then I should see "All reference trees (0)"
     When I follow "Browse Classifications"
     And I follow "NCBI"
     And I press "Import"
     Then I should see a spinner
     And I should not see the gnaclr import button
     When I reload the page
-    Then I should see "All working trees (1)"
-    When I follow "All working trees"
+    Then I should see "All reference trees (1)"
+    When I follow "All reference trees"
     And I follow "NCBI"
-    Then I should see the breadcrumb path "Working Trees > NCBI"
+    Then I should see the breadcrumb path "Reference Trees > NCBI"
     And I should not see any reference tree nodes
     And I should see a spinner
     When resque jobs are run
     And pause 3
     Then I should not see a spinner
-    And I should see "All working trees (1)"
+    And I should see "All reference trees (1)"
     And I should see a node "Cyphophthalmi incertae sedis" at the root level in my reference tree "NCBI"
     And I should see a node "Opiliones" at the root level in my reference tree "NCBI"
     When I select the node "Opiliones"

@@ -6,7 +6,7 @@ class MasterTreesController < ApplicationController
   end
 
   def new
-    @master_tree = MasterTree.new(:title => 'New Master Tree')
+    @master_tree = MasterTree.new(:title => 'New Working Tree')
     @master_tree.user = current_user
     @master_tree.save
     
@@ -32,7 +32,7 @@ class MasterTreesController < ApplicationController
       if request.xhr?
         render :json => { :status => "OK"}
       else
-        flash[:success] = "Master Tree successfully updated"
+        flash[:success] = "Working Tree successfully updated"
         redirect_to master_tree_url(@master_tree.id)
       end
     else
@@ -44,7 +44,7 @@ class MasterTreesController < ApplicationController
     @master_tree = MasterTree.find(params[:id])
     @deleted_tree = DeletedTree.find_by_master_tree_id(params[:id])
     if @master_tree.destroy && @deleted_tree.destroy
-      flash[:notice] = 'Tree deleted successfully'
+      flash[:notice] = 'Tree successfully deleted'
       redirect_to :action => :index
     end
   end

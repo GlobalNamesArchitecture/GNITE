@@ -1,5 +1,5 @@
 <div id="header">
-  <% if @master_tree.title == 'New Master Tree' %>
+  <% if @master_tree.title == 'New Working Tree' %>
     <input type="text" id="master_tree_title_input"><span>Enter a title for your newly created tree.</span>
   <% else %>
     <h1><%= @master_tree.title %></h1>
@@ -13,7 +13,7 @@
     <div class="tree-background">
       <div class="breadcrumbs">
         <ul>
-          <li>Master tree</li>
+          <li>Working tree</li>
         </ul>
       </div>
 

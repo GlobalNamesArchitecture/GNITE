@@ -25,7 +25,7 @@ Feature: Edit a master tree
     And I follow "Add Node"
     And I enter "hydrochaeris" in the new node and press enter
     Then I should see a node "hydrochaeris" at the root level in my master tree
-    When I follow "Master Trees"
+    When I follow "Working Trees"
     Then I should be on the master tree index page
     When I follow "My new tree"
     Then I should see "hydrochaeris"
@@ -51,7 +51,7 @@ Feature: Edit a master tree
     And I should see "Caviidae"
     And I should see a node "Hydrochoerinae" under "Caviidae"
 
-    When I follow "Master Trees"
+    When I follow "Working Trees"
     And I follow "My new tree"
     And I wait for the tree to load
     When I select the node "Caviidae"
@@ -71,7 +71,7 @@ Feature: Edit a master tree
     And I wait for the tree to load
     And I double click "Bullwinkle" and change it to "Monkey"
     Then I should see "Monkey"
-    When I follow "Master Trees"
+    When I follow "Working Trees"
     Then I should not see "Monkey"
     When I follow "Moose tree"
     Then I should see "Monkey"
@@ -91,14 +91,14 @@ Feature: Edit a master tree
     And I drag "Rocky" under "Bullwinkle"
     Then I should see a node "Rocky" under "Bullwinkle"
 
-    When I follow "Master Trees"
+    When I follow "Working Trees"
     And I follow "Moose tree"
     And I wait for the tree to load
     When I select the node "Bullwinkle"
     And I expand the node "Bullwinkle"
     Then I should see a node "Rocky" under "Bullwinkle"
 
-    When I follow "Master Trees"
+    When I follow "Working Trees"
     And I follow "Moose tree"
     And I drag "Bullwinkle" under "Natasha"
     Then I should see a node "Bullwinkle" under "Natasha"
@@ -117,7 +117,7 @@ Feature: Edit a master tree
     And I should see a node "Boris" at the root level in my master tree
     And I delete the node "Boris"
     Then I should not see a node "Boris" at the root level in my master tree
-    When I follow "Master Trees"
+    When I follow "Working Trees"
     And I follow "Moose tree"
     Then I should not see a node "Boris" at the root level in my master tree
 
@@ -135,7 +135,7 @@ Feature: Edit a master tree
     And I delete the node "Bullwinkle"
     Then I should not see a node "Bullwinkle" at the root level in my master tree
     And I should not see a node "Rocky" at the root level in my master tree
-    When I follow "Master Trees"
+    When I follow "Working Trees"
     And I follow "Moose tree"
     Then I should not see a node "Bullwinkle" at the root level in my master tree
     And I should not see a node "Rocky" at the root level in my master tree

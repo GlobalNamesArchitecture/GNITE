@@ -11,8 +11,8 @@ Feature: Interact with navigation bar
       | belinda's node |
     When I go to the home page
     Then I should see the navigation bar
-    When I follow "Master Trees"
-    Then the "Master Trees" bar should be highlighted
+    When I follow "Working Trees"
+    Then the "Working Trees" bar should be highlighted
     And the "Profile Settings" bar should not be highlighted
     And I should not see "Change Password"
     And I should see the signout link
@@ -25,6 +25,6 @@ Feature: Interact with navigation bar
     When I follow "Profile Settings"
     Then I should be on the edit user settings page for "belinda@belew.com"
     And the "Profile Settings" bar should be highlighted
-    And the "Master Trees" bar should not be highlighted
+    And the "Working Trees" bar should not be highlighted
     And I should see "Change Password"
     And I should see the signout link

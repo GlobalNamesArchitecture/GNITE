@@ -7,8 +7,8 @@ Feature: Create and manage master trees
   Scenario: User can create a new tree
     Given I have signed in with "email@person.com/password"
     Then I should be on the master tree index page
-    When I follow "New Master Tree"
-    Then I should be on the master tree page for "New Master Tree"
+    When I follow "Create Working Tree"
+    Then I should be on the master tree page for "New Working Tree"
     And I should be focused on the master tree title field
     And I should see "Enter a title for your newly created tree."
     When I click on the page

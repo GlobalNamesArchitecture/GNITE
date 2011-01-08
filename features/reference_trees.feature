@@ -19,7 +19,7 @@ Feature: Work with reference trees
       | root two   |
       | root three |
     And pause 1
-    And I follow "All working trees"
+    And I follow "All reference trees"
     And I follow "List"
 
   @javascript
@@ -34,9 +34,9 @@ Feature: Work with reference trees
     And I should see a node "root two" at the root level in my reference tree "List"
     And I should see a node "root three" at the root level in my reference tree "List"
 
-    When I follow "Master Trees"
+    When I follow "Working Trees"
     And I follow "My new tree"
-    And I follow "All working trees"
+    And I follow "All reference trees"
     And I follow "List"
     And I wait for the tree to load
 

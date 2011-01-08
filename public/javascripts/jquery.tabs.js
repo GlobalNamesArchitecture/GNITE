@@ -1,7 +1,7 @@
 $(function() {
   $('#tab-titles a').live('click', function() {
     if ($(this).attr('id') == 'all-tabs') {
-      $('#working-trees').parent().toggleClass('ui-tabs-selected ui-state-active');
+      $('#reference-trees').parent().toggleClass('ui-tabs-selected ui-state-active');
     } else {
       var id = $(this).attr('href');
 

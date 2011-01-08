@@ -92,7 +92,7 @@ GNITE.ReferenceTree.configuration = $.extend(true, {}, GNITE.Tree.configuration,
     }
   },
 
-  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'search', 'contextmenu']
+  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'search']
 });
 
 GNITE.DeletedTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
@@ -103,7 +103,7 @@ GNITE.DeletedTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
     }
   },
 
-  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'search', 'contextmenu']
+  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'search']
 });
 
 GNITE.ReferenceTree.add = function(response, options) {
@@ -111,7 +111,7 @@ GNITE.ReferenceTree.add = function(response, options) {
     var tab   = $('#all-tabs');
     var count = parseInt(tab.text().replace(/[^0-9]+/, ''), 10);
 
-    tab.text('All working trees (' + (count + 1) + ')');
+    tab.text('All reference trees (' + (count + 1) + ')');
 
     $('#new-tab').before(response.tree);
 
@@ -140,8 +140,8 @@ GNITE.ReferenceTree.add = function(response, options) {
 
 $(function() {
 
-   //hide the working tree tabs unless there's something to show
-   if ($('#working-trees li').length == 0) {
+   //hide the reference tree tabs unless there's something to show
+   if ($('#reference-trees li').length == 0) {
      $('#tab-titles li:first-child').hide();
    }
 
@@ -259,7 +259,7 @@ $(function() {
     var active = self.parents('.reference-tree').hasClass('reference-tree-active');
 
     if (active) {
-        $('#working-trees li a').click(function() {
+        $('#reference-trees li a').click(function() {
           if($(this).attr('href').split('_')[2] == id && self.find('ul').length == 0) {
               self.jstree($.extend(true, {}, GNITE.ReferenceTree.configuration, {
                 'json_data' : {

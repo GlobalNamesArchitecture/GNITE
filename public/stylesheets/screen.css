@@ -1549,7 +1549,7 @@ ul#treelist a:hover,
   margin-right: 0;
 }
 
-ul#working-trees {
+ul#reference-trees {
   background: #BABFC3;
   border: 1px solid #888;
   border-width: 0 1px 1px 0;
@@ -1561,7 +1561,7 @@ ul#working-trees {
   z-index: -1;
 }
 
-.ui-tabs .ui-tabs-nav li ul#working-trees li {
+.ui-tabs .ui-tabs-nav li ul#reference-trees li {
   box-shadow: none;
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
@@ -1574,11 +1574,11 @@ ul#working-trees {
   white-space: normal;
 }
 
-#treewrap-right .ui-state-default ul#working-trees li.ui-state-default {
+#treewrap-right .ui-state-default ul#reference-trees li.ui-state-default {
   border-top: 0;
 }
 
-.ui-tabs .ui-tabs-nav li ul#working-trees li a {
+.ui-tabs .ui-tabs-nav li ul#reference-trees li a {
   border-bottom: 1px solid #a0a5a8;
   cursor: pointer;
   display: block;
@@ -1586,11 +1586,11 @@ ul#working-trees {
   width: 263px;
 }
 
-.ui-tabs .ui-tabs-nav li ul#working-trees li:first-child a {
+.ui-tabs .ui-tabs-nav li ul#reference-trees li:first-child a {
   border-top: 1px solid #a0a5a8;
 }
 
-ul#working-trees li a:hover {
+ul#reference-trees li a:hover {
   background: #a0a5a8;
 }
 
