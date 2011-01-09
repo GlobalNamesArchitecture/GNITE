@@ -49,4 +49,10 @@ class MasterTreesController < ApplicationController
     end
   end
 
+  def publish
+    gp = GnaclrPublisher.create!(:master_tree_id => params[:id].to_i)
+    Resque.enqueue(GnaclrPublisher, gp.id)
+    render :json => { :status => "OK" }
+  end
+
 end

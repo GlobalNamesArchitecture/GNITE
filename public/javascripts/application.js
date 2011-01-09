@@ -197,7 +197,23 @@ $(function() {
   });
 
 
+  /*
+   * Publish master tree
+   */
+  $('#master-tree-publish-button').live('click', function() {
+    var self = $(this);
+    var master_tree_id = self.attr('data-master-tree-id');
 
+    $.ajax({
+      type        : 'GET',
+      url         : '/master_trees/' + master_tree_id + '/publish.json',
+      contentType : 'application/json',
+      dataType    : 'json',
+      success     : function(data) {
+        alert('got published');
+      }
+    });
+  });
 
   /*
    * Nodes

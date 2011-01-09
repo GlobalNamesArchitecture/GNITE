@@ -37,6 +37,9 @@
                         :method => :delete,
                         :confirm => "Are you sure you want to delete your master tree?" -%>
         </div>
+        <div class="grid-button">
+          <input type="button" value="Publish" id="master-tree-publish-button" data-master-tree-id="<%=@master_tree.id%>"/>
+        </div>
       </div>
 
       <div id="add-node-wrap">

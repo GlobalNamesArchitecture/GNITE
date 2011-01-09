@@ -9,7 +9,7 @@ Bundler.require(:default, Rails.env) if defined?(Bundler)
 
 module Gnite
   Config = OpenStruct.new(
-    :gnaclr_url => "http://gnite.globalnames.org"
+    :gnaclr_url => "http://gnaclrold.globalnames.org",
   )
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.

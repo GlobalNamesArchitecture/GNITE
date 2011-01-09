@@ -725,7 +725,8 @@ body form input {
 
 .toolsbar .grid-button a,
 .controls .tree-btn a,
-.toolsbar .grid-button input[type="submit"] {
+.toolsbar .grid-button input[type="submit"],
+.toolsbar .grid-button input[type="button"] {
   background: #bbc0c4;
   background: -moz-linear-gradient(top, #e0e2e4, #bbc0c4);
   background: -webkit-gradient(linear, 0 0, 0 100%, from(#e0e2e4), to(#bbc0c4));
@@ -741,12 +742,14 @@ body form input {
   float: left;
   font-weight: bold;
   font-size: .9em;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0 10px 0 0;
   padding: 6px 9px;
   text-decoration: none;
 }
 
-.toolsbar .grid-button input[type="submit"] {
+.toolsbar .grid-button input[type="submit"],
+.toolsbar .grid-button input[type="button"] {
   height: 25px;
   padding: 4px 9px;
 }

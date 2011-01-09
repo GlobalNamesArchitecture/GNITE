@@ -2,6 +2,7 @@ Gnite::Application.routes.draw do
   match 'sign_out', :to => 'sessions#destroy', :as => :sign_out
   match 'sign_in',  :to => 'sessions#new',     :as => :sign_in
   match 'sign_up',  :to => 'users#new',        :as => :sign_up
+  match "/master_trees/:id/publish" => "master_trees#publish"
 
   resource :session, :only => [:new, :create, :destroy], :controller => "sessions"
 

@@ -26,3 +26,4 @@ Gnite::Application.configure do
 #  end
   
 end
+# Gnite::Config.gnaclr_url = "http://gnaclrold.globalnames.org"
