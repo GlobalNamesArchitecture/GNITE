@@ -26,6 +26,11 @@ class Tree < ActiveRecord::Base
   def self.by_title
     self.order('title asc')
   end
+  
+  #TODO this is a placeholder! it needs to be done correctly
+  def destroy_with_children
+    destroy
+  end
 
   private
 
