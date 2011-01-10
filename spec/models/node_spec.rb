@@ -158,4 +158,36 @@ describe Node, "#children" do
     unsorted_names.should_not == unsorted_names.sort
     parent.children.map { |node| node.name.name_string }.should == names.map { |name| name.name_string }.sort
   end
+
+  it 'should work with a subset of fields' do
+    children_nodes #won't load implicitly
+    first_child = parent.reload.children('id')[0]
+    first_child.tree.should be_nil
+    first_child.name.should be_nil
+    first_child.id.is_a?(Fixnum).should be_true
+    first_child_full = parent.children[0]
+    first_child_full.tree.should_not be_nil
+    first_child_full.name.should_not be_nil
+    first_child_full.id.should_not be_nil
+  end
+end
+
+describe Node, '#destroy_with_children' do
+  it 'deletes the node and its descendents, related synonyms and vernacular names' do
+    tree        = Factory(:reference_tree)
+    root        = Factory(:node, :tree => tree, :name => Factory(:name, :name_string => 'Root'))
+    child       = Factory(:node, :tree => tree, :parent => root, :name => Factory(:name, :name_string => 'Child'))
+    grandchild  = Factory(:node, :tree => tree, :parent => child, :name => Factory(:name, :name_string => 'Grandchild'))
+    master_tree = Factory(:master_tree)
+
+    synonym         = Factory(:synonym, :node => grandchild)
+    vernacular_name = Factory(:vernacular_name, :node => child)
+    nodes_count = Node.count
+    vern_count = VernacularName.count
+    syn_count = Synonym.count
+    root.destroy_with_children
+    (nodes_count - Node.count).should == 3
+    (vern_count - VernacularName.count).should == 1
+    (syn_count - Synonym.count).should == 1
+  end
 end

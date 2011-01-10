@@ -8,10 +8,6 @@ require 'ostruct'
 Bundler.require(:default, Rails.env) if defined?(Bundler)
 
 module Gnite
-  Config = OpenStruct.new(
-    :gnaclr_url => "http://gnaclrold.globalnames.org",
-    :root_node_name_string => "tree_root",
-  )
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -49,6 +45,14 @@ module Gnite
     config.filter_parameters += [:password]
     config.active_support.deprecation = :log
   end
+
+  Config = OpenStruct.new(
+    :gnaclr_url => "http://gnaclrold.globalnames.org",
+    :batch_size => 10_000,
+    :root_node_name_string => "tree_root",
+  )
+
 end
+
 
 require Rails.root.join('lib', 'gnite').to_s

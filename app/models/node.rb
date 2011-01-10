@@ -82,9 +82,13 @@ class Node < ActiveRecord::Base
     self.update_attributes(:parent_id => node.id)
   end
 
-  def children
-    #readonly is true by default, we set it false
-    Node.where(:parent_id => id).joins(:name).order("name_string").readonly(false)
+  def children(select_params = '')
+    select_params = select_params.empty? ? '`nodes`.*' : select_params.split(',').map { |p| '`nodes`.' + p.strip }.join(', ')
+    Node.select(select_params)
+      .where(:parent_id => id)
+      .joins(:name)
+      .order("name_string")
+      .readonly(false) #select and join return readonly objects, override that here
   end
 
   def has_children?
@@ -96,11 +100,35 @@ class Node < ActiveRecord::Base
     nodes << node = node.parent while node.parent
     nodes.reverse
   end
+
+  def rename(new_name_string)
+    new_name = Name.where(:name_string => new_name_string).limit(1).first || Name.create(:name_string => new_name_string) 
+    self.name = new_name
+    save
+  end
+
+  def destroy_with_children
+    nodes_to_delete = [id]
+    collect_children_to_delete(nodes_to_delete)
+    Node.transaction do
+      nodes_to_delete.each_slice(Gnite::Config.batch_size) do |ids|
+        delete_nodes_records(ids) 
+      end
+    end
+  end
   
   def descendants
     node, nodes = self, []
     children.each do |child|
       nodes << child.descendants
+    end
+  end
+  
+  #called externally, so it has to be public
+  def collect_children_to_delete(nodes_to_delete)
+    children('id').each do |c|
+      nodes_to_delete << c.id
+      c.collect_children_to_delete(nodes_to_delete)
     end
   end
 
@@ -109,5 +137,16 @@ class Node < ActiveRecord::Base
   def check_parent_id_for_nil
     return if self.parent_id || !self.tree.root
     self.parent_id = self.tree.root.id
+  end
+
+  def delete_nodes_records(ids)
+    delete_ids = ids.join(',')
+    %w{vernacular_names synonyms}.each do |table|
+      Node.connection.execute("
+        DELETE 
+        FROM #{table} 
+        WHERE node_id IN (#{delete_ids})")
+    end
+    Node.connection.execute("DELETE FROM nodes WHERE id IN (#{delete_ids})")
   end
 end

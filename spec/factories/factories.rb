@@ -39,3 +39,10 @@ Factory.define :gnaclr_importer do |gnaclr_importer|
   gnaclr_importer.association :reference_tree
   gnaclr_importer.url {'foo'}
 end
+
+Factory.define :action_rename_node do |action_rename_node|
+  action_rename_node.association :user
+  action_rename_node.node_id { Factory(:node).id }
+  action_rename_node.old_name { |a| Node.find(a.node_id).name.name_string }
+  action_rename_node.new_name { Factory.next(:name_string) }
+end

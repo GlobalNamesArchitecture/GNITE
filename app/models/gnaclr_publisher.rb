@@ -1,7 +1,7 @@
 # encoding: utf-8
 class GnaclrPublisher < ActiveRecord::Base
   belongs_to :master_tree
-  @queue = :gnite_no_tracking
+  @queue = :gnite_not_destructive
 
   def self.perform(gnaclr_publisher_id)
     gp = GnaclrPublisher.find(gnaclr_publisher_id)

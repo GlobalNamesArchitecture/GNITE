@@ -10,7 +10,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110110143208) do
+ActiveRecord::Schema.define(:version => 20110110205650) do
+
+  create_table "action_commands", :force => true do |t|
+    t.string   "type"
+    t.integer  "user_id"
+    t.boolean  "undo"
+    t.integer  "node_id"
+    t.integer  "parent_id"
+    t.integer  "destination_node_id"
+    t.integer  "destination_parent_id"
+    t.string   "old_name"
+    t.string   "new_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "gnaclr_importer_logs", :force => true do |t|
     t.integer  "reference_tree_id"

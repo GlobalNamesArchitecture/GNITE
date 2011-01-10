@@ -3,5 +3,6 @@ class User < ActiveRecord::Base
 
   has_many :master_trees
   has_many :reference_trees
-  has_many :deleted_tree
+  has_many :deleted_trees
+  has_many :action_commands
 end
