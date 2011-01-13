@@ -51,7 +51,7 @@ class ActionCommand < ActiveRecord::Base
   end
   
   def ancestry_ok?(a_node)
-    a_node.ancestors.map {|a| a.tree_id}.uniq.size == 1
+    a_node.ancestors.empty? || a_node.ancestors.map {|a| a.tree_id}.uniq.size == 1
   end
   
 end
