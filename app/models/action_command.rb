@@ -1,6 +1,6 @@
 class ActionCommand < ActiveRecord::Base
   belongs_to :user
-  @queue = :gnite_actions
+  @queue = Gnite::Config.action_queue 
   
   def self.perform(instance_id)
     ac = ActionCommand.find(instance_id)
