@@ -29,7 +29,9 @@ class Tree < ActiveRecord::Base
   end
   
   #TODO this is a placeholder! it needs to be done correctly
-  def destroy_with_children
+  def nuke
+    Tree.connection.execute("delete n, s, v from nodes n left join synonyms s on s.node_id = n.id left join vernacular_names v on v.node_id = n.id where tree_id = #{id}")
+    Tree.connection.execute("delete from nodes where tree_id = #{id}")
     destroy
   end
 

@@ -39,7 +39,7 @@ class MasterTreesController < ApplicationController
   def destroy
     @master_tree = MasterTree.find(params[:id])
     @deleted_tree = DeletedTree.find_by_master_tree_id(params[:id])
-    if @master_tree.destroy && @deleted_tree.destroy
+    if @master_tree.nuke && @deleted_tree.nuke
       flash[:notice] = 'Tree successfully deleted'
       redirect_to :action => :index
     end
