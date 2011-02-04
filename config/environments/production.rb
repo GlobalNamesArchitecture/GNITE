@@ -46,6 +46,6 @@ Gnite::Application.configure do
   # the I18n.default_locale when a translation can not be found)
   config.i18n.fallbacks = true
 end
-Config = OpenStruct.new(
-  :gnaclr_url => "http://gnaclr.globalnames.org",
-)
+
+Gnite::Config.gnaclr_url = "http://gnaclr.globalnames.org",
+

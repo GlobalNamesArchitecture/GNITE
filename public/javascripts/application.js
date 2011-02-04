@@ -282,7 +282,7 @@ $(function() {
       contentType : 'application/json',
       dataType    : 'json',
       success     : function(data) {
-        alert('got published');
+        alert('publishing the tree...');
       }
     });
   });
@@ -609,8 +609,8 @@ $(function() {
         }
     });
 
-  $('#master-tree')
-  .bind('create.jstree', function(event, data) {
+
+  $('#master-tree').bind('create.jstree', function(event, data) {
     var node     = data.rslt;
     var name     = node.name;
     var parentID = null;
@@ -622,7 +622,7 @@ $(function() {
     $.ajax({
       type        : 'POST',
       url         : '/master_trees/' + master_tree_id + '/nodes.json',
-      data        : JSON.stringify({ 'node' : { 'name' : { 'name_string' : name }, 'parent_id' : parentID } }),
+      data        : JSON.stringify({ 'node' : { 'name' : { 'name_string' : name }, 'parent_id' : parentID }, 'action_type' : "ActionAddNode" }),
       contentType : 'application/json',
       dataType    : 'json',
       success     : function(data) {

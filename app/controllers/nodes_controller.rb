@@ -40,23 +40,20 @@ class NodesController < ApplicationController
   end
 
   def create
+    master_tree = current_user.master_trees.find(params[:master_tree_id])
+    schedule_action(nil, params)
     respond_to do |format|
       format.json do
-        name_attributes = params[:node].delete(:name)
-        name            = Name.find_or_create_by_name_string(name_attributes[:name_string])
-        node_attributes = params[:node].merge(:tree_id => params[:master_tree_id], :name => name)
-        node            = Node.new(node_attributes)
-        node.save
-        render :json => node
+        render :json => 'OK'
       end
     end
   end
 
   def update
+    master_tree = current_user.master_trees.find(params[:master_tree_id])
+    node        = master_tree.nodes.find(params[:id])
     respond_to do |format|
       format.json do
-        master_tree = current_user.master_trees.find(params[:master_tree_id])
-        node        = master_tree.nodes.find(params[:id])
         if params[:action_type] && Gnite::Config.action_types.include?(params[:action_type])
           schedule_action(node, params)
         else
@@ -91,9 +88,17 @@ class NodesController < ApplicationController
   private
   
   def schedule_action(node, params)
+    require 'ruby-debug'; debugger
+    raise "Unknown action command" unless params[:action_type] && Gnite::Config.action_types.include?(params[:action_type])
+    
+    destination_parent_id = (params[:node] && params[:node][:parent_id]) ? params[:node][:parent_id] : nil
+    node_id = node.is_a?(::Node) ? node.id : nil
+    old_name = node.is_a?(::Node) ? node.name.name_string : nil
     new_name = (params[:name] && params[:name][:name_string]) ? params[:name][:name_string] : nil
-    destination_parent_id = (params[:name] && params[:name][:parent_id]) ? params[:name][:parent_id] : nil
-    action_command = eval("#{params[:action_type]}.create!(:user => current_user, :node_id => node.id, :old_name => node.name.name_string, :new_name => new_name, :destination_parent_id => destination_parent_id, :parent_id => node.parent_id)")
+    parent_id = node.is_a?(::Node) ? node.parent_id : params[:node][:parent_id]
+    
+    action_command = eval("#{params[:action_type]}.create!(:user => current_user, :node_id => node_id, :old_name => old_name, :new_name => new_name, :destination_parent_id => destination_parent_id, :parent_id => parent_id)")
+
     Resque.enqueue(eval(params[:action_type]), action_command.id)
     workers = Resque.workers.select {|w| w.queues.include?(Gnite::Config.action_queue.to_s) }
     raise "More than one worker for the #{Gnite::Config.action_queue}!" if workers.size > 1

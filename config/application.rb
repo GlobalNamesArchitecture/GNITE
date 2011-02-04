@@ -51,7 +51,7 @@ module Gnite
     :batch_size => 10_000,
     :root_node_name_string => "tree_root",
     :action_queue => :gnite_actions,
-    :action_types => ['ActionRenameNode', 'ActionMoveNodeWithinTree']
+    :action_types => ['ActionAddNode', 'ActionRenameNode', 'ActionMoveNodeWithinTree']
   )
 
 end
