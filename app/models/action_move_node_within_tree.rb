@@ -1,5 +1,6 @@
 class ActionMoveNodeWithinTree < ActionCommand
   
+  #TODO should correctly check for cases when parent or destination are root of the tree
   def precondition_do
     @parent = Node.find(parent_id)
     @destination_parent = Node.find(destination_parent_id)

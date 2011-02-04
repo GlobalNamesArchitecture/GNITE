@@ -1,7 +1,10 @@
 class ActionCommand < ActiveRecord::Base
   belongs_to :user
-  @queue = Gnite::Config.action_queue 
-  
+
+  def self.queue
+    Gnite::Config.action_queue 
+  end
+
   def self.perform(instance_id)
     ac = ActionCommand.find(instance_id)
     if ac.undo?
@@ -51,7 +54,8 @@ class ActionCommand < ActiveRecord::Base
   end
   
   def ancestry_ok?(a_node)
-    a_node.ancestors.empty? || a_node.ancestors.map {|a| a.tree_id}.uniq.size == 1
+    ancestors = a_node.ancestors
+    ancestors.empty? || (ancestors.map {|a| a.tree_id}.uniq.size == 1 && ancestors.first.parent_id == nil)
   end
   
 end

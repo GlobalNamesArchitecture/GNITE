@@ -57,7 +57,11 @@ class NodesController < ApplicationController
       format.json do
         master_tree = current_user.master_trees.find(params[:master_tree_id])
         node        = master_tree.nodes.find(params[:id])
-        node.update_attributes(params[:node])
+        if params[:action_type] && Gnite::Config.action_types.include?(params[:action_type])
+          schedule_action(node, params)
+        else
+          node.update_attributes(params[:node])
+        end
         render :json => node
       end
     end
@@ -84,4 +88,19 @@ class NodesController < ApplicationController
     end
   end
 
+  private
+  
+  def schedule_action(node, params)
+    new_name = (params[:name] && params[:name][:name_string]) ? params[:name][:name_string] : nil
+    destination_parent_id = (params[:name] && params[:name][:parent_id]) ? params[:name][:parent_id] : nil
+    action_command = eval("#{params[:action_type]}.create!(:user => current_user, :node_id => node.id, :old_name => node.name.name_string, :new_name => new_name, :destination_parent_id => destination_parent_id, :parent_id => node.parent_id)")
+    Resque.enqueue(eval(params[:action_type]), action_command.id)
+    workers = Resque.workers.select {|w| w.queues.include?(Gnite::Config.action_queue.to_s) }
+    raise "More than one worker for the #{Gnite::Config.action_queue}!" if workers.size > 1
+    raise "No worker for #{Gnite::Config.action_queue}!" if workers.empty?
+    jobs_left = true
+    while jobs_left
+      jobs_left = workers[0].process
+    end
+  end
 end

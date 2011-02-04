@@ -15,13 +15,13 @@ describe ActionRenameNode do
     node.reload.name.name_string.should == old_node_name
   end
 
-  it 'should not rename if preconditions not met' do
+  it 'should not rename if preconditions is not met' do
     ar = Factory(:action_rename_node)
     Node.find(ar.node_id).destroy
     expect{ ActionRenameNode.perform(ar.id) }.to raise_error
   end
 
-  it 'should not undo rename if precondition not met' do
+  it 'should not undo rename if precondition is not met' do
     ar = Factory(:action_rename_node)
     node = Node.find(ar.node_id)
     ActionRenameNode.perform(ar.id)

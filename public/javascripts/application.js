@@ -641,9 +641,9 @@ $(function() {
     var new_name = node.new_name;
 
     $.ajax({
-      type        : 'POST',
-      url         : '/master_trees/' + master_tree_id + '/nodes/' + id + '/name_updates.json',
-      data        : JSON.stringify({ 'name' : { 'name_string' : new_name } }),
+      type        : 'PUT',
+      url         : '/master_trees/' + master_tree_id + '/nodes/' + id + '.json',
+      data        : JSON.stringify({ 'name' : { 'name_string' : new_name }, 'action_type' : 'ActionRenameNode' }),
       contentType : 'application/json',
       dataType    : 'json',
       success     : function(data) {
@@ -658,6 +658,7 @@ $(function() {
 
      var parentID    = result.np.attr('id');
      var movedNodeID = result.o.attr('id');
+     var action_type = "";
 
      if (parentID == 'master-tree') {
        parentID = null;
@@ -667,6 +668,8 @@ $(function() {
 
      if (isCopy) {
        url += '/clone';
+     } else {
+       action_type = "ActionMoveNodeWithinTree";
      }
 
      url += '.json';
@@ -674,7 +677,7 @@ $(function() {
      $.ajax({
        type        : isCopy ? 'POST' : 'PUT',
        url         : url,
-       data        : JSON.stringify({ 'node' : { 'parent_id' : parentID } }),
+       data        : JSON.stringify({ 'node' : { 'parent_id' : parentID }, 'action_type' : action_type }),
        contentType : 'application/json',
        dataType    : 'json',
        success     : function(data) {

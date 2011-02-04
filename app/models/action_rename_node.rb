@@ -1,6 +1,4 @@
 class ActionRenameNode < ActionCommand
-  @queue = Gnite::Config.action_queue
-  @queue = :gnite_actions
   
   def precondition_do
     !!@node = Node.find(node_id)
