@@ -210,8 +210,3 @@ end
 Then /^show me the page$/ do
   save_and_open_page
 end
-
-When /^I hack confirmation to autoaccept$/ do
-  page.evaluate_script('window.confirm = function() { return false; }')
-end
-
