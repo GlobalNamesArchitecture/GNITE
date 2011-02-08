@@ -12,7 +12,7 @@ Feature: Work with reference trees
       | user | master_tree |
       | email: email@person.com |title: My new tree |
     And I go to the master tree page for "My new tree"
-    And I follow "Add Node"
+    And I click "File" and then click "Add node"
     And I enter "master node" in the new node and press enter
     And I import a flat list tree with the following nodes:
       | root one   |

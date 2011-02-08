@@ -19,27 +19,52 @@
 
       <div class="searchbar">
         <input id="master-tree-search" type="text" size="30">
+        <div class="searchicon">&nbsp;</div>
       </div>
 
-      <div class="toolsbar clearfix">
-        <div id="add-node" class="grid-button">
-          <a href="#"><span>Add Node</span></a>
-        </div>
+      <div id="toolbar" class="toolbar ddsmoothmenu clearfix">
+        <ul class="topnav">
+          <li><a href="#">File</a>
+            <ul class="subnav">
+                <li><a href="#" class="nav-add-node">Add node</a></li>
+                <li><%= link_to edit_master_tree_path, :class => "nav-edit-tree" do %>Edit Tree Info<% end %></li>
+                <li class="divider-after"><a href="#" class="nav-publish-tree" data-master-tree-id="<%=@master_tree.id%>">Publish tree</a></li>
+                <li><a href="#" class="nav-delete-tree" data-master-tree-id="<%=@master_tree.id%>">Delete tree</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Edit</a>
+            <ul class="subnav">
+<!--
+// COMMENTED OUT UNTIL AN UNDO CALLBACK IS IMPLEMENTED
+                <li><a href="#" class="nav-undo">Undo</a>
+-->
 
-        <div class="grid-button">
-              <%= link_to edit_master_tree_path do %>
-                Edit Tree Info
-               <% end %>
-        </div>
+<!--
+// TO BE DYNAMICALLY FILLED WHEN PRIOR ACTIONS ARE RECORDED
+                    <ul class="subnav">
+                        <li><a href="#">Step one</a></li>
+                        <li><a href="#">Step two</a></li>
+                        <li><a href="#">Step three</a></li>
+                    </ul>
+-->
 
-        <div class="grid-button">
-          <%= button_to "Delete Tree", master_tree_path(@master_tree),
-                        :method => :delete,
-                        :confirm => "Are you sure you want to delete your master tree?" -%>
-        </div>
-        <div class="grid-button">
-          <input type="button" value="Publish" id="master-tree-publish-button" data-master-tree-id="<%=@master_tree.id%>"/>
-        </div>
+<!--
+                </li>
+                <li class="divider-after"><a href="#" class="nav-redo">Redo</a></li>
+-->
+                <li><a href="#" class="nav-edit-node">Edit node</a></li>
+                <li><a href="#" class="nav-cut-node">Cut</a></li>
+                <li class="divider-after"><a href="#" class="nav-paste-node">Paste</a></li>
+                <li><a href="#" class="nav-delete-node">Delete node</a></li>
+            </ul>
+          </li>
+          <li><a href="#">View</a>
+            <ul class="subnav">
+              <li><a href="#" class="nav-refresh-tree">Refresh tree</a></li>
+            </ul>
+          </li>
+        </ul>
+
       </div>
 
       <div id="add-node-wrap">

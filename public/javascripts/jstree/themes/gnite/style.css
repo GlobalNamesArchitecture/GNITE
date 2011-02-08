@@ -58,11 +58,12 @@
 #vakata-contextmenu.jstree-gnite-context li.vakata-separator { background:white; border-top:1px solid #e0e0e0; margin:0; }
 #vakata-contextmenu.jstree-gnite-context li ul { margin-left:-4px; }
 
-#vakata-contextmenu.jstree-gnite-context ins { background-repeat: no-repeat; background-position: center top; margin-right: 5px; }
+#vakata-contextmenu.jstree-gnite-context ins { background-repeat: no-repeat; background-position: center top; margin-right: 5px; margin-left:2px; }
 #vakata-contextmenu.jstree-gnite-context ins.context-rename { background-image: url('../../../../images/icons/page_white_edit.png'); }
 #vakata-contextmenu.jstree-gnite-context ins.context-create { background-image: url('../../../../images/icons/page_white_add.png'); }
 #vakata-contextmenu.jstree-gnite-context ins.context-cut { background-image: url('../../../../images/icons/cut.png'); }
 #vakata-contextmenu.jstree-gnite-context ins.context-paste { background-image: url('../../../../images/icons/page_white_paste.png'); }
+#vakata-contextmenu.jstree-gnite-context ins.context-refresh { background-image: url('../../../../images/icons/arrow_refresh_small.png'); }
 #vakata-contextmenu.jstree-gnite-context ins.context-delete { background-image: url('../../../../images/icons/bin_closed.png'); }
 
 /* IE6 BEGIN */

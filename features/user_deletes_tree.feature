@@ -16,8 +16,7 @@ Feature: Delete a master tree
       | user | master_tree |
       | email: email@person.com | title: Delete me |
     When I go to the master tree page for "Delete me"
-    And I press "Delete Tree"
+    And I click "File" and then I click "Delete tree"
     Then I should be on the master tree index page
-    And I should see "Tree successfully deleted"
     And I should not see "Delete me"
     But I should see "My new tree"
