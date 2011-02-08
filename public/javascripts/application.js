@@ -301,7 +301,7 @@ $(function() {
           url         :  '/master_trees/' + master_tree_id,
           data        :  formData,
           success     : function(data) {
-            window.location = "/master_trees/";
+            window.location = "/master_trees";
           }
         });
     }

@@ -63,18 +63,24 @@ class NodesController < ApplicationController
   end
 
   def destroy
-    deleted_tree    = current_user.deleted_tree.find_by_master_tree_id(params[:master_tree_id])
-    master_tree     = current_user.master_trees.find(params[:master_tree_id])
-    root_node       = master_tree.nodes.find(params[:id])
-    
-    root_node.update_attributes(:parent_id => nil, :tree_id => deleted_tree.id)
-        
-    root_node.descendants.each do |descendant|
-      node = master_tree.nodes.find_by_id(descendant.id)
-      node.update_attributes(:tree_id => deleted_tree.id)
+    # deleted_tree    = current_user.deleted_tree.find_by_master_tree_id(params[:master_tree_id])
+    # master_tree     = current_user.master_trees.find(params[:master_tree_id])
+    # root_node       = master_tree.nodes.find(params[:id])
+    # 
+    # root_node.update_attributes(:parent_id => nil, :tree_id => deleted_tree.id)
+    #     
+    # root_node.descendants.each do |descendant|
+    #   node = master_tree.nodes.find_by_id(descendant.id)
+    #   node.update_attributes(:tree_id => deleted_tree.id)
+    # end
+    #     
+    # head :ok
+    respond_to do |format|
+      format.json do
+       Node.destroy(params[:id])
+       head :ok
+      end
     end
-        
-    head :ok
   end
 
 end

@@ -22,7 +22,8 @@ Feature: Edit a master tree
       | user | master_tree |
       | email: email@person.com |title: My new tree |
     When I go to the master tree page for "My new tree"
-    And I click "File" and then I click "Add node"
+    And I follow "File" within "toolbar"
+    And I follow "Add node" within "toolbar"
     And I enter "hydrochaeris" in the new node and press enter
     Then I should see a node "hydrochaeris" at the root level in my master tree
     When I follow "Working Trees"
@@ -40,12 +41,14 @@ Feature: Edit a master tree
       | user | master_tree |
       | email: email@person.com |title: My new tree |
     When I go to the master tree page for "My new tree"
-    And I click "File" and then I click "Add node"
+    And I follow "File" within "toolbar"
+    And I follow "Add node" within "toolbar"
     And I enter "Caviidae" in the new node and press enter
     Then I should see a node "Caviidae" at the root level in my master tree
 
     When I select the node "Caviidae"
-    And I follow "Add Node"
+    And I follow "File" within "toolbar"
+    And I follow "Add node" within "toolbar"
     And I enter "Hydrochoerinae" in the new node and press enter
     Then I should see "Hydrochoerinae"
     And I should see "Caviidae"

@@ -9,13 +9,6 @@ require 'uri'
 require 'cgi'
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "paths"))
 
-module WithinHelpers
-  def with_scope(locator)
-    locator ? within(locator) { yield } : yield
-  end
-end
-World(WithinHelpers)
-
 Given /^(?:|I )am on (.+)$/ do |page_name|
   visit path_to(page_name)
 end
@@ -25,13 +18,13 @@ When /^(?:|I )go to (.+)$/ do |page_name|
 end
 
 When /^(?:|I )press "([^"]*)"(?: within "([^"]*)")?$/ do |button, selector|
-  with_scope(selector) do
+  with_scope(element_for(selector)) do
     click_button(button)
   end
 end
 
 When /^(?:|I )follow "([^"]*)"(?: within "([^"]*)")?$/ do |link, selector|
-  with_scope(selector) do
+  with_scope(element_for(selector)) do
     click_link(link)
   end
 end
@@ -217,3 +210,8 @@ end
 Then /^show me the page$/ do
   save_and_open_page
 end
+
+When /^I hack confirmation to autoaccept$/ do
+  page.evaluate_script('window.confirm = function() { return false; }')
+end
+

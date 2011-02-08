@@ -17,8 +17,10 @@ module NamedElementHelper
       "a[href^='#{sign_out_path}']"
     when /any reference tree nodes/
       ".reference-tree .jstree-leaf"
+    when /toolbar/
+      "#toolbar"
     else
-      raise "Can't find mapping for \"#{named_element}\"."
+      named_element
     end
   end
 

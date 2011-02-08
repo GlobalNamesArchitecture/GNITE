@@ -42,6 +42,14 @@ When /^I wait for the tree to load$/ do
   end
 end
 
+When /^I wait for tree to disappear/ do
+  removed = false
+  When %{pause 1}
+  while !removed
+    removed = !page.has_css?("#toolbar")
+  end
+end
+
 When /^I expand the node "([^"]*)"$/ do |node_name|
   node = first_node_by_name(node_name)
   page.execute_script("jQuery('#master-tree').jstree('open_node', '##{node.id}');")
@@ -96,7 +104,9 @@ end
 When /^I click "([^"]*)" in the context menu$/ do |menu_selection|
   page.execute_script("jQuery('#master-tree').jstree('show_contextmenu');");
   sleep 1
-  click_link(menu_selection)
+  with_scope('#vakata-contextmenu') do
+    click_link(menu_selection)
+  end
 end
 
 Given /^the "([^"]*)" tree has a child node "([^"]*)" under "([^"]*)"$/ do |tree_title, child_node_name, parent_node_name|

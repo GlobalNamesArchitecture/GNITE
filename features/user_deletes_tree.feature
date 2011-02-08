@@ -3,6 +3,7 @@ Feature: Delete a master tree
   As a user
   I can delete a master tree
 
+  @javascript
   Scenario: Delete a tree
     Given I have signed in with "email@person.com/password"
     And the following master tree exists:
@@ -16,7 +17,10 @@ Feature: Delete a master tree
       | user | master_tree |
       | email: email@person.com | title: Delete me |
     When I go to the master tree page for "Delete me"
-    And I click "File" and then I click "Delete tree"
+    And I hack confirmation to autoaccept
+    And I follow "File" within "toolbar"
+    And I follow "Delete tree" within "toolbar"
+    # And I wait for tree to disappear
     Then I should be on the master tree index page
     And I should not see "Delete me"
     But I should see "My new tree"
