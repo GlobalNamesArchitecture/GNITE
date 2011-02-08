@@ -24,17 +24,17 @@
 /* === Component containers === */
 .ui-widget { font-family: Helvetica, Arial, sans-serif; outline: none;}
 .ui-widget a { outline: none; }
-.ui-widget .ui-widget { font-size: 1em; }
+.ui-widget .ui-widget { font-size: 1.2em; }
 .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Helvetica, Arial, sans-serif; font-size: 1em; }
 .ui-widget-content { border: 1px solid #dddddd; color: #333333; background: #FFFFFF; }
 .ui-widget-content a { color: #333333; }
-.ui-widget-header { border: 1px solid #8ab0c6; background: #a7cfe6; color: #ffffff; font-weight: bold; }
-.ui-widget-header a { color: #ffffff; }
+.ui-widget-header { border: 1px solid #8ab0c6; background: #BABFC3; font-weight: bold; }
+.ui-widget-header a {  }
 
 /* === Interaction states === */
-.ui-state-default, .ui-widget-content .ui-state-default { border: 1px solid #cccccc; background: #f6f6f6 url(images/ui-bg_glass_100_f6f6f6_1x400.png) 50% 50% repeat-x; font-weight: bold; color: #5F83B9; }
+.ui-state-default, .ui-widget-content .ui-state-default { border: 1px solid #cccccc; background-color: #BABFC3; font-weight: bold; }
 .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { color: #1c94c4; text-decoration: none; }
-.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus { border: 1px solid #749aaf; background: #fdf5ce url(images/ui-bg_glass_100_fdf5ce_1x400.png) 50% 50% repeat-x; font-weight: bold; color: #c77405; }
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus { border: 1px solid #979797; background: #fdf5ce url(images/ui-bg_glass_100_fdf5ce_1x400.png) 50% 50% repeat-x; font-weight: bold; }
 .ui-state-hover a, .ui-state-hover a:hover { color: #c77405; text-decoration: none; }
 .ui-state-active, .ui-widget-content .ui-state-active { font-weight: bold; }
 .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited { color: #eb8f00; text-decoration: none; }
@@ -73,3 +73,29 @@
 .ui-tabs .ui-tabs-nav li.ui-state-active { background: #babfc3; position: relative; z-index: 20;}
 .ui-tabs .ui-tabs-nav li.ui-state-active a { color: #232323 !important;}
 .ui-tabs-panel .ui-button { border-width: 0px; background: transparent; }
+/*
+ * jQuery UI Dialog 1.8.7
+ *
+ * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Dialog#theming
+ */
+.ui-dialog { position: absolute; padding: 0; width: 300px; overflow: hidden; }
+.ui-dialog {
+	-webkit-box-shadow: 0 2px 12px rgba(0,0,0,0.6);
+	-moz-box-shadow: 0 2px 12px rgba(0,0,0,0.6);
+}
+.ui-dialog .ui-dialog-titlebar { padding: 0.7em 1em 0.6em 1em; position: relative; border: none; border-bottom: 1px solid #979797; -moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0;  }
+.ui-dialog .ui-dialog-title { float: left; margin: .1em 16px .2em 0; font-size: 14px; text-shadow: 0 1px 0 rgba(255,255,255,0.5); } 
+.ui-dialog .ui-dialog-titlebar-close { position: absolute; right: .8em; top: 55%; width: 16px; margin: -10px 0 0 0; padding: 0; height: 16px; }
+.ui-dialog .ui-dialog-titlebar-close span { display: block; margin: 1px; background: url(images/icon_sprite.png) 0 -16px no-repeat; }
+.ui-dialog .ui-dialog-titlebar-close:hover span { background-position: -16px -16px; }
+.ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus { padding: 0; border: 0; }
+.ui-dialog .ui-dialog-content { position: relative; border: 0; padding: .5em 1em; background: none; overflow: auto; zoom: 1; }
+.ui-dialog .ui-dialog-buttonpane { text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em; }
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset { float: right; }
+.ui-dialog .ui-dialog-buttonpane button { margin: .5em .4em .5em 0; cursor: pointer; }
+.ui-dialog .ui-resizable-se { width: 14px; height: 14px; right: 3px; bottom: 3px; }
+.ui-draggable .ui-dialog-titlebar { cursor: move; }

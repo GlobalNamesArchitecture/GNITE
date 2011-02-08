@@ -293,18 +293,32 @@ $(function() {
   $('.nav-delete-tree').live('click', function() {
     var self = $(this);
     var master_tree_id = self.attr('data-master-tree-id');
-    var answer = confirm("Are you sure you want to delete this working treee?");
-    if(answer) {
-        var formData = $("form").serialize();
-        $.ajax({
-          type        : 'DELETE',
-          url         :  '/master_trees/' + master_tree_id,
-          data        :  formData,
-          success     : function(data) {
-            window.location = "/master_trees";
-          }
-        });
-    }
+    var message = 'Are you sure you want to delete your working tree?';
+    $('body').append('<div id="dialog-message" class="ui-state-highlight" title="Delete Confirmation">' + message + '</div>');
+    $('#dialog-message').dialog({
+        height : 200,
+        width : 500,
+        modal : true,
+        closeText : "",
+        buttons: {
+            "Delete" : function() {
+                var formData = $("form").serialize();
+                $.ajax({
+                  type        : 'DELETE',
+                  url         :  '/master_trees/' + master_tree_id,
+                  data        :  formData,
+                  success     : function(data) {
+                    window.location = "/master_trees/";
+                  }
+                });
+            },
+            Cancel: function() {
+              $('#dialog-message').dialog("destroy").hide().remove();
+            }
+        },
+        draggable : false,
+        resizable : false
+    });
   });
 
   /*
