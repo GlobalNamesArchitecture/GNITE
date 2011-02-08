@@ -9,7 +9,7 @@ class ActionAddNode < ActionCommand
   end
 
   def do_action
-    new_name ||= "New child"
+    self.new_name ||= "New child"
     name = Name.find_or_create_by_name_string(new_name)
     node = Node.create!(:parent_id => parent_id, :name => name, :tree => @parent.tree)
     self.node_id = node.id
