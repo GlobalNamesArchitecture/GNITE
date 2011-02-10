@@ -16,6 +16,14 @@ describe Node, 'valid' do
     root.children.should == [child]
     grandchild.parent.parent.should == root
   end
+
+  it 'should by default be a child of the root node' do
+    root = Factory(:node)
+    child = Factory(:node, :parent => root)
+    real_root = root.tree.root
+    real_root.children.should == [root]
+    root.children.should == [child]
+  end
 end
 
 describe Node, 'finding by id scoped to a user' do

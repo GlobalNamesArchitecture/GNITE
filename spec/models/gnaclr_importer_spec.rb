@@ -65,7 +65,7 @@ describe GnaclrImporter, 'store_tree for a valid dwc archive' do
   it 'creates name records with associated nodes with rank' do
     root_name = Name.find_by_name_string!("Sironidae")
     root_node = root_name.nodes.first
-    root_node.parent.should be_nil
+    root_node.parent.should == root_node.tree.root
     root_node.rank.should == 'family'
 
     branch_name = Name.find_by_name_string!("Suzukielus")
@@ -113,13 +113,13 @@ describe GnaclrImporter, 'store tree with nodes that have synonyms and vernacula
   end
 
   it 'stores synonyms' do
-    reference_tree.nodes.first.synonyms.map(&:name).map(&:name_string).should include(*synonyms)
-    reference_tree.nodes.first.synonyms.count.should == 3
+    reference_tree.nodes.second.synonyms.map(&:name).map(&:name_string).should include(*synonyms)
+    reference_tree.nodes.second.synonyms.count.should == 3
   end
 
   it 'stores vernacular names' do
-    reference_tree.nodes.first.vernacular_names.map(&:name).map(&:name_string).should include(*vernacular_names)
-    reference_tree.nodes.first.vernacular_names.count.should == 4
+    reference_tree.nodes.second.vernacular_names.map(&:name).map(&:name_string).should include(*vernacular_names)
+    reference_tree.nodes.second.vernacular_names.count.should == 4
   end
 
 end

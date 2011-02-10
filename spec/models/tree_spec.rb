@@ -19,6 +19,26 @@ describe Tree do
     tree.children_of(parent.id).should == [child1, child2]
   end
 
+  it "should automatically have a root node" do
+    tree = Factory(:tree)
+    nodes = Node.find_all_by_tree_id(tree.id)
+    nodes.size.should == 1
+    nodes[0].parent_id.should == nil
+    nodes[0].name.name_string.should == Gnite::Config.root_node_name_string
+  end
+
+  it "should have one and only one root node" do
+    tree = Factory(:tree)
+    3.times { Factory(:node, :tree => tree) }
+    10.times do
+      parent = Node.where(:tree_id => tree.id).shuffle[0]
+      Factory(:node, :tree => tree, :parent_id => parent.id)
+    end
+    roots = Node.where(:tree_id => tree.id).where(:parent_id => nil)
+    roots.size.should == 1
+    tree.root.should == roots[0]
+  end
+
   it "should have an automatically generated uuid" do
     subject.uuid.should_not be_nil
   end
@@ -47,12 +67,13 @@ describe Tree do
 
   it "should know the roots inside it" do
     tree = Factory(:tree)
-
+    root_real = tree.root
     root1 = Factory(:node, :tree => tree)
     root2 = Factory(:node, :tree => tree)
     child1 = Factory(:node, :parent => root1, :tree => tree)
 
-    tree.children_of(nil).should == [root1, root2]
+    tree.children_of(nil).should == [root_real]
+    tree.children_of(tree.root).should == [root1, root2]
   end
 end
 

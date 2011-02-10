@@ -24,7 +24,7 @@ describe ReferenceTreesController, 'html POST create' do
       end
 
       it "should assign nodes to tree" do
-        tree.nodes.map{|node| node.name_string}.should == ["Title One", "Title Two", "Title Three"]
+        tree.nodes.map{|node| node.name_string}.should == ["tree_root", "Title One", "Title Two", "Title Three"]
       end
 
       it { should respond_with(:success) }

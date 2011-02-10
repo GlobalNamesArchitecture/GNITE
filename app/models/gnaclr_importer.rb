@@ -69,7 +69,7 @@ class GnaclrImporter < ActiveRecord::Base
     insert_synonyms_and_vernacular_names
   end
 
-  def build_tree(root, parent_id = nil)
+  def build_tree(root, parent_id = reference_tree.root.id)
     taxon_ids = root.keys
     taxon_ids.each do |taxon_id|
       @nodes_count += 1

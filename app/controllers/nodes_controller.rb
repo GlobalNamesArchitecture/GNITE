@@ -12,7 +12,8 @@ class NodesController < ApplicationController
         else
           tree = current_user.deleted_tree.find(tree_id)
         end
-        nodes = tree.children_of(params[:parent_id])
+        parent_id = params[:parent_id] ? params[:parent_id] : tree.root
+        nodes = tree.children_of(parent_id)
         render :json => NodeJsonPresenter.present(nodes)
       end
     end

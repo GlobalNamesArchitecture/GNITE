@@ -10,6 +10,7 @@ Bundler.require(:default, Rails.env) if defined?(Bundler)
 module Gnite
   Config = OpenStruct.new(
     :gnaclr_url => "http://gnaclrold.globalnames.org",
+    :root_node_name_string => "tree_root",
   )
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.

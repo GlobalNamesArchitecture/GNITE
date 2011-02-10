@@ -6,7 +6,9 @@ class Node < ActiveRecord::Base
   has_many :synonyms
   has_many :vernacular_names
 
-  # has_ancestry
+  before_create :check_parent_id_for_nil
+  before_update :check_parent_id_for_nil
+  
 
   delegate :name_string, :to => :name
 
@@ -101,5 +103,11 @@ class Node < ActiveRecord::Base
       nodes << child.descendants
     end
   end
-  
+
+  private
+
+  def check_parent_id_for_nil
+    return if self.parent_id || !self.tree.root
+    self.parent_id = self.tree.root.id
+  end
 end
