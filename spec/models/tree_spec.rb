@@ -104,7 +104,7 @@ describe Tree, '#nuke' do
     syn_count = Synonym.count
     tree.nuke
     (tree_count - Tree.count).should == 1
-    (node_count - Node.count).should == 3
+    (node_count - Node.count).should == 4
     (vern_count - VernacularName.count).should == 1
     (syn_count - Synonym.count).should == 1
   end

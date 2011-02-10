@@ -98,20 +98,19 @@ describe NodesController, 'POST to create' do
     tree.stubs(:children_of => nodes)
     ::Node.stubs(:new => new_node)
     new_node.stubs(:save => true)
-    post :create, :master_tree_id => tree.id, :format => 'json', :node => node_attributes
+    @node_count = ::Node.count
+    r = Resque::Worker.new(Gnite::Config.action_queue)
+    post :create, :master_tree_id => tree.id, :format => 'json', :node => node_attributes, :action_type => 'ActionAddNode'
   end
 
   it 'creates a new node' do
-    ::Node.should have_received(:new).with(node_attributes.merge({
-      :tree_id => tree.id
-    }).stringify_keys)
-    new_node.should have_received(:save)
+    (::Node.count - @node_count).should == 1
   end
 
   it { should respond_with(:success) }
 
   it 'renders the newly created node as JSON' do
-    response.body.should == new_node.to_json
+    response.body.should == 'OK'
   end
 end
 

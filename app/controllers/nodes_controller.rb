@@ -41,6 +41,7 @@ class NodesController < ApplicationController
 
   def create
     master_tree = current_user.master_trees.find(params[:master_tree_id])
+    params[:node][:parent_id] = master_tree.root.id unless params[:node] && params[:node][:parent_id] 
     schedule_action(nil, params)
     respond_to do |format|
       format.json do
@@ -101,10 +102,13 @@ class NodesController < ApplicationController
     Resque.enqueue(eval(params[:action_type]), action_command.id)
     workers = Resque.workers.select {|w| w.queues.include?(Gnite::Config.action_queue.to_s) }
     raise "More than one worker for the #{Gnite::Config.action_queue}!" if workers.size > 1
-    raise "No worker for #{Gnite::Config.action_queue}!" if workers.empty?
-    jobs_left = true
-    while jobs_left
-      jobs_left = workers[0].process
+    if workers.empty?
+      worker = Resque::Worker.new(Gnite::Config.action_queue)
+      jobs_left = true
+      while jobs_left
+        jobs_left = worker.process
+      end
+      worker.shutdown
     end
   end
 end
