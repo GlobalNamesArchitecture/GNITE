@@ -29,9 +29,6 @@ Feature: Create and manage master trees
     When the following master tree exists:
       | user                    | title       |
       | email: email@person.com | My new tree |
-    And the following deleted tree exists:
-      | user | master_tree |
-      | email: email@person.com | title: My new tree |
     And I go to the master trees page
     Then should see "My new tree"
 
@@ -43,9 +40,6 @@ Feature: Create and manage master trees
     And the following master tree exists:
       | Title       | Created At | Updated At | Abstract                            | User                    |
       | Bananas     | 2009/06/22 | 2009/07/02 | All the types of bananas on my desk | Email: email@person.com |
-    And the following deleted tree exists:
-      | user | master_tree |
-      | email: email@person.com | title: Bananas |
     When I am on the master tree index page
     Then I should see "Bananas"
     And I should see "2009/06/22"

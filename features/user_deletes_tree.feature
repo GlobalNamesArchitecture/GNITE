@@ -10,12 +10,6 @@ Feature: Delete a master tree
       | user                    | title       |
       | email: email@person.com | My new tree |
       | email: email@person.com | Delete me   |
-    And the following deleted tree exists:
-      | user | master_tree |
-      | email: email@person.com | title: My new tree |
-    And the following deleted tree exists:
-      | user | master_tree |
-      | email: email@person.com | title: Delete me |
     When I go to the master tree page for "Delete me"
     And I follow "File" within "toolbar"
     And I follow "Delete tree" within "toolbar"

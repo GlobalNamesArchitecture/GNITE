@@ -8,9 +8,6 @@ Feature: Import data to your master tree
     And the following master tree exists:
       | user                    | title       |
       | email: email@person.com | My new tree |
-    And the following deleted tree exists:
-      | user | master_tree |
-      | email: email@person.com | title: My new tree |
     And I go to the master tree page for "My new tree"
 
   @javascript

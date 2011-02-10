@@ -18,9 +18,6 @@ Feature: Edit a master tree
     And the following master tree exists:
       | user                    | title       |
       | email: email@person.com | My new tree |
-    And the following deleted tree exists:
-      | user | master_tree |
-      | email: email@person.com |title: My new tree |
     When I go to the master tree page for "My new tree"
     And I follow "File" within "toolbar"
     And I follow "Add node" within "toolbar"
@@ -37,9 +34,6 @@ Feature: Edit a master tree
     And the following master tree exists:
       | user                    | title       |
       | email: email@person.com | My new tree |
-    And the following deleted tree exists:
-      | user | master_tree |
-      | email: email@person.com |title: My new tree |
     When I go to the master tree page for "My new tree"
     And I follow "File" within "toolbar"
     And I follow "Add node" within "toolbar"

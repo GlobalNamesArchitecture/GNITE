@@ -2,6 +2,8 @@ class MasterTree < Tree
   has_many :reference_trees
   has_one :deleted_tree
 
+  after_create :create_deleted_tree
+
   def create_darwin_core_archive
     dwca_file = File.join(::Rails.root.to_s, 'tmp', "#{uuid}.tar.gz")
     g = DarwinCore::Generator.new(dwca_file)
@@ -38,5 +40,9 @@ class MasterTree < Tree
 
   def get_authors
     [{ :first_name => nil, :last_name => nil, :email => user.email }]
+  end
+
+  def create_deleted_tree
+    DeletedTree.create!(:master_tree_id => self.id, :user => self.user, :title => "Deleted Names")
   end
 end

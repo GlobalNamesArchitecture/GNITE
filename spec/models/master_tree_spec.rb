@@ -14,6 +14,13 @@ describe MasterTree do
   it { should be_kind_of(Tree) }
   it { should have_many(:reference_trees) }
   
+  it "should get deleted tree upon creation" do
+    tree = Factory(:master_tree)
+    deleted_names = DeletedTree.where(:master_tree_id => tree.id)
+    deleted_names.size.should == 1
+    deleted_names[0].title.should == "Deleted Names"
+  end
+
   describe "#create_darwin_core_archive" do
     
     it "should have publish method" do

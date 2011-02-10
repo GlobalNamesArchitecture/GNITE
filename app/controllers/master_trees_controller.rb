@@ -10,10 +10,6 @@ class MasterTreesController < ApplicationController
     @master_tree.user = current_user
     @master_tree.save
     
-    @deleted_tree = DeletedTree.new(:title => 'Deleted Names', :master_tree_id => @master_tree.id)
-    @deleted_tree.user = current_user
-    @deleted_tree.save
-
     redirect_to master_tree_url(@master_tree.id)
   end
 
