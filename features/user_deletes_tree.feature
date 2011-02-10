@@ -20,6 +20,7 @@ Feature: Delete a master tree
     And I follow "File" within "toolbar"
     And I follow "Delete tree" within "toolbar"
     And I press "Delete" within ".ui-dialog"
+    And pause 1
     Then I should be on the master tree index page
     And I should not see "Delete me"
     But I should see "My new tree"
