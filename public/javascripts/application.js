@@ -282,7 +282,21 @@ $(function() {
       contentType : 'application/json',
       dataType    : 'json',
       success     : function(data) {
-        alert('publishing the tree...');
+        var message = 'Your tree is being queued for publishing';
+        $('body').append('<div id="dialog-message" class="ui-state-highlight" title="Publishing Confirmation">' + message + '</div>');
+        $('#dialog-message').dialog({
+            height : 200,
+            width : 500,
+            modal : true,
+            closeText : "",
+            buttons: {
+                "OK": function() {
+                  $('#dialog-message').dialog("destroy").hide().remove();
+                }
+            },
+            draggable : false,
+            resizable : false
+        });
       }
     });
   });
@@ -312,7 +326,7 @@ $(function() {
                   }
                 });
             },
-            Cancel: function() {
+            "Cancel": function() {
               $('#dialog-message').dialog("destroy").hide().remove();
             }
         },
