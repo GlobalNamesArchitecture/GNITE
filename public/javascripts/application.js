@@ -1,13 +1,20 @@
-/*
- * Options
- */
+
+
+/**************************************************************
+           GLOBAL VARIABLE(S)
+**************************************************************/
 var GNITE = {
   Tree          : {},
   MasterTree    : {},
   DeletedTree   : {},
-  ReferenceTree : {}
+  ReferenceTree : {},
+  MasterTreeID : $('#tree-container').attr('data-database-id')
 };
 
+
+/**************************************************************
+           TREE CONFIGURATION
+**************************************************************/
 GNITE.Tree.configuration = {
   'core' : {
     'strings' : {
@@ -95,6 +102,28 @@ GNITE.MasterTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
       };
     }
   },
+  'crrm' : {
+    'move' : {
+      'check_move' : function(m) {
+        return true;
+/* POSSIBLE MECHANSIM TO CHECK TREE STATUS
+        $.ajax({
+          url     : '/check_status/' + GNITE.MasterTreeID,
+          type    : 'GET',
+          success : function(results) {
+            return true;
+          },
+          error : function() {
+            return false;
+          },
+          complete : function() {
+            return true;
+          }
+        });
+*/
+      }
+    }
+  },
 
   'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'search', 'contextmenu']
 });
@@ -151,241 +180,77 @@ GNITE.ReferenceTree.add = function(response, options) {
 };
 
 
-
+/********************************* jQuery START *********************************/
 $(function() {
+
+  /*
+   * New Master Tree title input
+   */
+  $('#master_tree_title_input')
+    .focus()
+    .blur(function() {
+      var self = $(this);
+
+      if ($.trim(self.val()) == '') {
+        setTimeout(function() {
+          self.focus();
+        }, 10);
+
+        self.next().text('Please enter a title for your tree.').addClass('error');
+      } else {
+        var title = self.val();
+
+        $.post('/master_trees/' + GNITE.MasterTreeID, { 'master_tree[title]' : title, '_method' : 'put' }, function(response) {
+          self
+            .next()
+              .remove()
+            .end()
+            .parent()
+              .append('<h1>' + title + '</h1>')
+            .end()
+            .remove();
+        }, 'json');
+      }
+    })
+    .keypress(function(event) {
+      if (event.which == 13) {
+        $(this).blur();
+      }
+    });
     
-   //hide the reference tree tabs unless there's something to show
+   /*
+    * Hide the reference tree tabs
+    */
    if ($('#reference-trees li').length == 0) {
      $('#tab-titles li:first-child').hide();
    }
 
+/**************************************************************
+           INITIALIZE ALL TREES
+**************************************************************/
+
    /*
-    * Toolbar above master tree
-    */
-  ddsmoothmenu.init({
-     mainmenuid: "toolbar",
-     orientation: 'h',
-     classname: 'ddsmoothmenu',
-     contentsource: "markup",
-  });
-
-  ddsmoothmenu.hideMenu = function() {
-    $('#toolbar>ul').find("ul").css({display:'none', visibility:'visible'});
-  };
-
-  $('.nav-add-node').click(function() {
-    $('#master-tree').jstree('create');
-    ddsmoothmenu.hideMenu();
-    return false;
-  });
-
-  $('.nav-refresh-tree').click(function() {
-    $('#master-tree').jstree('refresh');
-    ddsmoothmenu.hideMenu();
-    return false;
-  });
-
-  $('.nav-edit-node').click(function() {
-    if($('#master-tree').find("li").length > 0) {
-      $('#master-tree').jstree('rename');   
-    }
-    ddsmoothmenu.hideMenu();
-    return false;
-  });
-
-  $('.nav-delete-node').click(function() {
-    if($('#master-tree').find("li").length > 0) {
-      $('#master-tree').jstree('remove');
-    }
-    ddsmoothmenu.hideMenu();
-    return false;
-  });
-
-  $('.nav-cut-node').click(function() {
-    if($('#master-tree').find("li").length > 0) {
-      $('#master-tree').jstree('cut');
-    }
-    ddsmoothmenu.hideMenu();
-    return false;
-  });
-
-  $('.nav-paste-node').click(function() {
-    if($('#master-tree').find("li").length > 0) {
-      $('#master-tree').jstree('paste');
-    }
-    ddsmoothmenu.hideMenu();
-    return false;
-  });
-
-  /*
-   * Import a Flat List
+   * Initialize the Master Tree
    */
-  $('#import-roots-button').live('click', function() {
-    var title = $('#import-title').val().trim();
-    var roots = $('#import-roots').val().trim();
-
-    var titleLabel = $('#import-title').parent().prev().find('label');
-    var rootsLabel = $('#import-roots').parent().prev().find('label');
-
-    if (title == '') {
-      if (titleLabel.find('span').length == 0) {
-        titleLabel.addClass('error').append('<span> is required.</span>');
-      }
-    } else {
-      titleLabel.removeClass('error').find('span').remove();
-    }
-
-    if (roots == '') {
-      if (rootsLabel.find('span').length == 0) {
-        rootsLabel.addClass('error').append('<span> is required.</span>');
-      }
-    } else {
-      rootsLabel.removeClass('error').find('span').remove();
-    }
-
-    if (title == '' || roots == '') {
-      return false;
-    }
-
-    var data = JSON.stringify({
-      'nodes_list'     : roots.split("\n"),
-      'reference_tree' : {
-        'title'          : title,
-        'master_tree_id' : $('#tree-container').attr('data-database-id')
-      }
-    });
-
-    $.ajax({
-      url         : $(this).parent('form').attr('action') + '.json',
-      type        : 'POST',
-      data        : data,
-      contentType : 'application/json',
-      success     : function(response) {
-        GNITE.ReferenceTree.add(response);
-      }
-    });
-
-    return false;
-  });
-
-
-  /*
-   * Publish master tree
-   */
-  $('.nav-publish-tree').live('click', function() {
-    var self = $(this);
-    var master_tree_id = self.attr('data-master-tree-id');
-
-    $.ajax({
-      type        : 'GET',
-      url         : '/master_trees/' + master_tree_id + '/publish.json',
-      contentType : 'application/json',
-      dataType    : 'json',
-      success     : function(data) {
-        var message = 'Your tree is being queued for publishing';
-        $('body').append('<div id="dialog-message" class="ui-state-highlight" title="Publishing Confirmation">' + message + '</div>');
-        $('#dialog-message').dialog({
-            height : 200,
-            width : 500,
-            modal : true,
-            closeText : "",
-            buttons: {
-                "OK": function() {
-                  $('#dialog-message').dialog("destroy").hide().remove();
-                }
-            },
-            draggable : false,
-            resizable : false
-        });
-      }
-    });
-  });
-
-  /*
-   * Delete master tree
-   */
-  $('.nav-delete-tree').live('click', function() {
-    var self = $(this);
-    var master_tree_id = self.attr('data-master-tree-id');
-    var message = 'Are you sure you want to delete your working tree?';
-    $('body').append('<div id="dialog-message" class="ui-state-highlight" title="Delete Confirmation">' + message + '</div>');
-    $('#dialog-message').dialog({
-        height : 200,
-        width : 500,
-        modal : true,
-        closeText : "",
-        buttons: {
-            "Delete" : function() {
-                var formData = $("form").serialize();
-                $.ajax({
-                  type        : 'DELETE',
-                  url         :  '/master_trees/' + master_tree_id,
-                  data        :  formData,
-                  success     : function(data) {
-                    window.location = "/master_trees";
-                  }
-                });
-            },
-            "Cancel": function() {
-              $('#dialog-message').dialog("destroy").hide().remove();
-            }
-        },
-        draggable : false,
-        resizable : false
-    });
-  });
-
-  /*
-   * Nodes
-   */
-  GNITE.Node = {
-    getMetadata: function(url, container, wrapper) {
-      container.spinner();
-
-      $.getJSON(url, function(data) {
-        var rank             = $.trim(data.rank);
-        var synonyms         = data.synonyms;
-        var vernacular_names = data.vernacular_names;
-
-        container.find('.metadata-section ul').empty();
-        container.find('.metadata-rank ul').append('<li>' + rank + '</li>');
-
-        $.each(synonyms, function(index, synonym) {
-          container.find('.metadata-synonyms ul').append('<li>' + synonym + '</li>');
-        });
-
-        $.each(vernacular_names, function(index, vernacular_name) {
-          container.find('.metadata-vernacular-names ul').append('<li>' + vernacular_name + '</li>');
-        });
-
-        container.unspinner().show();
-        wrapper.css('bottom', container.height());
-
-        var nodePosition  = container[0].offsetTop - wrapper[0].scrollTop;
-        var visibleHeight = wrapper.height();
-
-        if (nodePosition >= visibleHeight) {
-//          wrapper[0].scrollTop += nodePosition - visibleHeight + 36;
+  if ($.fn.jstree) {
+    $('#master-tree').jstree($.extend(true, {}, GNITE.MasterTree.configuration, {
+      'json_data': {
+        'ajax' : {
+          'url' : '/master_trees/' + GNITE.MasterTreeID + '/nodes.json'
         }
-      });
-    }
-  };
+      },
+      'search' : {
+        'case_insensitive' : true,
+        'ajax' : {
+          'url' : '/master_trees/' + GNITE.MasterTreeID + '/name_searches.json' 
+        },
+      }, 
+    }));
+  }
 
   /*
-   * Reference Trees
+   * Initialize Reference Trees when drop-down clicked
    */
-  $('.reference-tree .jstree-clicked').live('click', function() {
-    var self     = $(this);
-    var tree     = self.parents('.reference-tree');
-    var metadata = tree.find('.node-metadata');
-    var tree_id  = tree.attr('id').split('_')[2];
-    var node_id  = self.parent('li').attr('id');
-    var wrapper  = tree.find('.reference_tree_container > div');
-    var url      = '/reference_trees/' + tree_id + '/nodes/' + node_id;
-
-    GNITE.Node.getMetadata(url, metadata, wrapper);
-  });
-
   $('.reference_tree_container > div').each(function() {
     var self   = $(this);
     var id     = self.attr('id').split('_')[4];
@@ -426,7 +291,7 @@ $(function() {
   });
 
   /*
-   * Deleted Names
+   * Initialize Deleted Names when tab clicked
    */
   $('.deleted_tree_container > div').each(function() {
     var self   = $(this);
@@ -454,81 +319,13 @@ $(function() {
     }
   });
 
-  /*
-   * Search GNACLR
-   */
-  $('#search')
-    .live('blur', function(){
-      var self = $(this);
-      var term = self.val().trim();
 
-      if (term.length > 0) {
-        var container      = self.parents('.gnaclr-search').first();
-        var master_tree_id = $('#tree-container').attr('data-database-id');
-
-        container.spinner();
-
-        $.ajax({
-          url     : '/search',
-          type    : 'GET',
-          data    : { 'search_term' : term, 'master_tree_id' : master_tree_id },
-          success : function(results) {
-            $('#gnaclr-error').hide();
-            $('#new-tab .tree-background').html(results);
-
-            $('#search-nav li').each(function() {
-              if ($(this).find('.count').text() != '0') {
-                $(this).trigger('click');
-
-                return false;
-              }
-            });
-          },
-          error : function() {
-            $('#gnaclr-error').show();
-          },
-          complete : function() {
-            container.unspinner();
-          }
-        });
-      }
-    })
-    .live('keypress', function(event) {
-      if (event.which == 13) {
-        $(this).blur();
-      }
-    });
-
-
-
+/**************************************************************
+           SEARCH WITHIN TREES
+**************************************************************/
 
   /*
-   * Master Tree
-   */
-  var master_tree_id = $('#tree-container').attr('data-database-id');
-
-  if ($.fn.jstree) {
-    $('#master-tree').jstree($.extend(true, {}, GNITE.MasterTree.configuration, {
-      'json_data': {
-        'ajax' : {
-          'url' : '/master_trees/' + master_tree_id + '/nodes.json'
-        }
-      },
-      'search' : {
-        'case_insensitive' : true,
-        'ajax' : {
-          'url' : '/master_trees/' + master_tree_id + '/name_searches.json' 
-        },
-      }, 
-    }));
-  }
-
-  /*
-   * Deleted Names
-   */
-
-  /*
-   * Search within master tree
+   * Search within Master Tree
    */
   $('#master-tree-search')
     .live('blur', function(){
@@ -562,7 +359,7 @@ $(function() {
   });
 
   /*
-   * Search within reference trees
+   * Search within Reference Trees
    */
   $('.reference-tree-search')
     .live('blur', function(){
@@ -593,7 +390,7 @@ $(function() {
     });
 
   /*
-   * Search within deleted tree
+   * Search within Deleted Names
    */
   $('.deleted-tree-search')
     .live('blur', function(){
@@ -624,6 +421,158 @@ $(function() {
     });
 
 
+/**************************************************************
+           TOOL BAR ACTIONS
+**************************************************************/
+  ddsmoothmenu.init({
+     mainmenuid: "toolbar",
+     orientation: 'h',
+     classname: 'ddsmoothmenu',
+     contentsource: "markup",
+  });
+
+  ddsmoothmenu.hideMenu = function() {
+    $('#toolbar>ul').find("ul").css({display:'none', visibility:'visible'});
+  };
+  
+  /*
+   * FILE: Add node
+   */
+  $('.nav-add-node').click(function() {
+    $('#master-tree').jstree('create');
+    ddsmoothmenu.hideMenu();
+    return false;
+  });
+
+  /*
+   * FILE: Edit Tree Info
+   * a href found in Rails view
+   */
+
+  /*
+   * FILE: Publish tree
+   */
+  $('.nav-publish-tree').live('click', function() {
+
+    $.ajax({
+      type        : 'GET',
+      url         : '/master_trees/' + GNITE.MasterTreeID + '/publish.json',
+      contentType : 'application/json',
+      dataType    : 'json',
+      success     : function(data) {
+        var message = 'Your tree is being queued for publishing';
+        $('body').append('<div id="dialog-message" class="ui-state-highlight" title="Publishing Confirmation">' + message + '</div>');
+        $('#dialog-message').dialog({
+            height : 200,
+            width : 500,
+            modal : true,
+            closeText : "",
+            buttons: {
+                "OK": function() {
+                  $('#dialog-message').dialog("destroy").hide().remove();
+                }
+            },
+            draggable : false,
+            resizable : false
+        });
+      }
+    });
+  });
+
+  /*
+   * FILE: Delete tree
+   */
+  $('.nav-delete-tree').live('click', function() {
+    var message = 'Are you sure you want to delete your working tree?';
+    $('body').append('<div id="dialog-message" class="ui-state-highlight" title="Delete Confirmation">' + message + '</div>');
+    $('#dialog-message').dialog({
+        height : 200,
+        width : 500,
+        modal : true,
+        closeText : "",
+        buttons: {
+            "Delete" : function() {
+                var formData = $("form").serialize();
+                $.ajax({
+                  type        : 'DELETE',
+                  url         :  '/master_trees/' + GNITE.MasterTreeID,
+                  data        :  formData,
+                  success     : function(data) {
+                    window.location = "/master_trees";
+                  }
+                });
+            },
+            "Cancel": function() {
+              $('#dialog-message').dialog("destroy").hide().remove();
+            }
+        },
+        draggable : false,
+        resizable : false
+    });
+  });
+  
+  /*
+   * EDIT: Edit node
+   */
+  $('.nav-edit-node').click(function() {
+    if($('#master-tree').find("li").length > 0) {
+      $('#master-tree').jstree('rename');   
+    }
+    ddsmoothmenu.hideMenu();
+    return false;
+  });
+  
+  /*
+   * EDIT: Cut
+   */
+  $('.nav-cut-node').click(function() {
+    if($('#master-tree').find("li").length > 0) {
+      $('#master-tree').jstree('cut');
+    }
+    ddsmoothmenu.hideMenu();
+    return false;
+  });
+  
+  /*
+   * EDIT: Paste
+   */
+  $('.nav-paste-node').click(function() {
+    if($('#master-tree').find("li").length > 0) {
+      $('#master-tree').jstree('paste');
+    }
+    ddsmoothmenu.hideMenu();
+    return false;
+  });
+  
+  /*
+   * EDIT: Delete node
+   */
+  $('.nav-delete-node').click(function() {
+    if($('#master-tree').find("li").length > 0) {
+      $('#master-tree').jstree('remove');
+    }
+    ddsmoothmenu.hideMenu();
+    return false;
+  });
+  
+  /*
+   * VIEW: Refresh tree
+  */
+  $('.nav-refresh-tree').click(function() {
+    $('#master-tree').jstree('refresh');
+    ddsmoothmenu.hideMenu();
+    return false;
+  });
+
+
+/**************************************************************
+            MASTER TREE ACTIONS
+**************************************************************/
+
+  /*
+   * ActionType: ActionAddNode
+   * Creates node in Master Tree
+   */
   $('#master-tree').bind('create.jstree', function(event, data) {
     var node     = data.rslt;
     var name     = node.name;
@@ -635,7 +584,7 @@ $(function() {
 
     $.ajax({
       type        : 'POST',
-      url         : '/master_trees/' + master_tree_id + '/nodes.json',
+      url         : '/master_trees/' + GNITE.MasterTreeID + '/nodes.json',
       data        : JSON.stringify({ 'node' : { 'name' : { 'name_string' : name }, 'parent_id' : parentID }, 'action_type' : "ActionAddNode" }),
       contentType : 'application/json',
       dataType    : 'json',
@@ -649,6 +598,10 @@ $(function() {
     $('#master-tree').addClass('loaded');
   });
 
+  /*
+   * ActionType: ActionRenameNode
+   * Renames node in Master Tree
+   */
   $('#master-tree').bind('rename.jstree', function(event, data) {
     var node     = data.rslt;
     var id       = node.obj.attr('id');
@@ -656,7 +609,7 @@ $(function() {
 
     $.ajax({
       type        : 'PUT',
-      url         : '/master_trees/' + master_tree_id + '/nodes/' + id + '.json',
+      url         : '/master_trees/' + GNITE.MasterTreeID + '/nodes/' + id + '.json',
       data        : JSON.stringify({ 'name' : { 'name_string' : new_name }, 'action_type' : 'ActionRenameNode' }),
       contentType : 'application/json',
       dataType    : 'json',
@@ -665,7 +618,11 @@ $(function() {
       }
     });
   });
-
+  
+  /*
+   * ActionType: ActionMoveNodeWithinTree
+   * Moves node within Master Tree
+   */
   $('#master-tree').bind('move_node.jstree', function(event, data) {
      var result      = data.rslt;
      var isCopy      = result.cy;
@@ -678,7 +635,7 @@ $(function() {
        parentID = null;
      }
 
-     var url = '/master_trees/' + master_tree_id + '/nodes/' + movedNodeID;
+     var url = '/master_trees/' + GNITE.MasterTreeID + '/nodes/' + movedNodeID;
 
      if (isCopy) {
        url += '/clone';
@@ -703,26 +660,28 @@ $(function() {
        }
      });
   });
-
+  
+  /* TODO: NOT FULLY IMPLEMENTED
+   * ActionType: ActionMoveNodeBetweenTrees
+   * Moves node from Master Tree to Deleted Names & refreshes Delete Names
+   */
   $('#master-tree').bind('remove.jstree', function(event, data) {
     var node = data.rslt;
     var id   = node.obj.attr('id');
 
     $.ajax({
-      type : 'DELETE',
-      url  : '/master_trees/' + master_tree_id + '/nodes/' + id + '.json'
+      type    : 'DELETE',
+      url     : '/master_trees/' + GNITE.MasterTreeID + '/nodes/' + id + '.json',
+      success : function(data) {
+        var $deleted_tree = $('.deleted_tree_container .jstree-focused');
+        $deleted_tree.jstree("refresh");
+      }
     });
   });
 
-  $('#master-tree .jstree-clicked').live('click', function() {
-    var self     = $(this);
-    var metadata = $('#treewrap-main .node-metadata');
-    var wrapper  = $('#add-node-wrap');
-    var url      = '/master_trees/' + master_tree_id + '/nodes/' + self.parent('li').attr('id');
-
-    GNITE.Node.getMetadata(url, metadata, wrapper);
-  });
-
+  /*
+   * Double-click rename
+   */
   $('#master-tree .jstree-clicked').live('dblclick', function() {
     $('.jstree-focused').jstree('rename');
   });
@@ -740,44 +699,119 @@ $(function() {
     target.find('.jstree').jstree('deselect_all');
   });
 
-  $('#master_tree_title_input')
-    .focus()
-    .blur(function() {
+
+/**************************************************************
+           METADATA ACTIONS
+**************************************************************/
+
+  /*
+   * Metadata helper function
+   */
+  GNITE.Node = {
+    getMetadata: function(url, container, wrapper) {
+      container.spinner();
+
+      $.getJSON(url, function(data) {
+        var rank             = $.trim(data.rank);
+        var synonyms         = data.synonyms;
+        var vernacular_names = data.vernacular_names;
+
+        container.find('.metadata-section ul').empty();
+        container.find('.metadata-rank ul').append('<li>' + rank + '</li>');
+
+        $.each(synonyms, function(index, synonym) {
+          container.find('.metadata-synonyms ul').append('<li>' + synonym + '</li>');
+        });
+
+        $.each(vernacular_names, function(index, vernacular_name) {
+          container.find('.metadata-vernacular-names ul').append('<li>' + vernacular_name + '</li>');
+        });
+
+        container.unspinner().show();
+        wrapper.css('bottom', container.height());
+
+        var nodePosition  = container[0].offsetTop - wrapper[0].scrollTop;
+        var visibleHeight = wrapper.height();
+
+        if (nodePosition >= visibleHeight) {
+//          wrapper[0].scrollTop += nodePosition - visibleHeight + 36;
+        }
+      });
+    }
+  };
+
+  /*
+   * Get Master Tree metadata
+   */
+  $('#master-tree .jstree-clicked').live('click', function() {
+    var self     = $(this);
+    var metadata = $('#treewrap-main .node-metadata');
+    var wrapper  = $('#add-node-wrap');
+    var url      = '/master_trees/' + GNITE.MasterTreeID + '/nodes/' + self.parent('li').attr('id');
+
+    GNITE.Node.getMetadata(url, metadata, wrapper);
+  });
+
+  /*
+   * Get Reference Tree metadata
+   */
+  $('.reference-tree .jstree-clicked').live('click', function() {
+    var self     = $(this);
+    var tree     = self.parents('.reference-tree');
+    var metadata = tree.find('.node-metadata');
+    var tree_id  = tree.attr('id').split('_')[2];
+    var node_id  = self.parent('li').attr('id');
+    var wrapper  = tree.find('.reference_tree_container > div');
+    var url      = '/reference_trees/' + tree_id + '/nodes/' + node_id;
+
+    GNITE.Node.getMetadata(url, metadata, wrapper);
+  });
+
+
+/**************************************************************
+           SEARCH & IMPORT FROM GNACLR
+**************************************************************/
+  $('#search')
+    .live('blur', function(){
       var self = $(this);
+      var term = self.val().trim();
 
-      if ($.trim(self.val()) == '') {
-        setTimeout(function() {
-          self.focus();
-        }, 10);
+      if (term.length > 0) {
+        var container      = self.parents('.gnaclr-search').first();
 
-        self.next().text('Please enter a title for your tree.').addClass('error');
-      } else {
-        var title = self.val();
+        container.spinner();
 
-        $.post('/master_trees/' + master_tree_id, { 'master_tree[title]' : title, '_method' : 'put' }, function(response) {
-          self
-            .next()
-              .remove()
-            .end()
-            .parent()
-              .append('<h1>' + title + '</h1>')
-            .end()
-            .remove();
-        }, 'json');
+        $.ajax({
+          url     : '/search',
+          type    : 'GET',
+          data    : { 'search_term' : term, 'master_tree_id' : GNITE.MasterTreeID },
+          success : function(results) {
+            $('#gnaclr-error').hide();
+            $('#new-tab .tree-background').html(results);
+
+            $('#search-nav li').each(function() {
+              if ($(this).find('.count').text() != '0') {
+                $(this).trigger('click');
+
+                return false;
+              }
+            });
+          },
+          error : function() {
+            $('#gnaclr-error').show();
+          },
+          complete : function() {
+            container.unspinner();
+          }
+        });
       }
     })
-    .keypress(function(event) {
+    .live('keypress', function(event) {
       if (event.which == 13) {
         $(this).blur();
       }
     });
 
-
-
-
-  /*
-   * Miscellaneous
-   */
   $('#browse-gnaclr-button, .ajax-load-new-tab, .gnaclr_classification_show').live('click', function() {
     $('#new-tab').load($(this).attr('href'));
 
@@ -807,7 +841,7 @@ $(function() {
     $('#import-gnaclr-button').remove();
 
     var checkedRadioButton = $('#tree-revisions form input:checked');
-    var opts = { master_tree_id : $('#tree-container').attr('data-database-id'),
+    var opts = { master_tree_id : GNITE.MasterTreeID,
                  title          : $('#gnaclr-description h2').text(),
                  url            : checkedRadioButton.attr('data-tree-url'),
                  source_id      : checkedRadioButton.attr('data-source-id'),
@@ -828,7 +862,7 @@ $(function() {
 
   $('button.import').live('click', function() {
     var self = $(this);
-    var opts = { master_tree_id : $('#tree-container').attr('data-database-id'),
+    var opts = { master_tree_id : GNITE.MasterTreeID,
                  title          : self.parent().siblings('table').find('.current-name').text(),
                  url            : self.attr('data-tree-url'),
                  source_id      : self.attr('data-source-id'),
@@ -838,14 +872,70 @@ $(function() {
 
     return false;
   });
+
+
+/**************************************************************
+           IMPORT FLAT LIST
+**************************************************************/
+
+  $('#import-roots-button').live('click', function() {
+    var title = $('#import-title').val().trim();
+    var roots = $('#import-roots').val().trim();
+
+    var titleLabel = $('#import-title').parent().prev().find('label');
+    var rootsLabel = $('#import-roots').parent().prev().find('label');
+
+    if (title == '') {
+      if (titleLabel.find('span').length == 0) {
+        titleLabel.addClass('error').append('<span> is required.</span>');
+      }
+    } else {
+      titleLabel.removeClass('error').find('span').remove();
+    }
+
+    if (roots == '') {
+      if (rootsLabel.find('span').length == 0) {
+        rootsLabel.addClass('error').append('<span> is required.</span>');
+      }
+    } else {
+      rootsLabel.removeClass('error').find('span').remove();
+    }
+
+    if (title == '' || roots == '') {
+      return false;
+    }
+
+    var data = JSON.stringify({
+      'nodes_list'     : roots.split("\n"),
+      'reference_tree' : {
+        'title'          : title,
+        'master_tree_id' : GNITE.MasterTreeID
+      }
+    });
+
+    $.ajax({
+      url         : $(this).parent('form').attr('action') + '.json',
+      type        : 'POST',
+      data        : data,
+      contentType : 'application/json',
+      success     : function(response) {
+        GNITE.ReferenceTree.add(response);
+      }
+    });
+
+    return false;
+  });
+
 });
+/********************************* jQuery END *********************************/
 
 
 
 
-/*
- * Custom Plugins
- */
+/**************************************************************
+           CUSTOM jQuery PLUGINS
+**************************************************************/
+
 $.fn.spinner = function() {
   if (this[0].spinnerElement) {
     return;
