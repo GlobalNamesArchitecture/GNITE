@@ -41,11 +41,11 @@ class NodesController < ApplicationController
 
   def create
     master_tree = current_user.master_trees.find(params[:master_tree_id])
-    params[:node][:parent_id] = master_tree.root.id unless params[:node] && params[:node][:parent_id] 
-    schedule_action(nil, params)
+    params[:node][:parent_id] = master_tree.root.id unless params[:node] && params[:node][:parent_id]
+    action_command = schedule_action(nil, params)
     respond_to do |format|
       format.json do
-        render :json => 'OK'
+        render :json => action_command.json_message
       end
     end
   end
@@ -69,14 +69,14 @@ class NodesController < ApplicationController
     # deleted_tree    = current_user.deleted_tree.find_by_master_tree_id(params[:master_tree_id])
     # master_tree     = current_user.master_trees.find(params[:master_tree_id])
     # root_node       = master_tree.nodes.find(params[:id])
-    # 
+    #
     # root_node.update_attributes(:parent_id => nil, :tree_id => deleted_tree.id)
-    #     
+    #
     # root_node.descendants.each do |descendant|
     #   node = master_tree.nodes.find_by_id(descendant.id)
     #   node.update_attributes(:tree_id => deleted_tree.id)
     # end
-    #     
+    #
     # head :ok
     respond_to do |format|
       format.json do
@@ -87,16 +87,17 @@ class NodesController < ApplicationController
   end
 
   private
-  
+
+  # TODO: there is a running condition in this method, which can be avoided if we alsays running one worker with 0 wait.
+  # Both solutions are not very good, hope to find a better one some day
   def schedule_action(node, params)
     raise "Unknown action command" unless params[:action_type] && Gnite::Config.action_types.include?(params[:action_type])
-    
+
     destination_parent_id = (params[:node] && params[:node][:parent_id]) ? params[:node][:parent_id] : nil
     node_id = node.is_a?(::Node) ? node.id : nil
     old_name = node.is_a?(::Node) ? node.name.name_string : nil
     new_name = (params[:node] && params[:node][:name] && params[:node][:name][:name_string]) ? params[:node][:name][:name_string] : nil
     parent_id = node.is_a?(::Node) ? node.parent_id : params[:node][:parent_id]
-    
     action_command = eval("#{params[:action_type]}.create!(:user => current_user, :node_id => node_id, :old_name => old_name, :new_name => new_name, :destination_parent_id => destination_parent_id, :parent_id => parent_id)")
 
     Resque.enqueue(eval(params[:action_type]), action_command.id)
@@ -110,5 +111,6 @@ class NodesController < ApplicationController
       end
       worker.shutdown
     end
+    action_command.reload
   end
 end

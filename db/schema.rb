@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110110205650) do
+ActiveRecord::Schema.define(:version => 20110214172144) do
 
   create_table "action_commands", :force => true do |t|
     t.string   "type"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20110110205650) do
     t.string   "new_name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "json_message"
   end
 
   create_table "gnaclr_importer_logs", :force => true do |t|

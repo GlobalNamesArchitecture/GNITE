@@ -217,7 +217,7 @@ $(function() {
         $(this).blur();
       }
     });
-    
+
    /*
     * Hide the reference tree tabs
     */
@@ -242,9 +242,9 @@ $(function() {
       'search' : {
         'case_insensitive' : true,
         'ajax' : {
-          'url' : '/master_trees/' + GNITE.MasterTreeID + '/name_searches.json' 
+          'url' : '/master_trees/' + GNITE.MasterTreeID + '/name_searches.json'
         },
-      }, 
+      },
     }));
   }
 
@@ -268,10 +268,10 @@ $(function() {
                 'search' : {
                   'case_insensitive' : true,
                   'ajax' : {
-                    'url' : '/reference_trees/' + id + '/name_searches.json' 
+                    'url' : '/reference_trees/' + id + '/name_searches.json'
                   }
-                }  
-              })); 
+                }
+              }));
           }
         });
     } else {
@@ -310,7 +310,7 @@ $(function() {
             'search' : {
               'case_insensitive' : true,
               'ajax' : {
-                'url' : '/deleted_tree/' + id + '/name_searches.json' 
+                'url' : '/deleted_tree/' + id + '/name_searches.json'
               }
             }
           }));
@@ -353,9 +353,9 @@ $(function() {
     });
 
   $('.searchicon').hover(function() {
-    $(this).addClass('pointer');  
+    $(this).addClass('pointer');
   }, function() {
-    $(this).removeClass('pointer');  
+    $(this).removeClass('pointer');
   });
 
   /*
@@ -434,7 +434,7 @@ $(function() {
   ddsmoothmenu.hideMenu = function() {
     $('#toolbar>ul').find("ul").css({display:'none', visibility:'visible'});
   };
-  
+
   /*
    * FILE: Add node
    */
@@ -510,18 +510,18 @@ $(function() {
         resizable : false
     });
   });
-  
+
   /*
    * EDIT: Edit node
    */
   $('.nav-edit-node').click(function() {
     if($('#master-tree').find("li").length > 0) {
-      $('#master-tree').jstree('rename');   
+      $('#master-tree').jstree('rename');
     }
     ddsmoothmenu.hideMenu();
     return false;
   });
-  
+
   /*
    * EDIT: Cut
    */
@@ -532,7 +532,7 @@ $(function() {
     ddsmoothmenu.hideMenu();
     return false;
   });
-  
+
   /*
    * EDIT: Paste
    */
@@ -543,7 +543,7 @@ $(function() {
     ddsmoothmenu.hideMenu();
     return false;
   });
-  
+
   /*
    * EDIT: Delete node
    */
@@ -554,7 +554,7 @@ $(function() {
     ddsmoothmenu.hideMenu();
     return false;
   });
-  
+
   /*
    * VIEW: Refresh tree
   */
@@ -610,7 +610,7 @@ $(function() {
     $.ajax({
       type        : 'PUT',
       url         : '/master_trees/' + GNITE.MasterTreeID + '/nodes/' + id + '.json',
-      data        : JSON.stringify({ 'name' : { 'name_string' : new_name }, 'action_type' : 'ActionRenameNode' }),
+      data        : JSON.stringify({ 'node': {'name' : { 'name_string' : new_name }}, 'action_type' : 'ActionRenameNode' }),
       contentType : 'application/json',
       dataType    : 'json',
       success     : function(data) {
@@ -618,7 +618,7 @@ $(function() {
       }
     });
   });
-  
+
   /*
    * ActionType: ActionMoveNodeWithinTree
    * Moves node within Master Tree
@@ -660,7 +660,7 @@ $(function() {
        }
      });
   });
-  
+
   /* TODO: NOT FULLY IMPLEMENTED
    * ActionType: ActionMoveNodeBetweenTrees
    * Moves node from Master Tree to Deleted Names & refreshes Delete Names

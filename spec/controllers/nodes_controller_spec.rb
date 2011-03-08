@@ -59,7 +59,7 @@ describe NodesController do
       context "on DELETE to destroy" do
         let(:node) { Factory(:node) }
         before do
-          # we have a conflict between Capybara::Node and apps' Node, 
+          # we have a conflict between Capybara::Node and apps' Node,
           # so Node needs to be prepended with root namespace to be explicit
           ::Node.stubs(:destroy => true)
           delete :destroy, :id => node.id, :master_tree_id => node.tree.id, :format => 'json'
@@ -110,7 +110,8 @@ describe NodesController, 'POST to create' do
   it { should respond_with(:success) }
 
   it 'renders the newly created node as JSON' do
-    response.body.should == 'OK'
+    node = JSON.parse(response.body, :symbolize_names => true)
+    node.keys.should == [:node]
   end
 end
 
