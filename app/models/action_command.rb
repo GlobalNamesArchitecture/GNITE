@@ -2,7 +2,7 @@ class ActionCommand < ActiveRecord::Base
   belongs_to :user
 
   def self.queue
-    Gnite::Config.action_queue 
+    Gnite::Config.action_queue
   end
 
   def self.perform(instance_id)
@@ -24,27 +24,27 @@ class ActionCommand < ActiveRecord::Base
     end
     ac.save!
   end
-  
+
   def precondition_do
     raise_not_implemented
   end
-  
+
   def precondition_undo
     precondition_do
   end
-    
+
   def raise_not_implemented
     raise "Implement Perform in your child class"
   end
-  
+
   def undo_action
     raise_not_implemented
   end
-  
+
   def do_action
     raise_not_implemented
   end
-  
+
   def precondition_do_error
     raise Gnite::ActionPreconditionsError, "Preconditions are not met"
   end
@@ -52,10 +52,11 @@ class ActionCommand < ActiveRecord::Base
   def precondition_undo_error
     precondition_do_error
   end
-  
+
   def ancestry_ok?(a_node)
-    ancestors = a_node.ancestors
-    ancestors.empty? || (ancestors.map {|a| a.tree_id}.uniq.size == 1 && ancestors.first.parent_id == nil)
+    ancestors = [a_node] + a_node.ancestors
+    require 'ruby-debug'; debugger
+    ancestors.size == 1 || (ancestors.map {|a| a.tree_id}.uniq.size == 1 && ancestors.first.parent_id == nil)
   end
-  
+
 end

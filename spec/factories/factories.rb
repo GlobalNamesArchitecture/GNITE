@@ -54,6 +54,12 @@ Factory.define :action_move_node_within_tree do |action_move_node|
   action_move_node.destination_parent_id {|a| Factory(:node, :tree => Node.find(a.parent_id).tree).id }
 end
 
+Factory.define :action_move_node_to_deleted_tree do |action_delete_node|
+  action_delete_node.association :user
+  action_delete_node.parent_id { Factory(:node, :tree => Factory(:master_tree)).id }
+  action_delete_node.node_id { |a| Factory(:node, :parent_id => a.parent_id, :tree => Node.find(a.parent_id).tree).id }
+end
+
 Factory.define :action_add_node do |action_add_node|
   action_add_node.association :user
   action_add_node.parent_id { Factory(:node).id }

@@ -27,7 +27,7 @@ class Tree < ActiveRecord::Base
   def self.by_title
     self.order('title asc')
   end
-  
+
   #TODO this is a placeholder! it needs to be done correctly
   def nuke
     Tree.connection.execute("delete n, s, v from nodes n left join synonyms s on s.node_id = n.id left join vernacular_names v on v.node_id = n.id where tree_id = #{id}")
@@ -38,7 +38,7 @@ class Tree < ActiveRecord::Base
   def root
     @root ||= Node.where(:tree_id => self.id).where(:parent_id => nil).limit(1)[0]
   end
-  
+
   private
 
   def set_defaults
@@ -50,5 +50,5 @@ class Tree < ActiveRecord::Base
     name = Name.find_or_create_by_name_string(Gnite::Config.root_node_name_string)
     @root = Node.create!(:parent_id => nil, :tree => self, :name => name)
   end
-  
+
 end
