@@ -34,7 +34,6 @@ describe ActionMoveNodeToDeletedTree do
     parent_node.parent_id = Factory(:node).id
     parent_node.save!
     parent_node.reload
-    require 'ruby-debug'; debugger
     expect { ActionMoveNodeToDeletedTree.perform(am.id) }.to raise_error
   end
 

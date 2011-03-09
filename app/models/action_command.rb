@@ -54,8 +54,7 @@ class ActionCommand < ActiveRecord::Base
   end
 
   def ancestry_ok?(a_node)
-    ancestors = [a_node] + a_node.ancestors
-    require 'ruby-debug'; debugger
+    ancestors = a_node.ancestors + [a_node]
     ancestors.size == 1 || (ancestors.map {|a| a.tree_id}.uniq.size == 1 && ancestors.first.parent_id == nil)
   end
 
