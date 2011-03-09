@@ -99,17 +99,16 @@ class NodesController < ApplicationController
     new_name = (params[:node] && params[:node][:name] && params[:node][:name][:name_string]) ? params[:node][:name][:name_string] : nil
     parent_id = node.is_a?(::Node) ? node.parent_id : params[:node][:parent_id]
     action_command = eval("#{params[:action_type]}.create!(:user => current_user, :node_id => node_id, :old_name => old_name, :new_name => new_name, :destination_parent_id => destination_parent_id, :parent_id => parent_id)")
-
     Resque.enqueue(eval(params[:action_type]), action_command.id)
     workers = Resque.workers.select {|w| w.queues.include?(Gnite::Config.action_queue.to_s) }
     raise "More than one worker for the #{Gnite::Config.action_queue}!" if workers.size > 1
     if workers.empty?
-      worker = Resque::Worker.new(Gnite::Config.action_queue)
-      jobs_left = true
-      while jobs_left
-        jobs_left = worker.process
-      end
-      worker.shutdown
+      workers = [Resque::Worker.new(Gnite::Config.action_queue)]
+    end
+    worker = workers[0]
+    jobs_left = true
+    while jobs_left
+      jobs_left = worker.process
     end
     action_command.reload
   end

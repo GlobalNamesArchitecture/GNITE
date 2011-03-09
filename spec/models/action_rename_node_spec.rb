@@ -29,5 +29,5 @@ describe ActionRenameNode do
     node.destroy
     expect{ ActionRenameNode.perform(ar.id) }.to raise_error
   end
-  
+
 end

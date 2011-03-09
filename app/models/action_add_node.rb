@@ -1,5 +1,5 @@
 class ActionAddNode < ActionCommand
-  
+
   def precondition_do
     !!(parent_id && @parent = Node.find(parent_id))
   end
@@ -16,12 +16,12 @@ class ActionAddNode < ActionCommand
     self.json_message = node.to_json
     save!
   end
-  
+
   def undo_action
     @node.destroy
     self.node_id = nil
     save!
   end
-    
+
 end
 

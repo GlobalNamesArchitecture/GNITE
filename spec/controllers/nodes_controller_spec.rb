@@ -85,7 +85,8 @@ describe NodesController, 'POST to create' do
   end
   let(:nodes) { tree.nodes }
   let(:node_attributes) do
-    { :name => Factory(:name, :name_string => "My new node") }
+    name = Factory(:name, :name_string => "My new node")
+    { :name => name }
   end
   let(:new_node) { Factory.build(:node, node_attributes) }
 
@@ -100,7 +101,7 @@ describe NodesController, 'POST to create' do
     new_node.stubs(:save => true)
     @node_count = ::Node.count
     r = Resque::Worker.new(Gnite::Config.action_queue)
-    post :create, :master_tree_id => tree.id, :format => 'json', :node => node_attributes, :action_type => 'ActionAddNode'
+    post :create, :master_tree_id => tree.id, :format => 'json', :node => { :name => {:name_string => node_attributes[:name].name_string} }, :action_type => 'ActionAddNode'
   end
 
   it 'creates a new node' do
