@@ -31,5 +31,5 @@ describe ActionAddNode do
     Node.find(aa.node_id).destroy
     expect{ ActionAddNode.perform(aa.id) }.to raise_error
   end
-  
+
 end
