@@ -8,7 +8,7 @@ class Node < ActiveRecord::Base
 
   before_create :check_parent_id_for_nil
   before_update :check_parent_id_for_nil
-  
+
 
   delegate :name_string, :to => :name
 
@@ -22,9 +22,9 @@ class Node < ActiveRecord::Base
   def self.roots(tree_id)
     Node.find_by_sql("select * from nodes where parent_id is null and tree_id = #{tree_id}")
   end
-  
+
   def self.search(search_string, tree_id)
-    names = []              
+    names = []
     clean_search = "%#{search_string}%"
     Name.includes(:nodes).where("name_string like ?", clean_search).each { |c| names << c.nodes.where("tree_id = ?", tree_id) unless c.nodes.empty? }
   end
@@ -32,24 +32,24 @@ class Node < ActiveRecord::Base
   def deep_copy_to(tree)
     copy = self.clone
     copy.tree = tree
-    copy.save
+    copy.save!
 
     children.each do |child|
       child_copy = child.deep_copy_to(tree)
       child_copy.parent = copy
-      child_copy.save
+      child_copy.save!
     end
 
     vernacular_names.each do |vernacular_name|
       vernacular_name_copy = vernacular_name.clone
       vernacular_name_copy.node = copy
-      vernacular_name_copy.save
+      vernacular_name_copy.save!
     end
 
     synonyms.each do |synonym|
       synonym_copy = synonym.clone
       synonym_copy.node = copy
-      synonym_copy.save
+      synonym_copy.save!
     end
 
     copy.reload
@@ -94,7 +94,7 @@ class Node < ActiveRecord::Base
   def has_children?
     Node.select(:id).where(:parent_id => id).limit(1).exists?
   end
-  
+
   def ancestors
     node, nodes = self, []
     nodes << node = node.parent while node.parent
@@ -102,7 +102,7 @@ class Node < ActiveRecord::Base
   end
 
   def rename(new_name_string)
-    new_name = Name.where(:name_string => new_name_string).limit(1).first || Name.create(:name_string => new_name_string) 
+    new_name = Name.where(:name_string => new_name_string).limit(1).first || Name.create(:name_string => new_name_string)
     self.name = new_name
     save
   end
@@ -112,18 +112,18 @@ class Node < ActiveRecord::Base
     collect_children_to_delete(nodes_to_delete)
     Node.transaction do
       nodes_to_delete.each_slice(Gnite::Config.batch_size) do |ids|
-        delete_nodes_records(ids) 
+        delete_nodes_records(ids)
       end
     end
   end
-  
+
   def descendants
     node, nodes = self, []
     children.each do |child|
       nodes << child.descendants
     end
   end
-  
+
   #called externally, so it has to be public
   def collect_children_to_delete(nodes_to_delete)
     children('id').each do |c|
@@ -143,8 +143,8 @@ class Node < ActiveRecord::Base
     delete_ids = ids.join(',')
     %w{vernacular_names synonyms}.each do |table|
       Node.connection.execute("
-        DELETE 
-        FROM #{table} 
+        DELETE
+        FROM #{table}
         WHERE node_id IN (#{delete_ids})")
     end
     Node.connection.execute("DELETE FROM nodes WHERE id IN (#{delete_ids})")
