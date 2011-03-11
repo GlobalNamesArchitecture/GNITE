@@ -121,16 +121,6 @@ describe "routing to nodes" do
     )
   end
 
-  it "routes POST /master_trees/:master_tree_id/nodes/:id/clone.json to nodes/clones#create" do
-    { :post => "/master_trees/123/nodes/456/clone.json" }.should route_to(
-      :controller => "clones",
-      :action     => "create",
-      :master_tree_id    => "123",
-      :node_id         => "456",
-      :format     => "json"
-    )
-  end
-
   it "routes /reference_trees/:id/nodes.json to nodes#index" do
     { :get => "/reference_trees/123/nodes.json" }.should route_to(
       :controller => "nodes",
