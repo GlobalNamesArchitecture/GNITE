@@ -13,6 +13,7 @@ describe ActionCopyNodeFromAnotherTree do
     node.reload.parent_id.should == old_parent_id
     Node.find(new_parent_id).children.select { |c| c.name == node.name && c.children[0].name == node.children[0].name && c.children[0].children[0].name == node.children[0].children[0].name }.size.should == 1
     subject.reload.undo?.should be_true
+    JSON.parse(subject.json_message, :symbolize_names => true).keys.should == [:node]
     ActionCopyNodeFromAnotherTree.perform(subject.id)
     node.reload.parent_id.should == old_parent_id
     Node.find(new_parent_id).children.select { |c| c.name == node.name }.size == 0

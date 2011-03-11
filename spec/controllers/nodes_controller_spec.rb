@@ -60,46 +60,46 @@ describe NodesController do
   end
 end
 
-# describe NodesController, 'POST to create a node' do
-#   subject { controller }
-#   let(:user) { Factory(:email_confirmed_user) }
-#   let(:tree) do
-#     tree = Factory(:master_tree)
-#     Factory(:node, :tree => tree)
-#     tree
-#   end
-#   let(:nodes) { tree.nodes }
-#   let(:node_attributes) do
-#     name = Factory(:name, :name_string => "My new node")
-#     { :name => name }
-#   end
-#   let(:new_node) { Factory.build(:node, node_attributes) }
-#
-#   before do
-#     sign_in_as(user)
-#     controller.stubs(:current_user => user)
-#     user_trees = [tree]
-#     user.stubs(:master_trees => user_trees)
-#     user_trees.stubs(:find => tree)
-#     tree.stubs(:children_of => nodes)
-#     ::Node.stubs(:new => new_node)
-#     new_node.stubs(:save => true)
-#     @node_count = ::Node.count
-#     r = Resque::Worker.new(Gnite::Config.action_queue)
-#     post :create, :master_tree_id => tree.id, :format => 'json', :node => { :name => {:name_string => node_attributes[:name].name_string} }, :action_type => 'ActionAddNode'
-#   end
-#
-#   it 'creates a new node' do
-#     (::Node.count - @node_count).should == 1
-#   end
-#
-#   it { should respond_with(:success) }
-#
-#   it 'renders the newly created node as JSON' do
-#     node = JSON.parse(response.body, :symbolize_names => true)
-#     node.keys.should == [:node]
-#   end
-# end
+describe NodesController, 'POST to create a node' do
+  subject { controller }
+  let(:user) { Factory(:email_confirmed_user) }
+  let(:tree) do
+    tree = Factory(:master_tree)
+    Factory(:node, :tree => tree)
+    tree
+  end
+  let(:nodes) { tree.nodes }
+  let(:node_attributes) do
+    name = Factory(:name, :name_string => "My new node")
+    { :name => name }
+  end
+  let(:new_node) { Factory.build(:node, node_attributes) }
+
+  before do
+    sign_in_as(user)
+    controller.stubs(:current_user => user)
+    user_trees = [tree]
+    user.stubs(:master_trees => user_trees)
+    user_trees.stubs(:find => tree)
+    tree.stubs(:children_of => nodes)
+    ::Node.stubs(:new => new_node)
+    new_node.stubs(:save => true)
+    @node_count = ::Node.count
+    r = Resque::Worker.new(Gnite::Config.action_queue)
+    post :create, :master_tree_id => tree.id, :format => 'json', :node => { :name => {:name_string => node_attributes[:name].name_string} }, :action_type => 'ActionAddNode'
+  end
+
+  it 'creates a new node' do
+    (::Node.count - @node_count).should == 1
+  end
+
+  it { should respond_with(:success) }
+
+  it 'renders the newly created node as JSON' do
+    node = JSON.parse(response.body, :symbolize_names => true)
+    node.keys.should == [:node]
+  end
+end
 
 
 describe NodesController, 'POST to copy a node from a reference tree' do
