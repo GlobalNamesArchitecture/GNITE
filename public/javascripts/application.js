@@ -610,7 +610,7 @@ $(function() {
     $.ajax({
       type        : 'PUT',
       url         : '/master_trees/' + GNITE.MasterTreeID + '/nodes/' + id + '.json',
-      data        : JSON.stringify({ 'node': {'name' : { 'name_string' : new_name }}, 'action_type' : 'ActionRenameNode' }),
+      data        : JSON.stringify({ 'node' : { 'name' : { 'name_string' : new_name } }, 'action_type' : 'ActionRenameNode' }),
       contentType : 'application/json',
       dataType    : 'json',
       success     : function(data) {
@@ -635,11 +635,12 @@ $(function() {
        parentID = null;
      }
 
-     var url = '/master_trees/' + GNITE.MasterTreeID + '/nodes/' + movedNodeID;
+     var url = '/master_trees/' + GNITE.MasterTreeID + '/nodes';
 
      if (isCopy) {
-       url += '/clone';
+       action_type = "ActionCopyNodeFromAnotherTree";
      } else {
+       url = url + '/' + movedNodeID;
        action_type = "ActionMoveNodeWithinTree";
      }
 
@@ -648,7 +649,7 @@ $(function() {
      $.ajax({
        type        : isCopy ? 'POST' : 'PUT',
        url         : url,
-       data        : JSON.stringify({ 'node' : { 'parent_id' : parentID }, 'action_type' : action_type }),
+       data        : JSON.stringify({ 'node' : {'id' : movedNodeID, 'parent_id' : parentID }, 'action_type' : action_type }),
        contentType : 'application/json',
        dataType    : 'json',
        success     : function(data) {
@@ -661,7 +662,7 @@ $(function() {
      });
   });
 
-  /* TODO: NOT FULLY IMPLEMENTED
+  /*
    * ActionType: ActionMoveNodeBetweenTrees
    * Moves node from Master Tree to Deleted Names & refreshes Delete Names
    */
@@ -670,8 +671,10 @@ $(function() {
     var id   = node.obj.attr('id');
 
     $.ajax({
-      type    : 'DELETE',
+      type    : 'PUT',
       url     : '/master_trees/' + GNITE.MasterTreeID + '/nodes/' + id + '.json',
+      data    : JSON.stringify({'action_type' : 'ActionMoveNodeToDeletedTree'}),
+      contentType : 'application/json',
       success : function(data) {
         var $deleted_tree = $('.deleted_tree_container .jstree-focused');
         $deleted_tree.jstree("refresh");
