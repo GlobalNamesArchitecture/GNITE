@@ -676,7 +676,7 @@ $(function() {
       data    : JSON.stringify({'action_type' : 'ActionMoveNodeToDeletedTree'}),
       contentType : 'application/json',
       success : function(data) {
-        var $deleted_tree = $('.deleted_tree_container .jstree-focused');
+        var $deleted_tree = $('.deleted_tree_container .jstree');
         $deleted_tree.jstree("refresh");
       }
     });

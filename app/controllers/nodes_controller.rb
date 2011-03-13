@@ -10,7 +10,7 @@ class NodesController < ApplicationController
         elsif params[:reference_tree_id]
           tree = current_user.reference_trees.find(tree_id)
         else
-          tree = current_user.deleted_tree.find(tree_id)
+          tree = current_user.deleted_trees.find(tree_id)
         end
         parent_id = params[:parent_id] ? params[:parent_id] : tree.root
         nodes = tree.children_of(parent_id)
@@ -27,7 +27,7 @@ class NodesController < ApplicationController
     elsif params[:reference_tree_id]
       tree = current_user.reference_trees.find(tree_id)
     else
-      tree = current_user.deleted_tree.find(tree_id)
+      tree = current_user.deleted_trees.find(tree_id)
     end
 
     node = tree.nodes.find(params[:id])
