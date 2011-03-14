@@ -2,7 +2,11 @@ class ActionCommand < ActiveRecord::Base
   belongs_to :user
 
   def self.queue
-    Gnite::Config.action_queue
+    @queue_name
+  end
+
+  def self.queue=(queue_name)
+    @queue_name = queue_name
   end
 
   def self.perform(instance_id)
@@ -34,7 +38,7 @@ class ActionCommand < ActiveRecord::Base
   end
 
   def raise_not_implemented
-    raise "Implement Perform in your child class"
+    raise "Implement in your child class"
   end
 
   def undo_action
@@ -56,6 +60,19 @@ class ActionCommand < ActiveRecord::Base
   def ancestry_ok?(a_node)
     ancestors = a_node.ancestors + [a_node]
     ancestors.size == 1 || (ancestors.map {|a| a.tree_id}.uniq.size == 1 && ancestors.first.parent_id == nil)
+  end
+
+  def node
+    return nil unless node_id
+    @node = defined?(@node) ? @node : Node.find(node_id)
+  end
+
+  def master_tree
+    begin
+      node.tree
+    rescue NoMethodError
+      nil
+    end
   end
 
 end

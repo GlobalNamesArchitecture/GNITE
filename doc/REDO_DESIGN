@@ -1,0 +1,14 @@
+Requirements for Undo/Redo
+
+
+1. Do we implement unlimited undo/redo (pros/cons)
+
+
+2. When redo queues should be cleaned up?
+
+ - after restoring from saved version
+ - ater restoring from published version
+
+3. When and how deleted trees have to be cleaned up?
+
+4. How Undo/Redo is implemented on database level? How many table

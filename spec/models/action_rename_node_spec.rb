@@ -3,6 +3,14 @@ require 'spec_helper'
 describe ActionRenameNode do
   subject { Factory(:action_rename_node) }
 
+  it 'should return node' do
+    subject.node.should == Node.find(subject.node_id)
+  end
+
+  it 'should return master_tree' do
+    subject.master_tree.should == subject.node.tree
+  end
+
   it 'should rename the node on first perform and get old name on second perform' do
     node = Node.find(subject.node_id)
     old_node_name = node.name.name_string

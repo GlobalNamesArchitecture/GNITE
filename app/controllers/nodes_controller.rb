@@ -73,17 +73,22 @@ class NodesController < ApplicationController
     node_id = node.is_a?(::Node) ? node.id : nil
     old_name = node.is_a?(::Node) ? node.name.name_string : nil
     new_name = (params[:node] && params[:node][:name] && params[:node][:name][:name_string]) ? params[:node][:name][:name_string] : nil
+
     action_command = eval("#{params[:action_type]}.create!(:user => current_user, :node_id => node_id, :old_name => old_name, :new_name => new_name, :destination_parent_id => destination_parent_id, :parent_id => parent_id)")
+    tree_queue = action_command.master_tree ? "gnite_action_tree_#{action_command.master_tree.id}" : (raise "what master tree?")
+    eval("#{params[:action_type]}.queue = '#{tree_queue}'")
     Resque.enqueue(eval(params[:action_type]), action_command.id)
-    workers = Resque.workers.select {|w| w.queues.include?(Gnite::Config.action_queue.to_s) }
-    raise "More than one worker for the #{Gnite::Config.action_queue}!" if workers.size > 1
+    eval("#{params[:action_type]}.queue = nil")
+
+    workers = Resque.workers.select {|w| w.queues.include?(tree_queue) }
+    raise "More than one worker for the #{tree_queue}!" if workers.size > 1
     if workers.empty?
-      workers = [Resque::Worker.new(Gnite::Config.action_queue)]
+      workers = [Resque::Worker.new(tree_queue)]
     end
     worker = workers[0]
     jobs_left = true
     while jobs_left
-      jobs_left = worker.process
+      jobs_left = worker.process #TODO! Check if this is executing jobs in sequence!!!
     end
     action_command.reload
   end

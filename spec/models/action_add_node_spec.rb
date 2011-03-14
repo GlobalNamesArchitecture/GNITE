@@ -3,6 +3,14 @@ require 'spec_helper'
 describe ActionAddNode do
   subject { Factory(:action_add_node) }
 
+  it 'should return node' do
+    subject.node.should be_nil
+  end
+
+  it 'should return master tree' do
+    subject.master_tree.should == Node.find(subject.parent_id).tree
+  end
+
   it 'should add a node to a tree' do
     subject.node_id.should be_nil
     parent = Node.find(subject.parent_id)

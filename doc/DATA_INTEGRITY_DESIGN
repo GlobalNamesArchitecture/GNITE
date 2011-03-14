@@ -1,0 +1,50 @@
+class RenameNode << Gnite::Command
+  id
+  node id
+  user_id
+  old name
+  new name
+  is_undo?
+  (do precondition node_id exists )
+  (undo precondition same)
+end
+
+class MoveNodeWithinTree
+  id
+  node_id
+  parent_id
+  destination_parent_id
+  is_undo?
+  (do precondition node_id exists, parent_id exists, destination parent exists)
+  (undo precondition same)
+end
+
+class CopyNodeFromAnotherTree
+  id
+  node_id
+  destination_parent_id
+  destination_node_id
+  is_undo?
+  (do precondition node_id exists, destination parent exists)
+  (undo precondition destination_node_id exists)
+end
+
+class MoveNodeToDeletedTree
+  id
+  node_id
+  user_id
+  parent_id
+  destination_node_id
+  is_undo?
+  (do precondition parent_id exists)
+  (undo precondition same)
+end
+
+class AddNode
+  id
+  node_id
+  parent_id
+  is_undo?
+  (do precondition parent_id exists)
+  (undo precondition node exists)
+end
