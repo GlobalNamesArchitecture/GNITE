@@ -366,7 +366,7 @@ $(function() {
       var self = $(this);
       var term = self.val().trim();
       if (term.length > 0) {
-        var $reference_tree = $('.reference_tree_container .jstree-focused');
+        var $reference_tree = $('.reference_tree_container .jstree');
         $reference_tree.jstree("search", term);
       }
     })
@@ -397,7 +397,7 @@ $(function() {
       var self = $(this);
       var term = self.val().trim();
       if (term.length > 0) {
-        var $deleted_tree = $('.deleted_tree_container .jstree-focused');
+        var $deleted_tree = $('.deleted_tree_container .jstree');
         $deleted_tree.jstree("search", term);
       }
     })
@@ -406,7 +406,7 @@ $(function() {
         var self = $(this);
         var term = self.val().trim();
         if(term.length > 0) {
-            var $deleted_tree = $('.deleted_tree_container .jstree-focused');
+            var $deleted_tree = $('.deleted_tree_container .jstree');
             $deleted_tree.jstree("search", term);
         }
         $(this).blur();
@@ -415,7 +415,7 @@ $(function() {
         var self = $(this);
         var term = self.val().trim();
         if (term.length > 0) {
-            var $deleted_tree = $('.deleted_tree_container .jstree-focused');
+            var $deleted_tree = $('.deleted_tree_container .jstree');
             $deleted_tree.jstree("search", term);
         }
     });

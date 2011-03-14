@@ -8,7 +8,7 @@ class NameSearchesController < ApplicationController
     elsif params[:reference_tree_id]
       tree = current_user.reference_trees.find(tree_id)
     else
-      tree = current_user.deleted_tree.find(tree_id)
+      tree = current_user.deleted_trees.find(tree_id)
     end
     
     names = Node.search(params[:search_string].downcase, tree_id)
@@ -21,7 +21,7 @@ class NameSearchesController < ApplicationController
         end
       end
     end
-    render :json => result.uniq
+     render :json => result.uniq
   end
 
 end
