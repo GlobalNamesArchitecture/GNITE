@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110214172144) do
+ActiveRecord::Schema.define(:version => 20110314222320) do
 
   create_table "action_commands", :force => true do |t|
     t.string   "type"
@@ -60,6 +60,8 @@ ActiveRecord::Schema.define(:version => 20110214172144) do
     t.datetime "updated_at"
   end
 
+  add_index "names", ["name_string"], :name => "index_names_on_name_string", :unique => true
+
   create_table "nodes", :force => true do |t|
     t.integer  "tree_id"
     t.datetime "created_at"
@@ -74,6 +76,15 @@ ActiveRecord::Schema.define(:version => 20110214172144) do
   add_index "nodes", ["name_id"], :name => "index_nodes_on_name_id"
   add_index "nodes", ["parent_id"], :name => "index_nodes_on_parent_id"
   add_index "nodes", ["tree_id"], :name => "index_nodes_on_tree_id"
+
+  create_table "redo_action_commands", :force => true do |t|
+    t.integer  "master_tree_id"
+    t.integer  "action_command_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "redo_action_commands", ["master_tree_id", "action_command_id"], :name => "index_redo_action_commands_on_master_tree_and_action_command"
 
   create_table "synonyms", :force => true do |t|
     t.integer  "node_id"
@@ -101,6 +112,15 @@ ActiveRecord::Schema.define(:version => 20110214172144) do
   end
 
   add_index "trees", ["source_id"], :name => "index_trees_on_source_id"
+
+  create_table "undo_action_commands", :force => true do |t|
+    t.integer  "master_tree_id"
+    t.integer  "action_command_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "undo_action_commands", ["master_tree_id", "action_command_id"], :name => "index_undo_action_commands_on_master_tree_and_action_command"
 
   create_table "users", :force => true do |t|
     t.string   "email"

@@ -50,7 +50,8 @@ module Gnite
     :gnaclr_url => "http://gnaclrold.globalnames.org",
     :batch_size => 10_000,
     :root_node_name_string => "tree_root",
-    :action_types => ['ActionAddNode', 'ActionRenameNode', 'ActionMoveNodeWithinTree', 'ActionMoveNodeToDeletedTree', 'ActionCopyNodeFromAnotherTree']
+    :action_types => ['ActionAddNode', 'ActionRenameNode', 'ActionMoveNodeWithinTree', 'ActionMoveNodeToDeletedTree', 'ActionCopyNodeFromAnotherTree'],
+    :undo_limit => 10,
   )
 
 end

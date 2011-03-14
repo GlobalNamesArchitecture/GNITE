@@ -12,5 +12,11 @@ class ActionRenameNode < ActionCommand
     node.rename(old_name)
   end
 
+  def undo_title
+    title = self.undo? ? "Undo " : "Redo"
+    title += "renaming #{self.old_name} to #{self.new_name}"
+    title
+  end
+
 end
 

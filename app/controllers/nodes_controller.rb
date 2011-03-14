@@ -75,21 +75,8 @@ class NodesController < ApplicationController
     new_name = (params[:node] && params[:node][:name] && params[:node][:name][:name_string]) ? params[:node][:name][:name_string] : nil
 
     action_command = eval("#{params[:action_type]}.create!(:user => current_user, :node_id => node_id, :old_name => old_name, :new_name => new_name, :destination_parent_id => destination_parent_id, :parent_id => parent_id)")
-    tree_queue = action_command.master_tree ? "gnite_action_tree_#{action_command.master_tree.id}" : (raise "what master tree?")
-    eval("#{params[:action_type]}.queue = '#{tree_queue}'")
-    Resque.enqueue(eval(params[:action_type]), action_command.id)
-    eval("#{params[:action_type]}.queue = nil")
 
-    workers = Resque.workers.select {|w| w.queues.include?(tree_queue) }
-    raise "More than one worker for the #{tree_queue}!" if workers.size > 1
-    if workers.empty?
-      workers = [Resque::Worker.new(tree_queue)]
-    end
-    worker = workers[0]
-    jobs_left = true
-    while jobs_left
-      jobs_left = worker.process #TODO! Check if this is executing jobs in sequence!!!
-    end
+    ActionCommand.schedule_actions([action_command])
     action_command.reload
   end
 end

@@ -15,6 +15,9 @@ class ActionCommand < ActiveRecord::Base
       if ac.precondition_undo
         ac.undo_action
         ac.undo = false
+        undo_actions = UndoActionCommand.where(:master_tree_id => ac.master_tree.id, :action_command_id => ac.id)
+        RedoActionCommand.create(:master_tree_id => ac.master_tree.id, :action_command_id => ac.id)
+        undo_actions[0].destroy unless undo_actions.empty?
       else
         ac.precondition_undo_error
       end
@@ -22,11 +25,37 @@ class ActionCommand < ActiveRecord::Base
       if ac.precondition_do
         ac.do_action
         ac.undo = true
+        RedoActionCommand.connection.execute("delete from redo_action_commands where master_tree_id = #{ac.master_tree.id}")
+        UndoActionCommand.create(:master_tree => ac.master_tree, :action_command => ac)
       else
         ac.precondition_do_error
       end
     end
     ac.save!
+  end
+
+  def self.schedule_actions(action_commands)
+    queues = []
+    action_commands.each do |action_command|
+      tree_queue = action_command.master_tree ? "gnite_action_tree_#{action_command.master_tree.id}" : (raise "Cannot determing master tree in the action_command")
+      action_command.class.queue = tree_queue
+      Resque.enqueue(action_command.class, action_command.id)
+      action_command.class.queue = nil
+      queues << tree_queue unless queues.include?(tree_queue)
+    end
+
+    queues.each do |queue|
+      workers = Resque.workers.select {|w| w.queues.include?(queue) }
+      raise "More than one worker for the #{tree_queue}!" if workers.size > 1
+      if workers.empty?
+        workers = [Resque::Worker.new(queue)]
+      end
+      worker = workers[0]
+      worker.register_worker
+      while Resque.size(queue) > 0
+        worker.process #TODO! Check if this is executing jobs in sequence!!!
+      end
+    end
   end
 
   def precondition_do

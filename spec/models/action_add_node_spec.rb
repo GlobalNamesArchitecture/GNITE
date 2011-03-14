@@ -5,6 +5,8 @@ describe ActionAddNode do
 
   it 'should return node' do
     subject.node.should be_nil
+    ActionAddNode.perform(subject.id)
+    subject.reload.node.is_a?(::Node).should be_true
   end
 
   it 'should return master tree' do
