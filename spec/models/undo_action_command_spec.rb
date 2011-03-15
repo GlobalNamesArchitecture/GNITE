@@ -7,7 +7,7 @@ describe UndoActionCommand do
   let(:action_add_node3) { Factory(:action_add_node, :parent_id => action_add_node2.node.id) }
   let(:action_add_node4) { Factory(:action_add_node, :parent_id => action_add_node3.node.id) }
   let(:action_add_node5) { Factory(:action_add_node, :parent_id => action_add_node4.node.id) }
-  let(:undo_actions) { UndoActionCommand.undo_actions(master_tree) }
+  let(:undo_actions) { UndoActionCommand.undo_actions(master_tree.id) }
 
   before do
     ActionAddNode.perform(action_add_node1.id)
@@ -33,10 +33,9 @@ describe UndoActionCommand do
   end
 
   it 'should be able to undo several statements' do
-    undo_action = undo_actions[2]
     undo_count = UndoActionCommand.count
     redo_count = RedoActionCommand.count
-    UndoActionCommand.undo(undo_action)
+    3.times { UndoActionCommand.undo(master_tree.id) }
     (undo_count - UndoActionCommand.count).should == 3
     (RedoActionCommand.count  - redo_count).should == 3
     action_add_node1.reload.node.reload.name.name_string.should == 'node1_rename_3'

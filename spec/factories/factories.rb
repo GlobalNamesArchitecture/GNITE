@@ -42,14 +42,14 @@ end
 
 Factory.define :action_rename_node do |action_rename_node|
   action_rename_node.association :user
-  action_rename_node.node_id { Factory(:node).id }
+  action_rename_node.node_id { Factory(:node, :tree => Factory(:master_tree)).id }
   action_rename_node.old_name { |a| Node.find(a.node_id).name.name_string }
   action_rename_node.new_name { Factory.next(:name_string) }
 end
 
 Factory.define :action_move_node_within_tree do |action_move_node|
   action_move_node.association :user
-  action_move_node.parent_id { Factory(:node).id }
+  action_move_node.parent_id { Factory(:node, :tree => Factory(:master_tree)).id }
   action_move_node.node_id { |a| Factory(:node, :parent_id => a.parent_id, :tree => Node.find(a.parent_id).tree).id }
   action_move_node.destination_parent_id {|a| Factory(:node, :tree => Node.find(a.parent_id).tree).id }
 end
@@ -68,5 +68,5 @@ end
 
 Factory.define :action_add_node do |action_add_node|
   action_add_node.association :user
-  action_add_node.parent_id { Factory(:node).id }
+  action_add_node.parent_id { Factory(:node, :tree => Factory(:master_tree)).id }
 end

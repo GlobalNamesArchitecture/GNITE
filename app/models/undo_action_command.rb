@@ -6,10 +6,9 @@ class UndoActionCommand < ActiveRecord::Base
     self.where(:master_tree_id => master_tree_id).order("id desc").limit(Gnite::Config.undo_limit)
   end
 
-  def self.undo(undo_action_command)
-    master_tree = undo_action_command.action_command.master_tree
-    undo_actions = self.where("master_tree_id = ? and id >= ?", master_tree, undo_action_command.id).order("id desc")
-    actions = undo_actions.map {|u| u.action_command}
-    ActionCommand.schedule_actions(actions)
+  def self.undo(master_tree_id)
+    undo_actions = self.where(:master_tree_id => master_tree_id).order("id desc").limit(1)
+    action = undo_actions.empty? ? nil : undo_actions[0].action_command
+    ActionCommand.schedule_actions(action) if action
   end
 end
