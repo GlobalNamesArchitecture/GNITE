@@ -26,7 +26,7 @@ class Node < ActiveRecord::Base
   def self.search(search_string, tree_id)
     names = []
     clean_search = "%#{search_string}%"
-    Name.includes(:nodes).where("name_string like ?", clean_search).each { |c| names << c.nodes.where("tree_id = ?", tree_id) unless c.nodes.empty? }
+    Name.find(:all, :joins => :nodes, :conditions => ['names.name_string LIKE ? AND nodes.tree_id = ?', clean_search, tree_id] )
   end
 
   def deep_copy_to(tree)
@@ -73,7 +73,7 @@ class Node < ActiveRecord::Base
     end
   end
 
-  def parent
+  def parent()
     return unless parent_id
     Node.find(parent_id)
   end
@@ -98,6 +98,7 @@ class Node < ActiveRecord::Base
   def ancestors
     node, nodes = self, []
     nodes << node = node.parent while node.parent
+    nodes.pop
     nodes.reverse
   end
 
@@ -118,7 +119,7 @@ class Node < ActiveRecord::Base
   end
 
   def descendants
-    node, nodes = self, []
+    nodes = []
     children.each do |child|
       nodes << child.descendants
     end

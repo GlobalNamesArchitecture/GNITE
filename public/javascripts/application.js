@@ -8,7 +8,7 @@ var GNITE = {
   MasterTree    : {},
   DeletedTree   : {},
   ReferenceTree : {},
-  MasterTreeID : $('#tree-container').attr('data-database-id')
+  MasterTreeID : $('.tree-container:first').attr('data-database-id')
 };
 
 
@@ -39,10 +39,14 @@ GNITE.Tree.configuration = {
     }
   },
 
-  'crrm': {
-    'move': {
-      'always_copy' : 'multitree'
+  'crrm' : {
+    'move' : {
+       'always_copy' : 'multitree'
     }
+  },
+
+  'ui' : {
+	'select_limit' : 1
   },
 
   'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'search']
@@ -131,7 +135,7 @@ GNITE.MasterTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
 GNITE.ReferenceTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
   'crrm' : {
     'move' : {
-      'check_move' : function() { return false; },
+      'check_move' : function() { return false; }
     }
   },
 
@@ -141,47 +145,29 @@ GNITE.ReferenceTree.configuration = $.extend(true, {}, GNITE.Tree.configuration,
 GNITE.DeletedTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
   'crrm' : {
     'move' : {
-      'check_move' : function() { return false; },
-      'always_copy' : false
+      'check_move' : function() { return false; }
     }
   },
 
   'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'search']
 });
 
-GNITE.ReferenceTree.add = function(response, options) {
-  if ($('a[href="#' + response.domid + '"]').length == 0) {
-    var tab   = $('#all-tabs');
-    var count = parseInt(tab.text().replace(/[^0-9]+/, ''), 10);
-
-    tab.text('All reference trees (' + (count + 1) + ')');
-
-    $('#new-tab').before(response.tree);
-
-    $('#tab-titles li:first-child').show();
-    $('#tabs li:first-child ul').append('<li><a href="#' + response.domid + '">' + response.title + '</a></li>');
-  }
-
-  $('#container_for_' + response.domid).jstree($.extend(true, {},
-    GNITE.ReferenceTree.configuration, {
-      'json_data' : {
-        'ajax' : {
-          'url' : response.url
-        }
-      }
-    }
-  ));
-
-  $('#tabs li:first-child ul li:last-child a').trigger('click');
-
-  if (options) {
-    options.spinnedElement.unspinner()
-  }
-};
-
-
 /********************************* jQuery START *********************************/
 $(function() {
+    
+  /*
+   * Build the menu system for the master tree
+   */
+  ddsmoothmenu.init({
+    mainmenuid: "toolbar",
+    orientation: 'h',
+    classname: 'ddsmoothmenu',
+    contentsource: "markup",
+  });
+
+  ddsmoothmenu.hideMenu = function() {
+    $('.toolbar>ul').find("ul").css({display:'none', visibility:'visible'});
+  };
 
   /*
    * New Master Tree title input
@@ -242,7 +228,7 @@ $(function() {
       'search' : {
         'case_insensitive' : true,
         'ajax' : {
-          'url' : '/master_trees/' + GNITE.MasterTreeID + '/name_searches.json'
+          'url' : '/master_trees/' + GNITE.MasterTreeID + '/tree_expand.json'
         },
       },
     }));
@@ -251,7 +237,7 @@ $(function() {
   /*
    * Initialize Reference Trees when drop-down clicked
    */
-  $('.reference_tree_container > div').each(function() {
+  $('.reference-tree-container > div').each(function() {
     var self   = $(this);
     var id     = self.attr('id').split('_')[4];
     var active = self.parents('.reference-tree').hasClass('reference-tree-active');
@@ -259,6 +245,14 @@ $(function() {
     if (active) {
         $('#reference-trees li a').click(function() {
           if($(this).attr('href').split('_')[2] == id && self.find('ul').length == 0) {
+              // Build the menu system for the reference tree
+              ddsmoothmenu.init({
+                 mainmenuid: "toolbar-reference-"+id,
+                 orientation: 'h',
+                 classname: 'ddsmoothmenu',
+                 contentsource: "markup",
+              });
+              // Render the reference tree
               self.jstree($.extend(true, {}, GNITE.ReferenceTree.configuration, {
                 'json_data' : {
                   'ajax' : {
@@ -293,7 +287,7 @@ $(function() {
   /*
    * Initialize Deleted Names when tab clicked
    */
-  $('.deleted_tree_container > div').each(function() {
+  $('.deleted-tree-container > div').each(function() {
     var self   = $(this);
     var id     = self.attr('id').split('_')[4];
     var active = self.parents('.deleted-tree').hasClass('deleted-tree-active');
@@ -301,6 +295,7 @@ $(function() {
     if (active) {
       $('#deleted a').click(function() {
         if(self.find('ul').length == 0) {
+          // Render the deleted tree
           self.jstree($.extend(true, {}, GNITE.ReferenceTree.configuration, {
             'json_data' : {
               'ajax' : {
@@ -314,6 +309,13 @@ $(function() {
               }
             }
           }));
+          // Build the menu system for the deleted tree
+          ddsmoothmenu.init({
+             mainmenuid: "toolbar-deleted",
+             orientation: 'h',
+             classname: 'ddsmoothmenu',
+             contentsource: "markup",
+          });
         }
       });
     }
@@ -324,116 +326,103 @@ $(function() {
            SEARCH WITHIN TREES
 **************************************************************/
 
-  /*
-   * Search within Master Tree
-   */
-  $('#master-tree-search')
-    .live('blur', function(){
-      var self = $(this);
-      var term = self.val().trim();
-      if (term.length > 0) {
-        $('#master-tree').jstree("search", term);
-      }
-    })
-    .live('keypress', function(event) {
-      if (event.which == 13) {
-        var self = $(this);
-        var term = self.val().trim();
-        if(term.length > 0) {
-          $('#master-tree').jstree("search", term);
-        }
-        $(this).blur();
-      }
-    }).next().click(function() {
-        var self = $(this);
-        var term = self.val().trim();
-        if (term.length > 0) {
-          $('#master-tree').jstree("search", term);
-        }
-    });
-
   $('.searchicon').hover(function() {
     $(this).addClass('pointer');
   }, function() {
     $(this).removeClass('pointer');
   });
 
-  /*
-   * Search within Reference Trees
-   */
-  $('.reference-tree-search')
-    .live('blur', function(){
-      var self = $(this);
-      var term = self.val().trim();
-      if (term.length > 0) {
-        var $reference_tree = $('.reference_tree_container .jstree');
-        $reference_tree.jstree("search", term);
-      }
-    })
-    .live('keypress', function(event) {
-      if (event.which == 13) {
-        var self = $(this);
-        var term = self.val().trim();
-        if(term.length > 0) {
-            var $reference_tree = $('.reference_tree_container .jstree-focused');
-            $reference_tree.jstree("search", term);
-        }
-        $(this).blur();
-      }
-    }).next().click(function() {
-        var self = $(this);
-        var term = self.val().trim();
-        if (term.length > 0) {
-            var $reference_tree = $('.reference_tree_container .jstree-focused');
-            $reference_tree.jstree("search", term);
-        }
-    });
+  $('.searchbar-dropdown')
+  .hover(function() {
+      $(this).find('span').addClass('pointer').addClass('expanded').next().show();
+    }, function() {
+      $(this).find('span').removeClass('pointer').removeClass('expanded').next().hide(); 
+  });
 
-  /*
-   * Search within Deleted Names
-   */
-  $('.deleted-tree-search')
+  $('.tree-search')
     .live('blur', function(){
       var self = $(this);
+      var tree = self.parents('.tree-background').find('.jstree');
       var term = self.val().trim();
+      var $results = self.parents('.tree-background').find('.searchbar-results');
+      tree.jstree("clear_search");
       if (term.length > 0) {
-        var $deleted_tree = $('.deleted_tree_container .jstree');
-        $deleted_tree.jstree("search", term);
+
+        $results.spinner().show();
+
+        $.ajax({
+          url     : '/tree_search',
+          type    : 'GET',
+          data    : { 'tree_id' : self.parents('.tree-background').find('.tree-container').attr('data-database-id'),'name_string' : term },
+          success : function(data) {
+            var results = '<div class="results-wrapper">';
+            if(!data.length) {
+              results += '<p>Nothing found</p>';
+            }
+            for(var i=0; i<data.length; i++) {
+              results += '<p><a href="#" data-treepath-ids="' + data[i].treepath.node_ids + '">' + data[i].treepath.name_strings + '</a></p>';
+            }
+            results += '</div>';
+            $results.html(results);
+            $results.find("a").click(function() {
+               $results.hide();
+               tree.jstree("deselect_all");
+               var ancestry_arr = $(this).attr("data-treepath-ids").split(",");
+               var searched_id = ancestry_arr.pop();
+               GNITE.Tree.open_ancestry(tree, ancestry_arr[0], searched_id);
+               var timeout = setTimeout(function checkAncestryStatus() {
+                if($(searched_id).length > 0) {
+	              tree.parents('#add-node-wrap, .reference-tree-container, .deleted-tree-container').scrollTo($(searched_id));
+	              tree.jstree("select_node", $(searched_id));
+                }
+                else {
+                  timeout = setTimeout(checkAncestryStatus, 100);
+                }
+               }, 100);
+               return false;
+            });
+          },
+          error : function() {
+          },
+          complete : function() {
+            $results.unspinner();
+          }
+        });
       }
     })
     .live('keypress', function(event) {
       if (event.which == 13) {
-        var self = $(this);
-        var term = self.val().trim();
-        if(term.length > 0) {
-            var $deleted_tree = $('.deleted_tree_container .jstree');
-            $deleted_tree.jstree("search", term);
-        }
-        $(this).blur();
+        $(this).blur();     
       }
     }).next().click(function() {
-        var self = $(this);
-        var term = self.val().trim();
-        if (term.length > 0) {
-            var $deleted_tree = $('.deleted_tree_container .jstree');
-            $deleted_tree.jstree("search", term);
-        }
+        $(this).blur();
     });
+  
+  GNITE.Tree.open_ancestry = function(tree, obj, terminus, original_obj) {
+    if(original_obj) { 
+        obj = $(obj).find("li.jstree-closed");
+    }
+    else {
+        original_obj = $(obj);
+        if($(obj).is(".jstree-closed")) { obj = $(obj).find("li.jstree-closed").andSelf(); }
+        else { obj = $(obj).find("li.jstree-closed"); }
+    }
+    var _this = this;
+    obj.each(function () {
+        var __this = this;
+        obj = (typeof __this == "[object]") ? __this[0].get("id") : __this;
+        tree.jstree("open_node", this, function() {
+          if('#' + $(obj).attr("id") !== terminus) {
+            _this.open_ancestry(tree, obj, terminus, original_obj);
+          } 
+        }, true);
+    });
+  }
 
 
 /**************************************************************
            TOOL BAR ACTIONS
 **************************************************************/
-  ddsmoothmenu.init({
-     mainmenuid: "toolbar",
-     orientation: 'h',
-     classname: 'ddsmoothmenu',
-     contentsource: "markup",
-  });
-
-  ddsmoothmenu.hideMenu = function() {
-    $('#toolbar>ul').find("ul").css({display:'none', visibility:'visible'});
-  };
 
   /*
    * FILE: Add node
@@ -555,14 +544,33 @@ $(function() {
     return false;
   });
 
-  /*
-   * VIEW: Refresh tree
-  */
-  $('.nav-refresh-tree').click(function() {
-    $('#master-tree').jstree('refresh');
-    ddsmoothmenu.hideMenu();
-    return false;
-  });
+  GNITE.Tree.buildViewMenuActions = function() {
+      /*
+       * VIEW: Refresh tree
+       * Generic refresh action for any tree
+       */
+      $('.nav-refresh-tree').click(function() {
+        var self = $(this);
+        var tree_id = self.parents('.tree-background').find('.jstree').attr("id");
+        $('#'+tree_id).jstree('refresh');
+        ddsmoothmenu.hideMenu();
+        return false;
+      });
+
+      /*
+       * VIEW: Collapse tree
+       * Generic collapse action for any tree
+       */
+      $('.nav-collapse-tree').click(function() {
+        var self = $(this);
+        var tree_id = self.parents('.tree-background').find('.jstree').attr("id");
+        $('#'+tree_id).jstree('close_all');
+        ddsmoothmenu.hideMenu();
+        return false;
+      });
+  }
+
+  GNITE.Tree.buildViewMenuActions();
 
 
 /**************************************************************
@@ -660,6 +668,7 @@ $(function() {
          }
        }
      });
+
   });
 
   /*
@@ -676,7 +685,7 @@ $(function() {
       data    : JSON.stringify({'action_type' : 'ActionMoveNodeToDeletedTree'}),
       contentType : 'application/json',
       success : function(data) {
-        var $deleted_tree = $('.deleted_tree_container .jstree');
+        var $deleted_tree = $('.deleted_tree .jstree');
         $deleted_tree.jstree("refresh");
       }
     });
@@ -764,7 +773,7 @@ $(function() {
     var metadata = tree.find('.node-metadata');
     var tree_id  = tree.attr('id').split('_')[2];
     var node_id  = self.parent('li').attr('id');
-    var wrapper  = tree.find('.reference_tree_container > div');
+    var wrapper  = tree.find('.tree_container > div');
     var url      = '/reference_trees/' + tree_id + '/nodes/' + node_id;
 
     GNITE.Node.getMetadata(url, metadata, wrapper);
@@ -774,7 +783,7 @@ $(function() {
 /**************************************************************
            SEARCH & IMPORT FROM GNACLR
 **************************************************************/
-  $('#search')
+  $('#gnaclr-search')
     .live('blur', function(){
       var self = $(this);
       var term = self.val().trim();
@@ -785,7 +794,7 @@ $(function() {
         container.spinner();
 
         $.ajax({
-          url     : '/search',
+          url     : '/gnaclr_search',
           type    : 'GET',
           data    : { 'search_term' : term, 'master_tree_id' : GNITE.MasterTreeID },
           success : function(results) {
@@ -795,7 +804,6 @@ $(function() {
             $('#search-nav li').each(function() {
               if ($(this).find('.count').text() != '0') {
                 $(this).trigger('click');
-
                 return false;
               }
             });
@@ -930,6 +938,54 @@ $(function() {
   });
 
 });
+
+/**************************************************************
+           DYNAMICALLY ADD REFERENCE TREE
+**************************************************************/
+
+GNITE.ReferenceTree.add = function(response, options) {
+  if ($('a[href="#' + response.domid + '"]').length == 0) {
+    var tab   = $('#all-tabs');
+    var count = parseInt(tab.text().replace(/[^0-9]+/, ''), 10);
+
+    tab.text('All reference trees (' + (count + 1) + ')');
+
+    $('#new-tab').before(response.tree);
+
+    $('#tab-titles li:first-child').show();
+    $('#tabs li:first-child ul').append('<li><a href="#' + response.domid + '">' + response.title + '</a></li>');
+  }
+
+  $('#container_for_' + response.domid).jstree($.extend(true, {},
+    GNITE.ReferenceTree.configuration, {
+      'json_data' : {
+        'ajax' : {
+          'url' : response.url
+        }
+      }
+    }
+  ));
+
+  $('#tabs li:first-child ul li:last-child a').trigger('click');
+
+  // Build the menu system for the new reference tree
+/* TODO: rendering of "View" drop-down menu is not correct
+  ddsmoothmenu.init({
+     mainmenuid: "toolbar-reference-"+response.domid.split('_')[2],
+     orientation: 'h',
+     classname: 'ddsmoothmenu',
+     contentsource: "markup",
+  });
+
+  GNITE.Tree.buildViewMenuActions();
+*/
+
+  if (options) {
+    options.spinnedElement.unspinner()
+  }
+
+};
+
 /********************************* jQuery END *********************************/
 
 

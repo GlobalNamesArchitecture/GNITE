@@ -6,7 +6,7 @@ Feature: Edit the metadata for a master tree
       | Bullwinkle |
     And I am on the master tree index page
     When I follow "Moose tree"
-    And I follow "Edit Tree Info"
+    And I follow "Edit tree info"
     When I fill in "Title" with "Bullwinkle tree"
     And I select "Public domain" from "License"
     And I press "Update"
@@ -20,7 +20,7 @@ Feature: Edit the metadata for a master tree
       | Bullwinkle |
     And I am on the master tree index page
     When I follow "Moose tree"
-    And I follow "Edit Tree Info"
+    And I follow "Edit tree info"
     Then I should be on the edit master tree page for "Moose tree"
     When I follow "Cancel"
     Then I should be on the master tree page for "Moose tree"
@@ -38,7 +38,7 @@ Feature: Edit the metadata for a master tree
     When I follow "Moose tree"
     And I drag "Rocky" under "Bullwinkle"
     Then I should see a node "Rocky" under "Bullwinkle"
-    When I follow "Edit Tree Info"
+    When I follow "Edit tree info"
     And I fill in "Title" with "New and improved title"
     And I press "Update"
     Then I should see "New and improved title"
