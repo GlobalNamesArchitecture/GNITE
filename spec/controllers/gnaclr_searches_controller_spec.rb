@@ -7,12 +7,12 @@ end
 describe GnaclrSearchesController, 'xhr GET to show' do
   let(:user)           { Factory(:email_confirmed_user) }
   let(:master_tree)    { Factory(:master_tree, :user => user) }
-  let(:search_results) { File.open('features/support/fixtures/search_result.json') }
+  let(:search_results) { File.open('features/support/fixtures/gnaclr_search_result.json') }
 
   before do
-    search_mock = mock('search')
-    GnaclrSearch.stubs(:new => search_mock)
-    search_mock.stubs(:results => search_results)
+    gnaclr_search_mock = mock('gnaclr-search')
+    GnaclrSearch.stubs(:new => gnaclr_search_mock)
+    gnaclr_search_mock.stubs(:results => search_results)
 
     sign_in_as(user)
 
@@ -33,9 +33,9 @@ end
 
 describe GnaclrSearchesController, 'xhr GET to show with GNACLR service down' do
   before do
-    search_mock = mock('search')
-    GnaclrSearch.stubs(:new => search_mock)
-    search_mock.stubs(:results).raises(GnaclrSearch::ServiceUnavailable)
+    gnaclr_search_mock = mock('gnaclr-search')
+    GnaclrSearch.stubs(:new => gnaclr_search_mock)
+    gnaclr_search_mock.stubs(:results).raises(GnaclrSearch::ServiceUnavailable)
 
     sign_in
 

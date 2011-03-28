@@ -20,7 +20,7 @@ describe GnaclrSearch, 'issuing a search' do
   subject { GnaclrSearch.new(:search_term => 'asfd') }
 
   before do
-    response = File.open(Rails.root.join('features', 'support', 'fixtures', 'search_result.json')).read
+    response = File.open(Rails.root.join('features', 'support', 'fixtures', 'gnaclr_search_result.json')).read
     stub_app = ShamRack.at(GnaclrSearch::URL).stub
     stub_app.register_resource("/search?format=json&show_revisions=true&search_term=#{subject.search_term}", response, 'application/json')
   end

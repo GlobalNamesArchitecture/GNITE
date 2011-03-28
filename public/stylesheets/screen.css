@@ -1056,19 +1056,19 @@ body form input {
   padding: 5px 8px;
 }
 
-/* Search results */
+/* GNACLR Search results */
 /************************************************************************/
-#search-results {
+#gnaclr-search-results {
   padding: 10px;
 }
 
-#search-results ul#search-nav li {
+#gnaclr-search-results ul#search-nav li {
   float: left;
   margin: 0 4px 0 0;
   width: 140px;
 }
 
-#search-results ul#search-nav li a {
+#gnaclr-search-results ul#search-nav li a {
   background: #BABFC3;
   border-radius: 5px 5px 0 0;
   display: block;
@@ -1077,11 +1077,11 @@ body form input {
   text-decoration: none;
 }
 
-#search-results ul#search-nav li.active a {
+#gnaclr-search-results ul#search-nav li.active a {
   background: #d0d6db;
 }
 
-#search-results ul#search-nav li a div.count {
+#gnaclr-search-results ul#search-nav li a div.count {
   display: inline;
   float: right;
   font-weight: bold;
