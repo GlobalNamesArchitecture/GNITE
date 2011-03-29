@@ -11,6 +11,10 @@ Gnite::Application.routes.draw do
   end
 
   resources :gnaclr_imports, :only => [:create]
+  
+  resource :tree_searches, :only => [:show]
+  
+  resource :gnaclr_searches, :only => [:show]
 
   namespace :your do
     resource :password, :only => [:edit, :update]
@@ -29,14 +33,10 @@ Gnite::Application.routes.draw do
     resource :tree_expand,    :only => [:show]
   end
 
-  resources :deleted_tree, :only => [:show] do
+  resources :deleted_trees, :only => [:show] do
     resources :nodes,         :only => [:index, :show]
     resource :tree_expand,  :only => [:show]
   end
-
-  resource :tree_search, :only => [:show]
-  
-  resource :gnaclr_search, :only => [:show]
 
   root :to => "homes#show"
 end

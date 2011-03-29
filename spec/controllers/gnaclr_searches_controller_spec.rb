@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe GnaclrSearchesController, 'route' do
-  it { should route(:get, '/gnaclr_search').to(:action => 'show') }
+  it { should route(:get, '/gnaclr_searches').to(:action => 'show') }
 end
 
 describe GnaclrSearchesController, 'xhr GET to show' do

@@ -1,4 +1,4 @@
-class DeletedTreeController < ApplicationController
+class DeletedTreesController < ApplicationController
   before_filter :authenticate
 
   def show

@@ -299,13 +299,13 @@ $(function() {
           self.jstree($.extend(true, {}, GNITE.ReferenceTree.configuration, {
             'json_data' : {
               'ajax' : {
-                'url' : '/deleted_tree/' + id + '/nodes.json'
+                'url' : '/deleted_trees/' + id + '/nodes.json'
               }
             },
             'search' : {
               'case_insensitive' : true,
               'ajax' : {
-                'url' : '/deleted_tree/' + id + '/name_searches.json'
+                'url' : '/deleted_trees/' + id + '/name_searches.json'
               }
             }
           }));
@@ -351,7 +351,7 @@ $(function() {
         $results.spinner().show();
 
         $.ajax({
-          url     : '/tree_search',
+          url     : '/tree_searches',
           type    : 'GET',
           data    : { 'tree_id' : self.parents('.tree-background').find('.tree-container').attr('data-database-id'),'name_string' : term },
           success : function(data) {
@@ -687,7 +687,7 @@ $(function() {
       data    : JSON.stringify({'action_type' : 'ActionMoveNodeToDeletedTree'}),
       contentType : 'application/json',
       success : function(data) {
-        var $deleted_tree = $('.deleted_tree .jstree');
+        var $deleted_tree = $('.deleted-tree-container .jstree');
         $deleted_tree.jstree("refresh");
       }
     });
@@ -796,7 +796,7 @@ $(function() {
         container.spinner();
 
         $.ajax({
-          url     : '/gnaclr_search',
+          url     : '/gnaclr_searches',
           type    : 'GET',
           data    : { 'search_term' : term, 'master_tree_id' : GNITE.MasterTreeID },
           success : function(results) {
