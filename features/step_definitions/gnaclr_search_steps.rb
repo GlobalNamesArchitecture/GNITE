@@ -1,8 +1,8 @@
 # encoding: utf-8
 When /^I search for "([^"]*)"$/ do |search_term|
-  field = find("#search")
+  field = find("#gnaclr-search")
   field.set(search_term)
-  page.execute_script("jQuery('#search').blur();")
+  page.execute_script("jQuery('#gnaclr-search').blur();")
 end
 
 Then /^I should see a total count of (\d+) in "([^\"]+)"/ do |count, section_named_element|
@@ -16,7 +16,7 @@ When /^the search results return$/ do
   loaded = false
   When %{pause 1}
   until loaded
-    loaded = page.has_css?("#search-results") || page.has_css?("#gnaclr-error")
+    loaded = page.has_css?("#gnaclr-search-results") || page.has_css?("#gnaclr-error")
   end
 end
 
@@ -57,7 +57,7 @@ end
 
 Given /^the GNACLR search service is unavailable$/ do
   ShamRack.unmount_all
-  ShamRack.at(Search::URL) do
+  ShamRack.at(GnaclrSearch::URL) do
     [ 500,  {}, [' '] ]
   end
 end

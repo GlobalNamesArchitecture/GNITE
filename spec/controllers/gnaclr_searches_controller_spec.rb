@@ -1,18 +1,18 @@
 require 'spec_helper'
 
-describe SearchesController, 'route' do
-  it { should route(:get, '/search').to(:action => 'show') }
+describe GnaclrSearchesController, 'route' do
+  it { should route(:get, '/gnaclr_search').to(:action => 'show') }
 end
 
-describe SearchesController, 'xhr GET to show' do
+describe GnaclrSearchesController, 'xhr GET to show' do
   let(:user)           { Factory(:email_confirmed_user) }
   let(:master_tree)    { Factory(:master_tree, :user => user) }
-  let(:search_results) { File.open('features/support/fixtures/search_result.json') }
+  let(:search_results) { File.open('features/support/fixtures/gnaclr_search_result.json') }
 
   before do
-    search_mock = mock('search')
-    Search.stubs(:new => search_mock)
-    search_mock.stubs(:results => search_results)
+    gnaclr_search_mock = mock('gnaclr-search')
+    GnaclrSearch.stubs(:new => gnaclr_search_mock)
+    gnaclr_search_mock.stubs(:results => search_results)
 
     sign_in_as(user)
 
@@ -31,11 +31,11 @@ describe SearchesController, 'xhr GET to show' do
   it { should render_template(:show) }
 end
 
-describe SearchesController, 'xhr GET to show with GNACLR service down' do
+describe GnaclrSearchesController, 'xhr GET to show with GNACLR service down' do
   before do
-    search_mock = mock('search')
-    Search.stubs(:new => search_mock)
-    search_mock.stubs(:results).raises(Search::ServiceUnavailable)
+    gnaclr_search_mock = mock('gnaclr-search')
+    GnaclrSearch.stubs(:new => gnaclr_search_mock)
+    gnaclr_search_mock.stubs(:results).raises(GnaclrSearch::ServiceUnavailable)
 
     sign_in
 

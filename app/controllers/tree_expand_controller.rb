@@ -1,4 +1,4 @@
-class NameSearchesController < ApplicationController
+class TreeExpandController < ApplicationController
   before_filter :authenticate
 
   def show

@@ -22,7 +22,7 @@ module FakeGnaclr
 
     def self.json_response
       @json_response ||= begin
-                           response = File.read(Rails.root.join('features', 'support', 'fixtures', 'search_result.json'))
+                           response = File.read(Rails.root.join('features', 'support', 'fixtures', 'gnaclr_search_result.json'))
                            response.gsub(/\"file_url\":\"([\w\.]+)\",/, '"file_url": "file://' + Rails.root.join('features', 'support', 'fixtures', '\1').to_s + '",')
                          end
     end

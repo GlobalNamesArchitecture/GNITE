@@ -1,27 +1,27 @@
 require 'spec_helper'
 
-describe Search do
+describe GnaclrSearch do
   it 'initializes with a search term' do
-    search = Search.new(:search_term => 'foo')
+    search = GnaclrSearch.new(:search_term => 'foo')
     search.search_term.should == 'foo'
   end
 
   it 'escapes the search term' do
-    search = Search.new(:search_term => 'foo bar')
+    search = GnaclrSearch.new(:search_term => 'foo bar')
     search.search_term.should == 'foo%20bar'
   end
 
   it 'raises if no search term is provided' do
-    lambda { Search.new({}) }.should raise_error ArgumentError
+    lambda { GnaclrSearch.new({}) }.should raise_error ArgumentError
   end
 end
 
-describe Search, 'issuing a search' do
-  subject { Search.new(:search_term => 'asfd') }
+describe GnaclrSearch, 'issuing a search' do
+  subject { GnaclrSearch.new(:search_term => 'asfd') }
 
   before do
-    response = File.open(Rails.root.join('features', 'support', 'fixtures', 'search_result.json')).read
-    stub_app = ShamRack.at(Search::URL).stub
+    response = File.open(Rails.root.join('features', 'support', 'fixtures', 'gnaclr_search_result.json')).read
+    stub_app = ShamRack.at(GnaclrSearch::URL).stub
     stub_app.register_resource("/search?format=json&show_revisions=true&search_term=#{subject.search_term}", response, 'application/json')
   end
 
@@ -34,15 +34,15 @@ describe Search, 'issuing a search' do
   end
 end
 
-describe Search, 'when GNACLR search service fails' do
-  subject { Search.new(:search_term => 'asdf') }
+describe GnaclrSearch, 'when GNACLR search service fails' do
+  subject { GnaclrSearch.new(:search_term => 'asdf') }
 
   before do
     OpenURI.stubs(:open).raises("OpenURI::HTTPError")
   end
 
   it 'raises ServiceUnavailable when there is an HTTP error' do
-    expect { subject.results }.to raise_error(Search::ServiceUnavailable)
+    expect { subject.results }.to raise_error(GnaclrSearch::ServiceUnavailable)
   end
 
 

@@ -447,7 +447,7 @@ body form input {
 .tree-background {
   background: #fff;
   border: 0;
-  min-height: 700px;
+  min-height: 650px;
   width: 100%;
   height: 100%;
 }
@@ -598,10 +598,9 @@ body form input {
   position: relative;
 }
 
-#add-node-wrap,
-.reference_tree_container, .deleted_tree_container {
+#add-node-wrap, .reference-tree-container, .deleted-tree-container {
   position: absolute;
-  top: 82px;
+  top: 75px;
   right: 0;
   bottom: 20px;
   left: 0;
@@ -707,19 +706,25 @@ body form input {
 
 /* SEARCHBAR ABOVE TREES */
 .searchbar {
+  -moz-border-radius: 6px 6px 6px 6px;
+  border-radius: 6px 6px 6px 6px;
   position:absolute;
   top:0px;
-  right:0px;
+  right:15px;
   padding:3px;
   background-color:#FFF;
   margin:5px;
   width:175px;
+  height:15px;
+  border:1px solid #AAA;
 }
 
 .searchbar input {
   width:150px;
   border:medium none;
   float:left;
+  vertical-align:middle;
+  margin:0px;
 }
 
 .searchbar .searchicon {
@@ -731,8 +736,69 @@ body form input {
   float:right;
 }
 
-.searchbar .pointer {
+.pointer {
     cursor: pointer;
+}
+
+.searchbar-dropdown {
+  position:absolute;
+  right:4px;
+  top:0px;
+  margin:0px;  
+}
+
+.searchbar-dropdown span {
+  display:block;
+  width:15px;
+  height:32px;
+  background-repeat:no-repeat;
+  background-position:right center;
+  background-image: url("../images/down.gif");  
+}
+
+.searchbar-dropdown span.expanded {
+  width:80px;
+}
+
+.searchbar-results {
+    display:none;
+    -moz-box-shadow: 0px 5px 5px #AAAAAA;
+    -webkit-box-shadow:#AAAAAA 0px 5px 5px;
+    box-shadow:#AAAAAA 0px 5px 5px;
+    background-color: #EEF1F3;
+    border: 1px solid #868D92;
+    min-height:200px;
+    max-height:200px;
+    overflow-y:auto;
+    padding-right:20px;
+    position:absolute;
+    top:29px;
+    right:-5px;
+    width:300px;
+    z-index:100;
+    cursor:normal;
+    padding:5px;
+}
+
+* html .searchbar-results {
+	height:200px;
+}
+
+.searchbar-results p {
+    margin: 0.5em 0 0em 2em;
+    text-indent: -2em;
+    line-height:16px;
+}
+
+.searchbar-results p a {
+	text-decoration:none;
+	color:#232323;
+}
+
+.searchbar-results div.results-message {
+	margin-top:10px;
+	font-style:italic;
+	text-align:right;
 }
 
 /* TOOLSBAR ABOVE TREES */
@@ -777,6 +843,7 @@ body form input {
 .ddsmoothmenu ul li a.nav-delete-node { background: transparent url(../images/icons/bin_closed.png) no-repeat 5px center; }
 .ddsmoothmenu ul li a.nav-refresh-node { background: transparent url(../images/icons/arrow_refresh_small.png) no-repeat 5px center; }
 .ddsmoothmenu ul li a.nav-refresh-tree { background: transparent url(../images/icons/arrow_refresh.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-collapse-tree { background: transparent url(../images/icons/door.png) no-repeat 5px center; }
 
 * html .ddsmoothmenu ul li a {
   display: inline-block;
@@ -786,13 +853,13 @@ body form input {
 }
 
 .ddsmoothmenu ul li a.selected {
-	background-color:#BABFC3; 
+    background-color:#BABFC3; 
 }
 
 .ddsmoothmenu ul li a:hover {
-	background-color:#BABFC3;
+    background-color:#BABFC3;
 }
-	
+    
 /* 1st sub level menu */
 .ddsmoothmenu ul li ul {
   position: absolute;
@@ -912,7 +979,7 @@ body form input {
   float: right;
 }
 
-#search {
+#gnaclr-search {
   border: 0 solid #fff;
   box-shadow: 0 1.5px 2px 1px rgba(26, 26, 26, 0.6) inset;
   -moz-box-shadow: 0 1px 2px 1px rgba(26, 26, 26, 0.6) inset;
@@ -989,19 +1056,19 @@ body form input {
   padding: 5px 8px;
 }
 
-/* Search results */
+/* GNACLR Search results */
 /************************************************************************/
-#search-results {
+#gnaclr-search-results {
   padding: 10px;
 }
 
-#search-results ul#search-nav li {
+#gnaclr-search-results ul#search-nav li {
   float: left;
   margin: 0 4px 0 0;
   width: 140px;
 }
 
-#search-results ul#search-nav li a {
+#gnaclr-search-results ul#search-nav li a {
   background: #BABFC3;
   border-radius: 5px 5px 0 0;
   display: block;
@@ -1010,11 +1077,11 @@ body form input {
   text-decoration: none;
 }
 
-#search-results ul#search-nav li.active a {
+#gnaclr-search-results ul#search-nav li.active a {
   background: #d0d6db;
 }
 
-#search-results ul#search-nav li a div.count {
+#gnaclr-search-results ul#search-nav li a div.count {
   display: inline;
   float: right;
   font-weight: bold;
@@ -1679,6 +1746,10 @@ ul#treelist a:hover,
   position: relative;
 }
 
+#tab-titles li.ui-state-active {
+    z-index:200;
+}
+
 #tab-titles #import {
   float: right;
   margin-right: 0;
@@ -1693,7 +1764,7 @@ ul#reference-trees {
   position: absolute;
   top: 26px;
   width: 270px;
-  z-index: -1;
+  z-index: 1000;
 }
 
 .ui-tabs .ui-tabs-nav li ul#reference-trees li {
@@ -1732,7 +1803,7 @@ ul#reference-trees li a:hover {
 /* Border Radius */
 /************************************************************************/
 #flash_error, #flash_success, #flash_failure, #flash_notice,
-ul#treelist li,  #search, .tree-background, #loginform .input, .green-submit, .cancel-button,
+ul#treelist li,  #gnaclr-search, .tree-background, #loginform .input, .green-submit, .cancel-button,
 .infobox-wrap, .infobox, .tree-back-wrap, #tree-newimport li {
   border-radius: 6px;
   -moz-border-radius: 6px;
