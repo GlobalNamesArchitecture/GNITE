@@ -364,6 +364,7 @@ $(function() {
             }
             results += '</div>';
             $results.html(results);
+
             $results.find("a").click(function() {
                $results.hide();
                tree.jstree("deselect_all");
@@ -390,9 +391,10 @@ $(function() {
         });
       }
     })
-    .live('keypress', function(event) {
-      if (event.which == 13) {
-        $(this).blur();     
+    .live('keypress', function(e) {
+	  //enter key
+      if (e.which == 13) {
+        $(this).blur();
       }
     }).next().click(function() {
         $(this).blur();
