@@ -46,7 +46,7 @@ GNITE.Tree.configuration = {
   },
 
   'ui' : {
-	'select_limit' : 1
+    'select_limit' : 1
   },
 
   'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'search']
@@ -245,13 +245,6 @@ $(function() {
     if (active) {
         $('#reference-trees li a').click(function() {
           if($(this).attr('href').split('_')[2] == id && self.find('ul').length == 0) {
-              // Build the menu system for the reference tree
-              ddsmoothmenu.init({
-                 mainmenuid: "toolbar-reference-"+id,
-                 orientation: 'h',
-                 classname: 'ddsmoothmenu',
-                 contentsource: "markup",
-              });
               // Render the reference tree
               self.jstree($.extend(true, {}, GNITE.ReferenceTree.configuration, {
                 'json_data' : {
@@ -266,6 +259,17 @@ $(function() {
                   }
                 }
               }));
+
+              // Build the menu system for the reference tree
+              self.bind("init.jstree", function(event, data) {
+                ddsmoothmenu.init({
+                  mainmenuid: "toolbar-reference-"+id,
+                  orientation: 'h',
+                  classname: 'ddsmoothmenu',
+                  contentsource: "markup",
+                });
+              });
+
           }
         });
     } else {
@@ -309,16 +313,20 @@ $(function() {
               }
             }
           }));
+
           // Build the menu system for the deleted tree
-          ddsmoothmenu.init({
-             mainmenuid: "toolbar-deleted",
-             orientation: 'h',
-             classname: 'ddsmoothmenu',
-             contentsource: "markup",
+          self.bind("init.jstree", function(event, data) {
+            ddsmoothmenu.init({
+              mainmenuid: "toolbar-deleted",
+              orientation: 'h',
+              classname: 'ddsmoothmenu',
+              contentsource: "markup",
+            });
           });
         }
       });
     }
+
   });
 
 
@@ -373,8 +381,8 @@ $(function() {
                GNITE.Tree.open_ancestry(tree, ancestry_arr[0], searched_id);
                var timeout = setTimeout(function checkAncestryStatus() {
                 if($(searched_id).length > 0) {
-	              tree.parents('#add-node-wrap, .reference-tree-container, .deleted-tree-container').scrollTo($(searched_id));
-	              tree.jstree("select_node", $(searched_id));
+                  tree.parents('#add-node-wrap, .reference-tree-container, .deleted-tree-container').scrollTo($(searched_id));
+                  tree.jstree("select_node", $(searched_id));
                 }
                 else {
                   timeout = setTimeout(checkAncestryStatus, 100);
@@ -392,7 +400,7 @@ $(function() {
       }
     })
     .live('keypress', function(e) {
-	  //enter key
+      //enter key
       if (e.which == 13) {
         $(this).blur();
       }
@@ -500,6 +508,28 @@ $(function() {
         draggable : false,
         resizable : false
     });
+  });
+
+  /*
+   * EDIT: Undo
+   * TODO: implement
+   */
+  $('.nav-undo').click(function() {
+
+    //refresh affected parent(s) after undo
+    ddsmoothmenu.hideMenu();
+    return false;
+  });
+
+  /*
+   * EDIT: Redo
+   * TODO: implement
+   */
+  $('.nav-redo').click(function() {
+
+    //refresh affected parent(s) after redo
+    ddsmoothmenu.hideMenu();
+    return false;
   });
 
   /*
@@ -955,7 +985,7 @@ GNITE.ReferenceTree.add = function(response, options) {
     $('#new-tab').before(response.tree);
 
     $('#tab-titles li:first-child').show();
-    $('#tabs li:first-child ul').append('<li><a href="#' + response.domid + '">' + response.title + '</a></li>');
+    $('#reference-trees').append('<li><a href="#' + response.domid + '">' + response.title + '</a></li>');
   }
 
   $('#container_for_' + response.domid).jstree($.extend(true, {},
@@ -971,16 +1001,16 @@ GNITE.ReferenceTree.add = function(response, options) {
   $('#tabs li:first-child ul li:last-child a').trigger('click');
 
   // Build the menu system for the new reference tree
-/* TODO: rendering of "View" drop-down menu is not correct
-  ddsmoothmenu.init({
-     mainmenuid: "toolbar-reference-"+response.domid.split('_')[2],
-     orientation: 'h',
-     classname: 'ddsmoothmenu',
-     contentsource: "markup",
+  $('#container_for_' + response.domid).bind("init.jstree", function(event, data) {
+    ddsmoothmenu.init({
+      mainmenuid: "toolbar-reference-"+response.domid.split('_')[2],
+      orientation: 'h',
+      classname: 'ddsmoothmenu',
+      contentsource: "markup",
+    });
   });
 
   GNITE.Tree.buildViewMenuActions();
-*/
 
   if (options) {
     options.spinnedElement.unspinner()

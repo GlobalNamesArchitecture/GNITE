@@ -16,7 +16,7 @@ Feature: Work with reference trees
       | root one   |
       | root two   |
       | root three |
-    And pause 1
+    And pause 2
     And I follow "All reference trees"
     And I follow "List"
 
