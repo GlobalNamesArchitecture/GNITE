@@ -775,7 +775,7 @@ $(function() {
     var metadata = tree.find('.node-metadata');
     var tree_id  = tree.attr('id').split('_')[2];
     var node_id  = self.parent('li').attr('id');
-    var wrapper  = tree.find('.tree_container > div');
+    var wrapper  = tree.find('.reference-tree-container');
     var url      = '/reference_trees/' + tree_id + '/nodes/' + node_id;
 
     GNITE.Node.getMetadata(url, metadata, wrapper);

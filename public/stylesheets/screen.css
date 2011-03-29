@@ -439,7 +439,7 @@ body form input {
 /************************************************************************/
 .tree-column {
   float: left;
-  height: 93%;
+  height: 90%;
   width: 49%;
   min-width: 480px;
 }
@@ -558,7 +558,7 @@ body form input {
   -moz-border-radius: 0 0 8px 8px;
   -webkit-border-radius: 0 0 8px 8px;
   height: 100%;
-  min-height: 600px;
+  min-height: 555px;
   overflow-y: auto;
 }
 
