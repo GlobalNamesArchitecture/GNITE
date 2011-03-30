@@ -26,7 +26,7 @@ class BookmarksController < ApplicationController
   
   def destroy
     @bookmark = Bookmark.find_by_node_id(params[:id])
-    @bookmark.nuke
+    @bookmark.destroy
     respond_to do |format|
       format.json do
         render :json => { :status => "OK" }

@@ -657,14 +657,18 @@ $(function() {
             else {
                 results += '<ul>';
                 for(var i=0; i<data.length; i++) {
-                  results += '<li><a href="#" data-treepath-ids="' + data[i].treepath.node_ids + '">' + data[i].treepath.name_strings + '</a></li>';
+                  results += '<li>';
+                  results += '<a href="#" class="bookmarks-show" data-treepath-ids="' + data[i].treepath.node_ids + '">' + data[i].treepath.name_strings + '</a>';
+                  results += '<a href="#" class="bookmarks-delete" data-node-id="' + data[i].id + '">&nbsp;</a>';
+                  results += '</li>';
                 }
                 results += '</ul>';
             }
             results += '</div>';
             $bookmarks.html(results);
 
-            $bookmarks.find("a").click(function() {
+            // Click a bookmark in list
+            $bookmarks.find("a.bookmarks-show").click(function() {
                $bookmarks.hide();
                tree.jstree("deselect_all");
                var ancestry_arr = $(this).attr("data-treepath-ids").split(",");
@@ -681,6 +685,25 @@ $(function() {
                }, 100);
                return false;
             });
+
+            // Delete a bookbark in list
+            $bookmarks.find("a.bookmarks-delete").click(function() {
+	          var self = this;
+              $.ajax({
+                url   : '/master_trees/' + GNITE.MasterTreeID + '/bookmarks/' + $(self).attr("data-node-id"),
+                type  : 'DELETE',
+                data  : { },
+                success : function() {
+	
+                },
+                error : function() {
+                },
+                complete : function() {
+                  $(self).parent().hide();
+                }
+              });
+            });
+
           },
           error : function() {
           },

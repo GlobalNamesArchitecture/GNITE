@@ -45,6 +45,4 @@ describe GnaclrSearch, 'when GNACLR search service fails' do
     expect { subject.results }.to raise_error(GnaclrSearch::ServiceUnavailable)
   end
 
-
-
 end

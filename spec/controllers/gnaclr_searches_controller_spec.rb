@@ -10,7 +10,7 @@ describe GnaclrSearchesController, 'xhr GET to show' do
   let(:search_results) { File.open('features/support/fixtures/gnaclr_search_result.json') }
 
   before do
-    gnaclr_search_mock = mock('search')
+    gnaclr_search_mock = mock('gnaclr_search')
     GnaclrSearch.stubs(:new => gnaclr_search_mock)
     gnaclr_search_mock.stubs(:results => search_results)
 
@@ -33,7 +33,7 @@ end
 
 describe GnaclrSearchesController, 'xhr GET to show with GNACLR service down' do
   before do
-    gnaclr_search_mock = mock('search')
+    gnaclr_search_mock = mock('gnaclr_search')
     GnaclrSearch.stubs(:new => gnaclr_search_mock)
     gnaclr_search_mock.stubs(:results).raises(GnaclrSearch::ServiceUnavailable)
 
