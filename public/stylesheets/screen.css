@@ -780,7 +780,7 @@ body form input {
 }
 
 * html .searchbar-results {
-	height:200px;
+    height:200px;
 }
 
 .searchbar-results p {
@@ -790,14 +790,14 @@ body form input {
 }
 
 .searchbar-results p a {
-	text-decoration:none;
-	color:#232323;
+    text-decoration:none;
+    color:#232323;
 }
 
 .searchbar-results div.results-message {
-	margin-top:10px;
-	font-style:italic;
-	text-align:right;
+    margin-top:10px;
+    font-style:italic;
+    text-align:right;
 }
 
 /* TOOLSBAR ABOVE TREES */
@@ -841,6 +841,7 @@ body form input {
 .ddsmoothmenu ul li a.nav-paste-node { background: transparent url(../images/icons/page_white_paste.png) no-repeat 5px center; }
 .ddsmoothmenu ul li a.nav-delete-node { background: transparent url(../images/icons/bin_closed.png) no-repeat 5px center; }
 .ddsmoothmenu ul li a.nav-refresh-node { background: transparent url(../images/icons/arrow_refresh_small.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-bookmarks { background: transparent url(../images/icons/asterisk_yellow.png) no-repeat 5px center; }
 .ddsmoothmenu ul li a.nav-refresh-tree { background: transparent url(../images/icons/arrow_refresh.png) no-repeat 5px center; }
 .ddsmoothmenu ul li a.nav-collapse-tree { background: transparent url(../images/icons/door.png) no-repeat 5px center; }
 

@@ -21,21 +21,23 @@ Gnite::Application.routes.draw do
   end
 
   resources :master_trees, :only => [:index, :new, :create, :show, :edit, :update, :destroy] do
-    resources :nodes, :only => [:index, :show, :create, :update, :destroy]
+    resources :nodes,                  :only => [:index, :show, :create, :update, :destroy]
+    resources :bookmarks,              :only => [:index, :create, :destroy]
     resources :flat_list_imports,      :only => [:new]
     resources :gnaclr_classifications, :only => [:index, :show]
     resources :imports,                :only => [:new]
-    resource :tree_expand,           :only => [:show]
+    resource  :tree_expand,            :only => [:show]
   end
 
   resources :reference_trees, :only => [:create, :show] do
-    resources :nodes,         :only => [:index, :show]
-    resource :tree_expand,    :only => [:show]
+    resources :nodes,          :only => [:index, :show]
+    resources :bookmarks,              :only => [:index, :create, :destroy]
+    resource  :tree_expand,    :only => [:show]
   end
 
   resources :deleted_trees, :only => [:show] do
-    resources :nodes,         :only => [:index, :show]
-    resource :tree_expand,  :only => [:show]
+    resources :nodes,        :only => [:index, :show]
+    resource  :tree_expand,  :only => [:show]
   end
 
   root :to => "homes#show"

@@ -63,7 +63,7 @@ GNITE.MasterTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
           'action'           : function(obj) { this.rename(obj); },
           'separator_after'  : false,
           'separator_before' : false,
-          'icon'           : 'context-rename',
+          'icon'             : 'context-rename',
         },
         'create' : {
           'label'            : 'New child',
@@ -77,31 +77,35 @@ GNITE.MasterTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
           'action'           : function(obj) { this.cut(obj); },
           'separator_after'  : false,
           'separator_before' : false,
-          'icon'           : 'context-cut',
+          'icon'             : 'context-cut',
         },
         'paste' : {
-          'icon'             : false,
           'label'            : 'Paste',
           'action'           : function(obj) { this.paste(obj); },
           'separator_after'  : false,
           'separator_before' : false,
-          'icon'           : 'context-paste',
+          'icon'             : 'context-paste',
         },
         'refresh' : {
-          'icon'             : false,
           'label'            : 'Refresh',
           'action'           : function(obj) { this.refresh(obj); },
-          'separator_after'  : true,
+          'separator_after'  : false,
           'separator_before' : true,
-          'icon'           : 'context-refresh',
+          'icon'             : 'context-refresh',
+        },
+        'bookmark' : {
+          'label'            : 'Bookmark',
+          'action'           : function(obj) { GNITE.Tree.createBookmark(obj); },
+          'separator_after'  : true,
+          'separator_before' : false,
+          'icon'             : 'context-bookmark'
         },
         'remove' : {
-          'icon'             : false,
           'label'            : 'Delete',
           'action'           : function(obj) { this.remove(obj); },
           'separator_after'  : false,
           'separator_before' : true,
-          'icon'           : 'context-delete',
+          'icon'             : 'context-delete',
         },
       };
     }
@@ -517,6 +521,7 @@ $(function() {
   $('.nav-undo').click(function() {
 
     //refresh affected parent(s) after undo
+    alert("Sorry, this function is not yet enabled.");
     ddsmoothmenu.hideMenu();
     return false;
   });
@@ -528,6 +533,7 @@ $(function() {
   $('.nav-redo').click(function() {
 
     //refresh affected parent(s) after redo
+    alert("Sorry, this function is not yet enabled.");
     ddsmoothmenu.hideMenu();
     return false;
   });
@@ -577,6 +583,17 @@ $(function() {
   });
 
   GNITE.Tree.buildViewMenuActions = function() {
+      /*
+       * VIEW: Bookmarks
+       * TODO: create UI to show bookmarks
+       */
+      $('.nav-bookmarks').click(function() {
+        var self = $(this);
+        alert("Sorry, this function is not yet enabled.");
+        ddsmoothmenu.hideMenu();
+        return false;
+      });
+    
       /*
        * VIEW: Refresh tree
        * Generic refresh action for any tree
@@ -742,6 +759,23 @@ $(function() {
 
     target.find('.jstree').jstree('deselect_all');
   });
+
+  /*
+   * Bookmark a node
+   */
+  GNITE.Tree.createBookmark = function(obj) {
+    var id       = obj.attr('id');
+
+    $.ajax({
+      type        : 'POST',
+      url         : '/master_trees/' + GNITE.MasterTreeID + '/bookmarks/',
+      data        : JSON.stringify({ 'id' : id }),
+      contentType : 'application/json',
+      dataType    : 'json',
+      success     : function(data) {
+      }
+    });
+  }
 
 
 /**************************************************************
