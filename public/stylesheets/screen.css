@@ -846,7 +846,8 @@ body form input {
 .ddsmoothmenu ul li a.nav-paste-node { background: transparent url(../images/icons/page_white_paste.png) no-repeat 5px center; }
 .ddsmoothmenu ul li a.nav-delete-node { background: transparent url(../images/icons/bin_closed.png) no-repeat 5px center; }
 .ddsmoothmenu ul li a.nav-refresh-node { background: transparent url(../images/icons/arrow_refresh_small.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-bookmarks { background: transparent url(../images/icons/asterisk_yellow.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-bookmarks-add { background: transparent url(../images/icons/asterisk_yellow_add.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-bookmarks-view { background: transparent url(../images/icons/asterisk_yellow.png) no-repeat 5px center; }
 .ddsmoothmenu ul li a.nav-refresh-tree { background: transparent url(../images/icons/arrow_refresh.png) no-repeat 5px center; }
 .ddsmoothmenu ul li a.nav-collapse-tree { background: transparent url(../images/icons/door.png) no-repeat 5px center; }
 
@@ -917,6 +918,53 @@ body form input {
   background: silver;
 }
 
+.bookmarks-results {
+    display:none;
+    -moz-box-shadow: 0px 5px 5px #AAAAAA;
+    -webkit-box-shadow:#AAAAAA 0px 5px 5px;
+    box-shadow:#AAAAAA 0px 5px 5px;
+    background-color: #EEF1F3;
+    border: 1px solid #868D92;
+    min-height:200px;
+    max-height:200px;
+    overflow-y:auto;
+    padding-right:20px;
+    position:absolute;
+    top:29px;
+    right:0px;
+    width:300px;
+    z-index:100;
+    cursor:normal;
+    padding:5px;
+}
+
+* html .bookmarks-results {
+    height:200px;
+}
+
+.bookmarks-results ul {
+    margin: 0.5em 0 0em 1.5em;
+    text-indent: -1.5em;
+    line-height:16px;
+}
+
+.bookmarks-results ul li a {
+    text-decoration:none;
+    color:#232323;
+    display:inline;
+    padding:0px;
+}
+
+.bookmarks-results ul li a:hover {
+    background-color:#BABFC3;
+}
+
+.bookmarks-results div.results-message {
+    margin-top:10px;
+    font-style:italic;
+    text-align:right;
+}
+
 .toplevelshadow {
   opacity: 0.8;
 }
@@ -925,6 +973,10 @@ body form input {
   background: #babfc3;
   border-bottom: 1px solid #8c9195;
   height: 32px;
+}
+
+.toolbar {
+  position:relative;
 }
 
 .toolbar .grid-button a,

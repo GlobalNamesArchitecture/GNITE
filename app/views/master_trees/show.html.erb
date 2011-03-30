@@ -41,13 +41,18 @@
           </li>
           <li><a href="#">View</a>
             <ul class="subnav">
-              <li><a href="#" class="nav-bookmarks">Bookmarks</a></li>
               <li><a href="#" class="nav-refresh-tree">Refresh tree</a></li>
               <li><a href="#" class="nav-collapse-tree">Collapse tree</a></li>
             </ul>
           </li>
+          <li><a href="#">Bookmarks</a>
+            <ul class="subnav">
+              <li><a href="#" class="nav-bookmarks-add">Add</a></li>
+              <li><a href="#" class="nav-bookmarks-view">Show all</a></li>
+            </ul>
+          </li>
         </ul>
-
+        <div class="bookmarks-results"></div>
       </div>
 
       <div id="add-node-wrap">
@@ -65,7 +70,7 @@
 <%= render :partial => "reference_trees" %>
 
 <% content_for :javascript do %>
-  <%= javascript_include_tag 'jstree/jquery.jstree', 'jquery.cookie', 'jquery.scrollTo-min', 'ddsmoothmenu' %>
+  <%= javascript_include_tag 'jstree/jquery.jstree', 'jquery.jstree.bookmarks', 'jquery.cookie', 'jquery.scrollTo-min', 'ddsmoothmenu' %>
 
   <script type="text/javascript">
     $.jstree._themes = '/javascripts/jstree/themes/';

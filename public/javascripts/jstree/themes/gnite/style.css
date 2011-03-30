@@ -52,7 +52,7 @@
 #vakata-contextmenu.jstree-gnite-context li { }
 #vakata-contextmenu.jstree-gnite-context a { color:black; }
 #vakata-contextmenu.jstree-gnite-context a:hover, 
-#vakata-contextmenu.jstree-gnite-context .vakata-hover > a { padding:0 5px; background:#e8eff7; border:1px solid #aecff7; color:black; -moz-border-radius:2px; -webkit-border-radius:2px; border-radius:2px; }
+#vakata-contextmenu.jstree-gnite-context .vakata-hover > a { padding:0 5px; border: 1px solid #EEF1F3; background-color:#BABFC3; color:black; -moz-border-radius:2px; -webkit-border-radius:2px; border-radius:2px; }
 #vakata-contextmenu.jstree-gnite-context li.jstree-contextmenu-disabled a, 
 #vakata-contextmenu.jstree-gnite-context li.jstree-contextmenu-disabled a:hover { color:silver; background:transparent; border:0; padding:1px 4px; }
 #vakata-contextmenu.jstree-gnite-context li.vakata-separator { background:white; border-top:1px solid #e0e0e0; margin:0; }
@@ -64,7 +64,7 @@
 #vakata-contextmenu.jstree-gnite-context ins.context-cut { background-image: url('../../../../images/icons/cut.png'); }
 #vakata-contextmenu.jstree-gnite-context ins.context-paste { background-image: url('../../../../images/icons/page_white_paste.png'); }
 #vakata-contextmenu.jstree-gnite-context ins.context-refresh { background-image: url('../../../../images/icons/arrow_refresh_small.png'); }
-#vakata-contextmenu.jstree-gnite-context ins.context-bookmark { background-image: url('../../../../images/icons/asterisk_yellow.png'); }
+#vakata-contextmenu.jstree-gnite-context ins.context-bookmark { background-image: url('../../../../images/icons/asterisk_yellow_add.png'); }
 #vakata-contextmenu.jstree-gnite-context ins.context-delete { background-image: url('../../../../images/icons/bin_closed.png'); }
 
 /* IE6 BEGIN */

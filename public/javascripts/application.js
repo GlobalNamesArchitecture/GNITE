@@ -95,7 +95,7 @@ GNITE.MasterTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
         },
         'bookmark' : {
           'label'            : 'Add bookmark',
-          'action'           : function(obj) { GNITE.Tree.createBookmark(obj); },
+          'action'           : function(obj) { this.bookmark(obj); },
           'separator_after'  : true,
           'separator_before' : false,
           'icon'             : 'context-bookmark'
@@ -133,7 +133,7 @@ GNITE.MasterTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
     }
   },
 
-  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'search', 'contextmenu']
+  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'search', 'contextmenu', 'bookmarks']
 });
 
 GNITE.ReferenceTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
@@ -143,7 +143,7 @@ GNITE.ReferenceTree.configuration = $.extend(true, {}, GNITE.Tree.configuration,
     }
   },
 
-  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'search']
+  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'search', 'bookmarks']
 });
 
 GNITE.DeletedTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
@@ -352,7 +352,7 @@ $(function() {
   });
 
   $('.tree-search')
-    .live('blur', function(){
+    .live('blur', function() {
       var self = $(this);
       var tree = self.parents('.tree-background').find('.jstree');
       var term = self.val().trim();
@@ -372,11 +372,11 @@ $(function() {
               results += '<p>Nothing found</p>';
             }
             else {
-	            results += '<ul>';
+                results += '<ul>';
                 for(var i=0; i<data.length; i++) {
-	              results += '<li><a href="#" data-treepath-ids="' + data[i].treepath.node_ids + '">' + data[i].treepath.name_strings + '</a></li>';
-	            }
-	            results += '</ul>';
+                  results += '<li><a href="#" data-treepath-ids="' + data[i].treepath.node_ids + '">' + data[i].treepath.name_strings + '</a></li>';
+                }
+                results += '</ul>';
             }
             results += '</div>';
             $results.html(results);
@@ -586,17 +586,10 @@ $(function() {
     return false;
   });
 
+  /*
+   * Menu helper function called when tree dynamically created or loaded
+   */
   GNITE.Tree.buildViewMenuActions = function() {
-      /*
-       * VIEW: Bookmarks
-       * TODO: create UI to show bookmarks
-       */
-      $('.nav-bookmarks').click(function() {
-        var self = $(this);
-        alert("Sorry, this function is not yet enabled.");
-        ddsmoothmenu.hideMenu();
-        return false;
-      });
     
       /*
        * VIEW: Refresh tree
@@ -618,6 +611,84 @@ $(function() {
         var self = $(this);
         var tree_id = self.parents('.tree-background').find('.jstree').attr("id");
         $('#'+tree_id).jstree('close_all');
+        ddsmoothmenu.hideMenu();
+        return false;
+      });
+
+      /*
+       * BOOKMARKS: Add
+       * TODO: Implement functionality
+       */
+      $('.nav-bookmarks-add').click(function() {
+        var self = $(this);
+        var tree_id = self.parents('.tree-background').find('.jstree').attr("id");
+        $('#'+tree_id).jstree('bookmark');
+        ddsmoothmenu.hideMenu();
+        return false;
+      });
+
+      /*
+       * BOOKMARKS: View
+       * TODO: adjust to support reference trees as well
+       */
+      $('.nav-bookmarks-view').click(function() {
+        var self = $(this);
+        var tree = self.parents('.tree-background').find('.jstree');
+        var tree_id = tree.attr("id");
+        var $bookmarks = self.parents(".toolbar").find(".bookmarks-results");
+       
+        $bookmarks.spinner().show();
+
+        $bookmarks.hover(function() {
+              $(this).show();
+            }, function() {
+              $(this).hide(); 
+        });
+
+        $.ajax({
+          url     : '/master_trees/' + GNITE.MasterTreeID + '/bookmarks',
+          type    : 'GET',
+          data    : { },
+          success : function(data) {
+            var results = '<div class="bookmarks-wrapper">';
+            if(!data.length) {
+              results += '<p>Nothing found</p>';
+            }
+            else {
+                results += '<ul>';
+                for(var i=0; i<data.length; i++) {
+                  results += '<li><a href="#" data-treepath-ids="' + data[i].treepath.node_ids + '">' + data[i].treepath.name_strings + '</a></li>';
+                }
+                results += '</ul>';
+            }
+            results += '</div>';
+            $bookmarks.html(results);
+
+            $bookmarks.find("a").click(function() {
+               $bookmarks.hide();
+               tree.jstree("deselect_all");
+               var ancestry_arr = $(this).attr("data-treepath-ids").split(",");
+               var searched_id = ancestry_arr.pop();
+               GNITE.Tree.open_ancestry(tree, ancestry_arr[0], searched_id);
+               var timeout = setTimeout(function checkAncestryStatus() {
+                if($(searched_id).length > 0) {
+                  tree.parents('#add-node-wrap, .reference-tree-container, .deleted-tree-container').scrollTo($(searched_id));
+                  tree.jstree("select_node", $(searched_id));
+                }
+                else {
+                  timeout = setTimeout(checkAncestryStatus, 100);
+                }
+               }, 100);
+               return false;
+            });
+          },
+          error : function() {
+          },
+          complete : function() {
+            $bookmarks.unspinner();
+          }
+        });
+
         ddsmoothmenu.hideMenu();
         return false;
       });
@@ -767,8 +838,9 @@ $(function() {
   /*
    * Bookmark a node
    */
-  GNITE.Tree.createBookmark = function(obj) {
-    var id       = obj.attr('id');
+  $('#master-tree').bind('bookmark.jstree', function(event, data) {
+    var node = data.rslt;
+    var id   = node.obj.attr('id');
 
     $.ajax({
       type        : 'POST',
@@ -779,7 +851,7 @@ $(function() {
       success     : function(data) {
       }
     });
-  }
+  });
 
 
 /**************************************************************
