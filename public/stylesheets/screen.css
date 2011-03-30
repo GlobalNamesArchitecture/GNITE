@@ -783,15 +783,19 @@ body form input {
     height:200px;
 }
 
-.searchbar-results p {
-    margin: 0.5em 0 0em 2em;
-    text-indent: -2em;
+.searchbar-results ul {
+    margin: 0.5em 0 0em 1.5em;
+    text-indent: -1.5em;
     line-height:16px;
 }
 
-.searchbar-results p a {
+.searchbar-results ul li a {
     text-decoration:none;
     color:#232323;
+}
+
+.searchbar-results ul li a:hover {
+    background-color:#BABFC3;
 }
 
 .searchbar-results div.results-message {
@@ -828,6 +832,7 @@ body form input {
   padding: 8px 10px;
   text-decoration: none;
   color:#232323;
+  height:1.15em;
 }
 
 .ddsmoothmenu ul li a.nav-add-node { background: transparent url(../images/icons/page_white_add.png) no-repeat 5px center; }

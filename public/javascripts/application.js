@@ -94,7 +94,7 @@ GNITE.MasterTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
           'icon'             : 'context-refresh',
         },
         'bookmark' : {
-          'label'            : 'Bookmark',
+          'label'            : 'Add bookmark',
           'action'           : function(obj) { GNITE.Tree.createBookmark(obj); },
           'separator_after'  : true,
           'separator_before' : false,
@@ -371,8 +371,12 @@ $(function() {
             if(!data.length) {
               results += '<p>Nothing found</p>';
             }
-            for(var i=0; i<data.length; i++) {
-              results += '<p><a href="#" data-treepath-ids="' + data[i].treepath.node_ids + '">' + data[i].treepath.name_strings + '</a></p>';
+            else {
+	            results += '<ul>';
+                for(var i=0; i<data.length; i++) {
+	              results += '<li><a href="#" data-treepath-ids="' + data[i].treepath.node_ids + '">' + data[i].treepath.name_strings + '</a></li>';
+	            }
+	            results += '</ul>';
             }
             results += '</div>';
             $results.html(results);
