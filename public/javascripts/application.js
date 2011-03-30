@@ -637,7 +637,7 @@ $(function() {
         var tree_id = tree.attr("id");
         var $bookmarks = self.parents(".toolbar").find(".bookmarks-results");
        
-        $bookmarks.spinner().show();
+        $bookmarks.spinner().html("").show();
 
         $bookmarks.hover(function() {
               $(this).show();

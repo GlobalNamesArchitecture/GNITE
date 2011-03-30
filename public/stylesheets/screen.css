@@ -948,6 +948,12 @@ body form input {
     line-height:16px;
 }
 
+.bookmarks-results ul li {
+  display:block;
+  float:none;
+
+}
+
 .bookmarks-results ul li a {
     text-decoration:none;
     color:#232323;
