@@ -42,7 +42,7 @@ describe GnaclrSearch, 'when GNACLR search service fails' do
   end
 
   it 'raises ServiceUnavailable when there is an HTTP error' do
-    expect { subject.results }.to raise_error(GnaclrSearch::ServiceUnavailable)
+    expect { subject.results }.to raise_error(Gnite::ServiceUnavailable)
   end
 
 end

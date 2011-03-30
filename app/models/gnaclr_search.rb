@@ -1,5 +1,4 @@
 class GnaclrSearch
-  class ServiceUnavailable < Exception; end
   URL = 'gnaclr.globalnames.org'
 
   attr_accessor :search_term
@@ -17,7 +16,7 @@ class GnaclrSearch
     begin
       json = open(path).read
     rescue OpenURI::HTTPError
-      raise GnaclrSearch::ServiceUnavailable
+      raise Gnite::ServiceUnavailable
     end
     Yajl::Parser.new.parse(json)
   end
