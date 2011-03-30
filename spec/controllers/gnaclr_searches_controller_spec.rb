@@ -35,7 +35,7 @@ describe GnaclrSearchesController, 'xhr GET to show with GNACLR service down' do
   before do
     gnaclr_search_mock = mock('search')
     GnaclrSearch.stubs(:new => gnaclr_search_mock)
-    gnaclr_search_mock.stubs(:results).raises(GnaclrSearch::ServiceUnavailable)
+    gnaclr_search_mock.stubs(:results).raises(Gnite::ServiceUnavailable)
 
     sign_in
 
