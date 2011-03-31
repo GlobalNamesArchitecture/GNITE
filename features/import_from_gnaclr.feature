@@ -42,6 +42,7 @@ Feature: Importing trees from GNACLR
     Then I should see a spinner
     And I should not see the gnaclr import button
     When resque jobs are run
+    And pause 5
     Then I should not see a spinner
     And I should see an "NCBI" tab
     Then I should see "All reference trees (1)"
