@@ -703,107 +703,6 @@ body form input {
   background: -moz-linear-gradient(center bottom, rgb(208,212,215) 0, rgb(248,253,255) 100%);
 }
 
-/* SEARCHBAR ABOVE TREES */
-.searchbar {
-  -moz-border-radius: 6px 6px 6px 6px;
-  border-radius: 6px 6px 6px 6px;
-  position:absolute;
-  top:0px;
-  right:15px;
-  padding:3px;
-  background-color:#FFF;
-  margin:5px;
-  width:175px;
-  height:15px;
-  border:1px solid #AAA;
-}
-
-.searchbar input {
-  width:150px;
-  border:medium none;
-  float:left;
-  vertical-align:middle;
-  margin:0px;
-}
-
-.searchbar .searchicon {
-  background-image: url("../images/icons/magnifier.png");
-  background-repeat:no-repeat;
-  background-position:right center;
-  width:16px;
-  height:16px;
-  float:right;
-}
-
-.pointer {
-    cursor: pointer;
-}
-
-.searchbar-dropdown {
-  position:absolute;
-  right:4px;
-  top:0px;
-  margin:0px;  
-}
-
-.searchbar-dropdown span {
-  display:block;
-  width:15px;
-  height:32px;
-  background-repeat:no-repeat;
-  background-position:right center;
-  background-image: url("../images/down.gif");  
-}
-
-.searchbar-dropdown span.expanded {
-  width:80px;
-}
-
-.searchbar-results {
-    display:none;
-    -moz-box-shadow: 0px 5px 5px #AAAAAA;
-    -webkit-box-shadow:#AAAAAA 0px 5px 5px;
-    box-shadow:#AAAAAA 0px 5px 5px;
-    background-color: #EEF1F3;
-    border: 1px solid #868D92;
-    min-height:200px;
-    max-height:200px;
-    overflow-y:auto;
-    padding-right:20px;
-    position:absolute;
-    top:29px;
-    right:-5px;
-    width:300px;
-    z-index:100;
-    cursor:normal;
-    padding:5px;
-}
-
-* html .searchbar-results {
-    height:200px;
-}
-
-.searchbar-results ul {
-    margin: 0.5em 0 0em 1.5em;
-    text-indent: -1.5em;
-    line-height:16px;
-}
-
-.searchbar-results ul li a {
-    text-decoration:none;
-    color:#232323;
-}
-
-.searchbar-results ul li a:hover {
-    background-color:#BABFC3;
-}
-
-.searchbar-results div.results-message {
-    margin-top:10px;
-    font-style:italic;
-    text-align:right;
-}
-
 /* TOOLSBAR ABOVE TREES */
 .ddsmoothmenu {
   width: 100%;
@@ -918,7 +817,63 @@ body form input {
   background: silver;
 }
 
-.bookmarks-results {
+/* SEARCHBAR ABOVE TREES */
+.searchbar {
+  -moz-border-radius: 6px 6px 6px 6px;
+  border-radius: 6px 6px 6px 6px;
+  position:absolute;
+  top:0px;
+  right:15px;
+  padding:3px;
+  background-color:#FFF;
+  margin:5px;
+  width:175px;
+  height:15px;
+  border:1px solid #AAA;
+}
+
+.searchbar input {
+  width:150px;
+  border:medium none;
+  float:left;
+  vertical-align:middle;
+  margin:0px;
+}
+
+.searchbar .searchicon {
+  background-image: url("../images/icons/magnifier.png");
+  background-repeat:no-repeat;
+  background-position:right center;
+  width:16px;
+  height:16px;
+  float:right;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.searchbar-dropdown {
+  position:absolute;
+  right:4px;
+  top:0px;
+  margin:0px;  
+}
+
+.searchbar-dropdown span {
+  display:block;
+  width:15px;
+  height:32px;
+  background-repeat:no-repeat;
+  background-position:right center;
+  background-image: url("../images/down.gif");  
+}
+
+.searchbar-dropdown span.expanded {
+  width:80px;
+}
+
+.searchbar-results, .bookmarks-results {
     display:none;
     -moz-box-shadow: 0px 5px 5px #AAAAAA;
     -webkit-box-shadow:#AAAAAA 0px 5px 5px;
@@ -931,40 +886,44 @@ body form input {
     padding-right:20px;
     position:absolute;
     top:29px;
-    right:0px;
-    width:300px;
+    right:-5px;
+    width:350px;
     z-index:100;
     cursor:normal;
     padding:5px;
 }
 
-* html .bookmarks-results {
+.bookmarks-results {
+  right:0px;
+}
+
+* html .searchbar-results, * html .bookmarks-results {
     height:200px;
 }
 
-.bookmarks-results ul {
+.searchbar-results ul, .bookmarks-results ul {
     margin: 0.5em 0 0em 1.5em;
     text-indent: -1.5em;
     line-height:16px;
 }
 
-.bookmarks-results ul li {
-  display:block;
-  float:none;
+.searchbar-results ul, .bookmarks-results ul li {
+  display:block !important;
+  float:none !important;
 }
 
-.bookmarks-results ul li a {
+.searchbar-results ul li a, .bookmarks-results ul li a {
     text-decoration:none;
     color:#232323;
     display:inline;
     padding:0px;
 }
 
-.bookmarks-results ul li a:hover {
+.searchbar-results ul li a:hover, .bookmarks-results ul li a:hover {
     background-color:#BABFC3;
 }
 
-.bookmarks-results div.results-message {
+.searchbar-results div.results-message, .bookmarks-results div.results-message {
     margin-top:10px;
     font-style:italic;
     text-align:right;
