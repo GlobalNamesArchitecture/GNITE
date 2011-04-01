@@ -89,22 +89,25 @@ describe Tree, 'finding in sorted by title' do
 end
 
 describe Tree, '#nuke' do
-  it "should destroy all nodes, synonyms and vernaculars" do
+  it "should destroy all nodes, bookmarks, synonyms and vernaculars" do
     user = Factory(:email_confirmed_user)
     tree = Factory(:tree, :user => user)
     root = Factory(:node, :tree => tree)
     child = Factory(:node, :tree => tree, :parent_id => root)
     grandchild = Factory(:node, :tree => tree, :parent_id => child)
+    bookmark = Factory(:bookmark, :node => child)
     vern = Factory(:vernacular_name, :node => child)
     syn = Factory(:synonym, :node => grandchild)
     tree_id = tree.id
     tree_count = Tree.count
     node_count = Node.count
+    bookmark_count = Bookmark.count
     vern_count = VernacularName.count
     syn_count = Synonym.count
     tree.nuke
     (tree_count - Tree.count).should == 1
     (node_count - Node.count).should == 4
+    (bookmark_count - Bookmark.count).should == 1
     (vern_count - VernacularName.count).should == 1
     (syn_count - Synonym.count).should == 1
   end

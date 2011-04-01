@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110330000941) do
+ActiveRecord::Schema.define(:version => 20110401015845) do
 
   create_table "action_commands", :force => true do |t|
     t.string   "type"
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(:version => 20110330000941) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "bookmarks", ["node_id"], :name => "index_bookmarks_on_node_id"
 
   create_table "gnaclr_importer_logs", :force => true do |t|
     t.integer  "reference_tree_id"

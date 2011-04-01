@@ -270,7 +270,7 @@ $(function() {
 
                 $.ajax({
                   type        : 'POST',
-                  url         : '/reference_trees/' + tree_id + '/bookmarks/',
+                  url         : '/reference_trees/' + tree_id + '/bookmarks',
                   data        : JSON.stringify({ 'id' : id }),
                   contentType : 'application/json',
                   dataType    : 'json',
@@ -882,7 +882,7 @@ $(function() {
 
     $.ajax({
       type        : 'POST',
-      url         : '/master_trees/' + GNITE.MasterTreeID + '/bookmarks/',
+      url         : '/master_trees/' + GNITE.MasterTreeID + '/bookmarks',
       data        : JSON.stringify({ 'id' : id }),
       contentType : 'application/json',
       dataType    : 'json',
@@ -1009,7 +1009,7 @@ $(function() {
     return false;
   });
 
-  var importTree = function(opts) {
+  GNITE.Tree.importTree = function(opts) {
     opts.spinnedElement.spinner()
 
     $.post('/gnaclr_imports', { master_tree_id : opts.master_tree_id, title : opts.title, url : opts.url, source_id: opts.source_id }, function(response) {
@@ -1038,7 +1038,7 @@ $(function() {
                  source_id      : checkedRadioButton.attr('data-source-id'),
                  spinnedElement : $('#tree-newimport') };
 
-    importTree(opts);
+    GNITE.Tree.importTree(opts);
   });
 
   $('#search-nav li').live('click', function() {
@@ -1059,7 +1059,7 @@ $(function() {
                  source_id      : self.attr('data-source-id'),
                  spinnedElement : $('#search-results') };
 
-    importTree(opts);
+    GNITE.Tree.importTree(opts);
 
     return false;
   });
@@ -1148,22 +1148,6 @@ GNITE.ReferenceTree.add = function(response, options) {
 
   $('#tabs li:first-child ul li:last-child a').trigger('click');
 
-  // Bind bookmarks for the new reference tree
-  $('#container_for_' + response.domid).bind('bookmark.jstree', function(event, data) {
-      var node = data.rslt;
-      var id   = node.obj.attr('id');
-
-      $.ajax({
-        type        : 'POST',
-        url         : '/reference_trees/' + response.domid.split('_')[2] + '/bookmarks/',
-        data        : JSON.stringify({ 'id' : id }),
-        contentType : 'application/json',
-        dataType    : 'json',
-        success     : function(data) {
-        }
-      });
-  });
-
   // Build the menu system for the new reference tree
   $('#container_for_' + response.domid).bind("init.jstree", function(event, data) {
     ddsmoothmenu.init({
@@ -1172,6 +1156,22 @@ GNITE.ReferenceTree.add = function(response, options) {
       classname: 'ddsmoothmenu',
       contentsource: "markup",
     });
+  });
+
+  // Bind bookmarks for the new reference tree
+  $('#container_for_' + response.domid).bind('bookmark.jstree', function(event, data) {
+      var node = data.rslt;
+      var id   = node.obj.attr('id');
+
+      $.ajax({
+        type        : 'POST',
+        url         : '/reference_trees/' + response.domid.split('_')[2] + '/bookmarks',
+        data        : JSON.stringify({ 'id' : id }),
+        contentType : 'application/json',
+        dataType    : 'json',
+        success     : function(data) {
+        }
+      });
   });
 
   GNITE.Tree.buildViewMenuActions();
