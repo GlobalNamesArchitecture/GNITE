@@ -25,6 +25,11 @@ Factory.define :name do |name|
   name.name_string { Factory.next(:name_string) }
 end
 
+Factory.define :bookmark do |bookmark|
+  bookmark.association :node
+  bookmark.node_id { Factory(:node) }
+end
+
 Factory.define :synonym do |synonym|
   synonym.association :node
   synonym.association :name

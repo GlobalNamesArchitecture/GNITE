@@ -2,7 +2,7 @@ class Node < ActiveRecord::Base
   validates_presence_of :name, :tree_id
   belongs_to :tree
   belongs_to :name
-
+  
   has_many :bookmarks
   has_many :synonyms
   has_many :vernacular_names

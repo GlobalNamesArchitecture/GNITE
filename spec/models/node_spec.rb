@@ -5,6 +5,7 @@ describe Node, 'valid' do
   it { should belong_to :name }
   it { should validate_presence_of :tree_id }
 
+  it { should have_many :bookmarks }
   it { should have_many :synonyms }
   it { should have_many :vernacular_names }
 

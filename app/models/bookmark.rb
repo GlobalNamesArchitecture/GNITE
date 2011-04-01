@@ -1,5 +1,5 @@
 class Bookmark < ActiveRecord::Base
-  validates_uniqueness_of :node_id
+  validates_presence_of :node_id
   
-  has_many :nodes
+  belongs_to :node
 end
