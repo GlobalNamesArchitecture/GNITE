@@ -1,7 +1,5 @@
 class Tree < ActiveRecord::Base
   validates_presence_of :title
-  validates_presence_of :user_id
-  belongs_to :user
   has_many :nodes
 
   validates_inclusion_of :creative_commons, :in => Licenses::CC_LICENSES.map{|elt| elt.last }

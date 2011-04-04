@@ -4,15 +4,19 @@ end
 
 Factory.define :tree do |tree|
   tree.title { "My Tree" }
-  tree.association      :user, :factory => :email_confirmed_user
   tree.creative_commons { 'cc0' }
 end
 
 Factory.define :master_tree, :parent => :tree, :class => 'MasterTree' do |master_tree|
+  master_tree.user { Factory(:user) }
 end
 
 Factory.define :reference_tree, :parent => :tree, :class => 'ReferenceTree' do |reference_tree|
-  reference_tree.association :master_tree
+  reference_tree.master_tree_id { Factory(:master_tree).id } #TODO: HACK!!!
+end
+
+Factory.define :deleted_tree, :parent => :tree, :class => 'DeletedTree' do |deleted_tree|
+  deleted_tree.association :master_tree
 end
 
 Factory.define :node do |node|
@@ -74,4 +78,14 @@ end
 Factory.define :action_add_node do |action_add_node|
   action_add_node.association :user
   action_add_node.parent_id { Factory(:node, :tree => Factory(:master_tree)).id }
+end
+
+Factory.define :master_tree_contributor do |master_tree_contributor|
+  master_tree_contributor.association :user
+  master_tree_contributor.master_tree_id { |m| Factory(:master_tree) }
+end
+
+Factory.define :reference_tree_collection do |reference_tree_collection|
+  reference_tree_collection.reference_tree_id { |r| Factory(:reference_tree) }
+  reference_tree_collection.master_tree_id { |m| Factory(:master_tree) }
 end

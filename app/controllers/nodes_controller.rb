@@ -25,9 +25,10 @@ class NodesController < ApplicationController
     if params[:master_tree_id]
       tree = current_user.master_trees.find(tree_id)
     elsif params[:reference_tree_id]
-      tree = current_user.reference_trees.find(tree_id)
+      tree = ReferenceTree.find(tree_id)
     else
-      tree = current_user.deleted_trees.find(tree_id)
+      tree = DeletedTree.find(tree_id)
+      tree = nil unless tree.master_tree.users.find(current_user)
     end
 
     node = tree.nodes.find(params[:id])

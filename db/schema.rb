@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110401015845) do
+ActiveRecord::Schema.define(:version => 20110404200642) do
 
   create_table "action_commands", :force => true do |t|
     t.string   "type"
@@ -62,6 +62,15 @@ ActiveRecord::Schema.define(:version => 20110401015845) do
 
   add_index "gnaclr_publishers", ["master_tree_id"], :name => "index_gnaclr_publishers_on_master_tree_id"
 
+  create_table "master_tree_contributors", :force => true do |t|
+    t.integer  "master_tree_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "master_tree_contributors", ["user_id", "master_tree_id"], :name => "index_master_tree_contributors_on_user_id_and_master_tree_id", :unique => true
+
   create_table "names", :force => true do |t|
     t.string   "name_string", :null => false
     t.datetime "created_at"
@@ -94,6 +103,15 @@ ActiveRecord::Schema.define(:version => 20110401015845) do
 
   add_index "redo_action_commands", ["master_tree_id", "action_command_id"], :name => "index_redo_action_commands_on_master_tree_and_action_command"
 
+  create_table "reference_tree_collections", :force => true do |t|
+    t.integer  "reference_tree_id"
+    t.integer  "master_tree_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "reference_tree_collections", ["master_tree_id", "reference_tree_id"], :name => "index_rtc_on_master_tree_id_etc", :unique => true
+
   create_table "synonyms", :force => true do |t|
     t.integer  "node_id"
     t.integer  "name_id"
@@ -107,7 +125,6 @@ ActiveRecord::Schema.define(:version => 20110401015845) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
     t.string   "uuid"
     t.datetime "publication_date"
     t.string   "citation"
@@ -117,8 +134,10 @@ ActiveRecord::Schema.define(:version => 20110401015845) do
     t.string   "type"
     t.string   "state",            :default => "active", :null => false
     t.string   "source_id"
+    t.string   "revision"
   end
 
+  add_index "trees", ["id"], :name => "index_trees_on_revision_and_id"
   add_index "trees", ["source_id"], :name => "index_trees_on_source_id"
 
   create_table "undo_action_commands", :force => true do |t|

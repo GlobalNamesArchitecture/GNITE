@@ -109,7 +109,7 @@ describe NodesController, 'POST to copy a node from a reference tree' do
   let(:reference_node) do
     child_name = Factory(:name, :name_string => 'child name')
     grandchild_name = Factory(:name, :name_string => 'grandchild_name')
-    node = Factory(:node, :tree => Factory(:reference_tree, :user => user))
+    node = Factory(:node, :tree => Factory(:reference_tree))
     child = Factory(:node, :tree => node.tree, :parent => node, :name => child_name)
     grandchild = Factory(:node, :tree => node.tree, :parent => child, :name => grandchild_name)
     node
@@ -232,7 +232,7 @@ end
 describe NodesController, 'GET to show for reference tree' do
   let(:user) { Factory(:email_confirmed_user) }
   let(:node) { Factory(:node, :tree => tree) }
-  let(:tree) { Factory(:reference_tree, :user => user) }
+  let(:tree) { Factory(:reference_tree) }
 
   subject { controller }
 

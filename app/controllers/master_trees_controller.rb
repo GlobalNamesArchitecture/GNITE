@@ -9,7 +9,7 @@ class MasterTreesController < ApplicationController
     @master_tree = MasterTree.new(:title => 'New Working Tree')
     @master_tree.user = current_user
     @master_tree.save
-    
+
     redirect_to master_tree_url(@master_tree.id)
   end
 

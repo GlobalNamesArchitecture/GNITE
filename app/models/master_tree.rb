@@ -1,8 +1,13 @@
 class MasterTree < Tree
-  has_many :reference_trees
   has_one :deleted_tree
+  has_many :master_tree_contributors
+  has_many :reference_tree_collections
+  has_many :reference_trees, :through => :reference_tree_collections
+  has_many :users, :through => :master_tree_contributors
 
-  after_create :create_deleted_tree
+  attr_accessor :user
+
+  after_create :create_deleted_tree, :create_contributor
 
   def create_darwin_core_archive
     dwca_file = File.join(::Rails.root.to_s, 'tmp', "#{uuid}.tar.gz")
@@ -19,14 +24,14 @@ class MasterTree < Tree
 
   private
   def core_fields
-    [ "http://rs.tdwg.org/dwc/terms/taxonID", 
-      "http://rs.tdwg.org/dwc/terms/parentNameUsageID", 
-      "http://rs.tdwg.org/dwc/terms/datasetID", 
-      "http://rs.tdwg.org/dwc/terms/scientificName", 
+    [ "http://rs.tdwg.org/dwc/terms/taxonID",
+      "http://rs.tdwg.org/dwc/terms/parentNameUsageID",
+      "http://rs.tdwg.org/dwc/terms/datasetID",
+      "http://rs.tdwg.org/dwc/terms/scientificName",
       "http://rs.tdwg.org/dwc/terms/taxonRank",
       "http://purl.org/dc/terms/modified" ]
   end
-  
+
   def eml_xml
     {
       :id => uuid,
@@ -34,15 +39,19 @@ class MasterTree < Tree
       :authors => get_authors,
       :abstract => abstract,
       :citation => citation,
-      :pubDate => Time.now  
+      :pubDate => Time.now
     }
   end
 
   def get_authors
-    [{ :first_name => nil, :last_name => nil, :email => user.email }]
+    self.users.map { |u| { :first_name => nil, :last_name => nil, :email => u.email } }
+  end
+
+  def create_contributor
+    MasterTreeContributor.create!(:master_tree => self, :user => self.user)
   end
 
   def create_deleted_tree
-    DeletedTree.create!(:master_tree_id => self.id, :user => self.user, :title => "Deleted Names")
+    DeletedTree.create!(:master_tree => self, :title => "Deleted Names")
   end
 end

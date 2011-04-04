@@ -1,8 +1,6 @@
 class User < ActiveRecord::Base
   include Clearance::User
-
-  has_many :master_trees
-  has_many :reference_trees
-  has_many :deleted_trees
   has_many :action_commands
+  has_many :master_tree_contributors
+  has_many :master_trees, :through => :master_tree_contributors
 end

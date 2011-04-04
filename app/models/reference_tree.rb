@@ -1,7 +1,10 @@
 class ReferenceTree < Tree
-  belongs_to :master_tree
   has_many :gnaclr_importers
   has_many :gnaclr_impoter_logs
+  has_many :reference_tree_collections
+  has_many :master_trees, :through => :reference_tree_collections
+
+  after_create :create_collection
 
   def self.create_from_list(tree_params, node_list)
     tree = ReferenceTree.new(tree_params)
@@ -12,5 +15,13 @@ class ReferenceTree < Tree
       n.save
     end
     tree
+  end
+
+  private
+
+  def create_collection
+    ReferenceTreeCollection.create!(:reference_tree => self, :master_tree_id => self.master_tree_id) ##TODO: HACK warning!!!
+    self.master_tree_id = nil
+    self.save!
   end
 end

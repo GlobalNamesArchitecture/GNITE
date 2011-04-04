@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ReferenceTree do
   it { should be_kind_of(Tree) }
-  it { should belong_to(:master_tree) }
+  it { should have_many(:master_trees).through(:reference_tree_collections) }
 
   it "should create a new tree from a list of nodes" do
     tree = Factory :tree, :title => "My title"

@@ -41,7 +41,6 @@ end
 describe ReferenceTreesController, 'xhr GET show for a tree that is importing' do
   let(:user) { Factory(:email_confirmed_user) }
   let(:reference_tree) { Factory(:reference_tree,
-                                :user  => user,
                                 :state => 'importing') }
   subject { controller }
   before do
@@ -60,7 +59,6 @@ end
 describe ReferenceTreesController, 'xhr GET show for a tree that is active' do
   let(:user) { Factory(:email_confirmed_user) }
   let(:reference_tree) { Factory(:reference_tree,
-                                :user  => user,
                                 :state => 'active') }
   subject { controller }
   before do
