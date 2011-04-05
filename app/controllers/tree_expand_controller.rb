@@ -2,15 +2,7 @@ class TreeExpandController < ApplicationController
   before_filter :authenticate
 
   def show
-    tree_id = params[:master_tree_id] || params[:reference_tree_id] || params[:deleted_tree_id]
-    if params[:master_tree_id]
-      tree = current_user.master_trees.find(tree_id)
-    elsif params[:reference_tree_id]
-      tree = current_user.reference_trees.find(tree_id)
-    else
-      tree = current_user.deleted_trees.find(tree_id)
-    end
-    
+    tree = get_tree
     names = Node.search(params[:search_string].downcase, tree_id)
     result = []
     names.each do |name|

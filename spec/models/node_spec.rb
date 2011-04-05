@@ -27,19 +27,6 @@ describe Node, 'valid' do
   end
 end
 
-describe Node, 'finding by id scoped to a user' do
-  let(:right_user) { Factory(:user) }
-  let(:right_tree) { Factory(:master_tree, :user => right_user) }
-  let(:wrong_user) { Factory(:user) }
-  let(:wrong_tree) { Factory(:master_tree, :user => wrong_user) }
-  let(:node)       { Factory(:node, :tree => right_tree) }
-
-  it "can find a node by id scoped under a user" do
-    Node.find_by_id_for_user(node.id, right_user).should == node
-    Node.find_by_id_for_user(node.id, wrong_user).should be_nil
-  end
-end
-
 describe Node, '#deep_copy_to' do
   it 'produces a deep copy of its subtree, with node names, synonyms, and vernacular names' do
     tree        = Factory(:reference_tree)
@@ -144,12 +131,12 @@ end
 describe Node, "#children" do
   let (:parent) { Factory(:node) }
   let (:names) do
-    %w{ Gossleriellaceae 
-      Stictodiscaceae 
-      Arachnoidiscaceae 
-      Leptocylindraceae 
-      Corethraceae 
-      Heliopeltaceae 
+    %w{ Gossleriellaceae
+      Stictodiscaceae
+      Arachnoidiscaceae
+      Leptocylindraceae
+      Corethraceae
+      Heliopeltaceae
       Ethmodiscaceae }.map { |n| Factory(:name, :name_string => n) }
   end
   let (:children_nodes) { names.map{ |name| Factory(:node, :tree_id => parent.tree_id, :parent_id => parent.id, :name => name) } }

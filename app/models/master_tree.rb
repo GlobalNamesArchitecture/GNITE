@@ -49,6 +49,7 @@ class MasterTree < Tree
 
   def create_contributor
     MasterTreeContributor.create!(:master_tree => self, :user => self.user)
+    self.user = nil
   end
 
   def create_deleted_tree

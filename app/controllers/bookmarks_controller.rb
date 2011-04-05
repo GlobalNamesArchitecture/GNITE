@@ -1,19 +1,12 @@
 class BookmarksController < ApplicationController
   before_filter :authenticate
-  
+
   def index
-    tree_id = params[:master_tree_id] || params[:reference_tree_id]
-
-    if params[:master_tree_id]
-      tree = current_user.master_trees.find(tree_id)
-    else
-      tree = current_user.reference_trees.find(tree_id)
-    end
-
+    tree = get_tree
     nodes = tree.nodes.find(:all, :joins => :bookmarks, :order => 'bookmarks.created_at desc')
     render :json => nodes.length > 0 ? TreeSearchJsonPresenter.present(nodes) : { :status => "Nothing found" }
   end
-  
+
   def create
     @bookmark = Bookmark.new(:node_id => params[:id])
     @bookmark.save
@@ -23,7 +16,7 @@ class BookmarksController < ApplicationController
       end
     end
   end
-  
+
   def destroy
     @bookmark = Bookmark.find_by_node_id(params[:id])
     @bookmark.destroy
@@ -33,5 +26,5 @@ class BookmarksController < ApplicationController
       end
     end
   end
-  
+
 end

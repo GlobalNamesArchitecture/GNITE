@@ -2,7 +2,7 @@ class Node < ActiveRecord::Base
   validates_presence_of :name, :tree_id
   belongs_to :tree
   belongs_to :name
-  
+
   has_many :bookmarks
   has_many :synonyms
   has_many :vernacular_names
@@ -12,13 +12,6 @@ class Node < ActiveRecord::Base
 
 
   delegate :name_string, :to => :name
-
-  def self.find_by_id_for_user(id_to_find, user)
-    # If we just called user.master_tree_ids here,
-    # AR wouldn't load all the tree columns, causing Tree#after_initialize to fail when trying to read self.uuid
-    tree_ids = user.master_trees.map(&:id) | user.reference_trees.map(&:id) | user.deleted_trees.map(&:id)
-    find(:first, :conditions => ["id = ? and tree_id in (?)", id_to_find, tree_ids])
-  end
 
   def self.roots(tree_id)
     Node.find_by_sql("select * from nodes where parent_id is null and tree_id = #{tree_id}")

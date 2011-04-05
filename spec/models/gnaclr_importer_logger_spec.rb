@@ -3,7 +3,7 @@ require 'spec_helper'
 describe GnaclrImporterLogger do
   before(:all) do
     user = Factory(:user)
-    @reference_tree = Factory(:reference_tree, :user => user)
+    @reference_tree = Factory(:reference_tree)
     @dwc_object_id = 333
     @gnaclr_importer = Factory(:gnaclr_importer, :reference_tree => @reference_tree, :status => 'test', :message => 'test message')
     @logger = GnaclrImporterLogger.new
@@ -12,14 +12,14 @@ describe GnaclrImporterLogger do
   describe "#subscribe" do
     it "should create subscription" do
       @logger.subscribe(:dwc_object_id => @dwc_object_id, :reference_tree_id => @reference_tree.id)
-      @logger.subscriptions[@dwc_object_id].should == @reference_tree.id 
+      @logger.subscriptions[@dwc_object_id].should == @reference_tree.id
     end
   end
 
   describe "#unsubscribe" do
     it "should remove subscription" do
       @logger.subscribe(:dwc_object_id => @dwc_object_id, :reference_tree_id => @reference_tree.id)
-      @logger.subscriptions[@dwc_object_id].should == @reference_tree.id 
+      @logger.subscriptions[@dwc_object_id].should == @reference_tree.id
       @logger.unsubscribe(@dwc_object_id)
       @logger.subscriptions[@dwc_object_id].should be_nil
     end

@@ -4,14 +4,7 @@ class NodesController < ApplicationController
   def index
     respond_to do |format|
       format.json do
-        tree_id = params[:master_tree_id] || params[:reference_tree_id] || params[:deleted_tree_id]
-        if params[:master_tree_id]
-          tree = current_user.master_trees.find(tree_id)
-        elsif params[:reference_tree_id]
-          tree = current_user.reference_trees.find(tree_id)
-        else
-          tree = current_user.deleted_trees.find(tree_id)
-        end
+        tree = get_tree
         parent_id = params[:parent_id] ? params[:parent_id] : tree.root
         nodes = tree.children_of(parent_id)
         render :json => NodeJsonPresenter.present(nodes)
@@ -20,17 +13,7 @@ class NodesController < ApplicationController
   end
 
   def show
-    tree_id = params[:master_tree_id] || params[:reference_tree_id] || params[:deleted_tree_id]
-
-    if params[:master_tree_id]
-      tree = current_user.master_trees.find(tree_id)
-    elsif params[:reference_tree_id]
-      tree = ReferenceTree.find(tree_id)
-    else
-      tree = DeletedTree.find(tree_id)
-      tree = nil unless tree.master_tree.users.find(current_user)
-    end
-
+    tree = get_tree
     node = tree.nodes.find(params[:id])
 
     render :json => {

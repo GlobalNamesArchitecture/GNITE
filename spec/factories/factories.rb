@@ -82,10 +82,10 @@ end
 
 Factory.define :master_tree_contributor do |master_tree_contributor|
   master_tree_contributor.association :user
-  master_tree_contributor.master_tree_id { |m| Factory(:master_tree) }
+  master_tree_contributor.association :master_tree
 end
 
 Factory.define :reference_tree_collection do |reference_tree_collection|
-  reference_tree_collection.reference_tree_id { |r| Factory(:reference_tree) }
-  reference_tree_collection.master_tree_id { |m| Factory(:master_tree) }
+  reference_tree_collection.association :reference_tree
+  reference_tree_collection.association :master_tree
 end
