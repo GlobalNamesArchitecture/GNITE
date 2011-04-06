@@ -27,8 +27,11 @@ Feature: Create and manage master trees
     And I should not see "Or choose an existing tree to edit"
 
     When the following master tree exists:
-      | user                    | title       |
-      | email: email@person.com | My new tree |
+      | title       |
+      | My new tree |
+    And the following master tree contributor exists:
+      | master tree       | user                   |
+      | title:My new tree | email:email@person.com |
     And I go to the master trees page
     Then should see "My new tree"
 
@@ -38,8 +41,11 @@ Feature: Create and manage master trees
   Scenario: Tree details are displayed on the tree list
     Given I have signed in with "email@person.com/password"
     And the following master tree exists:
-      | Title       | Created At | Updated At | Abstract                            | User                    |
-      | Bananas     | 2009/06/22 | 2009/07/02 | All the types of bananas on my desk | Email: email@person.com |
+      | Title       | Created At | Updated At | Abstract                            |
+      | Bananas     | 2009/06/22 | 2009/07/02 | All the types of bananas on my desk |
+    And the following master tree contributor exists:
+      | master tree   | user                   |
+      | title:Bananas | email:email@person.com |
     When I am on the master tree index page
     Then I should see "Bananas"
     And I should see "2009/06/22"
@@ -49,12 +55,19 @@ Feature: Create and manage master trees
   Scenario: I should not see my reference trees on the tree index page
     Given I have signed in with "email@person.com/password"
     And the following master trees exist:
-      | Title       | Created At | Updated At | Abstract                                | User                    |
-      | Bananas     | 2009/06/22 | 2009/07/02 | All the types of bananas on my desk     | Email: email@person.com |
-      | Kittens     | 2009/08/18 | 2010/03/14 | All the types of kittens in my basement | Email: email@person.com |
+      | Title       | Created At | Updated At | Abstract                                |
+      | Bananas     | 2009/06/22 | 2009/07/02 | All the types of bananas on my desk     |
+      | Kittens     | 2009/08/18 | 2010/03/14 | All the types of kittens in my basement |
+    And the following master tree contributor exists:
+      | master tree   | user                   |
+      | title:Bananas | email:email@person.com |
+      | title:Kittens | email:email@person.com |
     And the following reference trees exist:
-      | Title       | Created At | Updated At | Abstract                                      | User                    |
-      | Cats        | 2009/08/18 | 2010/08/18 | Cats documented by a super cat expert on cats | Email: email@person.com |
+      | Title       | Created At | Updated At | Abstract                                      |
+      | Cats        | 2009/08/18 | 2010/08/18 | Cats documented by a super cat expert on cats |
+    And the following reference tree collection exist:
+      | master tree    | reference tree |
+      | title: Kittens | title: Cats    |
     When I go to the master tree index page
     Then I should see "Bananas"
     And I should see "Kittens"

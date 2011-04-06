@@ -6,8 +6,11 @@ Feature: Work with reference trees
   Background: I have a reference tree
     Given I have signed in with "email@person.com/password"
     And the following master tree exists:
-      | user                    | title       |
-      | email: email@person.com | My new tree |
+      | title       |
+      | My new tree |
+    And the following master tree contributor exists:
+      | master_tree        | user                   |
+      | title: My new tree | email:email@person.com |
     And I go to the master tree page for "My new tree"
     And I follow "File" within "toolbar"
     And follow "Add node" within "toolbar"

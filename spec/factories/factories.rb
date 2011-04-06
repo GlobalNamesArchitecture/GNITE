@@ -81,7 +81,7 @@ Factory.define :action_add_node do |action_add_node|
 end
 
 Factory.define :master_tree_contributor do |master_tree_contributor|
-  master_tree_contributor.association :user
+  master_tree_contributor.association :user, :factory => :email_confirmed_user
   master_tree_contributor.association :master_tree
 end
 

@@ -20,6 +20,7 @@ class ReferenceTree < Tree
   private
 
   def create_collection
+    return unless self.master_tree_id
     ReferenceTreeCollection.create!(:reference_tree => self, :master_tree_id => self.master_tree_id) ##TODO: HACK warning!!!
     self.master_tree_id = nil
     self.save!

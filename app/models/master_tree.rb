@@ -48,6 +48,7 @@ class MasterTree < Tree
   end
 
   def create_contributor
+    return unless self.user
     MasterTreeContributor.create!(:master_tree => self, :user => self.user)
     self.user = nil
   end

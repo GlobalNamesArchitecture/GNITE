@@ -3,17 +3,24 @@ Feature: View metadata for master tree nodes
   Background:
     Given I have signed in with "email@person.com/password"
     And the following master tree exists:
-      | user                    | title |
-      | email: email@person.com | Foods |
+      | title |
+      | Foods |
+    And the following master tree contributor exists:
+      | master tree | user                   |
+      | title:Foods | email:email@person.com |
     And the following nodes exist with metadata for the "Foods" tree:
       | name | synonyms        | vernacular_names | rank    |
       | Nut  | Kernel, Nutmeat | Almond, Peanut   | Species |
       | Pop  | Soda, Softdrink | Coke, Dr. Pepper | Family  |
       | Cat  |                 |                  |         |
     And the following reference trees exist:
-      | user                    | master_tree  | title  |
-      | email: email@person.com | title: Foods | Snacks |
-      | email: email@person.com | title: Foods | Fruits |
+      | title  |
+      | Snacks |
+      | Fruits |
+    And the following reference tree collection exist:
+      | master tree  | reference tree |
+      | title: Foods | title: Snacks  |
+      | title: Foods | title: Fruits  |
     And the following nodes exist with metadata for the "Snacks" tree:
       | name    | synonyms | vernacular_names | rank |
       | Twinkie | Cake     | Twinkie Cake     | Good |

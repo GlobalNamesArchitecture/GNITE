@@ -137,7 +137,7 @@ ActiveRecord::Schema.define(:version => 20110404200642) do
     t.string   "revision"
   end
 
-  add_index "trees", ["id"], :name => "index_trees_on_revision_and_id"
+  add_index "trees", ["revision", "id"], :name => "index_trees_on_revision_and_id"
   add_index "trees", ["source_id"], :name => "index_trees_on_source_id"
 
   create_table "undo_action_commands", :force => true do |t|

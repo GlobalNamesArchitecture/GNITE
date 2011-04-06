@@ -7,9 +7,13 @@ Feature: Delete a master tree
   Scenario: Delete a tree
     Given I have signed in with "email@person.com/password"
     And the following master tree exists:
-      | user                    | title       |
-      | email: email@person.com | My new tree |
-      | email: email@person.com | Delete me   |
+      | title       |
+      | My new tree |
+      | Delete me   |
+    And the following master tree contributor exists:
+      | master tree       | user                   |
+      | title:My new tree | email:email@person.com |
+      | title:Delete me   | email:email@person.com |
     When I go to the master tree page for "Delete me"
     And I follow "File" within "toolbar"
     And I follow "Delete tree" within "toolbar"

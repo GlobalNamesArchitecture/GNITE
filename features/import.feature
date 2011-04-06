@@ -9,8 +9,8 @@ Feature: Import data to your master tree
       | title       |
       | My new tree |
     And the following master tree contributor exists:
-      | master_tree        | user                   |
-      | title: My new tree | email:email@person.com |
+      | master tree       | user                   |
+      | title:My new tree | email:email@person.com |
     And I go to the master tree page for "My new tree"
 
   @javascript
