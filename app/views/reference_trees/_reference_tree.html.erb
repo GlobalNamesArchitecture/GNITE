@@ -11,7 +11,6 @@
     <%= render :partial => 'shared/tree_searches.html' %>
 
     <div id="toolbar-reference-<%= reference_tree.id %>" class="toolbar ddsmoothmenu clearfix">
-    <% if reference_tree.state == 'active' -%>
       <ul class="topnav">
         <li><a href="#">View</a>
             <ul class="subnav">
@@ -27,7 +26,6 @@
         </li>
       </ul>
       <div class="bookmarks-results"></div>
-    <% end -%>
     </div>
 
     <div class="tree-container reference-tree-container" data-database-id="<%= reference_tree.id %>">

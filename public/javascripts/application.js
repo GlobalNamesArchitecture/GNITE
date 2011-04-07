@@ -270,6 +270,9 @@ $(function() {
           }
         });
     } else {
+
+      $('#toolbar-reference-' + tree_id + ' ul').hide();
+
       self.parent().spinner();
 
       var timeout = setTimeout(function checkImportStatus() {
@@ -277,6 +280,7 @@ $(function() {
           if (xhr.status == 200) {
             self.parent().unspinner();
             GNITE.ReferenceTree.add(response);
+            $('#toolbar-reference-' + tree_id + ' ul').show();
           } else if (xhr.status == 204) {
             timeout = setTimeout(checkImportStatus, 2000);
           }
