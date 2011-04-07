@@ -1,5 +1,4 @@
 class GnaclrSearch
-  URL = 'gnaclr.globalnames.org'
 
   attr_accessor :search_term
   def initialize(opts)
@@ -11,8 +10,10 @@ class GnaclrSearch
     @results ||= search
   end
 
+  private
+
   def search
-    path = "http://#{URL}/search?format=json&show_revisions=true&search_term=#{search_term}"
+    path = Gnite::Config.gnaclr_url + "/search?format=json&show_revisions=true&search_term=#{search_term}"
     begin
       json = open(path).read
     rescue OpenURI::HTTPError
@@ -20,6 +21,5 @@ class GnaclrSearch
     end
     Yajl::Parser.new.parse(json)
   end
-  private :search
 
 end

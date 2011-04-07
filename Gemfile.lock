@@ -70,7 +70,7 @@ GEM
     daemons (1.1.0)
     database_cleaner (0.6.0)
     diff-lcs (1.1.2)
-    dwc-archive (0.5.12)
+    dwc-archive (0.5.13)
       parsley-store (>= 0.2.0)
     engineyard (1.3.4)
       engineyard-serverside-adapter (= 1.3.5)
@@ -219,7 +219,7 @@ DEPENDENCIES
   cucumber (= 0.9.0)
   cucumber-rails (= 0.3.2)
   database_cleaner
-  dwc-archive (= 0.5.12)
+  dwc-archive (= 0.5.13)
   engineyard
   escape_utils
   factory_girl

@@ -1,6 +1,5 @@
 class ReferenceTree < Tree
   has_many :gnaclr_importers
-  has_many :gnaclr_impoter_logs
   has_many :reference_tree_collections
   has_many :master_trees, :through => :reference_tree_collections
 
