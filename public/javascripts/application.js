@@ -692,13 +692,14 @@ $(function() {
                 type  : 'DELETE',
                 data  : { },
                 success : function() {
+                  $(self).parent().remove();
                 },
                 error : function() {
                 },
                 complete : function() {
-                  $(self).parent().remove();
                 }
               });
+              return false;
             });
 
           },
