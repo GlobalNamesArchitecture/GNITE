@@ -191,3 +191,50 @@ describe "Flat list import" do
     )
   end
 end
+
+describe "routing to bookmarks" do
+  it "routes /master_trees/:master_tree_id/bookmarks to bookmarks#index" do
+    { :get => "/master_trees/123/bookmarks" }.should route_to(
+      :controller => "bookmarks",
+      :action     => "index",
+      :master_tree_id    => "123"
+    )
+  end
+  it "routes POST /master_trees/:master_tree_id/bookmarks to bookmarks#create" do
+    { :post => "/master_trees/123/bookmarks" }.should route_to(
+      :controller => "bookmarks",
+      :action     => "create",
+      :master_tree_id    => "123"
+    )
+  end
+  it "routes DELETE /master_trees/:master_tree_id/bookmarks/:id to bookmarks#delete" do
+    { :delete => "/master_trees/123/bookmarks/45" }.should route_to(
+      :controller => "bookmarks",
+      :action     => "destroy",
+      :master_tree_id    => "123",
+      :id         => "45"
+    )
+  end
+  it "routes /reference_trees/:reference_tree_id/bookmarks to bookmarks#index" do
+    { :get => "/reference_trees/123/bookmarks" }.should route_to(
+      :controller => "bookmarks",
+      :action     => "index",
+      :reference_tree_id    => "123"
+    )
+  end
+  it "routes POST /reference_trees/:reference_tree_id/bookmarks to bookmarks#create" do
+    { :post => "/reference_trees/123/bookmarks" }.should route_to(
+      :controller => "bookmarks",
+      :action     => "create",
+      :reference_tree_id    => "123"
+    )
+  end
+  it "routes DELETE /reference_trees/:reference_tree_id/bookmarks/:id to bookmarks#delete" do
+    { :delete => "/reference_trees/123/bookmarks/45" }.should route_to(
+      :controller => "bookmarks",
+      :action     => "destroy",
+      :reference_tree_id    => "123",
+      :id         => "45"
+    )
+  end
+end

@@ -110,28 +110,6 @@ GNITE.MasterTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
       };
     }
   },
-  'crrm' : {
-    'move' : {
-      'check_move' : function(m) {
-        return true;
-/* POSSIBLE MECHANSIM TO CHECK TREE STATUS
-        $.ajax({
-          url     : '/check_status/' + GNITE.MasterTreeID,
-          type    : 'GET',
-          success : function(results) {
-            return true;
-          },
-          error : function() {
-            return false;
-          },
-          complete : function() {
-            return true;
-          }
-        });
-*/
-      }
-    }
-  },
 
   'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'search', 'contextmenu', 'bookmarks']
 });
@@ -835,7 +813,7 @@ $(function() {
 
   /*
    * ActionType: ActionMoveNodeBetweenTrees
-   * Moves node from Master Tree to Deleted Names & refreshes Delete Names
+   * Moves node from Master Tree to Deleted Names & refreshes Deleted Names
    */
   $('#master-tree').bind('remove.jstree', function(event, data) {
     var node = data.rslt;
@@ -890,6 +868,20 @@ $(function() {
       }
     });
   });
+
+  /*
+   * Lock the tree
+   */
+  $('#master-tree').bind('lock.jstree', function(event, data) {
+    alert("We are locked");
+  });
+
+   /*
+    * Unlock the tree
+    */
+   $('#master-tree').bind('unlock.jstree', function(event, data) {
+
+   });
 
 
 /**************************************************************

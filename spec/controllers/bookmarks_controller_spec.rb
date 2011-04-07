@@ -23,7 +23,7 @@ end
 
 describe BookmarksController, 'GET to show bookmarks for reference tree' do
   let(:user) { Factory(:email_confirmed_user) }
-  let(:reference_tree) { Factory(:reference_tree, :user => user) }
+  let(:reference_tree) { Factory(:reference_tree) }
   let(:node)  { Factory(:node, :tree => reference_tree) }
   let(:bookmark) { Factory(:bookmark, :node => node) }
 
@@ -78,7 +78,7 @@ describe BookmarksController, 'POST create in master tree without authenticating
 end
 
 describe BookmarksController, 'DELETE delete in master tree without authenticating' do
-  before { delete :delete, :master_tree_id => 123, :id => 45 }
+  before { delete :destroy, :master_tree_id => 123, :id => 45 }
   it     { should redirect_to(sign_in_url) }
   it     { should set_the_flash.to(/sign in/) }
 end
@@ -96,7 +96,7 @@ describe BookmarksController, 'POST create in reference tree without authenticat
 end
 
 describe BookmarksController, 'DELETE delete in reference tree without authenticating' do
-  before { delete :delete, :reference_tree_id => 123, :id => 45 }
+  before { delete :destroy, :reference_tree_id => 123, :id => 45 }
   it     { should redirect_to(sign_in_url) }
   it     { should set_the_flash.to(/sign in/) }
 end
