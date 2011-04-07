@@ -295,7 +295,7 @@ $(function() {
       self.parent().spinner();
 
       var timeout = setTimeout(function checkImportStatus() {
-        $.get('/reference_trees/' + id + '.json', function(response, status, xhr) {
+        $.get('/reference_trees/' + tree_id + '.json', function(response, status, xhr) {
           if (xhr.status == 200) {
             self.parent().unspinner();
             GNITE.ReferenceTree.add(response);
