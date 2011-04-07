@@ -7,7 +7,7 @@ class TreeSearchesController < ApplicationController
     names.each do |name|
       result << Node.find_by_name_id(name.id)
     end
-    render :json => TreeSearchJsonPresenter.present(result)
+    render :json => result.length > 0 ? TreeSearchJsonPresenter.present(result) : { :status => "Nothing found" }
   end
 
 end

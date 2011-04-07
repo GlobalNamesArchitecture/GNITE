@@ -366,7 +366,7 @@ $(function() {
           success : function(data) {
             var results = '<div class="results-wrapper">';
             if(!data.length) {
-              results += '<p>Nothing found</p>';
+              results += data.status;
             }
             else {
                 results += '<ul>';
