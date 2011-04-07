@@ -722,6 +722,8 @@ $(function() {
    * Creates node in Master Tree
    */
   $('#master-tree').bind('create.jstree', function(event, data) {
+
+    var self     = $(this);
     var node     = data.rslt;
     var name     = node.name;
     var parentID = null;
@@ -729,6 +731,9 @@ $(function() {
     if (node.parent != -1) {
       parentID = node.parent.attr('id');
     }
+
+    // lock the tree
+    self.jstree("lock");
 
     $.ajax({
       type        : 'POST',
@@ -738,6 +743,7 @@ $(function() {
       dataType    : 'json',
       success     : function(data) {
         node.obj.attr('id', data.node.id);
+        self.jstree("unlock");
       }
     });
   });
@@ -751,9 +757,14 @@ $(function() {
    * Renames node in Master Tree
    */
   $('#master-tree').bind('rename.jstree', function(event, data) {
+
+    var self     = $(this);
     var node     = data.rslt;
     var id       = node.obj.attr('id');
     var new_name = node.new_name;
+
+    // lock the tree
+    self.jstree("lock");
 
     $.ajax({
       type        : 'PUT',
@@ -763,15 +774,19 @@ $(function() {
       dataType    : 'json',
       success     : function(data) {
         updatedNode.obj.attr('id', data.node.id);
+        self.jstree("unlock");
       }
     });
   });
 
   /*
-   * ActionType: ActionMoveNodeWithinTree
+   * ActionType: ActionCopyNodeFromAnotherTree and ActionMoveNodeWithinTree
    * Moves node within Master Tree
    */
   $('#master-tree').bind('move_node.jstree', function(event, data) {
+
+     var self        = $(this);
+
      var result      = data.rslt;
      var isCopy      = result.cy;
 
@@ -794,6 +809,9 @@ $(function() {
 
      url += '.json';
 
+     // lock the tree
+     self.jstree("lock");
+
      $.ajax({
        type        : isCopy ? 'POST' : 'PUT',
        url         : url,
@@ -806,6 +824,7 @@ $(function() {
          } else {
            result.o.attr('id', data.node.id);
          }
+         self.jstree("unlock");
        }
      });
 
@@ -816,8 +835,12 @@ $(function() {
    * Moves node from Master Tree to Deleted Names & refreshes Deleted Names
    */
   $('#master-tree').bind('remove.jstree', function(event, data) {
+    var self = $(this);
     var node = data.rslt;
     var id   = node.obj.attr('id');
+
+    // lock the tree
+    self.jstree("lock");
 
     $.ajax({
       type    : 'PUT',
@@ -825,6 +848,7 @@ $(function() {
       data    : JSON.stringify({'action_type' : 'ActionMoveNodeToDeletedTree'}),
       contentType : 'application/json',
       success : function(data) {
+        self.jstree("unlock");
         var $deleted_tree = $('.deleted-tree-container .jstree');
         $deleted_tree.jstree("refresh");
       }
@@ -870,17 +894,17 @@ $(function() {
   });
 
   /*
+   * TODO: Implement node.js or similar AND record state in db
    * Lock the tree
    */
   $('#master-tree').bind('lock.jstree', function(event, data) {
-    alert("We are locked");
   });
 
    /*
+    * TODO: Implement node.js or similar AND record state in db
     * Unlock the tree
     */
    $('#master-tree').bind('unlock.jstree', function(event, data) {
-
    });
 
 

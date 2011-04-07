@@ -44,6 +44,7 @@ Feature: Edit a master tree
     And I follow "File" within "toolbar"
     And I follow "Add node" within "toolbar"
     And I enter "Caviidae" in the new node and press enter
+    And pause 2
     Then I should see a node "Caviidae" at the root level in my master tree
 
     When I select the node "Caviidae"
@@ -135,7 +136,9 @@ Feature: Edit a master tree
     And I am on the master tree index page
     When I follow "Moose tree"
     And I drag "Rocky" under "Bullwinkle"
+    And pause 2
     And I delete the node "Bullwinkle"
+    And pause 2
     Then I should not see a node "Bullwinkle" at the root level in my master tree
     And I should not see a node "Rocky" at the root level in my master tree
     When I follow "Working Trees"
