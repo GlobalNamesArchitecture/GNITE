@@ -16,8 +16,9 @@ describe BookmarksController, 'GET to show bookmarks for master tree' do
     
   it { should respond_with(:success) }
 
-  it "should render the bookmarks with the TreeSearchJsonPresenter" do
-#    TreeSearchJsonPresenter.should have_received(:present).with(nodes)
+  it "should render the bookmarks as JSON" do
+    bookmark = JSON.parse(response.body)
+    bookmark.first["treepath"]["name_strings"].should == node.name_string
   end
 end
 
@@ -66,9 +67,10 @@ describe BookmarksController, 'GET to show bookmarks for reference tree' do
   
   it { should respond_with(:success) }
   
-#  it "should render the bookmarks with the TreeSearchJsonPresenter" do
-#    TreeSearchJsonPresenter.should have_received(:present).with(nodes)
-#  end
+  it "should render the bookmarks as JSON" do
+    bookmark = JSON.parse(response.body)
+    bookmark.first["treepath"]["name_strings"].should == node.name_string
+  end
 end
 
 describe BookmarksController, 'POST to create bookmark in reference tree' do
