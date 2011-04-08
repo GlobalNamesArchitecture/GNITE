@@ -3,6 +3,7 @@ Gnite::Application.routes.draw do
   match 'sign_in',  :to => 'sessions#new',     :as => :sign_in
   match 'sign_up',  :to => 'users#new',        :as => :sign_up
   match "/master_trees/:id/publish" => "master_trees#publish"
+  match "/tree_searches/:tree_id/:name_string" => "tree_searches#show"
 
   resource :session, :only => [:new, :create, :destroy], :controller => "sessions"
 
@@ -11,8 +12,6 @@ Gnite::Application.routes.draw do
   end
 
   resources :gnaclr_imports, :only => [:create]
-  
-  resource :tree_searches, :only => [:show]
   
   resource :gnaclr_searches, :only => [:show]
 

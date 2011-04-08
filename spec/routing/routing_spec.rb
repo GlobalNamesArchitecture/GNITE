@@ -238,3 +238,14 @@ describe "routing to bookmarks" do
     )
   end
 end
+
+describe "search in trees" do
+  it "routes GET /tree_searches/:tree_id/:name_string tree_searches#get" do
+    { :get => "/tree_searches/123/gnite" }.should route_to(
+      :controller => "tree_searches",
+      :action => "show",
+      :tree_id => "123",
+      :name_string => "gnite"
+    )
+  end
+end

@@ -49,7 +49,7 @@ GNITE.Tree.configuration = {
     'select_limit' : 1
   },
 
-  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'search']
+  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies']
 
 };
 
@@ -121,7 +121,7 @@ GNITE.ReferenceTree.configuration = $.extend(true, {}, GNITE.Tree.configuration,
     }
   },
 
-  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'search', 'bookmarks']
+  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'bookmarks']
 });
 
 GNITE.DeletedTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
@@ -131,7 +131,7 @@ GNITE.DeletedTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
     }
   },
 
-  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'search']
+  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies']
 });
 
 /********************************* jQuery START *********************************/
@@ -206,13 +206,7 @@ $(function() {
         'ajax' : {
           'url' : '/master_trees/' + GNITE.MasterTreeID + '/nodes.json'
         }
-      },
-      'search' : {
-        'case_insensitive' : true,
-        'ajax' : {
-          'url' : '/master_trees/' + GNITE.MasterTreeID + '/tree_expand.json'
-        },
-      },
+      }
     }));
   }
 
@@ -232,12 +226,6 @@ $(function() {
                 'json_data' : {
                   'ajax' : {
                     'url' : '/reference_trees/' + tree_id + '/nodes.json'
-                  }
-                },
-                'search' : {
-                  'case_insensitive' : true,
-                  'ajax' : {
-                    'url' : '/reference_trees/' + tree_id + '/name_searches.json'
                   }
                 }
               }));
@@ -306,12 +294,6 @@ $(function() {
               'ajax' : {
                 'url' : '/deleted_trees/' + id + '/nodes.json'
               }
-            },
-            'search' : {
-              'case_insensitive' : true,
-              'ajax' : {
-                'url' : '/deleted_trees/' + id + '/name_searches.json'
-              }
             }
           }));
 
@@ -360,9 +342,9 @@ $(function() {
         $results.spinner().show();
 
         $.ajax({
-          url     : '/tree_searches',
+          url     : '/tree_searches/' + self.parents('.tree-background').find('.tree-container').attr('data-database-id') + '/' + term,
           type    : 'GET',
-          data    : { 'tree_id' : self.parents('.tree-background').find('.tree-container').attr('data-database-id'),'name_string' : term },
+          data    : { },
           success : function(data) {
             var results = '<div class="results-wrapper">';
             if(!data.length) {
