@@ -29,7 +29,7 @@ Feature: Work with reference trees
 
   @javascript
   Scenario: Drag-and-drop reordering is not possible in reference trees
-    And I drag "root three" under "root two" in my reference tree "List"
+    And I drag "root three" to "root two" in my reference tree "List"
 
     Then I should see a node "root one" at the root level in my reference tree "List"
     And I should see a node "root two" at the root level in my reference tree "List"

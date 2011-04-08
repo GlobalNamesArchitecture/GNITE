@@ -26,7 +26,7 @@ Then /^I should not be able to show a context menu for my reference tree "(.*)"$
   find_link('Rename').should be_nil
 end
 
-When /^I drag "([^"]*)" under "([^"]*)" in my reference tree "(.*)"$/ do |origin_node_text, destination_node_text, reference_tree_title|
+When /^I drag "([^"]*)" to "([^"]*)" in my reference tree "(.*)"$/ do |origin_node_text, destination_node_text, reference_tree_title|
   reference_tree         = ReferenceTree.find_by_title(reference_tree_title)
   reference_tree_matcher = "div##{dom_id(reference_tree, "container_for")}"
   # we had a namespace conflict with Capybara::Node

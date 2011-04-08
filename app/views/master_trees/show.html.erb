@@ -73,6 +73,9 @@
   <%= javascript_include_tag 'jstree/jquery.jstree', 'jquery.jstree.bookmarks', 'jquery.cookie', 'jquery.scrollTo-min', 'ddsmoothmenu' %>
 
   <script type="text/javascript">
+    <!--//--><![CDATA[//><!--
+	jQuery.extend(GNITE.MasterTree, { "root": "<%= @master_tree.root.id %>" });
+	//--><!]]>
     $.jstree._themes = '/javascripts/jstree/themes/';
   </script>
 <% end %>

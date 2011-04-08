@@ -89,10 +89,10 @@ class Node < ActiveRecord::Base
     Node.select(:id).where(:parent_id => id).limit(1).exists?
   end
 
-  def ancestors
+  def ancestors(options = {})
     node, nodes = self, []
     nodes << node = node.parent while node.parent
-    nodes.pop
+    nodes.pop unless options[:with_tree_root]
     nodes.reverse
   end
 

@@ -20,7 +20,7 @@ class ActionCommand < ActiveRecord::Base
   end
 
   def self.schedule_actions(action_command)
-    tree_queue = action_command.master_tree ? "gnite_action_tree_#{action_command.master_tree.id}" : (raise "Cannot determing master tree in the action_command")
+    tree_queue = action_command.master_tree ? "gnite_action_tree_#{action_command.master_tree.id}" : (raise "Cannot determine master tree in the action_command")
     action_command.class.queue = tree_queue
     Resque.enqueue(action_command.class, action_command.id)
     action_command.class.queue = nil
@@ -66,7 +66,7 @@ class ActionCommand < ActiveRecord::Base
   end
 
   def ancestry_ok?(a_node)
-    ancestors = a_node.ancestors + [a_node]
+    ancestors = a_node.ancestors(:with_tree_root => true) + [a_node]
     ancestors.size == 1 || (ancestors.map {|a| a.tree_id}.uniq.size == 1 && ancestors.first.parent_id == nil)
   end
 

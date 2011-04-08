@@ -25,6 +25,8 @@ Feature: Edit a master tree
     And I follow "File" within "toolbar"
     And I follow "Add node" within "toolbar"
     And I enter "hydrochaeris" in the new node and press enter
+    And I follow "View" within "toolbar"
+    And I follow "Refresh tree" within "toolbar"
     Then I should see a node "hydrochaeris" at the root level in my master tree
     When I follow "Working Trees"
     Then I should be on the master tree index page
@@ -44,13 +46,16 @@ Feature: Edit a master tree
     And I follow "File" within "toolbar"
     And I follow "Add node" within "toolbar"
     And I enter "Caviidae" in the new node and press enter
-    And pause 2
+    And I follow "View" within "toolbar"
+    And I follow "Refresh tree" within "toolbar"
     Then I should see a node "Caviidae" at the root level in my master tree
 
     When I select the node "Caviidae"
     And I follow "File" within "toolbar"
     And I follow "Add node" within "toolbar"
     And I enter "Hydrochoerinae" in the new node and press enter
+    And I follow "View" within "toolbar"
+    And I follow "Refresh tree" within "toolbar"
     Then I should see "Hydrochoerinae"
     And I should see "Caviidae"
     And I should see a node "Hydrochoerinae" under "Caviidae"
@@ -74,6 +79,8 @@ Feature: Edit a master tree
     When I follow "Moose tree"
     And I wait for the tree to load
     And I double click "Bullwinkle" and change it to "Monkey"
+    And I follow "View" within "toolbar"
+    And I follow "Refresh tree" within "toolbar"
     Then I should see "Monkey"
     When I follow "Working Trees"
     Then I should not see "Monkey"
@@ -82,7 +89,7 @@ Feature: Edit a master tree
     And I should see "Rocky"
 
    @javascript
-   Scenario: User can move nodes in a tree
+   Scenario: User can drag a node and drop it onto another
     Given I have signed in with "email@person.com/password"
     And "email@person.com" has created an existing master tree titled "Moose tree" with:
       | Bullwinkle |
@@ -136,9 +143,11 @@ Feature: Edit a master tree
     And I am on the master tree index page
     When I follow "Moose tree"
     And I drag "Rocky" under "Bullwinkle"
-    And pause 2
+    And I follow "View" within "toolbar"
+    And I follow "Refresh tree" within "toolbar"
     And I delete the node "Bullwinkle"
-    And pause 2
+    And I follow "View" within "toolbar"
+    And I follow "Refresh tree" within "toolbar"
     Then I should not see a node "Bullwinkle" at the root level in my master tree
     And I should not see a node "Rocky" at the root level in my master tree
     When I follow "Working Trees"
@@ -189,7 +198,7 @@ Feature: Edit a master tree
 
 
   @javascript
-  Scenario: User can cut and paste a node
+  Scenario: User can cut a node and paste it under another
     Given I have signed in with "email@person.com/password"
     And "email@person.com" has created an existing master tree titled "Snacks" with:
       | Get Cut    |

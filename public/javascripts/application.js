@@ -747,8 +747,8 @@ $(function() {
       contentType : 'application/json',
       dataType    : 'json',
       success     : function(data) {
-        node.obj.attr('id', data.node.id);
         self.jstree("unlock");
+        node.obj.attr('id', data.node.id);
       }
     });
   });
@@ -778,8 +778,8 @@ $(function() {
       contentType : 'application/json',
       dataType    : 'json',
       success     : function(data) {
-        updatedNode.obj.attr('id', data.node.id);
         self.jstree("unlock");
+        updatedNode.obj.attr('id', data.node.id);
       }
     });
   });
@@ -800,7 +800,7 @@ $(function() {
      var action_type = "";
 
      if (parentID == 'master-tree') {
-       parentID = null;
+       parentID = GNITE.MasterTree.root;
      }
 
      var url = '/master_trees/' + GNITE.MasterTreeID + '/nodes';
@@ -824,12 +824,12 @@ $(function() {
        contentType : 'application/json',
        dataType    : 'json',
        success     : function(data) {
+         self.jstree("unlock");
          if (isCopy) {
            result.oc.attr('id', data.node.id);
          } else {
            result.o.attr('id', data.node.id);
          }
-         self.jstree("unlock");
        }
      });
 
