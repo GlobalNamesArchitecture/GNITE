@@ -46,4 +46,21 @@ Feature: Work with reference trees
     And I should see a node "root three" at the root level in my reference tree "List"
 
   @javascript
+  Scenario: Drag-and-drop copying from reference tree to master tree
+    And I drag "root three" in my reference tree "List" to "master node" in my master tree
+
+    Then I should see a node "root three" under "master node"
+
+    When I follow "Working Trees"
+    And I follow "My new tree"
+    And I follow "All reference trees"
+    And I follow "List"
+    And I wait for the tree to load
+    When I select the node "master node"
+    And I expand the node "master node"
+
+    Then I should see a node "root three" under "master node"
+    And I should see a node "root three" at the root level in my reference tree "List" 
+
+  @javascript
   Scenario: Reference tree metadata is viewable but not editable
