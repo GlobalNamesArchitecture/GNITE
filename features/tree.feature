@@ -88,11 +88,9 @@ Feature: Edit a master tree
     When I follow "Moose tree"
     And I wait for the tree to load
     And I drag "Rocky" under "Bullwinkle"
-    Then I should see a node "Rocky" under "Bullwinkle"
-   
+    Then I should see a node "Rocky" under "Bullwinkle"  
     And I follow "View" within "toolbar"
     And I follow "Refresh tree" within "toolbar"
-
     When I select the node "Bullwinkle"
     And I expand the node "Bullwinkle"
     Then I should see a node "Rocky" under "Bullwinkle"
@@ -109,13 +107,16 @@ Feature: Edit a master tree
     When I follow "Moose tree"
     And I wait for the tree to load
     And I should see a node "Boris" at the root level in my master tree
+    And I follow "Deleted Names"
     And I delete the node "Boris"
     Then I should not see a node "Boris" at the root level in my master tree
-
+    And I should see a node "Boris" at the root level in deleted names
     And I follow "View" within "toolbar"
     And I follow "Refresh tree" within "toolbar"
-
+    And I follow "View" within "toolbar-deleted"
+    And I follow "Refresh tree" within "toolbar-deleted"
     Then I should not see a node "Boris" at the root level in my master tree
+    And I should see a node "Boris" at the root level in deleted names
 
   @javascript
   Scenario: User can automatically remove children nodes by deleting a parent in a tree
@@ -127,14 +128,20 @@ Feature: Edit a master tree
       | Boris      |
     And I am on the master tree index page
     When I follow "Moose tree"
+    And I follow "Deleted Names"
     And I drag "Rocky" under "Bullwinkle"
     And I follow "View" within "toolbar"
     And I follow "Refresh tree" within "toolbar"
     And I delete the node "Bullwinkle"
     And I follow "View" within "toolbar"
     And I follow "Refresh tree" within "toolbar"
+    And I follow "View" within "toolbar-deleted"
+    And I follow "Refresh tree" within "toolbar-deleted"
     Then I should not see a node "Bullwinkle" at the root level in my master tree
     And I should not see a node "Rocky" at the root level in my master tree
+    And I should see a node "Bullwinkle" at the root level in deleted names
+    And I expand the node "Bullwinkle" in deleted names
+    Then I should see a node "Rocky" under "Bullwinkle" in deleted names
 
   @javascript
   Scenario: User can deselect a node

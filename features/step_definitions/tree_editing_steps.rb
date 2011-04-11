@@ -2,6 +2,10 @@ Then /^I should see a node "([^"]*)" at the root level in my master tree$/ do |n
   page.should have_css("div#master-tree>ul>li>a:contains('#{node_text}')")
 end
 
+Then /^I should see a node "([^"]*)" at the root level in deleted names$/ do |node_text|
+  page.should have_css("div.deleted-tree-container>div>ul>li>a:contains('#{node_text}')")
+end
+
 Then /^I should see (\d+) child nodes? for the "([^"]*)" node in my master tree$/ do |node_count, parent_node_text|
   all("div#master-tree > ul > li > a:contains('#{parent_node_text}') + ul > li").count.should == node_count.to_i
 end
@@ -23,6 +27,10 @@ end
 
 Then /^I should see a node "([^"]*)" under "([^"]*)"$/ do |child_node_text, parent_node_text|
   page.should have_css("#master-tree ul>li>a:contains('#{parent_node_text}')+ul>li>a:contains('#{child_node_text}')")
+end
+
+Then /^I should see a node "([^"]*)" under "([^"]*)" in deleted names$/ do |child_node_text, parent_node_text|
+  page.should have_css("div.deleted-tree-container>div>ul>li>a:contains('#{parent_node_text}')+ul>li>a:contains('#{child_node_text}')")
 end
 
 When /^I double click "([^"]*)" and change it to "([^"]*)"$/ do |old_name, new_name|
@@ -53,6 +61,12 @@ end
 When /^I expand the node "([^"]*)"$/ do |node_name|
   node = first_node_by_name(node_name)
   page.execute_script("jQuery('#master-tree').jstree('open_node', '##{node.id}');")
+  sleep 1
+end
+
+When /^I expand the node "([^"]*)" in deleted names$/ do |node_name|
+  node = first_node_by_name(node_name)
+  page.execute_script("jQuery('.deleted-tree-container > div').jstree('open_node', '##{node.id}');")
   sleep 1
 end
 
