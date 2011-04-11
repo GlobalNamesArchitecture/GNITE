@@ -2,6 +2,10 @@ Factory.sequence(:name_string) do |i|
   "taxon #{i}"
 end
 
+Factory.sequence(:string) do |i|
+  "string_#{i}"
+end
+
 Factory.define :tree do |tree|
   tree.title { "My Tree" }
   tree.creative_commons { 'cc0' }
@@ -45,8 +49,11 @@ Factory.define :vernacular_name do |vernacular|
 end
 
 Factory.define :gnaclr_importer do |gnaclr_importer|
-  gnaclr_importer.association :reference_tree
   gnaclr_importer.url {'foo'}
+  gnaclr_importer.title {'My title'}
+  gnaclr_importer.publication_date {Time.now}
+  gnaclr_importer.master_tree { Factory(:master_tree) }
+  gnaclr_importer.revision { |a| Factory.next(:string) }
 end
 
 Factory.define :action_rename_node do |action_rename_node|

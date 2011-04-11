@@ -5,7 +5,7 @@ class GnaclrImportsController < ApplicationController
     respond_to do |wants|
       wants.js do
         master_tree = current_user.master_trees.find(params[:master_tree_id])
-        gi = GnaclrImporter.create!(:master_tree => master_tree, :source_id => params[:source_id], :url => params[:url])
+        gi = GnaclrImporter.create!(:master_tree => master_tree, :revision => params[:revision], :title => params[:title], :publication_date => params[:publication_date], :url => params[:url])
         Resque.enqueue(GnaclrImporter, gi.id)
 
         render :json => { :tree_id => reference_tree.id }

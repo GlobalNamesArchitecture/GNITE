@@ -26,7 +26,6 @@ class Tree < ActiveRecord::Base
     self.order('title asc')
   end
 
-  #TODO this is a placeholder! it needs to be done correctly
   def nuke
     Tree.connection.execute("DELETE n, b, s, v FROM nodes n LEFT JOIN bookmarks b ON b.node_id = n.id LEFT JOIN synonyms s ON s.node_id = n.id LEFT JOIN vernacular_names v ON v.node_id = n.id WHERE tree_id = #{id}")
     Tree.connection.execute("DELETE FROM nodes WHERE tree_id = #{id}")

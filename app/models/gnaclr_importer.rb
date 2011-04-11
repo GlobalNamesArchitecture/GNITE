@@ -9,7 +9,7 @@ class GnaclrImporter < ActiveRecord::Base
   end
   @queue = :gnaclr_importer
 
-  attr_accessor :master_tree, :source_id
+  attr_accessor :master_tree, :revision, :title, :publication_date
   attr_reader   :darwin_core_data, :name_strings, :tree
 
   def self.perform(gnaclr_importer_id)
@@ -18,17 +18,10 @@ class GnaclrImporter < ActiveRecord::Base
   end
 
   def import
-    begin
-      fetch_tarball
-      if reference_tree_exists?
-        ReferenceTreeCollection.new(:master_tree => self.master_tree, :reference_tree => self.reference_tree)
-      else
-        read_tarball
-        store_tree
-        activate_tree
-      end
-    rescue RuntimeError => e
-      DarwinCore.logger_write(@dwc.object_id, "Import Failed: %s" % e)
+    if reference_tree_exists?
+      ReferenceTreeCollection.new(:master_tree => self.master_tree, :reference_tree => self.reference_tree)
+    else
+      import_reference_tree
     end
   end
 
@@ -45,28 +38,24 @@ class GnaclrImporter < ActiveRecord::Base
     end
   end
 
-  def reference_tree_exists?
-    @dwc = DarwinCore.new(tarball_path)
-    revision = @dwc.checksum
-    reference_tree = ReferenceTree.find_by_revision(revision)
-    if reference_tree
-      self.update_attributes(:reference_tree => reference_tree)
-      self.reload
+  private
+
+  def import_reference_tree
+    begin
+      create_reference_tree
+      fetch_tarball
+      read_tarball
+      store_tree
+      activate_tree
+    rescue RuntimeError => e
+      destroy_reference_tree
+      DarwinCore.logger_write(@dwc.object_id, "Import Failed: %s" % e)
     end
-    !!reference_tree
-  end
-
-  def create_reference_tree
-    reference_tree = ReferenceTree.create(:title          => params[:title],
-                                          :master_tree_id => master_tree.id,
-                                          :source_id      => params[:source_id],
-                                          :state          => 'importing')
-
   end
 
   def read_tarball
+    @dwc = DarwinCore.new(tarball_path)
     DarwinCore.logger.subscribe(:dwc_object_id => @dwc.object_id, :gnaclr_importer_id => self.id)
-    create_reference_tree
     normalizer        = DarwinCore::ClassificationNormalizer.new(@dwc)
     @darwin_core_data = normalizer.normalize
     @tree             = normalizer.tree
@@ -119,7 +108,34 @@ class GnaclrImporter < ActiveRecord::Base
     DarwinCore.logger_write(@dwc.object_id, "Import is successful")
   end
 
-  private
+  def reference_tree_exists?
+    reference_tree = ReferenceTree.find_by_revision(self.revision)
+    add_reference_tree_attribute(reference_tree)
+    !!reference_tree
+  end
+
+  def create_reference_tree
+    # TODO state is not in the right place anymore, needs to be
+    # generalized with all other states that require interface lock/unlock
+    reference_tree = ReferenceTree.create(:master_tree_id   => master_tree.id,
+                                          :title            => self.title,
+                                          :revision         => self.revision,
+                                          :publication_date => self.publication_date,
+                                          :state            => 'importing')
+    add_reference_tree_attribute(reference_tree)
+  end
+
+  def add_reference_tree_attribute(reference_tree)
+    return unless reference_tree.is_a?(ReferenceTree)
+    self.update_attributes(:reference_tree => reference_tree)
+    self.reload
+  end
+
+  def destroy_reference_tree
+    return unless self.reference_tree
+    self.reference_tree.nuke
+  end
+
 
   def add_synonyms_and_vernacular_names(node_id, taxon_id)
     (@synonyms ||= []) << [node_id, darwin_core_data[taxon_id].synonyms]

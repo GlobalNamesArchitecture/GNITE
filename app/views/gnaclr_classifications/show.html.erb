@@ -36,7 +36,7 @@
                 id="revision_<%= revision.sequence_number -%>"
                 <%= 'checked' if first -%>
                 data-tree-url="<%= revision.url %>"
-                data-source-id="<%= revision.id -%>"/>
+                data-revision="<%= revision.id -%>"/>
         <p class="revision-number"><%= revision.sequence_number -%></p>
         <p class="revision-commited-date"><%= revision.commited_date -%></p>
         <label for="revision_<%= revision.sequence_number -%>">
