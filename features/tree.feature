@@ -60,15 +60,6 @@ Feature: Edit a master tree
     And I should see "Caviidae"
     And I should see a node "Hydrochoerinae" under "Caviidae"
 
-    When I follow "Working Trees"
-    And I follow "My new tree"
-    And I wait for the tree to load
-    When I select the node "Caviidae"
-    And I expand the node "Caviidae"
-    Then I should see "Hydrochoerinae"
-    And I should see "Caviidae"
-    And I should see a node "Hydrochoerinae" under "Caviidae"
-
   @javascript
   Scenario: User can rename nodes in a tree
     Given I have signed in with "email@person.com/password"
@@ -82,11 +73,8 @@ Feature: Edit a master tree
     And I follow "View" within "toolbar"
     And I follow "Refresh tree" within "toolbar"
     Then I should see "Monkey"
-    When I follow "Working Trees"
-    Then I should not see "Monkey"
-    When I follow "Moose tree"
-    Then I should see "Monkey"
     And I should see "Rocky"
+    And I should not see "Bullwinkle"
 
    @javascript
    Scenario: User can drag a node and drop it onto another
@@ -101,18 +89,13 @@ Feature: Edit a master tree
     And I wait for the tree to load
     And I drag "Rocky" under "Bullwinkle"
     Then I should see a node "Rocky" under "Bullwinkle"
+   
+    And I follow "View" within "toolbar"
+    And I follow "Refresh tree" within "toolbar"
 
-    When I follow "Working Trees"
-    And I follow "Moose tree"
-    And I wait for the tree to load
     When I select the node "Bullwinkle"
     And I expand the node "Bullwinkle"
     Then I should see a node "Rocky" under "Bullwinkle"
-
-    When I follow "Working Trees"
-    And I follow "Moose tree"
-    And I drag "Bullwinkle" under "Natasha"
-    Then I should see a node "Bullwinkle" under "Natasha"
 
   @javascript
   Scenario: User can remove nodes in a tree
@@ -128,8 +111,10 @@ Feature: Edit a master tree
     And I should see a node "Boris" at the root level in my master tree
     And I delete the node "Boris"
     Then I should not see a node "Boris" at the root level in my master tree
-    When I follow "Working Trees"
-    And I follow "Moose tree"
+
+    And I follow "View" within "toolbar"
+    And I follow "Refresh tree" within "toolbar"
+
     Then I should not see a node "Boris" at the root level in my master tree
 
   @javascript
@@ -148,10 +133,6 @@ Feature: Edit a master tree
     And I delete the node "Bullwinkle"
     And I follow "View" within "toolbar"
     And I follow "Refresh tree" within "toolbar"
-    Then I should not see a node "Bullwinkle" at the root level in my master tree
-    And I should not see a node "Rocky" at the root level in my master tree
-    When I follow "Working Trees"
-    And I follow "Moose tree"
     Then I should not see a node "Bullwinkle" at the root level in my master tree
     And I should not see a node "Rocky" at the root level in my master tree
 
@@ -196,7 +177,6 @@ Feature: Edit a master tree
     When I follow "Cancel"
     Then I should be on the master tree page for "Moose tree"
 
-
   @javascript
   Scenario: User can cut a node and paste it under another
     Given I have signed in with "email@person.com/password"
@@ -210,8 +190,8 @@ Feature: Edit a master tree
     And I click "Cut" in the context menu
     And I select the node "Paste Here"
     And I click "Paste" in the context menu
-    When I reload the page
-    And I wait for the tree to load
+    And I follow "View" within "toolbar"
+    And I follow "Refresh tree" within "toolbar"
     And I expand the node "Paste Here"
     Then I should see a node "Get Cut" under "Paste Here"
     And I should not see a node "Get Cut" at the root level in my master tree
