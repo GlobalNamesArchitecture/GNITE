@@ -1,3 +1,3 @@
 class GnaclrImporterLog < ActiveRecord::Base
-  belongs_to :gnaclr_importer
+  belongs_to :reference_tree
 end

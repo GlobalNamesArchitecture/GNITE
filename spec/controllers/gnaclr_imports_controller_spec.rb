@@ -3,10 +3,12 @@ require 'spec_helper'
 describe GnaclrImportsController, 'xhr POST create' do
   let(:user) { Factory(:user) }
   let(:master_tree) { Factory(:master_tree, :user => user) }
-  let(:reference_tree) { Factory(:reference_tree) }
+  let(:reference_tree) { Factory(:reference_tree, :master_tree_id => master_tree.id) }
   let(:gnaclr_importer) { Factory(:gnaclr_importer, :reference_tree => reference_tree, :url => 'foo') }
+
   before do
     GnaclrImporter.stubs(:create!).returns(gnaclr_importer)
+    require 'ruby-debug'; debugger
 
     sign_in_as user
 
@@ -20,6 +22,7 @@ describe GnaclrImportsController, 'xhr POST create' do
   it 'creates an importing reference tree for the master_tree' do
     master_tree.reference_trees.count.should == 1
     tree = master_tree.reference_trees.first
+    require 'ruby-debug'; debugger
     tree.should be_importing
     tree.master_trees.first.should == master_tree
     tree.title.should == 'NCBI'

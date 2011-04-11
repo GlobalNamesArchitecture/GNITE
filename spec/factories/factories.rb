@@ -17,6 +17,7 @@ end
 
 Factory.define :reference_tree, :parent => :tree, :class => 'ReferenceTree' do |reference_tree|
   reference_tree.master_tree_id { Factory(:master_tree).id } #TODO: HACK!!!
+  reference_tree.revision { Factory.next(:string) }
 end
 
 Factory.define :deleted_tree, :parent => :tree, :class => 'DeletedTree' do |deleted_tree|
@@ -49,11 +50,8 @@ Factory.define :vernacular_name do |vernacular|
 end
 
 Factory.define :gnaclr_importer do |gnaclr_importer|
+  gnaclr_importer.association :reference_tree
   gnaclr_importer.url {'foo'}
-  gnaclr_importer.title {'My title'}
-  gnaclr_importer.publication_date {Time.now}
-  gnaclr_importer.master_tree { Factory(:master_tree) }
-  gnaclr_importer.revision { |a| Factory.next(:string) }
 end
 
 Factory.define :action_rename_node do |action_rename_node|

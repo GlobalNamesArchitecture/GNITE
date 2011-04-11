@@ -1,7 +1,6 @@
 # encoding: utf-8
 class GnaclrImporter < ActiveRecord::Base
   belongs_to :reference_tree
-  has_many :gnaclr_importer_logs
 
   unless defined? GNACLR_IMPORTER_DEFINED
     NAME_BATCH_SIZE = 10_000
@@ -9,7 +8,6 @@ class GnaclrImporter < ActiveRecord::Base
   end
   @queue = :gnaclr_importer
 
-  attr_accessor :master_tree, :revision, :title, :publication_date
   attr_reader   :darwin_core_data, :name_strings, :tree
 
   def self.perform(gnaclr_importer_id)
@@ -18,10 +16,13 @@ class GnaclrImporter < ActiveRecord::Base
   end
 
   def import
-    if reference_tree_exists?
-      ReferenceTreeCollection.new(:master_tree => self.master_tree, :reference_tree => self.reference_tree)
-    else
-      import_reference_tree
+    begin
+      fetch_tarball
+      read_tarball
+      store_tree
+      activate_tree
+    rescue RuntimeError => e
+      DarwinCore.logger_write(@dwc.object_id, "Import Failed: %s" % e)
     end
   end
 
@@ -30,32 +31,17 @@ class GnaclrImporter < ActiveRecord::Base
       dlr = Gnite::Downloader.new(url, tarball_path)
       downloaded_length = dlr.download_with_percentage do |r|
         msg = sprintf("Downloaded %.0f%% in %.0f seconds ETA is %.0f seconds", r[:percentage], r[:elapsed_time], r[:eta])
-        GnaclrImporterLog.create(:gnaclr_importer_id => self.id, :message => msg)
+        GnaclrImporterLog.create(:reference_tree_id => self.reference_tree_id, :message => msg)
       end
-      GnaclrImporterLog.create(:gnaclr_importer_id => self.id, :message => "Download finished, Size: %s" % downloaded_length)
+      GnaclrImporterLog.create(:reference_tree_id => self.reference_tree_id, :message => "Download finished, Size: %s" % downloaded_length)
     else
       Kernel.system("curl -s #{url} > #{tarball_path}")
     end
   end
 
-  private
-
-  def import_reference_tree
-    begin
-      create_reference_tree
-      fetch_tarball
-      read_tarball
-      store_tree
-      activate_tree
-    rescue RuntimeError => e
-      destroy_reference_tree
-      DarwinCore.logger_write(@dwc.object_id, "Import Failed: %s" % e)
-    end
-  end
-
   def read_tarball
-    @dwc = DarwinCore.new(tarball_path)
-    DarwinCore.logger.subscribe(:dwc_object_id => @dwc.object_id, :gnaclr_importer_id => self.id)
+    @dwc               = DarwinCore.new(tarball_path)
+    DarwinCore.logger.subscribe(:dwc_object_id => @dwc.object_id, :reference_tree_id => self.reference_tree_id)
     normalizer        = DarwinCore::ClassificationNormalizer.new(@dwc)
     @darwin_core_data = normalizer.normalize
     @tree             = normalizer.tree
@@ -108,34 +94,7 @@ class GnaclrImporter < ActiveRecord::Base
     DarwinCore.logger_write(@dwc.object_id, "Import is successful")
   end
 
-  def reference_tree_exists?
-    reference_tree = ReferenceTree.find_by_revision(self.revision)
-    add_reference_tree_attribute(reference_tree)
-    !!reference_tree
-  end
-
-  def create_reference_tree
-    # TODO state is not in the right place anymore, needs to be
-    # generalized with all other states that require interface lock/unlock
-    reference_tree = ReferenceTree.create(:master_tree_id   => master_tree.id,
-                                          :title            => self.title,
-                                          :revision         => self.revision,
-                                          :publication_date => self.publication_date,
-                                          :state            => 'importing')
-    add_reference_tree_attribute(reference_tree)
-  end
-
-  def add_reference_tree_attribute(reference_tree)
-    return unless reference_tree.is_a?(ReferenceTree)
-    self.update_attributes(:reference_tree => reference_tree)
-    self.reload
-  end
-
-  def destroy_reference_tree
-    return unless self.reference_tree
-    self.reference_tree.nuke
-  end
-
+  private
 
   def add_synonyms_and_vernacular_names(node_id, taxon_id)
     (@synonyms ||= []) << [node_id, darwin_core_data[taxon_id].synonyms]
@@ -157,8 +116,24 @@ class GnaclrImporter < ActiveRecord::Base
       end
       end
   end
+  
+  #TODO not used anymore?
+  # def copy_nodes_from_prior_import
+  #   now = Time.now
+  #   prior_tree = ReferenceTree.where(['source_id = ?', reference_tree.source_id]).order('created_at asc').first
+  #   nodes = prior_tree.nodes
+  #   unless nodes.empty?
+  #     nodes_sql = nodes.
+  #       map { |node| "(#{reference_tree.id}, #{Node.connection.quote(node.ancestry)}, \\
+  #         #{node.name_id}, #{Node.connection.quote(node.rank)}, \\
+  #         #{Node.connection.quote(now.to_s(:db))}, #{Node.connection.quote(now.to_s(:db))})" }.
+  #         join(',')
+  #     sql = "INSERT IGNORE INTO nodes (tree_id, ancestry, name_id, rank, created_at, updated_at) VALUES #{nodes_sql}"
+  #     Node.connection.execute(sql)
+  #   end
+  # end
 
   def tarball_path
-    Rails.root.join('tmp', self.id.to_s).to_s
+    Rails.root.join('tmp', reference_tree.id.to_s).to_s
   end
 end

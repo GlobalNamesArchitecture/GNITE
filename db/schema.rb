@@ -36,13 +36,13 @@ ActiveRecord::Schema.define(:version => 20110411191814) do
   add_index "bookmarks", ["node_id"], :name => "index_bookmarks_on_node_id"
 
   create_table "gnaclr_importer_logs", :force => true do |t|
+    t.integer  "reference_tree_id"
     t.string   "message"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "gnaclr_importer_id"
   end
 
-  add_index "gnaclr_importer_logs", ["gnaclr_importer_id"], :name => "index_gnaclr_importer_logs_on_gnaclr_importer_id"
+  add_index "gnaclr_importer_logs", ["reference_tree_id"], :name => "index_gnaclr_importer_logs_on_reference_tree_id"
 
   create_table "gnaclr_importers", :force => true do |t|
     t.integer  "reference_tree_id"
@@ -136,7 +136,7 @@ ActiveRecord::Schema.define(:version => 20110411191814) do
     t.string   "revision"
   end
 
-  add_index "trees", ["id"], :name => "index_trees_on_revision_and_id"
+  add_index "trees", ["revision", "id"], :name => "index_trees_on_revision_and_id"
 
   create_table "undo_action_commands", :force => true do |t|
     t.integer  "master_tree_id"
