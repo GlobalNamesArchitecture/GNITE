@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ReferenceTreesController, 'html POST create' do
   context "when signed in with a master tree" do
     let(:user) { Factory(:email_confirmed_user) }
-    let(:master_tree) { Factory(:master_tree) }
+    let(:master_tree) { Factory(:master_tree, :user => user) }
 
     before do
       sign_in_as(user)
@@ -19,7 +19,7 @@ describe ReferenceTreesController, 'html POST create' do
       before do
         ReferenceTree.stubs(:new => tree)
         post :create, :format         => 'json',
-                      :reference_tree => {:title => tree.title, :master_tree_id => master_tree.id },
+                      :reference_tree => {:title => tree.title, :publication_date => 2.days.ago, :revision => '123abcdef', :master_tree_id => master_tree.id },
                       :nodes_list     => nodes_list
       end
 

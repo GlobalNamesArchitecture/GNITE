@@ -69,6 +69,8 @@ describe GnaclrClassification, "attributes" do
       :message         => 'first',
       :tree_id         => '123',
       :file_name       => 'first_file_name',
+      :id              => 'abcdef123',
+      :committed_date  => 1.day.ago,
       :url             => 'first_url' }
   end
   let(:revision_2) do
@@ -76,6 +78,8 @@ describe GnaclrClassification, "attributes" do
       :message         => 'second',
       :tree_id         => '234',
       :file_name       => 'second_file_name',
+      :id              => '123abcdef',
+      :committed_date  => 2.days.ago,
       :url             => 'second_url' }
   end
 
@@ -134,6 +138,8 @@ describe GnaclrClassification, 'adding a revision' do
       :file_name       => 'example.tgz',
       :tree_id         => 'some id',
       :message         => 'revision message',
+      :id              => 'abcdef123',
+      :committed_date  => Time.now,
       :sequence_number => 1 }
   end
 

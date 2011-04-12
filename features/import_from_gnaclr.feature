@@ -7,9 +7,9 @@ Feature: Importing trees from GNACLR
       | title          | author_list                           | description             | updated             | uuid | file_url             |
       | NCBI           | Dmitry Mozzherin <dmitry@example.com> | NCBI classification     | 2010-07-15 16:49:40 | 1    | cyphophthalmi.tar.gz |
     And the GNACLR classification "NCBI" has the following revisions:
-      | sequence_number | message                          | url                  | commited_date |
-      | 2               | this is really the best revision | cyphophthalmi.tar.gz | 2010-02-01    |
-      | 1               | this is the best revision        | cyphophthalmi.tar.gz | 2010-01-01    |
+      | sequence_number | id        | committed_date      | message                          | url                  |
+      | 2               | abcdef123 | 2011-02-14 17:05:17 | this is really the best revision | cyphophthalmi.tar.gz |
+      | 1               | 123abcdef | 2011-03-14 17:05:17 | this is the best revision        | cyphophthalmi.tar.gz |
     And I am on the master tree index page
     And I follow "Moose tree"
 
@@ -36,8 +36,8 @@ Feature: Importing trees from GNACLR
     Then I should see "All reference trees (0)"
     When I follow "Browse Classifications"
     And I follow "NCBI"
-    Then "this is really the best revision" should be checked
-    When I choose "this is the best revision"
+    Then "Published: 2011-02-14 17:05:17" should be checked
+    When I choose "Published: 2011-03-14 17:05:17"
     And I press "Import"
     Then I should see a spinner
     And I should not see the gnaclr import button

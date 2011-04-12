@@ -21,7 +21,8 @@ describe GnaclrSearch, 'issuing a search' do
 
   before do
     response = File.open(Rails.root.join('features', 'support', 'fixtures', 'gnaclr_search_result.json')).read
-    stub_app = ShamRack.at(GnaclrSearch::URL).stub
+    domain = URI.parse(Gnite::Config.gnaclr_url).host
+    stub_app = ShamRack.at(domain).stub
     stub_app.register_resource("/search?format=json&show_revisions=true&search_term=#{subject.search_term}", response, 'application/json')
   end
 

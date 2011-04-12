@@ -7,7 +7,7 @@ describe GnaclrClassificationRevision, 'valid' do
       'url'             => 'http://gnaclr.globalnames.org/classification_file/9/64ff3af4018c3e8fd27f5590387fbdc65289e682',
       'tree_id'         => '64ff3af4018c3e8fd27f5590387fbdc65289e682',
       'message'         => 'My revision message',
-      'commited_date'   => Time.now.to_s,
+      'committed_date'   => Time.now.to_s,
       'file_name'       => '853437dc-6d9f-4ab5-ba30-5ae006fccae2.gzip',
       'sequence_number' => '1',
       'id'              => '3fjou3foi323f',
@@ -28,7 +28,7 @@ describe GnaclrClassificationRevision, 'valid' do
     revision.url.should             == 'http://gnaclr.globalnames.org/classification_file/9/64ff3af4018c3e8fd27f5590387fbdc65289e682'
     revision.tree_id.should         == '64ff3af4018c3e8fd27f5590387fbdc65289e682'
     revision.message.should         == 'My revision message'
-    revision.commited_date.should   == Time.now.to_s
+    revision.committed_date.should   == Time.now.to_s
     revision.file_name.should       == '853437dc-6d9f-4ab5-ba30-5ae006fccae2.gzip'
     revision.sequence_number.should == '1'
     revision.id.should              == '3fjou3foi323f'

@@ -1,5 +1,5 @@
 class GnaclrClassification
-  URL = 'gnaclr.globalnames.org'
+  URL = URI.parse(Gnite::Config.gnaclr_url).host #TODO HACK, do it proper!
 
   attr_accessor :title, :authors, :description, :updated, :uuid, :revisions, :file_url
 

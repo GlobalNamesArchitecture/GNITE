@@ -31,21 +31,22 @@
     <% first = true %>
     <% @gnaclr_classification.revisions.each do |revision| -%>
       <li>
-      <input type="radio" name="revision"
-                value="<%= revision.sequence_number -%>"
-                id="revision_<%= revision.sequence_number -%>"
-                <%= 'checked' if first -%>
-                data-tree-url="<%= revision.url %>"
-                data-revision="<%= revision.id -%>"/>
-        <p class="revision-number"><%= revision.sequence_number -%></p>
-        <p class="revision-commited-date"><%= revision.commited_date -%></p>
         <label for="revision_<%= revision.sequence_number -%>">
-          <span class="revision-message"><%= revision.message -%></span>
+          <input type="radio" name="revision"
+            value="<%= revision.sequence_number -%>"
+            id="revision_<%= revision.sequence_number -%>"
+            <%= 'checked' if first -%>
+            data-tree-title="<%= @gnaclr_classification.title -%>"
+            data-tree-url="<%= revision.url -%>"
+            data-publication-date="<%= revision.committed_date -%>"
+            data-revision="<%= revision.id -%>"/>
+          <span class="revision-number"><strong><%= revision.sequence_number -%></strong></span>
+          <span class="revision-published-date">(Published: <%= revision.committed_date -%>)</span>
         </label>
       </li>
       <% first = false %>
     <% end -%>
   </ul>
-  <input id="import-gnaclr-button" class="green-submit" name="Import" type="submit" value="Import">
+  <input id="import-gnaclr" class="green-submit" name="Import" type="submit" value="Import">
   </form>
 </div>

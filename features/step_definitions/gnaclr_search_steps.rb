@@ -57,7 +57,7 @@ end
 
 Given /^the GNACLR search service is unavailable$/ do
   ShamRack.unmount_all
-  ShamRack.at(GnaclrSearch::URL) do
+  ShamRack.at(URI.parse(Gnite::Config.gnaclr_url).host) do
     [ 500,  {}, [' '] ]
   end
 end

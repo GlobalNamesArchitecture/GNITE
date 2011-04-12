@@ -42,7 +42,12 @@
         </table>
 
         <div class="import-button">
-          <button class="import" data-tree-url="<%= classification['file_url'] -%>" data-revision="<%= classification['id'] -%>">Import</button>
+          <button class="import gnaclr-import"
+            data-tree-url="<%= classification['file_url'] -%>"
+            data-tree-title="<%= classification['title'] -%>"
+            data-revision="<%= classification['revisions'][0]['id']%>"
+            data-publication-date="<%= classification['revisions'][0]['committed_date'] -%>"
+            >Import</button>
         </div>
       </li>
     <% end %>

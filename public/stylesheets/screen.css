@@ -1524,26 +1524,17 @@ ul#revisions li {
   -webkit-box-shadow: none;
   margin: 0 0 8px 0;
   padding: 4px 0;
+  height:1.2em;
+  line-height:1em;
 }
 
 ul#revisions li input[type="radio"] {
-  float: left;
   margin: 6px 8px 10px 0;
   width: auto;
 }
 
-ul#revisions li p.revision-number {
-  color: #111;
-  font-weight: bold;
-  margin: 0 0 4px 20px;
-}
-
-ul#revisions li span.revision-message {
-}
-
-ul#revisions li p.date {
-  font-weight: normal;
-  margin: 0 0 0 20px;
+ul#revisions li span {
+  margin-right:10px;
 }
 
 ul#revisions li:hover {
