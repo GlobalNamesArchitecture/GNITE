@@ -77,7 +77,7 @@ Feature: Edit a master tree
     And I should not see "Bullwinkle"
 
    @javascript
-   Scenario: User can drag a node and drop it onto another
+   Scenario: User can drag a node and drop it onto another within the master tree
     Given I have signed in with "email@person.com/password"
     And "email@person.com" has created an existing master tree titled "Moose tree" with:
       | Bullwinkle |

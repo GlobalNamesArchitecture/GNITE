@@ -930,10 +930,10 @@ body form input {
 }
 
 .bookmarks-results ul li a.bookmarks-delete {
-  width:16px;
   background: transparent url(../images/icons/bin_closed.png) no-repeat 0px center;
   margin-left:3px;
-  display:inline-block !important;
+  padding-left:18px;
+  color:#FF0000;
 }
 
 .bookmarks-results ul li a.bookmarks-delete:hover {

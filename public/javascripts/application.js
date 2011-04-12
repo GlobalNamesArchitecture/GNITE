@@ -639,7 +639,7 @@ $(function() {
                 for(var i=0; i<data.length; i++) {
                   results += '<li>';
                   results += '<a href="#" class="bookmarks-show" data-treepath-ids="' + data[i].treepath.node_ids + '">' + data[i].treepath.name_strings + '</a>';
-                  results += '<a href="#" class="bookmarks-delete" data-node-id="' + data[i].id + '">&nbsp;</a>';
+                  results += '<a href="#" class="bookmarks-delete" data-node-id="' + data[i].id + '">Delete</a>';
                   results += '</li>';
                 }
                 results += '</ul>';
