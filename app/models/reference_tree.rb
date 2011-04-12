@@ -3,7 +3,8 @@ class ReferenceTree < Tree
   has_many :reference_tree_collections
   has_many :master_trees, :through => :reference_tree_collections
 
-  after_create :create_collection
+  validates_presence_of :revision
+  validates_presence_of :publication_date
 
   def self.create_from_list(tree_params, node_list)
     tree = ReferenceTree.new(tree_params)
@@ -16,12 +17,4 @@ class ReferenceTree < Tree
     tree
   end
 
-  private
-
-  def create_collection
-    return unless self.master_tree_id
-    ReferenceTreeCollection.create!(:reference_tree => self, :master_tree_id => self.master_tree_id) ##TODO: HACK warning!!!
-    self.master_tree_id = nil
-    self.save!
-  end
 end

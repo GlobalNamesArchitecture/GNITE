@@ -16,8 +16,8 @@ Factory.define :master_tree, :parent => :tree, :class => 'MasterTree' do |master
 end
 
 Factory.define :reference_tree, :parent => :tree, :class => 'ReferenceTree' do |reference_tree|
-  reference_tree.master_tree_id { Factory(:master_tree).id } #TODO: HACK!!!
   reference_tree.revision { Factory.next(:string) }
+  reference_tree.publication_date { Time.now }
 end
 
 Factory.define :deleted_tree, :parent => :tree, :class => 'DeletedTree' do |deleted_tree|
