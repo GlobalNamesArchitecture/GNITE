@@ -1,7 +1,7 @@
-Feature: User searches gnaclr
+Feature: User searches GNACLR
   As a user
-  I can search the gnaclr database
-  so that it is easier to find the taxons I'm interested in
+  I can search the GNACLR database
+  so that it is easier to find the taxa I am interested in
 
   Background:
     Given I have signed in with "email@person.com/password"
@@ -20,10 +20,10 @@ Feature: User searches gnaclr
   # @javascript
   # Scenario: Type in a search term
   #   Then I should see "Search Classifications"
-  #   When I search for "agaricus"
-  #   And the search results return
+  #   When I search for "agaricus" in GNACLR
+  #   And the GNACLR search results return
   #   Then I should see that "the Scientific Name tab" has 5 results
-  #   And the search results should contain the following classifications:
+  #   And the GNACLR search results should contain the following classifications:
   #     | rank | url                      | path                                                               | found as     | current name     | title          | description             | uuid                                 |
   #     | gen. | http://indexfungorum.org | Fungi/Basidiomycota/Agaricomycetes/Agaricales/Agaricaceae/Agaricus | current_name | Agaricus L. 1753 | Index Fungorum | Classification of Fungi | a9995ace-f04f-49e2-8e14-4fdbc810b08a |
   #   And the "Index Fungorum" result should have the following authors:
@@ -32,8 +32,8 @@ Feature: User searches gnaclr
 
   # @javascript
   # Scenario: User imports a search classification
-  #   When I search for "agaricus"
-  #   And the search results return
+  #   When I search for "agaricus" in GNACLR
+  #   And the GNACLR search results return
   #   And I press "Import" next to the "Index Fungorum" classification
   #   Then I should see a spinner
   #   When resque jobs are run
@@ -44,13 +44,13 @@ Feature: User searches gnaclr
   @javascript
   Scenario: User searches but GNACLR responds with an error
     Given the GNACLR search service is unavailable
-    When I search for "anything"
-    And the search results return
+    When I search for "anything" in GNACLR
+    And the GNACLR search results return
     Then I should see "search request could not be processed"
 
   # @javascript
   # Scenario: User searches but returns to import
-  #   Given I search for "agaricus"
-  #   And the search results return
+  #   Given I search for "agaricus" in GNACLR
+  #   And the GNACLR search results return
   #   When I follow "New Import"
   #   Then I should see "Browse Classifications"

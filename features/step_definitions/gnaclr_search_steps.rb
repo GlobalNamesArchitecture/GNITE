@@ -1,5 +1,5 @@
 # encoding: utf-8
-When /^I search for "([^"]*)"$/ do |search_term|
+When /^I search for "([^"]*)" in GNACLR$/ do |search_term|
   field = find("#gnaclr-search")
   field.set(search_term)
   page.execute_script("jQuery('#gnaclr-search').blur();")
@@ -12,7 +12,7 @@ Then /^I should see a total count of (\d+) in "([^\"]+)"/ do |count, section_nam
   end
 end
 
-When /^the search results return$/ do
+When /^the GNACLR search results return$/ do
   loaded = false
   When %{pause 1}
   until loaded
@@ -27,7 +27,7 @@ Then /^I should see that "(.*)" has (\d+) results?$/ do |named_element, count|
   end
 end
 
-Then /^the search results should contain the following classifications:$/ do |classifications|
+Then /^the GNACLR search results should contain the following classifications:$/ do |classifications|
   classifications.hashes.each do |row|
     within("ul.classifications li##{row['uuid']}") do
       page.should have_css('div.title', :text => row['title'])

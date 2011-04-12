@@ -38,7 +38,7 @@ Feature: Manage bookmarks
     Then I should see a bookmark "Pardosa > Pardosa xerampelina" in master tree bookmarks
 
   @javascript
-  Scenario: User can click a bookmark and have searched name highlighted in master tree
+  Scenario: User can click a bookmark in the master tree and have searched name highlighted
     And I follow "Bookmarks" within "toolbar"
     And I follow "Show all bookmarks" within "toolbar"
     And I follow "Pardosa > Pardosa distincta"
@@ -47,7 +47,7 @@ Feature: Manage bookmarks
     And the "Pardosa distincta" tree node should be selected
 
   @javascript
-  Scenario: User can add a bookmark using the context menu
+  Scenario: User can add a bookmark using the context menu in the master tree
     When I expand the node "Pardosa"
     And I select the node "Pardosa xerampelina"
     And I click "Add bookmark" in the context menu
@@ -57,7 +57,7 @@ Feature: Manage bookmarks
     Then I should see a bookmark "Pardosa > Pardosa xerampelina" in master tree bookmarks
 
   @javascript
-  Scenario: User can delete a bookmark
+  Scenario: User can delete a bookmark in the master tree
     When I follow "Bookmarks" within "toolbar"
     And I follow "Show all bookmarks" within "toolbar"
     And I delete "Pardosa > Pardosa distincta" in master tree bookmarks
