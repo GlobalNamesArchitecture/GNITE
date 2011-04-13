@@ -617,7 +617,7 @@ $(function() {
         var url = (tree_id[0] == 'master-tree') ? '/master_trees/' + GNITE.MasterTreeID + '/bookmarks' : '/reference_trees/' + tree_id[4] + '/bookmarks';
         var $bookmarks = self.parents(".toolbar").find(".bookmarks-results");
        
-        $bookmarks.spinner().html("").show();
+        $bookmarks.html("").spinner().show();
 
         $bookmarks.hover(function() {
               $(this).show();

@@ -4,7 +4,7 @@ class BookmarksController < ApplicationController
   def index
     tree = get_tree
     nodes = tree.nodes.find(:all, :joins => :bookmarks, :order => 'bookmarks.created_at desc')
-    render :json => nodes.length > 0 ? TreeSearchJsonPresenter.present(nodes) : { :status => "Nothing found" }
+    render :json => nodes.length > 0 ? TreeSearchJsonPresenter.present(nodes) : { :status => "No bookmarks found" }
   end
 
   def create
