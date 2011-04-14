@@ -88,7 +88,7 @@ Feature: Edit a master tree
     When I follow "Moose tree"
     And I wait for the tree to load
     And I drag "Rocky" under "Bullwinkle"
-    Then I should see a node "Rocky" under "Bullwinkle"  
+    Then I should see a node "Rocky" under "Bullwinkle"
     And I follow "View" within "toolbar"
     And I follow "Refresh tree" within "toolbar"
     When I select the node "Bullwinkle"
