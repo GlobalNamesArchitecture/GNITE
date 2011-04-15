@@ -17,8 +17,8 @@ end
 When /^I enter "([^"]*)" in the new node and press enter$/ do |text|
   field = locate(:css, ".jstree-last input")
   field.set(text)
-
   page.execute_script("jQuery('.jstree-last input').blur();")
+  sleep 2
 end
 
 When /^I select the node "([^"]*)"$/ do |node_text|

@@ -207,11 +207,11 @@ Feature: Edit a master tree
   Scenario: User can add nodes from the context menu
     Given I have signed in with "email@person.com/password"
     And "email@person.com" has created an existing master tree titled "Snacks" with:
-      | oxiae |
+      | chocolate |
     And I am on the master tree index page
     When I follow "Snacks"
     And I wait for the tree to load
-    And I select the node "oxiae"
+    And I select the node "chocolate"
     And I click "New child" in the context menu
-    And I enter "cat" in the new node and press enter
-    Then I should see 1 child node for the "oxiae" node in my master tree
+    And I enter "cookie" in the new node and press enter
+    Then I should see 1 child node for the "chocolate" node in my master tree
