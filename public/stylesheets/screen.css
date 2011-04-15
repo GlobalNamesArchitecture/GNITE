@@ -722,6 +722,12 @@ body form input {
   min-width:60px;
 }
 
+.ddsmoothmenu ul li span {
+  position:absolute;
+  right:3px;
+  top:5px;
+}
+
 .ddsmoothmenu ul li.divider-after {
   border-bottom:1px solid #e0e0e0; margin:0;
 }

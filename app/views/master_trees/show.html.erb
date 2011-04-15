@@ -23,7 +23,7 @@
         <ul class="topnav">
           <li><a href="#">File</a>
             <ul class="subnav">
-                <li class="divider-after"><a href="#" class="nav-add-node">Add node</a></li>
+                <li class="divider-after"><a href="#" class="nav-add-node">Add node</a><span>ctrl+n</span></li>
                 <li><%= link_to edit_master_tree_path, :class => "nav-edit-tree" do %>Edit tree info<% end %></li>
                 <li class="divider-after"><a href="#" class="nav-publish-tree" data-master-tree-id="<%=@master_tree.id%>">Publish tree</a></li>
                 <li><a href="#" class="nav-delete-tree" data-master-tree-id="<%=@master_tree.id%>">Delete tree</a></li>
@@ -31,24 +31,24 @@
           </li>
           <li><a href="#">Edit</a>
             <ul class="subnav">
-                <li><a href="#" class="nav-undo">Undo</a></li>
-                <li class="divider-after"><a href="#" class="nav-redo">Redo</a></li>
+                <li><a href="#" class="nav-undo">Undo</a><span>ctrl+z</span></li>
+                <li class="divider-after"><a href="#" class="nav-redo">Redo</a><span>ctrl+shift+z</span></li>
                 <li><a href="#" class="nav-edit-node">Edit node</a></li>
-                <li><a href="#" class="nav-cut-node">Cut</a></li>
-                <li class="divider-after"><a href="#" class="nav-paste-node">Paste</a></li>
-                <li><a href="#" class="nav-delete-node">Delete node</a></li>
+                <li><a href="#" class="nav-cut-node">Cut</a><span>ctrl+c</span></li>
+                <li class="divider-after"><a href="#" class="nav-paste-node">Paste</a><span>ctrl+v</span></li>
+                <li><a href="#" class="nav-delete-node">Delete node</a><span>ctrl+d</span></li>
             </ul>
           </li>
           <li><a href="#">View</a>
             <ul class="subnav">
-              <li><a href="#" class="nav-refresh-tree">Refresh tree</a></li>
+              <li><a href="#" class="nav-refresh-tree">Refresh tree</a><span>ctrl+shift+r</span></li>
               <li><a href="#" class="nav-collapse-tree">Collapse tree</a></li>
             </ul>
           </li>
           <li><a href="#">Bookmarks</a>
             <ul class="subnav">
-              <li><a href="#" class="nav-bookmarks-add">Add bookmark</a></li>
-              <li><a href="#" class="nav-bookmarks-view">Show all bookmarks</a></li>
+              <li><a href="#" class="nav-bookmarks-add">Add bookmark</a><span>ctrl+b</span></li>
+              <li><a href="#" class="nav-bookmarks-view">Show bookmarks</a><span>ctrl+shift+b</span></li>
             </ul>
           </li>
         </ul>
@@ -70,7 +70,7 @@
 <%= render :partial => "reference_trees" %>
 
 <% content_for :javascript do %>
-  <%= javascript_include_tag 'jstree/jquery.jstree', 'jquery.jstree.bookmarks', 'jquery.cookie', 'jquery.scrollTo-min', 'ddsmoothmenu' %>
+  <%= javascript_include_tag 'jstree/jquery.jstree', 'jquery.jstree.bookmarks', 'jquery.cookie', 'jquery.hotkeys', 'jquery.scrollTo-min', 'ddsmoothmenu' %>
 
   <script type="text/javascript">
     <!--//--><![CDATA[//><!--

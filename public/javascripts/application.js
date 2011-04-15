@@ -49,7 +49,7 @@ GNITE.Tree.configuration = {
     'select_limit' : 1
   },
 
-  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies']
+  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'hotkeys']
 
 };
 
@@ -110,8 +110,20 @@ GNITE.MasterTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
       };
     }
   },
+  'hotkeys' : {
+    'ctrl+n'       : function() { this.create( this.data.ui.hovered || this._get_node(null)); },
+    'ctrl+r'       : function() { this.refresh( this.data.ui.hovered || this._get_node(null)); },
+    'ctrl+shift+r' : function() { this.refresh(); },
+    'ctrl+b'       : function() { this.bookmark( this.data.ui.hovered || this._get_node(null)); },
+    'ctrl+shift+b' : function() { GNITE.Tree.showBookmarks($('.nav-bookmarks-view')); },
+    'ctrl+c'       : function() { this.cut( this.data.ui.hovered || this._get_node(null)); },
+    'ctrl+v'       : function() { this.paste( this.data.ui.hovered || this._get_node(null)); },
+    'ctrl+d'       : function() { this.remove( this.data.ui.hovered || this._get_node(null)); },
+    'ctrl+z'       : function() { alert("Sorry, this function is not yet enabled"); },
+    'ctrl+shift+z' : function() { alert("Sorry, this function is not yet enabled"); } 
+  },
 
-  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'search', 'contextmenu', 'bookmarks']
+  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'search', 'contextmenu', 'bookmarks', 'hotkeys']
 });
 
 GNITE.ReferenceTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
@@ -121,7 +133,7 @@ GNITE.ReferenceTree.configuration = $.extend(true, {}, GNITE.Tree.configuration,
     }
   },
 
-  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'bookmarks']
+  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'bookmarks', 'hotkeys']
 });
 
 GNITE.DeletedTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
@@ -131,7 +143,7 @@ GNITE.DeletedTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
     }
   },
 
-  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies']
+  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'hotkeys']
 });
 
 /********************************* jQuery START *********************************/
@@ -390,7 +402,8 @@ $(function() {
       if (event.which == 13) {
         $(this).blur();
       }
-    }).next().click(function() {
+    })
+    .next().click(function() {
         $(this).blur();
     });
 
@@ -564,6 +577,91 @@ $(function() {
     return false;
   });
 
+  GNITE.Tree.showBookmarks = function(obj) {
+      var self = $(obj);
+      var tree = self.parents('.tree-background').find('.jstree');
+      var tree_id = tree.attr("id").split('_');
+      var url = (tree_id[0] == 'master-tree') ? '/master_trees/' + GNITE.MasterTreeID + '/bookmarks' : '/reference_trees/' + tree_id[4] + '/bookmarks';
+      var $bookmarks = self.parents(".toolbar").find(".bookmarks-results");
+      $bookmarks.html("").spinner().show();
+
+      $bookmarks.hover(function() {
+            $(this).show();
+          }, function() {
+            $(this).hide();
+      });
+
+      $.ajax({
+        url     : url,
+        type    : 'GET',
+        data    : { },
+        success : function(data) {
+          var results = '<div class="bookmarks-wrapper">';
+          if(!data.length) {
+            results += '<p>' + data.status + '</p>';
+          }
+          else {
+              results += '<ul>';
+              for(var i=0; i<data.length; i++) {
+                results += '<li>';
+                results += '<a href="#" class="bookmarks-show" data-treepath-ids="' + data[i].treepath.node_ids + '">' + data[i].treepath.name_strings + '</a>';
+                results += '<a href="#" class="bookmarks-delete" data-node-id="' + data[i].id + '">Delete</a>';
+                results += '</li>';
+              }
+              results += '</ul>';
+          }
+          results += '</div>';
+          $bookmarks.html(results);
+
+          // Click a bookmark in list
+          $bookmarks.find("a.bookmarks-show").click(function() {
+             $bookmarks.hide();
+             tree.jstree("deselect_all");
+             var ancestry_arr = $(this).attr("data-treepath-ids").split(",");
+             var searched_id = ancestry_arr.pop();
+             GNITE.Tree.open_ancestry(tree, ancestry_arr[0], searched_id);
+             var timeout = setTimeout(function checkAncestryStatus() {
+              if($(searched_id).length > 0) {
+                tree.parents('#add-node-wrap, .reference-tree-container, .deleted-tree-container').scrollTo($(searched_id));
+                tree.jstree("select_node", $(searched_id));
+              }
+              else {
+                timeout = setTimeout(checkAncestryStatus, 100);
+              }
+             }, 100);
+             return false;
+          });
+
+          // Delete a bookbark in list
+          $bookmarks.find("a.bookmarks-delete").click(function() {
+            var self = this;
+            $.ajax({
+              url   : url + '/' + $(self).attr("data-node-id"),
+              type  : 'DELETE',
+              data  : { },
+              success : function() {
+                $(self).parent().remove();
+              },
+              error : function() {
+              },
+              complete : function() {
+              }
+            });
+            return false;
+          });
+
+        },
+        error : function() {
+        },
+        complete : function() {
+          $bookmarks.unspinner();
+        }
+      });
+
+      ddsmoothmenu.hideMenu();
+      return false;
+  }
+
   /*
    * Menu helper function called when tree dynamically created or loaded
    */
@@ -610,88 +708,7 @@ $(function() {
        * TODO: adjust to support reference trees as well
        */
       $('.nav-bookmarks-view').click(function() {
-        var self = $(this);
-        var tree = self.parents('.tree-background').find('.jstree');
-        var tree_id = tree.attr("id").split('_');
-        var url = (tree_id[0] == 'master-tree') ? '/master_trees/' + GNITE.MasterTreeID + '/bookmarks' : '/reference_trees/' + tree_id[4] + '/bookmarks';
-        var $bookmarks = self.parents(".toolbar").find(".bookmarks-results");
-        $bookmarks.html("").spinner().show();
-
-        $bookmarks.hover(function() {
-              $(this).show();
-            }, function() {
-              $(this).hide();
-        });
-
-        $.ajax({
-          url     : url,
-          type    : 'GET',
-          data    : { },
-          success : function(data) {
-            var results = '<div class="bookmarks-wrapper">';
-            if(!data.length) {
-              results += '<p>' + data.status + '</p>';
-            }
-            else {
-                results += '<ul>';
-                for(var i=0; i<data.length; i++) {
-                  results += '<li>';
-                  results += '<a href="#" class="bookmarks-show" data-treepath-ids="' + data[i].treepath.node_ids + '">' + data[i].treepath.name_strings + '</a>';
-                  results += '<a href="#" class="bookmarks-delete" data-node-id="' + data[i].id + '">Delete</a>';
-                  results += '</li>';
-                }
-                results += '</ul>';
-            }
-            results += '</div>';
-            $bookmarks.html(results);
-
-            // Click a bookmark in list
-            $bookmarks.find("a.bookmarks-show").click(function() {
-               $bookmarks.hide();
-               tree.jstree("deselect_all");
-               var ancestry_arr = $(this).attr("data-treepath-ids").split(",");
-               var searched_id = ancestry_arr.pop();
-               GNITE.Tree.open_ancestry(tree, ancestry_arr[0], searched_id);
-               var timeout = setTimeout(function checkAncestryStatus() {
-                if($(searched_id).length > 0) {
-                  tree.parents('#add-node-wrap, .reference-tree-container, .deleted-tree-container').scrollTo($(searched_id));
-                  tree.jstree("select_node", $(searched_id));
-                }
-                else {
-                  timeout = setTimeout(checkAncestryStatus, 100);
-                }
-               }, 100);
-               return false;
-            });
-
-            // Delete a bookbark in list
-            $bookmarks.find("a.bookmarks-delete").click(function() {
-              var self = this;
-              $.ajax({
-                url   : url + '/' + $(self).attr("data-node-id"),
-                type  : 'DELETE',
-                data  : { },
-                success : function() {
-                  $(self).parent().remove();
-                },
-                error : function() {
-                },
-                complete : function() {
-                }
-              });
-              return false;
-            });
-
-          },
-          error : function() {
-          },
-          complete : function() {
-            $bookmarks.unspinner();
-          }
-        });
-
-        ddsmoothmenu.hideMenu();
-        return false;
+        GNITE.Tree.showBookmarks(this);
       });
   }
 
