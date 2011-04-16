@@ -22,8 +22,8 @@ Then /^I should not be able to show a context menu for my reference tree "(.*)"$
   page.execute_script("jQuery('#{reference_tree_matcher}').jstree('show_contextmenu');");
   sleep 1
 
-  find_link('Create').should be_nil
   find_link('Rename').should be_nil
+  find_link('New child').should be_nil
 end
 
 When /^I drag "([^"]*)" in my reference tree "(.*)" to "([^"]*)" in my master tree$/ do |origin_node_text, reference_tree_title, destination_node_text|

@@ -214,49 +214,56 @@ body form input {
   margin-top: 5px;
 }
 
-.green-submit {
+.cancel-button, .green-submit {
   min-height: 38px;
-  padding: 7px 15px;
-  text-shadow: 0 -1px 0 rgba(0,0,0,.25);
-}
-
-.cancel-button {
-  text-decoration: none;
-}
-
-.cancel-button,
-.green-submit {
-  background: #5aa52b;
-  background: -moz-linear-gradient(center bottom, rgb(27,112,4) 4%, rgb(90,165,43) 58%, rgb(144,207,76) 98%);
-  background: -webkit-gradient(linear,left bottom,left top, color-stop(0.04, rgb(27,112,4)), color-stop(0.58, rgb(90,165,43)), color-stop(0.98, rgb(144,207,76)));
+  padding: 7px 15px !important;
+  text-shadow: 0 -1px 0 rgba(0,0,0,.25) !important;
   border: 0;
   color: #fff;
   float: left;
   font-weight: bold;
   font-size: 16px;
   margin: 15px 0;
-  text-shadow: 0 -1px 1px #2c5015;
 }
 
-.cancel-button:hover,
+.green-submit {
+  background: #5aa52b;
+  background: -moz-linear-gradient(center bottom, rgb(27,112,4) 4%, rgb(90,165,43) 58%, rgb(144,207,76) 98%) !important;
+  background: -webkit-gradient(linear,left bottom,left top, color-stop(0.04, rgb(27,112,4)), color-stop(0.58, rgb(90,165,43)), color-stop(0.98, rgb(144,207,76))) !important;
+}
+
+.cancel-button {
+  background: #FF4040;
+  background: -moz-linear-gradient(center bottom, rgb(139,35,35) 4%, rgb(255,64,64) 58%, rgb(255,193,193) 98%) !important;
+  background: -webkit-gradient(linear,left bottom,left top, color-stop(0.04, rgb(139,35,35)), color-stop(0.58, rgb(255,64,64)), color-stop(0.98, rgb(255,193,193))) !important;
+}
+
+.cancel-button:hover, .green-submit:hover {
+  cursor: pointer;
+}
+
 .green-submit:hover {
   border: 0 solid rgb(15, 18, 21);
   box-shadow: inset 1px 1px 5px 1px rgb(126, 229, 44), 0 1px 2px rgba(0,0,0, 1);
   -moz-box-shadow: inset 1px 1px 5px 1px rgb(126, 229, 44), 0 1px 2px rgba(0,0,0, 1);
   -webkit-box-shadow: inset 1px 1px 5px 1px rgb(126, 229, 44), 0 1px 2px rgba(0,0,0, 1);
-  cursor: pointer;
 }
 
-.cancel-button.shadow,
-.green-submit.shadow {
+.cancel-button:hover {
+  border: 0 solid rgb(15, 18, 21);
+  box-shadow: inset 1px 1px 5px 1px rgb(255,193,193), 0 1px 2px rgba(0,0,0, 1);
+  -moz-box-shadow: inset 1px 1px 5px 1px rgb(255,193,193), 0 1px 2px rgba(0,0,0, 1);
+  -webkit-box-shadow: inset 1px 1px 5px 1px rgb(255,193,193), 0 1px 2px rgba(0,0,0, 1);
+}
+
+.green-submit.shadow, .cancel-button.shadow {
   box-shadow: 0 1.5px 2px 1px rgba(26, 26, 26, 0.9), 1px 1px 5px 1px rgb(98,179,34) inset !important;
   -moz-box-shadow: 0 1.5px 2px 1px rgba(26, 26, 26, 0.9), 1px 1px 5px 1px rgb(98,179,34) inset !important;
   -webkit-box-shadow: 0 1.5px 2px 1px rgba(26, 26, 26, 0.9), 1px 1px 5px 1px rgb(98,179,34) inset !important;
   margin: 25px 0 !important;
 }
 
-.cancel-button.shadow:hover,
-.green-submit.shadow:hover {
+.green-submit.shadow:hover, .cancel-button.shadow:hover {
   box-shadow: 1px 1px 5px 1px rgb(126, 229, 44) inset, 0 1.5px 2px 1px rgba(26, 26, 26, 0.9) !important;
   -moz-box-shadow: 1px 1px 5px 1px rgb(126, 229, 44) inset, 0 1.5px 2px 1px rgba(26, 26, 26, 0.9) !important;
   -webkit-box-shadow: 1px 1px 5px 1px rgb(126, 229, 44) inset, 0 1.5px 2px 1px rgba(26, 26, 26, 0.9) !important;
@@ -741,6 +748,7 @@ body form input {
 }
 
 .ddsmoothmenu ul li a.nav-add-node { background: transparent url(../images/icons/page_white_add.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-add-node-bulk { background: transparent url(../images/icons/page_white_add_bulk.png) no-repeat 5px center; }
 .ddsmoothmenu ul li a.nav-publish-tree { background: transparent url(../images/icons/book_go.png) no-repeat 5px center; }
 .ddsmoothmenu ul li a.nav-edit-tree { background: transparent url(../images/icons/page_white_edit.png) no-repeat 5px center; }
 .ddsmoothmenu ul li a.nav-delete-tree { background: transparent url(../images/icons/bin_closed.png) no-repeat 5px center; }
@@ -1013,6 +1021,23 @@ body form input {
   margin: 8px 8px 0 0;
 }
 
+#bulkcreate-form label {
+  display: block;
+  font-weight: bold;
+  font-size:1.25em;
+  padding:6px 0;
+}
+
+#bulkcreate-form textarea {
+  font-size:1.25em;
+  border: 1px solid #B0ADA3;
+  border-radius: 6px 6px 6px 6px;
+  margin: 0 0 16px;
+  max-width: 97%;
+  padding: 10px;
+  width: 95%;
+}
+
 #searchform {
   float: right;
 }
@@ -1274,7 +1299,7 @@ ul.classifications div.import-button {
   width: auto;
 }
 
-#tree-metadata .green-submit{
+#tree-metadata .green-submit {
   background: #5aa52b;
   background: -webkit-gradient(linear,left bottom,left top,
               color-stop(0.04, rgb(27,112,4)),
@@ -1290,7 +1315,7 @@ ul.classifications div.import-button {
   padding: 10px 30px;
 }
 
-#tree-metadata .cancel-button{
+#tree-metadata .cancel-button {
   background: #cecabb;
   background: -moz-linear-gradient(100% 100% 90deg, #CECABB,#ECEAE2);
   background: -webkit-gradient(linear,left bottom,left top,

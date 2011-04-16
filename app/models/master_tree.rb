@@ -56,4 +56,5 @@ class MasterTree < Tree
   def create_deleted_tree
     DeletedTree.create!(:master_tree => self, :title => "Deleted Names")
   end
+  
 end

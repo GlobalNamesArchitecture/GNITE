@@ -23,7 +23,7 @@ Feature: Edit a master tree
       | title:My new tree | email:email@person.com |
     When I go to the master tree page for "My new tree"
     And I follow "File" within "toolbar"
-    And I follow "Add node" within "toolbar"
+    And I follow "Add single node" within "toolbar"
     And I enter "hydrochaeris" in the new node and press enter
     And I follow "View" within "toolbar"
     And I follow "Refresh tree" within "toolbar"
@@ -44,7 +44,7 @@ Feature: Edit a master tree
       | title:My new tree | email:email@person.com |
     When I go to the master tree page for "My new tree"
     And I follow "File" within "toolbar"
-    And I follow "Add node" within "toolbar"
+    And I follow "Add single node" within "toolbar"
     And I enter "Caviidae" in the new node and press enter
     And I follow "View" within "toolbar"
     And I follow "Refresh tree" within "toolbar"
@@ -52,7 +52,7 @@ Feature: Edit a master tree
 
     When I select the node "Caviidae"
     And I follow "File" within "toolbar"
-    And I follow "Add node" within "toolbar"
+    And I follow "Add single node" within "toolbar"
     And I enter "Hydrochoerinae" in the new node and press enter
     And I follow "View" within "toolbar"
     And I follow "Refresh tree" within "toolbar"

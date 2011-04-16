@@ -25,13 +25,26 @@ class NodesController < ApplicationController
 
   def create
     master_tree = current_user.master_trees.find(params[:master_tree_id])
-    params[:node][:parent_id] = master_tree.root.id unless params[:node] && params[:node][:parent_id]
-    #node will exist if we create a new node by copy from a reference tree
-    node = params[:node] && params[:node][:id] ? Node.find(params[:node][:id]) : nil
-    action_command = schedule_action(node, params)
-    respond_to do |format|
-      format.json do
-        render :json => action_command.json_message
+    if params[:nodes_list] && params[:nodes_list][:data].size
+      @names = params[:nodes_list][:data].split("\n")
+      @names.each do |name|
+        params[:node][:name][:name_string] = name
+        action_command = schedule_action(nil, params)
+      end
+      respond_to do |format|
+        format.json do
+          render :json => { :status => "OK" }
+        end
+      end
+    else
+      params[:node][:parent_id] = master_tree.root.id unless params[:node] && params[:node][:parent_id]
+      #node will exist if we create a new node by copy from a reference tree
+      node = params[:node] && params[:node][:id] ? Node.find(params[:node][:id]) : nil
+      action_command = schedule_action(node, params)
+      respond_to do |format|
+        format.json do
+          render :json => action_command.json_message
+        end
       end
     end
   end

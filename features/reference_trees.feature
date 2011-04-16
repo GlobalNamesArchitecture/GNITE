@@ -13,13 +13,13 @@ Feature: Work with reference trees
       | title: My new tree | email:email@person.com |
     And I go to the master tree page for "My new tree"
     And I follow "File" within "toolbar"
-    And follow "Add node" within "toolbar"
+    And follow "Add single node" within "toolbar"
     And I enter "master node" in the new node and press enter
     And I import a flat list tree with the following nodes:
       | root one   |
       | root two   |
       | root three |
-    And pause 2
+    And pause 3
     And I follow "All reference trees"
     And I follow "List"
 
