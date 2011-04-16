@@ -44,13 +44,11 @@
             },
             bulkcreate : function (obj, callback) {
                 obj = this._get_node(obj, true);
-                if(!obj || !obj.length) { return false; }
                 this.__callback({ "obj" : obj });
                 if(callback) { callback.call(); }
             },
             bulksave : function (obj, callback) {
                 obj = this._get_node(obj, true);
-                if(!obj || !obj.length) { return false; }
                 this.__callback({ "obj" : obj });
                 if(callback) { callback.call(); }
             }

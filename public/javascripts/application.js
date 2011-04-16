@@ -121,7 +121,10 @@ GNITE.Tree.MasterTree.configuration = $.extend(true, {}, GNITE.Tree.configuratio
   },
   'hotkeys' : {
     'ctrl+n'       : function() { this.create( this.data.ui.hovered || this._get_node(null) ); },
-    'ctrl+shift+n' : function() { this.bulkcreate( this.data.ui.hovered || this._get_node(null) ); },
+    'ctrl+shift+n' : function() {
+      var node = (this.data.ui.hovered || this._get_node(null)) ? (this.data.ui.hovered || this._get_node(null)) : null;
+      this.bulkcreate(node); 
+    },
     'ctrl+r'       : function() { this.refresh( this.data.ui.hovered || this._get_node(null) ); },
     'ctrl+shift+r' : function() { this.refresh(); },
     'ctrl+b'       : function() { this.bookmark( this.data.ui.hovered || this._get_node(null) ); },
@@ -786,14 +789,15 @@ $(function() {
    */
   $('#master-tree').bind('bulkcreate.jstree', function(event, data) {
     var node = data.rslt;
+    var title = (typeof node.obj.attr("id") !== "undefined") ? $(node.obj).find("a:first").text() : 'Tree root';
     $("#bulkcreate-form").dialog("open"); 
-    $("#ui-dialog-title-bulkcreate-form").text($(node.obj).find("a:first").text());
+    $("#ui-dialog-title-bulkcreate-form").text(title);
   });
 
   $('#master-tree').bind('bulksave.jstree', function(event, data) {
-    var self     = $(this);
+    var self = $(this);
     var node = data.rslt;
-    var id = node.obj.attr("id");
+    var parent_id = (typeof node.obj.attr("id") !== "undefined") ? node.obj.attr("id") : GNITE.Tree.MasterTree.root;
 
     nodes = $('#nodes-list').val();
 
@@ -803,13 +807,18 @@ $(function() {
     $.ajax({
       type        : 'POST',
       url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes.json',
-      data        : JSON.stringify({ 'node' : { 'parent_id' : id, 'name' : { 'name_string' : null}}, 'nodes_list' : { 'data' : nodes }, 'action_type' : "ActionAddNode"}),
+      data        : JSON.stringify({ 'node' : { 'parent_id' : parent_id, 'name' : { 'name_string' : null}}, 'nodes_list' : { 'data' : nodes }, 'action_type' : "ActionAddNode"}),
       contentType : 'application/json',
       dataType    : 'json',
       success     : function(data) {
         self.jstree("unlock");
-        $('#master-tree').jstree("refresh", node.obj);
-        $('#master-tree').jstree("open_node", node.obj);
+        if(typeof node.obj.attr("id") !== "undefined") {
+          $('#master-tree').jstree("refresh", node.obj);
+          $('#master-tree').jstree("open_node", node.obj);
+        }
+        else {
+          $('#master-tree').jstree("refresh");
+        }
       }
     });
   });
