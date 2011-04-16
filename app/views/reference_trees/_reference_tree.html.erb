@@ -8,25 +8,9 @@
       </ul>
     </div>
 
-    <%= render :partial => 'shared/tree_searches.html' %>
+    <%= render :partial => 'shared/tree_searches' %>
 
-    <div id="toolbar-reference-<%= reference_tree.id %>" class="toolbar ddsmoothmenu clearfix">
-      <ul class="topnav">
-        <li><a href="#">View</a>
-            <ul class="subnav">
-              <li><a href="#" class="nav-refresh-tree">Refresh tree</a></li>
-              <li><a href="#" class="nav-collapse-tree">Collapse tree</a></li>
-            </ul>
-        </li>
-        <li><a href="#">Bookmarks</a>
-          <ul class="subnav">
-            <li><a href="#" class="nav-bookmarks-add">Add bookmark</a></li>
-            <li><a href="#" class="nav-bookmarks-view">Show all bookmarks</a></li>
-          </ul>
-        </li>
-      </ul>
-      <div class="bookmarks-results"></div>
-    </div>
+    <%= render :partial => 'shared/tree_toolbars', :locals => { :tree_type => 'ReferenceTree', :tree_id => reference_tree.id } %>
 
     <div class="tree-container reference-tree-container" data-database-id="<%= reference_tree.id %>">
       <div id=<%= dom_id(reference_tree, "container_for") %>></div>

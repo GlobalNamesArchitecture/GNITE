@@ -22,17 +22,21 @@ class MasterTreesController < ApplicationController
   end
 
   def update
-    @master_tree = MasterTree.find(params[:id])
-    @master_tree.update_attributes(params[:master_tree])
-    if @master_tree.save
-      if request.xhr?
-        render :json => { :status => "OK"}
-      else
-        flash[:success] = "Working Tree successfully updated"
-        redirect_to master_tree_url(@master_tree.id)
-      end
+    if params[:cancel]
+      redirect_to master_tree_url(params[:id])
     else
-      render :edit
+      @master_tree = MasterTree.find(params[:id])
+      @master_tree.update_attributes(params[:master_tree])
+      if @master_tree.save
+        if request.xhr?
+          render :json => { :status => "OK"}
+        else
+          flash[:success] = "Working Tree successfully updated"
+          redirect_to master_tree_url(@master_tree.id)
+        end
+      else
+        render :edit
+      end
     end
   end
 

@@ -120,15 +120,15 @@ GNITE.Tree.MasterTree.configuration = $.extend(true, {}, GNITE.Tree.configuratio
     }
   },
   'hotkeys' : {
-    'ctrl+n'       : function() { this.create( this.data.ui.hovered || this._get_node(null)); },
-    'ctrl+shift+n' : function() { this.bulkcreate( this.data.ui.hovered || this._get_node(null)); },
-    'ctrl+r'       : function() { this.refresh( this.data.ui.hovered || this._get_node(null)); },
+    'ctrl+n'       : function() { this.create( this.data.ui.hovered || this._get_node(null) ); },
+    'ctrl+shift+n' : function() { this.bulkcreate( this.data.ui.hovered || this._get_node(null) ); },
+    'ctrl+r'       : function() { this.refresh( this.data.ui.hovered || this._get_node(null) ); },
     'ctrl+shift+r' : function() { this.refresh(); },
-    'ctrl+b'       : function() { this.bookmark( this.data.ui.hovered || this._get_node(null)); },
-    'ctrl+shift+b' : function() { GNITE.Tree.showBookmarks($('.nav-bookmarks-view')); },
-    'ctrl+c'       : function() { this.cut( this.data.ui.hovered || this._get_node(null)); },
-    'ctrl+v'       : function() { this.paste( this.data.ui.hovered || this._get_node(null)); },
-    'ctrl+d'       : function() { this.remove( this.data.ui.hovered || this._get_node(null)); },
+    'ctrl+b'       : function() { this.bookmark( this.data.ui.hovered || this._get_node(null) ); },
+    'ctrl+shift+b' : function() { GNITE.Tree.showBookmarks($('.nav-bookmarks-view') ); },
+    'ctrl+c'       : function() { this.cut( this.data.ui.hovered || this._get_node(null) ); },
+    'ctrl+v'       : function() { this.paste( this.data.ui.hovered || this._get_node(null) ); },
+    'ctrl+d'       : function() { this.remove( this.data.ui.hovered || this._get_node(null) ); },
     'ctrl+z'       : function() { alert("Sorry, this function is not yet enabled"); },
     'ctrl+shift+z' : function() { alert("Sorry, this function is not yet enabled"); } 
   },
@@ -510,24 +510,32 @@ $(function() {
         width : 500,
         modal : true,
         closeText : "",
-        buttons: {
-            "Delete" : function() {
-                var formData = $("form").serialize();
-                $.ajax({
-                  type        : 'DELETE',
-                  url         :  '/master_trees/' + GNITE.Tree.MasterTree.id,
-                  data        :  formData,
-                  success     : function(data) {
-                    window.location = "/master_trees";
-                  }
-                });
-            },
-            "Cancel": function() {
-              $('#dialog-message').dialog("destroy").hide().remove();
-            }
-        },
-        draggable : false,
-        resizable : false
+        buttons: [
+          {
+            className : "green-submit",
+            text : "Delete",
+            click : function() {
+              var formData = $("form").serialize();
+              $.ajax({
+                type        : 'DELETE',
+                url         :  '/master_trees/' + GNITE.Tree.MasterTree.id,
+                data        :  formData,
+                success     : function(data) {
+                  window.location = "/master_trees";
+                }
+              });
+           }
+         },
+         {
+           className : "cancel-button",
+           text : "Cancel",
+           click : function() {
+             $('#dialog-message').dialog("destroy").hide().remove();
+           }
+         }
+       ],
+       draggable : false,
+       resizable : false
     });
   });
 
@@ -778,7 +786,8 @@ $(function() {
    */
   $('#master-tree').bind('bulkcreate.jstree', function(event, data) {
     var node = data.rslt;
-    $("#bulkcreate-form").dialog("open"); $("#ui-dialog-title-bulkcreate-form").text($(node.obj).find("a:first").text());
+    $("#bulkcreate-form").dialog("open"); 
+    $("#ui-dialog-title-bulkcreate-form").text($(node.obj).find("a:first").text());
   });
 
   $('#master-tree').bind('bulksave.jstree', function(event, data) {

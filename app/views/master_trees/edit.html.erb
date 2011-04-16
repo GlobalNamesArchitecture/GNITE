@@ -17,8 +17,8 @@
         <%= render :partial => "form", :locals => { :form => form } %>
       </div>
       <%= form.buttons do -%>
-        <%= form.commit_button "Update", :button_html => { :class => "green-submit" } %>
-        <%= link_to "Cancel", master_tree_path(@master_tree), :class => "cancel-button" %>
+        <%= form.commit_button "Update", :button_html => { :class => "green-submit", :name => 'update' } %>
+        <%= form.commit_button "Cancel", :button_html => { :class => "cancel-button", :name => 'cancel' } %>
       <% end -%>
     <% end %>
   </div>
