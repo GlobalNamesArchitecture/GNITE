@@ -22,7 +22,7 @@ Feature: Edit the metadata for a master tree
     When I follow "Moose tree"
     And I follow "Edit tree info"
     Then I should be on the edit master tree page for "Moose tree"
-    When I follow "Cancel"
+    When I press "Cancel"
     Then I should be on the master tree page for "Moose tree"
 
   @wip

@@ -25,8 +25,7 @@ Feature: Edit a master tree
     And I follow "File" within "toolbar"
     And I follow "Add single node" within "toolbar"
     And I enter "hydrochaeris" in the new node and press enter
-    And I follow "View" within "toolbar"
-    And I follow "Refresh tree" within "toolbar"
+    And I refresh the master tree
     Then I should see a node "hydrochaeris" at the root level in my master tree
     When I follow "Working Trees"
     Then I should be on the master tree index page
@@ -46,16 +45,13 @@ Feature: Edit a master tree
     And I follow "File" within "toolbar"
     And I follow "Add single node" within "toolbar"
     And I enter "Caviidae" in the new node and press enter
-    And I follow "View" within "toolbar"
-    And I follow "Refresh tree" within "toolbar"
     Then I should see a node "Caviidae" at the root level in my master tree
 
     When I select the node "Caviidae"
     And I follow "File" within "toolbar"
     And I follow "Add single node" within "toolbar"
     And I enter "Hydrochoerinae" in the new node and press enter
-    And I follow "View" within "toolbar"
-    And I follow "Refresh tree" within "toolbar"
+    And I refresh the master tree
     Then I should see "Hydrochoerinae"
     And I should see "Caviidae"
     And I should see a node "Hydrochoerinae" under "Caviidae"
@@ -70,8 +66,7 @@ Feature: Edit a master tree
     When I follow "Moose tree"
     And I wait for the tree to load
     And I double click "Bullwinkle" and change it to "Monkey"
-    And I follow "View" within "toolbar"
-    And I follow "Refresh tree" within "toolbar"
+    And I refresh the master tree
     Then I should see "Monkey"
     And I should see "Rocky"
     And I should not see "Bullwinkle"
@@ -89,8 +84,7 @@ Feature: Edit a master tree
     And I wait for the tree to load
     And I drag "Rocky" under "Bullwinkle"
     Then I should see a node "Rocky" under "Bullwinkle"
-    And I follow "View" within "toolbar"
-    And I follow "Refresh tree" within "toolbar"
+    And I refresh the master tree
     When I select the node "Bullwinkle"
     And I expand the node "Bullwinkle"
     Then I should see a node "Rocky" under "Bullwinkle"
@@ -111,10 +105,10 @@ Feature: Edit a master tree
     And I delete the node "Boris"
     Then I should not see a node "Boris" at the root level in my master tree
     And I should see a node "Boris" at the root level in deleted names
-    And I follow "View" within "toolbar"
-    And I follow "Refresh tree" within "toolbar"
+    And I refresh the master tree
     And I follow "View" within "toolbar-deleted"
     And I follow "Refresh tree" within "toolbar-deleted"
+    And pause 1
     Then I should not see a node "Boris" at the root level in my master tree
     And I should see a node "Boris" at the root level in deleted names
 
@@ -130,13 +124,12 @@ Feature: Edit a master tree
     When I follow "Moose tree"
     And I follow "Deleted Names"
     And I drag "Rocky" under "Bullwinkle"
-    And I follow "View" within "toolbar"
-    And I follow "Refresh tree" within "toolbar"
+    And I refresh the master tree
     And I delete the node "Bullwinkle"
-    And I follow "View" within "toolbar"
-    And I follow "Refresh tree" within "toolbar"
+    And I refresh the master tree
     And I follow "View" within "toolbar-deleted"
     And I follow "Refresh tree" within "toolbar-deleted"
+    And pause 1
     Then I should not see a node "Bullwinkle" at the root level in my master tree
     And I should not see a node "Rocky" at the root level in my master tree
     And I should see a node "Bullwinkle" at the root level in deleted names
@@ -181,7 +174,7 @@ Feature: Edit a master tree
     When I follow "Moose tree"
     And I follow "Edit tree info"
     Then I should be on the edit master tree page for "Moose tree"
-    When I follow "Cancel"
+    When I press "Cancel"
     Then I should be on the master tree page for "Moose tree"
 
   @javascript
@@ -197,8 +190,9 @@ Feature: Edit a master tree
     And I click "Cut" in the context menu
     And I select the node "Paste Here"
     And I click "Paste" in the context menu
+    And I refresh the master tree
     And I follow "View" within "toolbar"
-    And I follow "Refresh tree" within "toolbar"
+    And I refresh the master tree
     And I expand the node "Paste Here"
     Then I should see a node "Get Cut" under "Paste Here"
     And I should not see a node "Get Cut" at the root level in my master tree

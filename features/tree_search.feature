@@ -18,9 +18,8 @@ Feature: Search within trees
 
   @javascript
   Scenario: User can search for a name in the master tree
-    When I search for "Pardosa" in the master tree search box
-    Then I should see "Pardosa" in the master tree search results
-    And I should see "Pardosa > Pardosa distincta" in the master tree search results
+    When I search for "Pardosa distincta" in the master tree search box
+    Then I should see "Pardosa > Pardosa distincta" in the master tree search results
 
   @javascript
   Scenario: User gets a nothing found message when searching for a non-existent name in the master tree
