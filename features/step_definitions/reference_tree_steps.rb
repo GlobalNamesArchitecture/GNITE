@@ -45,3 +45,12 @@ When /^I drag "([^"]*)" to "([^"]*)" in my reference tree "(.*)"$/ do |origin_no
   When %{I select the node "#{origin_node.name_string}"}
   page.execute_script("jQuery('#{reference_tree_matcher}').jstree('move_node', '##{origin_node.id}', '##{destination_node.id}', 'first', false);")
 end
+
+When /^I refresh the reference tree "(.*)"$/ do |reference_tree_title|
+  reference_tree = ReferenceTree.find_by_title(reference_tree_title)
+  reference_tree_matcher = "div##{dom_id(reference_tree, "container_for")}"
+  page.should have_css(reference_tree_matcher)
+
+  page.execute_script("jQuery('#{reference_tree_matcher}').jstree('refresh');");
+  sleep 1
+end

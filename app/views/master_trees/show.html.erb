@@ -19,7 +19,7 @@
 
       <%= render :partial => 'shared/tree_searches.html' %>
 
-      <%= render :partial => 'shared/tree_toolbars.html', :locals => { :tree_type => 'MasterTree', :tree_id => @master_tree.id } %>
+      <%= render :partial => 'shared/tree_toolbars.html', :locals => { :tree_type => 'MasterTree', :tree => @master_tree } %>
 
       <div id="add-node-wrap">
         <div class="tree-container" data-database-id="<%= @master_tree.id %>">

@@ -7,13 +7,13 @@
             this._bulk_initialize();
         },
         defaults : {
-          form_element : "#bulkcreate-form"
+          element : "#bulkcreate-form"
         },
         _fn : {
             _bulk_initialize : function() {
               var self = this;
               var s = self.get_settings().bulkcreate;
-              $(s.form_element).dialog({
+              $(s.element).dialog({
                 closeText: '',
                 autoOpen: false,
                 height: 'auto',

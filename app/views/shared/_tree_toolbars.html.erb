@@ -7,8 +7,8 @@
           <li><a href="#" class="nav-add-node">Add single node</a><span>ctrl+n</span></li>
           <li class="divider-after"><a href="#" class="nav-add-node-bulk">Add many nodes</a><span>ctrl+shift+n</span></li>
           <li><%= link_to edit_master_tree_path, :class => "nav-edit-tree" do %>Edit tree info<% end %></li>
-          <li class="divider-after"><a href="#" class="nav-publish-tree" data-master-tree-id="<%= tree_id %>">Publish tree</a></li>
-          <li><a href="#" class="nav-delete-tree" data-master-tree-id="<%= tree_id %>">Delete tree</a></li>
+          <li class="divider-after"><a href="#" class="nav-publish-tree" data-master-tree-id="<%= tree.id %>">Publish tree</a></li>
+          <li><a href="#" class="nav-delete-tree" data-master-tree-id="<%= tree.id %>">Delete tree</a></li>
       </ul>
     </li>
     <li><a href="#">Edit</a>
@@ -34,11 +34,11 @@
       </ul>
     </li>
   </ul>
-  <div class="bookmarks-results"></div>
+  <div id="bookmarks-results-<%= tree.id %>" class="bookmarks-results bookmarks-master" title="<%= tree.title %> Bookmarks"></div>
 </div>
 
 <% when "ReferenceTree" %>
-<div id="toolbar-reference-<%= tree_id %>" class="toolbar ddsmoothmenu clearfix">
+<div id="toolbar-reference-<%= tree.id %>" class="toolbar ddsmoothmenu clearfix">
   <ul class="topnav">
     <li><a href="#">View</a>
         <ul class="subnav">
@@ -53,7 +53,7 @@
       </ul>
     </li>
   </ul>
-  <div class="bookmarks-results"></div>
+  <div id="bookmarks-results-<%= tree.id %>" class="bookmarks-results" title="<%= tree.title %> Bookmarks"></div>
 </div>
 
 <% when "DeletedTree" %>

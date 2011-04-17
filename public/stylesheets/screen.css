@@ -722,7 +722,8 @@ body form input {
   position: relative;
   display: inline;
   float: left;
-  min-width:60px;
+  min-width: 60px;
+  line-height: 1.25em;
 }
 
 .ddsmoothmenu ul li span {
@@ -883,7 +884,7 @@ body form input {
   width:80px;
 }
 
-.searchbar-results, .bookmarks-results {
+.searchbar-results {
     display:none;
     -moz-box-shadow: 0px 5px 5px #AAAAAA;
     -webkit-box-shadow:#AAAAAA 0px 5px 5px;
@@ -904,22 +905,31 @@ body form input {
 }
 
 .bookmarks-results {
-  right:0px;
+    min-height:200px;
+    max-height:200px;
+    overflow-y:auto;
 }
 
 * html .searchbar-results, * html .bookmarks-results {
     height:200px;
 }
 
-.searchbar-results ul, .bookmarks-results ul {
+.searchbar-results ul {
     margin: 0.5em 0 0em 1.5em;
     text-indent: -1.5em;
     line-height:16px;
+    display:block !important;
+    float:none !important;
 }
 
-.searchbar-results ul, .bookmarks-results ul li {
-  display:block !important;
-  float:none !important;
+.bookmarks-results ul {
+  margin: 0 0 0 1.5em;
+  text-indent: -1.5em;
+}
+
+.bookmarks-results ul li {
+  margin-bottom: 0.5em;
+  line-height:1.25em;
 }
 
 .searchbar-results ul li a, .bookmarks-results ul li a {
