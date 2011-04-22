@@ -10,8 +10,8 @@ Feature: Manage bookmarks
       | Pardosa distincta   |
       | Pardosa moesta      |
       | Pardosa xerampelina |
-    And there is an existing bookmark for a node "Pardosa distincta"
-    And there is an existing bookmark for a node "Pardosa moesta"
+    And there is an existing bookmark called "First bookmark" for a node "Pardosa distincta"
+    And there is an existing bookmark called "Second bookmark" for a node "Pardosa moesta"
     And I am on the master tree index page
     When I follow "Spiders"
     And I wait for the tree to load
@@ -24,8 +24,8 @@ Feature: Manage bookmarks
     When I follow "Bookmarks" within "toolbar"
     And I follow "Show bookmarks" within "toolbar"
     And pause 3
-    Then I should see a bookmark "Pardosa > Pardosa distincta" in master tree bookmarks
-    And I should see a bookmark "Pardosa > Pardosa moesta" in master tree bookmarks
+    Then I should see a bookmark "First bookmark" in master tree bookmarks
+    And I should see a bookmark "Second bookmark" in master tree bookmarks
 
   @javascript
   Scenario: User can add a bookmark to a node in the master tree from the toolbar
@@ -33,16 +33,18 @@ Feature: Manage bookmarks
     And I select the node "Pardosa xerampelina"
     And I follow "Bookmarks" within "toolbar"
     And I follow "Add bookmark" within "toolbar"
+    And I fill in "Name" with "My bookmark"
+    And I press "Add bookmark"
     And I follow "Show bookmarks" within "toolbar"
     And pause 3
-    Then I should see a bookmark "Pardosa > Pardosa xerampelina" in master tree bookmarks
+    Then I should see a bookmark "My bookmark" in master tree bookmarks
 
   @javascript
   Scenario: User can click a bookmark in the master tree and have searched name highlighted
     And I follow "Bookmarks" within "toolbar"
     And I follow "Show bookmarks" within "toolbar"
     And pause 3
-    And I follow "Pardosa > Pardosa distincta"
+    And I follow "First bookmark"
     And pause 2
     Then I should see a node "Pardosa distincta" under "Pardosa"
     And the "Pardosa distincta" tree node should be selected
@@ -52,22 +54,24 @@ Feature: Manage bookmarks
     When I expand the node "Pardosa"
     And I select the node "Pardosa xerampelina"
     And I click "Add bookmark" in the context menu
+    And I fill in "Name" with "My bookmark"
+    And I press "Add bookmark"
     And I follow "Bookmarks" within "toolbar"
     And I follow "Show bookmarks" within "toolbar"
     And pause 3
-    Then I should see a bookmark "Pardosa > Pardosa xerampelina" in master tree bookmarks
+    Then I should see a bookmark "My bookmark" in master tree bookmarks
 
   @javascript
   Scenario: User can delete a bookmark in the master tree
     When I follow "Bookmarks" within "toolbar"
     And I follow "Show bookmarks" within "toolbar"
     And pause 3
-    And I delete "Pardosa > Pardosa distincta" in master tree bookmarks
-    Then I should not see a bookmark "Pardosa > Pardosa distincta" in master tree bookmarks
-    And I should see a bookmark "Pardosa > Pardosa moesta" in master tree bookmarks
+    And I delete "First bookmark" in master tree bookmarks
+    Then I should not see a bookmark "First bookmark" in master tree bookmarks
+    And I should see a bookmark "Second bookmark" in master tree bookmarks
     And I click the master tree background
     And I follow "Bookmarks" within "toolbar"
     And I follow "Show bookmarks" within "toolbar"
     And pause 3
-    Then I should not see a bookmark "Pardosa > Pardosa distincta" in master tree bookmarks
-    And I should see a bookmark "Pardosa > Pardosa moesta" in master tree bookmarks
+    Then I should not see a bookmark "First bookmark" in master tree bookmarks
+    And I should see a bookmark "Second bookmark" in master tree bookmarks

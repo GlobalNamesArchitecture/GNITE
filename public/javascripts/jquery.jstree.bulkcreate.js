@@ -24,7 +24,7 @@
                     className : "green-submit",
                     text : "Add children",
                     click : function() {
-                      self.bulksave();
+                      self.bulk_save();
                       $(this).dialog("close");
                     }
                   },
@@ -42,12 +42,12 @@
                 }
               });
             },
-            bulkcreate : function (obj, callback) {
+            bulk_form : function (obj, callback) {
                 obj = this._get_node(obj, true);
                 this.__callback({ "obj" : obj });
                 if(callback) { callback.call(); }
             },
-            bulksave : function (obj, callback) {
+            bulk_save : function (obj, callback) {
                 obj = this._get_node(obj, true);
                 this.__callback({ "obj" : obj });
                 if(callback) { callback.call(); }
@@ -55,5 +55,5 @@
         }
     });
     // include bookmarks by default
-    $.jstree.defaults.plugins.push("bulkcreate");
+    $.jstree.defaults.plugins.push("bulk_create");
 })(jQuery);

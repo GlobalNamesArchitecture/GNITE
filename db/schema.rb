@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110411191814) do
+ActiveRecord::Schema.define(:version => 20110422020323) do
 
   create_table "action_commands", :force => true do |t|
     t.string   "type"
@@ -28,7 +28,8 @@ ActiveRecord::Schema.define(:version => 20110411191814) do
   end
 
   create_table "bookmarks", :force => true do |t|
-    t.integer  "node_id",    :null => false
+    t.integer  "node_id", :null => false
+    t.string   "bookmark_title", :limit => 128, :default => "", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

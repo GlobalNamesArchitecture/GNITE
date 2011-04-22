@@ -10,7 +10,7 @@ describe BookmarksController, 'GET to show bookmarks for master tree' do
 
   before do
     sign_in_as(user)
-    Factory(:bookmark, :node => node)
+    Factory(:bookmark, :node => node, :bookmark_title => "My new bookmark")
     get :index, :master_tree_id => master_tree, :format => 'json'
   end
     
@@ -18,7 +18,8 @@ describe BookmarksController, 'GET to show bookmarks for master tree' do
 
   it "should render the bookmarks as JSON" do
     bookmark = JSON.parse(response.body)
-    bookmark.first["treepath"]["name_strings"].should == node.name_string
+    bookmark.first["bookmark"]["title"].should == "My new bookmark"
+    bookmark.first["bookmark"]["treepath"].first.should == "#" + node.id.to_s
   end
 end
 
@@ -32,7 +33,7 @@ describe BookmarksController, 'POST to create bookmark in master tree' do
   before do
     sign_in_as(user)
     @bookmark_count = Bookmark.count
-    post :create, :master_tree_id => master_tree, :id => node, :format => 'json'
+    post :create, :master_tree_id => master_tree, :id => node, :bookmark_title => "My bookmark", :format => 'json'
     @clone_bookmark = Bookmark.find(JSON.parse(response.body)['bookmark']['id'])
   end
   
@@ -44,7 +45,7 @@ describe BookmarksController, 'POST to create bookmark in master tree' do
 
   it 'deletes the new bookmark' do
     @bookmark_count = Bookmark.count
-    delete :destroy, :master_tree_id => master_tree, :id => @clone_bookmark.node_id, :format => 'json'
+    delete :destroy, :master_tree_id => master_tree, :id => @clone_bookmark.id, :format => 'json'
     Bookmark.count.should == 0
   end
   
@@ -61,7 +62,7 @@ describe BookmarksController, 'GET to show bookmarks for reference tree' do
 
   before do
     sign_in_as(user)
-    Factory(:bookmark, :node => node)
+    Factory(:bookmark, :node => node, :bookmark_title => "My new bookmark")
     get :index, :reference_tree_id => reference_tree, :format => 'json'
   end
   
@@ -69,7 +70,8 @@ describe BookmarksController, 'GET to show bookmarks for reference tree' do
   
   it "should render the bookmarks as JSON" do
     bookmark = JSON.parse(response.body)
-    bookmark.first["treepath"]["name_strings"].should == node.name_string
+    bookmark.first["bookmark"]["title"].should == "My new bookmark"
+    bookmark.first["bookmark"]["treepath"].first.should == "#" + node.id.to_s
   end
 end
 
@@ -83,7 +85,7 @@ describe BookmarksController, 'POST to create bookmark in reference tree' do
   before do
     sign_in_as(user)
     @bookmark_count = Bookmark.count
-    post :create, :reference_tree_id => reference_tree, :id => node, :format => 'json'
+    post :create, :reference_tree_id => reference_tree, :id => node, :bookmark_title => "My bookmark", :format => 'json'
     @clone_bookmark = Bookmark.find(JSON.parse(response.body)['bookmark']['id'])
   end
   
@@ -95,7 +97,7 @@ describe BookmarksController, 'POST to create bookmark in reference tree' do
   
   it 'deletes the new bookmark' do
     @bookmark_count = Bookmark.count
-    delete :destroy, :reference_tree_id => reference_tree, :id => @clone_bookmark.node_id, :format => 'json'
+    delete :destroy, :reference_tree_id => reference_tree, :id => @clone_bookmark.id, :format => 'json'
     Bookmark.count.should == 0
   end
   

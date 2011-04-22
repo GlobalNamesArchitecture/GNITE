@@ -10,7 +10,6 @@ class Node < ActiveRecord::Base
   before_create :check_parent_id_for_nil
   before_update :check_parent_id_for_nil
 
-
   delegate :name_string, :to => :name
 
   def self.roots(tree_id)

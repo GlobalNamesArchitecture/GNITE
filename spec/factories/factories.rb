@@ -6,6 +6,10 @@ Factory.sequence(:string) do |i|
   "string_#{i}"
 end
 
+Factory.sequence(:bookmark_title) do |i|
+  "bookmark_#{i}"
+end
+
 Factory.define :tree do |tree|
   tree.title { "My Tree" }
   tree.creative_commons { 'cc0' }
@@ -37,6 +41,7 @@ end
 Factory.define :bookmark do |bookmark|
   bookmark.association :node
   bookmark.node_id { Factory(:node) }
+  bookmark.bookmark_title { Factory.next(:bookmark_title) }
 end
 
 Factory.define :synonym do |synonym|

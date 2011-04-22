@@ -3,12 +3,12 @@ class BookmarksController < ApplicationController
 
   def index
     tree = get_tree
-    nodes = tree.nodes.find(:all, :joins => :bookmarks, :order => 'bookmarks.created_at desc')
-    render :json => nodes.length > 0 ? TreeSearchJsonPresenter.present(nodes) : { :status => "No bookmarks found" }
+    nodes = tree.nodes.find(:all, :include => :bookmarks, :joins => :bookmarks, :order => 'bookmarks.created_at desc')
+    render :json => nodes.length > 0 ? BookmarksJsonPresenter.present(nodes) : { :status => "No bookmarks found" }
   end
 
   def create
-    @bookmark = Bookmark.new(:node_id => params[:id])
+    @bookmark = Bookmark.new(:node_id => params[:id], :bookmark_title => params[:bookmark_title])
     @bookmark.save
     respond_to do |format|
       format.json do
@@ -18,7 +18,7 @@ class BookmarksController < ApplicationController
   end
 
   def destroy
-    @bookmark = Bookmark.find_by_node_id(params[:id])
+    @bookmark = Bookmark.find(params[:id])
     @bookmark.destroy
     respond_to do |format|
       format.json do
