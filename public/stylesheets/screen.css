@@ -1881,6 +1881,6 @@ ul#treelist li,  #gnaclr-search, .tree-background, #loginform .input, .green-sub
 }
 
 /* jQuery UI */
-input[type="text"].ui-state-error {
+input[type="text"].ui-state-error, textarea.ui-state-error {
   background-color:#FFB6C1;
 }

@@ -24,8 +24,13 @@
                     className : "green-submit",
                     text : "Add children",
                     click : function() {
-                      self.bulk_save();
-                      $(this).dialog("close");
+                      var bValid = true;
+                      $(s.addition_form).find(".input").removeClass("ui-state-error");
+                      bValid = bValid && self._bulk_validate($(s.element).find(".text"));
+                      if (bValid) {
+                        self.bulk_save();
+                        $(this).dialog("close");
+                      }
                     }
                   },
                   {
@@ -37,7 +42,19 @@
                   }
                 ],
                 close: function() {
-                  allFields.val("").removeClass("ui-state-error");
+                  $(s.element).find(".text").removeClass("ui-state-error");
+                  return false;
+                }
+              })
+              .keypress(function(event) {
+                if (event.which == 13) {
+                  var bValid = true;
+                  $(s.addition_form).find(".input").removeClass("ui-state-error");
+                  bValid = bValid && self._bulk_validate($(s.element).find(".text"));
+                  if (bValid) {
+                    self.bulk_save();
+                    $(this).dialog("close");
+                  }
                   return false;
                 }
               });
@@ -51,7 +68,16 @@
                 obj = this._get_node(obj, true);
                 this.__callback({ "obj" : obj });
                 if(callback) { callback.call(); }
-            }
+            },
+            _bulk_validate : function(o) {
+                if (o.val().length == 0) {
+                  o.addClass("ui-state-error");
+                  return false;
+                }
+                else {
+                  return true;
+                }
+            },
         }
     });
     // include bookmarks by default

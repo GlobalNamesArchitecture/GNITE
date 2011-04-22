@@ -28,9 +28,9 @@
                 this.__callback({ "obj" : obj });
                 if(callback) { callback.call(); }
             },
-            _bookmarks_validate : function(o, n, min, max) {
+            _bookmarks_validate : function(o, min, max) {
                 if (o.val().length > max || o.val().length < min) {
-                  o.addClass( "ui-state-error" );
+                  o.addClass("ui-state-error");
                   return false;
                 }
                 else {
@@ -53,7 +53,7 @@
                             click : function() {
                                 var bValid = true;
                                 $(s.addition_form).find(".input").removeClass("ui-state-error");
-                                bValid = bValid && self._bookmarks_validate($(s.addition_form).find(".input"), "Name", 1, 50);
+                                bValid = bValid && self._bookmarks_validate($(s.addition_form).find(".input"), 1, 50);
                                 if (bValid) {
                                   self.bookmarks_save();
                                   $(this).dialog("close");
@@ -72,6 +72,18 @@
                           $(s.addition_form).find(".input").val("").removeClass("ui-state-error");
                           return false;
                         }
+                  })
+                  .keypress(function(event) {
+                    if (event.which == 13) {
+                        var bValid = true;
+                        $(s.addition_form).find(".input").removeClass("ui-state-error");
+                        bValid = bValid && self._bookmarks_validate($(s.addition_form).find(".input"), 1, 50);
+                        if (bValid) {
+                          self.bookmarks_save();
+                          $(this).dialog("close");
+                        }
+                        return false;
+                    }
                   });
                 $(s.viewer_form).dialog({
                         closeText: '',
