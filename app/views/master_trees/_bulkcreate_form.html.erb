@@ -1,8 +1,6 @@
 <div id="bulkcreate-form" title="">
-    <form>
-    <fieldset>
-        <label for="bulkcreate-list">List of Taxa</label>
-        <textarea name="nodes_list" id="bulkcreate-list" class="text ui-widget-content ui-corner-all" cols="50" rows="10"></textarea>
-    </fieldset>
-    </form>
+    <%= form_tag do %>
+      <label for="bulkcreate-list">List of Taxa</label>
+      <textarea id="bulkcreate-list" class="text ui-widget-content ui-corner-all" cols="50" rows="10"></textarea>
+    <% end %>
 </div>

@@ -17,11 +17,10 @@ Feature: Bulk insert nodes into the master tree
   Scenario: Bulk insert as new roots
     And I follow "File" within "toolbar"
     And follow "Add many nodes" within "toolbar"
-    And pause 2
-    And I type the following node names into the import box:
+    And I type the following node names into the bulk insert box:
       | Pardosa    |
       | Schizocosa |
-      | Trochosa  |
+      | Trochosa   |
     And I press "Add children"
     And I refresh the master tree
     Then I should see a node "Pardosa" at the root level in my master tree
@@ -36,6 +35,7 @@ Feature: Bulk insert nodes into the master tree
     And I select the node "Pardosa"
     And I follow "File" within "toolbar"
     And I follow "Add many nodes" within "toolbar"
+    And pause 1
     And I type the following node names into the import box:
       | Pardosa modica      |
       | Pardosa moesta      |

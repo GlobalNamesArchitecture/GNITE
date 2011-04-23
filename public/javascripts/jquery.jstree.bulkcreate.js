@@ -45,18 +45,6 @@
                   $(s.element).find(".text").removeClass("ui-state-error");
                   return false;
                 }
-              })
-              .keypress(function(event) {
-                if (event.which == 13) {
-                  var bValid = true;
-                  $(s.addition_form).find(".input").removeClass("ui-state-error");
-                  bValid = bValid && self._bulk_validate($(s.element).find(".text"));
-                  if (bValid) {
-                    self.bulk_save();
-                    $(this).dialog("close");
-                  }
-                  return false;
-                }
               });
             },
             bulk_form : function (obj, callback) {
