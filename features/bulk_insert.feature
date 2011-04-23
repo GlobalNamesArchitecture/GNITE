@@ -17,6 +17,7 @@ Feature: Bulk insert nodes into the master tree
   Scenario: Bulk insert as new roots
     And I follow "File" within "toolbar"
     And follow "Add many nodes" within "toolbar"
+    And pause 2
     And I type the following node names into the import box:
       | Pardosa    |
       | Schizocosa |

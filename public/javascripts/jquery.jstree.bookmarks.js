@@ -103,6 +103,11 @@
                         close: function() {
                           return false;
                         }
+                  })
+                  .keypress(function(event) {
+                    if (event.which == 13) {
+                      $(this).dialog("close");
+                    }
                   });
             }
         }

@@ -33,6 +33,7 @@ Feature: Manage bookmarks
     And I select the node "Pardosa xerampelina"
     And I follow "Bookmarks" within "toolbar"
     And I follow "Add bookmark" within "toolbar"
+    And pause 2
     And I fill in "Name" with "My bookmark"
     And I press "Add bookmark"
     And I follow "Show bookmarks" within "toolbar"
