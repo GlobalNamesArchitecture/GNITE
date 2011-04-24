@@ -719,14 +719,13 @@ $(function() {
     $.ajax({
       type        : 'POST',
       url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes.json',
-      data        : JSON.stringify({ 'node' : { 'parent_id' : parent_id, 'name' : { 'name_string' : null}}, 'nodes_list' : { 'data' : nodes }, 'action_type' : "ActionAddNode"}),
+      data        : JSON.stringify({ 'node' : { 'parent_id' : parent_id, 'name' : { 'name_string' : null } }, 'nodes_list' : { 'data' : nodes }, 'action_type' : "ActionAddNode" }),
       contentType : 'application/json',
       dataType    : 'json',
       success     : function(data) {
         self.jstree("unlock");
         if(typeof node.obj.attr("id") !== "undefined") {
-          $('#master-tree').jstree("refresh", node.obj);
-          $('#master-tree').jstree("open_node", node.obj);
+          $('#master-tree').jstree("refresh", node.obj).jstree("open_node", node.obj).find('#'+parent_id).removeClass("jstree-closed").addClass("jstree-open");
         }
         else {
           $('#master-tree').jstree("refresh");
@@ -761,7 +760,7 @@ $(function() {
       dataType    : 'json',
       success     : function(data) {
         self.jstree("unlock");
-        updatedNode.obj.attr('id', data.node.id);
+        node.obj.attr('id', data.node.id);
       }
     });
   });
