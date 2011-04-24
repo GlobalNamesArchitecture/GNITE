@@ -7,7 +7,7 @@
           <li><a href="#" class="nav-add-node">Add single node</a><span>ctrl+n</span></li>
           <li class="divider-after"><a href="#" class="nav-add-node-bulk">Add many nodes</a><span>ctrl+shift+n</span></li>
           <li><%= link_to edit_master_tree_path, :class => "nav-edit-tree" do %>Edit tree info<% end %></li>
-          <li class="divider-after"><a href="#" class="nav-publish-tree" data-master-tree-id="<%= tree.id %>">Publish tree</a></li>
+          <li class="divider-after"><a href="#" class="nav-publish-tree" data-master-tree-id="<%= tree.id %>">Publish tree</a><span>ctrl+s</span></li>
           <li><a href="#" class="nav-delete-tree" data-master-tree-id="<%= tree.id %>">Delete tree</a></li>
       </ul>
     </li>
@@ -15,10 +15,10 @@
       <ul class="subnav">
           <li><a href="#" class="nav-undo">Undo</a><span>ctrl+z</span></li>
           <li class="divider-after"><a href="#" class="nav-redo">Redo</a><span>ctrl+shift+z</span></li>
-          <li><a href="#" class="nav-edit-node">Edit node</a></li>
+          <li><a href="#" class="nav-edit-node">Edit</a><span>ctrl+e</span></li>
           <li><a href="#" class="nav-cut-node">Cut</a><span>ctrl+c</span></li>
           <li class="divider-after"><a href="#" class="nav-paste-node">Paste</a><span>ctrl+v</span></li>
-          <li><a href="#" class="nav-delete-node">Delete node</a><span>ctrl+d</span></li>
+          <li><a href="#" class="nav-delete-node">Delete</a><span>ctrl+d</span></li>
       </ul>
     </li>
     <li><a href="#">View</a>

@@ -47,7 +47,7 @@ GNITE.Tree.configuration = {
   },
 
   'ui' : {
-    'select_limit' : 1, // TODO: change to -1 when multi-select can be fully implemented
+    'select_limit' : -1,
     'select_multiple_modifier' : "shift"
   },
 
@@ -120,6 +120,7 @@ GNITE.Tree.MasterTree.configuration = $.extend(true, {}, GNITE.Tree.configuratio
     }
   },
   'hotkeys' : {
+    'return'       : function() { if(this.data.ui.hovered) { this.data.ui.hovered.children("a:eq(0)").click(); } },
     'ctrl+n'       : function() { this.create( this.data.ui.hovered || this._get_node(null) ); },
     'ctrl+shift+n' : function() {
       var node = (this.data.ui.hovered || this._get_node(null)) ? (this.data.ui.hovered || this._get_node(null)) : null;
@@ -128,11 +129,13 @@ GNITE.Tree.MasterTree.configuration = $.extend(true, {}, GNITE.Tree.configuratio
     'ctrl+r'       : function() { this.refresh( this.data.ui.hovered || this._get_node(null) ); },
     'ctrl+shift+r' : function() { this.refresh(); },
     'ctrl+b'       : function() { this.bookmarks_form( this.data.ui.hovered || this._get_node(null) ); },
+    'ctrl+e'       : function() { this.rename( this.data.ui.hovered || this._get_node(null) ); },
     'ctrl+c'       : function() { this.cut( this.data.ui.hovered || this._get_node(null) ); },
     'ctrl+v'       : function() { this.paste( this.data.ui.hovered || this._get_node(null) ); },
     'ctrl+d'       : function() { this.remove( this.data.ui.hovered || this._get_node(null) ); },
-    'ctrl+z'       : function() { alert("Sorry, this function is not yet enabled"); },
-    'ctrl+shift+z' : function() { alert("Sorry, this function is not yet enabled"); } 
+    'ctrl+z'       : function() { this.undo(); },
+    'ctrl+shift+z' : function() { this.redo(); },
+    'ctrl+s'       : function() { GNITE.Tree.MasterTree.publish(); } 
   },
   'bookmarks' : {
     'viewer_form'   : '#bookmarks-results-' + GNITE.Tree.MasterTree.id,
@@ -142,7 +145,7 @@ GNITE.Tree.MasterTree.configuration = $.extend(true, {}, GNITE.Tree.configuratio
     'element' : '#bulkcreate-form'
   },
 
-  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'search', 'contextmenu', 'bookmarks', 'hotkeys', 'bulkcreate']
+  'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'search', 'contextmenu', 'bookmarks', 'hotkeys', 'bulkcreate', 'undoredo']
 });
 
 GNITE.Tree.ReferenceTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
@@ -495,30 +498,7 @@ $(function() {
    * FILE: Publish tree
    */
   $('.nav-publish-tree').live('click', function() {
-
-    $.ajax({
-      type        : 'GET',
-      url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/publish.json',
-      contentType : 'application/json',
-      dataType    : 'json',
-      success     : function(data) {
-        var message = 'Your tree is being queued for publishing';
-        $('body').append('<div id="dialog-message" class="ui-state-highlight" title="Publishing Confirmation">' + message + '</div>');
-        $('#dialog-message').dialog({
-            height : 200,
-            width : 500,
-            modal : true,
-            closeText : "",
-            buttons: {
-                "OK": function() {
-                  $('#dialog-message').dialog("destroy").hide().remove();
-                }
-            },
-            draggable : false,
-            resizable : false
-        });
-      }
-    });
+    GNITE.Tree.MasterTree.publish();
   });
 
   /*
@@ -566,8 +546,7 @@ $(function() {
    * TODO: implement
    */
   $('.nav-undo').click(function() {
-    //refresh affected parent(s) after undo
-    alert("Sorry, this function is not yet enabled.");
+    $('#master-tree').jstree('undo');
     GNITE.Tree.hideMenu();
     return false;
   });
@@ -578,7 +557,7 @@ $(function() {
    */
   $('.nav-redo').click(function() {
     //refresh affected parent(s) after redo
-    alert("Sorry, this function is not yet enabled.");
+    $('#master-tree').jstree('redo');
     GNITE.Tree.hideMenu();
     return false;
   });
@@ -793,48 +772,52 @@ $(function() {
    */
   $('#master-tree').bind('move_node.jstree', function(event, data) {
 
-     var self        = $(this);
+     var self = $(this);
+     var result = data.rslt;
+     var isCopy = result.cy;
 
-     var result      = data.rslt;
-     var isCopy      = result.cy;
-
-     var parentID    = result.np.attr('id');
-     var movedNodeID = result.o.attr('id');
+     var parentID = result.np.attr('id');
      var action_type = "";
 
      if (parentID == 'master-tree') {
        parentID = GNITE.Tree.MasterTree.root;
      }
-
-     var url = '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes';
-
+    
      if (isCopy) {
        action_type = "ActionCopyNodeFromAnotherTree";
      } else {
-       url = url + '/' + movedNodeID;
        action_type = "ActionMoveNodeWithinTree";
      }
-
-     url += '.json';
 
      // lock the tree
      self.jstree("lock");
 
-     $.ajax({
-       type        : isCopy ? 'POST' : 'PUT',
-       url         : url,
-       data        : JSON.stringify({ 'node' : {'id' : movedNodeID, 'parent_id' : parentID }, 'action_type' : action_type }),
-       contentType : 'application/json',
-       dataType    : 'json',
-       success     : function(data) {
-         self.jstree("unlock");
-         if (isCopy) {
-           result.oc.attr('id', data.node.id);
-         } else {
-           result.o.attr('id', data.node.id);
-         }
-       }
-     });
+     data.rslt.o.each(function(i) {
+
+       var movedNodeID = $(this).attr("id");
+       var url = '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes';
+       if(!isCopy) url += '/' + movedNodeID;
+       url += '.json';
+
+       $.ajax({
+           type        : isCopy ? 'POST' : 'PUT',
+           async       : false,
+           url         : url,
+           data        : JSON.stringify({ 'node' : {'id' : movedNodeID, 'parent_id' : parentID }, 'action_type' : action_type }),
+           contentType : 'application/json',
+           dataType    : 'json',
+           success     : function(data) {
+             if (isCopy) {
+               data.rslt.oc.attr('id', data.node.id);
+             } else {
+               $(this).attr('id', data.node.id);
+             }
+           }
+        });
+    });
+
+    //unlock the tree
+    self.jstree("unlock");
 
   });
 
@@ -845,22 +828,29 @@ $(function() {
   $('#master-tree').bind('remove.jstree', function(event, data) {
     var self = $(this);
     var node = data.rslt;
-    var id   = node.obj.attr('id');
 
     // lock the tree
     self.jstree("lock");
 
-    $.ajax({
-      type    : 'PUT',
-      url     : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes/' + id + '.json',
-      data    : JSON.stringify({'action_type' : 'ActionMoveNodeToDeletedTree'}),
-      contentType : 'application/json',
-      success : function(data) {
-        self.jstree("unlock");
-        var $deleted_tree = $('.deleted-tree-container .jstree');
-        $deleted_tree.jstree("refresh");
-      }
+    node.obj.each(function(i) {
+      var id = $(this).attr('id');
+      $.ajax({
+        type    : 'PUT',
+        async   : false,
+        url     : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes/' + id + '.json',
+        data    : JSON.stringify({'action_type' : 'ActionMoveNodeToDeletedTree'}),
+        contentType : 'application/json',
+        success : function(data) {
+        }
+      });
     });
+
+    // unlock the tree
+    self.jstree("unlock");
+
+   // refresh the deleted tree
+   $('.deleted-tree-container .jstree').jstree("refresh");
+
   });
 
   /*
@@ -908,6 +898,22 @@ $(function() {
       success     : function(data) {}
     });
 
+  });
+
+  /*
+   * TDOD: Implement functionality
+   * Undo
+   */
+  $('#master-tree').bind('undo.jstree', function(event, data) {
+    alert("Sorry, this function is not yet enabled");
+  });
+
+  /*
+   * TDOD: Implement functionality
+   * Redo
+   */
+  $('#master-tree').bind('redo.jstree', function(event, data) {
+    alert("Sorry, this function is not yet enabled");
   });
 
   /*
@@ -1213,7 +1219,7 @@ GNITE.Tree.viewBookmarks = function(obj) {
            return false;
         });
 
-        // Delete a bookbark in list
+        // Delete a bookmark in list
         $bookmarks.find("a.bookmarks-delete").click(function() {
           var self = this;
           $.ajax({
@@ -1241,6 +1247,37 @@ GNITE.Tree.viewBookmarks = function(obj) {
 
     GNITE.Tree.hideMenu();
     return false;
+}
+
+/*
+*/
+
+GNITE.Tree.MasterTree.publish = function() {
+  $.ajax({
+      type        : 'GET',
+      url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/publish.json',
+      contentType : 'application/json',
+      dataType    : 'json',
+      success     : function(data) {
+        var message = 'Your tree is being queued for publishing';
+        $('body').append('<div id="dialog-message" class="ui-state-highlight" title="Publishing Confirmation">' + message + '</div>');
+        $('#dialog-message').dialog({
+            height : 200,
+            width : 500,
+            modal : true,
+            closeText : "",
+            buttons: [
+              {
+                className : "green-submit",
+                text      : "OK",
+                click     : function() { $(this).dialog("close"); }
+              }
+            ],
+            draggable : false,
+            resizable : false
+        });
+      }
+    });
 }
 
 /**************************************************************
