@@ -13,6 +13,8 @@ class ActionMoveNodeToDeletedTree < ActionCommand
       descendant.tree_id = node.tree.deleted_tree.id
       descendant.save!
     end
+    self.json_message = node.to_json
+    save!
   end
 
   def undo_action

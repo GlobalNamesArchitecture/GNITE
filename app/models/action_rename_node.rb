@@ -6,6 +6,8 @@ class ActionRenameNode < ActionCommand
 
   def do_action
     node.rename(new_name)
+    self.json_message = node.to_json
+    save!
   end
 
   def undo_action

@@ -9,6 +9,8 @@ class ActionMoveNodeWithinTree < ActionCommand
   def do_action
     node.parent_id = @destination_parent.id
     node.save!
+    self.json_message = node.to_json
+    save!
   end
 
   def undo_action

@@ -10,5 +10,6 @@ class RedoActionCommand < ActiveRecord::Base
     redo_actions = self.where(:master_tree_id => master_tree_id).order("id desc").limit(1)
     action = redo_actions.empty? ? nil : redo_actions[0].action_command
     ActionCommand.schedule_actions(action) if action
+    action
   end
 end

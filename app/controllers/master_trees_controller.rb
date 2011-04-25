@@ -54,5 +54,13 @@ class MasterTreesController < ApplicationController
     Resque.enqueue(GnaclrPublisher, gp.id)
     render :json => { :status => "OK" }
   end
+  
+  def undo
+    render :json => UndoActionCommand.undo(params[:id])
+  end
+  
+  def redo
+    render :json => RedoActionCommand.redo(params[:id])
+  end
 
 end

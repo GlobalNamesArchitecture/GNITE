@@ -10,5 +10,6 @@ class UndoActionCommand < ActiveRecord::Base
     undo_actions = self.where(:master_tree_id => master_tree_id).order("id desc").limit(1)
     action = undo_actions.empty? ? nil : undo_actions[0].action_command
     ActionCommand.schedule_actions(action) if action
+    action
   end
 end

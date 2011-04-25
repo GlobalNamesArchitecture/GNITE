@@ -904,7 +904,24 @@ $(function() {
    * Undo
    */
   $('#master-tree').bind('undo.jstree', function(event, data) {
-    alert("Sorry, this function is not yet enabled");
+    var self = $(this);
+
+    // lock the tree
+    self.jstree("lock");
+
+    $.ajax({
+      type        : 'GET',
+      async       : false,
+      url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/undo',
+      contentType : 'application/json',
+      dataType    : 'json',
+      success     : function(data) {
+        // unlock the tree
+        self.jstree("unlock");
+        GNITE.Tree.MasterTree.flashNode(data);
+      }
+    });
+
   });
 
   /*
@@ -912,7 +929,24 @@ $(function() {
    * Redo
    */
   $('#master-tree').bind('redo.jstree', function(event, data) {
-    alert("Sorry, this function is not yet enabled");
+    var self = $(this);
+
+    // lock the tree
+    self.jstree("lock");
+
+    $.ajax({
+      type        : 'GET',
+      async       : false,
+      url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/redo',
+      contentType : 'application/json',
+      dataType    : 'json',
+      success     : function(data) {
+        // unlock the tree
+        self.jstree("unlock");
+        GNITE.Tree.MasterTree.flashNode(data);
+      }
+    });
+
   });
 
   /*
@@ -1277,6 +1311,18 @@ GNITE.Tree.MasterTree.publish = function() {
         });
       }
     });
+}
+
+GNITE.Tree.MasterTree.flashNode = function(data) {
+    for (first in data) break;
+    if(data[first].destination_parent_id) {
+      $('#master-tree').jstree("refresh", $('#'+data[first].destination_parent_id));
+      $('#' + data[first].destination_parent_id + ' a:first').effect("highlight", { color : "#5AA52B" }, 2000);
+    }
+    if(data[first].destination_parent_id != data[first].parent_id) {
+      $('#master-tree').jstree("refresh", $('#'+data[first].parent_id));
+      $('#' + data[first].parent_id + ' a:first').effect("highlight", { color : "#5AA52B" }, 2000);
+    }
 }
 
 /**************************************************************
