@@ -7,8 +7,8 @@
             this._bookmarks_initialize();
         },
         defaults : {
-          addition_form : '#bookmarks-addition-form',
-          viewer_form   : '#bookmarks-viewer'
+          addition_form   : '#bookmarks-addition-form',
+          viewer_form     : '#bookmarks-viewer'
         },
         _fn : {
             bookmarks_view : function (obj, callback) {

@@ -138,8 +138,8 @@ GNITE.Tree.MasterTree.configuration = $.extend(true, {}, GNITE.Tree.configuratio
     'ctrl+s'       : function() { GNITE.Tree.MasterTree.publish(); } 
   },
   'bookmarks' : {
-    'viewer_form'   : '#bookmarks-results-' + GNITE.Tree.MasterTree.id,
-    'addition_form' : '#bookmarks-addition-form-' + GNITE.Tree.MasterTree.id
+    'addition_form' : '#bookmarks-addition-form-' + GNITE.Tree.MasterTree.id,
+    'viewer_form'   : '#bookmarks-results-' + GNITE.Tree.MasterTree.id
   },
   'bulkcreate' : {
     'element' : '#bulkcreate-form'
@@ -272,7 +272,7 @@ $(function() {
               }));
 
               self.bind('bookmarks_form.jstree', function(event, data) {
-                $('#bookmarks-addition-form-' + tree_id).dialog("open");
+                $('#bookmarks-addition-form-' + tree_id).dialog("option", "title", "Bookmark " + $('#' + data.rslt.obj.attr('id') + ' a:first').text()).dialog("open");
               });
 
               self.bind('bookmarks_view.jstree', function(event, data) {
@@ -876,7 +876,7 @@ $(function() {
    * Bookmark a node
    */
   $('#master-tree').bind('bookmarks_form.jstree', function(event, data) {
-    $('#bookmarks-addition-form-' + GNITE.Tree.MasterTree.id).dialog("open");
+    $('#bookmarks-addition-form-' + GNITE.Tree.MasterTree.id).dialog("option", "title", "Bookmark " + $('#' + data.rslt.obj.attr('id') + ' a:first').text()).dialog("open");
   });
 
   $('#master-tree').bind('bookmarks_view.jstree', function(event, data) {
@@ -1326,7 +1326,7 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
 
   // Bind bookmarks for the new reference tree
   $('#container_for_' + response.domid).bind('bookmarks_form.jstree', function(event, data) {
-    $('#bookmarks-addition-form-' + tree_id).dialog("open");
+    $('#bookmarks-addition-form-' + tree_id).dialog("option", "title", "Bookmark " + $('#' + data.rslt.obj.attr('id') + ' a:first').text()).dialog("open");
   });
 
   $('#container_for_' + response.domid).bind('bookmarks_view.jstree', function(event, data) {
