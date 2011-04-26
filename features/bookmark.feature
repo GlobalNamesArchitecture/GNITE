@@ -23,7 +23,7 @@ Feature: Manage bookmarks
   Scenario: User can see a bookmark associated with nodes in the master tree
     When I follow "Bookmarks" within "toolbar"
     And I follow "Show bookmarks" within "toolbar"
-    And pause 3
+    And pause 2
     Then I should see a bookmark "First bookmark" in master tree bookmarks
     And I should see a bookmark "Second bookmark" in master tree bookmarks
 
@@ -37,14 +37,14 @@ Feature: Manage bookmarks
     And I fill in "Name" with "My bookmark"
     And I press "Add bookmark"
     And I follow "Show bookmarks" within "toolbar"
-    And pause 3
+    And pause 2
     Then I should see a bookmark "My bookmark" in master tree bookmarks
 
   @javascript
   Scenario: User can click a bookmark in the master tree and have searched name highlighted
     And I follow "Bookmarks" within "toolbar"
     And I follow "Show bookmarks" within "toolbar"
-    And pause 3
+    And pause 2
     And I follow "First bookmark"
     And pause 2
     Then I should see a node "Pardosa distincta" under "Pardosa"
@@ -59,20 +59,20 @@ Feature: Manage bookmarks
     And I press "Add bookmark"
     And I follow "Bookmarks" within "toolbar"
     And I follow "Show bookmarks" within "toolbar"
-    And pause 3
+    And pause 2
     Then I should see a bookmark "My bookmark" in master tree bookmarks
 
   @javascript
   Scenario: User can delete a bookmark in the master tree
     When I follow "Bookmarks" within "toolbar"
     And I follow "Show bookmarks" within "toolbar"
-    And pause 3
+    And pause 2
     And I delete "First bookmark" in master tree bookmarks
     Then I should not see a bookmark "First bookmark" in master tree bookmarks
     And I should see a bookmark "Second bookmark" in master tree bookmarks
     And I click the master tree background
     And I follow "Bookmarks" within "toolbar"
     And I follow "Show bookmarks" within "toolbar"
-    And pause 3
+    And pause 2
     Then I should not see a bookmark "First bookmark" in master tree bookmarks
     And I should see a bookmark "Second bookmark" in master tree bookmarks

@@ -48,8 +48,8 @@ Feature: Work with reference trees
   @javascript
   Scenario: Drag-and-drop copying from reference tree to master tree
     And I drag "root three" in my reference tree "List" to "master node" in my master tree
-
-    Then I should see a node "root three" under "master node"
+    Then I should see a node "root three" at the root level in my reference tree "List"
+    And I should see a node "root three" under "master node"
 
     When I follow "Working Trees"
     And I follow "My new tree"

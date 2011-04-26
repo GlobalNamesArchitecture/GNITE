@@ -33,6 +33,10 @@ Then /^I should see a node "([^"]*)" under "([^"]*)" in deleted names$/ do |chil
   page.should have_css("div.deleted-tree-container>div>ul>li>a:contains('#{parent_node_text}')+ul>li>a:contains('#{child_node_text}')")
 end
 
+Then /^I should not see a node "([^"]*)" under "([^"]*)"$/ do |child_node_text, parent_node_text|
+  page.should_not have_css("#master-tree ul>li>a:contains('#{parent_node_text}')+ul>li>a:contains('#{child_node_text}')")
+end
+
 When /^I double click "([^"]*)" and change it to "([^"]*)"$/ do |old_name, new_name|
   When %{I follow "#{old_name}"}
 
