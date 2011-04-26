@@ -20,6 +20,7 @@ class ActionCommand < ActiveRecord::Base
   end
 
   def self.schedule_actions(action_command)
+    
     tree_queue = action_command.master_tree ? "gnite_action_tree_#{action_command.master_tree.id}" : (raise "Cannot determine master tree in the action_command")
     action_command.class.queue = tree_queue
     Resque.enqueue(action_command.class, action_command.id)
@@ -35,6 +36,7 @@ class ActionCommand < ActiveRecord::Base
     while Resque.size(tree_queue) > 0
       worker.process #TODO! Check if this is executing jobs in sequence!!!
     end
+
   end
 
   def precondition_do

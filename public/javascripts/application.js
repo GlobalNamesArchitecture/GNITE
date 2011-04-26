@@ -133,7 +133,7 @@ $(function() {
       'ctrl+shift+r' : function() { this.refresh(); },
       'ctrl+b'       : function() { this.bookmarks_form( this.data.ui.hovered || this._get_node(null) ); },
       'ctrl+e'       : function() { this.rename( this.data.ui.hovered || this._get_node(null) ); },
-      'ctrl+c'       : function() { this.cut( this.data.ui.hovered || this._get_node(null) ); },
+      'ctrl+x'       : function() { this.cut( this.data.ui.hovered || this._get_node(null) ); },
       'ctrl+v'       : function() { this.paste( this.data.ui.hovered || this._get_node(null) ); },
       'ctrl+d'       : function() { this.remove( this.data.ui.hovered || this._get_node(null) ); },
       'ctrl+z'       : function() { this.undo(); },
