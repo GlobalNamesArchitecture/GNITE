@@ -739,19 +739,17 @@ $(function() {
            data        : JSON.stringify({ 'node' : {'id' : movedNodeID, 'parent_id' : parentID }, 'action_type' : action_type }),
            contentType : 'application/json',
            dataType    : 'json',
-           success     : function(data) {
+           success     : function(r) {
+             if (isCopy) {
+               // recommended data.rslt.oc.attr("id", r.node.id) not used because it applies same id to all new nodes in collection
+               self.find('#copy_'+movedNodeID).attr("id", r.node.id);
+             }
            }
         });
     });
 
     //unlock the tree
     self.jstree("unlock");
-
-    if (isCopy) {
-      data.rslt.oc.attr('id', data.node.id);
-    } else {
-      $(this).attr('id', data.node.id);
-    }
 
   });
 
