@@ -28,10 +28,10 @@ ActiveRecord::Schema.define(:version => 20110422020323) do
   end
 
   create_table "bookmarks", :force => true do |t|
-    t.integer  "node_id", :null => false
-    t.string   "bookmark_title", :limit => 128, :default => "", :null => false
+    t.integer  "node_id",                                       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "bookmark_title", :limit => 128, :default => "", :null => false
   end
 
   add_index "bookmarks", ["node_id"], :name => "index_bookmarks_on_node_id"

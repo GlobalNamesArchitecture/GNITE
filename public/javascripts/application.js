@@ -628,7 +628,8 @@ $(function() {
   $('#master-tree').bind('bulk_form.jstree', function(event, data) {
     var node = data.rslt;
     var title = (typeof node.obj.attr("id") !== "undefined") ? $(node.obj).find("a:first").text() : 'Tree root';
-    $("#bulkcreate-form").dialog("open"); 
+    $("#bulkcreate-form").dialog("open");
+    $('#bulkcreate-list').val("");
     $("#ui-dialog-title-bulkcreate-form").text(title);
   });
 
@@ -654,10 +655,11 @@ $(function() {
         self.jstree("unlock");
 
         if(typeof node.obj.attr("id") !== "undefined") {
-          $('#master-tree').jstree("refresh", node.obj).jstree("open_node", node.obj).find('#'+parent_id).removeClass("jstree-closed").addClass("jstree-open");
+          self.jstree("refresh", node.obj).jstree("open_node", node.obj);
+          $('#'+parent_id).removeClass("jstree-leaf").removeClass("jstree-closed").addClass("jstree-open");
         }
         else {
-          $('#master-tree').jstree("refresh");
+          self.jstree("refresh");
         }
       }
     });
