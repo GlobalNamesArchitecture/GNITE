@@ -21,8 +21,13 @@ class ActionCommand < ActiveRecord::Base
 
   def self.schedule_actions(action_command)
     
-    tree_queue = action_command.master_tree ? "gnite_action_tree_#{action_command.master_tree.id}" : (raise "Cannot determine master tree in the action_command")
+    master_tree = action_command.master_tree
+    tree_queue = master_tree ? "gnite_action_tree_#{master_tree.id}" : (raise "Cannot determine master tree in the action_command")
+    channel = "tree_#{master_tree.id}"
     action_command.class.queue = tree_queue
+    
+    Juggernaut.publish(channel, "{ \"event\" : \"lock\", \"message\" : #{action_command.serializable_hash.to_json} }")
+    
     Resque.enqueue(action_command.class, action_command.id)
     action_command.class.queue = nil
 
@@ -36,7 +41,9 @@ class ActionCommand < ActiveRecord::Base
     while Resque.size(tree_queue) > 0
       worker.process #TODO! Check if this is executing jobs in sequence!!!
     end
-
+    
+    Juggernaut.publish(channel, '{ "event" : "unlock" }')
+    
   end
 
   def precondition_do

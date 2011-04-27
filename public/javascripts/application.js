@@ -224,9 +224,9 @@ $(function() {
      $('#tab-titles li:first-child').hide();
    }
 
-/**************************************************************
+  /**************************************************************
            INITIALIZE ALL TREES
-**************************************************************/
+  **************************************************************/
 
    /*
    * Initialize the Master Tree
@@ -359,10 +359,23 @@ $(function() {
 
   });
 
+  /**************************************************************
+           JUGGERNAUT
+  **************************************************************/
+  var jug = new Juggernaut();
 
-/**************************************************************
+  jug.on("connect", function() { });
+  jug.on("disconnect", function() { });
+  jug.on("reconnect", function() { });
+
+  jug.subscribe("tree_"+GNITE.Tree.MasterTree.id, function(data) {
+    
+  });
+
+
+  /**************************************************************
            SEARCH WITHIN TREES
-**************************************************************/
+  **************************************************************/
 
   $('.searchicon').hover(function() {
     $(this).addClass('pointer');
@@ -443,9 +456,9 @@ $(function() {
     });
 
 
-/**************************************************************
+  /**************************************************************
            TOOL BAR ACTIONS
-**************************************************************/
+  **************************************************************/
 
   /*
    * FILE: Add single node
@@ -583,9 +596,9 @@ $(function() {
   GNITE.Tree.buildViewMenuActions();
 
 
-/**************************************************************
+  /**************************************************************
             MASTER TREE ACTIONS
-**************************************************************/
+  **************************************************************/
 
   /*
    * ActionType: ActionAddNode
@@ -897,9 +910,9 @@ $(function() {
   });
 
 
-/**************************************************************
+  /**************************************************************
            METADATA ACTIONS
-**************************************************************/
+  **************************************************************/
 
   /*
    * Get Master Tree metadata
@@ -928,9 +941,9 @@ $(function() {
     GNITE.Tree.Node.getMetadata(url, metadata, wrapper);
   });
 
-/**************************************************************
+  /**************************************************************
            SEARCH & IMPORT FROM GNACLR
-**************************************************************/
+  **************************************************************/
   $('#gnaclr-search')
     .live('blur', function() {
       var self = $(this);
@@ -1022,9 +1035,9 @@ $(function() {
   });
 
 
-/**************************************************************
+  /**************************************************************
            IMPORT FLAT LIST
-**************************************************************/
+  **************************************************************/
 
   $('#import-roots-button').live('click', function() {
     var title = $('#import-title').val().trim();
@@ -1075,6 +1088,7 @@ $(function() {
   });
 
 });
+
 /********************************* jQuery END *********************************/
 
 
@@ -1276,14 +1290,13 @@ GNITE.Tree.MasterTree.publish = function() {
 };
 
 GNITE.Tree.MasterTree.flashNode = function(data) {
-  for (first in data) break;
-  if(data[first].destination_parent_id) {
-    $('#master-tree').jstree("refresh", $('#'+data[first].destination_parent_id));
-    $('#' + data[first].destination_parent_id + ' a:first').effect("highlight", { color : "#BABFC3" }, 2000);
+  if(data.destination_parent_id) {
+    $('#master-tree').jstree("refresh", $('#'+data.destination_parent_id));
+    $('#' + data.destination_parent_id + ' a:first').effect("highlight", { color : "#BABFC3" }, 2000);
   }
-  if(data[first].destination_parent_id != data[first].parent_id) {
-    $('#master-tree').jstree("refresh", $('#'+data[first].parent_id));
-    $('#' + data[first].parent_id + ' a:first').effect("highlight", { color : "#BABFC3" }, 2000);
+  if(data.destination_parent_id != data.parent_id) {
+    $('#master-tree').jstree("refresh", $('#'+data.parent_id));
+    $('#' + data.parent_id + ' a:first').effect("highlight", { color : "#BABFC3" }, 2000);
   }
 };
 
