@@ -698,7 +698,11 @@ $(function() {
   });
 
   $('#master-tree').bind('loaded.jstree', function(event, data) {
-    $('#master-tree').addClass('loaded');
+    $(this).addClass('loaded');
+    // Lock the master tree if refreshed in midst of active job
+    if(GNITE.Tree.MasterTree.state == "working") {
+      $(this).jstree("lock");
+    }
   });
 
   /*
@@ -1315,6 +1319,7 @@ GNITE.Tree.MasterTree.flashNode = function(data) {
     $('#master-tree').jstree("refresh", $('#'+data.destination_parent_id));
     $('#' + data.destination_parent_id + ' a:first').effect("highlight", { color : "#BABFC3" }, 2000);
   }
+  //TODO: resolve refreshing of parent nodes for cases move within tree or copy between tree
   if(data.destination_parent_id != data.parent_id) {
     $('#master-tree').jstree("refresh", $('#'+data.parent_id));
     $('#' + data.parent_id + ' a:first').effect("highlight", { color : "#BABFC3" }, 2000);

@@ -26,6 +26,9 @@ class ActionCommand < ActiveRecord::Base
     channel = "tree_#{master_tree.id}"
     action_command.class.queue = tree_queue
     
+    master_tree.state = 'working'
+    master_tree.save
+    
     Juggernaut.publish(channel, "{ \"state\" : \"new-event\", \"message\" : #{action_command.serializable_hash.to_json} }", :except => request.headers["X-Session-ID"])
     Juggernaut.publish(channel, "{ \"state\" : \"lock\" }", :except => request.headers["X-Session-ID"])
     
@@ -43,7 +46,10 @@ class ActionCommand < ActiveRecord::Base
       worker.process #TODO! Check if this is executing jobs in sequence!!!
     end
     
-    Juggernaut.publish(channel, '{ "state" : "unlock" }')
+    master_tree.state = 'active'
+    master_tree.save
+    
+    Juggernaut.publish(channel, "{ \"state\" : \"unlock\" }")
     
   end
 
