@@ -19,7 +19,7 @@ class ActionCommand < ActiveRecord::Base
     ac.save!
   end
 
-  def self.schedule_actions(action_command, request)
+  def self.schedule_actions(action_command, session_id)
     
     master_tree = action_command.master_tree
     tree_queue = master_tree ? "gnite_action_tree_#{master_tree.id}" : (raise "Cannot determine master tree in the action_command")
@@ -29,8 +29,8 @@ class ActionCommand < ActiveRecord::Base
     master_tree.state = 'working'
     master_tree.save
     
-    Juggernaut.publish(channel, "{ \"state\" : \"new-event\", \"message\" : #{action_command.serializable_hash.to_json} }", :except => request.headers["X-Session-ID"])
-    Juggernaut.publish(channel, "{ \"state\" : \"lock\" }", :except => request.headers["X-Session-ID"])
+    Juggernaut.publish(channel, "{ \"state\" : \"new-event\", \"message\" : #{action_command.serializable_hash.to_json} }", :except => session_id)
+    Juggernaut.publish(channel, "{ \"state\" : \"lock\" }", :except => session_id)
     
     Resque.enqueue(action_command.class, action_command.id)
     action_command.class.queue = nil

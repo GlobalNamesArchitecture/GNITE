@@ -6,10 +6,10 @@ class RedoActionCommand < ActiveRecord::Base
     self.where(:master_tree_id => master_tree_id).order("id desc").limit(Gnite::Config.undo_limit)
   end
 
-  def self.redo(master_tree_id, request)
+  def self.redo(master_tree_id, session_id)
     redo_actions = self.where(:master_tree_id => master_tree_id).order("id desc").limit(1)
     action = redo_actions.empty? ? nil : redo_actions[0].action_command
-    ActionCommand.schedule_actions(action, request) if action
+    ActionCommand.schedule_actions(action, session_id) if action
     action
   end
 end

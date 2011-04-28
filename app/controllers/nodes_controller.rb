@@ -74,7 +74,7 @@ class NodesController < ApplicationController
 
     action_command = eval("#{params[:action_type]}.create!(:user => current_user, :node_id => node_id, :old_name => old_name, :new_name => new_name, :destination_parent_id => destination_parent_id, :parent_id => parent_id)")
 
-    ActionCommand.schedule_actions(action_command, request)
+    ActionCommand.schedule_actions(action_command, request.headers["X-Session-ID"])
     action_command.reload
   end
 end
