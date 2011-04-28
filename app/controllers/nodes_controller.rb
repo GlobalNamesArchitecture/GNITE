@@ -63,6 +63,7 @@ class NodesController < ApplicationController
   private
 
   def schedule_action(node, params)
+    
     raise "Unknown action command" unless params[:action_type] && Gnite::Config.action_types.include?(params[:action_type])
 
     destination_parent_id = (params[:node] && params[:node][:parent_id]) ? params[:node][:parent_id] : nil
@@ -73,7 +74,7 @@ class NodesController < ApplicationController
 
     action_command = eval("#{params[:action_type]}.create!(:user => current_user, :node_id => node_id, :old_name => old_name, :new_name => new_name, :destination_parent_id => destination_parent_id, :parent_id => parent_id)")
 
-    ActionCommand.schedule_actions(action_command)
+    ActionCommand.schedule_actions(action_command, request)
     action_command.reload
   end
 end

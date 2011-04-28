@@ -16,6 +16,8 @@ $(function() {
 
   GNITE.Tree.MasterTree.id = $('.tree-container:first').attr('data-database-id');
 
+  GNITE.Tree.MasterTree.channel = "tree_"+GNITE.Tree.MasterTree.id;
+
   /**************************************************************
            TREE CONFIGURATION
   **************************************************************/
@@ -366,10 +368,27 @@ $(function() {
 
   jug.on("connect", function() { });
   jug.on("disconnect", function() { });
-  jug.on("reconnect", function() { });
+  jug.on("reconnect", function() { 
+    //TODO: how to reconnect if connection lost? 
+  });
 
-  jug.subscribe("tree_"+GNITE.Tree.MasterTree.id, function(data) {
-    
+  jug.subscribe(GNITE.Tree.MasterTree.channel, function(data) {
+    var response = $.parseJSON(data);
+    switch(response.state) {
+      case 'new-event':
+        GNITE.Tree.MasterTree.flashNode(response.message);
+        // refresh the deleted tree
+        $('.deleted-tree-container .jstree').jstree("refresh");
+      break;
+
+      case 'lock':
+        $('#master-tree').jstree(response.state);
+      break;
+
+      case 'unlock':
+        $('#master-tree').jstree(response.state);
+      break;
+    }
   });
 
 
@@ -625,10 +644,10 @@ $(function() {
       data        : JSON.stringify({ 'node' : { 'name' : { 'name_string' : name }, 'parent_id' : parentID }, 'action_type' : "ActionAddNode" }),
       contentType : 'application/json',
       dataType    : 'json',
+      beforeSend  : function(xhr) {
+        xhr.setRequestHeader("X-Session-ID", jug.sessionID);
+      },
       success     : function(data) {
-        //unlock the tree
-        self.jstree("unlock");
-
         node.obj.attr('id', data.node.id);
       }
     });
@@ -663,10 +682,10 @@ $(function() {
       data        : JSON.stringify({ 'node' : { 'parent_id' : parent_id, 'name' : { 'name_string' : null } }, 'nodes_list' : { 'data' : nodes }, 'action_type' : "ActionAddNode" }),
       contentType : 'application/json',
       dataType    : 'json',
+      beforeSend  : function(xhr) {
+        xhr.setRequestHeader("X-Session-ID", jug.sessionID);
+      },
       success     : function(data) {
-        // unlock the tree
-        self.jstree("unlock");
-
         if(typeof node.obj.attr("id") !== "undefined") {
           self.jstree("refresh", node.obj).jstree("open_node", node.obj);
           $('#'+parent_id).removeClass("jstree-leaf").removeClass("jstree-closed").addClass("jstree-open");
@@ -703,10 +722,10 @@ $(function() {
       data        : JSON.stringify({ 'node' : { 'name' : { 'name_string' : new_name } }, 'action_type' : 'ActionRenameNode' }),
       contentType : 'application/json',
       dataType    : 'json',
+      beforeSend  : function(xhr) {
+        xhr.setRequestHeader("X-Session-ID", jug.sessionID);
+      },
       success     : function(data) {
-        //unlock the tree
-        self.jstree("unlock");
-
         node.obj.attr('id', data.node.id);
       }
     });
@@ -752,6 +771,9 @@ $(function() {
            data        : JSON.stringify({ 'node' : {'id' : movedNodeID, 'parent_id' : parentID }, 'action_type' : action_type }),
            contentType : 'application/json',
            dataType    : 'json',
+           beforeSend  : function(xhr) {
+             xhr.setRequestHeader("X-Session-ID", jug.sessionID);
+           },
            success     : function(r) {
              if (isCopy) {
                // recommended data.rslt.oc.attr("id", r.node.id) not used because it applies same id to all new nodes in collection
@@ -760,9 +782,6 @@ $(function() {
            }
         });
     });
-
-    //unlock the tree
-    self.jstree("unlock");
 
   });
 
@@ -780,18 +799,19 @@ $(function() {
     node.obj.each(function(i) {
       var id = $(this).attr('id');
       $.ajax({
-        type    : 'PUT',
-        async   : false,
-        url     : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes/' + id + '.json',
-        data    : JSON.stringify({'action_type' : 'ActionMoveNodeToDeletedTree'}),
+        type        : 'PUT',
+        async       : false,
+        url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes/' + id + '.json',
+        data        : JSON.stringify({'action_type' : 'ActionMoveNodeToDeletedTree'}),
         contentType : 'application/json',
-        success : function(data) {
+        dataType    : 'json',
+        beforeSend  : function(xhr) {
+          xhr.setRequestHeader("X-Session-ID", jug.sessionID);
+        },
+        success     : function(data) {
         }
       });
     });
-
-    // unlock the tree
-    self.jstree("unlock");
 
    // refresh the deleted tree
    $('.deleted-tree-container .jstree').jstree("refresh");
@@ -833,10 +853,10 @@ $(function() {
       url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/undo',
       contentType : 'application/json',
       dataType    : 'json',
+      beforeSend  : function(xhr) {
+        xhr.setRequestHeader("X-Session-ID", jug.sessionID);
+      },
       success     : function(data) {
-        // unlock the tree
-        self.jstree("unlock");
-
         GNITE.Tree.MasterTree.flashNode(data);
       }
     });
@@ -858,10 +878,10 @@ $(function() {
       url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/redo',
       contentType : 'application/json',
       dataType    : 'json',
+      beforeSend  : function(xhr) {
+        xhr.setRequestHeader("X-Session-ID", jug.sessionID);
+      },
       success     : function(data) {
-        // unlock the tree
-        self.jstree("unlock");
-
         GNITE.Tree.MasterTree.flashNode(data);
       }
     });
@@ -900,6 +920,7 @@ $(function() {
    * Lock the tree
    */
   $('#master-tree').bind('lock.jstree', function(event, data) {
+    jug.write(GNITE.Tree.MasterTree.channel, '{ "state" : "lock" }');
   });
 
   /*
@@ -1445,4 +1466,3 @@ $.fn.unspinner = function() {
   });
   return this;
 };
-

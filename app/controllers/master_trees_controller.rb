@@ -56,11 +56,11 @@ class MasterTreesController < ApplicationController
   end
   
   def undo
-    render :json => UndoActionCommand.undo(params[:id]).serializable_hash
+    render :json => UndoActionCommand.undo(params[:id], request).serializable_hash
   end
   
   def redo
-    render :json => RedoActionCommand.redo(params[:id]).serializable_hash
+    render :json => RedoActionCommand.redo(params[:id], request).serializable_hash
   end
 
 end
