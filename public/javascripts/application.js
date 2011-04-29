@@ -686,13 +686,20 @@ $(function() {
         xhr.setRequestHeader("X-Session-ID", jug.sessionID);
       },
       success     : function(data) {
-        if(typeof node.obj.attr("id") !== "undefined") {
-          self.jstree("refresh", node.obj).jstree("open_node", node.obj);
-          $('#'+parent_id).removeClass("jstree-leaf").removeClass("jstree-closed").addClass("jstree-open");
-        }
-        else {
-          self.jstree("refresh");
-        }
+        var timeout = setTimeout(function checkLockedStatus() {
+          if(self.find('ul:first').hasClass('jstree-locked')) {
+            timeout = setTimeout(checkLockedStatus, 10);
+          }
+          else {
+           if(typeof node.obj.attr("id") !== "undefined") {
+             self.jstree("refresh", node.obj).jstree("open_node", node.obj);
+             $('#'+parent_id).removeClass("jstree-leaf").removeClass("jstree-closed").addClass("jstree-open");
+           }
+           else {
+             self.jstree("refresh");
+           }
+         }
+        }, 10);
       }
     });
   });
@@ -927,7 +934,6 @@ $(function() {
   });
 
   /*
-   * TODO: Implement node.js or similar AND record state in db
    * Unlock the tree
    */
   $('#master-tree').bind('unlock.jstree', function(event, data) {
