@@ -20,6 +20,7 @@ Feature: Bulk insert nodes into the master tree
       | Schizocosa |
       | Trochosa   |
     And I press "Add children"
+    And I wait for the tree to load
     And I refresh the master tree
     Then I should see a node "Pardosa" at the root level in my master tree
     And I should see a node "Schizocosa" at the root level in my master tree
@@ -34,6 +35,7 @@ Feature: Bulk insert nodes into the master tree
       | Hogna frondicola |
       | Hogna ruricola   |
     And I press "Add children"
+    And I wait for the tree to load
     And I refresh the master tree
     And I expand the node "Hogna"
     Then I should see a node "Hogna frondicola" under "Hogna"
