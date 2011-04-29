@@ -31,7 +31,7 @@ end
 
 group :test do
   gem 'polyglot'
-  gem 'capybara', '0.3.9'
+  gem 'capybara', '0.4.1.2'
   gem 'database_cleaner'
   gem 'cucumber', '0.9.0'
   gem 'cucumber-rails', '0.3.2'

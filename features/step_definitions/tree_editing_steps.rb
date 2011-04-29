@@ -15,7 +15,7 @@ Then /^I should not see a node "([^"]*)" at the root level in my master tree$/ d
 end
 
 When /^I enter "([^"]*)" in the new node and press enter$/ do |text|
-  field = locate(:css, ".jstree-last input")
+  field = find(:css, ".jstree-last input")
   field.set(text)
   page.execute_script("jQuery('.jstree-last input').blur();")
   sleep 2

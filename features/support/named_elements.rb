@@ -2,7 +2,7 @@ module NamedElementHelper
   def element_for(named_element)
     case named_element
     when /the right panel header/
-      "#treewrap-right .breadcrumbs"
+      "#treewrap-right #new-tab .breadcrumbs"
     when /a spinner/
       ".spinner"
     when /the navigation bar/

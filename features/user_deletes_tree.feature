@@ -17,7 +17,8 @@ Feature: Delete a master tree
     When I go to the master tree page for "Delete me"
     And I follow "File" within "toolbar"
     And I follow "Delete tree" within "toolbar"
-    And I press "Delete" within ".ui-dialog"
+    # We removed scope from delete button because there is another dialog for bookmarks which has the same scope
+    And I press "Delete"
     And pause 1
     Then I should be on the master tree index page
     And I should not see "Delete me"

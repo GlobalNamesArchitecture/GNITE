@@ -34,10 +34,6 @@ Feature: Browse GNACLR
     Then I should see "NCBI"
     And I should see "Dmitry Mozzherin"
 
-    When I follow "GNACLR" within the right panel header
-    Then I should see "NCBI"
-    And I should see "Index Fungorum"
-
     When I follow "New Import" within the right panel header
     Then I should see "Browse Classifications"
 
