@@ -25,7 +25,7 @@ describe RedoActionCommand do
       ra.class.perform(ra.id)
       ra.reload
     end
-    3.times { UndoActionCommand.undo(master_tree.id) }
+    3.times { UndoActionCommand.undo(master_tree.id, '9999') }
   end
 
   it 'should register undo statements' do
@@ -37,7 +37,7 @@ describe RedoActionCommand do
     undo_count = UndoActionCommand.count
     redo_count = RedoActionCommand.count
     redo_count.should == 3
-    2.times { RedoActionCommand.redo(master_tree.id) }
+    2.times { RedoActionCommand.redo(master_tree.id, '9999') }
     (UndoActionCommand.count - undo_count).should == 2
     (redo_count - RedoActionCommand.count).should == 2
     action_add_node1.reload.node.reload.name.name_string.should == 'node1_rename_5'

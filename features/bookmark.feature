@@ -5,19 +5,17 @@ Feature: Manage bookmarks
 
   Background: I have a master tree
     Given I have signed in with "email@person.com/password"
-    And "email@person.com" has created an existing master tree titled "Spiders" with:
-      | Pardosa             |
-      | Pardosa distincta   |
-      | Pardosa moesta      |
-      | Pardosa xerampelina |
+    And "email@person.com" has created an existing master tree titled "Spiders" with the following nodes:
+      | id   | parent_id | name                |
+      | 100  | 0         | Pardosa             |
+      | 101  | 100       | Pardosa distincta   |
+      | 102  | 100       | Pardosa moesta      |
+      | 103  | 100       | Pardosa xerampelina |
     And there is an existing bookmark called "First bookmark" for a node "Pardosa distincta"
     And there is an existing bookmark called "Second bookmark" for a node "Pardosa moesta"
     And I am on the master tree index page
     When I follow "Spiders"
     And I wait for the tree to load
-    And I drag "Pardosa distincta" under "Pardosa"
-    And I drag "Pardosa moesta" under "Pardosa"
-    And I drag "Pardosa xerampelina" under "Pardosa"
 
   @javascript
   Scenario: User can see a bookmark associated with nodes in the master tree

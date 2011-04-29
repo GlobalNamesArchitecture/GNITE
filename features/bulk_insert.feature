@@ -5,17 +5,15 @@ Feature: Bulk insert nodes into the master tree
 
   Background: I have a master tree
     Given I have signed in with "email@person.com/password"
-    And the following master tree exists:
-      | title       |
-      | My new tree |
-    And the following master tree contributor exists:
-      | master tree       | user                   |
-      | title:My new tree | email:email@person.com |
-    And I go to the master tree page for "My new tree"
+    And "email@person.com" has created an existing master tree titled "Spiders" with the following nodes:
+      | id   | parent_id | name     |
+      | 100  | 0         | Hogna    |
+    And I go to the master tree page for "Spiders"
+    And I wait for the tree to load
 
   @javascript
   Scenario: Bulk insert as new roots
-    And I follow "File" within "toolbar"
+    When I follow "File" within "toolbar"
     And follow "Add many nodes" within "toolbar"
     And I type the following node names into the bulk insert box:
       | Pardosa    |
@@ -29,21 +27,14 @@ Feature: Bulk insert nodes into the master tree
 
   @javascript
   Scenario: Bulk insert under a parent node
-    And I follow "File" within "toolbar"
-    And follow "Add single node" within "toolbar"
-    And I enter "Pardosa" in the new node and press enter
-    And I select the node "Pardosa"
+    When I select the node "Hogna"
     And I follow "File" within "toolbar"
     And I follow "Add many nodes" within "toolbar"
-    And pause 1
     And I type the following node names into the import box:
-      | Pardosa modica      |
-      | Pardosa moesta      |
-      | Pardosa xerampelina |
+      | Hogna frondicola |
+      | Hogna ruricola   |
     And I press "Add children"
     And I refresh the master tree
-    And I select the node "Pardosa"
-    And I expand the node "Pardosa"
-    Then I should see a node "Pardosa modica" under "Pardosa"
-    And I should see a node "Pardosa moesta" under "Pardosa"
-    And I should see a node "Pardosa xerampelina" under "Pardosa"
+    And I expand the node "Hogna"
+    Then I should see a node "Hogna frondicola" under "Hogna"
+    And I should see a node "Hogna ruricola" under "Hogna"

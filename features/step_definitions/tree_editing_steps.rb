@@ -93,6 +93,7 @@ When /^I drag "([^"]*)" under "([^"]*)"$/ do |child_node_text, parent_node_text|
   #but the same function is also called during mouse drag and drops
   When %{I select the node "#{child_node.name_string}"}
   page.execute_script("jQuery('#master-tree').jstree('move_node', '##{child_node.id}', '##{parent_node.id}', 'first', false);")
+  sleep 2
 end
 
 When /^I delete the node "([^"]*)"$/ do |node_text|

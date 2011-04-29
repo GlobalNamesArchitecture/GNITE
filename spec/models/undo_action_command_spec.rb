@@ -36,13 +36,7 @@ describe UndoActionCommand do
     undo_count = UndoActionCommand.count
     redo_count = RedoActionCommand.count
     
-    helper.stub(:request) do
-      request = double('request')
-      request.stub(:headers) { {"X-Session-ID" => "999"} }
-      request
-    end
-    
-    3.times { UndoActionCommand.undo(master_tree.id, request) }
+    3.times { UndoActionCommand.undo(master_tree.id, '9999') }
     (undo_count - UndoActionCommand.count).should == 3
     (RedoActionCommand.count  - redo_count).should == 3
     action_add_node1.reload.node.reload.name.name_string.should == 'node1_rename_3'

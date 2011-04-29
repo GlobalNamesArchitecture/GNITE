@@ -5,16 +5,13 @@ Feature: Search within trees
 
   Background: I have a master tree
     Given I have signed in with "email@person.com/password"
-    And "email@person.com" has created an existing master tree titled "Spiders" with:
-      | Pardosa             |
-      | Pardosa distincta   |
+    And "email@person.com" has created an existing master tree titled "Spiders" with the following nodes:
+      | id   | parent_id | name                |
+      | 100  | 0         | Pardosa             |
+      | 101  | 100       | Pardosa distincta   |
     And I am on the master tree index page
     When I follow "Spiders"
     And I wait for the tree to load
-    And I drag "Pardosa distincta" under "Pardosa"
-    And I follow "View" within "toolbar"
-    And I follow "Collapse tree" within "toolbar"
-    And I follow "Refresh tree" within "toolbar"
 
   @javascript
   Scenario: User can search for a name in the master tree
