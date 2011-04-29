@@ -25,6 +25,7 @@ Feature: Edit a master tree
     And I follow "File" within "toolbar"
     And I follow "Add single node" within "toolbar"
     And I enter "hydrochaeris" in the new node and press enter
+    And I wait for the tree to load
     And I refresh the master tree
     Then I should see a node "hydrochaeris" at the root level in my master tree
     When I follow "Working Trees"
@@ -45,12 +46,14 @@ Feature: Edit a master tree
     And I follow "File" within "toolbar"
     And I follow "Add single node" within "toolbar"
     And I enter "Caviidae" in the new node and press enter
+    And I wait for the tree to load
     Then I should see a node "Caviidae" at the root level in my master tree
 
     When I select the node "Caviidae"
     And I follow "File" within "toolbar"
     And I follow "Add single node" within "toolbar"
     And I enter "Hydrochoerinae" in the new node and press enter
+    And I wait for the tree to load
     And I refresh the master tree
     Then I should see "Hydrochoerinae"
     And I should see "Caviidae"
@@ -66,6 +69,7 @@ Feature: Edit a master tree
     When I follow "Moose tree"
     And I wait for the tree to load
     And I double click "Bullwinkle" and change it to "Monkey"
+    And I wait for the tree to load
     And I refresh the master tree
     Then I should see "Monkey"
     And I should see "Rocky"
@@ -83,6 +87,7 @@ Feature: Edit a master tree
     When I follow "Moose tree"
     And I wait for the tree to load
     And I drag "Rocky" under "Bullwinkle"
+    And I wait for the tree to load
     Then I should see a node "Rocky" under "Bullwinkle"
     And I refresh the master tree
     When I select the node "Bullwinkle"
@@ -103,6 +108,7 @@ Feature: Edit a master tree
     And I should see a node "Boris" at the root level in my master tree
     And I follow "Deleted Names"
     And I delete the node "Boris"
+    And I wait for the tree to load
     Then I should not see a node "Boris" at the root level in my master tree
     And I should see a node "Boris" at the root level in deleted names
     And I refresh the master tree
@@ -124,8 +130,10 @@ Feature: Edit a master tree
     When I follow "Moose tree"
     And I follow "Deleted Names"
     And I drag "Rocky" under "Bullwinkle"
+    And I wait for the tree to load
     And I refresh the master tree
     And I delete the node "Bullwinkle"
+    And I wait for the tree to load
     And I refresh the master tree
     And I follow "View" within "toolbar-deleted"
     And I follow "Refresh tree" within "toolbar-deleted"
@@ -190,6 +198,7 @@ Feature: Edit a master tree
     And I click "Cut" in the context menu
     And I select the node "Paste Here"
     And I click "Paste" in the context menu
+    And I wait for the tree to load
     And I refresh the master tree
     And I follow "View" within "toolbar"
     And I refresh the master tree
@@ -208,4 +217,5 @@ Feature: Edit a master tree
     And I select the node "chocolate"
     And I click "New child" in the context menu
     And I enter "cookie" in the new node and press enter
+    And I wait for the tree to load
     Then I should see 1 child node for the "chocolate" node in my master tree

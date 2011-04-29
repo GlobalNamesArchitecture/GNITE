@@ -24,49 +24,50 @@ Feature: Perform undo and redo in a master tree
 
     When I follow "Edit" within "toolbar"
     And I follow "Undo" within "toolbar"
-    And pause 3
+    And I wait for the tree to load
     Then I should see a node "Pardosa distincta" under "Pardosa"
     And I should not see a node "Pardosa distincta" under "Schizocosa"
     
     When I follow "Edit" within "toolbar"
     And I follow "Redo" within "toolbar"
-    And pause 3
+    And I wait for the tree to load
     Then I should see a node "Pardosa distincta" under "Schizocosa"
     And I should not see a node "Pardosa distincta" under "Pardosa"
 
   @javascript
   Scenario: User can undo and redo editing a node
     When I double click "Pardosa distincta" and change it to "Pardosa moesta"
+    And I wait for the tree to load
     Then I should see a node "Pardosa moesta" under "Pardosa"
 
     When I follow "Edit" within "toolbar"
     And I follow "Undo" within "toolbar"
-    And pause 3
+    And I wait for the tree to load
     Then I should see a node "Pardosa distincta" under "Pardosa"
 
     When I follow "Edit" within "toolbar"
     And I follow "Redo" within "toolbar"
-    And pause 3
+    And I wait for the tree to load
     Then I should see a node "Pardosa moesta" under "Pardosa"
     And I should not see a node "Pardosa distincta" under "Pardosa"
 
   @javascript
   Scenario: User can undo and redo deleting a node
     When I delete the node "Pardosa distincta"
-    And pause 3
+    And I wait for the tree to load
     And I refresh the master tree
     Then I should see a node "Pardosa xerampelina" under "Pardosa"
     And I should not see a node "Pardosa distincta" under "Pardosa"
 
     When I follow "Edit" within "toolbar"
     And I follow "Undo" within "toolbar"
-    And pause 3
+    And I wait for the tree to load
     Then I should see a node "Pardosa xerampelina" under "Pardosa"
     And I should see a node "Pardosa distincta" under "Pardosa"
 
     When I follow "Edit" within "toolbar"
     And I follow "Redo" within "toolbar"
-    And pause 3
+    And I wait for the tree to load
     Then I should not see a node "Pardosa distincta" under "Pardosa"
     And I should see a node "Pardosa xerampelina" under "Pardosa"
 
@@ -83,18 +84,18 @@ Feature: Perform undo and redo in a master tree
     And I should see a node "Pardosa fuscula" at the root level in my reference tree "List"
 
     When I drag "Pardosa fuscula" in my reference tree "List" to "Pardosa" in my master tree
-    And pause 3
+    And I wait for the tree to load
     Then I should see a node "Pardosa fuscula" at the root level in my reference tree "List"
     And I should see a node "Pardosa fuscula" under "Pardosa"
 
     When I follow "Edit" within "toolbar"
     And I follow "Undo" within "toolbar"
-    And pause 3
+    And I wait for the tree to load
     Then I should not see a node "Pardosa fuscula" under "Pardosa"
 
     When I follow "Edit" within "toolbar"
     And I follow "Redo" within "toolbar"
-    And pause 3
+    And I wait for the tree to load
     Then I should see a node "Pardosa fuscula" under "Pardosa"
 
 

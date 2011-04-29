@@ -16,7 +16,5 @@ Given /^"([^"]*)" has created an existing master tree titled "([^"]*)" with the 
 end
 
 When /^I refresh the master tree$/ do
-  sleep 3
   page.execute_script("jQuery('#master-tree').jstree('refresh');")
-  sleep 3
 end

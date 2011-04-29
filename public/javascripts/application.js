@@ -374,7 +374,7 @@ $(function() {
 
   jug.subscribe(GNITE.Tree.MasterTree.channel, function(data) {
     var response = $.parseJSON(data);
-    switch(response.state) {
+    switch(response.perform) {
       case 'new-event':
         GNITE.Tree.MasterTree.flashNode(response.message);
         // refresh the deleted tree
@@ -382,11 +382,11 @@ $(function() {
       break;
 
       case 'lock':
-        $('#master-tree').jstree(response.state);
+        $('#master-tree').jstree(response.perform);
       break;
 
       case 'unlock':
-        $('#master-tree').jstree(response.state);
+        $('#master-tree').jstree(response.perform);
       break;
     }
   });
@@ -450,9 +450,9 @@ $(function() {
                   tree.jstree("select_node", $(searched_id));
                 }
                 else {
-                  timeout = setTimeout(checkAncestryStatus, 100);
+                  timeout = setTimeout(checkAncestryStatus, 10);
                 }
-               }, 100);
+               }, 10);
                return false;
             });
           },
@@ -920,11 +920,10 @@ $(function() {
   });
 
   /*
-   * TODO: Implement node.js or similar AND record state in db
    * Lock the tree
    */
   $('#master-tree').bind('lock.jstree', function(event, data) {
-    jug.write(GNITE.Tree.MasterTree.channel, '{ "state" : "lock" }');
+    jug.write(GNITE.Tree.MasterTree.channel, "{ \"perform\" : \"lock\" }");
   });
 
   /*
@@ -1315,15 +1314,22 @@ GNITE.Tree.MasterTree.publish = function() {
 };
 
 GNITE.Tree.MasterTree.flashNode = function(data) {
-  if(data.destination_parent_id) {
-    $('#master-tree').jstree("refresh", $('#'+data.destination_parent_id));
-    $('#' + data.destination_parent_id + ' a:first').effect("highlight", { color : "#BABFC3" }, 2000);
-  }
-  //TODO: resolve refreshing of parent nodes for cases move within tree or copy between tree
-  if(data.destination_parent_id != data.parent_id) {
-    $('#master-tree').jstree("refresh", $('#'+data.parent_id));
-    $('#' + data.parent_id + ' a:first').effect("highlight", { color : "#BABFC3" }, 2000);
-  }
+  var tree = $('#master-tree');
+  var timeout = setTimeout(function checkLockedStatus() {
+    if(tree.find('ul:first').hasClass('jstree-locked')) {
+      timeout = setTimeout(checkLockedStatus, 10);
+    }
+    else {
+      if(data.destination_parent_id) {
+        tree.jstree("refresh", $('#'+data.destination_parent_id));
+        $('#' + data.destination_parent_id + ' a:first').effect("highlight", { color : "#BABFC3" }, 2000);
+      }
+      if(data.destination_parent_id != data.parent_id) {
+        tree.jstree("refresh", $('#'+data.parent_id));
+        $('#' + data.parent_id + ' a:first').effect("highlight", { color : "#BABFC3" }, 2000);
+      }
+    }
+  }, 10);
 };
 
 GNITE.Tree.ReferenceTree.add = function(response, options) {

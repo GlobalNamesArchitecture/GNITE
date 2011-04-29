@@ -50,7 +50,7 @@ When /^I wait for the tree to load$/ do
   loaded = false
   When %{pause 1}
   while !loaded
-    loaded = page.has_css?("#master-tree.loaded")
+    loaded = page.has_css?("#master-tree.loaded") && !page.has_css?(".jstree-locked")
   end
 end
 

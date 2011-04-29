@@ -29,8 +29,8 @@ class ActionCommand < ActiveRecord::Base
     master_tree.state = 'working'
     master_tree.save
     
-    Juggernaut.publish(channel, "{ \"state\" : \"new-event\", \"message\" : #{action_command.serializable_hash.to_json} }", :except => session_id)
-    Juggernaut.publish(channel, "{ \"state\" : \"lock\" }", :except => session_id)
+    Juggernaut.publish(channel, "{ \"perform\" : \"new-event\", \"message\" : #{action_command.serializable_hash(:except => :json_message).to_json} }", :except => session_id)
+    Juggernaut.publish(channel, "{ \"perform\" : \"lock\" }", :except => session_id)
     
     Resque.enqueue(action_command.class, action_command.id)
     action_command.class.queue = nil
@@ -49,7 +49,7 @@ class ActionCommand < ActiveRecord::Base
     master_tree.state = 'active'
     master_tree.save
     
-    Juggernaut.publish(channel, "{ \"state\" : \"unlock\" }")
+    Juggernaut.publish(channel, "{ \"perform\" : \"unlock\" }")
     
   end
 
