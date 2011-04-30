@@ -30,7 +30,8 @@ When /^I drag "([^"]*)" in my reference tree "(.*)" to "([^"]*)" in my master tr
   # we had a namespace conflict with Capybara::Node
   origin_node            = ::Node.joins(:name).where('names.name_string = ?', origin_node_text).first
   destination_node       = ::Node.joins(:name).where('names.name_string = ?', destination_node_text).first
-
+  
+  When %{I select the node "#{origin_node.name_string}"}
   page.execute_script("jQuery('#master-tree').jstree('move_node', '##{origin_node.id}', '##{destination_node.id}', 'first', true);")
 end
 

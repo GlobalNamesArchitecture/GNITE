@@ -10,54 +10,39 @@ Feature: Edit a master tree
       | hydrochaeris |
     When I go to the master tree index page
     And I follow "Waterpigs"
+    And I wait for the tree to load
     Then I should see a node "hydrochaeris" at the root level in my master tree
 
   @javascript
   Scenario: User can add nodes to a tree
     Given I have signed in with "email@person.com/password"
-    And the following master tree exists:
-      | title       |
-      | My new tree |
-    And the following master tree contributor exists:
-      | master tree       | user                   |
-      | title:My new tree | email:email@person.com |
-    When I go to the master tree page for "My new tree"
+    And "email@person.com" has created an existing master tree titled "Waterpigs" with:
+      | hydrochaeris |
+    When I go to the master tree page for "Waterpigs"
+    And I wait for the tree to load
     And I follow "File" within "toolbar"
     And I follow "Add single node" within "toolbar"
-    And I enter "hydrochaeris" in the new node and press enter
+    And I enter "child" in the new node and press enter
     And I wait for the tree to load
-    And I refresh the master tree
-    Then I should see a node "hydrochaeris" at the root level in my master tree
-    When I follow "Working Trees"
-    Then I should be on the master tree index page
-    When I follow "My new tree"
-    Then I should see "hydrochaeris"
+    Then I should see a node "child" at the root level in my master tree
 
   @javascript
   Scenario: User can add child nodes to a tree
     Given I have signed in with "email@person.com/password"
-    And the following master tree exists:
-      | title       |
-      | My new tree |
-    And the following master tree contributor exists:
-      | master tree       | user                   |
-      | title:My new tree | email:email@person.com |
-    When I go to the master tree page for "My new tree"
-    And I follow "File" within "toolbar"
-    And I follow "Add single node" within "toolbar"
-    And I enter "Caviidae" in the new node and press enter
+    And "email@person.com" has created an existing master tree titled "Spiders" with the following nodes:
+      | id   | parent_id | name                |
+      | 100  | 0         | Pardosa             |
+    When I go to the master tree page for "Spiders"
     And I wait for the tree to load
-    Then I should see a node "Caviidae" at the root level in my master tree
-
-    When I select the node "Caviidae"
+    And I select the node "Pardosa"
     And I follow "File" within "toolbar"
     And I follow "Add single node" within "toolbar"
-    And I enter "Hydrochoerinae" in the new node and press enter
+    And I enter "Pardosa moesta" in the new node and press enter
     And I wait for the tree to load
     And I refresh the master tree
-    Then I should see "Hydrochoerinae"
-    And I should see "Caviidae"
-    And I should see a node "Hydrochoerinae" under "Caviidae"
+    Then I should see "Pardosa"
+    And I expand the node "Pardosa"
+    Then I should see a node "Pardosa moesta" under "Pardosa"
 
   @javascript
   Scenario: User can rename nodes in a tree
@@ -128,6 +113,7 @@ Feature: Edit a master tree
       | Boris      |
     And I am on the master tree index page
     When I follow "Moose tree"
+    And I wait for the tree to load
     And I follow "Deleted Names"
     And I drag "Rocky" under "Bullwinkle"
     And I wait for the tree to load
