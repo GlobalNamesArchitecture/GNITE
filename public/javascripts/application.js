@@ -366,10 +366,13 @@ $(function() {
   **************************************************************/
   var jug = new Juggernaut();
 
-  jug.on("connect", function() { });
-  jug.on("disconnect", function() { });
+  jug.on("connect", function() {
+    //TODO: Roster of active users?
+  });
+  jug.on("disconnect", function() {
+    //TODO: Update Roster of active users?
+  });
   jug.on("reconnect", function() { 
-    //TODO: how to reconnect if connection lost? 
   });
 
   jug.subscribe(GNITE.Tree.MasterTree.channel, function(data) {
