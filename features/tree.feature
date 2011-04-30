@@ -186,8 +186,7 @@ Feature: Edit a master tree
     And I click "Paste" in the context menu
     And I wait for the tree to load
     And I refresh the master tree
-    And I follow "View" within "toolbar"
-    And I refresh the master tree
+    And I select the node "Paste Here"
     And I expand the node "Paste Here"
     Then I should see a node "Get Cut" under "Paste Here"
     And I should not see a node "Get Cut" at the root level in my master tree
@@ -204,4 +203,8 @@ Feature: Edit a master tree
     And I click "New child" in the context menu
     And I enter "cookie" in the new node and press enter
     And I wait for the tree to load
+    And I refresh the master tree
+    And I wait for the tree to load
+    When I select the node "chocolate"
+    And I expand the node "chocolate"
     Then I should see 1 child node for the "chocolate" node in my master tree

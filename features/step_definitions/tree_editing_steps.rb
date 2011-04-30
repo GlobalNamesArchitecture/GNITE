@@ -39,11 +39,11 @@ end
 
 When /^I double click "([^"]*)" and change it to "([^"]*)"$/ do |old_name, new_name|
   When %{I follow "#{old_name}"}
-
   page.execute_script("jQuery('.jstree-clicked').dblclick();")
+  sleep 1
   field = find(:css, "#master-tree input")
   field.set(new_name)
-  page.execute_script("jQuery(':input').blur();")
+  page.execute_script("jQuery('#master-tree input').blur();")
 end
 
 When /^I wait for the tree to load$/ do
