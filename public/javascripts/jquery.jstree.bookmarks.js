@@ -43,9 +43,10 @@
                 $(s.addition_form).dialog({
                         closeText: '',
                         autoOpen: false,
-                        height: 220,
+                        height: 200,
                         width: 450,
                         modal: true,
+                        resizable: false,
                         buttons: [
                           {
                             className : "green-submit",
@@ -91,6 +92,7 @@
                         height: 250,
                         width: 450,
                         modal: true,
+                        resizable: false,
                         buttons: [
                           {
                             className : "green-submit",

@@ -19,6 +19,7 @@
                 height: 'auto',
                 width: 450,
                 modal: true,
+                resizable: false,
                 buttons: [
                   {
                     className : "green-submit",
