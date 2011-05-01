@@ -2,12 +2,11 @@ class TreeSearchesController < ApplicationController
   before_filter :authenticate
   
   def show
-    names = Node.search(params[:name_string].downcase, params[:tree_id])
-    result = []
-    names.each do |name|
-      result << Node.find(:all, :conditions => {:name_id => name.id, :tree_id => params[:tree_id]})
-    end
-    render :json => (result.length > 0) ? TreeSearchJsonPresenter.present(result.first.uniq) : { :status => "Nothing found" }
+    result = { :status => "Nothing found" }
+    clean_search = "%#{params[:name_string].downcase}%"
+    nodes = Node.find(:all, :joins => :name, :conditions => ['names.name_string LIKE ? AND nodes.tree_id = ?', clean_search, params[:tree_id]], :order => 'names.name_string' )
+    result = TreeSearchJsonPresenter.present(nodes) unless nodes.empty?
+    render :json => result
   end
 
 end

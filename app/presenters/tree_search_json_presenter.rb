@@ -1,5 +1,6 @@
 class TreeSearchJsonPresenter
   def self.present(nodes)
+    
     node_hashes = nodes.map do |node|
       treepath_strings = []
       treepath_ids = []
@@ -21,7 +22,7 @@ class TreeSearchJsonPresenter
         }
       }
 
-    end
+      end
 
     node_hashes.to_json
     
