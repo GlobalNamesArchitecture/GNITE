@@ -12,7 +12,15 @@ class MasterTree < Tree
   def create_darwin_core_archive
     dwca_file = File.join(::Rails.root.to_s, 'tmp', "#{uuid}.tar.gz")
     g = DarwinCore::Generator.new(dwca_file)
-    records = Node.connection.select_rows("select nd.id, nd.parent_id, nd.local_id, names.name_string, nd.rank, nd.updated_at from nodes nd inner join names on names.id = nd.name_id where nd.tree_id = #{id}")
+    sql = "SELECT 
+             nd.id, nd.parent_id, nd.local_id, na.name_string, nd.rank, nd.updated_at 
+           FROM 
+             nodes nd 
+           INNER JOIN 
+             names na ON na.id = nd.name_id 
+          WHERE 
+            nd.tree_id = #{id}"
+    records = Node.connection.select_rows(sql)
     records.unshift core_fields
     g.add_core(records, 'core.csv')
     g.add_meta_xml

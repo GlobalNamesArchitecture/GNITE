@@ -150,7 +150,7 @@ $(function() {
       'element' : '#bulkcreate-form'
     },
 
-    'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'search', 'contextmenu', 'bookmarks', 'hotkeys', 'bulkcreate', 'undoredo']
+    'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'contextmenu', 'bookmarks', 'hotkeys', 'bulkcreate', 'undoredo']
   });
 
   GNITE.Tree.ReferenceTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
@@ -418,7 +418,7 @@ $(function() {
       var tree = self.parents('.tree-background').find('.jstree');
       var term = self.val().trim();
       var $results = self.parents('.tree-background').find('.searchbar-results');
-      if (term.length > 0) {
+      if (term.length > 4) {
 
         $results.spinner().show();
 
@@ -434,7 +434,13 @@ $(function() {
             else {
                 results += '<ul>';
                 for(var i=0; i<data.length; i++) {
-                  results += '<li><a href="#" data-treepath-ids="' + data[i].treepath.node_ids + '">' + data[i].treepath.name_strings + '</a></li>';
+                  var string = data[i].treepath.name_strings.replace(
+                    new RegExp(term, "gi"),
+                    function(match) {
+                      return ["<span class=\"highlight\">", match, "</span>"].join("");
+                    }
+                  );
+                  results += '<li><a href="#" data-treepath-ids="' + data[i].treepath.node_ids + '">' + string + '</a></li>';
                 }
                 results += '</ul>';
             }

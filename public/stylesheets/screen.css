@@ -871,7 +871,7 @@ body form input {
   margin:0px;  
 }
 
-.searchbar-dropdown span {
+.searchbar-dropdown span.searchbar-view {
   display:block;
   width:15px;
   height:32px;
@@ -902,6 +902,11 @@ body form input {
     z-index:100;
     cursor:normal;
     padding:5px;
+}
+
+.searchbar-results span.highlight {
+  font-weight:bold;
+  background-color:#FFFF00;
 }
 
 .bookmarks-results {
