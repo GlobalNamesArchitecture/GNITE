@@ -1,5 +1,5 @@
 Factory.sequence(:name_string) do |i|
-  "taxon #{i}"
+  "name #{i}"
 end
 
 Factory.sequence(:string) do |i|

@@ -12,17 +12,12 @@ class MasterTree < Tree
   def create_darwin_core_archive
     dwca_file = File.join(::Rails.root.to_s, 'tmp', "#{uuid}.tar.gz")
     g = DarwinCore::Generator.new(dwca_file)
-    sql = "SELECT 
-             nd.id, nd.parent_id, nd.local_id, na.name_string, nd.rank, nd.updated_at 
-           FROM 
-             nodes nd 
-           INNER JOIN 
-             names na ON na.id = nd.name_id 
-          WHERE 
-            nd.tree_id = #{id}"
-    records = Node.connection.select_rows(sql)
+    records = Node.connection.select_rows("select nd.id, null, nd.local_id, names.name_string, nd.rank, nd.updated_at from nodes nd inner join names on names.id = nd.name_id where nd.tree_id = #{id} and nd.parent_id = #{self.root.id}")
+    records += Node.connection.select_rows("select nd.id, nd.parent_id, nd.local_id, names.name_string, nd.rank, nd.updated_at from nodes nd inner join names on names.id = nd.name_id where nd.tree_id = #{id} and nd.id != #{self.root.id} and nd.parent_id != #{self.root.id}")
     records.unshift core_fields
     g.add_core(records, 'core.csv')
+    build_extension(g, VernacularName)
+    build_extension(g, Synonym)
     g.add_meta_xml
     g.add_eml_xml(eml_xml)
     g.pack
@@ -64,5 +59,28 @@ class MasterTree < Tree
   def create_deleted_tree
     DeletedTree.create!(:master_tree => self, :title => "Deleted Names")
   end
-  
+
+  def build_extension(dwca, klass)
+    table_name = klass.table_name
+    fields = klass.column_names
+    #TODO HACK!!! Refactor at the earliest convenience!
+    mapping = {
+      "node_id" => "http://rs.tdwg.org/dwc/terms/taxonID",
+      "name_id" => {"vernacular_names" => "http://rs.tdwg.org/dwc/terms/vernacularName", "synonyms" => "http://rs.tdwg.org/dwc/terms/scientificName"},
+      "taxonomic_status" => "http://rs.tdwg.org/dwc/terms/taxonomicStatus",
+      }
+    query_fields = []
+    header = []
+    fields.each do |field|
+      if mapping.key?(field)
+        header << (mapping[field].is_a?(Hash) ? mapping[field][table_name] : mapping[field])
+        query_fields << (field == 'name_id' ? "names.name_string" : "ext.#{field}")
+      end
+    end
+    q = "select #{query_fields.join(", ")} FROM nodes n JOIN #{table_name} ext ON ext.node_id = n.id JOIN names ON names.id = ext.name_id WHERE n.tree_id = #{self.id}"
+    res = Tree.connection.select_rows(q)
+    res.unshift(header)
+    dwca.add_extension(res, table_name + ".csv")
+  end
+
 end
