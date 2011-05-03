@@ -299,7 +299,7 @@ body form input {
   text-align: left;
   top: 0;
   width: 200px;
-  z-index: 10;
+  z-index: 1000;
 }
 
 #logo {

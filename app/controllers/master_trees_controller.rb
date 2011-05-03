@@ -56,11 +56,15 @@ class MasterTreesController < ApplicationController
   end
   
   def undo
-    render :json => UndoActionCommand.undo(params[:id], request.headers["X-Session-ID"]).serializable_hash(:except => :json_message)
+    action_command = UndoActionCommand.undo(params[:id], request.headers["X-Session-ID"]) 
+    action = action_command.nil? ? { :status => "Nothing to undo" } : action_command.serializable_hash(:except => :json_message)
+    render :json => action
   end
   
   def redo
-    render :json => RedoActionCommand.redo(params[:id], request.headers["X-Session-ID"]).serializable_hash(:except => :json_message)
+    action_command = RedoActionCommand.redo(params[:id], request.headers["X-Session-ID"]) 
+    action = action_command.nil? ? { :status => "Nothing to redo" } : action_command.serializable_hash(:except => :json_message)
+    render :json => action
   end
 
 end

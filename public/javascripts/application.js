@@ -902,7 +902,13 @@ $(function() {
         xhr.setRequestHeader("X-Session-ID", jug.sessionID);
       },
       success     : function(data) {
-        GNITE.Tree.MasterTree.flashNode(data);
+        if(data.status) {
+          self.jstree("unlock");
+          jug.write(GNITE.Tree.MasterTree.channel, "{ \"perform\" : \"unlock\" }");
+        }
+        else {
+          GNITE.Tree.MasterTree.flashNode(data);
+        }
       }
     });
 
