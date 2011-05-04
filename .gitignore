@@ -7,3 +7,4 @@ tmp/**/*
 tmp/*
 capybara*.html
 .DS_Store
+*_site_specific.rb

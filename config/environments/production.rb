@@ -30,7 +30,7 @@ Gnite::Application.configure do
   # Disable Rails's static asset server
   # In production, Apache or nginx will already do this
   # config.serve_static_assets = false
-  #switch it on for now 
+  #switch it on for now
   config.serve_static_assets = true
 
   # Enable serving of images, stylesheets, and javascripts from an asset server
@@ -47,5 +47,8 @@ Gnite::Application.configure do
   config.i18n.fallbacks = true
 end
 
-Gnite::Config.gnaclr_url = "http://gnaclr.globalnames.org",
+site_specific_file =  File.join(File.dirname(__FILE__), 'production_site_specific')
+require site_specific_file if File.exists?(site_specific_file + ".rb")
+
+Gnite::Config.gnaclr_url = "http://gnaclr.globalnames.org"
 
