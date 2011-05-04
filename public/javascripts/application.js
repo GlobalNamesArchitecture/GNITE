@@ -451,8 +451,8 @@ $(function() {
                $results.hide();
                tree.jstree("deselect_all");
                var ancestry_arr = $(this).attr("data-treepath-ids").split(",");
+               GNITE.Tree.openAncestry(tree, ancestry_arr);
                var searched_id = ancestry_arr.pop();
-               GNITE.Tree.openAncestry(tree, ancestry_arr[0], searched_id);
                var timeout = setTimeout(function checkAncestryStatus() {
                 if($(searched_id).length > 0) {
                   tree.parents('#add-node-wrap, .reference-tree-container, .deleted-tree-container').scrollTo($(searched_id));
@@ -1145,25 +1145,27 @@ GNITE.Tree.hideMenu = function() {
   $('.toolbar>ul').find("ul").css({display:'none', visibility:'visible'});
 };
 
-GNITE.Tree.openAncestry = function(tree, obj, terminus, original_obj) {
-  if(original_obj) {
-      obj = $(obj).find("li.jstree-closed");
-  }
-  else {
-      original_obj = $(obj);
-      if($(obj).is(".jstree-closed")) { obj = $(obj).find("li.jstree-closed").andSelf(); }
-      else { obj = $(obj).find("li.jstree-closed"); }
-  }
-  var _this = this;
-  obj.each(function () {
-      var __this = this;
-      obj = (typeof __this == "[object]") ? __this[0].get("id") : __this;
-      tree.jstree("open_node", this, function() {
-        if('#' + $(obj).attr("id") !== terminus) {
-          _this.openAncestry(tree, obj, terminus, original_obj);
-        }
-      }, true);
-  });
+GNITE.Tree.openAncestry = function(tree, obj) {
+  var _this = this,
+  done = true,
+  current = [],
+  remaining = [];
+  if(obj.length) {
+    $.each(obj, function (i, val) {
+      if(val == "#") { return true; }
+      if($(val).length && $(val).is(".jstree-closed")) { current.push(val); }
+      else { remaining.push(val); }
+    });
+    if(remaining.length) {
+      obj = remaining;
+      $.each(current, function (i, val) {
+        tree.jstree("open_node", val, function() {
+          _this.openAncestry(tree, obj);
+        });
+      });
+      done = false;
+     }
+   }
 };
 
 GNITE.Tree.buildViewMenuActions = function() {
@@ -1250,8 +1252,8 @@ GNITE.Tree.viewBookmarks = function(obj) {
       $bookmarks.find("a.bookmarks-show").click(function() {
          tree.jstree("deselect_all");
          var ancestry_arr = $(this).attr("data-treepath-ids").split(",");
+         GNITE.Tree.openAncestry(tree, ancestry_arr);
          var searched_id = ancestry_arr.pop();
-         GNITE.Tree.openAncestry(tree, ancestry_arr[0], searched_id);
          var timeout = setTimeout(function checkAncestryStatus() {
           if($(searched_id).length > 0) {
             tree.parents('#add-node-wrap, .reference-tree-container, .deleted-tree-container').scrollTo($(searched_id));
