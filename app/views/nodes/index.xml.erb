@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+<% @nodes.each do |node| -%>
+  <item id="<%= node.id %>" state="<%= 'closed' if node.has_children? %>">
+    <content><name><%= node.name_string %></name></content>
+  </item>
+<% end -%>
+</root>

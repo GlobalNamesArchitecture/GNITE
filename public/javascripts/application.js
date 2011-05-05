@@ -27,12 +27,10 @@ $(function() {
         'new_node' : 'New child'
       }
     },
-
     'themes' : {
       'theme' : 'gnite',
       'icons' : false,
     },
-
     'json_data' : {
       'ajax' : {
         'data' : function(node) {
@@ -44,20 +42,28 @@ $(function() {
         }
       }
     },
-
+    'xml_data' : {
+      'ajax' : {
+        'data' : function(node) {
+          if (node.attr) {
+            return { 'parent_id' : node.attr('id') };
+          } else {
+            return {};
+          }
+        }
+      },
+      'xsl' : 'nest'
+    },
     'crrm' : {
       'move' : {
         'always_copy' : 'multitree'
       }
     },
-
     'ui' : {
       'select_limit' : -1,
       'select_multiple_modifier' : "shift"
     },
-
     'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'hotkeys']
-
   };
 
   GNITE.Tree.MasterTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
@@ -149,8 +155,7 @@ $(function() {
     'bulkcreate' : {
       'element' : '#bulkcreate-form'
     },
-
-    'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'contextmenu', 'bookmarks', 'hotkeys', 'bulkcreate', 'undoredo']
+    'plugins' : ['themes', 'json_data', 'xml_data', 'ui', 'dnd', 'crrm', 'cookies', 'contextmenu', 'bookmarks', 'hotkeys', 'bulkcreate', 'undoredo']
   });
 
   GNITE.Tree.ReferenceTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
@@ -159,8 +164,7 @@ $(function() {
         'check_move' : function() { return false; }
       }
     },
-
-    'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'bookmarks', 'hotkeys']
+    'plugins' : ['themes', 'json_data', 'xml_data', 'ui', 'dnd', 'crrm', 'cookies', 'bookmarks', 'hotkeys']
   });
 
   GNITE.Tree.DeletedTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
@@ -169,8 +173,7 @@ $(function() {
         'check_move' : function() { return false; }
       }
     },
-
-    'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'hotkeys']
+    'plugins' : ['themes', 'json_data', 'xml_data', 'ui', 'dnd', 'crrm', 'cookies', 'hotkeys']
   });
 
 
@@ -240,6 +243,11 @@ $(function() {
           'url' : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes.json'
         }
       },
+      'xml_data': {
+        'ajax' : {
+          'url' : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes.xml'
+        }
+      },
       'hotkeys' : {
         'ctrl+shift+b' : function() { this.bookmarks_view(); }
       }
@@ -262,6 +270,11 @@ $(function() {
                 'json_data' : {
                   'ajax' : {
                     'url' : '/reference_trees/' + tree_id + '/nodes.json'
+                  }
+                },
+                'xml_data': {
+                  'ajax' : {
+                    'url' : '/reference_trees/' + tree_id + '/nodes.xml',
                   }
                 },
                 'bookmarks' : {
@@ -343,7 +356,12 @@ $(function() {
               'ajax' : {
                 'url' : '/deleted_trees/' + id + '/nodes.json'
               }
-            }
+            },
+            'xml_data': {
+              'ajax' : {
+                'url' : '/deleted_trees/' + id + '/nodes.xml',
+              }
+            },
           }));
 
           // Build the menu system for the deleted tree
@@ -1375,6 +1393,11 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
       'json_data' : {
         'ajax' : {
           'url' : response.url
+        }
+      },
+      'xml_data': {
+        'ajax' : {
+          'url' : response.url,
         }
       },
       'bookmarks' : {

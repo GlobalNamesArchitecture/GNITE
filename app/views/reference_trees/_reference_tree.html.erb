@@ -15,7 +15,7 @@
     <%= render :partial => 'shared/bookmark_form.html', :locals => { :tree => reference_tree } %>
 
     <div class="tree-container reference-tree-container" data-database-id="<%= reference_tree.id %>">
-      <div id=<%= dom_id(reference_tree, "container_for") %>></div>
+      <div id="<%= dom_id(reference_tree, "container_for") %>"></div>
     </div>
 
     <%= render :partial => 'master_trees/metadata.html' %>

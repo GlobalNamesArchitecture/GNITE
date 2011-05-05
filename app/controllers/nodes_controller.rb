@@ -3,12 +3,21 @@ class NodesController < ApplicationController
 
   def index
     respond_to do |format|
+      
+      tree = get_tree
+      parent_id = params[:parent_id] ? params[:parent_id] : tree.root
+      nodes = tree.children_of(parent_id)
+      
       format.json do
-        tree = get_tree
-        parent_id = params[:parent_id] ? params[:parent_id] : tree.root
-        nodes = tree.children_of(parent_id)
         render :json => NodeJsonPresenter.present(nodes)
       end
+      
+      format.xml do
+        @nodes = nodes
+        response.headers['Content-type'] = 'text/xml; charset=utf-8'
+        render :layout => false
+      end
+      
     end
   end
 
