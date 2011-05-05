@@ -4,17 +4,23 @@ class NodesController < ApplicationController
   def index
     respond_to do |format|
       
+      raise "Child node cannot be rendered" unless (params[:parent_id].to_i > 0 or !params[:parent_id]) 
+      
       tree = get_tree
       parent_id = params[:parent_id] ? params[:parent_id] : tree.root
-      nodes = tree.children_of(parent_id)
+      @nodes = tree.children_of(parent_id)
       
       format.json do
-        render :json => NodeJsonPresenter.present(nodes)
+        render :json => NodeJsonPresenter.present(@nodes)
       end
       
       format.xml do
-        @nodes = nodes
         response.headers['Content-type'] = 'text/xml; charset=utf-8'
+        render :layout => false
+      end
+      
+      format.html do
+        response.headers['Content-type'] = 'text/html; charset=utf-8'
         render :layout => false
       end
       

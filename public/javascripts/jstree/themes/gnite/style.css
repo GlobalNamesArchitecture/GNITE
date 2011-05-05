@@ -44,6 +44,9 @@
 
 .jstree-gnite a.jstree-search { color:green; }
 
+.jstree-gnite li span { color:green; margin-left:2px; }
+.jstree-gnite li span.jstree-loading { background:url("throbber.gif") center center no-repeat !important; display:inline-block; width:16px; }
+
 /* INPUT FORM */
 .jstree-gnite .jstree-no-icons input.jstree-rename-input { padding:0px !important; margin:0px !important; left:18px !important; height:16px !important; line-height:16px !important; border:1px solid silver !important; }
 

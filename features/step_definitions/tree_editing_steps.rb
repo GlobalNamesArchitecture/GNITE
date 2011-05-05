@@ -7,7 +7,8 @@ Then /^I should see a node "([^"]*)" at the root level in deleted names$/ do |no
 end
 
 Then /^I should see (\d+) child nodes? for the "([^"]*)" node in my master tree$/ do |node_count, parent_node_text|
-  all("div#master-tree > ul > li > a:contains('#{parent_node_text}') + ul > li").count.should == node_count.to_i
+#  all("div#master-tree > ul > li > a:contains('#{parent_node_text}') + ul > li").count.should == node_count.to_i
+  page.all(:xpath, "//div[@id='master-tree']/ul/li/a[contains(.,'#{parent_node_text}')]/parent::node()/ul/li").count.should == node_count.to_i
 end
 
 Then /^I should not see a node "([^"]*)" at the root level in my master tree$/ do |node_text|
@@ -26,15 +27,15 @@ When /^I select the node "([^"]*)"$/ do |node_text|
 end
 
 Then /^I should see a node "([^"]*)" under "([^"]*)"$/ do |child_node_text, parent_node_text|
-  page.should have_css("#master-tree ul>li>a:contains('#{parent_node_text}')+ul>li>a:contains('#{child_node_text}')")
+  page.should have_xpath("//div[@id='master-tree']/ul/li/a[contains(.,'#{parent_node_text}')]/parent::node()/ul/li/a[contains(.,'#{child_node_text}')]")
 end
 
 Then /^I should see a node "([^"]*)" under "([^"]*)" in deleted names$/ do |child_node_text, parent_node_text|
-  page.should have_css("div.deleted-tree-container>div>ul>li>a:contains('#{parent_node_text}')+ul>li>a:contains('#{child_node_text}')")
+  page.should have_xpath("//div[contains(@class,'deleted-tree-container')]/div/ul/li/a[contains(.,'#{parent_node_text}')]/parent::node()/ul/li/a[contains(.,'#{child_node_text}')]")
 end
 
 Then /^I should not see a node "([^"]*)" under "([^"]*)"$/ do |child_node_text, parent_node_text|
-  page.should_not have_css("#master-tree ul>li>a:contains('#{parent_node_text}')+ul>li>a:contains('#{child_node_text}')")
+  page.should_not have_xpath("//div[@id='master-tree']/ul/li/a[contains(.,'#{parent_node_text}')]/parent::node()/ul/li/a[contains(.,'#{child_node_text}')]")
 end
 
 When /^I double click "([^"]*)" and change it to "([^"]*)"$/ do |old_name, new_name|
@@ -50,7 +51,7 @@ When /^I wait for the tree to load$/ do
   loaded = false
   When %{pause 1}
   while !loaded
-    loaded = page.has_css?("#master-tree.loaded") && !page.has_css?(".jstree-locked")
+    loaded = page.has_css?("#master-tree.loaded") && !page.has_css?(".jstree-locked") && !page.has_css?("span.jstree-loading")
   end
 end
 

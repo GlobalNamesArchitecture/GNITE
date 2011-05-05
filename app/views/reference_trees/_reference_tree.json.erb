@@ -1,6 +1,6 @@
 {
   "title" : <%= raw @reference_tree.title.to_json %>,
-  "url"   : <%= raw reference_tree_nodes_path(:reference_tree_id => @reference_tree.id, :format => 'xml').to_json %>,
+  "url"   : <%= raw reference_tree_nodes_path(:reference_tree_id => @reference_tree.id, :format => 'html').to_json %>,
   "domid" : <%= raw dom_id(@reference_tree).to_json %>,
   "tree"  : <%= raw render(:partial => 'reference_tree.html', :locals => { :reference_tree => @reference_tree }).to_json %>
 }

@@ -31,28 +31,17 @@ $(function() {
       'theme' : 'gnite',
       'icons' : false,
     },
-    'json_data' : {
+    'html_data' : {
       'ajax' : {
         'data' : function(node) {
           if (node.attr) {
+            $('#' + node.attr('id')).append("<span class=\"jstree-loading\">&nbsp;</span>");
             return { 'parent_id' : node.attr('id') };
           } else {
             return {};
           }
         }
       }
-    },
-    'xml_data' : {
-      'ajax' : {
-        'data' : function(node) {
-          if (node.attr) {
-            return { 'parent_id' : node.attr('id') };
-          } else {
-            return {};
-          }
-        }
-      },
-      'xsl' : 'nest'
     },
     'crrm' : {
       'move' : {
@@ -63,7 +52,7 @@ $(function() {
       'select_limit' : -1,
       'select_multiple_modifier' : "shift"
     },
-    'plugins' : ['themes', 'json_data', 'ui', 'dnd', 'crrm', 'cookies', 'hotkeys']
+    'plugins' : ['themes', 'html_data', 'ui', 'dnd', 'crrm', 'cookies', 'hotkeys']
   };
 
   GNITE.Tree.MasterTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
@@ -155,7 +144,7 @@ $(function() {
     'bulkcreate' : {
       'element' : '#bulkcreate-form'
     },
-    'plugins' : ['themes', 'json_data', 'xml_data', 'ui', 'dnd', 'crrm', 'cookies', 'contextmenu', 'bookmarks', 'hotkeys', 'bulkcreate', 'undoredo']
+    'plugins' : ['themes', 'html_data', 'ui', 'dnd', 'crrm', 'cookies', 'contextmenu', 'bookmarks', 'hotkeys', 'bulkcreate', 'undoredo']
   });
 
   GNITE.Tree.ReferenceTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
@@ -164,7 +153,7 @@ $(function() {
         'check_move' : function() { return false; }
       }
     },
-    'plugins' : ['themes', 'json_data', 'xml_data', 'ui', 'dnd', 'crrm', 'cookies', 'bookmarks', 'hotkeys']
+    'plugins' : ['themes', 'html_data', 'ui', 'dnd', 'crrm', 'cookies', 'bookmarks', 'hotkeys']
   });
 
   GNITE.Tree.DeletedTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
@@ -173,7 +162,7 @@ $(function() {
         'check_move' : function() { return false; }
       }
     },
-    'plugins' : ['themes', 'json_data', 'xml_data', 'ui', 'dnd', 'crrm', 'cookies', 'hotkeys']
+    'plugins' : ['themes', 'html_data', 'ui', 'dnd', 'crrm', 'cookies', 'hotkeys']
   });
 
 
@@ -238,14 +227,9 @@ $(function() {
    */
   if ($.fn.jstree) {
     $('#master-tree').jstree($.extend(true, {}, GNITE.Tree.MasterTree.configuration, {
-      'json_data': {
+      'html_data': {
         'ajax' : {
-          'url' : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes.json'
-        }
-      },
-      'xml_data': {
-        'ajax' : {
-          'url' : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes.xml'
+          'url' : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes'
         }
       },
       'hotkeys' : {
@@ -267,14 +251,9 @@ $(function() {
           if($(this).attr('href').split('_')[2] == tree_id && self.find('ul').length == 0) {
               // Render the reference tree
               self.jstree($.extend(true, {}, GNITE.Tree.ReferenceTree.configuration, {
-                'json_data' : {
+                'html_data': {
                   'ajax' : {
-                    'url' : '/reference_trees/' + tree_id + '/nodes.json'
-                  }
-                },
-                'xml_data': {
-                  'ajax' : {
-                    'url' : '/reference_trees/' + tree_id + '/nodes.xml',
+                    'url' : '/reference_trees/' + tree_id + '/nodes'
                   }
                 },
                 'bookmarks' : {
@@ -305,6 +284,13 @@ $(function() {
                   success     : function(data) {
                   }
                 });
+              });
+
+              // Hide the spinner icon once node is loaded
+              self.bind('open_node.jstree', function(event, data) {
+                var node = data.rslt;
+                var id = node.obj.attr('id');
+                $('#'+id).find("span.jstree-loading").remove();
               });
 
               // Build the menu system for the reference tree
@@ -352,17 +338,19 @@ $(function() {
         if(self.find('ul').length == 0) {
           // Render the deleted tree
           self.jstree($.extend(true, {}, GNITE.Tree.ReferenceTree.configuration, {
-            'json_data' : {
+            'html_data': {
               'ajax' : {
-                'url' : '/deleted_trees/' + id + '/nodes.json'
-              }
-            },
-            'xml_data': {
-              'ajax' : {
-                'url' : '/deleted_trees/' + id + '/nodes.xml',
+                'url' : '/deleted_trees/' + id + '/nodes'
               }
             },
           }));
+
+          // Hide the spinner icon once node is loaded
+          self.bind('open_node.jstree', function(event, data) {
+            var node = data.rslt;
+            var id = node.obj.attr('id');
+            $('#'+id).find("span.jstree-loading").remove();
+          });
 
           // Build the menu system for the deleted tree
           self.bind("init.jstree", function(event, data) {
@@ -719,8 +707,7 @@ $(function() {
           }
           else {
            if(typeof node.obj.attr("id") !== "undefined") {
-             self.jstree("refresh", node.obj).jstree("open_node", node.obj);
-             $('#'+parent_id).removeClass("jstree-leaf").removeClass("jstree-closed").addClass("jstree-open");
+             self.jstree("refresh", node.obj);
            }
            else {
              self.jstree("refresh");
@@ -729,6 +716,16 @@ $(function() {
         }, 10);
       }
     });
+
+    var timeout = setTimeout(function checkClosed() {
+      if(node.obj.hasClass("jstree-closed")) {
+        self.jstree("open_node", node.obj);
+      }
+      else {
+        timeout = setTimeout(checkClosed, 10);
+      }
+    }, 10); 
+
   });
 
   $('#master-tree').bind('loaded.jstree', function(event, data) {
@@ -960,6 +957,15 @@ $(function() {
   });
 
   /*
+   * Hide the spinner icon when the node is loaded
+   */
+  $('#master-tree').bind('open_node.jstree', function(event, data) {
+    var node = data.rslt;
+    var id = node.obj.attr('id');
+    $('#'+id).find("span.jstree-loading").remove();
+  });
+
+  /*
    * Lock the tree
    */
   $('#master-tree').bind('lock.jstree', function(event, data) {
@@ -1171,7 +1177,10 @@ GNITE.Tree.openAncestry = function(tree, obj) {
   if(obj.length) {
     $.each(obj, function (i, val) {
       if(val == "#") { return true; }
-      if($(val).length && $(val).is(".jstree-closed")) { current.push(val); }
+      if($(val).length && $(val).is(".jstree-closed")) { 
+        current.push(val);
+        tree.parents('#add-node-wrap, .reference-tree-container, .deleted-tree-container').scrollTo($(val));
+      }
       else { remaining.push(val); }
     });
     if(remaining.length) {
@@ -1369,6 +1378,7 @@ GNITE.Tree.MasterTree.flashNode = function(data) {
         tree.jstree("refresh", $('#'+data.parent_id));
         $('#' + data.parent_id + ' a:first').effect("highlight", { color : "#BABFC3" }, 2000);
       }
+      tree.find('span.jstree-loading').remove();
     }
   }, 10);
 };
@@ -1388,14 +1398,11 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
 
   var tree_id = response.domid.split('_')[2];
 
-  $('#container_for_' + response.domid).jstree($.extend(true, {},
+  var self = $('#container_for_' + response.domid);
+
+  self.jstree($.extend(true, {},
     GNITE.Tree.ReferenceTree.configuration, {
-      'json_data' : {
-        'ajax' : {
-          'url' : response.url
-        }
-      },
-      'xml_data': {
+      'html_data': {
         'ajax' : {
           'url' : response.url,
         }
@@ -1409,8 +1416,15 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
 
   $('#tabs li:first-child ul li:last-child a').trigger('click');
 
+  // hide the spinner icon once node is loaded
+  self.bind('open_node.jstree', function(event, data) {
+    var node = data.rslt;
+    var id = node.obj.attr('id');
+    $('#'+id).find("span.jstree-loading").remove();
+  });
+
   // Build the menu system for the new reference tree
-  $('#container_for_' + response.domid).bind("init.jstree", function(event, data) {
+  self.bind("init.jstree", function(event, data) {
     ddsmoothmenu.init({
       mainmenuid: "toolbar-reference-"+tree_id,
       orientation: 'h',
@@ -1420,15 +1434,15 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
   });
 
   // Bind bookmarks for the new reference tree
-  $('#container_for_' + response.domid).bind('bookmarks_form.jstree', function(event, data) {
+  self.bind('bookmarks_form.jstree', function(event, data) {
     $('#bookmarks-addition-form-' + tree_id).dialog("option", "title", "Bookmark " + $('#' + data.rslt.obj.attr('id') + ' a:first').text()).dialog("open");
   });
 
-  $('#container_for_' + response.domid).bind('bookmarks_view.jstree', function(event, data) {
+  self.bind('bookmarks_view.jstree', function(event, data) {
     GNITE.Tree.viewBookmarks(this);
   });
 
-  $('#container_for_' + response.domid).bind('bookmarks_save.jstree', function(event, data) {
+  self.bind('bookmarks_save.jstree', function(event, data) {
     var node = data.rslt;
     var id   = node.obj.attr('id');
     var title = $('#bookmark-title-' + tree_id).val();

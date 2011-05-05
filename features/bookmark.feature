@@ -44,7 +44,7 @@ Feature: Manage bookmarks
     And I follow "Show bookmarks" within "toolbar"
     And I wait for the bookmark results to load
     And I follow "First bookmark"
-    And pause 2
+    And I wait for the tree to load
     Then I should see a node "Pardosa distincta" under "Pardosa"
     And the "Pardosa distincta" tree node should be selected
 

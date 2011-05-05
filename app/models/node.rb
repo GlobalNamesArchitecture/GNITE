@@ -87,6 +87,10 @@ class Node < ActiveRecord::Base
   def has_children?
     Node.select(:id).where(:parent_id => id).limit(1).exists?
   end
+  
+  def child_count
+    Node.select(:id).where(:parent_id => id).size
+  end
 
   def ancestors(options = {})
     node, nodes = self, []
