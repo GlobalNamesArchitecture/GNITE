@@ -7,7 +7,6 @@ Then /^I should see a node "([^"]*)" at the root level in deleted names$/ do |no
 end
 
 Then /^I should see (\d+) child nodes? for the "([^"]*)" node in my master tree$/ do |node_count, parent_node_text|
-#  all("div#master-tree > ul > li > a:contains('#{parent_node_text}') + ul > li").count.should == node_count.to_i
   page.all(:xpath, "//div[@id='master-tree']/ul/li/a[contains(.,'#{parent_node_text}')]/parent::node()/ul/li").count.should == node_count.to_i
 end
 

@@ -129,6 +129,7 @@ $(function() {
       'ctrl+r'       : function() { this.refresh( this.data.ui.hovered || this._get_node(null) ); },
       'ctrl+shift+r' : function() { this.refresh(); },
       'ctrl+b'       : function() { this.bookmarks_form( this.data.ui.hovered || this._get_node(null) ); },
+      'ctrl+shift+b' : function() { this.bookmarks_view(); },
       'ctrl+e'       : function() { this.rename( this.data.ui.hovered || this._get_node(null) ); },
       'ctrl+x'       : function() { this.cut( this.data.ui.hovered || this._get_node(null) ); },
       'ctrl+v'       : function() { this.paste( this.data.ui.hovered || this._get_node(null) ); },
@@ -229,11 +230,11 @@ $(function() {
     $('#master-tree').jstree($.extend(true, {}, GNITE.Tree.MasterTree.configuration, {
       'html_data': {
         'ajax' : {
-          'url' : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes'
+          'url'   : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes',
+          'error' : function(data) {
+            $('#master-tree').find("span.jstree-loading").remove();
+          }
         }
-      },
-      'hotkeys' : {
-        'ctrl+shift+b' : function() { this.bookmarks_view(); }
       }
     }));
   }
@@ -253,7 +254,10 @@ $(function() {
               self.jstree($.extend(true, {}, GNITE.Tree.ReferenceTree.configuration, {
                 'html_data': {
                   'ajax' : {
-                    'url' : '/reference_trees/' + tree_id + '/nodes'
+                    'url' : '/reference_trees/' + tree_id + '/nodes',
+                    'error' : function(data) {
+                        self.find("span.jstree-loading").remove();
+                      }
                   }
                 },
                 'bookmarks' : {
@@ -280,9 +284,7 @@ $(function() {
                   url         : '/reference_trees/' + tree_id + '/bookmarks',
                   data        : JSON.stringify({ 'id' : id, 'bookmark_title' : title }),
                   contentType : 'application/json',
-                  dataType    : 'json',
-                  success     : function(data) {
-                  }
+                  dataType    : 'json'
                 });
               });
 
@@ -340,7 +342,10 @@ $(function() {
           self.jstree($.extend(true, {}, GNITE.Tree.ReferenceTree.configuration, {
             'html_data': {
               'ajax' : {
-                'url' : '/deleted_trees/' + id + '/nodes'
+                'url' : '/deleted_trees/' + id + '/nodes',
+                'error' : function(data) {
+                    self.find("span.jstree-loading").remove();
+                }
               }
             },
           }));
@@ -957,12 +962,11 @@ $(function() {
   });
 
   /*
-   * Hide the spinner icon when the node is loaded
+   * Hide the spinner icon after the node is loaded
    */
-  $('#master-tree').bind('open_node.jstree', function(event, data) {
+  $('#master-tree').bind('load_node.jstree', function(event, data) {
     var node = data.rslt;
-    var id = node.obj.attr('id');
-    $('#'+id).find("span.jstree-loading").remove();
+    if(node.obj != -1) node.obj.find("span.jstree-loading").remove();
   });
 
   /*
@@ -974,6 +978,7 @@ $(function() {
 
   /*
    * Unlock the tree
+   * NOTE: unlocking happens server->client via Juggernaut gem
    */
   $('#master-tree').bind('unlock.jstree', function(event, data) {
   });
@@ -1364,21 +1369,23 @@ GNITE.Tree.MasterTree.publish = function() {
 };
 
 GNITE.Tree.MasterTree.flashNode = function(data) {
-  var tree = $('#master-tree');
+  var self = $('#master-tree');
+  var destination_parent = self.find('#'+data.destination_parent_id);
+  var source_parent = self.find('#' + data.parent_id);
+
   var timeout = setTimeout(function checkLockedStatus() {
-    if(tree.find('ul:first').hasClass('jstree-locked')) {
+    if(self.find('ul:first').hasClass('jstree-locked')) {
       timeout = setTimeout(checkLockedStatus, 10);
     }
     else {
-      if(data.destination_parent_id) {
-        tree.jstree("refresh", $('#'+data.destination_parent_id));
-        $('#' + data.destination_parent_id + ' a:first').effect("highlight", { color : "#BABFC3" }, 2000);
+      if(data.destination_parent_id && destination_parent.length > 0) {
+        self.jstree("refresh", $('#'+data.destination_parent_id));
+        self.find('#' + data.destination_parent_id + ' a:first').effect("highlight", { color : "#BABFC3" }, 2000);
       }
-      if(data.destination_parent_id != data.parent_id) {
-        tree.jstree("refresh", $('#'+data.parent_id));
-        $('#' + data.parent_id + ' a:first').effect("highlight", { color : "#BABFC3" }, 2000);
+      if(data.destination_parent_id != data.parent_id && source_parent.length > 0) {
+        self.jstree("refresh", $('#'+data.parent_id));
+        self.find('#' + data.parent_id + ' a:first').effect("highlight", { color : "#BABFC3" }, 2000);
       }
-      tree.find('span.jstree-loading').remove();
     }
   }, 10);
 };
@@ -1405,6 +1412,9 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
       'html_data': {
         'ajax' : {
           'url' : response.url,
+          'error' : function(data) {
+             self.find("span.jstree-loading").remove();
+          }
         }
       },
       'bookmarks' : {
@@ -1452,9 +1462,7 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
       url         : '/reference_trees/' + tree_id + '/bookmarks',
       data        : JSON.stringify({ 'id' : id, 'bookmark_title' : title }),
       contentType : 'application/json',
-      dataType    : 'json',
-      success     : function(data) {
-      }
+      dataType    : 'json'
     });
   });
 
