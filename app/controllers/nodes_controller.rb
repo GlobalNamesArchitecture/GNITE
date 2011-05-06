@@ -3,27 +3,27 @@ class NodesController < ApplicationController
 
   def index
     respond_to do |format|
-      
-      raise "Child node cannot be rendered" unless (params[:parent_id].to_i > 0 or !params[:parent_id]) 
-      
+
+      raise "Child node cannot be rendered" unless (params[:parent_id].to_i > 0 or !params[:parent_id])
+
       tree = get_tree
       parent_id = params[:parent_id] ? params[:parent_id] : tree.root
       @nodes = tree.children_of(parent_id)
-      
+
       format.json do
         render :json => NodeJsonPresenter.present(@nodes)
       end
-      
+
       format.xml do
         response.headers['Content-type'] = 'text/xml; charset=utf-8'
         render :layout => false
       end
-      
+
       format.html do
         response.headers['Content-type'] = 'text/html; charset=utf-8'
         render :layout => false
       end
-      
+
     end
   end
 
@@ -78,7 +78,7 @@ class NodesController < ApplicationController
   private
 
   def schedule_action(node, params)
-    
+
     raise "Unknown action command" unless params[:action_type] && Gnite::Config.action_types.include?(params[:action_type])
 
     destination_parent_id = (params[:node] && params[:node][:parent_id]) ? params[:node][:parent_id] : nil

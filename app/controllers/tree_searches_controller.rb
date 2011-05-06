@@ -1,6 +1,6 @@
 class TreeSearchesController < ApplicationController
   before_filter :authenticate
-  
+
   def show
     result = { :status => "Nothing found" }
     clean_search = "%#{params[:name_string].downcase}%"

@@ -77,17 +77,19 @@ class Node < ActiveRecord::Base
 
   def children(select_params = '')
     select_params = select_params.empty? ? '`nodes`.*' : select_params.split(',').map { |p| '`nodes`.' + p.strip }.join(', ')
-    Node.select(select_params)
+    nodes = Node.select(select_params)
       .where(:parent_id => id)
       .joins(:name)
       .order("name_string")
       .readonly(false) #select and join return readonly objects, override that here
+    branches, leaves = nodes.partition { |n| n.has_children? }
+    branches + leaves
   end
 
   def has_children?
     Node.select(:id).where(:parent_id => id).limit(1).exists?
   end
-  
+
   def child_count
     Node.select(:id).where(:parent_id => id).size
   end
