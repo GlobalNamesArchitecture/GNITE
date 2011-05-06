@@ -38,15 +38,11 @@ Feature: View metadata for master tree nodes
     And I should see "Almond, Peanut" as vernacular names for the "Foods" tree
     And I should see "Species" as rank for the "Foods" tree
     When I select the node "Pop"
-    Then I should see a spinner
-    When pause 1
     Then I should not see a spinner
     And I should see "Soda, Softdrink" as synonyms for the "Foods" tree
     And I should see "Coke, Dr. Pepper" as vernacular names for the "Foods" tree
     And I should see "Family" as rank for the "Foods" tree
     When I select the node "Cat"
-    Then I should see a spinner
-    When pause 1
     Then I should not see a spinner
     And I should see "None" as synonyms for the "Foods" tree
     And I should see "None" as vernacular names for the "Foods" tree
@@ -57,8 +53,6 @@ Feature: View metadata for master tree nodes
     When I follow "All reference trees"
     And I follow "Snacks"
     And I select the node "Twinkie"
-    Then I should see a spinner
-    When pause 1
     Then I should not see a spinner
     And I should see "Cake" as synonyms for the "Snacks" tree
     And I should see "Twinkie Cake" as vernacular names for the "Snacks" tree
@@ -66,15 +60,11 @@ Feature: View metadata for master tree nodes
     When I follow "All reference trees"
     And I follow "Fruits"
     And I select the node "Apple"
-    Then I should see a spinner
-    When pause 1
     Then I should not see a spinner
     And I should see "Orange" as synonyms for the "Fruits" tree
     And I should see "Red Apple" as vernacular names for the "Fruits" tree
     And I should see "Round" as rank for the "Fruits" tree
     When I select the node "Cucumber"
-    Then I should see a spinner
-    When pause 1
     Then I should not see a spinner
     And I should see "None" as synonyms for the "Fruits" tree
     And I should see "None" as vernacular names for the "Fruits" tree
