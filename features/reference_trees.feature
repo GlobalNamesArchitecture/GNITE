@@ -50,4 +50,3 @@ Feature: Work with reference trees
     And I select the node "Pardosa"
     And I expand the node "Pardosa"
     Then I should see a node "Pardosa xerampelina" under "Pardosa"
-    And I should see a node "Pardosa xerampelina" at the root level in my reference tree "List"

@@ -32,6 +32,7 @@ When /^I drag "([^"]*)" in my reference tree "(.*)" to "([^"]*)" in my master tr
   destination_node       = ::Node.joins(:name).where('names.name_string = ?', destination_node_text).first
   
   When %{I select the node "#{origin_node.name_string}"}
+  sleep 1
   page.execute_script("jQuery('#master-tree').jstree('move_node', '##{origin_node.id}', '##{destination_node.id}', 'first', true);")
 end
 
@@ -43,6 +44,7 @@ When /^I drag "([^"]*)" to "([^"]*)" in my reference tree "(.*)"$/ do |origin_no
   destination_node       = ::Node.joins(:name).where('names.name_string = ?', destination_node_text).first
 
   When %{I select the node "#{origin_node.name_string}"}
+  sleep 1
   page.execute_script("jQuery('#{reference_tree_matcher}').jstree('move_node', '##{origin_node.id}', '##{destination_node.id}', 'first', false);")
 end
 

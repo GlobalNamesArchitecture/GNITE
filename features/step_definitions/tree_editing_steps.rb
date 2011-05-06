@@ -23,6 +23,7 @@ end
 
 When /^I select the node "([^"]*)"$/ do |node_text|
   When %{I follow "#{node_text}"}
+  sleep 1
 end
 
 Then /^I should see a node "([^"]*)" under "([^"]*)"$/ do |child_node_text, parent_node_text|
