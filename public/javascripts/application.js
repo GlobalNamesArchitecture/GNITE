@@ -466,7 +466,7 @@ $(function() {
                var searched_id = ancestry_arr.pop();
                var timeout = setTimeout(function checkAncestryStatus() {
                 if($(searched_id).length > 0) {
-                  tree.parents('#add-node-wrap, .reference-tree-container, .deleted-tree-container').scrollTo($(searched_id));
+                  tree.parents('#add-node-wrap, .reference-tree-container, .deleted-tree-container').scrollTo($(searched_id), {axis:'y'});
                   tree.jstree("select_node", $(searched_id));
                 }
                 else {
@@ -1184,7 +1184,7 @@ GNITE.Tree.openAncestry = function(tree, obj) {
       if(val == "#") { return true; }
       if($(val).length && $(val).is(".jstree-closed")) { 
         current.push(val);
-        tree.parents('#add-node-wrap, .reference-tree-container, .deleted-tree-container').scrollTo($(val));
+        tree.parents('#add-node-wrap, .reference-tree-container, .deleted-tree-container').scrollTo($(val), {axis:'y'});
       }
       else { remaining.push(val); }
     });
@@ -1288,7 +1288,7 @@ GNITE.Tree.viewBookmarks = function(obj) {
          var searched_id = ancestry_arr.pop();
          var timeout = setTimeout(function checkAncestryStatus() {
           if($(searched_id).length > 0) {
-            tree.parents('#add-node-wrap, .reference-tree-container, .deleted-tree-container').scrollTo($(searched_id));
+            tree.parents('#add-node-wrap, .reference-tree-container, .deleted-tree-container').scrollTo($(searched_id), {axis:'y'});
             tree.jstree("select_node", $(searched_id));
           }
           else {
