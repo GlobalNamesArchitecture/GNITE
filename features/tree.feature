@@ -99,7 +99,7 @@ Feature: Edit a master tree
     And I refresh the master tree
     And I follow "View" within "toolbar-deleted"
     And I follow "Refresh tree" within "toolbar-deleted"
-    And pause 1
+    And pause 2
     Then I should not see a node "Boris" at the root level in my master tree
     And I should see a node "Boris" at the root level in deleted names
 
