@@ -166,8 +166,15 @@ body form input {
 #loginlogo {
   float: left;
   height: 190px;
-  margin-top: 35px;
   width: 390px;
+}
+
+#loginlogo h1 {
+  color: rgb(140, 140, 140);
+  text-shadow: 1px 1px 0 rgba(26, 26, 26, 0.6);
+  text-align:right;
+  font-style:italic;
+  padding-top:5px;
 }
 
 #loginform {
