@@ -40,7 +40,7 @@
 <%= render :partial => "reference_trees" %>
 
 <% content_for :javascript do %>
-  <%= javascript_include_tag 'application', 'jstree/jquery.jstree', 'jquery.jstree.bookmarks', 'jquery.cookie', 'jquery.hotkeys', 'jquery.jstree.bulkcreate', 'jquery.jstree.undoredo', 'jquery.scrollTo-min', 'ddsmoothmenu', 'juggernaut/json', 'juggernaut/socket_io', 'juggernaut/juggernaut' %>
+  <%= javascript_include_tag 'juggernaut/json', 'juggernaut/socket_io', 'juggernaut/juggernaut', 'application', 'jstree/jquery.jstree', 'jquery.jstree.bookmarks', 'jquery.cookie', 'jquery.hotkeys', 'jquery.jstree.bulkcreate', 'jquery.jstree.undoredo', 'jquery.scrollTo-min', 'ddsmoothmenu' %>
 
   <script type="text/javascript">
     <!--//--><![CDATA[//><!--

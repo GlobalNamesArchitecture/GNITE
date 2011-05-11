@@ -1901,6 +1901,14 @@ ul#treelist li,  #gnaclr-search, .tree-background, #loginform .input, .green-sub
   width: 100%;
 }
 
+.spinner p.status {
+  font-size:1.5em;
+  position: absolute;
+  text-align: center;
+  top: 57%;
+  width: 100%;
+}
+
 /* jQuery UI */
 input[type="text"].ui-state-error, textarea.ui-state-error {
   background-color:#FFB6C1;

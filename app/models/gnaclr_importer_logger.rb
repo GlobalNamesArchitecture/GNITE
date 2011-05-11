@@ -1,4 +1,5 @@
-class GnaclrImporterLogger
+class GnaclrImporterLogger < ApplicationController
+  
   attr_reader :subscriptions
 
   def initialize
@@ -13,6 +14,7 @@ class GnaclrImporterLogger
       GnaclrImporterLog.create(:reference_tree_id => ref_tree_id, :message => message)
       gi = GnaclrImporter.find_all_by_reference_tree_id(ref_tree_id)
       unless gi.empty?
+        Juggernaut.publish("tree_#{ref_tree_id}", "{\"message\" : \"#{message}\"}")
         gi = gi.last
         gi.message = message
         gi.save!
