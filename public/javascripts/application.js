@@ -326,13 +326,15 @@ $(function() {
       self.parent().spinner();
       self.parent().find(".spinner").append('<p class="status"></p>');
 
-      jug.subscribe("tree_" + tree_id, function(data) {
+      var jugImporter = new Juggernaut();
+      jugImporter.on("connect", function() { self.parent().find(".status").addClass("juggernaut-connected"); });
+      jugImporter.subscribe("tree_" + tree_id, function(data) {
         var response = $.parseJSON(data);
         switch(response.message) {
           case 'Import is successful':
             $.get('/reference_trees/' + tree_id + '.json', function(response, status, xhr) {
               if (xhr.status == 200) {
-                jug.unsubscribe("tree_" + tree_id);
+                jugImporter.unsubscribe("tree_" + tree_id);
                 self.parent().find(".status").html(response.message)
                 self.parent().unspinner();
                 GNITE.Tree.ReferenceTree.add(response);
@@ -1349,13 +1351,16 @@ GNITE.Tree.importTree = function(opts) {
           GNITE.Tree.ReferenceTree.add(response, opts);
         }
         else if (xhr.status == 204) {
-          jug.subscribe("tree_" + tree_id, function(data) {
+          var jugImporter = new Juggernaut();
+          jugImporter.on("connect", function() { opts.spinnedElement.find(".status").addClass("juggernaut-connected"); });
+          jugImporter.subscribe("tree_" + tree_id, function(data) {
             var response = $.parseJSON(data);
             switch(response.message) {
               case 'Import is successful':
                 $.get('/reference_trees/' + tree_id, { format : 'json' }, function(response, status, xhr) {
                   if (xhr.status == 200) {
-                    jug.unsubscribe("tree_" + tree_id);
+                    opts.spinnedElement.find(".status").addClass("juggernaut-complete");
+                    jugImporter.unsubscribe("tree_" + tree_id);
                     opts.spinnedElement.find(".status").html(response.message);
                     GNITE.Tree.ReferenceTree.add(response, opts);
                   }
@@ -1428,15 +1433,17 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
     $('#tabs li:first-child ul li a[href="#' + response.domid +'"]').trigger('click');
   }
   else {
-    var tab   = $('#all-tabs');
-    var count = parseInt(tab.text().replace(/[^0-9]+/, ''), 10);
+    if($('a[href="#' + response.domid + '"]').length == 0) {
+      var tab   = $('#all-tabs');
+      var count = parseInt(tab.text().replace(/[^0-9]+/, ''), 10);
 
-    tab.text('All reference trees (' + (count + 1) + ')');
+      tab.text('All reference trees (' + (count + 1) + ')');
 
-    $('#new-tab').before(response.tree);
+      $('#new-tab').before(response.tree);
 
-    $('#tab-titles li:first-child').show();
-    $('#reference-trees').append('<li><a href="#' + response.domid + '">' + response.title + '</a></li>');
+      $('#tab-titles li:first-child').show();
+      $('#reference-trees').append('<li><a href="#' + response.domid + '">' + response.title + '</a></li>');
+    }
 
     var tree_id = response.domid.split('_')[2];
 

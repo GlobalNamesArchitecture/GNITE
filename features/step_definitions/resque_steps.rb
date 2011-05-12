@@ -1,4 +1,9 @@
 When "resque jobs are run" do
+  connected = false
+  When %{pause 1}
+  while !connected
+    connected = page.has_css?(".juggernaut-connected")
+  end
   r = Resque::Worker.new(:gnaclr_importer)
   not_empty = true
   while not_empty
