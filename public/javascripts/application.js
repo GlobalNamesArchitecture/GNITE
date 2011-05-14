@@ -1275,26 +1275,11 @@ GNITE.Tree.viewBookmarks = function(obj) {
   $bookmarks.html("").spinner().dialog("open");
 
   $.ajax({
-    url     : url,
-    type    : 'GET',
-    data    : { },
-    success : function(data) {
-      var results = '<div class="bookmarks-wrapper">';
-      if(!data.length) {
-        results += '<p>' + data.status + '</p>';
-      }
-      else {
-          results += '<ul>';
-          for(var i=0; i<data.length; i++) {
-            results += '<li>';
-            results += '<a href="#" class="bookmarks-show" data-treepath-ids="' + data[i].bookmark.treepath + '">' + data[i].bookmark.title + '</a>';
-            results += '<a href="#" class="bookmarks-delete" data-node-id="' + data[i].bookmark.id + '">Delete</a>';
-            results += '</li>';
-          }
-          results += '</ul>';
-      }
-      results += '</div>';
-      $bookmarks.html(results);
+    url      : url,
+    type     : 'GET',
+    dataType : 'html',
+    success  : function(data) {
+      $bookmarks.html(data);
 
       // Click a bookmark in list
       $bookmarks.find("a.bookmarks-show").click(function() {
@@ -1312,6 +1297,11 @@ GNITE.Tree.viewBookmarks = function(obj) {
           }
          }, 100);
          return false;
+      });
+
+      // TODO: Edit a bookmark in list
+      $bookmarks.find("a.bookmarks-edit").click(function() {
+        return false;
       });
 
       // Delete a bookmark in list

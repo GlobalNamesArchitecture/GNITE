@@ -1,0 +1,14 @@
+<div class="bookmarks-wrapper">
+<% if @bookmarks.any? %>
+  <ul>
+  <% @bookmarks.each do |bookmark| %>
+    <li>
+      <a href="#" class="bookmarks-show" data-treepath-ids="<%= bookmark[:tree_path] %>"><%= bookmark[:title] %></a>
+      <a href="#" class="bookmarks-delete" data-node-id="<%= bookmark[:id] %>">Delete</a>
+    </li>
+  <% end %>
+  </ul>
+<% else %>
+  <p>There are not yet any bookmarks<p>
+<% end %>
+</div>

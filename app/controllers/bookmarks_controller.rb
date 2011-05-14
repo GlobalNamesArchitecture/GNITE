@@ -4,7 +4,19 @@ class BookmarksController < ApplicationController
   def index
     tree = get_tree
     nodes = tree.nodes.find(:all, :include => :bookmarks, :joins => :bookmarks, :order => 'bookmarks.created_at desc')
-    render :json => nodes.length > 0 ? BookmarksJsonPresenter.present(nodes) : { :status => "No bookmarks found" }
+
+    @bookmarks = nodes.map do |node|
+      treepath_ids = []
+      node.ancestors.each do |ancestor|
+        treepath_ids << "#" + ancestor.id.to_s
+      end
+      treepath_ids << "#" + node.id.to_s
+          
+      bookmark = { :id => node.bookmarks.first.id, 
+                   :title => node.bookmarks.first.bookmark_title, 
+                   :tree_path => treepath_ids }
+    end
+    render :partial => 'bookmark'
   end
 
   def create
