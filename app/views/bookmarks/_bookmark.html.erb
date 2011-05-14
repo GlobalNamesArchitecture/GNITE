@@ -4,7 +4,8 @@
   <% @bookmarks.each do |bookmark| %>
     <li>
       <a href="#" class="bookmarks-show" data-treepath-ids="<%= bookmark[:tree_path] %>"><%= bookmark[:title] %></a>
-      <a href="#" class="bookmarks-delete" data-node-id="<%= bookmark[:id] %>">Delete</a>
+      [<a href="#" class="bookmarks-edit" data-node-id="<%= bookmark[:id] %>">Edit<a/>]
+      [<a href="#" class="bookmarks-delete" data-node-id="<%= bookmark[:id] %>">Delete</a>]
     </li>
   <% end %>
   </ul>

@@ -961,10 +961,11 @@ body form input {
     text-align:right;
 }
 
+.bookmarks-results ul li a.bookmarks-edit {
+  color:green;
+}
+
 .bookmarks-results ul li a.bookmarks-delete {
-  background: transparent url(../images/icons/bin_closed.png) no-repeat 0px center;
-  margin-left:3px;
-  padding-left:18px;
   color:#FF0000;
 }
 
