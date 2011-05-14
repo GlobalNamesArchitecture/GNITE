@@ -334,6 +334,7 @@ $(function() {
           case 'Import is successful':
             $.get('/reference_trees/' + tree_id + '.json', function(response, status, xhr) {
               if (xhr.status == 200) {
+                self.parent().find(".status").addClass("juggernaut-complete");
                 jugImporter.unsubscribe("tree_" + tree_id);
                 self.parent().find(".status").html(response.message)
                 self.parent().unspinner();
@@ -712,7 +713,7 @@ $(function() {
 
     $.ajax({
       type        : 'POST',
-      async       : false,
+      async       : true,
       url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes.json',
       data        : JSON.stringify({ 'node' : { 'parent_id' : parent_id, 'name' : { 'name_string' : null } }, 'nodes_list' : { 'data' : nodes }, 'action_type' : "ActionAddNode" }),
       contentType : 'application/json',
@@ -772,7 +773,7 @@ $(function() {
 
     $.ajax({
       type        : 'PUT',
-      async       : false,
+      async       : true,
       url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes/' + id + '.json',
       data        : JSON.stringify({ 'node' : { 'name' : { 'name_string' : new_name } }, 'action_type' : 'ActionRenameNode' }),
       contentType : 'application/json',
@@ -821,7 +822,7 @@ $(function() {
 
        $.ajax({
            type        : isCopy ? 'POST' : 'PUT',
-           async       : false,
+           async       : true,
            url         : url,
            data        : JSON.stringify({ 'node' : {'id' : movedNodeID, 'parent_id' : parentID }, 'action_type' : action_type }),
            contentType : 'application/json',
@@ -855,7 +856,7 @@ $(function() {
       var id = $(this).attr('id');
       $.ajax({
         type        : 'PUT',
-        async       : false,
+        async       : true,
         url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes/' + id + '.json',
         data        : JSON.stringify({'action_type' : 'ActionMoveNodeToDeletedTree'}),
         contentType : 'application/json',
@@ -904,7 +905,7 @@ $(function() {
 
     $.ajax({
       type        : 'GET',
-      async       : false,
+      async       : true,
       url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/undo',
       contentType : 'application/json',
       dataType    : 'json',
@@ -929,7 +930,7 @@ $(function() {
 
     $.ajax({
       type        : 'GET',
-      async       : false,
+      async       : true,
       url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/redo',
       contentType : 'application/json',
       dataType    : 'json',
@@ -1260,6 +1261,7 @@ GNITE.Tree.buildViewMenuActions = function() {
     var tree_id = self.parents('.tree-background').find('.jstree').attr("id");
     $('#'+tree_id).jstree('bookmarks_view');
     GNITE.Tree.hideMenu();
+    return false;
   });
 };
 
@@ -1277,7 +1279,6 @@ GNITE.Tree.viewBookmarks = function(obj) {
   $.ajax({
     url     : url,
     type    : 'GET',
-    data    : { },
     success : function(data) {
       var results = '<div class="bookmarks-wrapper">';
       if(!data.length) {
@@ -1320,7 +1321,6 @@ GNITE.Tree.viewBookmarks = function(obj) {
         $.ajax({
           url   : url + '/' + $(self).attr("data-node-id"),
           type  : 'DELETE',
-          data  : { },
           success : function() {
             $(self).parent().remove();
           }
@@ -1342,38 +1342,63 @@ GNITE.Tree.importTree = function(opts) {
   opts.spinnedElement.spinner();
   opts.spinnedElement.find(".spinner").append('<p class="status"></p>');
 
-  $.post('/gnaclr_imports', { master_tree_id : opts.master_tree_id, title : opts.title, url : opts.url, revision: opts.revision, publication_date : opts.publication_date }, function(response) {
-    var tree_id = response.tree_id;
+  var tree_id = "";
 
-    //see if the tree already exists and if not, initiate a juggernaut connection
+  var data = JSON.stringify({
+    'master_tree_id'   : opts.master_tree_id,
+    'title'            : opts.title,
+    'url'              : opts.url,
+    'revision'         : opts.revision,
+    'publication_date' : opts.publication_date
+  });
+
+  $.ajax({
+    type        : 'POST',
+    async       : false,
+    url         : '/gnaclr_imports',
+    contentType : 'application/json',
+    dataType    : 'json',
+    data        : data,
+    success     : function(response) {
+      tree_id = response.tree_id;
+    },
+    error       : function() {
+      opts.spinnedElement.unspinner();
+      alert("Connection to the Global Names Classification and List Repository was lost. Import failed");
+      return false;
+    }
+  });
+
+  //see if the tree already exists and if not, initiate a juggernaut connection
+  if(tree_id) {
     $.get('/reference_trees/' + tree_id, { format : 'json' }, function(response, status, xhr) {
-        if (xhr.status == 200) {
-          GNITE.Tree.ReferenceTree.add(response, opts);
-        }
-        else if (xhr.status == 204) {
-          var jugImporter = new Juggernaut();
-          jugImporter.on("connect", function() { opts.spinnedElement.find(".status").addClass("juggernaut-connected"); });
-          jugImporter.subscribe("tree_" + tree_id, function(data) {
-            var response = $.parseJSON(data);
-            switch(response.message) {
-              case 'Import is successful':
-                $.get('/reference_trees/' + tree_id, { format : 'json' }, function(response, status, xhr) {
-                  if (xhr.status == 200) {
-                    opts.spinnedElement.find(".status").addClass("juggernaut-complete");
-                    jugImporter.unsubscribe("tree_" + tree_id);
-                    opts.spinnedElement.find(".status").html(response.message);
-                    GNITE.Tree.ReferenceTree.add(response, opts);
-                  }
-                });
-              break;
-
-              default:
+      if (xhr.status == 200) {
+        GNITE.Tree.ReferenceTree.add(response, opts);
+      }
+      else if (xhr.status == 204) {
+        var jugImporter = new Juggernaut();
+        jugImporter.on("connect", function() { opts.spinnedElement.find(".status").addClass("juggernaut-connected"); });
+        jugImporter.subscribe("tree_" + tree_id, function(data) {
+        var response = $.parseJSON(data);
+        switch(response.message) {
+          case 'Import is successful':
+            $.get('/reference_trees/' + tree_id, { format : 'json' }, function(response, status, xhr) {
+              if (xhr.status == 200) {
+                opts.spinnedElement.find(".status").addClass("juggernaut-complete");
+                jugImporter.unsubscribe("tree_" + tree_id);
                 opts.spinnedElement.find(".status").html(response.message);
-            }
-          });
-        }
-      });
-  }, 'json');
+                GNITE.Tree.ReferenceTree.add(response, opts);
+              }
+            });
+            break;
+
+            default:
+              opts.spinnedElement.find(".status").html(response.message);
+          }
+        });
+      }
+    });
+  }
 
   return false;
 };
@@ -1512,7 +1537,7 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
   }
 
   if (options) {
-    options.spinnedElement.unspinner()
+    options.spinnedElement.unspinner();
   }
 
 };
