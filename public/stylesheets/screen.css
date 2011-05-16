@@ -944,6 +944,10 @@ body form input {
   line-height:1.25em;
 }
 
+.bookmarks-results ul li div.bookmarks-input {
+  display:none;
+}
+
 .searchbar-results ul li a, .bookmarks-results ul li a {
     text-decoration:none;
     color:#232323;
@@ -961,19 +965,22 @@ body form input {
     text-align:right;
 }
 
-.bookmarks-results ul li a.bookmarks-delete {
-  background: transparent url(../images/icons/bin_closed.png) no-repeat 0px center;
-  margin-left:3px;
-  padding-left:18px;
-  color:#FF0000;
+.bookmarks-results ul li span {
+  margin-left:5px;
 }
 
-.bookmarks-results ul li a.bookmarks-delete:hover {
-  background-color:none;
+.bookmarks-results ul li a.bookmarks-edit, .bookmarks-results ul li a.bookmarks-save {
+  color:green;
+}
+
+.bookmarks-results ul li a.bookmarks-delete, .bookmarks-results ul li a.bookmarks-cancel {
+  color:red;
 }
 
 .bookmark-addition {
   display:none;
+  overflow:hidden !important;
+  height:70px !important;
 }
 
 .bookmark-addition .input {

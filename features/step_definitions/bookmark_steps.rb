@@ -3,16 +3,25 @@ Given /^there is an existing bookmark called "([^"]*)" for a node "([^"]*)"$/ do
 end
 
 Then /^I should see a bookmark "([^"]*)" in master tree bookmarks$/ do |bookmark_text|
-  page.should have_css("div.bookmarks-master>div>ul>li>a:contains('#{bookmark_text}')")
+  page.should have_css("div.bookmarks-master>div>ul>li>span>a:contains('#{bookmark_text}')")
 end
 
 Then /^I should not see a bookmark "([^"]*)" in master tree bookmarks$/ do |bookmark_text|
-  page.should_not have_css("div.bookmarks-master>div>ul>li>a:contains('#{bookmark_text}')")
+  page.should_not have_css("div.bookmarks-master>div>ul>li>span>a:contains('#{bookmark_text}')")
 end
 
 Then /^I delete "([^"]*)" in master tree bookmarks$/ do |bookmark_text|
-  page.execute_script("jQuery('div.bookmarks-master').find('a:contains(\"#{bookmark_text}\")').next('a.bookmarks-delete').click();")
+  page.execute_script("jQuery('div.bookmarks-master').find('a:contains(\"#{bookmark_text}\")').parent().parent().find('a.bookmarks-delete').click();")
   sleep 2
+end
+
+Then /^I edit "([^"]*)" to be "([^"]*)" in master tree bookmarks$/ do |old_bookmark, new_bookmark|
+  page.execute_script("jQuery('div.bookmarks-master').find('a:contains(\"#{old_bookmark}\")').parent().parent().find('a.bookmarks-edit').click();")
+  sleep 1
+  field = find(:css, "div.bookmarks-input input")
+  field.set(new_bookmark)
+  page.execute_script("jQuery('div.bookmarks-input').find('a.bookmarks-save').click();")
+  sleep 1
 end
 
 When /^I wait for the bookmark form to load$/ do
