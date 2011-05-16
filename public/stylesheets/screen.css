@@ -977,6 +977,10 @@ body form input {
   color:red;
 }
 
+.bookmarks-results .bookmarks-input .input {
+  height:1.5em;
+}
+
 .bookmark-addition {
   display:none;
   overflow:hidden !important;
@@ -1864,7 +1868,7 @@ ul#reference-trees li a:hover {
 /************************************************************************/
 #flash_error, #flash_success, #flash_failure, #flash_notice,
 ul#treelist li,  #gnaclr-search, .tree-background, #loginform .input, .green-submit, .cancel-button,
-.infobox-wrap, .infobox, .tree-back-wrap, #tree-newimport li, .bookmark-addition .input {
+.infobox-wrap, .infobox, .tree-back-wrap, #tree-newimport li, .bookmark-addition .input, .bookmarks-input .input {
   border-radius: 6px;
   -moz-border-radius: 6px;
   -webkit-border-radius: 6px;
