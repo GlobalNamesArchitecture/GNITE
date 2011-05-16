@@ -75,3 +75,11 @@ Feature: Manage bookmarks
     And I wait for the bookmark results to load
     Then I should not see a bookmark "First bookmark" in master tree bookmarks
     And I should see a bookmark "Second bookmark" in master tree bookmarks
+
+  @javascript
+  Scenario: User can edit a bookmark title in the master tree
+    When I follow "Bookmarks" within "toolbar"
+    And I follow "Show bookmarks" within "toolbar"
+    And I wait for the bookmark results to load
+    And I edit "First bookmark" to be "Last bookmark" in master tree bookmarks
+    Then I should see a bookmark "Last bookmark" in master tree bookmarks

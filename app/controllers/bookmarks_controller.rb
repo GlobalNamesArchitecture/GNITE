@@ -14,13 +14,24 @@ class BookmarksController < ApplicationController
           
       bookmark = { :id => node.bookmarks.first.id, 
                    :title => node.bookmarks.first.bookmark_title, 
-                   :tree_path => treepath_ids }
+                   :tree_path => treepath_ids.join(",") }
     end
     render :partial => 'bookmark'
   end
 
   def create
     @bookmark = Bookmark.new(:node_id => params[:id], :bookmark_title => params[:bookmark_title])
+    @bookmark.save
+    respond_to do |format|
+      format.json do
+        render :json => @bookmark
+      end
+    end
+  end
+  
+  def update
+    @bookmark = Bookmark.find(params[:id])
+    @bookmark.update_attributes(:bookmark_title => params[:bookmark_title])
     @bookmark.save
     respond_to do |format|
       format.json do

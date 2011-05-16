@@ -3,9 +3,14 @@
   <ul>
   <% @bookmarks.each do |bookmark| %>
     <li>
-      <a href="#" class="bookmarks-show" data-treepath-ids="<%= bookmark[:tree_path] %>"><%= bookmark[:title] %></a>
-      [<a href="#" class="bookmarks-edit" data-node-id="<%= bookmark[:id] %>">Edit<a/>]
-      [<a href="#" class="bookmarks-delete" data-node-id="<%= bookmark[:id] %>">Delete</a>]
+      <div class="bookmarks-input">
+        <input type="text"></input>
+        <span>[<a href="#" class="bookmarks-save" data-node-id="<%= bookmark[:id] %>">Save</a>]</span>
+        <span>[<a href="#" class="bookmarks-cancel">Cancel</a>]</span>
+      </div>
+      <span><a href="#" class="bookmarks-show" data-treepath-ids="<%= bookmark[:tree_path] %>"><%= bookmark[:title] %></a></span>
+      <span>[<a href="#" class="bookmarks-edit" data-node-id="<%= bookmark[:id] %>">Edit<a/>]</span>
+      <span>[<a href="#" class="bookmarks-delete" data-node-id="<%= bookmark[:id] %>">Delete</a>]</span>
     </li>
   <% end %>
   </ul>
