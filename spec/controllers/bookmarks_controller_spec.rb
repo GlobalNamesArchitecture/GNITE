@@ -4,23 +4,17 @@ describe BookmarksController, 'GET to show bookmarks for master tree' do
   let(:user) { Factory(:email_confirmed_user) }
   let(:master_tree) { Factory(:master_tree, :user => user) }
   let(:node)  { Factory(:node, :tree => master_tree) }
-  let(:nodes) { master_tree.nodes }
+  let(:bookmark) { Factory(:bookmark, :node => node, :bookmark_title => "My new bookmark") }
   
   subject { controller }
 
   before do
     sign_in_as(user)
-    Factory(:bookmark, :node => node, :bookmark_title => "My new bookmark")
-    get :index, :master_tree_id => master_tree, :format => 'json'
+    get :index, :master_tree_id => master_tree
   end
     
   it { should respond_with(:success) }
-
-  it "should render the bookmarks as JSON" do
-    bookmark = JSON.parse(response.body)
-    bookmark.first["bookmark"]["title"].should == "My new bookmark"
-    bookmark.first["bookmark"]["treepath"].first.should == "#" + node.id.to_s
-  end
+  it { should render_template(:bookmark) }
 end
 
 describe BookmarksController, 'POST to create bookmark in master tree' do
@@ -52,6 +46,22 @@ describe BookmarksController, 'POST to create bookmark in master tree' do
   it { should respond_with(:success) }
 end
 
+describe BookmarksController, 'PUT to update a bookmark in master tree' do
+  let(:user) { Factory(:email_confirmed_user) }
+  let(:master_tree) { Factory(:master_tree, :user => user) }
+  let(:node) { Factory(:node, :tree => master_tree) }
+  let(:bookmark) { Factory(:bookmark, :node => node) }
+  
+  subject { controller }
+  
+  before do
+    sign_in_as(user)
+    put :update, :master_tree_id => master_tree, :id => bookmark, :bookmark_title => "My bookmark", :format => 'json'
+    updated_bookmark = JSON.parse(response.body)
+    updated_bookmark.first["bookmark"]["title"].should == "My bookmark"
+  end
+end
+
 describe BookmarksController, 'GET to show bookmarks for reference tree' do
   let(:user) { Factory(:email_confirmed_user) }
   let(:reference_tree) { Factory(:reference_tree) }
@@ -63,16 +73,12 @@ describe BookmarksController, 'GET to show bookmarks for reference tree' do
   before do
     sign_in_as(user)
     Factory(:bookmark, :node => node, :bookmark_title => "My new bookmark")
-    get :index, :reference_tree_id => reference_tree, :format => 'json'
+    get :index, :reference_tree_id => reference_tree
   end
   
   it { should respond_with(:success) }
+  it { should render_template(:bookmark) }
   
-  it "should render the bookmarks as JSON" do
-    bookmark = JSON.parse(response.body)
-    bookmark.first["bookmark"]["title"].should == "My new bookmark"
-    bookmark.first["bookmark"]["treepath"].first.should == "#" + node.id.to_s
-  end
 end
 
 describe BookmarksController, 'POST to create bookmark in reference tree' do
@@ -104,6 +110,22 @@ describe BookmarksController, 'POST to create bookmark in reference tree' do
   it { should respond_with(:success) }
 end
 
+describe BookmarksController, 'PUT to update a bookmark in reference tree' do
+  let(:user) { Factory(:email_confirmed_user) }
+  let(:reference_tree) { Factory(:reference_tree) }
+  let(:node) { Factory(:node, :tree => reference_tree) }
+  let(:bookmark) { Factory(:bookmark, :node => node) }
+  
+  subject { controller }
+  
+  before do
+    sign_in_as(user)
+    put :update, :reference_tree_id => reference_tree, :id => bookmark, :bookmark_title => "My bookmark", :format => 'json'
+    updated_bookmark = JSON.parse(response.body)
+    updated_bookmark.first["bookmark"]["title"].should == "My bookmark"
+  end
+end
+
 describe BookmarksController, 'GET index in master tree without authenticating' do
   before { get :index, :master_tree_id => 123 }
   it     { should redirect_to(sign_in_url) }
@@ -112,6 +134,12 @@ end
 
 describe BookmarksController, 'POST create in master tree without authenticating' do
   before { post :create, :master_tree_id => 123, :id => 45 }
+  it     { should redirect_to(sign_in_url) }
+  it     { should set_the_flash.to(/sign in/) }
+end
+
+describe BookmarksController, 'PUT in master tree without authenticating' do
+  before { put :update, :master_tree_id => 123, :id => 45 }
   it     { should redirect_to(sign_in_url) }
   it     { should set_the_flash.to(/sign in/) }
 end
@@ -134,8 +162,8 @@ describe BookmarksController, 'POST create in reference tree without authenticat
   it     { should set_the_flash.to(/sign in/) }
 end
 
-describe BookmarksController, 'DELETE delete in reference tree without authenticating' do
-  before { delete :destroy, :reference_tree_id => 123, :id => 45 }
+describe BookmarksController, 'PUT update in reference tree without authenticating' do
+  before { put :update, :reference_tree_id => 123, :id => 45 }
   it     { should redirect_to(sign_in_url) }
   it     { should set_the_flash.to(/sign in/) }
 end

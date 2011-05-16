@@ -38,22 +38,16 @@ describe NodesController do
 
       subject { controller }
 
-      context "on GET to #index.json for a given parent_id" do
+      context "on GET to #index for a given parent_id" do
         before do
           @parent_id = 12345
-          @json      = '{}'
           @tree_id   = 456
-          NodeJsonPresenter.stubs(:present => @json)
-          get :index, :master_tree_id => @tree_id, :format => 'json', :parent_id => @parent_id
+          get :index, :master_tree_id => @tree_id, :parent_id => @parent_id, :format => 'html'
         end
 
         it { should respond_with(:success) }
+        it { should render_template(:node) }
 
-        it "should render the root node json with the NodeJsonPresenter" do
-          tree.should have_received(:children_of).with(@parent_id)
-          NodeJsonPresenter.should have_received(:present).with(nodes)
-          response.body.should == @json
-        end
       end
 
     end

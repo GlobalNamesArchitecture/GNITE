@@ -16,6 +16,7 @@ class BookmarksController < ApplicationController
                    :title => node.bookmarks.first.bookmark_title, 
                    :tree_path => treepath_ids.join(",") }
     end
+    
     render :partial => 'bookmark'
   end
 
