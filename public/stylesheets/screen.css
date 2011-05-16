@@ -979,6 +979,7 @@ body form input {
 
 .bookmarks-results .bookmarks-input .input {
   height:1.5em;
+  width:200px;
 }
 
 .bookmark-addition {
