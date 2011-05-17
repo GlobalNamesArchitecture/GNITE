@@ -454,26 +454,7 @@ $(function() {
           type    : 'GET',
           data    : { },
           success : function(data) {
-            var results = '<div class="results-wrapper">';
-            if(!data.length) {
-              results += data.status;
-            }
-            else {
-                results += '<ul>';
-                for(var i=0; i<data.length; i++) {
-                  var string = data[i].treepath.name_strings.replace(
-                    new RegExp(term, "gi"),
-                    function(match) {
-                      return ["<span class=\"highlight\">", match, "</span>"].join("");
-                    }
-                  );
-                  results += '<li><a href="#" data-treepath-ids="' + data[i].treepath.node_ids + '">' + string + '</a></li>';
-                }
-                results += '</ul>';
-            }
-            results += '</div>';
-            $results.html(results);
-
+            $results.html(data);
             $results.find("a").click(function() {
                $results.hide();
                tree.jstree("deselect_all");
@@ -1184,18 +1165,21 @@ GNITE.Tree.hideMenu = function() {
 };
 
 GNITE.Tree.openAncestry = function(tree, obj) {
-  var _this = this, done = true, current = [], remaining = [];
+  var _this = this, done = true, end = "", current = [], remaining = [];
   var $tree_wrapper = tree.parents('#add-node-wrap, .reference-tree-container, .deleted-tree-container');
   if(obj.length) {
     $.each(obj, function (i, val) {
-      if(val == "#") { return true; }
-      if($(val).length && $(val).is(".jstree-closed")) { 
+      if($(val).length && $(val).is(".jstree-closed")) {
+        end = $(val);
+        $tree_wrapper.scrollTo($(val), {axis:'y'});
         current.push(val);
+      }
+      else if($(val).length && !$(val).is(".jstree-closed")) {
+        end = $(val);
         $tree_wrapper.scrollTo($(val), {axis:'y'});
       }
-      else { 
+      else {
         remaining.push(val);
-        if(i+1 == obj.length) tree.jstree("select_node", $(val));
       }
     });
     if(remaining.length) {
@@ -1207,6 +1191,8 @@ GNITE.Tree.openAncestry = function(tree, obj) {
       });
       done = false;
     }
+
+    if(done) tree.jstree("select_node", end);
   }
 };
 

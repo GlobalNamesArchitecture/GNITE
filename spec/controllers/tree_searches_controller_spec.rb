@@ -10,16 +10,12 @@ describe TreeSearchesController, 'GET to show search results in master tree' do
 
   before do
     sign_in_as(user)
-    get :show, :tree_id => master_tree.id, :name_string => child.name_string, :format => 'json'
+    get :show, :tree_id => master_tree.id, :name_string => child.name_string
   end
   
   it { should respond_with(:success) }
-  
-  it "should render the search results as JSON" do
-    search_results = JSON.parse(response.body)
-    
-    search_results.first["treepath"]["name_strings"].should == parent.name_string + ' > ' + child.name_string
-  end 
+  it { should render_template(:tree_search) }
+
 end
 
 describe TreeSearchesController, 'GET to show search results in reference tree' do
@@ -32,15 +28,12 @@ describe TreeSearchesController, 'GET to show search results in reference tree' 
 
   before do
     sign_in_as(user)
-    get :show, :tree_id => reference_tree.id, :name_string => child.name_string, :format => 'json'
+    get :show, :tree_id => reference_tree.id, :name_string => child.name_string
   end
   
   it { should respond_with(:success) }
-  
-  it "should render the search results as JSON" do
-    search_results = JSON.parse(response.body)
-    search_results.first["treepath"]["name_strings"].should == parent.name_string + ' > ' + child.name_string
-  end 
+  it { should render_template(:tree_search) }
+ 
 end
 
 describe TreeSearchesController, 'GET search in master tree without authenticating' do

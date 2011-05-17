@@ -1,0 +1,15 @@
+<div class="results-wrapper">
+<% if @searches.any? %>
+  <ul>
+  <% @searches.each do |search|
+    result = search[:treepath][:name_strings].gsub(/(#{@searched_term})/i, '<span class="highlight">' + '\1' + '</span>') 
+  %>
+    <li>
+      <a href="#" data-treepath-ids="<%= search[:treepath][:node_ids] %>"><%= raw result %></a>
+    </li>
+  <% end %>
+  </ul>
+  <% else %>
+    <p>Nothing found<p>
+  <% end %>
+</div>
