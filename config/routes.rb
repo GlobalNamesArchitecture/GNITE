@@ -6,6 +6,7 @@ Gnite::Application.routes.draw do
   match "/master_trees/:id/undo" => "master_trees#undo"
   match "/master_trees/:id/redo" => "master_trees#redo"
   match "/tree_searches/:tree_id/:name_string" => "tree_searches#show"
+  match "/push_messages" => "push_messages#update"
 
   resource :session, :only => [:new, :create, :destroy], :controller => "sessions"
 

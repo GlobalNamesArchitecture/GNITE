@@ -17,8 +17,8 @@ var GNITE = {
 **************************************************************/
 var jug = new Juggernaut();
 
-jug.on("connect", function() { });
-jug.on("disconnect", function() { });
+jug.on("connect", function() { GNITE.pushMessage("user", GNITE.Tree.MasterTree.user + " logged in", true); });
+jug.on("disconnect", function() { GNITE.pushMessage("user", GNITE.Tree.MasterTree.user + " logged out", true); });
 jug.on("reconnect", function() { });
 
 
@@ -420,6 +420,15 @@ $(function() {
         $('#master-tree').jstree(response.perform);
       break;
     }
+/*
+    if(response.user) {
+     //update a DOM element here with message that user logged in
+    }
+
+    if(response.announcement) {
+      //update a DOM element here with an administrator announcement
+    }
+*/
   });
 
 
@@ -912,7 +921,7 @@ $(function() {
       },
       success     : function(data) {
         if(data.status) {
-          self.jstree("unlock");
+          GNITE.pushMessage("perform", "unlock", false);
         }
         else {
           GNITE.Tree.MasterTree.flashNode(data);
@@ -1157,6 +1166,21 @@ $(function() {
 /**************************************************************
            HELPER FUNCTIONS
 **************************************************************/
+GNITE.pushMessage = function(namespace, message, ignore) {
+  $.ajax({
+    type        : 'PUT',
+    async       : true,
+    url         : '/push_messages/',
+    contentType : 'application/json',
+    dataType    : 'json',
+    data        : JSON.stringify({ 'channel' : GNITE.Tree.MasterTree.channel, 'message' : "{\"" + namespace + "\" : \"" + message + "\" }" }),
+    beforeSend  : function(xhr) {
+        if(ignore) { xhr.setRequestHeader("X-Session-ID", jug.sessionID) }
+    },
+    success : function(data) {
+    }
+  });
+};
 
 GNITE.Tree.hideMenu = function() {
   $('.toolbar>ul').find("ul").css({display:'none', visibility:'visible'});
