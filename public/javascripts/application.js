@@ -913,7 +913,6 @@ $(function() {
       success     : function(data) {
         if(data.status) {
           self.jstree("unlock");
-          jug.write(GNITE.Tree.MasterTree.channel, "{ \"perform\" : \"unlock\" }");
         }
         else {
           GNITE.Tree.MasterTree.flashNode(data);
@@ -961,7 +960,6 @@ $(function() {
    * Lock the tree
    */
   $('#master-tree').bind('lock.jstree', function(event, data) {
-    jug.write(GNITE.Tree.MasterTree.channel, "{ \"perform\" : \"lock\" }");
   });
 
   /*
