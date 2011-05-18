@@ -1,3 +1,4 @@
+/*global $, document, Juggernaut, ddsmoothmenu, setTimeout, window, alert */
 
 /**************************************************************
            GLOBAL VARIABLE(S)
@@ -40,7 +41,7 @@ $(function() {
     },
     'themes' : {
       'theme' : 'gnite',
-      'icons' : false,
+      'icons' : false
     },
     'html_data' : {
       'ajax' : {
@@ -76,42 +77,42 @@ $(function() {
             'action'           : function(obj) { this.rename(obj); },
             'separator_after'  : false,
             'separator_before' : false,
-            'icon'             : 'context-rename',
+            'icon'             : 'context-rename'
           },
           'create' : {
             'label'            : 'New child',
             'action'           : function(obj) { this.create(obj); },
             'separator_after'  : false,
             'separator_before' : false,
-            'icon'             : 'context-create',
+            'icon'             : 'context-create'
           },
           'bulk-create' : {
             'label'            : 'New children',
             'action'           : function(obj) { this.bulk_form(obj); },
             'separator_after'  : true,
             'separator_before' : false,
-            'icon'             : 'context-create-bulk',
+            'icon'             : 'context-create-bulk'
           },
           'cut' : {
             'label'            : 'Cut',
             'action'           : function(obj) { this.cut(obj); },
             'separator_after'  : false,
             'separator_before' : false,
-            'icon'             : 'context-cut',
+            'icon'             : 'context-cut'
           },
           'paste' : {
             'label'            : 'Paste',
             'action'           : function(obj) { this.paste(obj); },
             'separator_after'  : false,
             'separator_before' : false,
-            'icon'             : 'context-paste',
+            'icon'             : 'context-paste'
           },
           'refresh' : {
             'label'            : 'Refresh',
             'action'           : function(obj) { this.refresh(obj); },
             'separator_after'  : false,
             'separator_before' : true,
-            'icon'             : 'context-refresh',
+            'icon'             : 'context-refresh'
           },
           'bookmark' : {
             'label'            : 'Add bookmark',
@@ -125,8 +126,8 @@ $(function() {
             'action'           : function(obj) { this.remove(obj); },
             'separator_after'  : false,
             'separator_before' : true,
-            'icon'             : 'context-delete',
-          },
+            'icon'             : 'context-delete'
+          }
         };
       }
     },
@@ -185,7 +186,7 @@ $(function() {
     mainmenuid: "toolbar",
     orientation: 'h',
     classname: 'ddsmoothmenu',
-    contentsource: "markup",
+    contentsource: "markup"
   });
 
   /*
@@ -196,7 +197,7 @@ $(function() {
     .blur(function() {
       var self = $(this);
 
-      if ($.trim(self.val()) == '') {
+      if ($.trim(self.val()) === '') {
         setTimeout(function() {
           self.focus();
         }, 10);
@@ -218,7 +219,7 @@ $(function() {
       }
     })
     .keypress(function(event) {
-      if (event.which == 13) {
+      if (event.which === 13) {
         $(this).blur();
       }
     });
@@ -226,7 +227,7 @@ $(function() {
    /*
     * Hide the reference tree tabs
     */
-   if ($('#reference-trees li').length == 0) {
+   if ($('#reference-trees li').length === 0) {
      $('#tab-titles li:first-child').hide();
    }
 
@@ -260,7 +261,7 @@ $(function() {
 
     if (active) {
         $('#reference-trees li a').click(function() {
-          if($(this).attr('href').split('_')[2] == tree_id && self.find('ul').length == 0) {
+          if($(this).attr('href').split('_')[2] === tree_id && self.find('ul').length === 0) {
               // Render the reference tree
               self.jstree($.extend(true, {}, GNITE.Tree.ReferenceTree.configuration, {
                 'html_data': {
@@ -312,7 +313,7 @@ $(function() {
                   mainmenuid: "toolbar-reference-"+tree_id,
                   orientation: 'h',
                   classname: 'ddsmoothmenu',
-                  contentsource: "markup",
+                  contentsource: "markup"
                 });
               });
 
@@ -333,10 +334,10 @@ $(function() {
         switch(response.message) {
           case 'Import is successful':
             $.get('/reference_trees/' + tree_id + '.json', function(response, status, xhr) {
-              if (xhr.status == 200) {
+              if (xhr.status === 200) {
                 self.parent().find(".status").addClass("juggernaut-complete");
                 jugImporter.unsubscribe("tree_" + tree_id);
-                self.parent().find(".status").html(response.message)
+                self.parent().find(".status").html(response.message);
                 self.parent().unspinner();
                 GNITE.Tree.ReferenceTree.add(response);
                 self.parents('.reference-tree').removeClass("reference-tree-importing").addClass("reference-tree-active");
@@ -363,7 +364,7 @@ $(function() {
 
     if (active) {
       $('#deleted a').click(function() {
-        if(self.find('ul').length == 0) {
+        if(self.find('ul').length === 0) {
           // Render the deleted tree
           self.jstree($.extend(true, {}, GNITE.Tree.ReferenceTree.configuration, {
             'html_data': {
@@ -373,7 +374,7 @@ $(function() {
                     self.find("span.jstree-loading").remove();
                 }
               }
-            },
+            }
           }));
 
           // Hide the spinner icon once node is loaded
@@ -389,7 +390,7 @@ $(function() {
               mainmenuid: "toolbar-deleted",
               orientation: 'h',
               classname: 'ddsmoothmenu',
-              contentsource: "markup",
+              contentsource: "markup"
             });
           });
         }
@@ -473,7 +474,7 @@ $(function() {
     })
     .live('keypress', function(event) {
       //enter key
-      if (event.which == 13) {
+      if (event.which === 13) {
         $(this).blur();
       }
     })
@@ -639,7 +640,7 @@ $(function() {
     var name     = node.name;
     var parentID = null;
 
-    if (node.parent != -1) {
+    if (node.parent !== -1) {
       parentID = node.parent.attr('id');
     }
 
@@ -678,8 +679,7 @@ $(function() {
     var self = $(this);
     var node = data.rslt;
     var parent_id = (typeof node.obj.attr("id") !== "undefined") ? node.obj.attr("id") : GNITE.Tree.MasterTree.root;
-
-    nodes = $('#bulkcreate-list').val();
+    var nodes = $('#bulkcreate-list').val();
 
     // lock the tree
     self.jstree("lock");
@@ -695,9 +695,9 @@ $(function() {
         xhr.setRequestHeader("X-Session-ID", jug.sessionID);
       },
       success     : function(data) {
-        var timeout = setTimeout(function checkLockedStatus() {
+        setTimeout(function checkLockedStatus() {
           if(self.find('ul:first').hasClass('jstree-locked')) {
-            timeout = setTimeout(checkLockedStatus, 10);
+            setTimeout(checkLockedStatus, 10);
           }
           else {
            if(typeof node.obj.attr("id") !== "undefined") {
@@ -711,12 +711,12 @@ $(function() {
       }
     });
 
-    var timeout = setTimeout(function checkClosed() {
+    setTimeout(function checkClosed() {
       if(node.obj.hasClass("jstree-closed")) {
         self.jstree("open_node", node.obj);
       }
       else {
-        timeout = setTimeout(checkClosed, 10);
+        setTimeout(checkClosed, 10);
       }
     }, 10); 
 
@@ -725,7 +725,7 @@ $(function() {
   $('#master-tree').bind('loaded.jstree', function(event, data) {
     $(this).addClass('loaded');
     // Lock the master tree if refreshed in midst of active job
-    if(GNITE.Tree.MasterTree.state == "working") {
+    if(GNITE.Tree.MasterTree.state === "working") {
       $(this).jstree("lock");
     }
   });
@@ -773,7 +773,7 @@ $(function() {
      var parentID = result.np.attr('id');
      var action_type = "";
 
-     if (parentID == 'master-tree') {
+     if (parentID === 'master-tree') {
        parentID = GNITE.Tree.MasterTree.root;
      }
     
@@ -790,7 +790,7 @@ $(function() {
 
        var movedNodeID = $(this).attr("id");
        var url = '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes';
-       if(!isCopy) url += '/' + movedNodeID;
+       if(!isCopy) { url += '/' + movedNodeID; }
        url += '.json';
 
        $.ajax({
@@ -857,7 +857,7 @@ $(function() {
   $('#add-node-wrap').live('click', function(event) {
     var target = $(event.target);
 
-    if (event.target.tagName != 'A' && event.target.tagName != 'INS') {
+    if (event.target.tagName !== 'A' && event.target.tagName !== 'INS') {
       $('#add-node-wrap').css('bottom', '20px');
       $('#add-node-wrap + .node-metadata').hide();
 
@@ -954,7 +954,7 @@ $(function() {
    */
   $('#master-tree').bind('load_node.jstree', function(event, data) {
     var node = data.rslt;
-    if(node.obj != -1) node.obj.find("span.jstree-loading").remove();
+    if(node.obj !== -1) { node.obj.find("span.jstree-loading").remove(); }
   });
 
   /*
@@ -1026,7 +1026,7 @@ $(function() {
             $('#new-tab .tree-background').html(results);
         
             $('#search-nav li').each(function() {
-              if ($(this).find('.count').text() != '0') {
+              if ($(this).find('.count').text() !== '0') {
                 $(this).trigger('click');
                 return false;
               }
@@ -1044,7 +1044,7 @@ $(function() {
     })
     .live('keypress', function(event) {
       // enter key
-      if (event.which == 13) {
+      if (event.which === 13) {
         $(this).blur();
       }
     });
@@ -1058,7 +1058,7 @@ $(function() {
     var self = $(this);
 
     $('#tree-newimport').spinner();
-    $('#import-gnaclr').remove();
+    self.remove();
 
     var checkedRadioButton = $('#tree-revisions form input:checked');
     var opts = { 
@@ -1110,23 +1110,23 @@ $(function() {
     var titleLabel = $('#import-title').parent().prev().find('label');
     var rootsLabel = $('#import-roots').parent().prev().find('label');
 
-    if (title == '') {
-      if (titleLabel.find('span').length == 0) {
+    if (title === '') {
+      if (titleLabel.find('span').length === 0) {
         titleLabel.addClass('error').append('<span> is required.</span>');
       }
     } else {
       titleLabel.removeClass('error').find('span').remove();
     }
 
-    if (roots == '') {
-      if (rootsLabel.find('span').length == 0) {
+    if (roots === '') {
+      if (rootsLabel.find('span').length === 0) {
         rootsLabel.addClass('error').append('<span> is required.</span>');
       }
     } else {
       rootsLabel.removeClass('error').find('span').remove();
     }
 
-    if (title == '' || roots == '') {
+    if (title === '' || roots === '') {
       return false;
     }
 
@@ -1192,7 +1192,7 @@ GNITE.Tree.openAncestry = function(tree, obj) {
       done = false;
     }
 
-    if(done) tree.jstree("select_node", end);
+    if(done) { tree.jstree("select_node", end); }
   }
 };
 
@@ -1249,8 +1249,8 @@ GNITE.Tree.viewBookmarks = function(obj) {
   var self = $(obj);
   var tree = self.parents('.tree-background').find('.jstree');
   var tree_id = tree.attr("id").split('_');
-  var url = (tree_id[0] == 'master-tree') ? '/master_trees/' + GNITE.Tree.MasterTree.id + '/bookmarks' : '/reference_trees/' + tree_id[4] + '/bookmarks';
-  var id = (tree_id[0] == 'master-tree') ? GNITE.Tree.MasterTree.id : tree_id[4];
+  var url = (tree_id[0] === 'master-tree') ? '/master_trees/' + GNITE.Tree.MasterTree.id + '/bookmarks' : '/reference_trees/' + tree_id[4] + '/bookmarks';
+  var id = (tree_id[0] === 'master-tree') ? GNITE.Tree.MasterTree.id : tree_id[4];
 
   var $bookmarks = $('#bookmarks-results-' + id);
   $bookmarks.html("").spinner().dialog("open");
@@ -1288,7 +1288,7 @@ GNITE.Tree.viewBookmarks = function(obj) {
         var $bookmark = $edit.prev();
         var val = $bookmark.text();
 
-        $input = $(this).parent().parent().children(".bookmarks-input");
+        var $input = $(this).parent().parent().children(".bookmarks-input");
         $input.children("input").val(val);
         $input.show();
 
@@ -1377,10 +1377,10 @@ GNITE.Tree.importTree = function(opts) {
   //see if the tree already exists and if not, initiate a juggernaut connection
   if(tree_id) {
     $.get('/reference_trees/' + tree_id, { format : 'json' }, function(response, status, xhr) {
-      if (xhr.status == 200) {
+      if (xhr.status === 200) {
         GNITE.Tree.ReferenceTree.add(response, opts);
       }
-      else if (xhr.status == 204) {
+      else if (xhr.status === 204) {
         var jugImporter = new Juggernaut();
         jugImporter.on("connect", function() { opts.spinnedElement.find(".status").addClass("juggernaut-connected"); });
         jugImporter.subscribe("tree_" + tree_id, function(data) {
@@ -1388,7 +1388,7 @@ GNITE.Tree.importTree = function(opts) {
         switch(response.message) {
           case 'Import is successful':
             $.get('/reference_trees/' + tree_id, { format : 'json' }, function(response, status, xhr) {
-              if (xhr.status == 200) {
+              if (xhr.status === 200) {
                 opts.spinnedElement.find(".status").addClass("juggernaut-complete");
                 jugImporter.unsubscribe("tree_" + tree_id);
                 opts.spinnedElement.find(".status").html(response.message);
@@ -1441,16 +1441,16 @@ GNITE.Tree.MasterTree.flashNode = function(data) {
   var destination_parent = self.find('#'+data.destination_parent_id);
   var source_parent = self.find('#' + data.parent_id);
 
-  var timeout = setTimeout(function checkLockedStatus() {
+  setTimeout(function checkLockedStatus() {
     if(self.find('ul:first').hasClass('jstree-locked')) {
-      timeout = setTimeout(checkLockedStatus, 10);
+      setTimeout(checkLockedStatus, 10);
     }
     else {
       if(data.destination_parent_id && destination_parent.length > 0) {
         self.jstree("refresh", $('#'+data.destination_parent_id));
         self.find('#' + data.destination_parent_id + ' a:first').effect("highlight", { color : "#BABFC3" }, 2000);
       }
-      if(data.destination_parent_id != data.parent_id && source_parent.length > 0) {
+      if(data.destination_parent_id !== data.parent_id && source_parent.length > 0) {
         self.jstree("refresh", $('#'+data.parent_id));
         self.find('#' + data.parent_id + ' a:first').effect("highlight", { color : "#BABFC3" }, 2000);
       }
@@ -1463,7 +1463,7 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
     $('#tabs li:first-child ul li a[href="#' + response.domid +'"]').trigger('click');
   }
   else {
-    if($('a[href="#' + response.domid + '"]').length == 0) {
+    if($('a[href="#' + response.domid + '"]').length === 0) {
       var tab   = $('#all-tabs');
       var count = parseInt(tab.text().replace(/[^0-9]+/, ''), 10);
 
@@ -1509,7 +1509,7 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
         mainmenuid: "toolbar-reference-"+tree_id,
         orientation: 'h',
         classname: 'ddsmoothmenu',
-        contentsource: "markup",
+        contentsource: "markup"
       });
     });
 
@@ -1568,13 +1568,6 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
 
     container.unspinner().show();
     wrapper.css('bottom', container.height());
-
-    var nodePosition  = container[0].offsetTop - wrapper[0].scrollTop;
-    var visibleHeight = wrapper.height();
-
-    if (nodePosition >= visibleHeight) {
-//    wrapper[0].scrollTop += nodePosition - visibleHeight + 36;
-    }
   });
 };
 
@@ -1591,7 +1584,7 @@ $.fn.spinner = function() {
   var position       = this.css('position');
   var spinnerElement = $('<div class="spinner"></div>');
 
-  if (position != 'absolute' && position != 'relative') {
+  if (position !== 'absolute' && position !== 'relative') {
     position = 'relative';
   }
 
