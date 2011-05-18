@@ -17,8 +17,8 @@ var GNITE = {
 **************************************************************/
 var jug = new Juggernaut();
 
-jug.on("connect", function() { GNITE.pushMessage("user", GNITE.Tree.MasterTree.user + " logged in", true); });
-jug.on("disconnect", function() { GNITE.pushMessage("user", GNITE.Tree.MasterTree.user + " logged out", true); });
+jug.on("connect", function() { GNITE.pushMessage("announcement", GNITE.Tree.MasterTree.user + " joined", true); });
+jug.on("disconnect", function() { });
 jug.on("reconnect", function() { });
 
 
@@ -420,15 +420,12 @@ $(function() {
         $('#master-tree').jstree(response.perform);
       break;
     }
-/*
-    if(response.user) {
-     //update a DOM element here with message that user logged in
-    }
 
     if(response.announcement) {
-      //update a DOM element here with an administrator announcement
+     $('#tab-titles #messages-tab').effect("highlight", { color : "green" }, 2000)
+     $('#messages-list').prepend("<li class=\"new-user\">" + response.announcement + " [" + response.time + "]</li>");
     }
-*/
+
   });
 
 
@@ -1166,14 +1163,14 @@ $(function() {
 /**************************************************************
            HELPER FUNCTIONS
 **************************************************************/
-GNITE.pushMessage = function(namespace, message, ignore) {
+GNITE.pushMessage = function(subject, message, ignore) {
   $.ajax({
     type        : 'PUT',
     async       : true,
     url         : '/push_messages/',
     contentType : 'application/json',
     dataType    : 'json',
-    data        : JSON.stringify({ 'channel' : GNITE.Tree.MasterTree.channel, 'message' : "{\"" + namespace + "\" : \"" + message + "\" }" }),
+    data        : JSON.stringify({ 'channel' : GNITE.Tree.MasterTree.channel, 'subject' : subject, 'message' : message }),
     beforeSend  : function(xhr) {
         if(ignore) { xhr.setRequestHeader("X-Session-ID", jug.sessionID) }
     },

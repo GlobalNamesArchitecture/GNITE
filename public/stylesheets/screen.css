@@ -23,6 +23,7 @@ body.users-new #wrapper {
   height: 50px;
   width: 100%;
   padding: 0;
+  position:relative;
 }
 
 #header h1 {
@@ -1924,4 +1925,22 @@ ul#treelist li,  #gnaclr-search, .tree-background, #loginform .input, .green-sub
 /* jQuery UI */
 input[type="text"].ui-state-error, textarea.ui-state-error {
   background-color:#FFB6C1;
+}
+
+/* Current Messages */
+/************************************************************************/
+
+#messages-scroller {
+  overflow:auto;
+}
+
+#messages-list {
+  margin:5px;
+}
+
+#messages-list li {
+}
+
+#messages-list li.new-user {
+  color:green;
 }
