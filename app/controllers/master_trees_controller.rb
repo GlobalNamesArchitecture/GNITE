@@ -15,6 +15,9 @@ class MasterTreesController < ApplicationController
 
   def show
     @master_tree = MasterTree.find(params[:id])
+    user_details = current_user.serializable_hash(:except => [:encrypted_password, :confirmation_token, :remember_token, :salt, :email_confirmed]).to_json
+    message = "{\"subject\" : \"member-login\", \"message\" : \"\", \"user\" : " + user_details + ", \"time\" : \"" + Time.new.to_s + "\" }"
+    Juggernaut.publish("tree_" + @master_tree.id.to_s, message)
   end
 
   def edit

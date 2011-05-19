@@ -17,7 +17,7 @@ var GNITE = {
 **************************************************************/
 var jug = new Juggernaut();
 
-jug.on("connect", function() { GNITE.pushMessage("member-login", "", true); });
+jug.on("connect", function() { });
 jug.on("disconnect", function() { });
 jug.on("reconnect", function() { });
 
