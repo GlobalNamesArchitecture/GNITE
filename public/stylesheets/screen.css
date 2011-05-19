@@ -991,6 +991,9 @@ body form input {
 .bookmarks-results .bookmarks-input .input {
   height:1.5em;
   width:200px;
+  border: 1px solid #C7C3B5;
+  padding:3px;
+  margin:0px;
 }
 
 .bookmark-addition {
@@ -1004,6 +1007,7 @@ body form input {
   margin: 10px 4% 14px 2%;
   padding: 8px 5px;
   width: 80%;
+  border: 1px solid #C7C3B5;
 }
 
 .bookmark-addition label {
@@ -1838,7 +1842,7 @@ ul#reference-trees {
   left: -1px;
   padding: 15px 15px 15px 15px;
   position: absolute;
-  top: 26px;
+  top: 32px;
   width: 270px;
   z-index: 1000;
 }
