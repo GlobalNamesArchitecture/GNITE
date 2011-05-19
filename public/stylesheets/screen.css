@@ -218,7 +218,7 @@ body form input {
   width: 380px;
 }
 
-.cancel-button, .green-submit {
+.cancel-button, .green-submit, .green-submit-small {
   border: 0 solid rgb(15, 18, 21) !important;
   min-height: 38px;
   padding: 7px 15px !important;
@@ -231,7 +231,17 @@ body form input {
   margin: 15px 5px;
 }
 
-.green-submit {
+.green-submit-small {
+  padding:10px !important;
+  float:none;
+  font-size:1em !important;
+  height:30px;
+  min-height:0px;
+  margin:0px 0px 0px 5px;
+  vertical-align:top;
+}
+
+.green-submit, .green-submit-small {
   background: #5aa52b;
   background: -moz-linear-gradient(center bottom, rgb(27,112,4) 4%, rgb(90,165,43) 58%, rgb(144,207,76) 98%) !important;
   background: -webkit-gradient(linear,left bottom,left top, color-stop(0.04, rgb(27,112,4)), color-stop(0.58, rgb(90,165,43)), color-stop(0.98, rgb(144,207,76))) !important;
@@ -243,12 +253,12 @@ body form input {
   background: -webkit-gradient(linear,left bottom,left top, color-stop(0.04, rgb(139,35,35)), color-stop(0.58, rgb(255,64,64)), color-stop(0.98, rgb(255,193,193))) !important;
 }
 
-.cancel-button:hover, .green-submit:hover {
+.cancel-button:hover, .green-submit:hover, .green-submit-small:hover {
   cursor: pointer;
   border: 0 solid rgb(15, 18, 21) !important;
 }
 
-.green-submit:hover {
+.green-submit:hover, .green-submit-small:hover {
   box-shadow: inset 1px 1px 5px 1px rgb(126, 229, 44), 0 1px 2px rgba(0,0,0, 1);
   -moz-box-shadow: inset 1px 1px 5px 1px rgb(126, 229, 44), 0 1px 2px rgba(0,0,0, 1);
   -webkit-box-shadow: inset 1px 1px 5px 1px rgb(126, 229, 44), 0 1px 2px rgba(0,0,0, 1);
@@ -1929,6 +1939,29 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 
 /* Current Messages */
 /************************************************************************/
+#messages-chat {
+  margin:0px;
+  padding-top:10px;
+  text-align:center;
+}
+
+#messages-chat label {
+  font-weight: bold;
+  margin: 10px;
+}
+
+#messages-chat input {
+  background: #fff;
+  border:1px solid rgb(199, 195, 181);
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  height: 28px;
+  padding: 0 10px;
+  width: 286px;
+  font-size:1.25em;
+  margin-top:0px;
+}
 
 #messages-scroller {
   overflow:auto;
@@ -1939,6 +1972,10 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 }
 
 #messages-list li {
+}
+
+#messages-list li span.user {
+  color:#555;
 }
 
 #messages-list li.new-user {

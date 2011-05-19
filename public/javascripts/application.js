@@ -17,10 +17,9 @@ var GNITE = {
 **************************************************************/
 var jug = new Juggernaut();
 
-jug.on("connect", function() { GNITE.pushMessage("announcement", GNITE.Tree.MasterTree.user + " joined", true); });
+jug.on("connect", function() { GNITE.pushMessage("member-login", "", true); });
 jug.on("disconnect", function() { });
 jug.on("reconnect", function() { });
-
 
 /********************************* jQuery START *********************************/
 $(function() {
@@ -406,26 +405,33 @@ $(function() {
 
   jug.subscribe(GNITE.Tree.MasterTree.channel, function(data) {
     var response = $.parseJSON(data);
-    switch(response.perform) {
-      case 'new-event':
+    switch(response.subject) {
+      case 'edit':
         GNITE.Tree.MasterTree.flashNode(response.message);
         $('.deleted-tree-container .jstree').jstree("refresh");
       break;
 
       case 'lock':
-        $('#master-tree').jstree(response.perform);
+        $('#master-tree').jstree("lock");
       break;
 
       case 'unlock':
-        $('#master-tree').jstree(response.perform);
+        $('#master-tree').jstree("unlock");
+      break;
+
+      case 'member-login':
+        $('#tab-titles #messages-tab').effect("highlight", { color : "green" }, 2000);
+        $('#messages-list').prepend("<li class=\"new-user\"><span class=\"user\">" + response.user.email + "</span> arrived [" + response.time + "]</li>");
+      break;
+
+      case 'member-logout':
+      break;
+
+      case 'chat':
+        $('#tab-titles #messages-tab:not(.ui-state-active)').effect("highlight", { color : "green" }, 2000);
+        $('#messages-list').prepend("<li class=\"chat\"><span class=\"user\">" + response.user.email + "</span>: " + response.message + "</li>");
       break;
     }
-
-    if(response.announcement) {
-     $('#tab-titles #messages-tab').effect("highlight", { color : "green" }, 2000)
-     $('#messages-list').prepend("<li class=\"new-user\">" + response.announcement + " [" + response.time + "]</li>");
-    }
-
   });
 
 
@@ -1155,6 +1161,20 @@ $(function() {
     return false;
   });
 
+  /**************************************************************
+           CHAT
+  **************************************************************/
+  $('#chat-message').keypress(function(event) {
+    if (event.which === 13) {
+      GNITE.postChat();
+      $(this).val('');
+    }
+  });
+  $('#chat-submit').click(function() {
+    GNITE.postChat();
+    return false;
+  });
+
 });
 
 /********************************* jQuery END *********************************/
@@ -1172,11 +1192,18 @@ GNITE.pushMessage = function(subject, message, ignore) {
     dataType    : 'json',
     data        : JSON.stringify({ 'channel' : GNITE.Tree.MasterTree.channel, 'subject' : subject, 'message' : message }),
     beforeSend  : function(xhr) {
-        if(ignore) { xhr.setRequestHeader("X-Session-ID", jug.sessionID) }
+        if(ignore) { xhr.setRequestHeader("X-Session-ID", jug.sessionID); }
     },
     success : function(data) {
     }
   });
+};
+
+GNITE.postChat = function() {
+  var message = $('#chat-message').val().trim();
+  if(message) {
+    GNITE.pushMessage("chat", message, false);
+  }
 };
 
 GNITE.Tree.hideMenu = function() {
@@ -1465,13 +1492,18 @@ GNITE.Tree.MasterTree.flashNode = function(data) {
       setTimeout(checkLockedStatus, 10);
     }
     else {
-      if(data.destination_parent_id && destination_parent.length > 0) {
-        self.jstree("refresh", $('#'+data.destination_parent_id));
-        self.find('#' + data.destination_parent_id + ' a:first').effect("highlight", { color : "#BABFC3" }, 2000);
+      if(data.parent_id.toString() === GNITE.Tree.MasterTree.root) {
+        self.jstree("refresh");
       }
-      if(data.destination_parent_id !== data.parent_id && source_parent.length > 0) {
-        self.jstree("refresh", $('#'+data.parent_id));
-        self.find('#' + data.parent_id + ' a:first').effect("highlight", { color : "#BABFC3" }, 2000);
+      else {
+        if(data.destination_parent_id && destination_parent.length > 0) {
+          self.jstree("refresh", $('#'+data.destination_parent_id));
+          self.find('#' + data.destination_parent_id + ' a:first').effect("highlight", { color : "#BABFC3" }, 2000);
+        }
+        if(data.destination_parent_id !== data.parent_id && source_parent.length > 0) {
+          self.jstree("refresh", $('#'+data.parent_id));
+          self.find('#' + data.parent_id + ' a:first').effect("highlight", { color : "#BABFC3" }, 2000);
+        }
       }
     }
   }, 10);
