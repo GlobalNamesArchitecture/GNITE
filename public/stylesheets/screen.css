@@ -1969,6 +1969,12 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 
 #messages-scroller {
   overflow:auto;
+  left: 0;
+  overflow: auto;
+  position: absolute;
+  right: 0;
+  top: 90px;
+  max-height:575px;
 }
 
 #messages-list {
