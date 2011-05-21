@@ -61,7 +61,7 @@ $(function() {
     },
     'ui' : {
       'select_limit' : -1,
-      'select_multiple_modifier' : "shift"
+      'select_multiple_modifier' : "on"
     },
     'plugins' : ['themes', 'html_data', 'ui', 'dnd', 'crrm', 'cookies', 'hotkeys']
   };
