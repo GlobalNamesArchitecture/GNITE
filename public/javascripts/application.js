@@ -775,6 +775,7 @@ $(function() {
   /*
    * ActionType: ActionCopyNodeFromAnotherTree and ActionMoveNodeWithinTree
    * Moves node within Master Tree
+   * TODO: if node was dragged from reference to master 2+ times, it will fail because of a duplicate key in nodes table on 'index_nodes_on_local_id_and_tree_id'
    */
   $('#master-tree').bind('move_node.jstree', function(event, data) {
 
