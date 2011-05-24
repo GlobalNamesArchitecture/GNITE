@@ -60,8 +60,7 @@ $(function() {
       }
     },
     'ui' : {
-      'select_limit' : -1,
-      'select_multiple_modifier' : "on"
+      'select_limit' : -1
     },
     'plugins' : ['themes', 'html_data', 'ui', 'dnd', 'crrm', 'cookies', 'hotkeys']
   };
@@ -156,6 +155,10 @@ $(function() {
     'bulkcreate' : {
       'element' : '#bulkcreate-form'
     },
+    'ui' : {
+      'select_limit' : -1,
+      'select_multiple_modifier' : "ctrl"
+    },
     'plugins' : ['themes', 'html_data', 'ui', 'dnd', 'crrm', 'cookies', 'contextmenu', 'bookmarks', 'hotkeys', 'bulkcreate', 'undoredo']
   });
 
@@ -165,6 +168,10 @@ $(function() {
         'check_move' : function() { return false; }
       }
     },
+    'ui' : {
+      'select_limit' : -1,
+      'select_multiple_modifier' : "on"
+    },
     'plugins' : ['themes', 'html_data', 'ui', 'dnd', 'crrm', 'cookies', 'bookmarks', 'hotkeys']
   });
 
@@ -173,6 +180,10 @@ $(function() {
       'move' : {
         'check_move' : function() { return false; }
       }
+    },
+    'ui' : {
+      'select_limit' : -1,
+      'select_multiple_modifier' : "on"
     },
     'plugins' : ['themes', 'html_data', 'ui', 'dnd', 'crrm', 'cookies', 'hotkeys']
   });
