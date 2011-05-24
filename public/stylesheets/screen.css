@@ -1185,17 +1185,17 @@ body form input {
 
 /* GNACLR Search results */
 /************************************************************************/
-#gnaclr-search-results {
+div.tabbed-subnav {
   padding: 10px;
 }
 
-#gnaclr-search-results ul#search-nav li {
+div.tabbed-subnav ul.tabbed-header li {
   float: left;
   margin: 0 4px 0 0;
   width: 140px;
 }
 
-#gnaclr-search-results ul#search-nav li a {
+div.tabbed-subnav ul.tabbed-header li a {
   background: #BABFC3;
   border-radius: 5px 5px 0 0;
   display: block;
@@ -1204,14 +1204,18 @@ body form input {
   text-decoration: none;
 }
 
-#gnaclr-search-results ul#search-nav li.active a {
+div.tabbed-subnav ul.tabbed-header li.active a {
   background: #d0d6db;
 }
 
-#gnaclr-search-results ul#search-nav li a div.count {
+div.tabbed-subnav ul.tabbed-header li a div.count {
   display: inline;
   float: right;
   font-weight: bold;
+}
+
+div.tabbed-subnav div.tabbed-panel p {
+  margin-top:10px;
 }
 
 .search-text {
@@ -1943,18 +1947,18 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 
 /* Current Messages */
 /************************************************************************/
-#messages-chat {
+#chat-messages-form {
   margin:0px;
-  padding-top:10px;
+  padding:10px 0px;
   text-align:center;
 }
 
-#messages-chat label {
+#chat-messages-form label {
   font-weight: bold;
   margin: 10px;
 }
 
-#messages-chat input {
+#chat-messages-form input {
   background: #fff;
   border:1px solid rgb(199, 195, 181);
   border-radius: 5px;
@@ -1967,27 +1971,19 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   margin-top:0px;
 }
 
-#messages-scroller {
+#chat-messages-scroller {
   overflow:auto;
-  left: 0;
-  overflow: auto;
-  position: absolute;
-  right: 0;
-  top: 90px;
-  max-height:575px;
+  max-height:550px;
 }
 
-#messages-list {
+#chat-messages-list {
   margin:5px;
 }
 
-#messages-list li {
-}
-
-#messages-list li span.user {
+#chat-messages-list li span.user {
   color:#555;
 }
 
-#messages-list li.new-user {
+#chat-messages-list li.new-user {
   color:green;
 }

@@ -3,14 +3,32 @@
     
     <div class="breadcrumbs">
       <ul>
-        <li>Current Messages</li>
+        <li></li>
       </ul>
     </div>
 
-   <div id="messages-chat" class="dark"><label for="chat-message">Chat</label><input id="chat-message" type="text" class="input chat"></input><button id="chat-submit" class="green-submit-small ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">Send</span></button></div>
-
-    <div id="messages-scroller" class="jstree">
-      <ul id="messages-list"></ul>
+  <div id="chat-logs" class="tabbed-subnav">
+    <ul class="tabbed-header clearfix">
+      <li id="chat-tab" class="active">
+        <a href="#chat-messages-wrapper">
+          Chat
+          <div class="count"></div>
+        </a>
+      </li>
+      <li id="log_tab">
+        <a href="#edit-logs-wrapper">
+          Logs
+          <div class="count"></div>
+        </a>
+      </li>
+    </ul>
+      <div id="chat-messages-wrapper" class="tabbed-panel">
+        <div id="chat-messages-form" class="dark"><label for="chat-message">Chat</label><input id="chat-messages-input" type="text" class="chat"></input><button id="chat-messages-submit" class="green-submit-small ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">Send</span></button></div>
+        <div id="chat-messages-scroller" class="jstree">
+          <ul id="chat-messages-list"></ul>
+        </div>
+      </div>
+      <div id="edit-logs-wrapper" class="tabbed-panel" style="display:none;"><p>Edit logs are coming soon...</p></div>
     </div>
 
   </div>

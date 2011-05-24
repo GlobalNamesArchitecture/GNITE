@@ -29,7 +29,7 @@ class ActionCommand < ActiveRecord::Base
     master_tree.state = 'working'
     master_tree.save
     
-    Juggernaut.publish(channel, "{ \"subject\" : \"edit\", \"message\" : #{action_command.serializable_hash(:except => :json_message).to_json} }", :except => session_id)
+    Juggernaut.publish(channel, "{ \"subject\" : \"edit\", \"action\" : #{action_command.serializable_hash(:except => :json_message).to_json} }", :except => session_id)
     Juggernaut.publish(channel, "{ \"subject\" : \"lock\" }", :except => session_id)
     
     Resque.enqueue(action_command.class, action_command.id)

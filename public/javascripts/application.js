@@ -407,7 +407,7 @@ $(function() {
     var response = $.parseJSON(data);
     switch(response.subject) {
       case 'edit':
-        GNITE.Tree.MasterTree.flashNode(response.message);
+        GNITE.Tree.MasterTree.flashNode(response.action);
         $('.deleted-tree-container .jstree').jstree("refresh");
       break;
 
@@ -421,7 +421,7 @@ $(function() {
 
       case 'member-login':
         $('#tab-titles #messages-tab').effect("highlight", { color : "green" }, 2000);
-        $('#messages-list').prepend("<li class=\"new-user\"><span class=\"user\">" + response.user.email + "</span> arrived [" + response.time + "]</li>");
+        $('#chat-messages-list').prepend("<li class=\"new-user\"><span class=\"user\">" + response.user.email + "</span> arrived [" + response.time + "]</li>");
       break;
 
       case 'member-logout':
@@ -429,7 +429,7 @@ $(function() {
 
       case 'chat':
         $('#tab-titles #messages-tab:not(.ui-state-active)').effect("highlight", { color : "green" }, 2000);
-        $('#messages-list').prepend("<li class=\"chat\"><span class=\"user\">" + response.user.email + "</span>: " + response.message + "</li>");
+        $('#chat-messages-list').prepend("<li class=\"chat\"><span class=\"user\">" + response.user.email + "</span>: " + response.message + "</li>");
       break;
     }
   });
@@ -1099,11 +1099,11 @@ $(function() {
     return false;
   });
 
-  $('#search-nav li').live('click', function() {
-    $('#search-nav li.active').removeClass('active');
+  $('.tabbed-header li').live('click', function() {
+    $(this).parent().find('li').removeClass('active');
     $(this).addClass('active');
 
-    $('.search-text').hide();
+    $(this).parent().parent().find('.tabbed-panel').hide();
     $($(this).find('a').attr('href')).show();
 
     return false;
@@ -1165,13 +1165,13 @@ $(function() {
   /**************************************************************
            CHAT
   **************************************************************/
-  $('#chat-message').keypress(function(event) {
+  $('#chat-messages-input').keypress(function(event) {
     if (event.which === 13) {
       GNITE.postChat();
       $(this).val('');
     }
   });
-  $('#chat-submit').click(function() {
+  $('#chat-messages-submit').click(function() {
     GNITE.postChat();
     return false;
   });
@@ -1201,7 +1201,7 @@ GNITE.pushMessage = function(subject, message, ignore) {
 };
 
 GNITE.postChat = function() {
-  var message = $('#chat-message').val().trim();
+  var message = $('#chat-messages-input').val().trim();
   if(message) {
     GNITE.pushMessage("chat", message, false);
   }
