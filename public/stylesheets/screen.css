@@ -1215,7 +1215,9 @@ div.tabbed-subnav ul.tabbed-header li a div.count {
 }
 
 div.tabbed-subnav div.tabbed-panel p {
-  margin-top:10px;
+  margin:10px;
+  font-style:italic;
+  text-align:left;
 }
 
 .search-text {
