@@ -420,8 +420,9 @@ $(function() {
       break;
 
       case 'member-login':
-        $('#tab-titles #messages-tab').effect("highlight", { color : "green" }, 2000);
-        $('#chat-messages-list').prepend("<li class=\"new-user\"><span class=\"user\">" + response.user.email + "</span> arrived [" + response.time + "]</li>");
+        if(!$("#tab-titles #messages-tab").hasClass("ui-state-active")) { $("#tab-titles #messages-tab a").effect("highlight", { color : "green" }, 2000); }
+        if(!$("#chat-tab").hasClass("active")) { $("#chat-tab a").effect("highlight", { color : "green" }, 2000); }
+        $("#chat-messages-list").prepend("<li class=\"new-user\"><span class=\"user\">" + response.user.email + "</span> arrived [" + response.time + "]</li>");
       break;
 
       case 'member-logout':
