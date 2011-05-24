@@ -25,7 +25,7 @@ Feature: Importing trees from GNACLR
     Then I should not see a spinner
     And I should see an "NCBI" tab
     Then I should see "All reference trees (1)"
-    And I should see the breadcrumb path "Reference Trees > NCBI"
+    And I should see the breadcrumb path "NCBI"
     And I should see a node "Cyphophthalmi incertae sedis" at the root level in my reference tree "NCBI"
     And I should see a node "Opiliones" at the root level in my reference tree "NCBI"
     When I select the node "Opiliones"
@@ -45,7 +45,7 @@ Feature: Importing trees from GNACLR
     Then I should not see a spinner
     And I should see an "NCBI" tab
     Then I should see "All reference trees (1)"
-    And I should see the breadcrumb path "Reference Trees > NCBI"
+    And I should see the breadcrumb path "NCBI"
     And I should see a node "Cyphophthalmi incertae sedis" at the root level in my reference tree "NCBI"
     And I should see a node "Opiliones" at the root level in my reference tree "NCBI"
 
@@ -61,7 +61,7 @@ Feature: Importing trees from GNACLR
     Then I should see "All reference trees (1)"
     When I follow "All reference trees (1)"
     And I follow "NCBI"
-    Then I should see the breadcrumb path "Reference Trees > NCBI"
+    Then I should see the breadcrumb path "NCBI"
     And I should not see any reference tree nodes
     And I should see a spinner
     When resque jobs are run

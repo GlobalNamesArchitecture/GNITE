@@ -26,7 +26,7 @@ Feature: Import data to your master tree
     And I press "Import"
     Then I should see a "My Sweet List" tab
     And I should see "All reference trees (1)"
-    And I should see the breadcrumb path "Reference Trees > My Sweet List"
+    And I should see the breadcrumb path "My Sweet List"
     And I should see a node "root one" at the root level in my reference tree "My Sweet List"
     And I should see a node "root two" at the root level in my reference tree "My Sweet List"
     And I should see a node "root three" at the root level in my reference tree "My Sweet List"
