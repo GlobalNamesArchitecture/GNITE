@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110422020323) do
+ActiveRecord::Schema.define(:version => 20110524182428) do
 
   create_table "action_commands", :force => true do |t|
     t.string   "type"
@@ -62,6 +62,18 @@ ActiveRecord::Schema.define(:version => 20110422020323) do
   end
 
   add_index "gnaclr_publishers", ["master_tree_id"], :name => "index_gnaclr_publishers_on_master_tree_id"
+
+  create_table "languages", :force => true do |t|
+    t.string   "name"
+    t.string   "iso_639_1"
+    t.string   "iso_639_2"
+    t.string   "iso_639_3"
+    t.string   "native"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "languages", ["iso_639_1"], :name => "index_languages_on_iso_639_1"
 
   create_table "master_tree_contributors", :force => true do |t|
     t.integer  "master_tree_id"
@@ -118,6 +130,7 @@ ActiveRecord::Schema.define(:version => 20110422020323) do
     t.integer  "name_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "status"
   end
 
   add_index "synonyms", ["node_id", "name_id"], :name => "index_synonyms_on_node_id_and_name_id", :unique => true
@@ -167,6 +180,8 @@ ActiveRecord::Schema.define(:version => 20110422020323) do
     t.integer  "name_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "language_id"
+    t.string   "locality"
   end
 
   add_index "vernacular_names", ["node_id", "name_id"], :name => "index_vernacular_names_on_node_id_and_name_id", :unique => true

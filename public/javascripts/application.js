@@ -1416,9 +1416,9 @@ GNITE.Tree.importTree = function(opts) {
       tree_id = response.tree_id;
     },
     error       : function() {
-      opts.spinnedElement.unspinner();
-      alert("Connection to the Global Names Classification and List Repository was lost. Import failed");
-      return false;
+      // opts.spinnedElement.unspinner();
+      // alert("Connection to the Global Names Classification and List Repository was lost. Import failed");
+      // return false;
     }
   });
 
