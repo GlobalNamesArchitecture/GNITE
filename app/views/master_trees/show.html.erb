@@ -40,12 +40,12 @@
 <%= render :partial => "reference_trees" %>
 
 <% content_for :javascript do %>
-  <%= javascript_include_tag 'juggernaut/json', 'juggernaut/socket_io', 'juggernaut/juggernaut', 'application', 'jstree/jquery.jstree', 'jquery.jstree.bookmarks', 'jquery.cookie', 'jquery.hotkeys', 'jquery.jstree.bulkcreate', 'jquery.jstree.undoredo', 'jquery.scrollTo-min', 'ddsmoothmenu' %>
+<%= javascript_include_tag 'juggernaut/json', 'juggernaut/socket_io', 'juggernaut/juggernaut', 'application', 'jstree/jquery.jstree', 'jquery.jstree.bookmarks', 'jquery.cookie', 'jquery.hotkeys', 'jquery.jstree.bulkcreate', 'jquery.jstree.undoredo', 'jquery.scrollTo-min', 'ddsmoothmenu' %>
 
-  <script type="text/javascript">
-    <!--//--><![CDATA[//><!--
-	jQuery.extend(GNITE.Tree.MasterTree, { "root" : "<%= @master_tree.root.id %>", "state" : "<%= @master_tree.state %>", "user_id" : "<%= current_user.id %>" });
-	//--><!]]>
-    $.jstree._themes = '/javascripts/jstree/themes/';
-  </script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(GNITE.Tree.MasterTree, { "root" : "<%= @master_tree.root.id %>", "state" : "<%= @master_tree.state %>", "user_id" : "<%= current_user.id %>" });
+//--><!]]>
+$.jstree._themes = '/javascripts/jstree/themes/';
+</script>
 <% end %>
