@@ -1,1 +1,1 @@
-<% @nodes.each do |node| -%><li id="<%= node.id %>" class="<%= 'jstree-closed' if node.child_count > 0 %>"><a href="#"><%= node.name_string %></a><span><%= '['+node.child_count.to_s+']' if node.child_count > 0 %></span></li><% end -%>
+<% @nodes.each do |node| -%><li id="<%= node.id %>"<%= raw ' class="jstree-closed"' if node.child_count > 0 %>><a href="#"><%= node.name_string %></a><%= raw '<span>['+node.child_count.to_s+']</span>' if node.child_count > 0 %></li><% end -%>
