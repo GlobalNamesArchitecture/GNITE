@@ -17,7 +17,7 @@ var GNITE = {
 **************************************************************/
 var jug = new Juggernaut();
 
-jug.on("connect", function() { });
+jug.on("connect", function() { $('#master-tree').addClass("socket-active"); });
 jug.on("disconnect", function() { });
 jug.on("reconnect", function() { });
 
@@ -441,7 +441,7 @@ $(function() {
 
       case 'chat':
         $('#tab-titles #messages-tab:not(.ui-state-active)').effect("highlight", { color : "green" }, 2000);
-        $('#chat-messages-list').prepend("<li class=\"chat\"><span class=\"user\">" + response.user.email + "</span>: " + response.message + "</li>");
+        $('#chat-messages-list').prepend("<li class=\"chat\"><span class=\"user\">" + response.user.email + "</span>:<span class=\"message\">" + response.message + "</span></li>");
       break;
     }
   });

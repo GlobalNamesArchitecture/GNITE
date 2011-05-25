@@ -1949,7 +1949,7 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 
 /* Current Messages */
 /************************************************************************/
-#chat-messages-form {
+#chat-messages-form-wrapper {
   margin:0px;
   padding:10px 0px;
   text-align:center;
@@ -1988,4 +1988,8 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 
 #chat-messages-list li.new-user {
   color:green;
+}
+
+#chat-messages-list li span.message {
+  margin-left:3px;
 }
