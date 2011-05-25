@@ -18,7 +18,7 @@ var GNITE = {
 var jug = new Juggernaut();
 
 jug.on("connect", function() { $('#master-tree').addClass("socket-active"); });
-jug.on("disconnect", function() { });
+jug.on("disconnect", function() { $('#master-tree').removeClass("socket-active"); });
 jug.on("reconnect", function() { });
 
 /********************************* jQuery START *********************************/
