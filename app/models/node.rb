@@ -88,8 +88,7 @@ class Node < ActiveRecord::Base
       .joins(:name)
       .order("name_string")
       .readonly(false) #select and join return readonly objects, override that here
-    branches, leaves = nodes.partition { |n| n.has_children? }
-    branches + leaves
+    nodes
   end
 
   def has_children?
