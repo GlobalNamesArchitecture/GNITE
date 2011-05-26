@@ -46,6 +46,7 @@ class GnaclrImporter < ActiveRecord::Base
     @darwin_core_data = normalizer.normalize
     @tree             = normalizer.tree
     @name_strings     = normalizer.name_strings
+    @languages        = {}
   end
 
   def store_tree
@@ -104,22 +105,45 @@ class GnaclrImporter < ActiveRecord::Base
 
   def insert_synonyms_and_vernacular_names
     count = 0
-    { 'synonyms'         => @synonyms,
-      'vernacular_names' => @vernacular_names }.each do |table, alternate_names|
-      alternate_names.each do |node_id, names|
-        names.map(&:name).each do |name_string|
+    tables = { 'synonyms' => @synonyms, 'vernacular_names' => @vernacular_names }
+    tables.each do |table, data|
+      fields = 'status'
+      if table == 'vernacular_names'
+        fields = 'language_id, locality' 
+      end
+      next if data.blank?
+      data.each do |node_id, objects|
+
+        objects.each do |obj|
+          name = obj.name
+          values = nil
+          if table == 'synonyms'
+            values = Node.connection.quote(obj.status)
+          else
+            locality = Node.connection.quote(obj.locality) rescue "null"
+            language_id = find_language(obj.language)
+            values = "#{language_id}, #{locality}"
+          end
           count += 1
           DarwinCore.logger_write(@dwc.object_id, "Added %s synonyms and vernacular names" % count) if count % 10000 == 0
-          name_sql = Name.connection.quote(name_string)
-
-          Name.connection.execute "INSERT IGNORE INTO #{table} (node_id, name_id) VALUES (#{node_id.to_i}, (SELECT id FROM names WHERE name_string = #{name_sql} LIMIT 1))"
+          name_sql = Name.connection.quote(obj.name)
+          Name.connection.execute "INSERT IGNORE INTO #{table} (node_id, name_id, #{fields}) VALUES (#{node_id.to_i}, (SELECT id FROM names WHERE name_string = #{name_sql} LIMIT 1), #{values})"
         end
       end
-      end
+    end
   end
 
   def tarball_path
     Rails.root.join('tmp', reference_tree.id.to_s).to_s
+  end
+
+  def find_language(language_code)
+    return 'NULL' unless language_code
+    unless @languages[language_code]
+      language_id = Language.find_by_iso_639_1(language_code).id rescue 'NULL'
+      @languages[language_code] = language_id ? language_id : 'NULL'
+    end
+    @languages[language_code]
   end
   
 end

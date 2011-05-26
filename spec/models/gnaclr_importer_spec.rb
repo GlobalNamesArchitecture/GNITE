@@ -19,9 +19,14 @@ describe GnaclrImporter, 'import a tree for a valid dwc archive' do
   subject { GnaclrImporter.create(:url => "file:///#{Rails.root.join('features', 'support', 'fixtures', 'cyphophthalmi.tar.gz')}", :reference_tree => reference_tree) }
 
   it "should import darwin core file into a reference tree" do
+    Factory(:language, {name: "English", iso_639_1: "en", iso_639_2: "eng", iso_639_3: "eng", native: "English"})
+    Factory(:language, {name: "Portuguese", iso_639_1: "pt", iso_639_2: "por", iso_639_3: "por", native: "Portugu?s"})
     subject.reference_tree.is_a?(ReferenceTree).should be_true
     subject.reference_tree.nodes.size.should == 1 #automatically created root node
     subject.import
     subject.reference_tree.nodes.size.should > 100
+    vn = Node.find_by_local_id('cyphophthalmi:tid:302').vernacular_names
+    vn.size.should > 1
+    vn.first.language.should == Language.find_by_iso_639_1('pt')
   end
 end
