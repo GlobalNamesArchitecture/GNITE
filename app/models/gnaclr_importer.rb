@@ -118,16 +118,15 @@ class GnaclrImporter < ActiveRecord::Base
           name = obj.name
           values = nil
           if table == 'synonyms'
-            values = obj.status
-            locality = Node.connection.quote(obj.locality) rescue "null"
+            values = Node.connection.quote(obj.status)
           else
-            language_id = find_language(obj.language)
+            locality = Node.connection.quote(obj.locality) rescue "null"
+            language_id = find_language(obj)
             values = "#{language_id}, #{locality}"
           end
-          values = Name.connection.quote(values)
           count += 1
           DarwinCore.logger_write(@dwc.object_id, "Added %s synonyms and vernacular names" % count) if count % 10000 == 0
-          name_sql = Name.connection.quote(name_string)
+          name_sql = Name.connection.quote(obj.name)
 
           Name.connection.execute "INSERT IGNORE INTO #{table} (node_id, name_id, #{fields}) VALUES (#{node_id.to_i}, (SELECT id FROM names WHERE name_string = #{name_sql} LIMIT 1), #{values})"
         end
@@ -140,7 +139,8 @@ class GnaclrImporter < ActiveRecord::Base
   end
 
   def find_language(language_code)
-    @language[language_code] ||= Language.find_by_iso_639_1(obj.language) rescue 'null'
+    require 'ruby-debug'; debugger
+    @language[language_code] ||= Language.find_by_iso_639_1(language_code) rescue 'null'
   end
   
 end

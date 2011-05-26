@@ -23,5 +23,7 @@ describe GnaclrImporter, 'import a tree for a valid dwc archive' do
     subject.reference_tree.nodes.size.should == 1 #automatically created root node
     subject.import
     subject.reference_tree.nodes.size.should > 100
+    require 'ruby-debug'; debugger
+    puts ''
   end
 end
