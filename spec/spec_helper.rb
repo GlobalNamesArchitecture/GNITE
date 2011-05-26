@@ -22,9 +22,7 @@ RSpec.configure do |config|
   end
 
   config.after(:suite) do
-    # Resque.queues.each do |queue|
-    #   Resque.remove_queue(queue.to_sym)
-    # end
+    Gnite::ResqueHelper.cleanup
   end
 
   config.before(:each) do

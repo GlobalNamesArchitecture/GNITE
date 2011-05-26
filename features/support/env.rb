@@ -60,8 +60,6 @@ if defined?(ActiveRecord::Base)
 end
 
 After do |scenario|
-  Resque.remove_queue(:gnaclr_importer)
-  Resque.remove_queue(Gnite::Config.action_queue)
   if(scenario.failed?)
     puts
     puts "*"*80
