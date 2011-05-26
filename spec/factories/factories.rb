@@ -10,6 +10,14 @@ Factory.sequence(:bookmark_title) do |i|
   "bookmark_#{i}"
 end
 
+Factory.define :language do |language|
+ language.name { Factory.next(:string) }
+ language.iso_639_1 { Factory.next(:string) }
+ language.iso_639_2 { Factory.next(:string) }
+ language.iso_639_3 { Factory.next(:string) }
+ language.native { Factory.next(:string) }
+end
+
 Factory.define :tree do |tree|
   tree.title { "My Tree" }
   tree.creative_commons { 'cc0' }

@@ -33,4 +33,10 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
+  # I imagine something like this would run one time only and not be removed by transaction
+  # config.before(:all) do
+  #   Language.create(name: "English", iso_639_1: "en", iso_639_2: "eng", iso_639_3: "eng", native: "English")
+  #   Language.create(name: "Portuguese", iso_639_1: "pt", iso_639_2: "por", iso_639_3: "por", native: "Portugu?s")
+  # end
+
 end
