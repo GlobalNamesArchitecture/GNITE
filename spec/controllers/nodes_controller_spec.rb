@@ -208,6 +208,7 @@ describe NodesController, 'GET to show for master tree' do
     Factory(:vernacular_name, :node => node, :name => Factory(:name, :name_string => 'Coordinate'))
 
     @expected = {
+      :name             => node.name_string,
       :rank             => node.rank,
       :synonyms         => ['Point'],
       :vernacular_names => ['Coordinate']
@@ -237,6 +238,7 @@ describe NodesController, 'GET to show for reference tree' do
     Factory(:vernacular_name, :node => node, :name => Factory(:name, :name_string => 'Coordinate'))
 
     @expected = {
+      :name             => node.name_string,
       :rank             => node.rank,
       :synonyms         => ['Point'],
       :vernacular_names => ['Coordinate']
