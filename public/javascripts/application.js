@@ -217,6 +217,7 @@ $(function() {
         var title = self.val();
 
         $.post('/master_trees/' + GNITE.Tree.MasterTree.id, { 'master_tree[title]' : title, '_method' : 'put' }, function(response) {
+          response = null;
           self
             .next()
               .remove()
@@ -253,7 +254,7 @@ $(function() {
       'html_data': {
         'ajax' : {
           'url'   : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes',
-          'error' : function(data) {
+          'error' : function() {
             $('#master-tree').find("span.jstree-loading").remove();
           }
         }
@@ -277,7 +278,7 @@ $(function() {
                 'html_data': {
                   'ajax' : {
                     'url' : '/reference_trees/' + tree_id + '/nodes',
-                    'error' : function(data) {
+                    'error' : function() {
                         self.find("span.jstree-loading").remove();
                       }
                   }
@@ -289,14 +290,17 @@ $(function() {
               }));
 
               self.bind('bookmarks_form.jstree', function(event, data) {
+                event = null;
                 $('#bookmarks-addition-form-' + tree_id).dialog("option", "title", "Bookmark " + $('#' + data.rslt.obj.attr('id') + ' a:first').text()).dialog("open");
               });
 
               self.bind('bookmarks_view.jstree', function(event, data) {
+                event = null; data = null;
                 GNITE.Tree.viewBookmarks(this);
               });
 
               self.bind('bookmarks_save.jstree', function(event, data) {
+                event = null;
                 var node = data.rslt;
                 var id   = node.obj.attr('id');
                 var title = $('#bookmark-title-' + tree_id).val();
@@ -312,6 +316,7 @@ $(function() {
 
               // Hide the spinner icon once node is loaded
               self.bind('open_node.jstree', function(event, data) {
+                event = null;
                 var node = data.rslt;
                 var id = node.obj.attr('id');
                 $('#'+id).find("span.jstree-loading").remove();
@@ -319,6 +324,7 @@ $(function() {
 
               // Build the menu system for the reference tree
               self.bind("init.jstree", function(event, data) {
+                event = null; data = null;
                 ddsmoothmenu.init({
                   mainmenuid: "toolbar-reference-"+tree_id,
                   orientation: 'h',
@@ -344,6 +350,7 @@ $(function() {
         switch(response.message) {
           case 'Import is successful':
             $.get('/reference_trees/' + tree_id + '.json', function(response, status, xhr) {
+              status = null;
               if (xhr.status === 200) {
                 self.parent().find(".status").addClass("juggernaut-complete");
                 jugImporter.unsubscribe("tree_" + tree_id);
@@ -380,7 +387,7 @@ $(function() {
             'html_data': {
               'ajax' : {
                 'url' : '/deleted_trees/' + id + '/nodes',
-                'error' : function(data) {
+                'error' : function() {
                     self.find("span.jstree-loading").remove();
                 }
               }
@@ -389,6 +396,7 @@ $(function() {
 
           // Hide the spinner icon once node is loaded
           self.bind('open_node.jstree', function(event, data) {
+            event = null;
             var node = data.rslt;
             var id = node.obj.attr('id');
             $('#'+id).find("span.jstree-loading").remove();
@@ -396,6 +404,7 @@ $(function() {
 
           // Build the menu system for the deleted tree
           self.bind("init.jstree", function(event, data) {
+            event = null; data = null;
             ddsmoothmenu.init({
               mainmenuid: "toolbar-deleted",
               orientation: 'h',
@@ -563,7 +572,7 @@ $(function() {
                 type        : 'DELETE',
                 url         :  '/master_trees/' + GNITE.Tree.MasterTree.id,
                 data        :  formData,
-                success     : function(data) {
+                success     : function() {
                   window.location = "/master_trees";
                 }
               });
@@ -658,7 +667,7 @@ $(function() {
    * Creates node in Master Tree
    */
   $('#master-tree').bind('create.jstree', function(event, data) {
-
+    event = null;
     var self     = $(this);
     var node     = data.rslt;
     var name     = node.name;
@@ -692,6 +701,7 @@ $(function() {
    * Creates nodes in Master Tree
    */
   $('#master-tree').bind('bulk_form.jstree', function(event, data) {
+    event = null;
     var node = data.rslt;
     var title = (typeof node.obj.attr("id") !== "undefined") ? $(node.obj).find("a:first").text() : 'Tree root';
     $("#bulkcreate-form").dialog("open");
@@ -700,6 +710,7 @@ $(function() {
   });
 
   $('#master-tree').bind('bulk_save.jstree', function(event, data) {
+    event = null;
     var self = $(this);
     var node = data.rslt;
     var parent_id = (typeof node.obj.attr("id") !== "undefined") ? node.obj.attr("id") : GNITE.Tree.MasterTree.root;
@@ -718,7 +729,7 @@ $(function() {
       beforeSend  : function(xhr) {
         xhr.setRequestHeader("X-Session-ID", jug.sessionID);
       },
-      success     : function(data) {
+      success     : function() {
         setTimeout(function checkLockedStatus() {
           if(self.find('ul:first').hasClass('jstree-locked')) {
             setTimeout(checkLockedStatus, 10);
@@ -747,6 +758,7 @@ $(function() {
   });
 
   $('#master-tree').bind('loaded.jstree', function(event, data) {
+    event = null; data = null;
     $(this).addClass('loaded');
     // Lock the master tree if refreshed in midst of active job
     if(GNITE.Tree.MasterTree.state === "working") {
@@ -759,6 +771,7 @@ $(function() {
    * Renames node in Master Tree
    */
   $('#master-tree').bind('rename.jstree', function(event, data) {
+    event = null;
 
     var self     = $(this);
     var node     = data.rslt;
@@ -790,6 +803,7 @@ $(function() {
    * TODO: if node was dragged from reference to master 2+ times, it will fail because of a duplicate key in nodes table on 'index_nodes_on_local_id_and_tree_id'
    */
   $('#master-tree').bind('move_node.jstree', function(event, data) {
+     event = null;
 
      var self = $(this);
      var result = data.rslt;
@@ -811,7 +825,7 @@ $(function() {
      // lock the tree
      self.jstree("lock");
 
-     data.rslt.o.each(function(i) {
+     data.rslt.o.each(function() {
 
        var movedNodeID = $(this).attr("id");
        var url = '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes';
@@ -844,13 +858,14 @@ $(function() {
    * Moves node from Master Tree to Deleted Names & refreshes Deleted Names
    */
   $('#master-tree').bind('remove.jstree', function(event, data) {
+    event = null;
     var self = $(this);
     var node = data.rslt;
 
     // lock the tree
     self.jstree("lock");
 
-    node.obj.each(function(i) {
+    node.obj.each(function() {
       var id = $(this).attr('id');
       $.ajax({
         type        : 'PUT',
@@ -861,8 +876,6 @@ $(function() {
         dataType    : 'json',
         beforeSend  : function(xhr) {
           xhr.setRequestHeader("X-Session-ID", jug.sessionID);
-        },
-        success     : function(data) {
         }
       });
     });
@@ -896,6 +909,7 @@ $(function() {
    * Undo binding
    */
   $('#master-tree').bind('undo.jstree', function(event, data) {
+    event = null; data = null;
     var self = $(this);
 
     // lock the tree
@@ -921,6 +935,7 @@ $(function() {
    * Redo binding
    */
   $('#master-tree').bind('redo.jstree', function(event, data) {
+    event = null; data = null;
     var self = $(this);
 
     // lock the tree
@@ -951,14 +966,17 @@ $(function() {
    * Bookmark a node binding
    */
   $('#master-tree').bind('bookmarks_form.jstree', function(event, data) {
+    event = null;
     $('#bookmarks-addition-form-' + GNITE.Tree.MasterTree.id).dialog("option", "title", "Bookmark " + $('#' + data.rslt.obj.attr('id') + ' a:first').text()).dialog("open");
   });
 
   $('#master-tree').bind('bookmarks_view.jstree', function(event, data) {
+    event = null; data = null;
     GNITE.Tree.viewBookmarks(this);
   });
 
   $('#master-tree').bind('bookmarks_save.jstree', function(event, data) {
+    event = null;
     var node = data.rslt;
     var id   = node.obj.attr('id');
     var title = $('#bookmark-title-' + GNITE.Tree.MasterTree.id).val();
@@ -977,6 +995,7 @@ $(function() {
    * Hide the spinner icon after the node is loaded
    */
   $('#master-tree').bind('load_node.jstree', function(event, data) {
+    event = null;
     var node = data.rslt;
     if(node.obj !== -1) { node.obj.find("span.jstree-loading").remove(); }
   });
@@ -985,6 +1004,7 @@ $(function() {
    * Lock the tree
    */
   $('#master-tree').bind('lock.jstree', function(event, data) {
+    event = null; data = null;
   });
 
   /*
@@ -992,6 +1012,7 @@ $(function() {
    * NOTE: unlocking happens server->client via Juggernaut gem
    */
   $('#master-tree').bind('unlock.jstree', function(event, data) {
+    event = null; data = null;
   });
 
 
@@ -1206,8 +1227,6 @@ GNITE.pushMessage = function(subject, message, ignore) {
     data        : JSON.stringify({ 'channel' : GNITE.Tree.MasterTree.channel, 'subject' : subject, 'message' : message }),
     beforeSend  : function(xhr) {
         if(ignore) { xhr.setRequestHeader("X-Session-ID", jug.sessionID); }
-    },
-    success : function(data) {
     }
   });
 };
@@ -1228,6 +1247,7 @@ GNITE.Tree.openAncestry = function(tree, obj) {
   var $tree_wrapper = tree.parents('#add-node-wrap, .reference-tree-container, .deleted-tree-container');
   if(obj.length) {
     $.each(obj, function (i, val) {
+      i = null;
       if($(val).length && $(val).is(".jstree-closed")) {
         end = $(val);
         $tree_wrapper.scrollTo($(val), {axis:'y'});
@@ -1244,6 +1264,7 @@ GNITE.Tree.openAncestry = function(tree, obj) {
     if(remaining.length) {
       obj = remaining;
       $.each(current, function (i, val) {
+        i = null;
         tree.jstree("open_node", val, function() {
           _this.openAncestry(tree, obj);
         });
@@ -1436,6 +1457,7 @@ GNITE.Tree.importTree = function(opts) {
   //see if the tree already exists and if not, initiate a juggernaut connection
   if(tree_id) {
     $.get('/reference_trees/' + tree_id, { format : 'json' }, function(response, status, xhr) {
+      status = null;
       if (xhr.status === 200) {
         GNITE.Tree.ReferenceTree.add(response, opts);
       }
@@ -1447,6 +1469,7 @@ GNITE.Tree.importTree = function(opts) {
         switch(response.message) {
           case 'Import is successful':
             $.get('/reference_trees/' + tree_id, { format : 'json' }, function(response, status, xhr) {
+              status = null;
               if (xhr.status === 200) {
                 opts.spinnedElement.find(".status").addClass("juggernaut-complete");
                 jugImporter.unsubscribe("tree_" + tree_id);
@@ -1473,7 +1496,7 @@ GNITE.Tree.MasterTree.publish = function() {
     url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/publish.json',
     contentType : 'application/json',
     dataType    : 'json',
-    success     : function(data) {
+    success     : function() {
       var message = 'Your tree is being queued for publishing';
       $('body').append('<div id="dialog-message" class="ui-state-highlight" title="Publishing Confirmation">' + message + '</div>');
       $('#dialog-message').dialog({
@@ -1548,7 +1571,7 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
         'html_data': {
           'ajax' : {
             'url' : response.url,
-            'error' : function(data) {
+            'error' : function() {
               self.find("span.jstree-loading").remove();
             }
           }
@@ -1562,6 +1585,7 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
 
     // hide the spinner icon once node is loaded
     self.bind('open_node.jstree', function(event, data) {
+      event = null;
       var node = data.rslt;
       var id = node.obj.attr('id');
       $('#'+id).find("span.jstree-loading").remove();
@@ -1569,6 +1593,7 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
 
     // Build the menu system for the new reference tree
     self.bind("init.jstree", function(event, data) {
+      event = null; data = null;
       ddsmoothmenu.init({
         mainmenuid: "toolbar-reference-"+tree_id,
         orientation: 'h',
@@ -1579,14 +1604,17 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
 
     // Bind bookmarks for the new reference tree
     self.bind('bookmarks_form.jstree', function(event, data) {
+      event = null;
       $('#bookmarks-addition-form-' + tree_id).dialog("option", "title", "Bookmark " + $('#' + data.rslt.obj.attr('id') + ' a:first').text()).dialog("open");
     });
 
     self.bind('bookmarks_view.jstree', function(event, data) {
+      event = null; data = null;
       GNITE.Tree.viewBookmarks(this);
     });
 
     self.bind('bookmarks_save.jstree', function(event, data) {
+      event = null;
       var node = data.rslt;
       var id   = node.obj.attr('id');
       var title = $('#bookmark-title-' + tree_id).val();
@@ -1622,11 +1650,13 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
     container.find('.metadata-section ul').empty();
     container.find('.metadata-rank ul').append('<li>' + rank + '</li>');
 
-    $.each(synonyms, function(index, synonym) {
+    $.each(synonyms, function(i, synonym) {
+      i = null;
       container.find('.metadata-synonyms ul').append('<li>' + synonym + '</li>');
     });
 
-    $.each(vernacular_names, function(index, vernacular_name) {
+    $.each(vernacular_names, function(i, vernacular_name) {
+      i = null;
       container.find('.metadata-vernacular-names ul').append('<li>' + vernacular_name + '</li>');
     });
 
