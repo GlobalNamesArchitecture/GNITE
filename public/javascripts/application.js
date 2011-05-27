@@ -793,6 +793,7 @@ $(function() {
       },
       success     : function(data) {
         node.obj.attr('id', data.node.id);
+        GNITE.Tree.MasterTree.updateMetadataTitle(new_name);
       }
     });
   });
@@ -1522,12 +1523,22 @@ GNITE.Tree.MasterTree.flashNode = function(data) {
   var self = $('#master-tree');
   var destination_parent = self.find('#'+data.destination_parent_id);
   var source_parent = self.find('#' + data.parent_id);
+  var selected = self.jstree("get_selected");
 
   setTimeout(function checkLockedStatus() {
     if(self.find('ul:first').hasClass('jstree-locked')) {
       setTimeout(checkLockedStatus, 10);
     }
     else {
+      //Adjust the Metadata Title if node is selected and the action was an undo or a redo of a rename
+      if(data.new_name !== data.old_name && $(selected[0]).attr("id") === data.node_id.toString()) {
+        if(data.undo) {
+          GNITE.Tree.MasterTree.updateMetadataTitle(data.old_name);
+        }
+        else {
+          GNITE.Tree.MasterTree.updateMetadataTitle(data.new_name);
+        }
+      }
       if(data.parent_id.toString() === GNITE.Tree.MasterTree.root) {
         self.jstree("refresh");
       }
@@ -1543,6 +1554,10 @@ GNITE.Tree.MasterTree.flashNode = function(data) {
       }
     }
   }, 10);
+};
+
+GNITE.Tree.MasterTree.updateMetadataTitle = function(name) {
+  $('#treewrap-main .node-metadata h3.metadata-title').text(name);
 };
 
 GNITE.Tree.ReferenceTree.add = function(response, options) {
@@ -1643,9 +1658,12 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
   container.spinner();
 
   $.getJSON(url, function(data) {
+    var name             = data.name;
     var rank             = $.trim(data.rank);
     var synonyms         = data.synonyms;
     var vernacular_names = data.vernacular_names;
+
+    container.find("h3.metadata-title").text(name);
 
     container.find('.metadata-section ul').empty();
     container.find('.metadata-rank ul').append('<li>' + rank + '</li>');
