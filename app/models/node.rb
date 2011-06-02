@@ -59,17 +59,15 @@ class Node < ActiveRecord::Base
     rank_string = 'None' if rank_string.empty?
     rank_string
   end
-
-  def synonym_name_strings
-    synonyms.all(:include => :name).map(&:name).compact.map(&:name_string).tap do |name_strings|
-      name_strings << 'None' if name_strings.empty?
-    end
+  
+  def synonym_data
+    return [{ :name_string => 'None', :status => 'None' }] unless synonyms.exists?
+    synonyms.all.map { |s| { :name_string => s.name.name_string, :status => s.status } }
   end
-
-  def vernacular_name_strings
-    vernacular_names.all(:include => :name).map(&:name).compact.map(&:name_string).tap do |name_strings|
-      name_strings << 'None' if name_strings.empty?
-    end
+  
+  def vernacular_data
+    return [{ :name_string => 'None', :language => 'None' }] unless vernacular_names.exists?
+    vernacular_names.all.map { |v| { :name_string => v.name.name_string, :language => v.language.name } }
   end
 
   def parent()

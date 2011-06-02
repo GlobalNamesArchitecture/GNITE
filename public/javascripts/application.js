@@ -1661,7 +1661,7 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
     var name             = data.name;
     var rank             = $.trim(data.rank);
     var synonyms         = data.synonyms;
-    var vernacular_names = data.vernacular_names;
+    var vernaculars      = data.vernaculars;
 
     container.find("h3.metadata-title").text(name);
 
@@ -1670,12 +1670,12 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
 
     $.each(synonyms, function(i, synonym) {
       i = null;
-      container.find('.metadata-synonyms ul').append('<li>' + synonym + '</li>');
+      container.find('.metadata-synonyms ul').append('<li title="' + synonym.status + '">' + synonym.name_string + '</li>');
     });
 
-    $.each(vernacular_names, function(i, vernacular_name) {
+    $.each(vernaculars, function(i, vernacular) {
       i = null;
-      container.find('.metadata-vernacular-names ul').append('<li>' + vernacular_name + '</li>');
+      container.find('.metadata-vernacular-names ul').append('<li title="' + vernacular.language + '">' + vernacular.name_string + '</li>');
     });
 
     container.unspinner().show();

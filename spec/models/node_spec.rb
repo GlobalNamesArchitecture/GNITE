@@ -84,47 +84,44 @@ describe Node, '#rank_string' do
   end
 end
 
-describe Node, '#synonym_name_strings with valid and invalid names' do
+describe Node, '#synonym_data for a synonym' do
   let(:node) { Factory(:node) }
 
   before do
-    @valid_synonym   = Factory(:synonym, :node => node)
-    @invalid_synonym = Factory(:synonym, :node => node)
-    @invalid_synonym.name.destroy
+    @synonym = Factory(:synonym, :node => node)
   end
 
-  it 'returns name strings from valid synonyms' do
-    node.synonym_name_strings.should == [@valid_synonym.name.name_string]
+  it 'returns synonym data' do
+    node.synonym_data.should == [{:name_string => @synonym.name.name_string, :status => @synonym.status}]
   end
 end
 
-describe Node, '#synonym_name_strings with no synonyms' do
+describe Node, '#synonym_data with no synonyms' do
   let(:node) { Factory(:node) }
 
   it 'returns None' do
-    node.synonym_name_strings.should == ['None']
+    node.synonym_data.should == [{:name_string => 'None', :status => 'None'}]
   end
 end
 
-describe Node, '#vernacular_name_strings with valid and invalid names' do
+describe Node, '#vernacular_data for a vernacular' do
   let(:node) { Factory(:node) }
+  let(:language) { Factory(:language, :name => 'English', :iso_639_1 => 'en', :iso_639_2 => 'eng', :iso_639_3 => 'eng', :native => 'English') }
 
   before do
-    @valid_vernacular_name   = Factory(:vernacular_name, :node => node)
-    @invalid_vernacular_name = Factory(:vernacular_name, :node => node)
-    @invalid_vernacular_name.name.destroy
+    @vernacular = Factory(:vernacular_name, :node => node, :language => language)
   end
 
-  it 'returns name strings from valid vernacular names' do
-    node.vernacular_name_strings.should == [@valid_vernacular_name.name.name_string]
+  it 'returns data from vernacular name' do
+    node.vernacular_data.should == [{:name_string => @vernacular.name.name_string, :language => @vernacular.language.name}]
   end
 end
 
-describe Node, '#vernacular_name_strings with no synonyms' do
+describe Node, '#vernacular_data with no vernaculars' do
   let(:node) { Factory(:node) }
 
   it 'returns None' do
-    node.vernacular_name_strings.should == ['None']
+    node.vernacular_data.should == [{:name_string => 'None', :language => 'None'}]
   end
 end
 

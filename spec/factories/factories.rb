@@ -55,11 +55,14 @@ end
 Factory.define :synonym do |synonym|
   synonym.association :node
   synonym.association :name
+  synonym.status { 'synonym' }
 end
 
 Factory.define :vernacular_name do |vernacular|
   vernacular.association :node
   vernacular.association :name
+  vernacular.association :language
+  vernacular.locality { 'United States' }
 end
 
 Factory.define :gnaclr_importer do |gnaclr_importer|

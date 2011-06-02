@@ -28,7 +28,7 @@ Feature: Importing trees from GNACLR
     And I should see the breadcrumb path "NCBI"
     And I should see a node "Cyphophthalmi incertae sedis" at the root level in my reference tree "NCBI"
     And I should see a node "Opiliones" at the root level in my reference tree "NCBI"
-    When I select the node "Opiliones"
+    And I select the node "Opiliones"
     Then I should see "Daddy longlegs" as vernacular names for the "NCBI" tree
 
   @javascript

@@ -34,8 +34,8 @@ class NodesController < ApplicationController
     render :json => {
       :name             => node.name_string,
       :rank             => node.rank_string,
-      :synonyms         => node.synonym_name_strings,
-      :vernacular_names => node.vernacular_name_strings
+      :synonyms         => node.synonym_data,
+      :vernaculars      => node.vernacular_data
     }
   end
 
