@@ -1,4 +1,11 @@
-<h3 class="metadata-title"><%= @metadata[:name] %></h3>
+<div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix">
+  <span class="ui-dialog-title"><%= @metadata[:name] %></span>
+  <a class="ui-dialog-titlebar-close" href="#" role="button">
+    <span class="ui-icon ui-icon-closethick"></span>
+  </a>
+</div>
+
+<!--<h3 class="metadata-title"><%= @metadata[:name] %></h3>-->
 
 <div class="metadata-section metadata-rank clearfix">
   <h4><span>Rank</span></h4>

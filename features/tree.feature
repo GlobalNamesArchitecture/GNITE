@@ -20,6 +20,7 @@ Feature: Edit a master tree
       | hydrochaeris |
     When I go to the master tree page for "Waterpigs"
     And I wait for the tree to load
+    And I wait for the websocket to activate
     And I follow "File" within "toolbar"
     And I follow "Add single node" within "toolbar"
     And I enter "child" in the new node and press enter
@@ -34,6 +35,7 @@ Feature: Edit a master tree
       | 100  | 0         | Pardosa             |
     When I go to the master tree page for "Spiders"
     And I wait for the tree to load
+    And I wait for the websocket to activate
     And I select the node "Pardosa"
     And I follow "File" within "toolbar"
     And I follow "Add single node" within "toolbar"
@@ -53,6 +55,7 @@ Feature: Edit a master tree
     And I am on the master tree index page
     When I follow "Moose tree"
     And I wait for the tree to load
+    And I wait for the websocket to activate
     And I double click "Bullwinkle" and change it to "Monkey"
     And I wait for the tree to load
     And I refresh the master tree
@@ -71,6 +74,7 @@ Feature: Edit a master tree
     And I am on the master tree index page
     When I follow "Moose tree"
     And I wait for the tree to load
+    And I wait for the websocket to activate
     And I drag "Rocky" under "Bullwinkle"
     And I wait for the tree to load
     Then I should see a node "Rocky" under "Bullwinkle"
@@ -90,6 +94,7 @@ Feature: Edit a master tree
     And I am on the master tree index page
     When I follow "Moose tree"
     And I wait for the tree to load
+    And I wait for the websocket to activate
     And I should see a node "Boris" at the root level in my master tree
     And I follow "Deleted Names"
     And I delete the node "Boris"
@@ -114,6 +119,7 @@ Feature: Edit a master tree
     And I am on the master tree index page
     When I follow "Moose tree"
     And I wait for the tree to load
+    And I wait for the websocket to activate
     And I follow "Deleted Names"
     And I drag "Rocky" under "Bullwinkle"
     And I wait for the tree to load
@@ -180,6 +186,7 @@ Feature: Edit a master tree
     And I am on the master tree index page
     When I follow "Snacks"
     And I wait for the tree to load
+    And I wait for the websocket to activate
     And I select the node "Get Cut"
     And I click "Cut" in the context menu
     And I select the node "Paste Here"
@@ -199,6 +206,7 @@ Feature: Edit a master tree
     And I am on the master tree index page
     When I follow "Snacks"
     And I wait for the tree to load
+    And I wait for the websocket to activate
     And I select the node "chocolate"
     And I click "New child" in the context menu
     And I enter "cookie" in the new node and press enter

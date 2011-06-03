@@ -1557,7 +1557,7 @@ GNITE.Tree.MasterTree.flashNode = function(data) {
 };
 
 GNITE.Tree.MasterTree.updateMetadataTitle = function(name) {
-  $('#treewrap-main .node-metadata h3.metadata-title').text(name);
+  $('#treewrap-main .node-metadata span.ui-dialog-title').text(name);
 };
 
 GNITE.Tree.ReferenceTree.add = function(response, options) {
@@ -1665,6 +1665,12 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
     dataType    : 'html',
     success     : function(data) {
       container.html(data);
+      wrapper.css('bottom', container.height());
+      container.find(".ui-icon").click(function() {
+        container.hide();
+        wrapper.css('bottom', '20px');
+        return false;
+      });
     }
   });
 

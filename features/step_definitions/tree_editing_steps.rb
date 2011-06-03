@@ -44,7 +44,7 @@ When /^I double click "([^"]*)" and change it to "([^"]*)"$/ do |old_name, new_n
   sleep 1
   field = find(:css, "#master-tree input")
   field.set(new_name)
-  page.execute_script("jQuery('#master-tree input').blur();")
+  page.execute_script("jQuery('.jstree-rename-input').blur();")
 end
 
 When /^I wait for the tree to load$/ do

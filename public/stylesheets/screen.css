@@ -1121,24 +1121,18 @@ body form input {
 
 .node-metadata {
   background: #fff;
-  border-radius: 0 0 8px 8px;
-  -moz-border-radius: 0 0 8px 8px;
-  -webkit-border-radius: 0 0 8px 8px;
+  border-radius: 0px 0px 8px 8px;
+  -moz-border-radius: 0px 0px 8px 8px;
+  -webkit-border-radius: 0px 0px 8px 8px;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
   bottom: 0;
   display: none;
   margin: 10px 0 0 0;
   position: absolute;
   top: auto;
-  width: 100%;
-}
-
-.node-metadata h3 {
-  background: #BABFC3;
-  border-top: 1px solid #a0a5a8;
-  font-size: 14px;
-  margin: 0;
-  padding: 10px;
-  text-shadow: 0 1px 0px #DADEE2;
+  width: 100%; 
 }
 
 .metadata-section {
@@ -1155,14 +1149,6 @@ body form input {
   text-shadow: #DADEE2 0  1px 0px;
   width: 20%;
 }
-
-.node-metadata .spinner,
-.metadata-section:last-child,
-.metadata-section:last-child ul {
-/*  border-radius: 0 0 8px 8px;
-  -moz-border-radius: 0 0 8px 8px;
-  -webkit-border-radius: 0 0 8px 8px;
-*/}
 
 .node-metadata h4 span {
   padding: 0 10px;
