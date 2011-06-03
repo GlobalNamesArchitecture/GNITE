@@ -1655,32 +1655,21 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
 };
 
 GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
+
   container.spinner();
 
-  $.getJSON(url, function(data) {
-    var name             = data.name;
-    var rank             = $.trim(data.rank);
-    var synonyms         = data.synonyms;
-    var vernaculars      = data.vernaculars;
-
-    container.find("h3.metadata-title").text(name);
-
-    container.find('.metadata-section ul').empty();
-    container.find('.metadata-rank ul').append('<li>' + rank + '</li>');
-
-    $.each(synonyms, function(i, synonym) {
-      i = null;
-      container.find('.metadata-synonyms ul').append('<li title="' + synonym.status + '">' + synonym.name_string + '</li>');
-    });
-
-    $.each(vernaculars, function(i, vernacular) {
-      i = null;
-      container.find('.metadata-vernacular-names ul').append('<li title="' + vernacular.language + '">' + vernacular.name_string + '</li>');
-    });
-
-    container.unspinner().show();
-    wrapper.css('bottom', container.height());
+  $.ajax({
+    type        : 'GET',
+    url         : url,
+    contentType : 'text/html',
+    dataType    : 'html',
+    success     : function(data) {
+      container.html(data);
+    }
   });
+
+  container.unspinner().show();
+  wrapper.css('bottom', container.height());
 };
 
 

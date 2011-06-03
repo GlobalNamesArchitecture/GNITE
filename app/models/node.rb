@@ -61,13 +61,13 @@ class Node < ActiveRecord::Base
   end
   
   def synonym_data
-    return [{ :name_string => 'None', :status => 'None' }] unless synonyms.exists?
-    synonyms.all.map { |s| { :name_string => s.name.name_string, :status => s.status } }
+    return [{ :name_string => 'None', :metadata => [] }] unless synonyms.exists?
+    synonyms.all.map { |s| {:name_string => s.name.name_string, :metadata => s.attributes}}
   end
   
   def vernacular_data
-    return [{ :name_string => 'None', :language => 'None' }] unless vernacular_names.exists?
-    vernacular_names.all.map { |v| { :name_string => v.name.name_string, :language => v.language.name } }
+    return [{ :name_string => 'None', :metadata => [] }] unless vernacular_names.exists?
+    vernacular_names.all.map { |v| { :name_string => v.name.name_string, :metadata => v.attributes.merge(:language => v.language.attributes) } }
   end
 
   def parent()
@@ -152,4 +152,5 @@ class Node < ActiveRecord::Base
     end
     Node.connection.execute("DELETE FROM nodes WHERE id IN (#{delete_ids})")
   end
+
 end

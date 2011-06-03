@@ -30,13 +30,24 @@ class NodesController < ApplicationController
   def show
     tree = get_tree
     node = tree.nodes.find(params[:id])
-
-    render :json => {
-      :name             => node.name_string,
-      :rank             => node.rank_string,
-      :synonyms         => node.synonym_data,
-      :vernaculars      => node.vernacular_data
+    
+    @metadata = {
+      :name        => node.name_string,
+      :rank        => node.rank_string,
+      :synonyms    => node.synonym_data,
+      :vernaculars => node.vernacular_data
     }
+    
+    respond_to do |format|
+      format.json do
+        render :json => @metadata
+      end
+      
+      format.html do
+        render :partial => 'shared/metadata'
+      end
+    end
+
   end
 
   def create

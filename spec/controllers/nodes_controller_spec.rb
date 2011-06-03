@@ -196,23 +196,22 @@ end
 
 describe NodesController, 'GET to show for master tree' do
   let(:user) { Factory(:email_confirmed_user) }
-  let(:node) { Factory(:node, :tree => tree) }
   let(:tree) { Factory(:master_tree, :user => user) }
+  let(:node) { Factory(:node, :tree => tree) }
+  let(:synonym) { Factory(:synonym, :node => node, :name => Factory(:name, :name_string => 'Point'), :status => 'synonym') }
   let(:language) { Factory(:language, :name => 'English', :iso_639_1 => 'en', :iso_639_2 => 'eng', :iso_639_3 => 'eng', :native => 'English') }
+  let(:vernacular) { Factory(:vernacular_name, :node => node, :name => Factory(:name, :name_string => 'Coordinate'), :language => language) }
 
   subject { controller }
 
   before do
     sign_in_as(user)
 
-    Factory(:synonym, :node => node, :name => Factory(:name, :name_string => 'Point'), :status => 'synonym')
-    Factory(:vernacular_name, :node => node, :name => Factory(:name, :name_string => 'Coordinate'), :language => language)
-
     @expected = {
       :name        => node.name_string,
       :rank        => node.rank,
-      :synonyms    => [{:name_string => 'Point', :status => 'synonym'}],
-      :vernaculars => [{:name_string => 'Coordinate', :language => 'English'}]
+      :synonyms    => node.synonym_data,
+      :vernaculars => node.vernacular_data
     }
 
     get :show, :id => node.id, :master_tree_id => tree.id, :format => 'json'
@@ -227,23 +226,22 @@ end
 
 describe NodesController, 'GET to show for reference tree' do
   let(:user) { Factory(:email_confirmed_user) }
-  let(:node) { Factory(:node, :tree => tree) }
   let(:tree) { Factory(:reference_tree) }
+  let(:node) { Factory(:node, :tree => tree) }
+  let(:synonym) { Factory(:synonym, :node => node, :name => Factory(:name, :name_string => 'Point'), :status => 'synonym') }
   let(:language) { Factory(:language, :name => 'English', :iso_639_1 => 'en', :iso_639_2 => 'eng', :iso_639_3 => 'eng', :native => 'English') }
+  let(:vernacular) { Factory(:vernacular_name, :node => node, :name => Factory(:name, :name_string => 'Coordinate'), :language => language) }
 
   subject { controller }
 
   before do
     sign_in_as(user)
 
-    Factory(:synonym, :node => node, :name => Factory(:name, :name_string => 'Point'), :status => 'synonym')
-    Factory(:vernacular_name, :node => node, :name => Factory(:name, :name_string => 'Coordinate'), :language => language)
-
     @expected = {
       :name        => node.name_string,
       :rank        => node.rank,
-      :synonyms    => [{:name_string => 'Point', :status => 'synonym'}],
-      :vernaculars => [{ :name_string => 'Coordinate', :language => 'English'}]
+      :synonyms    => node.synonym_data,
+      :vernaculars => node.vernacular_data
     }
 
     get :show, :id => node.id, :reference_tree_id => tree.id, :format => 'json'
