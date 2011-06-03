@@ -93,7 +93,7 @@ describe Node, '#synonym_data for a synonym' do
 
   it 'returns data for a synonym' do
     node.synonym_data[0][:name_string].should == @synonym.name.name_string
-    node.synonym_data[0][:metadata]["status"] == @synonym.status
+    node.synonym_data[0][:metadata][:status] == @synonym.status
   end
 end
 
@@ -101,7 +101,7 @@ describe Node, '#synonym_data with no synonyms' do
   let(:node) { Factory(:node) }
 
   it 'returns None' do
-    node.synonym_data.should == [{:name_string => 'None', :metadata => []}]
+    node.synonym_data.should == []
   end
 end
 
@@ -115,7 +115,7 @@ describe Node, '#vernacular_data for a vernacular' do
 
   it 'returns data for a vernacular name' do
     node.vernacular_data[0][:name_string].should == @vernacular.name.name_string
-    node.vernacular_data[0][:metadata][:language]["name"] == @vernacular.language.name
+    node.vernacular_data[0][:metadata][:language][:name] == @vernacular.language.name
   end
 end
 
@@ -123,7 +123,7 @@ describe Node, '#vernacular_data with no vernaculars' do
   let(:node) { Factory(:node) }
 
   it 'returns None' do
-    node.vernacular_data.should == [{:name_string => 'None', :metadata => []}]
+    node.vernacular_data.should == []
   end
 end
 

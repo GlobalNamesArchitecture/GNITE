@@ -61,13 +61,11 @@ class Node < ActiveRecord::Base
   end
   
   def synonym_data
-    return [{ :name_string => 'None', :metadata => [] }] unless synonyms.exists?
-    synonyms.all.map { |s| {:name_string => s.name.name_string, :metadata => s.attributes}}
+    synonyms.all.map { |s| { :name_string => s.name.name_string, :metadata => symbolize_keys(s.attributes) } }
   end
   
   def vernacular_data
-    return [{ :name_string => 'None', :metadata => [] }] unless vernacular_names.exists?
-    vernacular_names.all.map { |v| { :name_string => v.name.name_string, :metadata => v.attributes.merge(:language => v.language.attributes) } }
+    vernacular_names.all.map { |v| { :name_string => v.name.name_string, :metadata => symbolize_keys(v.attributes.merge(:language => v.language.attributes)) } }
   end
 
   def parent()
@@ -151,6 +149,22 @@ class Node < ActiveRecord::Base
         WHERE node_id IN (#{delete_ids})")
     end
     Node.connection.execute("DELETE FROM nodes WHERE id IN (#{delete_ids})")
+  end
+  
+  def symbolize_keys(arg)
+    case arg
+    when Array
+      arg.map { |elem| symbolize_keys elem }
+    when Hash
+      Hash[
+        arg.map { |key, value|  
+          k = key.is_a?(String) ? key.to_sym : key
+          v = symbolize_keys value
+          [k,v]
+        }]
+    else
+      arg
+    end
   end
 
 end
