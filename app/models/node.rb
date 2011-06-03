@@ -61,10 +61,12 @@ class Node < ActiveRecord::Base
   end
   
   def synonym_data
+    return [{:name_string => 'None', :metadata => []}] unless synonyms.exists?
     synonyms.all.map { |s| { :name_string => s.name.name_string, :metadata => symbolize_keys(s.attributes) } }
   end
   
   def vernacular_data
+    return [{:name_string => 'None', :metadata => []}] unless vernacular_names.exists?
     vernacular_names.all.map { |v| { :name_string => v.name.name_string, :metadata => symbolize_keys(v.attributes.merge(:language => v.language.attributes)) } }
   end
 

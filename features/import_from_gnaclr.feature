@@ -10,6 +10,7 @@ Feature: Importing trees from GNACLR
       | sequence_number | id        | committed_date      | message                          | url                  |
       | 2               | abcdef123 | 2011-02-14 17:05:17 | this is really the best revision | cyphophthalmi.tar.gz |
       | 1               | 123abcdef | 2011-03-14 17:05:17 | this is the best revision        | cyphophthalmi.tar.gz |
+    And languages have been imported
     And I am on the master tree index page
     And I follow "Moose tree"
 
@@ -28,7 +29,7 @@ Feature: Importing trees from GNACLR
     And I should see the breadcrumb path "NCBI"
     And I should see a node "Cyphophthalmi incertae sedis" at the root level in my reference tree "NCBI"
     And I should see a node "Opiliones" at the root level in my reference tree "NCBI"
-    And I select the node "Opiliones"
+    When I select the node "Opiliones"
     Then I should see "Daddy longlegs" as vernacular names for the "NCBI" tree
 
   @javascript

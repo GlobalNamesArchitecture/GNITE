@@ -10,12 +10,8 @@
 <div class="metadata-section metadata-synonyms clearfix">
   <h4><span>Synonyms</span></h4>
   <ul class="clearfix">
-    <% if @metadata[:synonyms].any? %>
-      <% @metadata[:synonyms].each do |synonym| %>
+    <% @metadata[:synonyms].each do |synonym| %>
       <li><%= synonym[:name_string] %></li>
-      <% end %>
-    <% else %>
-      <li>None</li>
     <% end %>
   </ul>
 </div>
@@ -23,12 +19,8 @@
 <div class="metadata-section metadata-vernacular-names clearfix">
   <h4><span>Vernaculars</span></h4>
   <ul class="clearfix">
-    <% if @metadata[:vernaculars].any? %>
-      <% @metadata[:vernaculars].each do |vernacular| %>
+    <% @metadata[:vernaculars].each do |vernacular| %>
       <li><%= vernacular[:name_string] %></li>
-      <% end %>
-    <% else %>
-      <li>None</li>
     <% end %>
   </ul>
 </div>

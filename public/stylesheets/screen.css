@@ -8,7 +8,7 @@ body {
 
 #wrapper {
   height: 100%;
-  margin-left: 200px;
+  margin-left: 175px;
 }
 
 body.sessions #wrapper,
@@ -316,13 +316,13 @@ body form input {
   position: fixed;
   text-align: left;
   top: 0;
-  width: 200px;
+  width: 175px;
   z-index: 1000;
 }
 
 #logo {
   color: rgb(142,155,162);
-  padding: 20px 0 0  15px;
+  padding: 20px 0 0  20px;
 }
 
 #nav {
@@ -365,7 +365,7 @@ body form input {
   line-height: 36px;
   padding: 0 26px 0 15px;
   position: relative;
-  width: 175px;
+  width: 150px;
   z-index: 100;
 }
 
