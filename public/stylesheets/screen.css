@@ -78,7 +78,7 @@ hr {
 #content {
   height: 100%;
   min-height: 800px;
-  min-width: 1160px;
+  min-width: 1050px;
 }
 
 #bodywrap {
@@ -462,7 +462,7 @@ body form input {
   float: left;
   height: 90%;
   width: 49%;
-  min-width: 480px;
+  min-width: 510px;
 }
 
 .tree-background {
