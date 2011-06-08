@@ -101,6 +101,12 @@ Factory.define :action_add_node do |action_add_node|
   action_add_node.parent_id { Factory(:node, :tree => Factory(:master_tree)).id }
 end
 
+Factory.define :action_bulk_add_node do |action_bulk_add_node|
+  action_bulk_add_node.association :user
+  action_bulk_add_node.parent_id { Factory(:node, :tree => Factory(:master_tree)).id }
+  action_bulk_add_node.json_message { {:do => %w(name1 name2 name3)}.to_json }
+end
+
 Factory.define :master_tree_contributor do |master_tree_contributor|
   master_tree_contributor.association :user, :factory => :email_confirmed_user
   master_tree_contributor.association :master_tree
