@@ -1,11 +1,11 @@
 class ActionAddNode < ActionCommand
 
   def precondition_do
-    !!(parent_id && @parent = Node.find(parent_id))
+    !!(tree_id && parent_id && @parent = Node.find(parent_id))
   end
 
   def precondition_undo
-    !!node
+    !!(tree_id && node)
   end
 
   def do_action
@@ -21,14 +21,6 @@ class ActionAddNode < ActionCommand
     node.destroy
     self.node_id = nil
     save!
-  end
-
-  def master_tree
-    begin
-      Node.find(parent_id).tree
-    rescue NoMethodError
-      nil
-    end
   end
 
 end

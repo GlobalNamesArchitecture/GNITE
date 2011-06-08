@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110524182428) do
+ActiveRecord::Schema.define(:version => 20110608200828) do
 
   create_table "action_commands", :force => true do |t|
     t.string   "type"
@@ -25,7 +25,10 @@ ActiveRecord::Schema.define(:version => 20110524182428) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "json_message"
+    t.integer  "tree_id"
   end
+
+  add_index "action_commands", ["tree_id"], :name => "index_action_commands_on_tree_id"
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "node_id",                                       :null => false

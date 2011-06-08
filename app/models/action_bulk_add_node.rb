@@ -2,12 +2,12 @@ class ActionBulkAddNode < ActionCommand
 
   def precondition_do
     @json_do = JSON.parse(json_message, :symbolize_names => true)[:do]
-    !!(parent_id && @json_do && @parent = Node.find(parent_id))
+    !!(tree_id && parent_id && @json_do && @parent = Node.find(parent_id))
   end
 
   def precondition_undo
     @json_undo = JSON.parse(json_message, :symbolize_names => true)[:undo]
-    !!@json_undo
+    !!(tree_id && @json_undo)
   end
 
   def do_action

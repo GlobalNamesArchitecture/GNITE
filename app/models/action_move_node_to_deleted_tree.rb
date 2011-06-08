@@ -2,7 +2,7 @@ class ActionMoveNodeToDeletedTree < ActionCommand
 
   def precondition_do
     @parent = Node.find(parent_id)
-    node && @parent && ancestry_ok?(@parent)
+    !!(tree_id && node && @parent && ancestry_ok?(@parent))
   end
 
   def do_action
@@ -25,10 +25,6 @@ class ActionMoveNodeToDeletedTree < ActionCommand
       descendant.tree_id = @parent.tree.id
       descendant.save!
     end
-  end
-
-  def master_tree
-    node.tree.is_a?(DeletedTree) ? node.tree.master_tree : super
   end
 
 end

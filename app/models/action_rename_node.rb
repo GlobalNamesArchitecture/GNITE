@@ -1,7 +1,12 @@
 class ActionRenameNode < ActionCommand
 
   def precondition_do
-    !!node = Node.find(node_id)
+    node = Node.find(node_id)
+    !!(tree_id && node)
+  end
+
+  def precondition_undo
+    !!tree_id
   end
 
   def do_action

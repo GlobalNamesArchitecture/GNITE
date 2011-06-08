@@ -92,11 +92,7 @@ class ActionCommand < ActiveRecord::Base
   end
 
   def master_tree
-    begin
-      node.tree
-    rescue NoMethodError
-      nil
-    end
+    Tree.find(tree_id) rescue nil
   end
 
   private
