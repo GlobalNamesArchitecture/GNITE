@@ -21,6 +21,7 @@ gem 'resque', '1.16.1'
 gem 'rest-client', '1.6.1'
 gem 'juggernaut', '2.0.1'
 gem 'will_paginate', '2.3.15'
+gem 'family-reunion'
 
 group :development do
   gem 'high_voltage'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110608200828) do
+ActiveRecord::Schema.define(:version => 20110609192123) do
 
   create_table "action_commands", :force => true do |t|
     t.string   "type"
@@ -86,6 +86,58 @@ ActiveRecord::Schema.define(:version => 20110608200828) do
   end
 
   add_index "master_tree_contributors", ["user_id", "master_tree_id"], :name => "index_master_tree_contributors_on_user_id_and_master_tree_id", :unique => true
+
+  create_table "merge_decisions", :force => true do |t|
+    t.string   "label"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "merge_events", :force => true do |t|
+    t.integer  "master_tree_id"
+    t.integer  "primary_node_id"
+    t.integer  "secondary_node_id"
+    t.integer  "user_id"
+    t.string   "memo"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "merge_events", ["master_tree_id"], :name => "index_merge_events_on_master_tree_id"
+
+  create_table "merge_result_primaries", :force => true do |t|
+    t.integer  "merge_event_id"
+    t.integer  "node_id"
+    t.string   "path"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "merge_result_secondaries", :force => true do |t|
+    t.integer  "merge_result_primary_id"
+    t.integer  "node_id"
+    t.integer  "merge_type_id"
+    t.integer  "merge_subtype_id"
+    t.string   "path"
+    t.integer  "merge_decision_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "merge_result_secondaries", ["merge_decision_id"], :name => "index_merge_results_secondaries_2"
+  add_index "merge_result_secondaries", ["merge_type_id", "merge_subtype_id"], :name => "index_merge_results_secondaries_1"
+
+  create_table "merge_subtypes", :force => true do |t|
+    t.string   "label"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "merge_types", :force => true do |t|
+    t.string   "label"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "names", :force => true do |t|
     t.string   "name_string", :null => false

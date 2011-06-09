@@ -6,6 +6,11 @@ class Node < ActiveRecord::Base
   has_many :bookmarks
   has_many :synonyms
   has_many :vernacular_names
+  has_many :merge_events, :foreign_key => :primary_node_id
+  has_many :merge_events, :foreign_key => :secondary_node_id
+  has_many :merge_result_primaries
+  has_many :merge_result_secondaries
+
 
   before_create :check_parent_id_for_nil
   before_update :check_parent_id_for_nil

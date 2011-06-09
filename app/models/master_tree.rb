@@ -4,6 +4,7 @@ class MasterTree < Tree
   has_many :reference_tree_collections
   has_many :reference_trees, :through => :reference_tree_collections
   has_many :users, :through => :master_tree_contributors
+  has_many :merge_events
 
   attr_accessor :user
 
