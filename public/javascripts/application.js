@@ -697,7 +697,7 @@ $(function() {
   });
 
   /*
-   * ActionType: ActionAddNode (bulk insert)
+   * ActionType: ActionBulkAddNode
    * Creates nodes in Master Tree
    */
   $('#master-tree').bind('bulk_form.jstree', function(event, data) {
@@ -723,7 +723,7 @@ $(function() {
       type        : 'POST',
       async       : true,
       url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes.json',
-      data        : JSON.stringify({ 'node' : { 'parent_id' : parent_id, 'name' : { 'name_string' : null } }, 'nodes_list' : { 'data' : nodes }, 'action_type' : "ActionAddNode" }),
+      data        : JSON.stringify({ 'node' : { 'parent_id' : parent_id, 'name' : { 'name_string' : null } }, 'json_message' : { 'do' : nodes.split("\n") }, 'action_type' : "ActionBulkAddNode" }),
       contentType : 'application/json',
       dataType    : 'json',
       beforeSend  : function(xhr) {

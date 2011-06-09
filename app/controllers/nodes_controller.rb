@@ -52,27 +52,14 @@ class NodesController < ApplicationController
 
   def create
     master_tree = current_user.master_trees.find(params[:master_tree_id])
-    if params[:nodes_list] && params[:nodes_list][:data].size
-      @names = params[:nodes_list][:data].split("\n")
-      @names.each do |name|
-        params[:node][:name][:name_string] = name
-        action_command = schedule_action(nil, master_tree, params)
-      end
-      respond_to do |format|
-        format.json do
-          render :json => { :status => "OK" }
-        end
-      end
-    else
-      params[:node][:parent_id] = master_tree.root.id unless params[:node] && params[:node][:parent_id]
-      #node will exist if we create a new node by copy from a reference tree
-      #TODO: if node was dragged from reference to master 2+ times, it will fail because of a duplicate key in nodes table on 'index_nodes_on_local_id_and_tree_id'
-      node = params[:node] && params[:node][:id] ? Node.find(params[:node][:id]) : nil
-      action_command = schedule_action(node, master_tree, params)
-      respond_to do |format|
-        format.json do
-          render :json => action_command.json_message
-        end
+    params[:node][:parent_id] = master_tree.root.id unless params[:node] && params[:node][:parent_id]
+    #node will exist if we create a new node by copy from a reference tree
+    #TODO: if node was dragged from reference to master 2+ times, it will fail because of a duplicate key in nodes table on 'index_nodes_on_local_id_and_tree_id'
+    node = params[:node] && params[:node][:id] ? Node.find(params[:node][:id]) : nil
+    action_command = schedule_action(node, master_tree, params)
+    respond_to do |format|
+      format.json do
+        render :json => action_command.json_message
       end
     end
   end
@@ -100,8 +87,13 @@ class NodesController < ApplicationController
     node_id = node.is_a?(::Node) ? node.id : nil
     old_name = node.is_a?(::Node) ? node.name.name_string : nil
     new_name = (params[:node] && params[:node][:name] && params[:node][:name][:name_string]) ? params[:node][:name][:name_string] : nil
-
-    action_command = eval("#{params[:action_type]}.create!(:user => current_user, :tree_id => tree_id, :node_id => node_id, :old_name => old_name, :new_name => new_name, :destination_parent_id => destination_parent_id, :parent_id => parent_id)")
+    json_message = (params[:json_message]) ? params[:json_message].to_json : nil
+    action_class = Object.class_eval(params[:action_type])
+    action_command = action_class.create!(:user => current_user, 
+      :tree_id => tree_id, :node_id => node_id, 
+      :old_name => old_name, :new_name => new_name, 
+      :destination_parent_id => destination_parent_id, 
+      :parent_id => parent_id, :json_message => json_message)
 
     ActionCommand.schedule_actions(action_command, request.headers["X-Session-ID"])
     action_command.reload
