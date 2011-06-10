@@ -1,0 +1,26 @@
+<table>
+  <thead>
+    <tr>
+      <td class="action-command-action">Action</td>
+      <td class="action-command-user">User</td>
+      <td class="action-command-updated">Updated</td>
+    </tr>
+  </thead>
+  <tbody>
+  <% if @logs.any? %>
+    <% @logs.each do |log| %>
+    <tr class="<%= cycle("even", "odd") %>">
+      <td><%= log.type %></td>
+      <td><%= log.user.email %></td>
+      <td><%= log.updated_at %></td>
+    </tr>
+    <% end %>
+  <% else %>
+     <tr>
+       <td colspan="3">There are not yet edits to your tree<td>
+     </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @logs, :class => 'pagination ajax' %>

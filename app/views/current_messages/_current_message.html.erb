@@ -3,40 +3,20 @@
     
     <div class="breadcrumbs">
       <ul>
-        <li>Chat &amp; Logs</li>
+        <li>Chat</li>
       </ul>
     </div>
 
-  <div id="chat-logs" class="tabbed-subnav">
-    <ul class="tabbed-header clearfix">
-      <li id="chat-tab" class="active">
-        <a href="#chat-messages-wrapper">
-          Chat
-          <div class="count"></div>
-        </a>
-      </li>
-      <li id="log-tab">
-        <a href="#edit-logs-wrapper">
-          Logs
-          <div class="count"></div>
-        </a>
-      </li>
-    </ul>
-      <div id="chat-messages-wrapper" class="tabbed-panel">
-        <div id="chat-messages-form-wrapper" class="dark">
-          <p>Chat capabilities are coming soon...</p>
-          <form id="chat-messages-form">
-            <label for="chat-messages-input">Chat</label>
-            <input id="chat-messages-input" type="text" class="chat"></input>
-            <button id="chat-messages-submit" class="green-submit-small ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">Send</span></button>
-          </form>
-        </div>
-        <div id="chat-messages-scroller" class="jstree">
-          <ul id="chat-messages-list"></ul>
-        </div>
+    <div id="chat-messages-wrapper">
+      <div id="chat-messages-form-wrapper" class="dark">
+        <form id="chat-messages-form">
+          <label for="chat-messages-input">Chat</label>
+          <input id="chat-messages-input" type="text" class="chat"></input>
+          <button id="chat-messages-submit" class="green-submit-small ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">Send</span></button>
+        </form>
       </div>
-      <div id="edit-logs-wrapper" class="tabbed-panel" style="display:none;">
-        <p>Edit logs are coming soon...</p>
+      <div id="chat-messages-scroller" class="jstree">
+        <ul id="chat-messages-list"></ul>
       </div>
     </div>
 
