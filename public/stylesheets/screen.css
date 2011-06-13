@@ -778,6 +778,7 @@ body form input {
 .ddsmoothmenu ul li a.nav-edit-history { background: transparent url(../images/icons/table.png) no-repeat 5px center; }
 .ddsmoothmenu ul li a.nav-refresh-tree { background: transparent url(../images/icons/arrow_refresh.png) no-repeat 5px center; }
 .ddsmoothmenu ul li a.nav-collapse-tree { background: transparent url(../images/icons/door.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-tools-merge { background: transparent url(../images/icons/arrow_join.png) no-repeat 5px center; }
 
 * html .ddsmoothmenu ul li a {
   display: inline-block;
