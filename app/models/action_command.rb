@@ -72,6 +72,10 @@ class ActionCommand < ActiveRecord::Base
   def do_action
     raise_not_implemented
   end
+  
+  def get_log
+    raise_not_implemented
+  end
 
   def precondition_do_error
     raise Gnite::ActionPreconditionsError, "Preconditions are not met"

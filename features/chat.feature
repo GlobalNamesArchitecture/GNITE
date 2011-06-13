@@ -10,7 +10,7 @@ Feature: Chat
       | 100  | 0         | Pardosa             |
     And I go to the master tree page for "Spiders"
     And I wait for the websocket to activate
-    And I follow "Chat & Logs"
+    And I follow "Chat"
 
   @javascript
   Scenario: User can send a chat message

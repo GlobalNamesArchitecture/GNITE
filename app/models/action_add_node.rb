@@ -22,6 +22,13 @@ class ActionAddNode < ActionCommand
     self.node_id = nil
     save!
   end
+  
+  def get_log
+    roots = Node.roots(tree_id)
+    parent = Node.find(parent_id)
+    destination = (parent_id == roots[0].id) ? "root": parent.name.name_string
+    "#{self.new_name} added under #{destination}"
+  end
 
 end
 

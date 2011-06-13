@@ -23,6 +23,7 @@
     </li>
     <li><a href="#">View</a>
       <ul class="subnav">
+        <li><%= link_to master_tree_action_commands_path(:master_tree_id => tree.id), :class => "nav-edit-history" do %>Edit history<% end %><span>ctrl+h</span></li>
         <li><a href="#" class="nav-refresh-tree">Refresh tree</a><span>ctrl+shift+r</span></li>
         <li><a href="#" class="nav-collapse-tree">Collapse tree</a></li>
       </ul>

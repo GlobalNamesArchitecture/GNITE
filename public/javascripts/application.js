@@ -146,7 +146,8 @@ $(function() {
       'ctrl+d'       : function() { this.remove( this.data.ui.hovered || this._get_node(null) ); },
       'ctrl+z'       : function() { this.undo(); },
       'ctrl+shift+z' : function() { this.redo(); },
-      'ctrl+s'       : function() { GNITE.Tree.MasterTree.publish(); } 
+      'ctrl+s'       : function() { GNITE.Tree.MasterTree.publish(); },
+      'ctrl+h'       : function() { window.location = "/master_trees/" + GNITE.Tree.MasterTree.id + "/action_commands"; }
     },
     'bookmarks' : {
       'addition_form' : '#bookmarks-addition-form-' + GNITE.Tree.MasterTree.id,

@@ -25,6 +25,7 @@ Gnite::Application.routes.draw do
   resources :master_trees, :only => [:index, :new, :create, :show, :edit, :update, :destroy] do
     resources :nodes,                  :only => [:index, :show, :create, :update, :destroy]
     resources :bookmarks,              :only => [:index, :create, :update, :destroy]
+    resources :action_commands,        :only => [:index]
     resources :flat_list_imports,      :only => [:new]
     resources :gnaclr_classifications, :only => [:index, :show]
     resources :imports,                :only => [:new]

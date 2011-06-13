@@ -22,6 +22,12 @@ class ActionCopyNodeFromAnotherTree < ActionCommand
   def undo_action
     @destination_node.destroy_with_children
   end
+  
+  def get_log
+    tree = Tree.find(tree_id)
+    destination = Node.find(destination_parent_id)
+    "#{node.name.name_string} and its children (if any) copied to #{destination.name.name_string} from #{tree.title}"
+  end
 
   def master_tree
     begin

@@ -84,7 +84,6 @@ hr {
 #bodywrap {
   color: black;
   margin: 20px 40px;
-  width: 760px;
 }
 
 .infobox-wrap {
@@ -776,6 +775,7 @@ body form input {
 .ddsmoothmenu ul li a.nav-refresh-node { background: transparent url(../images/icons/arrow_refresh_small.png) no-repeat 5px center; }
 .ddsmoothmenu ul li a.nav-bookmarks-add { background: transparent url(../images/icons/asterisk_yellow_add.png) no-repeat 5px center; }
 .ddsmoothmenu ul li a.nav-bookmarks-view { background: transparent url(../images/icons/asterisk_yellow.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-edit-history { background: transparent url(../images/icons/table.png) no-repeat 5px center; }
 .ddsmoothmenu ul li a.nav-refresh-tree { background: transparent url(../images/icons/arrow_refresh.png) no-repeat 5px center; }
 .ddsmoothmenu ul li a.nav-collapse-tree { background: transparent url(../images/icons/door.png) no-repeat 5px center; }
 
@@ -1677,10 +1677,10 @@ ul#treelist a:link,
 ul#treelist a:visited,
 ul#treelist a:active,
 ul#treelist a:hover,
-#newtree a:link,
-#newtree a:hover,
-#newtree a:active,
-#newtree a:visited,
+.tree-link a:link,
+.tree-link a:hover,
+.tree-link a:active,
+.tree-link a:visited,
 #publish a:link,
 #publish a:hover,
 #publish a:active,
@@ -1708,14 +1708,14 @@ ul#treelist a:hover,
   color: #232323;
 }
 
-#newtree {
+.tree-link {
   display: block;
   float: right;
   position: relative;
   top: -5px;
 }
 
-#newtree a {
+.tree-link a {
   background: #E0E2E4;
   background: -moz-linear-gradient(0% 100% 90deg,#BBC0C4, #E0E2E4);
   background: -webkit-gradient(linear, 0 0, 0 100%, from(#E0E2E4), to(#BBC0C4));
@@ -1727,19 +1727,19 @@ ul#treelist a:hover,
   padding: 8px 16px 8px 4px;
 }
 
-#newtree a:hover, #publish a:hover {
+.tree-link a:hover, #publish a:hover {
   background: #ccd0d4;
   background: -moz-linear-gradient(19% 75% 90deg,#919598, #ccd0d4);
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccd0d4), to(#919598));
 }
 
-#newtree a:active, #publish a:active {
+.tree-link a:active, #publish a:active {
   background: #b3b6ba;
   background: -moz-linear-gradient(19% 75% 90deg,#797d80, #b3b6ba);
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#b3b6ba), to(#797d80));
 }
 
-#newtree span {
+#tree-new span {
   background: url("/images/add-node.png") no-repeat;
   color: #232323;
   display: block;
@@ -1747,7 +1747,14 @@ ul#treelist a:hover,
   padding: 0 0 0 20px;
 }
 
-#newtree .content {
+#tree-return span {
+  color: #232323;
+  display: block;
+  font-size: 12px;
+  padding: 0px;
+}
+
+.tree-link .content {
   padding: 0;
 }
 
@@ -1978,4 +1985,105 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 
 #chat-messages-list li span.message {
   margin-left:3px;
+}
+
+.action_commands table {
+  width:100%;
+}
+
+.action_commands table thead tr {
+  color: #444;
+  font-weight: bold;
+  font-size: 1.1em;
+  text-shadow: 0 1px 0 #DADEE2;
+  border-radius: 6px 6px 0 0;
+  box-shadow: 0 1px 0 #DEE4E8 inset;
+}
+
+.action_commands table thead tr td {
+  padding:5px;
+  border-bottom: 1px solid #868D92;
+  background-color: #BABFC3;
+}
+
+.action_commands table thead tr td:first-child {
+  border-radius: 6px 0px 0px 0px;
+  -moz-border-radius: 6px 0px 0px 0px;
+  -webkit-border-radius: 6px 0px 0px 0px;
+}
+
+.action_commands table thead tr td:last-child {
+  border-radius: 0px 6px 0px 0px;
+  -moz-border-radius: 0px 6px 0px 0px;
+  -webkit-border-radius: 0px 6px 0px 0px;
+}
+
+.action_commands table thead tr td.action-command-user {
+  width:20%;
+}
+
+.action_commands table thead tr td.action-command-updated {
+  width:15%;
+}
+
+.action_commands table tbody tr td {
+  padding:0px 4px;
+}
+
+.action_commands table tbody tr td span.reverted {
+  color:red;
+}
+
+.action_commands table tr {
+  line-height:2em;
+}
+
+.action_commands table tr.even {
+  background: none repeat scroll 0 0 white;
+}
+
+.action_commands table tr.odd  {
+  background: none repeat scroll 0 0 #E6E6E6;
+}
+
+.action_commands table tr.last {
+  background-color:transparent;
+}
+
+.action_commands table tr.last-even td {
+  background-color:white;
+}
+
+.action_commands table tr.last-odd td {
+  background-color:#E6E6E6;
+}
+
+.action_commands table tr.last td:first-child {
+  border-radius: 0px 0px 0px 6px;
+  -moz-border-radius: 0px 0px 0px 6px;
+  -webkit-border-radius: 0px 0px 0px 6px;
+}
+
+.action_commands table tr.last td:last-child {
+  border-radius: 0px 0px 6px 0px;
+  -moz-border-radius: 0px 0px 6px 0px;
+  -webkit-border-radius: 0px 0px 6px 0px;
+}
+
+.action_commands table tr.single td {
+  background-color:white;
+  border-radius: 0px 0px 6px 6px;
+  -moz-border-radius: 0px 0px 6px 6px;
+  -webkit-border-radius: 0px 0px 6px 6px;
+}
+
+.action_commands .pagination {
+  margin:10px;
+  font-size:1.5em;
+  color:white;
+  font-weight:bold;
+}
+
+.action_commands .pagination a {
+  color:green;
 }

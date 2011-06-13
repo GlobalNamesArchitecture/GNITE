@@ -18,6 +18,10 @@ class ActionRenameNode < ActionCommand
   def undo_action
     node.rename(old_name)
   end
+  
+  def get_log
+    "#{self.old_name} renamed to #{self.new_name}"
+  end
 
 end
 

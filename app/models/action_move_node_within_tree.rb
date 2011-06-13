@@ -21,5 +21,11 @@ class ActionMoveNodeWithinTree < ActionCommand
     node.parent_id = @parent.id
     node.save!
   end
+  
+  def get_log
+    old_parent = Node.find(parent_id)
+    new_parent = Node.find(destination_parent_id)
+    "#{node.name.name_string} moved from #{old_parent.name.name_string} to #{new_parent.name.name_string}"
+  end
 
 end

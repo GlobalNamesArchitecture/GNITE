@@ -26,5 +26,9 @@ class ActionMoveNodeToDeletedTree < ActionCommand
       descendant.save!
     end
   end
+  
+  def get_log
+    "#{node.name.name_string} and its children (if any) deleted"
+  end
 
 end

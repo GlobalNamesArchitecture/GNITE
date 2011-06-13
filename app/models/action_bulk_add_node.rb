@@ -27,6 +27,14 @@ class ActionBulkAddNode < ActionCommand
       node.destroy if node
     end
   end
+  
+  def get_log
+    roots = Node.roots(tree_id)
+    parent = Node.find(parent_id)
+    destination = (parent_id == roots[0].id) ? "root": parent.name.name_string
+    bulk_added = JSON.parse(json_message, :symbolize_names => true)[:do].join(", ")
+    "#{bulk_added} added under #{destination}"
+  end
 
   def master_tree
     begin
