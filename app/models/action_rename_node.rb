@@ -20,7 +20,7 @@ class ActionRenameNode < ActionCommand
   end
   
   def get_log
-    "#{self.old_name} renamed to #{self.new_name}"
+    "#{old_name} renamed to #{new_name}"
   end
 
 end

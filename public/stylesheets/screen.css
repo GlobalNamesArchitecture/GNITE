@@ -2018,6 +2018,10 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   -webkit-border-radius: 0px 6px 0px 0px;
 }
 
+.action_commands table thead tr td.action-command-action {
+  width:65%;
+}
+
 .action_commands table thead tr td.action-command-user {
   width:20%;
 }

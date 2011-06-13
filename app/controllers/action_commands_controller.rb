@@ -7,7 +7,7 @@ class ActionCommandsController < ApplicationController
     page = (params[:page]) ? params[:page] : 1
     @logs = ActionCommand.where(:tree_id => params[:master_tree_id])
                          .order("updated_at DESC")
-                         .paginate(:page => page, :per_page => 50)
+                         .paginate(:page => page, :per_page => 25)
 
     @messages = @logs.map do |log|
       ac = ActionCommand.find(log.id)
