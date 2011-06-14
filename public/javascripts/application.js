@@ -157,11 +157,14 @@ $(function() {
     'bulkcreate' : {
       'element' : '#bulkcreate-form'
     },
+    'merge' : {
+      'merge_form' : '#merge-form'
+    },
     'ui' : {
       'select_limit' : -1,
       'select_multiple_modifier' : "ctrl"
     },
-    'plugins' : ['themes', 'html_data', 'ui', 'dnd', 'crrm', 'cookies', 'contextmenu', 'bookmarks', 'hotkeys', 'bulkcreate', 'undoredo']
+    'plugins' : ['themes', 'html_data', 'ui', 'dnd', 'crrm', 'cookies', 'contextmenu', 'bookmarks', 'hotkeys', 'bulkcreate', 'undoredo', 'merge']
   });
 
   GNITE.Tree.ReferenceTree.configuration = $.extend(true, {}, GNITE.Tree.configuration, {
@@ -1001,6 +1004,23 @@ $(function() {
   });
 
   /*
+   * Merge binding
+   */
+  $('#master-tree').bind('merge.jstree', function(event, data) {
+    event = null, data = null;
+    GNITE.Tree.MasterTree.merge();
+  });
+
+  $('#master-tree').bind('merge_save.jstree', function(event, data) {
+    event = null, data = null;
+
+     alert("master tree node: " + $('#merge_master-tree').val() + "\nref tree node: " + $('#merge_reference-tree').val());
+
+    //TODO: perform merge
+    
+  });
+
+  /*
    * Hide the spinner icon after the node is loaded
    */
   $('#master-tree').bind('load_node.jstree', function(event, data) {
@@ -1596,7 +1616,9 @@ GNITE.Tree.MasterTree.merge = function() {
     });
   }
   else {
-
+    $('#master-tree-merge-selection span').text($('#'+master_selected[0].id).text()).parent().find("input").val(master_selected[0].id);
+    $('#reference-tree-merge-selection span').text($('#'+reference_selected[0].id).text()).parent().find("input").val(reference_selected[0].id);
+    $("#merge-form").dialog("open");
   }
 
   return false;

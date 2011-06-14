@@ -1,0 +1,12 @@
+<div id="merge-form" title="Merge">
+    <%= form_tag do %>
+      <div id="master-tree-merge-selection">
+        <span></span>
+        <%= hidden_field "merge", "master-tree" %>
+      </div>
+      <div id="reference-tree-merge-selection">
+        <span></span>
+        <%= hidden_field "merge", "reference-tree" %>
+      </div>
+    <% end %>
+</div>
