@@ -98,7 +98,7 @@ class ActionCommand < ActiveRecord::Base
   def master_tree
     Tree.find(tree_id) rescue nil
   end
-
+  
   private
 
   def self.perform_undo(action_command)

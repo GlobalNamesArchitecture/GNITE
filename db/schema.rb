@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110609192123) do
+ActiveRecord::Schema.define(:version => 20110615145727) do
 
   create_table "action_commands", :force => true do |t|
     t.string   "type"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(:version => 20110609192123) do
     t.string   "new_name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "json_message"
+    t.text     "json_message"
     t.integer  "tree_id"
   end
 
@@ -88,9 +88,7 @@ ActiveRecord::Schema.define(:version => 20110609192123) do
   add_index "master_tree_contributors", ["user_id", "master_tree_id"], :name => "index_master_tree_contributors_on_user_id_and_master_tree_id", :unique => true
 
   create_table "merge_decisions", :force => true do |t|
-    t.string   "label"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string "label"
   end
 
   create_table "merge_events", :force => true do |t|
@@ -99,6 +97,7 @@ ActiveRecord::Schema.define(:version => 20110609192123) do
     t.integer  "secondary_node_id"
     t.integer  "user_id"
     t.string   "memo"
+    t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -128,15 +127,11 @@ ActiveRecord::Schema.define(:version => 20110609192123) do
   add_index "merge_result_secondaries", ["merge_type_id", "merge_subtype_id"], :name => "index_merge_results_secondaries_1"
 
   create_table "merge_subtypes", :force => true do |t|
-    t.string   "label"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string "label"
   end
 
   create_table "merge_types", :force => true do |t|
-    t.string   "label"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string "label"
   end
 
   create_table "names", :force => true do |t|

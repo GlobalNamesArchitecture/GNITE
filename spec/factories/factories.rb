@@ -71,7 +71,7 @@ Factory.define :gnaclr_importer do |gnaclr_importer|
 end
 
 Factory.define :action_rename_node do |action_rename_node|
-  action_rename_node.tree_id { Factory(:master_tree).id }
+  action_rename_node.association :tree
   action_rename_node.association :user
   action_rename_node.node_id { |a| Factory(:node, :tree_id => a.tree_id ).id }
   action_rename_node.old_name { |a| Node.find(a.node_id).name.name_string }
@@ -79,7 +79,7 @@ Factory.define :action_rename_node do |action_rename_node|
 end
 
 Factory.define :action_move_node_within_tree do |action_move_node|
-  action_move_node.tree_id { Factory(:master_tree).id }
+  action_move_node.association :tree
   action_move_node.association :user
   action_move_node.parent_id { |a| Factory(:node, :tree_id => a.tree_id).id }
   action_move_node.node_id { |a| Factory(:node, :parent_id => a.parent_id, :tree_id => a.tree_id).id }
@@ -87,27 +87,27 @@ Factory.define :action_move_node_within_tree do |action_move_node|
 end
 
 Factory.define :action_move_node_to_deleted_tree do |action_delete_node|
-  action_delete_node.tree_id { Factory(:master_tree).id }
+  action_delete_node.association :tree
   action_delete_node.association :user
   action_delete_node.parent_id { |a| Factory(:node, :tree_id => a.tree_id).id }
   action_delete_node.node_id { |a| Factory(:node, :parent_id => a.parent_id, :tree_id => a.tree_id).id }
 end
 
 Factory.define :action_copy_node_from_another_tree do |action_copy_node|
-  action_copy_node.tree_id { Factory(:master_tree).id }
+  action_copy_node.association :tree
   action_copy_node.association :user
   action_copy_node.node_id { Factory(:node, :tree => Factory(:reference_tree)).id }
   action_copy_node.destination_parent_id { |a| Factory(:node, :tree_id => a.tree_id).id  }
 end
 
 Factory.define :action_add_node do |action_add_node|
-  action_add_node.tree_id { Factory(:master_tree).id }
+  action_add_node.association :tree
   action_add_node.association :user
   action_add_node.parent_id { |a| Factory(:node, :tree_id => a.tree_id).id }
 end
 
 Factory.define :action_bulk_add_node do |action_bulk_add_node|
-  action_bulk_add_node.tree_id { Factory(:master_tree).id }
+  action_bulk_add_node.association :tree
   action_bulk_add_node.association :user
   action_bulk_add_node.parent_id { |a| Factory(:node, :tree_id => a.tree_id).id }
   action_bulk_add_node.json_message { {:do => %w(name1 name2 name3)}.to_json }

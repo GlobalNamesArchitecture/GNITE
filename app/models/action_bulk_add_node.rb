@@ -36,14 +36,6 @@ class ActionBulkAddNode < ActionCommand
     "#{bulk_added} added under #{destination}"
   end
 
-  def master_tree
-    begin
-      Node.find(parent_id).tree
-    rescue NoMethodError
-      nil
-    end
-  end
-
   def nodes
     undo_nodes = @json_undo || JSON.parse(json_message, :symbolize_names => true)[:undo] || []
     undo_nodes.map { |i| Node.find(i) rescue nil }.compact

@@ -52,6 +52,7 @@ module Gnite
     :root_node_name_string => "tree_root",
     :action_types => ['ActionAddNode', 'ActionBulkAddNode', 'ActionRenameNode', 'ActionMoveNodeWithinTree', 'ActionMoveNodeToDeletedTree', 'ActionCopyNodeFromAnotherTree'],
     :undo_limit => 10,
+    :parser => ParsleyStore.new(1,2),
   )
 
 end

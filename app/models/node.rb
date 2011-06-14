@@ -139,6 +139,27 @@ class Node < ActiveRecord::Base
       c.collect_children_to_delete(nodes_to_delete)
     end
   end
+  
+  def merge_data(path = [self], result = { :empty_nodes => [], :leaves => []})
+    self.children.each do |child|
+      path_new = path.dup
+      path_names = path.map(&:canonical_name) << child.canonical_name
+      path_ids = path.map { |n| n.id.to_s } << child.id.to_s
+      if child.canonical_name.split(' ').size > 1
+        leaf = {:id => child.id.to_s, :rank => child.rank, :path => path_names, :path_ids => path_ids, :valid_name => {:name => child.name_string, :canonical_name => child.canonical_name, :type => 'valid', :status => nil}, :synonyms => []}
+        child.synonyms.each do |synonym|
+          leaf[:synonyms] << {:name => synonym.name_string, :canonical_name => synonym.canonical_name, :status => synonym.status, :type => 'synonym'}
+        end
+        result[:leaves] << leaf
+      end
+      child.merge_data((path_new << child), result)
+    end
+    result
+  end
+
+  def canonical_name
+    @canonical_name ||= Gnite::Config.parser.parse(self.name_string, :canonical_only => true)
+  end
 
   private
 

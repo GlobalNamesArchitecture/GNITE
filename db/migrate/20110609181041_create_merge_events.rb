@@ -6,7 +6,7 @@ class CreateMergeEvents < ActiveRecord::Migration
       t.references :secondary_node, :class => Node
       t.references :user
       t.string :memo
-
+      t.string :status
       t.timestamps
     end
 
