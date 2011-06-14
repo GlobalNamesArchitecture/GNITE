@@ -27,7 +27,7 @@
                 $(s.merge_form).dialog({
                         closeText: '',
                         autoOpen: false,
-                        height: 200,
+                        height: 250,
                         width: 450,
                         modal: true,
                         resizable: false,

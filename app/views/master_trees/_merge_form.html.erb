@@ -1,13 +1,15 @@
 <div id="merge-form" title="Merge">
     <%= form_tag do %>
-      <p>Pick which node is most authoritative</p>
+      <p>Pick the most authoritative node</p>
       <div id="master-tree-merge-selection" class="merge-column">
         <h2></h2>
+        <%= radio_button("merge", "authoritative", "master-tree") %>
         <span></span>
         <%= hidden_field "merge", "master-tree" %>
       </div>
       <div id="reference-tree-merge-selection" class="merge-column">
         <h2></h2>
+        <%= radio_button("merge", "authoritative", "reference-tree") %>
         <span></span>
         <%= hidden_field "merge", "reference-tree" %>
       </div>
