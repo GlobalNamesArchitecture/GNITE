@@ -147,7 +147,8 @@ $(function() {
       'ctrl+z'       : function() { this.undo(); },
       'ctrl+shift+z' : function() { this.redo(); },
       'ctrl+s'       : function() { GNITE.Tree.MasterTree.publish(); },
-      'ctrl+h'       : function() { window.location = "/master_trees/" + GNITE.Tree.MasterTree.id + "/action_commands"; }
+      'ctrl+h'       : function() { window.location = "/master_trees/" + GNITE.Tree.MasterTree.id + "/action_commands"; },
+      'ctrl+m'       : function() { GNITE.Tree.MasterTree.merge(); }
     },
     'bookmarks' : {
       'addition_form' : '#bookmarks-addition-form-' + GNITE.Tree.MasterTree.id,
@@ -654,6 +655,13 @@ $(function() {
     GNITE.Tree.hideMenu();
     return false;
   });
+
+  /*
+   * TOOLS: Merge
+   */
+  $('.nav-tools-merge').click(function() {
+    GNITE.Tree.MasterTree.merge();
+  }); 
 
   GNITE.Tree.buildViewMenuActions();
 
@@ -1558,6 +1566,40 @@ GNITE.Tree.MasterTree.flashNode = function(data) {
 
 GNITE.Tree.MasterTree.updateMetadataTitle = function(name) {
   $('#treewrap-main .node-metadata span.ui-dialog-title').text(name);
+};
+
+GNITE.Tree.MasterTree.merge = function() {
+  var master = $('#master-tree');
+  var master_selected = master.jstree("get_selected");
+  var reference = $('.reference-tree-container div.jstree-focused');
+  var reference_selected = reference.jstree("get_selected");
+
+  if(master_selected.length === 0 || master_selected.legnth > 1 || reference_selected.length > 1 || reference_selected.length === 0) {
+    var message = 'Select one name in your working tree and one name in your reference tree';
+    $('body').append('<div id="dialog-message" class="ui-state-highlight" title="Merge Instructions">' + message + '</div>');
+    $('#dialog-message').dialog({
+        height : 200,
+        width : 500,
+        modal : true,
+        closeText : "",
+        buttons: [
+         {
+           className : "green-submit",
+           text : "OK",
+           click : function() {
+             $('#dialog-message').dialog("destroy").hide().remove();
+           }
+         }
+       ],
+       draggable : false,
+       resizable : false
+    });
+  }
+  else {
+
+  }
+
+  return false;
 };
 
 GNITE.Tree.ReferenceTree.add = function(response, options) {
