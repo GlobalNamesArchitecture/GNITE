@@ -140,7 +140,7 @@ $(function() {
       'ctrl+shift+r' : function() { this.refresh(); },
       'ctrl+b'       : function() { this.bookmarks_form( this.data.ui.hovered || this._get_node(null) ); },
       'ctrl+shift+b' : function() { this.bookmarks_view(); },
-      'ctrl+e'       : function() { this.rename( this.data.ui.hovered || this._get_node(null) ); },
+      'ctrl+e'       : function() { if(this.data.ui.hovered || this._get_node(null)) { this.rename( this.data.ui.hovered || this._get_node(null) ); } else { return false; } },
       'ctrl+x'       : function() { this.cut( this.data.ui.hovered || this._get_node(null) ); },
       'ctrl+v'       : function() { this.paste( this.data.ui.hovered || this._get_node(null) ); },
       'ctrl+d'       : function() { this.remove( this.data.ui.hovered || this._get_node(null) ); },
@@ -619,7 +619,8 @@ $(function() {
    * EDIT: Edit node
    */
   $('.nav-edit-node').click(function() {
-    if($('#master-tree').find("li").length > 0) {
+    var selected = $('#master-tree').jstree("get_selected");
+    if($('#master-tree').find("li").length > 0 && selected.length > 0) {
       $('#master-tree').jstree('rename');
     }
     GNITE.Tree.hideMenu();
