@@ -814,6 +814,7 @@ $(function() {
    * ActionType: ActionCopyNodeFromAnotherTree and ActionMoveNodeWithinTree
    * Moves node within Master Tree
    * TODO: if node was dragged from reference to master 2+ times, it will fail because of a duplicate key in nodes table on 'index_nodes_on_local_id_and_tree_id'
+   * TODO: if a multi-select copy from reference to master, this should be a new action command model
    */
   $('#master-tree').bind('move_node.jstree', function(event, data) {
      event = null;
@@ -1617,8 +1618,16 @@ GNITE.Tree.MasterTree.merge = function() {
     });
   }
   else {
-    $('#master-tree-merge-selection span').text($('#'+master_selected[0].id).text()).parent().find("input").val(master_selected[0].id);
-    $('#reference-tree-merge-selection span').text($('#'+reference_selected[0].id).text()).parent().find("input").val(reference_selected[0].id);
+    var master_selected_string = master.jstree("get_text", $('#'+master_selected[0].id));
+    var reference_selected_string = reference.jstree("get_text", $('#'+reference_selected[0].id));
+
+    var master_title = 
+    $('#master-tree-merge-selection h2').text($('#header h1').text());
+    $('#reference-tree-merge-selection h2').text(reference.parents('.reference-tree').find('.breadcrumbs ul li').text());
+
+    $('#master-tree-merge-selection span').text(master_selected_string).parent().find("input").val(master_selected[0].id);
+    $('#reference-tree-merge-selection span').text(reference_selected_string).parent().find("input").val(reference_selected[0].id);
+
     $("#merge-form").dialog("open");
   }
 

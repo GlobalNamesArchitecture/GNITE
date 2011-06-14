@@ -1170,6 +1170,23 @@ body form input {
   padding: 5px 8px;
 }
 
+/* Merge dialg */
+/************************************************************************/
+#merge-form {
+  text-align:center;
+  margin:10px 0px 20px 0px;
+}
+
+#merge-form div.merge-column {
+  float:left;
+  width:49%;
+}
+
+#merge-form p {
+  font-style:italic;
+  margin-bottom:10px;
+}
+
 /* GNACLR Search results */
 /************************************************************************/
 div.tabbed-subnav {
@@ -1470,40 +1487,15 @@ ul.classifications div.import-button {
   padding: 10px;
 }
 
-#tree-newimport .result:hover {
-}
-
-#tree-newimport .search {
-  background: url("../images/search.png") no-repeat;
-}
-
-#tree-newimport .search:hover {
-  background: url("../images/search-hover.png") no-repeat;
-}
-
-#tree-newimport .upload {
-  background: url("../images/upload.png") no-repeat;
-}
-
-#tree-newimport .upload:hover {
-  background: url("../images/upload.png") 0 -52px no-repeat;
-}
-
-#tree-newimport .browse {
-  background: url("../images/browse.png") no-repeat;
-}
-
-#tree-newimport .browse:hover {
-  background:url("../images/browse.png") 0 -52px no-repeat;
-}
-
-#tree-newimport .flat-list {
-  background: url("../images/flat-list.png") no-repeat;
-}
-
-#tree-newimport .flat-list:hover {
-  background: url("../images/flat-list.png") 0 -52px no-repeat;
-}
+#tree-newimport .result:hover { }
+#tree-newimport .search { background: url("../images/search.png") no-repeat; }
+#tree-newimport .search:hover { background: url("../images/search-hover.png") no-repeat; }
+#tree-newimport .upload { background: url("../images/upload.png") no-repeat; }
+#tree-newimport .upload:hover { background: url("../images/upload.png") 0 -52px no-repeat; }
+#tree-newimport .browse { background: url("../images/browse.png") no-repeat; }
+#tree-newimport .browse:hover { background:url("../images/browse.png") 0 -52px no-repeat; }
+#tree-newimport .flat-list { background: url("../images/flat-list.png") no-repeat; }
+#tree-newimport .flat-list:hover { background: url("../images/flat-list.png") 0 -52px no-repeat;}
 
 #tree-newimport ul.list {
   margin: 0;
@@ -1988,6 +1980,8 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   margin-left:3px;
 }
 
+/* Edit History */
+/************************************************************************/
 .action_commands table {
   width:100%;
 }
