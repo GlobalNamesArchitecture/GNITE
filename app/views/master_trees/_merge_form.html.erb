@@ -3,7 +3,7 @@
       <p>Pick the most authoritative node</p>
       <div id="master-tree-merge-selection" class="merge-column">
         <h2></h2>
-        <%= radio_button("merge", "authoritative", "master-tree") %>
+        <%= radio_button("merge", "authoritative", "master-tree", { :checked => true }) %>
         <span></span>
         <%= hidden_field "merge", "master-tree" %>
       </div>
