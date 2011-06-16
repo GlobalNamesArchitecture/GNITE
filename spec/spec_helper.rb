@@ -50,7 +50,7 @@ def get_tree1
   bulk_add1 = Factory(:action_bulk_add_node, :tree_id => tree.id, :parent_id => merge_node.id, :json_message => '{"do": ["Pardosa", "Schizocosa", "Trochosa", "Alopecosa"]}')
   ActionBulkAddNode.perform(bulk_add1.id)
   genera_ids = JSON.parse(bulk_add1.reload.json_message)['undo']
-  bulk_add2 = Factory(:action_bulk_add_node, :tree_id => tree.id, :parent_id => genera_ids[1], :json_message => '{"do": ["Pardosa moesta Banks, 1892", "Pardosa modica (Keyserling, 1887)", "Pardosa fuscula (Keyserling, 1887)", "Pardosa xerampelina Keyserling, 1887" , "Pardosa zelotes Keyserling, 1887", "Pardosa groenlandica Banks, 1892", "Pardosa opeongo Banks, 1800"]}')
+  bulk_add2 = Factory(:action_bulk_add_node, :tree_id => tree.id, :parent_id => genera_ids[0], :json_message => '{"do": ["Pardosa moesta Banks, 1892", "Pardosa modica (Keyserling, 1887)", "Pardosa fuscula (Keyserling, 1887)", "Pardosa xerampelina Keyserling, 1887" , "Pardosa zelotes Keyserling, 1887", "Pardosa groenlandica Banks, 1892", "Pardosa opeongo Banks, 1800"]}')
   ActionBulkAddNode.perform(bulk_add2.id)
   pardosa_ids = JSON.parse(bulk_add2.reload.json_message)['undo']
   Factory(:synonym, :node_id => pardosa_ids[0], :name => Name.find_or_create_by_name_string("Lycosa moesta Banks, 1892"))

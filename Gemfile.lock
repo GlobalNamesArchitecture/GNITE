@@ -94,7 +94,7 @@ GEM
     escape_utils (0.1.9)
     eventmachine (0.12.10)
     factory_girl (1.3.2)
-    family-reunion (0.1.7)
+    family-reunion (0.2.3)
       dwc-archive (>= 0.5.13)
       taxamatch_rb (>= 0.6.5)
     ffi (1.0.7)
@@ -240,7 +240,7 @@ DEPENDENCIES
   engineyard
   escape_utils
   factory_girl
-  family-reunion (= 0.1.7)
+  family-reunion (= 0.2.3)
   formtastic (= 1.1.0)
   high_voltage
   hoptoad_notifier (= 2.3.7)

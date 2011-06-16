@@ -5,7 +5,7 @@ class CreateMergeResultSecondaries < ActiveRecord::Migration
       t.references :node
       t.references :merge_type
       t.references :merge_subtype
-      t.string :path
+      t.text :path
       t.references :merge_decision
 
       t.timestamps

@@ -151,6 +151,9 @@ class Node < ActiveRecord::Base
           leaf[:synonyms] << {:name => synonym.name_string, :canonical_name => synonym.canonical_name, :status => synonym.status, :type => 'synonym'}
         end
         result[:leaves] << leaf
+      elsif !child.has_children?
+        empty_node = {:id => child.id.to_s, :rank => child.rank, :path => path_names, :path_ids => path_ids, :valid_name => {:name => child.name_string, :canonical_name => child.canonical_name, :type => 'valid', :status => nil}, :synonyms => []}
+        result[:empty_nodes] << empty_node
       end
       child.merge_data((path_new << child), result)
     end

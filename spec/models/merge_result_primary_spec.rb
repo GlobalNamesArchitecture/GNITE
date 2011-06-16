@@ -3,7 +3,6 @@ require 'spec_helper'
 describe MergeResultPrimary do
 
   before(:all) do
-    require 'ruby-debug'; debugger
     @tree1 = get_tree1
     @tree2 = get_tree2
     primary_node = @tree1.root.children.first
@@ -13,6 +12,7 @@ describe MergeResultPrimary do
 
   it "should process merge results" do
     MergeResultPrimary.import_merge(@me)  
-    @me.merge_result.should == ''
+    @me.merge_result_primaries.size.should > 0
+    @me.merge_result_primaries.first.merge_result_secondaries.size.should > 0
   end
 end
