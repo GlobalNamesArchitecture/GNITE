@@ -294,6 +294,33 @@ $(function() {
                 }
               }));
 
+              // Build the menu system for the reference tree
+              self.bind("init.jstree", function(event, data) {
+                event = null; data = null;
+                ddsmoothmenu.init({
+                  mainmenuid: "toolbar-reference-"+tree_id,
+                  orientation: 'h',
+                  classname: 'ddsmoothmenu',
+                  contentsource: "markup"
+                });
+              });
+
+              // Hide the spinner icon once node is loaded
+              self.bind('open_node.jstree', function(event, data) {
+                event = null;
+                var node = data.rslt;
+                var id = node.obj.attr('id');
+                $('#'+id).find("span.jstree-loading").remove();
+              });
+
+              self.bind('select_node.jstree', function(event, data) {
+                event = null;
+                var metadata = self.parent().next();
+                var wrapper = self.parent();
+                var url = '/reference_trees/' + tree_id + '/nodes/' + data.rslt.obj.attr("id");
+                GNITE.Tree.Node.getMetadata(url, metadata, wrapper);
+              });
+
               self.bind('bookmarks_form.jstree', function(event, data) {
                 event = null;
                 $('#bookmarks-addition-form-' + tree_id).dialog("option", "title", "Bookmark " + $('#' + data.rslt.obj.attr('id') + ' a:first').text()).dialog("open");
@@ -316,25 +343,6 @@ $(function() {
                   data        : JSON.stringify({ 'id' : id, 'bookmark_title' : title }),
                   contentType : 'application/json',
                   dataType    : 'json'
-                });
-              });
-
-              // Hide the spinner icon once node is loaded
-              self.bind('open_node.jstree', function(event, data) {
-                event = null;
-                var node = data.rslt;
-                var id = node.obj.attr('id');
-                $('#'+id).find("span.jstree-loading").remove();
-              });
-
-              // Build the menu system for the reference tree
-              self.bind("init.jstree", function(event, data) {
-                event = null; data = null;
-                ddsmoothmenu.init({
-                  mainmenuid: "toolbar-reference-"+tree_id,
-                  orientation: 'h',
-                  classname: 'ddsmoothmenu',
-                  contentsource: "markup"
                 });
               });
 
@@ -901,6 +909,18 @@ $(function() {
   });
 
   /*
+  * Node metadata
+  */
+  $('#master-tree').bind('select_node.jstree', function(event, data) {
+    event = null;
+    var self = $(this);
+    var metadata = self.parent().parent().next();
+    var wrapper = self.parent();
+    var url = '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes/' + data.rslt.obj.attr("id");
+    GNITE.Tree.Node.getMetadata(url, metadata, wrapper);
+  });
+
+  /*
    * Double-click rename
    */
   $('#master-tree .jstree-clicked').live('dblclick', function() {
@@ -1017,10 +1037,18 @@ $(function() {
   $('#master-tree').bind('merge_save.jstree', function(event, data) {
     event = null, data = null;
 
-     alert("master tree node: " + $('#merge_master-tree').val() + "\nref tree node: " + $('#merge_reference-tree').val());
+    alert("Sorry, this function has not yet been implemented");
 
-    //TODO: perform merge
-    
+    /*
+     TODO: implement merge
+     Form has been posted, may now redirect to a merge status page
+
+     params if needed:
+
+     master tree node: $('#merge_master-tree').val()
+     tree node: $('#merge_reference-tree').val();
+   */
+
   });
 
   /*
@@ -1047,37 +1075,6 @@ $(function() {
     event = null; data = null;
   });
 
-
-  /**************************************************************
-           METADATA ACTIONS
-  **************************************************************/
-
-  /*
-   * Get Master Tree metadata
-   */
-  $('#master-tree .jstree-clicked').live('click', function() {
-    var self     = $(this);
-    var metadata = $('#treewrap-main .node-metadata');
-    var wrapper  = $('#add-node-wrap');
-    var url      = '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes/' + self.parent('li').attr('id');
-
-    GNITE.Tree.Node.getMetadata(url, metadata, wrapper);
-  });
-
-  /*
-   * Get Reference Tree metadata
-   */
-  $('.reference-tree .jstree-clicked').live('click', function() {
-    var self     = $(this);
-    var tree     = self.parents('.reference-tree');
-    var metadata = tree.find('.node-metadata');
-    var tree_id  = tree.attr('id').split('_')[2];
-    var node_id  = self.parent('li').attr('id');
-    var wrapper  = tree.find('.reference-tree-container');
-    var url      = '/reference_trees/' + tree_id + '/nodes/' + node_id;
-
-    GNITE.Tree.Node.getMetadata(url, metadata, wrapper);
-  });
 
   /**************************************************************
            SEARCH & IMPORT FROM GNACLR
@@ -1677,14 +1674,6 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
       }
     ));
 
-    // hide the spinner icon once node is loaded
-    self.bind('open_node.jstree', function(event, data) {
-      event = null;
-      var node = data.rslt;
-      var id = node.obj.attr('id');
-      $('#'+id).find("span.jstree-loading").remove();
-    });
-
     // Build the menu system for the new reference tree
     self.bind("init.jstree", function(event, data) {
       event = null; data = null;
@@ -1694,6 +1683,22 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
         classname: 'ddsmoothmenu',
         contentsource: "markup"
       });
+    });
+
+    // hide the spinner icon once node is loaded
+    self.bind('open_node.jstree', function(event, data) {
+      event = null;
+      var node = data.rslt;
+      var id = node.obj.attr('id');
+      $('#'+id).find("span.jstree-loading").remove();
+    });
+
+    self.bind('select_node.jstree', function(event, data) {
+      event = null;
+      var metadata = self.parent().next();
+      var wrapper = self.parent();
+      var url = '/reference_trees/' + tree_id + '/nodes/' + data.rslt.obj.attr("id");
+      GNITE.Tree.Node.getMetadata(url, metadata, wrapper);
     });
 
     // Bind bookmarks for the new reference tree
