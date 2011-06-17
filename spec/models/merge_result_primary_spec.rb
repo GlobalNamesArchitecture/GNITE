@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe MergeResultPrimary do
 
+  it { should belong_to(:merge_event) }
+  it { should belong_to(:node) }
+  it { should have_many(:merge_result_secondaries) }
+
   before(:all) do
     @tree1 = get_tree1
     @tree2 = get_tree2

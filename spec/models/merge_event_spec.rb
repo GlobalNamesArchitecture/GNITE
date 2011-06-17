@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe MergeEvent do
+  it { should belong_to(:master_tree) }
+  it { should belong_to(:user) }
+  it { should belong_to(:node) }
+  it { should have_many(:merge_result_primaries) }
 
   before(:all) do
     @tree1 = get_tree1

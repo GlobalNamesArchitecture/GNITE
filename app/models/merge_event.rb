@@ -1,8 +1,8 @@
 class MergeEvent < ActiveRecord::Base
   belongs_to :master_tree
   belongs_to :user
-  belongs_to :node, :foreign_key => :primary_node
-  belongs_to :node, :foreign_key => :secondary_node
+  belongs_to :node, :foreign_key => :primary_node_id
+  belongs_to :node, :foreign_key => :secondary_node_id
 
   has_many :merge_result_primaries
 
