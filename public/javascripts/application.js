@@ -17,12 +17,14 @@ var GNITE = {
 **************************************************************/
 var jug = new Juggernaut();
 
-jug.on("connect", function() { $('#master-tree').addClass("socket-active"); });
-jug.on("disconnect", function() { $('#master-tree').removeClass("socket-active"); });
-jug.on("reconnect", function() { });
+jug.on("connect", function() { "use strict"; $('#master-tree').addClass("socket-active"); });
+jug.on("disconnect", function() { "use strict"; $('#master-tree').removeClass("socket-active"); });
+
 
 /********************************* jQuery START *********************************/
 $(function() {
+
+  "use strict";
 
   GNITE.Tree.MasterTree.id = $('.tree-container:first').attr('data-database-id');
 
@@ -210,7 +212,7 @@ $(function() {
   $('#master_tree_title_input')
     .focus()
     .blur(function() {
-      var self = $(this);
+      var self = $(this), title = "";
 
       if ($.trim(self.val()) === '') {
         setTimeout(function() {
@@ -219,7 +221,7 @@ $(function() {
 
         self.next().text('Please enter a title for your tree.').addClass('error');
       } else {
-        var title = self.val();
+        title = self.val();
 
         $.post('/master_trees/' + GNITE.Tree.MasterTree.id, { 'master_tree[title]' : title, '_method' : 'put' }, function(response) {
           response = null;
@@ -271,9 +273,11 @@ $(function() {
    * Initialize Reference Trees when drop-down clicked
    */
   $('.reference-tree-container > div').each(function() {
-    var self    = $(this);
-    var tree_id = self.attr('id').split('_')[4];
-    var active  = self.parents('.reference-tree').hasClass('reference-tree-active');
+
+    var self            = $(this), 
+        tree_id         = self.attr('id').split('_')[4],
+        active          = self.parents('.reference-tree').hasClass('reference-tree-active'),
+        jugImporter = "";
 
     if (active) {
         $('#reference-trees li a').click(function() {
@@ -308,16 +312,15 @@ $(function() {
               // Hide the spinner icon once node is loaded
               self.bind('open_node.jstree', function(event, data) {
                 event = null;
-                var node = data.rslt;
-                var id = node.obj.attr('id');
+                var node = data.rslt, id = node.obj.attr('id');
                 $('#'+id).find("span.jstree-loading").remove();
               });
 
               self.bind('select_node.jstree', function(event, data) {
                 event = null;
-                var metadata = self.parent().next();
-                var wrapper = self.parent();
-                var url = '/reference_trees/' + tree_id + '/nodes/' + data.rslt.obj.attr("id");
+                var metadata = self.parent().next(),
+                    wrapper  = self.parent(),
+                    url      = '/reference_trees/' + tree_id + '/nodes/' + data.rslt.obj.attr("id");
                 GNITE.Tree.Node.getMetadata(url, metadata, wrapper);
               });
 
@@ -333,9 +336,9 @@ $(function() {
 
               self.bind('bookmarks_save.jstree', function(event, data) {
                 event = null;
-                var node = data.rslt;
-                var id   = node.obj.attr('id');
-                var title = $('#bookmark-title-' + tree_id).val();
+                var node  = data.rslt,
+                    id    = node.obj.attr('id'),
+                    title = $('#bookmark-title-' + tree_id).val();
 
                 $.ajax({
                   type        : 'POST',
@@ -356,7 +359,7 @@ $(function() {
       self.parent().spinner();
       self.parent().find(".spinner").append('<p class="status"></p>');
 
-      var jugImporter = new Juggernaut();
+      jugImporter = new Juggernaut();
       jugImporter.on("connect", function() { self.parent().find(".status").addClass("juggernaut-connected"); });
       jugImporter.subscribe("tree_" + tree_id, function(data) {
         var response = $.parseJSON(data);
@@ -388,9 +391,9 @@ $(function() {
    * Initialize Deleted Names when tab clicked
    */
   $('.deleted-tree-container > div').each(function() {
-    var self   = $(this);
-    var id     = self.attr('id').split('_')[4];
-    var active = self.parents('.deleted-tree').hasClass('deleted-tree-active');
+    var self   = $(this),
+        id     = self.attr('id').split('_')[4],
+        active = self.parents('.deleted-tree').hasClass('deleted-tree-active');
 
     if (active) {
       $('#deleted a').click(function() {
@@ -421,8 +424,7 @@ $(function() {
           // Hide the spinner icon once node is loaded
           self.bind('open_node.jstree', function(event, data) {
             event = null;
-            var node = data.rslt;
-            var id = node.obj.attr('id');
+            var node = data.rslt, id = node.obj.attr('id');
             $('#'+id).find("span.jstree-loading").remove();
           });
 
@@ -489,22 +491,23 @@ $(function() {
 
   $('.tree-search')
     .live('blur', function() {
-      var self = $(this);
-      var tree = self.parents('.tree-background').find('.jstree');
-      var term = self.val().trim();
-      var $results = self.parents('.tree-background').find('.searchbar-results');
+      var self = $(this),
+          tree = self.parents('.tree-background').find('.jstree'),
+          term = self.val().trim(),
+          results = self.parents('.tree-background').find('.searchbar-results');
+
       if (term.length > 4) {
 
-        $results.spinner().show();
+        results.spinner().show();
 
         $.ajax({
           url     : '/tree_searches/' + self.parents('.tree-background').find('.tree-container').attr('data-database-id') + '/' + term,
           type    : 'GET',
           data    : { },
           success : function(data) {
-            $results.html(data);
-            $results.find("a").click(function() {
-               $results.hide();
+            results.html(data);
+            results.find("a").click(function() {
+               results.hide();
                tree.jstree("deselect_all");
                var ancestry_arr = $(this).attr("data-treepath-ids").split(",");
                GNITE.Tree.openAncestry(tree, ancestry_arr);
@@ -514,7 +517,7 @@ $(function() {
           error : function() {
           },
           complete : function() {
-            $results.unspinner();
+            results.unspinner();
           }
         });
       }
@@ -690,10 +693,10 @@ $(function() {
    */
   $('#master-tree').bind('create.jstree', function(event, data) {
     event = null;
-    var self     = $(this);
-    var node     = data.rslt;
-    var name     = node.name;
-    var parentID = null;
+    var self     = $(this),
+        node     = data.rslt,
+        name     = node.name,
+        parentID = null;
 
     if (node.parent !== -1) {
       parentID = node.parent.attr('id');
@@ -724,8 +727,8 @@ $(function() {
    */
   $('#master-tree').bind('bulk_form.jstree', function(event, data) {
     event = null;
-    var node = data.rslt;
-    var title = (typeof node.obj.attr("id") !== "undefined") ? $(node.obj).find("a:first").text() : 'Tree root';
+    var node  = data.rslt,
+        title = (typeof node.obj.attr("id") !== "undefined") ? $(node.obj).find("a:first").text() : 'Tree root';
     $("#bulkcreate-form").dialog("open");
     $('#bulkcreate-list').val("");
     $("#ui-dialog-title-bulkcreate-form").text(title);
@@ -733,10 +736,10 @@ $(function() {
 
   $('#master-tree').bind('bulk_save.jstree', function(event, data) {
     event = null;
-    var self = $(this);
-    var node = data.rslt;
-    var parent_id = (typeof node.obj.attr("id") !== "undefined") ? node.obj.attr("id") : GNITE.Tree.MasterTree.root;
-    var nodes = $('#bulkcreate-list').val();
+    var self      = $(this),
+        node      = data.rslt,
+        parent_id = (typeof node.obj.attr("id") !== "undefined") ? node.obj.attr("id") : GNITE.Tree.MasterTree.root,
+        nodes     = $('#bulkcreate-list').val();
 
     // lock the tree
     self.jstree("lock");
@@ -795,10 +798,10 @@ $(function() {
   $('#master-tree').bind('rename.jstree', function(event, data) {
     event = null;
 
-    var self     = $(this);
-    var node     = data.rslt;
-    var id       = node.obj.attr('id');
-    var new_name = node.new_name;
+    var self     = $(this),
+        node     = data.rslt,
+        id       = node.obj.attr('id'),
+        new_name = node.new_name;
 
     // lock the tree
     self.jstree("lock");
@@ -829,12 +832,11 @@ $(function() {
   $('#master-tree').bind('move_node.jstree', function(event, data) {
      event = null;
 
-     var self = $(this);
-     var result = data.rslt;
-     var isCopy = result.cy;
-
-     var parentID = result.np.attr('id');
-     var action_type = "";
+     var self        = $(this),
+         result      = data.rslt,
+         isCopy      = result.cy,
+         parentID    = result.np.attr('id'),
+         action_type = "";
 
      if (parentID === 'master-tree') {
        parentID = GNITE.Tree.MasterTree.root;
@@ -851,8 +853,8 @@ $(function() {
 
      data.rslt.o.each(function() {
 
-       var movedNodeID = $(this).attr("id");
-       var url = '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes';
+       var movedNodeID = $(this).attr("id"), url = '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes';
+
        if(!isCopy) { url += '/' + movedNodeID; }
        url += '.json';
 
@@ -883,8 +885,8 @@ $(function() {
    */
   $('#master-tree').bind('remove.jstree', function(event, data) {
     event = null;
-    var self = $(this);
-    var node = data.rslt;
+
+    var self = $(this), node = data.rslt;
 
     // lock the tree
     self.jstree("lock");
@@ -914,10 +916,12 @@ $(function() {
   */
   $('#master-tree').bind('select_node.jstree', function(event, data) {
     event = null;
-    var self = $(this);
-    var metadata = self.parent().parent().next();
-    var wrapper = self.parent();
-    var url = '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes/' + data.rslt.obj.attr("id");
+
+    var self     = $(this),
+        metadata = self.parent().parent().next(),
+        wrapper  = self.parent(),
+        url      = '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes/' + data.rslt.obj.attr("id");
+
     GNITE.Tree.Node.getMetadata(url, metadata, wrapper);
   });
 
@@ -929,6 +933,7 @@ $(function() {
   });
 
   $('#add-node-wrap').live('click', function(event) {
+
     var target = $(event.target);
 
     if (event.target.tagName !== 'A' && event.target.tagName !== 'INS') {
@@ -946,6 +951,7 @@ $(function() {
    */
   $('#master-tree').bind('undo.jstree', function(event, data) {
     event = null; data = null;
+
     var self = $(this);
 
     // lock the tree
@@ -972,6 +978,7 @@ $(function() {
    */
   $('#master-tree').bind('redo.jstree', function(event, data) {
     event = null; data = null;
+
     var self = $(this);
 
     // lock the tree
@@ -1013,9 +1020,10 @@ $(function() {
 
   $('#master-tree').bind('bookmarks_save.jstree', function(event, data) {
     event = null;
-    var node = data.rslt;
-    var id   = node.obj.attr('id');
-    var title = $('#bookmark-title-' + GNITE.Tree.MasterTree.id).val();
+
+    var node  = data.rslt,
+        id    = node.obj.attr('id'),
+        title = $('#bookmark-title-' + GNITE.Tree.MasterTree.id).val();
 
     $.ajax({
       type        : 'POST',
@@ -1031,12 +1039,12 @@ $(function() {
    * Merge binding
    */
   $('#master-tree').bind('merge.jstree', function(event, data) {
-    event = null, data = null;
+    event = null; data = null;
     GNITE.Tree.MasterTree.merge();
   });
 
   $('#master-tree').bind('merge_save.jstree', function(event, data) {
-    event = null, data = null;
+    event = null; data = null;
 
     alert("Sorry, this function has not yet been implemented");
 
@@ -1057,7 +1065,9 @@ $(function() {
    */
   $('#master-tree').bind('load_node.jstree', function(event, data) {
     event = null;
+
     var node = data.rslt;
+
     if(node.obj !== -1) { node.obj.find("span.jstree-loading").remove(); }
   });
 
@@ -1082,12 +1092,11 @@ $(function() {
   **************************************************************/
   $('#gnaclr-search')
     .live('blur', function() {
-      var self = $(this);
-      var term = self.val().trim();
+	
+      var self = $(this), term = self.val().trim(), container = "";
 
       if (term.length > 0) {
-        var container      = self.parents('.gnaclr-search').first();
-
+        container = self.parents('.gnaclr-search').first();
         container.spinner();
 
         $.ajax({
@@ -1129,35 +1138,38 @@ $(function() {
   });
 
   $('#import-gnaclr').live('click', function() {
-    var self = $(this);
+
+    var self               = $(this),
+        checkedRadioButton = $('#tree-revisions form input:checked'),
+        opts               = { 
+          master_tree_id   : GNITE.Tree.MasterTree.id,
+          title            : checkedRadioButton.attr('data-tree-title'),
+          url              : checkedRadioButton.attr('data-tree-url'),
+          revision         : checkedRadioButton.attr('data-revision'),
+          publication_date : checkedRadioButton.attr('data-publication-date'),
+          spinnedElement   : $('#tree-newimport') 
+        };
 
     $('#tree-newimport').spinner();
     self.remove();
 
-    var checkedRadioButton = $('#tree-revisions form input:checked');
-    var opts = { 
-      master_tree_id   : GNITE.Tree.MasterTree.id,
-      title            : checkedRadioButton.attr('data-tree-title'),
-      url              : checkedRadioButton.attr('data-tree-url'),
-      revision         : checkedRadioButton.attr('data-revision'),
-      publication_date : checkedRadioButton.attr('data-publication-date'),
-      spinnedElement : $('#tree-newimport') 
-    };
     GNITE.Tree.importTree(opts);
 
     return false;
   });
 
   $('button.gnaclr-import').live('click', function() {
-    var self = $(this);
-    var opts = { 
-      master_tree_id   : GNITE.Tree.MasterTree.id,
-      title            : self.attr('data-tree-title'),
-      url              : self.attr('data-tree-url'),
-      revision         : self.attr('data-revision'),
-      publication_date : self.attr('data-publication-date'),
-      spinnedElement   : $('#gnaclr-search-results') 
-    };
+
+    var self = $(this),
+        opts = { 
+          master_tree_id   : GNITE.Tree.MasterTree.id,
+          title            : self.attr('data-tree-title'),
+          url              : self.attr('data-tree-url'),
+          revision         : self.attr('data-revision'),
+          publication_date : self.attr('data-publication-date'),
+          spinnedElement   : $('#gnaclr-search-results') 
+        };
+
     GNITE.Tree.importTree(opts);
     return false;
   });
@@ -1178,11 +1190,12 @@ $(function() {
   **************************************************************/
 
   $('#import-roots-button').live('click', function() {
-    var title = $('#import-title').val().trim();
-    var roots = $('#import-roots').val().trim();
 
-    var titleLabel = $('#import-title').parent().prev().find('label');
-    var rootsLabel = $('#import-roots').parent().prev().find('label');
+    var title      = $('#import-title').val().trim(),
+        roots      = $('#import-roots').val().trim(),
+        titleLabel = $('#import-title').parent().prev().find('label'),
+        rootsLabel = $('#import-roots').parent().prev().find('label'),
+        data       = "";
 
     if (title === '') {
       if (titleLabel.find('span').length === 0) {
@@ -1204,7 +1217,7 @@ $(function() {
       return false;
     }
 
-    var data = JSON.stringify({
+    data = JSON.stringify({
       'nodes_list'     : roots.split("\n"),
       'reference_tree' : {
         'title'          : title,
@@ -1252,6 +1265,9 @@ $(function() {
            HELPER FUNCTIONS
 **************************************************************/
 GNITE.pushMessage = function(subject, message, ignore) {
+
+  "use strict";
+
   $.ajax({
     type        : 'PUT',
     async       : true,
@@ -1266,30 +1282,45 @@ GNITE.pushMessage = function(subject, message, ignore) {
 };
 
 GNITE.postChat = function() {
+
+  "use strict";
+
   var message = $('#chat-messages-input').val().trim();
+
   if(message) {
     GNITE.pushMessage("chat", message, false);
   }
 };
 
 GNITE.Tree.hideMenu = function() {
+
+  "use strict";
+
   $('.toolbar>ul').find("ul").css({display:'none', visibility:'visible'});
 };
 
 GNITE.Tree.openAncestry = function(tree, obj) {
-  var _this = this, done = true, end = "", current = [], remaining = [];
-  var $tree_wrapper = tree.parents('#add-node-wrap, .reference-tree-container, .deleted-tree-container');
+
+  "use strict";
+
+  var _this         = this, 
+      done          = true,
+      end           = "",
+      current       = [],
+      remaining     = [],
+      tree_wrapper  = tree.parents('#add-node-wrap, .reference-tree-container, .deleted-tree-container');
+
   if(obj.length) {
     $.each(obj, function (i, val) {
       i = null;
       if($(val).length && $(val).is(".jstree-closed")) {
         end = $(val);
-        $tree_wrapper.scrollTo($(val), {axis:'y'});
+        tree_wrapper.scrollTo($(val), {axis:'y'});
         current.push(val);
       }
       else if($(val).length && !$(val).is(".jstree-closed")) {
         end = $(val);
-        $tree_wrapper.scrollTo($(val), {axis:'y'});
+        tree_wrapper.scrollTo($(val), {axis:'y'});
       }
       else {
         remaining.push(val);
@@ -1311,13 +1342,18 @@ GNITE.Tree.openAncestry = function(tree, obj) {
 };
 
 GNITE.Tree.buildViewMenuActions = function() {
+
+  "use strict";
+
   /*
   * VIEW: Refresh tree
   * Generic refresh action for any tree
   */
   $('.nav-refresh-tree').click(function() {
-    var self = $(this);
-    var tree_id = self.parents('.tree-background').find('.jstree').attr("id");
+
+    var self    = $(this),
+        tree_id = self.parents('.tree-background').find('.jstree').attr("id");
+
     $('#'+tree_id).jstree('refresh');
     GNITE.Tree.hideMenu();
     return false;
@@ -1328,8 +1364,10 @@ GNITE.Tree.buildViewMenuActions = function() {
    * Generic collapse action for any tree
    */
   $('.nav-collapse-tree').click(function() {
-    var self = $(this);
-    var tree_id = self.parents('.tree-background').find('.jstree').attr("id");
+
+    var self    = $(this),
+        tree_id = self.parents('.tree-background').find('.jstree').attr("id");
+
     $('#'+tree_id).jstree('close_all');
     GNITE.Tree.hideMenu();
     return false;
@@ -1339,8 +1377,10 @@ GNITE.Tree.buildViewMenuActions = function() {
    * BOOKMARKS: Add
    */
   $('.nav-bookmarks-add').click(function() {
-    var self = $(this);
-    var tree_id = self.parents('.tree-background').find('.jstree').attr("id");
+
+    var self    = $(this),
+        tree_id = self.parents('.tree-background').find('.jstree').attr("id");
+
     $('#'+tree_id).jstree('bookmarks_form');
     GNITE.Tree.hideMenu();
     return false;
@@ -1350,8 +1390,10 @@ GNITE.Tree.buildViewMenuActions = function() {
    * BOOKMARKS: View
    */
   $('.nav-bookmarks-view').click(function() {
-    var self = $(this);
-    var tree_id = self.parents('.tree-background').find('.jstree').attr("id");
+
+    var self = $(this),
+        tree_id = self.parents('.tree-background').find('.jstree').attr("id");
+
     $('#'+tree_id).jstree('bookmarks_view');
     GNITE.Tree.hideMenu();
     return false;
@@ -1360,24 +1402,32 @@ GNITE.Tree.buildViewMenuActions = function() {
 
 GNITE.Tree.viewBookmarks = function(obj) {
 
-  var self = $(obj);
-  var tree = self.parents('.tree-background').find('.jstree');
-  var tree_id = tree.attr("id").split('_');
-  var url = (tree_id[0] === 'master-tree') ? '/master_trees/' + GNITE.Tree.MasterTree.id + '/bookmarks' : '/reference_trees/' + tree_id[4] + '/bookmarks';
-  var id = (tree_id[0] === 'master-tree') ? GNITE.Tree.MasterTree.id : tree_id[4];
+  "use strict";
 
-  var $bookmarks = $('#bookmarks-results-' + id);
-  $bookmarks.html("").spinner().dialog("open");
+  var self      = $(obj),
+      tree      = self.parents('.tree-background').find('.jstree'),
+      tree_id   = tree.attr("id").split('_'),
+      url       = (tree_id[0] === 'master-tree') ? '/master_trees/' + GNITE.Tree.MasterTree.id + '/bookmarks' : '/reference_trees/' + tree_id[4] + '/bookmarks',
+      id        = (tree_id[0] === 'master-tree') ? GNITE.Tree.MasterTree.id : tree_id[4],
+      bookmarks = $('#bookmarks-results-' + id),
+      link      = "",
+      edit      = "",
+      del       = "",
+      bookmark  = "",
+      input     = "",
+      val       = "";
+
+  bookmarks.html("").spinner().dialog("open");
 
   $.ajax({
     url      : url,
     type     : 'GET',
     dataType : 'html',
     success  : function(data) {
-      $bookmarks.html(data);
+      bookmarks.html(data);
 
       // Click a bookmark in list
-      $bookmarks.find("a.bookmarks-show").click(function() {
+      bookmarks.find("a.bookmarks-show").click(function() {
          tree.jstree("deselect_all");
          var ancestry_arr = $(this).attr("data-treepath-ids").split(",");
          GNITE.Tree.openAncestry(tree, ancestry_arr);
@@ -1385,29 +1435,29 @@ GNITE.Tree.viewBookmarks = function(obj) {
       });
 
       // Edit a bookmark in list
-      $bookmarks.find("a.bookmarks-edit").click(function() {
+      bookmarks.find("a.bookmarks-edit").click(function() {
 
         //hide the link
-        var $link = $(this).parent().parent().children("span:first");
-        $link.hide();
+        link = $(this).parent().parent().children("span:first");
+        link.hide();
 
         //hide the edit link
-        var $edit = $(this).parent();
-        $edit.hide();
+        edit = $(this).parent();
+        edit.hide();
 
         //hide the delete link
-        var $delete = $edit.next();
-        $delete.hide();
+        del = edit.next();
+        del.hide();
 
-        var $bookmark = $edit.prev();
-        var val = $bookmark.text();
+        bookmark = edit.prev();
+        val = bookmark.text();
 
-        var $input = $(this).parent().parent().children(".bookmarks-input");
-        $input.children("input").val(val);
-        $input.show();
+        input = $(this).parent().parent().children(".bookmarks-input");
+        input.children("input").val(val);
+        input.show();
 
-        $input.find(".bookmarks-save").click(function() {
-          var newval = $input.children("input").val();
+        input.find(".bookmarks-save").click(function() {
+          var newval = input.children("input").val();
           $.ajax({
             url   : url + '/' + $(this).attr("data-node-id"),
             type  : 'PUT',
@@ -1415,27 +1465,27 @@ GNITE.Tree.viewBookmarks = function(obj) {
             dataType    : 'json',
             data  : JSON.stringify({ 'bookmark_title' : newval }),
             success : function(data) {
-              $link.children("a").text(data.bookmark.bookmark_title);
-              $input.hide();
-              $link.show();
-              $edit.show();
-              $delete.show();
+              link.children("a").text(data.bookmark.bookmark_title);
+              input.hide();
+              link.show();
+              edit.show();
+              del.show();
             }
           });
           return false;
         });
-        $input.find(".bookmarks-cancel").click(function() {
-          $input.hide();
-          $link.show();
-          $edit.show();
-          $delete.show();
+        input.find(".bookmarks-cancel").click(function() {
+          input.hide();
+          link.show();
+          edit.show();
+          del.show();
           return false;
         });
         return false;
       });
 
       // Delete a bookmark in list
-      $bookmarks.find("a.bookmarks-delete").click(function() {
+      bookmarks.find("a.bookmarks-delete").click(function() {
         var self = this;
         $.ajax({
           url   : url + '/' + $(self).attr("data-node-id"),
@@ -1449,7 +1499,7 @@ GNITE.Tree.viewBookmarks = function(obj) {
 
     },
     complete : function() {
-      $bookmarks.unspinner();
+      bookmarks.unspinner();
     }
   });
 
@@ -1458,18 +1508,20 @@ GNITE.Tree.viewBookmarks = function(obj) {
 };
 
 GNITE.Tree.importTree = function(opts) {
+
+  "use strict";
+
   opts.spinnedElement.spinner();
   opts.spinnedElement.find(".spinner").append('<p class="status"></p>');
 
-  var tree_id = "";
-
-  var data = JSON.stringify({
-    'master_tree_id'   : opts.master_tree_id,
-    'title'            : opts.title,
-    'url'              : opts.url,
-    'revision'         : opts.revision,
-    'publication_date' : opts.publication_date
-  });
+  var tree_id = "",
+      data    = JSON.stringify({
+        'master_tree_id'   : opts.master_tree_id,
+        'title'            : opts.title,
+        'url'              : opts.url,
+        'revision'         : opts.revision,
+        'publication_date' : opts.publication_date
+      });
 
   $.ajax({
     type        : 'POST',
@@ -1525,6 +1577,9 @@ GNITE.Tree.importTree = function(opts) {
 };
 
 GNITE.Tree.MasterTree.publish = function() {
+
+  "use strict";
+
   $.ajax({
     type        : 'GET',
     url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/publish.json',
@@ -1553,10 +1608,13 @@ GNITE.Tree.MasterTree.publish = function() {
 };
 
 GNITE.Tree.MasterTree.flashNode = function(data) {
-  var self = $('#master-tree');
-  var destination_parent = self.find('#'+data.destination_parent_id);
-  var source_parent = self.find('#' + data.parent_id);
-  var selected = self.jstree("get_selected");
+
+  "use strict";
+
+  var self               = $('#master-tree'),
+      destination_parent = self.find('#'+data.destination_parent_id),
+      source_parent      = self.find('#' + data.parent_id),
+      selected           = self.jstree("get_selected");
 
   setTimeout(function checkLockedStatus() {
     if(self.find('ul:first').hasClass('jstree-locked')) {
@@ -1590,17 +1648,26 @@ GNITE.Tree.MasterTree.flashNode = function(data) {
 };
 
 GNITE.Tree.MasterTree.updateMetadataTitle = function(name) {
+
+  "use strict";
+
   $('#treewrap-main .node-metadata span.ui-dialog-title').text(name);
 };
 
 GNITE.Tree.MasterTree.merge = function() {
-  var master = $('#master-tree');
-  var master_selected = master.jstree("get_selected");
-  var reference = $('.reference-tree-container div.jstree-focused');
-  var reference_selected = reference.jstree("get_selected");
+
+  "use strict";
+
+  var master                    = $('#master-tree'),
+      master_selected           = master.jstree("get_selected"),
+      reference                 = $('.reference-tree-container div.jstree-focused'),
+      reference_selected        = reference.jstree("get_selected"),
+      master_selected_string    = "",
+      reference_selected_string = "",
+      message                   = "";
 
   if(master_selected.length === 0 || master_selected.legnth > 1 || reference_selected.length > 1 || reference_selected.length === 0) {
-    var message = '<p>Select one name in your working tree and one name in your reference tree then re-execute merge.</p>';
+    message = '<p>Select one name in your working tree and one name in your reference tree then re-execute merge.</p>';
     $('body').append('<div id="dialog-message" class="ui-state-highlight" title="Merge Instructions">' + message + '</div>');
     $('#dialog-message').dialog({
         height : 200,
@@ -1621,10 +1688,9 @@ GNITE.Tree.MasterTree.merge = function() {
     });
   }
   else {
-    var master_selected_string = master.jstree("get_text", $('#'+master_selected[0].id));
-    var reference_selected_string = reference.jstree("get_text", $('#'+reference_selected[0].id));
+    master_selected_string = master.jstree("get_text", $('#'+master_selected[0].id));
+    reference_selected_string = reference.jstree("get_text", $('#'+reference_selected[0].id));
 
-    var master_title = 
     $('#master-tree-merge-selection h2').text($('#header h1').text());
     $('#reference-tree-merge-selection h2').text(reference.parents('.reference-tree').find('.breadcrumbs ul li').text());
 
@@ -1638,13 +1704,22 @@ GNITE.Tree.MasterTree.merge = function() {
 };
 
 GNITE.Tree.ReferenceTree.add = function(response, options) {
+
+  "use strict";
+
+  var tab     = "",
+      tree_id = "",
+      self    = "",
+      count   = "";
+
   if ($('a[href="#' + response.domid + '"]').length !== 0 && $('#' + response.domid).hasClass("reference-tree-active")) {
     $('#tabs li:first-child ul li a[href="#' + response.domid +'"]').trigger('click');
   }
   else {
     if($('a[href="#' + response.domid + '"]').length === 0) {
-      var tab   = $('#all-tabs');
-      var count = parseInt(tab.text().replace(/[^0-9]+/, ''), 10);
+
+      tab = $('#all-tabs');
+      count = parseInt(tab.text().replace(/[^0-9]+/, ''), 10);
 
       tab.text('All reference trees (' + (count + 1) + ')');
 
@@ -1654,9 +1729,8 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
       $('#reference-trees').append('<li><a href="#' + response.domid + '">' + response.title + '</a></li>');
     }
 
-    var tree_id = response.domid.split('_')[2];
-
-    var self = $('#container_for_' + response.domid);
+    tree_id = response.domid.split('_')[2];
+    self = $('#container_for_' + response.domid);
 
     self.jstree($.extend(true, {},
       GNITE.Tree.ReferenceTree.configuration, {
@@ -1689,16 +1763,18 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
     // hide the spinner icon once node is loaded
     self.bind('open_node.jstree', function(event, data) {
       event = null;
-      var node = data.rslt;
-      var id = node.obj.attr('id');
+
+      var node = data.rslt, id = node.obj.attr('id');
       $('#'+id).find("span.jstree-loading").remove();
     });
 
     self.bind('select_node.jstree', function(event, data) {
       event = null;
-      var metadata = self.parent().next();
-      var wrapper = self.parent();
-      var url = '/reference_trees/' + tree_id + '/nodes/' + data.rslt.obj.attr("id");
+
+      var metadata = self.parent().next(),
+          wrapper  = self.parent(),
+          url      = '/reference_trees/' + tree_id + '/nodes/' + data.rslt.obj.attr("id");
+
       GNITE.Tree.Node.getMetadata(url, metadata, wrapper);
     });
 
@@ -1715,9 +1791,10 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
 
     self.bind('bookmarks_save.jstree', function(event, data) {
       event = null;
-      var node = data.rslt;
-      var id   = node.obj.attr('id');
-      var title = $('#bookmark-title-' + tree_id).val();
+
+      var node  = data.rslt,
+          id    = node.obj.attr('id'),
+          title = $('#bookmark-title-' + tree_id).val();
 
       $.ajax({
         type        : 'POST',
@@ -1740,6 +1817,8 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
 };
 
 GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
+
+  "use strict";
 
   container.spinner();
 
@@ -1769,20 +1848,20 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
 **************************************************************/
 
 $.fn.spinner = function() {
+
+  "use strict";
+
   if (this[0].spinnerElement) {
     return;
   }
 
-  var position       = this.css('position');
-  var spinnerElement = $('<div class="spinner"></div>');
+  var position = this.css('position'), spinnerElement = $('<div class="spinner"></div>');
 
   if (position !== 'absolute' && position !== 'relative') {
     position = 'relative';
   }
 
-  this
-    .css('position', position)
-    .prepend(spinnerElement);
+  this.css('position', position).prepend(spinnerElement);
 
   spinnerElement.fadeIn('fast');
 
@@ -1792,6 +1871,9 @@ $.fn.spinner = function() {
 };
 
 $.fn.unspinner = function() {
+
+  "use strict";
+
   this.each(function () {
     if (this.spinnerElement) {
       $(this.spinnerElement).fadeOut('fast', function() {
