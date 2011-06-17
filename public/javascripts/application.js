@@ -407,14 +407,6 @@ $(function() {
             }
           }));
 
-          // Hide the spinner icon once node is loaded
-          self.bind('open_node.jstree', function(event, data) {
-            event = null;
-            var node = data.rslt;
-            var id = node.obj.attr('id');
-            $('#'+id).find("span.jstree-loading").remove();
-          });
-
           // Build the menu system for the deleted tree
           self.bind("init.jstree", function(event, data) {
             event = null; data = null;
@@ -425,6 +417,15 @@ $(function() {
               contentsource: "markup"
             });
           });
+
+          // Hide the spinner icon once node is loaded
+          self.bind('open_node.jstree', function(event, data) {
+            event = null;
+            var node = data.rslt;
+            var id = node.obj.attr('id');
+            $('#'+id).find("span.jstree-loading").remove();
+          });
+
         }
       });
     }
