@@ -20,8 +20,8 @@ gem 'nokogiri'
 gem 'resque', '1.16.1'
 gem 'rest-client', '1.6.1'
 gem 'juggernaut', '2.0.1'
-gem 'will_paginate', '2.3.15'
 gem 'family-reunion', '0.2.3'
+gem 'will_paginate', '2.3.15'
 
 group :development do
   gem 'high_voltage'
