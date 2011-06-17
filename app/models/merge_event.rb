@@ -5,12 +5,22 @@ class MergeEvent < ActiveRecord::Base
   belongs_to :node, :foreign_key => :secondary_node_id
 
   has_many :merge_result_primaries
+  @queue = :merge_event
+  
+  def self.perform(merge_event_id)
+    me = MergeEvent.find(merge_event_id)
+    me.merge
+  end
 
   def merge
-    primary_data = Node.find(primary_node_id).merge_data
-    secondary_data = Node.find(secondary_node_id).merge_data
-    fr = FamilyReunion.new(primary_data, secondary_data)
-    @merge_data = fr.merge
+    unless @merge_data
+      primary_data = Node.find(primary_node_id).merge_data
+      secondary_data = Node.find(secondary_node_id).merge_data
+      fr = FamilyReunion.new(primary_data, secondary_data)
+      FamilyReunion.logger.subscribe(:an_object_id => fr.object_id, :tree_id => self.master_tree_id, :job_type => 'MergeEvent')
+      @merge_data = fr.merge
+    end
+    @merge_data
   end
 
 end

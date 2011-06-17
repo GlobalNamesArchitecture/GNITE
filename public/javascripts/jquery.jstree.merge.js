@@ -16,7 +16,7 @@
                 this.__callback({ "obj" : obj });
                 if(callback) { callback.call(); }
             },
-            merge_save : function (obj, callback) {
+            merge_submit : function (obj, callback) {
                 obj = this._get_node(obj, true);
                 this.__callback({ "obj" : obj });
                 if(callback) { callback.call(); }
@@ -36,7 +36,7 @@
                             className : "green-submit",
                             text : "Merge",
                             click : function() {
-                              self.merge_save();
+                              self.merge_submit();
                               $(this).dialog("close");
                             }
                           },

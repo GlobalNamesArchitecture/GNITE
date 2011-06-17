@@ -1043,20 +1043,12 @@ $(function() {
     GNITE.Tree.MasterTree.merge();
   });
 
-  $('#master-tree').bind('merge_save.jstree', function(event, data) {
-    event = null; data = null;
-
-    alert("Sorry, this function has not yet been implemented");
-
-    /*
-     TODO: implement merge
-     Form has been posted, may now redirect to a merge status page
-
-     params if needed:
-
-     master tree node: $('#merge_master-tree').val()
-     tree node: $('#merge_reference-tree').val();
-   */
+  $('#master-tree').bind('merge_submit.jstree', function(event, data) {
+    event = null;
+    
+    if(data.rslt.obj) {
+      $('#merge-form form').submit();
+    }
 
   });
 

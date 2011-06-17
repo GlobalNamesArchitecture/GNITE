@@ -1,6 +1,7 @@
 class Tree < ActiveRecord::Base
   validates_presence_of :title
   has_many :nodes
+  has_many :job_logs
 
   validates_inclusion_of :creative_commons, :in => Licenses::CC_LICENSES.map{|elt| elt.last }
   after_initialize :set_defaults

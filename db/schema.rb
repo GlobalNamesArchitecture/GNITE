@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110615145727) do
+ActiveRecord::Schema.define(:version => 20110617195215) do
 
   create_table "action_commands", :force => true do |t|
     t.string   "type"
@@ -39,20 +39,10 @@ ActiveRecord::Schema.define(:version => 20110615145727) do
 
   add_index "bookmarks", ["node_id"], :name => "index_bookmarks_on_node_id"
 
-  create_table "gnaclr_importer_logs", :force => true do |t|
-    t.integer  "reference_tree_id"
-    t.string   "message"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "gnaclr_importer_logs", ["reference_tree_id"], :name => "index_gnaclr_importer_logs_on_reference_tree_id"
-
   create_table "gnaclr_importers", :force => true do |t|
     t.integer  "reference_tree_id"
     t.string   "url"
     t.integer  "status"
-    t.string   "message"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -65,6 +55,16 @@ ActiveRecord::Schema.define(:version => 20110615145727) do
   end
 
   add_index "gnaclr_publishers", ["master_tree_id"], :name => "index_gnaclr_publishers_on_master_tree_id"
+
+  create_table "jobs_logs", :force => true do |t|
+    t.integer  "tree_id"
+    t.string   "job_type"
+    t.string   "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "jobs_logs", ["tree_id"], :name => "index_jobs_logs_on_tree_id"
 
   create_table "languages", :force => true do |t|
     t.string   "name"
@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(:version => 20110615145727) do
   create_table "merge_result_primaries", :force => true do |t|
     t.integer  "merge_event_id"
     t.integer  "node_id"
-    t.string   "path"
+    t.text     "path"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -117,7 +117,7 @@ ActiveRecord::Schema.define(:version => 20110615145727) do
     t.integer  "node_id"
     t.integer  "merge_type_id"
     t.integer  "merge_subtype_id"
-    t.string   "path"
+    t.text     "path"
     t.integer  "merge_decision_id"
     t.datetime "created_at"
     t.datetime "updated_at"

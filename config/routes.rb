@@ -30,6 +30,7 @@ Gnite::Application.routes.draw do
     resources :gnaclr_classifications, :only => [:index, :show]
     resources :imports,                :only => [:new]
     resource  :tree_expand,            :only => [:show]
+    resources :merge_events,           :only => [:index, :create, :show]
   end
 
   resources :reference_trees, :only => [:create, :show] do
@@ -42,6 +43,6 @@ Gnite::Application.routes.draw do
     resources :nodes,        :only => [:index, :show]
     resource  :tree_expand,  :only => [:show]
   end
-
+  
   root :to => "homes#show"
 end

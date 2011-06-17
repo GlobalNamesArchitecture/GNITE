@@ -1,17 +1,17 @@
 <div id="merge-form" title="Merge">
-    <%= form_tag('/merge') do %>
+    <%= form_tag("/master_trees/#{@master_tree.id}/merge_events") do %>
       <p>Pick the most authoritative node</p>
       <div id="master-tree-merge-selection" class="merge-column">
         <h2></h2>
-        <%= radio_button("merge", "authoritative", "master-tree", { :checked => true }) %>
+        <%= radio_button("merge", "authoritative_node", "master_tree_node", { :checked => true }) %>
         <span></span>
-        <%= hidden_field "merge", "master-tree" %>
+        <%= hidden_field "merge", "master_tree_node" %>
       </div>
       <div id="reference-tree-merge-selection" class="merge-column">
         <h2></h2>
-        <%= radio_button("merge", "authoritative", "reference-tree") %>
+        <%= radio_button("merge", "authoritative_node", "reference_tree_node") %>
         <span></span>
-        <%= hidden_field "merge", "reference-tree" %>
+        <%= hidden_field "merge", "reference_tree_node" %>
       </div>
     <% end %>
 </div>
