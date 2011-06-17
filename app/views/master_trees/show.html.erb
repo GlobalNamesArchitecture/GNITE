@@ -38,9 +38,11 @@
 
 <%= render :partial => 'bulkcreate_form.html' %>
 
-<%= render :partial => "reference_trees" %>
+<%= render :partial => 'reference_trees' %>
 
 <%= render :partial => 'merge_form.html' %>
+
+<%= render :partial => 'chat_messages.html' %>
 
 <% content_for :javascript do %>
 <%= javascript_include_tag 'juggernaut/json', 'juggernaut/socket_io', 'juggernaut/juggernaut', 'application', 'jstree/jquery.jstree', 'jquery.jstree.bookmarks', 'jquery.cookie', 'jquery.hotkeys', 'jquery.jstree.bulkcreate', 'jquery.jstree.undoredo', 'jquery.jstree.merge', 'jquery.scrollTo-min', 'ddsmoothmenu' %>

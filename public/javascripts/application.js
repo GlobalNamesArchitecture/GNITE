@@ -445,15 +445,16 @@ $(function() {
       break;
 
       case 'member-login':
-        $("#tab-titles #messages-tab").effect("highlight", { color : "green" }, 2000);
-        $("#chat-messages-list").prepend("<li class=\"new-user\"><span class=\"user\">" + response.user.email + "</span> arrived [" + response.time + "]</li>");
+        $("#chat-messages-head").effect("highlight", { color : "green" }, 2000);
+        $("#chat-messages-list").prepend("<li class=\"new-user\"><span class=\"user\">" + response.user.email + "</span><span class=\"message\">arrived [" + response.time + "]</span></li>");
       break;
 
       case 'member-logout':
       break;
 
       case 'chat':
-        $('#tab-titles #messages-tab:not(.ui-state-active)').effect("highlight", { color : "green" }, 2000);
+        $('#chat-messages-head').effect("highlight", { color : "green" }, 2000);
+        $('#chat-messages-wrapper div').show();
         $('#chat-messages-list').prepend("<li class=\"chat\"><span class=\"user\">" + response.user.email + "</span>:<span class=\"message\">" + response.message + "</span></li>");
       break;
     }
@@ -1235,9 +1236,11 @@ $(function() {
       $(this).val('');
     }
   });
-  $('#chat-messages-submit').click(function() {
-    GNITE.postChat();
-    return false;
+  $('#chat-messages-minimize').click(function() {
+    $('#chat-messages-wrapper > div:not(:first)').hide();
+  });
+  $('#chat-messages-maximize').click(function() {
+    $('#chat-messages-wrapper > div:not(:first)').show();
   });
 
 });
@@ -1597,7 +1600,7 @@ GNITE.Tree.MasterTree.merge = function() {
   var reference_selected = reference.jstree("get_selected");
 
   if(master_selected.length === 0 || master_selected.legnth > 1 || reference_selected.length > 1 || reference_selected.length === 0) {
-    var message = 'Select one name in your working tree and one name in your reference tree';
+    var message = '<p>Select one name in your working tree and one name in your reference tree then re-execute merge.</p>';
     $('body').append('<div id="dialog-message" class="ui-state-highlight" title="Merge Instructions">' + message + '</div>');
     $('#dialog-message').dialog({
         height : 200,

@@ -1170,6 +1170,11 @@ body form input {
   padding: 5px 8px;
 }
 
+/* Dialog message */
+#dialog-message p {
+  line-height:1.5em;
+}
+
 /* Merge dialg */
 /************************************************************************/
 #merge-form {
@@ -1935,49 +1940,100 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 
 /* Current Messages */
 /************************************************************************/
-#chat-messages-form-wrapper {
-  margin:0px;
-  padding:10px 0px;
-  text-align:center;
+#chat-messages-wrapper {
+  position:fixed;
+  bottom:0px;
+  right:10px;
+  border:1px solid #AAA;
+  box-shadow: 0 1px 0 #DEE4E8 inset;
+  background-color:white;
+  z-index:1000;
+  border-radius: 6px 6px 0px 0px;
+  -moz-border-radius: 6px 6px 0px 0px;
+  -webkit-border-radius: 6px 6px 0px 0px;
+  width:250px;
 }
 
-#chat-messages-form label {
-  font-weight: bold;
-  margin: 10px;
+#chat-messages-wrapper #chat-messages-head {
+  height:20px;
+  line-height:20px;
+  background-color:#BABFC3;
+  border-radius: 6px 6px 0px 0px;
+  -moz-border-radius: 6px 6px 0px 0px;
+  -webkit-border-radius: 6px 6px 0px 0px;
+  position:relative;
 }
 
-#chat-messages-form input {
-  background: #fff;
-  border:1px solid rgb(199, 195, 181);
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  height: 28px;
-  padding: 0 10px;
-  width: 286px;
-  font-size:1.25em;
-  margin-top:0px;
+#chat-messages-wrapper #chat-messages-title {
+  padding: 0 0px 0 12px;
+  text-shadow: 0 1px 0 #DADEE2;
+  font-weight:bold;
 }
+
+#chat-messages-wrapper #chat-messages-head #chat-messages-options {
+  text-align:right;
+  width:50px;
+  position:absolute;
+  top:0px;
+  right:0px;
+}
+
+#chat-messages-options a.chat-messages-control {
+  width:16px;
+  height:16px;
+  margin:0px 3px;
+  padding:0px 5px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  text-decoration:none;
+}
+
+#chat-messages-options #chat-messages-minimize { background-image: url("../images/icons/bullet_yellow.png"); }
+#chat-messages-options #chat-messages-maximize { background-image: url("../images/icons/bullet_green.png"); }
 
 #chat-messages-scroller {
-  overflow:auto;
-  max-height:550px;
+  overflow-y:auto;
+  min-height:250px;
+  max-height:400px;
+  display:none;
 }
 
 #chat-messages-list {
   margin:5px;
 }
 
-#chat-messages-list li span.user {
-  color:#555;
+#chat-messages-list li {
+  margin-left: 1em;
 }
 
-#chat-messages-list li.new-user {
+#chat-messages-list li span.user {
+  color:#555;
+  margin-left: -1em;
+}
+
+#chat-messages-list li.new-user span.message {
+  display:block;
   color:green;
 }
 
 #chat-messages-list li span.message {
   margin-left:3px;
+}
+
+#chat-messages-form {
+  border-top:1px solid #AAA;
+  padding:5px;
+  display:none;
+}
+#chat-messages-form textarea {
+  font-family: Helvetica,Arial,sans-serif;
+  font-size:1em;
+  width:230px;
+  padding:5px;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border:1px solid #AAA;
 }
 
 /* Edit History */

@@ -10,10 +10,9 @@ Feature: Chat
       | 100  | 0         | Pardosa             |
     And I go to the master tree page for "Spiders"
     And I wait for the websocket to activate
-    And I follow "Chat"
+    And I maximize the chat window
 
   @javascript
   Scenario: User can send a chat message
-    When I fill in "Chat" with "I have just edited the tree"
-    And I press "Send"
+    When I enter "I have just edited the tree" in the chat box and press enter
     Then I should see a chat message "I have just edited the tree"
