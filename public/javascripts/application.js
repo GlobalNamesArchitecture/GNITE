@@ -1238,9 +1238,11 @@ $(function() {
   });
   $('#chat-messages-minimize').click(function() {
     $('#chat-messages-wrapper > div:not(:first)').hide();
+    return false;
   });
   $('#chat-messages-maximize').click(function() {
     $('#chat-messages-wrapper > div:not(:first)').show();
+    return false;
   });
 
 });
