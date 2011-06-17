@@ -39,7 +39,7 @@ GEM
     archive-tar-minitar (0.5.2)
     arel (1.0.1)
       activesupport (~> 3.0.0)
-    biodiversity (0.7.2)
+    biodiversity (0.7.3)
       json
       treetop
     biodiversity19 (0.7.2)
