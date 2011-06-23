@@ -1,0 +1,5 @@
+<div>
+<%- @merge_events.each do |event| -%>
+<p><%= link_to(:merge, master_tree_merge_event_path(params[:master_tree_id], event.id)) %></p>
+<%- end -%>
+</div>

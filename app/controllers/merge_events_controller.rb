@@ -1,12 +1,16 @@
 class MergeEventsController < ApplicationController
 
+  def index
+    @merge_events = MergeEvent.where(:master_tree_id => params[:master_tree_id]).reverse
+  end
+
   def show
-    @merge_event = MergeEvent.find(params[:merge_event_id])
+    @merge_event = MergeEvent.find(params[:id])
   end
 
   def create
     nodes = [params[:merge][:master_tree_node], params[:merge][:reference_tree_node]]
-    nodes = nodes.reverse if params[:merge][:authoritative_node] == params[:merge][:master_tree_node]
+    nodes = nodes.reverse if params[:merge][:authoritative_node] == params[:merge][:reference_tree_node]
     master_tree = MasterTree.find(params[:master_tree_id])
     @merge_event = MergeEvent.create!(
       :primary_node_id => nodes[0], 

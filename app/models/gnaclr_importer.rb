@@ -31,9 +31,9 @@ class GnaclrImporter < ActiveRecord::Base
       dlr = Gnite::Downloader.new(url, tarball_path)
       downloaded_length = dlr.download_with_percentage do |r|
         msg = sprintf("Downloaded %.0f%% in %.0f seconds ETA is %.0f seconds", r[:percentage], r[:elapsed_time], r[:eta])
-        GnaclrImporterLog.create(:reference_tree_id => self.reference_tree_id, :message => msg)
+        JobsLog.create(:job_type => "GnaclrImporter", :tree_id => self.reference_tree_id, :message => msg)
       end
-      GnaclrImporterLog.create(:reference_tree_id => self.reference_tree_id, :message => "Download finished, Size: %s" % downloaded_length)
+      JobsLog.create(:job_type => "GnaclrImporter", :tree_id => self.reference_tree_id, :message => "Download finished, Size: %s" % downloaded_length)
     else
       Kernel.system("curl -s #{url} > #{tarball_path}")
     end

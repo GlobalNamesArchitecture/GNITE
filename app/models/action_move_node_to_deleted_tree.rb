@@ -6,6 +6,7 @@ class ActionMoveNodeToDeletedTree < ActionCommand
   end
 
   def do_action
+    #TODO add transaction
     node.parent_id = node.tree.deleted_tree.root.id
     node.tree_id = node.tree.deleted_tree.id
     node.save!
@@ -18,6 +19,7 @@ class ActionMoveNodeToDeletedTree < ActionCommand
   end
 
   def undo_action
+    #TODO add transaction
     node.parent_id = parent_id
     node.tree_id = @parent.tree.id
     node.save!

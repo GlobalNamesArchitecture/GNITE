@@ -10,6 +10,7 @@ class MergeEvent < ActiveRecord::Base
   def self.perform(merge_event_id)
     me = MergeEvent.find(merge_event_id)
     me.merge
+    MergeResultPrimary.import_merge(me)
   end
 
   def merge

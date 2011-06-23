@@ -2142,3 +2142,11 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 .master_tree_logs .pagination a {
   color:green;
 }
+
+/* Merge Results Screen */
+/************************************************************************/
+#merge-results {
+  background-color:#FFF;
+  min-height:400px;
+  width:95%;
+}
