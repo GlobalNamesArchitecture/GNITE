@@ -1,6 +1,7 @@
 class MasterTree < Tree
   has_one :deleted_tree
   has_many :master_tree_contributors
+  has_many :master_tree_logs
   has_many :reference_tree_collections
   has_many :reference_trees, :through => :reference_tree_collections
   has_many :users, :through => :master_tree_contributors

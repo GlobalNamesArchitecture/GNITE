@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110617195215) do
+ActiveRecord::Schema.define(:version => 20110623212703) do
 
   create_table "action_commands", :force => true do |t|
     t.string   "type"
@@ -86,6 +86,14 @@ ActiveRecord::Schema.define(:version => 20110617195215) do
   end
 
   add_index "master_tree_contributors", ["user_id", "master_tree_id"], :name => "index_master_tree_contributors_on_user_id_and_master_tree_id", :unique => true
+
+  create_table "master_tree_logs", :force => true do |t|
+    t.integer  "master_tree_id"
+    t.integer  "user_id"
+    t.text     "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "merge_decisions", :force => true do |t|
     t.string "label"
@@ -220,6 +228,7 @@ ActiveRecord::Schema.define(:version => 20110617195215) do
     t.boolean  "email_confirmed",                   :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "last_tree_accessed"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

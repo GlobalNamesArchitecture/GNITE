@@ -11,12 +11,16 @@ class ActionCommand < ActiveRecord::Base
 
   def self.perform(instance_id)
     ac = ActionCommand.find(instance_id)
+    log = ac.generate_log
     if ac.undo?
       ac.precondition_undo ?  perform_undo(ac) : ac.precondition_undo_error
+      log << " (undone)"
     else
       ac.precondition_do ?  perform_do(ac) : ac.precondition_do_error
     end
     ac.save!
+
+    MasterTreeLog.create(:master_tree => ac.master_tree, :user => ac.user, :message => log)
   end
 
   def self.schedule_actions(action_command, session_id)
@@ -72,10 +76,6 @@ class ActionCommand < ActiveRecord::Base
   def do_action
     raise_not_implemented
   end
-  
-  def get_log
-    raise_not_implemented
-  end
 
   def precondition_do_error
     raise Gnite::ActionPreconditionsError, "Preconditions are not met"
@@ -83,6 +83,10 @@ class ActionCommand < ActiveRecord::Base
 
   def precondition_undo_error
     precondition_do_error
+  end
+  
+  def generate_log
+    raise_not_implemented
   end
 
   def ancestry_ok?(a_node)
