@@ -4,7 +4,6 @@ class MergeResultPrimary < ActiveRecord::Base
   has_many :merge_result_secondaries
 
   def self.import_merge(merge_event)
-    require 'ruby-debug'; debugger
     merge_event.merge.each do |key, value|
       key = key.to_s.to_i
       path = value[:path].join(" >> ")

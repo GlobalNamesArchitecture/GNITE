@@ -18,12 +18,12 @@
     </tr>
   </thead>
   <tbody>
-  <% if @messages.any? %>
-    <% @messages.each do |message| %>
-    <tr class="<% row_type = cycle("even", "odd") %><%= row_type %><%= (message == @messages.last && row_type == 'even') ? " last last-even" : (message == @messages.last && row_type == 'odd') ? " last last-odd": "" %>">
-      <td><%= message[:message] %></td>
-      <td><%= message[:user] %></td>
-      <td><%= message[:updated] %></td>
+  <% if @logs.any? %>
+    <% @logs.each do |log| %>
+    <tr class="<% row_type = cycle("even", "odd") %><%= row_type %><%= (log == @logs.last && row_type == 'even') ? " last last-even" : (log == @logs.last && row_type == 'odd') ? " last last-odd": "" %>">
+      <td><%= log.message %></td>
+      <td><%= log.user.email %></td>
+      <td><%= log.updated_at %></td>
     </tr>
     <% end %>
   <% else %>
