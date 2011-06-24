@@ -34,10 +34,10 @@ end
 
 group :test do
   gem 'polyglot'
-  gem 'capybara', '0.4.1.2'
-  gem 'database_cleaner'
+  gem 'capybara', '1.0.0'
   gem 'cucumber', '1.0.0'
-  gem 'cucumber-rails', '0.3.2'
+  gem 'cucumber-rails', '1.0.0'
+  gem 'database_cleaner'
   gem 'bourne'
   gem 'spork'
   gem 'launchy' # So you can do "Then show me the page".

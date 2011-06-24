@@ -48,8 +48,7 @@ Feature: Create and manage master trees
       | title:Bananas | email:email@person.com |
     When I am on the master tree index page
     Then I should see "Bananas"
-    And I should see "2009/06/22"
-    And I should see "2009/07/02"
+    And I should see "June 22, 2009"
     And I should see "All the types of bananas on my desk"
 
   Scenario: I should not see my reference trees on the tree index page
