@@ -191,8 +191,8 @@ Feature: Edit a master tree
     And I click "Cut" in the context menu
     And I select the node "Paste Here"
     And I click "Paste" in the context menu
-    And I wait for the tree to load
     And I refresh the master tree
+    And I wait for the tree to load
     And I select the node "Paste Here"
     And I expand the node "Paste Here"
     Then I should see a node "Get Cut" under "Paste Here"
