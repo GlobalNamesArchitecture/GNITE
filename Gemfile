@@ -20,8 +20,8 @@ gem 'nokogiri'
 gem 'resque', '1.16.1'
 gem 'rest-client', '1.6.1'
 gem 'juggernaut', '2.0.1'
-gem 'family-reunion', '0.2.3'
 gem 'will_paginate', '2.3.15'
+gem 'family-reunion', '0.2.4'
 
 group :development do
   gem 'high_voltage'
@@ -36,7 +36,7 @@ group :test do
   gem 'polyglot'
   gem 'capybara', '0.4.1.2'
   gem 'database_cleaner'
-  gem 'cucumber', '0.9.0'
+  gem 'cucumber', '1.0.0'
   gem 'cucumber-rails', '0.3.2'
   gem 'bourne'
   gem 'spork'

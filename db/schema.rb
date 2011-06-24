@@ -228,7 +228,6 @@ ActiveRecord::Schema.define(:version => 20110623212703) do
     t.boolean  "email_confirmed",                   :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "last_tree_accessed"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
