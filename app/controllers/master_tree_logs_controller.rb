@@ -1,4 +1,5 @@
 class MasterTreeLogsController < ApplicationController
+  before_filter :authenticate
   
   def index
     @master_tree = MasterTree.find(params[:master_tree_id])

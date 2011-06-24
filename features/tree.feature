@@ -40,8 +40,8 @@ Feature: Edit a master tree
     And I follow "File" within "toolbar"
     And I follow "Add single node" within "toolbar"
     And I enter "Pardosa moesta" in the new node and press enter
-    And I wait for the tree to load
     And I refresh the master tree
+    And I wait for the tree to load
     Then I should see "Pardosa"
     And I expand the node "Pardosa"
     Then I should see a node "Pardosa moesta" under "Pardosa"
@@ -57,8 +57,8 @@ Feature: Edit a master tree
     And I wait for the tree to load
     And I wait for the websocket to activate
     And I double click "Bullwinkle" and change it to "Monkey"
-    And I wait for the tree to load
     And I refresh the master tree
+    And I wait for the tree to load
     Then I should see "Monkey"
     And I should see "Rocky"
     And I should not see "Bullwinkle"
@@ -79,6 +79,7 @@ Feature: Edit a master tree
     And I wait for the tree to load
     Then I should see a node "Rocky" under "Bullwinkle"
     And I refresh the master tree
+    And I wait for the tree to load
     When I select the node "Bullwinkle"
     And I expand the node "Bullwinkle"
     Then I should see a node "Rocky" under "Bullwinkle"
@@ -102,9 +103,9 @@ Feature: Edit a master tree
     Then I should not see a node "Boris" at the root level in my master tree
     And I should see a node "Boris" at the root level in deleted names
     And I refresh the master tree
+    And I wait for the tree to load
     And I follow "View" within "toolbar-deleted"
     And I follow "Refresh tree" within "toolbar-deleted"
-    And pause 2
     Then I should not see a node "Boris" at the root level in my master tree
     And I should see a node "Boris" at the root level in deleted names
 
@@ -129,7 +130,6 @@ Feature: Edit a master tree
     And I refresh the master tree
     And I follow "View" within "toolbar-deleted"
     And I follow "Refresh tree" within "toolbar-deleted"
-    And pause 1
     Then I should not see a node "Bullwinkle" at the root level in my master tree
     And I should not see a node "Rocky" at the root level in my master tree
     And I should see a node "Bullwinkle" at the root level in deleted names
@@ -210,7 +210,6 @@ Feature: Edit a master tree
     And I select the node "chocolate"
     And I click "New child" in the context menu
     And I enter "cookie" in the new node and press enter
-    And I wait for the tree to load
     And I refresh the master tree
     And I wait for the tree to load
     When I select the node "chocolate"

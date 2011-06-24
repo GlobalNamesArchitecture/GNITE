@@ -20,7 +20,6 @@ Feature: Importing trees from GNACLR
     When I follow "Browse Classifications"
     And I follow "NCBI"
     And I press "Import"
-    Then I should see a spinner
     And I should not see the gnaclr import button
     When resque jobs are run
     Then I should not see a spinner
@@ -40,7 +39,6 @@ Feature: Importing trees from GNACLR
     Then "Published: 2011-02-14 17:05:17" should be checked
     When I choose "Published: 2011-03-14 17:05:17"
     And I press "Import"
-    Then I should see a spinner
     And I should not see the gnaclr import button
     When resque jobs are run
     Then I should not see a spinner
@@ -56,7 +54,6 @@ Feature: Importing trees from GNACLR
     When I follow "Browse Classifications"
     And I follow "NCBI"
     And I press "Import"
-    Then I should see a spinner
     And I should not see the gnaclr import button
     When I reload the page
     Then I should see "All reference trees (1)"
