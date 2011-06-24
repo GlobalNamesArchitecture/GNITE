@@ -11,6 +11,8 @@ class MergeEvent < ActiveRecord::Base
     me = MergeEvent.find(merge_event_id)
     me.merge
     MergeResultPrimary.import_merge(me)
+    me.status = "in review"
+    me.save!
   end
 
   def merge

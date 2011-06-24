@@ -2074,15 +2074,15 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   -webkit-border-radius: 0px 6px 0px 0px;
 }
 
-.gnite-table thead tr td.action-command-action {
+.gnite-table thead tr td.header-action {
   width:65%;
 }
 
-.gnite-table thead tr td.action-command-user {
+.gnite-table thead tr td.header-user {
   width:20%;
 }
 
-.gnite-table thead tr td.action-command-updated {
+.gnite-table thead tr td.header-updated, .gnite-table thead tr td.header-created {
   width:15%;
 }
 
@@ -2135,6 +2135,29 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   border-radius: 0px 0px 6px 6px;
   -moz-border-radius: 0px 0px 6px 6px;
   -webkit-border-radius: 0px 0px 6px 6px;
+}
+
+.gnite-table a.button-link {
+  background: #E0E2E4;
+  background: -moz-linear-gradient(0% 100% 90deg,#BBC0C4, #E0E2E4);
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#E0E2E4), to(#BBC0C4));
+  border-radius: 6px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius:6px;
+  display: block;
+  padding: 0px 5px;
+  margin: 2px;
+  text-align:center;
+  width:40px;
+  text-decoration:none;
+  font-weight:bold;
+  color:#232323;
+}
+
+.gnite-table a.button-link:hover {
+  background: #ccd0d4;
+  background: -moz-linear-gradient(19% 75% 90deg,#919598, #ccd0d4);
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccd0d4), to(#919598));
 }
 
 .gnite-table .pagination {

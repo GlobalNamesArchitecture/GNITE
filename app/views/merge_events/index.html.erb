@@ -1,5 +1,39 @@
-<div>
-<%- @merge_events.each do |event| -%>
-<p><%= link_to(:merge, master_tree_merge_event_path(params[:master_tree_id], event.id)) %></p>
-<%- end -%>
-</div>
+<% content_for :header do %>
+  <div class="tree_list_header clearfix">
+    <div class="tree_list_header_inner clearfix">
+      <h1>Merge Events for <%= @master_tree.title %></h1>
+      <div id="tree-return" class="tree-link clearfix">
+        <a href="<%= master_tree_path(:id => @master_tree.id) %>"><span>Back to Master Tree</span></a>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<table class="gnite-table">
+  <thead>
+    <tr>
+      <td class="header-memo">Event</td>
+      <td class="header-status">Status</td>
+      <td class="header-user">User</td>
+      <td class="header-created">Created</td>
+    </tr>
+  </thead>
+  <tbody>
+  <% if @merge_events.any? %>
+    <% @merge_events.each do |event| %>
+    <tr class="<% row_type = cycle("even", "odd") %><%= row_type %><%= (event == @merge_events.last && row_type == 'even') ? " last last-even" : (event == @merge_events.last && row_type == 'odd') ? " last last-odd": "" %>">
+      <td><%= event.memo  %></td>
+      <td><%= raw (event.status == 'in review') ? link_to("View", master_tree_merge_event_path(params[:master_tree_id], event.id), :class => 'button-link') : event.status %></td>
+      <td><%= event.user.email %></td>
+      <td><%= event.created_at %></td>
+    </tr>
+    <% end %>
+  <% else %>
+     <tr class="single">
+       <td colspan="4">There are not yet any merge events</td>
+     </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @merge_events, :class => 'pagination' %>
