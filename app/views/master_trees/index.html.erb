@@ -21,9 +21,11 @@
             <% end %>
 
             <span class="date-wrap">
-              <div class="date"><strong>Created:</strong> <%= tree.created_at.to_s(:short_date) %></div>
-              <div class="date"><strong>Last Edited:</strong> <%= tree.updated_at.to_s(:short_date) %></div>
-              <div class="date"><strong>Last Edited By:</strong> <%= tree.master_tree_logs.last.user.email %></div>
+              <div class="date"><strong>Created:</strong> <%= tree.created_at.to_s(:long) %></div>
+              <% if tree.master_tree_logs.any? %>
+                <div class="date"><strong>Last Edited:</strong> <%= tree.master_tree_logs.last.created_at.to_s(:long) %></div>
+                <div class="date"><strong>Last Edited By:</strong> <%= tree.master_tree_logs.last.user.email %></div>
+              <% end %>
             </span>
           </span>
         </a>
