@@ -2148,7 +2148,7 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   padding: 0px 5px;
   margin: 3px 0px;
   text-align:center;
-  width:40px;
+  width:60px;
   text-decoration:none;
   border: 0 solid rgb(15, 18, 21) !important;
   text-shadow: 0 -1px 0 rgba(0,0,0,.25) !important;

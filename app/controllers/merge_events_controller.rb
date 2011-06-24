@@ -28,7 +28,7 @@ class MergeEventsController < ApplicationController
       :master_tree => master_tree, 
       :user => current_user,
       :memo => memo,
-      :status => 'merging')
+      :status => 'computing')
     Resque.enqueue(MergeEvent, @merge_event.id)
     render :show
   end
