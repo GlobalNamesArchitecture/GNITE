@@ -1,5 +1,12 @@
 <% content_for :header do %>
-  <%= @master_tree.title %>
+  <div class="tree_list_header clearfix">
+    <div class="tree_list_header_inner clearfix">
+      <h1><%= @master_tree.title %></h1>
+      <div id="tree-return" class="tree-link clearfix">
+        <a href="<%= master_tree_path(:id => @master_tree.id) %>"><span>Back to Master Tree</span></a>
+      </div>
+    </div>
+  </div>
 <% end %>
 
 <div id="tree-container" class="tree-column clearfix" data-database-id="<%= @master_tree.id %>">

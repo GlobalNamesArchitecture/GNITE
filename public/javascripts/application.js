@@ -149,8 +149,9 @@ $(function() {
       'ctrl+z'       : function() { this.undo(); },
       'ctrl+shift+z' : function() { this.redo(); },
       'ctrl+s'       : function() { GNITE.Tree.MasterTree.publish(); },
-      'ctrl+h'       : function() { window.location = "/master_trees/" + GNITE.Tree.MasterTree.id + "/action_commands"; },
-      'ctrl+m'       : function() { GNITE.Tree.MasterTree.merge(); }
+      'ctrl+h'       : function() { window.location = "/master_trees/" + GNITE.Tree.MasterTree.id + "/edits"; },
+      'ctrl+m'       : function() { window.location = "/master_trees/" + GNITE.Tree.MasterTree.id + "/merge_events"; },
+      'ctrl+c'       : function() { this.close_all(); }
     },
     'bookmarks' : {
       'addition_form' : '#bookmarks-addition-form-' + GNITE.Tree.MasterTree.id,

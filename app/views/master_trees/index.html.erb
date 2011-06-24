@@ -23,6 +23,7 @@
             <span class="date-wrap">
               <div class="date"><strong>Created:</strong> <%= tree.created_at.to_s(:short_date) %></div>
               <div class="date"><strong>Last Edited:</strong> <%= tree.updated_at.to_s(:short_date) %></div>
+              <div class="date"><strong>Last Edited By:</strong> <%= tree.master_tree_logs.last.user.email %></div>
             </span>
           </span>
         </a>

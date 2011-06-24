@@ -24,9 +24,9 @@
     <li><a href="#">View</a>
       <ul class="subnav">
         <li><%= link_to master_tree_edits_path(:master_tree_id => tree.id), :class => "nav-view-history" do %>Edit history<% end %><span>ctrl+h</span></li>
-        <li><%= link_to master_tree_merge_events_path(:master_tree_id => tree.id), :class => "nav-view-merge" do %>Merge events<% end %></li>
+        <li class="divider-after"><%= link_to master_tree_merge_events_path(:master_tree_id => tree.id), :class => "nav-view-merge" do %>Merge events<% end %><span>ctrl+m</span></li>
         <li><a href="#" class="nav-view-refresh">Refresh tree</a><span>ctrl+shift+r</span></li>
-        <li><a href="#" class="nav-view-collapse">Collapse tree</a></li>
+        <li><a href="#" class="nav-view-collapse">Collapse tree</a><span>ctrl+c</span></li>
       </ul>
     </li>
     <li><a href="#">Bookmarks</a>
@@ -37,7 +37,7 @@
     </li>
     <li><a href="#">Tools</a>
       <ul class="subnav">
-        <li><a href="#" class="nav-tools-merge">Merge</a><span>ctrl+m</span></li>
+        <li><a href="#" class="nav-tools-merge">Merge</a></li>
       </ul>
     </li>
   </ul>
