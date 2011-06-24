@@ -31,5 +31,7 @@ Gnite::Application.configure do
   # config.active_record.schema_format = :sql
   config.action_mailer.default_url_options = { :host => "example.com" }
   config.active_support.deprecation = :stderr
+  # ActiveRecord::Base.logger = Logger.new(STDOUT)
+  # ActionController::Base.logger = Logger.new(STDOUT)
 end
 Gnite::Config.gnaclr_url = "http://example.com"

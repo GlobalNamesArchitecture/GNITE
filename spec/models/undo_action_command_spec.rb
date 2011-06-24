@@ -28,14 +28,15 @@ describe UndoActionCommand do
   end
 
   it 'should register undo statements' do
-    # assuming here theat undo limit is 10
-    undo_actions.size.should == Gnite::Config.undo_limit
+    # assuming here that undo limit is 10
+    # note that size in this case does not return limit!
+    undo_actions.length.should == Gnite::Config.undo_limit
   end
 
   it 'should be able to undo several statements' do
     undo_count = UndoActionCommand.count
     redo_count = RedoActionCommand.count
-    
+
     3.times { UndoActionCommand.undo(master_tree.id, '9999') }
     (undo_count - UndoActionCommand.count).should == 3
     (RedoActionCommand.count  - redo_count).should == 3
