@@ -540,7 +540,7 @@ $(function() {
   /*
    * FILE: Add single node
    */
-  $('.nav-add-node').click(function() {
+  $('.nav-file-add').click(function() {
     $('#master-tree').jstree('create');
     GNITE.Tree.hideMenu();
     return false;
@@ -549,7 +549,7 @@ $(function() {
   /*
    * FILE: Add many nodes
    */
-  $('.nav-add-node-bulk').click(function() {
+  $('.nav-file-bulkadd').click(function() {
     $("#master-tree").jstree('bulk_form');
     GNITE.Tree.hideMenu();
     return false;
@@ -563,7 +563,7 @@ $(function() {
   /*
    * FILE: Publish tree
    */
-  $('.nav-publish-tree').live('click', function() {
+  $('.nav-file-publish').live('click', function() {
     GNITE.Tree.MasterTree.publish();
     return false;
   });
@@ -571,7 +571,7 @@ $(function() {
   /*
    * FILE: Delete tree
    */
-  $('.nav-delete-tree').live('click', function() {
+  $('.nav-file-delete').live('click', function() {
     var message = 'Are you sure you want to delete your working tree?';
     $('body').append('<div id="dialog-message" class="ui-state-highlight" title="Delete Confirmation">' + message + '</div>');
     $('#dialog-message').dialog({
@@ -612,7 +612,7 @@ $(function() {
   /*
    * EDIT: Undo
    */
-  $('.nav-undo').click(function() {
+  $('.nav-edit-undo').click(function() {
     $('#master-tree').jstree('undo');
     GNITE.Tree.hideMenu();
     return false;
@@ -621,7 +621,7 @@ $(function() {
   /*
    * EDIT: Redo
    */
-  $('.nav-redo').click(function() {
+  $('.nav-edit-redo').click(function() {
     //refresh affected parent(s) after redo
     $('#master-tree').jstree('redo');
     GNITE.Tree.hideMenu();
@@ -629,9 +629,9 @@ $(function() {
   });
 
   /*
-   * EDIT: Edit node
+   * EDIT: Rename node
    */
-  $('.nav-edit-node').click(function() {
+  $('.nav-edit-rename').click(function() {
     var selected = $('#master-tree').jstree("get_selected");
     if($('#master-tree').find("li").length > 0 && selected.length > 0) {
       $('#master-tree').jstree('rename');
@@ -643,7 +643,7 @@ $(function() {
   /*
    * EDIT: Cut
    */
-  $('.nav-cut-node').click(function() {
+  $('.nav-edit-cut').click(function() {
     if($('#master-tree').find("li").length > 0) {
       $('#master-tree').jstree('cut');
     }
@@ -654,7 +654,7 @@ $(function() {
   /*
    * EDIT: Paste
    */
-  $('.nav-paste-node').click(function() {
+  $('.nav-edit-paste').click(function() {
     if($('#master-tree').find("li").length > 0) {
       $('#master-tree').jstree('paste');
     }
@@ -665,7 +665,7 @@ $(function() {
   /*
    * EDIT: Delete node
    */
-  $('.nav-delete-node').click(function() {
+  $('.nav-edit-delete').click(function() {
     if($('#master-tree').find("li").length > 0) {
       $('#master-tree').jstree('remove');
     }
@@ -678,6 +678,7 @@ $(function() {
    */
   $('.nav-tools-merge').click(function() {
     GNITE.Tree.MasterTree.merge();
+    return false;
   }); 
 
   GNITE.Tree.buildViewMenuActions();
@@ -1341,7 +1342,7 @@ GNITE.Tree.buildViewMenuActions = function() {
   * VIEW: Refresh tree
   * Generic refresh action for any tree
   */
-  $('.nav-refresh-tree').click(function() {
+  $('.nav-view-refresh').click(function() {
 
     var self    = $(this),
         tree_id = self.parents('.tree-background').find('.jstree').attr("id");
@@ -1355,7 +1356,7 @@ GNITE.Tree.buildViewMenuActions = function() {
    * VIEW: Collapse tree
    * Generic collapse action for any tree
    */
-  $('.nav-collapse-tree').click(function() {
+  $('.nav-view-collapse').click(function() {
 
     var self    = $(this),
         tree_id = self.parents('.tree-background').find('.jstree').attr("id");

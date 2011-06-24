@@ -761,23 +761,28 @@ body form input {
   height:1.15em;
 }
 
-.ddsmoothmenu ul li a.nav-add-node { background: transparent url(../images/icons/page_white_add.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-add-node-bulk { background: transparent url(../images/icons/page_white_add_bulk.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-publish-tree { background: transparent url(../images/icons/book_go.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-edit-tree { background: transparent url(../images/icons/page_white_edit.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-delete-tree { background: transparent url(../images/icons/bin_closed.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-edit-node { background: transparent url(../images/icons/page_white_edit.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-undo { background: transparent url(../images/icons/arrow_undo.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-redo { background: transparent url(../images/icons/arrow_redo.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-cut-node { background: transparent url(../images/icons/cut.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-paste-node { background: transparent url(../images/icons/page_white_paste.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-delete-node { background: transparent url(../images/icons/bin_closed.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-file-add { background: transparent url(../images/icons/page_white_add.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-file-bulkadd { background: transparent url(../images/icons/page_white_add_bulk.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-file-publish { background: transparent url(../images/icons/book_go.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-file-edit { background: transparent url(../images/icons/page_white_edit.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-file-delete { background: transparent url(../images/icons/bin_closed.png) no-repeat 5px center; }
+
+.ddsmoothmenu ul li a.nav-edit-rename { background: transparent url(../images/icons/page_white_edit.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-edit-undo { background: transparent url(../images/icons/arrow_undo.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-edit-redo { background: transparent url(../images/icons/arrow_redo.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-edit-cut { background: transparent url(../images/icons/cut.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-edit-paste { background: transparent url(../images/icons/page_white_paste.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-edit-delete { background: transparent url(../images/icons/bin_closed.png) no-repeat 5px center; }
+
 .ddsmoothmenu ul li a.nav-refresh-node { background: transparent url(../images/icons/arrow_refresh_small.png) no-repeat 5px center; }
 .ddsmoothmenu ul li a.nav-bookmarks-add { background: transparent url(../images/icons/asterisk_yellow_add.png) no-repeat 5px center; }
 .ddsmoothmenu ul li a.nav-bookmarks-view { background: transparent url(../images/icons/asterisk_yellow.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-edit-history { background: transparent url(../images/icons/table.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-refresh-tree { background: transparent url(../images/icons/arrow_refresh.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-collapse-tree { background: transparent url(../images/icons/door.png) no-repeat 5px center; }
+
+.ddsmoothmenu ul li a.nav-view-history { background: transparent url(../images/icons/table.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-view-merge { background: transparent url(../images/icons/arrow_join_down.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-view-refresh { background: transparent url(../images/icons/arrow_refresh.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-view-collapse { background: transparent url(../images/icons/door.png) no-repeat 5px center; }
+
 .ddsmoothmenu ul li a.nav-tools-merge { background: transparent url(../images/icons/arrow_join_down.png) no-repeat 5px center; }
 
 * html .ddsmoothmenu ul li a {

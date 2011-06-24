@@ -1,5 +1,4 @@
 class MasterTreeLogsController < ApplicationController
-  before_filter :authenticate
   
   def index
     @master_tree = MasterTree.find(params[:master_tree_id])
@@ -8,6 +7,7 @@ class MasterTreeLogsController < ApplicationController
     @logs = MasterTreeLog.where(:master_tree_id => params[:master_tree_id])
                          .order("updated_at DESC")
                          .paginate(:page => page, :per_page => 25)
+    
   end
 
 end

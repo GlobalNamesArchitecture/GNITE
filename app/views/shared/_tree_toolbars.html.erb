@@ -4,28 +4,29 @@
   <ul class="topnav">
     <li><a href="#">File</a>
       <ul class="subnav">
-          <li><a href="#" class="nav-add-node">Add single node</a><span>ctrl+n</span></li>
-          <li class="divider-after"><a href="#" class="nav-add-node-bulk">Add many nodes</a><span>ctrl+shift+n</span></li>
-          <li><%= link_to edit_master_tree_path, :class => "nav-edit-tree" do %>Edit tree info<% end %></li>
-          <li class="divider-after"><a href="#" class="nav-publish-tree" data-master-tree-id="<%= tree.id %>">Publish tree</a><span>ctrl+s</span></li>
-          <li><a href="#" class="nav-delete-tree" data-master-tree-id="<%= tree.id %>">Delete tree</a></li>
+          <li><a href="#" class="nav-file-add">Add single node</a><span>ctrl+n</span></li>
+          <li class="divider-after"><a href="#" class="nav-file-bulkadd">Add many nodes</a><span>ctrl+shift+n</span></li>
+          <li><%= link_to edit_master_tree_path, :class => "nav-file-edit" do %>Edit tree info<% end %></li>
+          <li class="divider-after"><a href="#" class="nav-file-publish" data-master-tree-id="<%= tree.id %>">Publish tree</a><span>ctrl+s</span></li>
+          <li><a href="#" class="nav-file-delete" data-master-tree-id="<%= tree.id %>">Delete tree</a></li>
       </ul>
     </li>
     <li><a href="#">Edit</a>
       <ul class="subnav">
-          <li><a href="#" class="nav-undo">Undo</a><span>ctrl+z</span></li>
-          <li class="divider-after"><a href="#" class="nav-redo">Redo</a><span>ctrl+shift+z</span></li>
-          <li><a href="#" class="nav-edit-node">Edit</a><span>ctrl+e</span></li>
-          <li><a href="#" class="nav-cut-node">Cut</a><span>ctrl+x</span></li>
-          <li class="divider-after"><a href="#" class="nav-paste-node">Paste</a><span>ctrl+v</span></li>
-          <li><a href="#" class="nav-delete-node">Delete</a><span>ctrl+d</span></li>
+          <li><a href="#" class="nav-edit-undo">Undo</a><span>ctrl+z</span></li>
+          <li class="divider-after"><a href="#" class="nav-edit-redo">Redo</a><span>ctrl+shift+z</span></li>
+          <li><a href="#" class="nav-edit-rename">Edit</a><span>ctrl+e</span></li>
+          <li><a href="#" class="nav-edit-cut">Cut</a><span>ctrl+x</span></li>
+          <li class="divider-after"><a href="#" class="nav-edit-paste">Paste</a><span>ctrl+v</span></li>
+          <li><a href="#" class="nav-edit-delete">Delete</a><span>ctrl+d</span></li>
       </ul>
     </li>
     <li><a href="#">View</a>
       <ul class="subnav">
-        <li><%= link_to master_tree_edits_path(:master_tree_id => tree.id), :class => "nav-edit-history" do %>Edit history<% end %><span>ctrl+h</span></li>
-        <li><a href="#" class="nav-refresh-tree">Refresh tree</a><span>ctrl+shift+r</span></li>
-        <li><a href="#" class="nav-collapse-tree">Collapse tree</a></li>
+        <li><%= link_to master_tree_edits_path(:master_tree_id => tree.id), :class => "nav-view-history" do %>Edit history<% end %><span>ctrl+h</span></li>
+        <li><%= link_to master_tree_merge_events_path(:master_tree_id => tree.id), :class => "nav-view-merge" do %>Merge events<% end %></li>
+        <li><a href="#" class="nav-view-refresh">Refresh tree</a><span>ctrl+shift+r</span></li>
+        <li><a href="#" class="nav-view-collapse">Collapse tree</a></li>
       </ul>
     </li>
     <li><a href="#">Bookmarks</a>
