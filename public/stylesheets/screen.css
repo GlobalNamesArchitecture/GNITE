@@ -1658,9 +1658,9 @@ ul#treelist li a {
 }
 
 ul#treelist li a:hover {
-  background: #ccd0d4 url("/images/master_tree_icon.png") 5px 15px no-repeat;
-  background: url("/images/master_tree_icon.png") 5px 15px no-repeat, -moz-linear-gradient(19% 75% 90deg,#919598, #ccd0d4);
-  background: url("/images/master_tree_icon.png") 5px 15px no-repeat, -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccd0d4), to(#919598));
+  background: #ccd0d4 url("/images/master_tree_icon_hover.png") 5px 15px no-repeat;
+  background: url("/images/master_tree_icon_hover.png") 5px 15px no-repeat, -moz-linear-gradient(19% 75% 90deg,#919598, #ccd0d4);
+  background: url("/images/master_tree_icon_hover.png") 5px 15px no-repeat, -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccd0d4), to(#919598));
 }
 
 ul#treelist li a:active {
