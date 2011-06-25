@@ -13,13 +13,9 @@
   <ul id="treelist" class="clearfix">
     <% @master_trees.each do |tree| %>
       <li>
-        <a href="<%= master_tree_url(tree.id) %>" class="clearfix">
+        <a href="<%= master_tree_url(tree.id) %>" class="clearfix button">
           <span class="content">
             <h3><%= tree.title %></h3>
-            <% if tree.abstract.present? %>
-              <p><%= tree.abstract %></p>
-            <% end %>
-
             <span class="date-wrap">
               <div class="date"><strong>Created:</strong> <%= tree.created_at.to_s(:long) %></div>
               <% if tree.master_tree_logs.any? %>
@@ -29,6 +25,9 @@
             </span>
           </span>
         </a>
+        <% if !tree.merge_events.find_by_status("in review").nil? %>
+          <a href="<%= master_tree_merge_events_url(tree.id) %>" class="clearfix action green-submit">View Active Merges</a>
+        <% end %>
       </li>
     <% end %>
   </ul>

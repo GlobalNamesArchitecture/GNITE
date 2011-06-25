@@ -1620,7 +1620,6 @@ ul#revisions li:hover {
 }
 
 #header .tree_list_header_inner {
-  width: 635px;
 }
 
 #header .tree_list_header h1 {
@@ -1632,11 +1631,12 @@ ul#revisions li:hover {
 ul#treelist {
   margin: 40px 40px 50px 40px;
   padding: 0;
-  width: 640px;
 }
 
 ul#treelist li {
   margin: 0 0 10px 0;
+  position:relative;
+  width:60%;
 }
 
 ul#treelist li h3 {
@@ -1645,7 +1645,7 @@ ul#treelist li h3 {
   padding: 0;
 }
 
-ul#treelist li a {
+ul#treelist li a.button {
   background: #E0E2E4 url("/images/master_tree_icon.png") 5px 15px no-repeat;
   background: url("/images/master_tree_icon.png") 5px 15px no-repeat, -moz-linear-gradient(0% 100% 90deg,#BBC0C4, #E0E2E4);
   background: url("/images/master_tree_icon.png") 5px 15px no-repeat, -webkit-gradient(linear, 0 0, 0 100%, from(#E0E2E4), to(#BBC0C4));
@@ -1657,23 +1657,37 @@ ul#treelist li a {
   padding: 12px 15px 12px 57px;
 }
 
-ul#treelist li a:hover {
+ul#treelist li a.button:hover {
   background: #ccd0d4 url("/images/master_tree_icon_hover.png") 5px 15px no-repeat;
   background: url("/images/master_tree_icon_hover.png") 5px 15px no-repeat, -moz-linear-gradient(19% 75% 90deg,#919598, #ccd0d4);
   background: url("/images/master_tree_icon_hover.png") 5px 15px no-repeat, -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccd0d4), to(#919598));
 }
 
-ul#treelist li a:active {
+ul#treelist li a.button:active {
   background: #b3b6ba url("/images/master_tree_icon.png") 5px 15px no-repeat;
   background: url("/images/master_tree_icon.png") 5px 15px no-repeat, -moz-linear-gradient(19% 75% 90deg,#797d80, #b3b6ba);
   background: url("/images/master_tree_icon.png") 5px 15px no-repeat, -webkit-gradient(linear, 0% 0%, 0% 100%, from(#b3b6ba), to(#797d80));
 }
 
+ul#treelist li a.action {
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  display: block;
+  position:absolute;
+  z-index:100;
+  right:-5px;
+  top:-5px;
+  min-height:0px;
+  margin:0px;
+  color:#fff;
+  font-size:1em;
+}
+
 ul#treelist li p {
-  display: none;
-  font-size: .95em;
+  font-size: 1em;
   line-height: 1.4;
-  margin: 3px 0;
+  margin: 10px 0;
 }
 
 ul#treelist a:link,
@@ -1892,13 +1906,13 @@ ul#treelist li,  #gnaclr-search, .tree-background, #loginform .input, .green-sub
   -webkit-border-radius: 6px;
 }
 
-.tree-background, #treelist li, .tree-back-wrap, #tree-newimport li {
+.tree-background, #treelist li a.button, .tree-back-wrap, #tree-newimport li {
   border-radius: 8px;
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
 }
 
-.tree-background, #treelist li, #newtree a, .tree-back-wrap  {
+.tree-background, #treelist li a.button, #newtree a, .tree-back-wrap  {
   box-shadow: 0 1px 7px 0 rgba(0,0,0,.7);
   -moz-box-shadow: 0 1px 7px 0 rgba(0,0,0,.7);
   -webkit-box-shadow: 0 1px 7px 0 rgba(0,0,0,.7);
