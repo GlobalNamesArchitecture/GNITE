@@ -1,8 +1,9 @@
-class ActionBulkAddNode < ActionCommand
+class ActionBulkCopyNode < ActionCommand
 
   def precondition_do
+    @destination_parent = Node.find(destination_parent_id)
     @json_do = JSON.parse(json_message, :symbolize_names => true)[:do]
-    !!(tree_id && parent_id && @json_do && @parent = Node.find(parent_id))
+    !!(tree_id && parent_id && @json_do && @parent = Node.find(parent_id) && @destination_parent && ancestry_ok?(@destination_parent))
   end
 
   def precondition_undo
@@ -11,8 +12,11 @@ class ActionBulkAddNode < ActionCommand
   end
 
   def do_action
+    #TODO add transaction
     node_ids = []
-    @json_do.each do |new_name|
+    @json_do.each do |i|
+      node = Node.find(i) rescue nil
+      
       name = Name.find_or_create_by_name_string(new_name)
       node = Node.create!(:parent_id => parent_id, :name => name, :tree => @parent.tree)
       node_ids << node.id
@@ -29,10 +33,15 @@ class ActionBulkAddNode < ActionCommand
   end
   
   def generate_log
+    roots = Node.roots(tree_id)
     parent = Node.find(parent_id)
-    destination = (parent_id == parent.tree.root.id) ? "root": parent.name_string
-    bulk_added = JSON.parse(json_message, :symbolize_names => true)[:do].join(", ")
-    "#{bulk_added} added under #{destination}"
+    destination = (parent_id == roots[0].id) ? "root": parent.name.name_string
+    bulk_copied = JSON.parse(json_message, :symbolize_names => true)[:do].join(", ")
+    tree = Tree.find(tree_id)
+    destination = Node.find(destination_parent_id)
+
+    "#{node.name.name_string} and their children (if any) in #{}copied to #{destination.name.name_string}"
+
   end
 
   def nodes

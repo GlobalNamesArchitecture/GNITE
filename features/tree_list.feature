@@ -49,7 +49,6 @@ Feature: Create and manage master trees
     When I am on the master tree index page
     Then I should see "Bananas"
     And I should see "June 22, 2009"
-    And I should see "All the types of bananas on my desk"
 
   Scenario: I should not see my reference trees on the tree index page
     Given I have signed in with "email@person.com/password"

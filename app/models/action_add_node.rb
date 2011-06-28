@@ -24,9 +24,8 @@ class ActionAddNode < ActionCommand
   end
   
   def generate_log
-    roots = Node.roots(tree_id)
     parent = Node.find(parent_id)
-    destination = (parent_id == roots[0].id) ? "root": parent.name.name_string
+    destination = (parent_id == parent.tree.root.id) ? "root": parent.name_string
     "#{new_name} added under #{destination}"
   end
 

@@ -30,7 +30,7 @@ class ActionMoveNodeToDeletedTree < ActionCommand
   end
   
   def generate_log
-    "#{node.name.name_string} and its children (if any) deleted"
+    "#{node.name_string} and its children (if any) deleted"
   end
 
 end

@@ -210,6 +210,7 @@ Feature: Edit a master tree
     And I select the node "chocolate"
     And I click "New child" in the context menu
     And I enter "cookie" in the new node and press enter
+    And I wait for the tree to load
     And I refresh the master tree
     And I wait for the tree to load
     When I select the node "chocolate"

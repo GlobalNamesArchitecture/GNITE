@@ -25,9 +25,9 @@ class ActionCopyNodeFromAnotherTree < ActionCommand
   end
   
   def generate_log
-    tree = Tree.find(tree_id)
-    destination = Node.find(destination_parent_id)
-    "#{node.name.name_string} and its children (if any) copied to #{destination.name.name_string} from #{tree.title}"
+    destination = (destination_parent_id == node.tree.root.id) ? "root": Node.find(destination_parent_id).name_string
+    reference_tree = Tree.find(node.tree).title
+    "#{node.name.name_string} and its children (if any) copied to #{destination} from #{reference_tree}"
   end
 
   def master_tree
