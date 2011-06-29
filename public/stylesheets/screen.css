@@ -2195,3 +2195,15 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   min-height:400px;
   width:95%;
 }
+
+.merge_events .spinner {
+  background: #FFF url("/images/loading.gif") no-repeat center 300px;
+}
+
+.merge_events .spinner p.status {
+  font-size:1.5em;
+  position: absolute;
+  text-align: center;
+  top: 45%;
+  width: 100%;
+}

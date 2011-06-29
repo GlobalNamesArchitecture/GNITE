@@ -9,7 +9,9 @@
   </div>
 <% end %>
 
-<table class="gnite-table">
+<div id="merge-results-wrapper">
+
+<table id="merge-results-table" class="gnite-table">
   <thead>
     <tr>
       <td class="header-path">Primary Path</td>
@@ -19,19 +21,30 @@
     </tr>
   </thead>
   <tbody>
-  <% if @merges.any? %>
-    <% @merges.each do |merge| %>
-    <tr class="<% row_type = cycle("even", "odd") %><%= row_type %><%= (merge == @merges.last && row_type == 'even') ? " last last-even" : (merge == @merges.last && row_type == 'odd') ? " last last-odd": "" %>">
-      <td><%= merge[:primary_path] %></td>
-      <td><%= merge[:secondary_path] %></td>
-      <td><%= merge[:type] %></td>
-      <td><%= merge[:subtype] %></td>
-    </tr>
-    <% end %>
-  <% else %>
-     <tr class="single">
-       <td colspan="4">There are not yet any merge events</td>
-     </tr>
+    <% if @merges.any? %>
+      <% @merges.each do |merge| %>
+      <tr class="<% row_type = cycle("even", "odd") %><%= row_type %><%= (merge == @merges.last && row_type == 'even') ? " last last-even" : (merge == @merges.last && row_type == 'odd') ? " last last-odd": "" %>">
+        <td><%= merge[:primary_path] %></td>
+        <td><%= merge[:secondary_path] %></td>
+        <td><%= merge[:type] %></td>
+        <td><%= merge[:subtype] %></td>
+      </tr>
+      <% end %>
+    <% else %>
+      <tr class="single">
+        <td colspan="4">There are not yet any merge results</td>
+      </tr>
   <% end %>
   </tbody>
 </table>
+
+</div>
+
+<% content_for :javascript do %>
+<%= javascript_include_tag 'juggernaut/json', 'juggernaut/socket_io', 'juggernaut/juggernaut', 'jquery.spinner', 'merge' %>
+
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(GNITE.Tree.MasterTree, { "id" : "<%= @master_tree.id %>", "merge_event" : "<%= @merge_event.id %>", "merge_status" : "<%= @merge_event.status %>" });
+</script>
+<% end %>
