@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110623212703) do
+ActiveRecord::Schema.define(:version => 20110629152955) do
 
   create_table "action_commands", :force => true do |t|
     t.string   "type"
@@ -108,6 +108,7 @@ ActiveRecord::Schema.define(:version => 20110623212703) do
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "merge_tree_id"
   end
 
   add_index "merge_events", ["master_tree_id"], :name => "index_merge_events_on_master_tree_id"

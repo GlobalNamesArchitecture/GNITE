@@ -1,9 +1,11 @@
 class MergeEvent < ActiveRecord::Base
+  before_create :add_merge_tree
+  
   belongs_to :master_tree
   belongs_to :user
   belongs_to :node, :foreign_key => :primary_node_id
   belongs_to :node, :foreign_key => :secondary_node_id
-
+  belongs_to :merge_tree
   has_many :merge_result_primaries
   @queue = :merge_event
   
@@ -24,6 +26,20 @@ class MergeEvent < ActiveRecord::Base
       @merge_data = fr.merge
     end
     @merge_data
+  end
+  
+  def primary_node
+    @primary_node ||= Node.find(primary_node_id)
+  end
+
+  def secondary_node
+    @secondary_node ||= Node.find(secondary_node_id)
+  end
+  
+  private
+  
+  def add_merge_tree
+    self.merge_tree = MergeTree.create!
   end
 
 end
