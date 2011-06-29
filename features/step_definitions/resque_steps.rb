@@ -1,6 +1,5 @@
 When "resque jobs are run" do
   connected = false
-  When %{pause 1}
   while !connected
     connected = page.has_css?(".juggernaut-connected")
   end

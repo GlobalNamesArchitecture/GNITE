@@ -83,8 +83,8 @@ When /^I expand the node "([^"]*)" under "([^"]*)"$/ do |child_node_name, parent
 end
 
 
-Then /^pause (\d+)$/ do |num|
-  sleep(num.to_i)
+Then /^pause (\d+\.?\d?)$/ do |num|
+  sleep(num.to_f)
 end
 
 When /^I drag "([^"]*)" under "([^"]*)"$/ do |child_node_text, parent_node_text|
