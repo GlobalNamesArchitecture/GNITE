@@ -11,15 +11,13 @@ class Node < ActiveRecord::Base
   has_many :merge_result_primaries
   has_many :merge_result_secondaries
 
-
   before_create :check_parent_id_for_nil
   before_update :check_parent_id_for_nil
 
   delegate :name_string, :to => :name
 
-  def self.roots(tree_id)
-    Node.find_by_sql("select * from nodes where parent_id is null and tree_id = #{tree_id}")
-  end
+  include Gnite::NodeHierarchy
+  include Gnite::NodeMerge
 
   def self.search(search_string, tree_id)
     clean_search_string = "%#{search_string}%"
@@ -33,40 +31,12 @@ class Node < ActiveRecord::Base
     nodes
   end
 
-  def deep_copy_to(tree)
-    copy = self.clone
-    copy.tree = tree
-    copy.save!
-
-    children.each do |child|
-      child_copy = child.deep_copy_to(tree)
-      child_copy.parent = copy
-      child_copy.save!
-    end
-
-    vernacular_names.each do |vernacular_name|
-      vernacular_name_copy = vernacular_name.clone
-      vernacular_name_copy.node = copy
-      vernacular_name_copy.save!
-    end
-
-    synonyms.each do |synonym|
-      synonym_copy = synonym.clone
-      synonym_copy.node = copy
-      synonym_copy.save!
-    end
-
-    copy.reload
+  def canonical_name
+    @canonical_name ||= Gnite::Config.parser.parse(self.name_string, :canonical_only => true)
   end
 
-  def rank_string
-    rank_string = rank.to_s.strip
-    rank_string = 'None' if rank_string.empty?
-    rank_string
-  end
-  
   def synonym_data
-    return [{:name_string => 'None', :metadata => []}] unless synonyms.exists?
+    return [{ :name_string => 'None', :metadata => [] }] unless synonyms.exists?
     synonyms.all.map { |s| { :name_string => s.name.name_string, :metadata => symbolize_keys(s.attributes) } }
   end
   
@@ -74,39 +44,11 @@ class Node < ActiveRecord::Base
     return [{:name_string => 'None', :metadata => []}] unless vernacular_names.exists?
     vernacular_names.all.map { |v| { :name_string => v.name.name_string, :metadata => symbolize_keys(v.attributes.merge(:language => v.language.attributes)) } }
   end
-
-  def parent()
-    return unless parent_id
-    Node.find(parent_id)
-  end
-
-  def parent=(node)
-    self.update_attributes(:parent_id => node.id)
-  end
-
-  def children(select_params = '')
-    select_params = select_params.empty? ? '`nodes`.*' : select_params.split(',').map { |p| '`nodes`.' + p.strip }.join(', ')
-    nodes = Node.select(select_params)
-      .where(:parent_id => id)
-      .joins(:name)
-      .order("name_string")
-      .readonly(false) #select and join return readonly objects, override that here
-    nodes
-  end
-
-  def has_children?
-    Node.select(:id).where(:parent_id => id).limit(1).exists?
-  end
-
-  def child_count
-    Node.select(:id).where(:parent_id => id).size
-  end
-
-  def ancestors(options = {})
-    node, nodes = self, []
-    nodes << node = node.parent while node.parent
-    nodes.pop unless options[:with_tree_root]
-    nodes.reverse
+  
+  def rank_string
+    rank_string = rank.to_s.strip
+    rank_string = 'None' if rank_string.empty?
+    rank_string
   end
 
   def rename(new_name_string)
@@ -114,56 +56,7 @@ class Node < ActiveRecord::Base
     self.name = new_name
     save
   end
-
-  def destroy_with_children
-    nodes_to_delete = [id]
-    collect_children_to_delete(nodes_to_delete)
-    Node.transaction do
-      nodes_to_delete.each_slice(Gnite::Config.batch_size) do |ids|
-        delete_nodes_records(ids)
-      end
-    end
-  end
-
-  def descendants
-    nodes = []
-    children.each do |child|
-      nodes << child.descendants
-    end
-  end
-
-  #called externally, so it has to be public
-  def collect_children_to_delete(nodes_to_delete)
-    children('id').each do |c|
-      nodes_to_delete << c.id
-      c.collect_children_to_delete(nodes_to_delete)
-    end
-  end
   
-  def merge_data(path = [self], result = { :empty_nodes => [], :leaves => []})
-    self.children.each do |child|
-      path_new = path.dup
-      path_names = path.map(&:canonical_name) << child.canonical_name
-      path_ids = path.map { |n| n.id.to_s } << child.id.to_s
-      if child.canonical_name.split(' ').size > 1
-        leaf = {:id => child.id.to_s, :rank => child.rank, :path => path_names, :path_ids => path_ids, :valid_name => {:name => child.name_string, :canonical_name => child.canonical_name, :type => 'valid', :status => nil}, :synonyms => []}
-        child.synonyms.each do |synonym|
-          leaf[:synonyms] << {:name => synonym.name_string, :canonical_name => synonym.canonical_name, :status => synonym.status, :type => 'synonym'}
-        end
-        result[:leaves] << leaf
-      elsif !child.has_children?
-        empty_node = {:id => child.id.to_s, :rank => child.rank, :path => path_names, :path_ids => path_ids, :valid_name => {:name => child.name_string, :canonical_name => child.canonical_name, :type => 'valid', :status => nil}, :synonyms => []}
-        result[:empty_nodes] << empty_node
-      end
-      child.merge_data((path_new << child), result)
-    end
-    result
-  end
-
-  def canonical_name
-    @canonical_name ||= Gnite::Config.parser.parse(self.name_string, :canonical_only => true)
-  end
-
   private
 
   def check_parent_id_for_nil
@@ -171,17 +64,7 @@ class Node < ActiveRecord::Base
     self.parent_id = self.tree.root.id
   end
 
-  def delete_nodes_records(ids)
-    delete_ids = ids.join(',')
-    %w{vernacular_names synonyms}.each do |table|
-      Node.connection.execute("
-        DELETE
-        FROM #{table}
-        WHERE node_id IN (#{delete_ids})")
-    end
-    Node.connection.execute("DELETE FROM nodes WHERE id IN (#{delete_ids})")
-  end
-  
+  #TODO feels like a general helper
   def symbolize_keys(arg)
     case arg
     when Array

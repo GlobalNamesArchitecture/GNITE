@@ -4,6 +4,7 @@ class MergeResultPrimary < ActiveRecord::Base
   has_many :merge_result_secondaries
 
   def self.import_merge(merge_event)
+    self.cleanup(merge_event.id)
     merge_event.merge.each do |key, value|
       key = key.to_s.to_i
       path = value[:path].join(" >> ")
@@ -11,10 +12,19 @@ class MergeResultPrimary < ActiveRecord::Base
       add_merge_result(merge_result_primary, value[:matches])
       add_merge_result(merge_result_primary, value[:nonmatches])
     end
-    
   end
 
   private
+  
+  def self.cleanup(merge_event_id)
+    self.connection.execute("
+      DELETE mrp, mrs 
+      FROM merge_result_primaries mrp 
+        LEFT JOIN merge_result_secondaries mrs 
+          ON mrs.merge_result_primary_id = mrp.id 
+      WHERE mrp.merge_event_id = #{merge_event_id}
+    ")
+  end
 
   def self.add_merge_result(merge_result_primary, merges)
     merges.each do |node_id, value|
@@ -22,7 +32,6 @@ class MergeResultPrimary < ActiveRecord::Base
       path = value[:path].join(" >> ")
       merge_type, merge_subtype = find_merge_types(value[:merge_type])
       MergeResultSecondary.create!(:merge_result_primary => merge_result_primary, :node_id => node_id, :path => path, :merge_type => merge_type, :merge_subtype => merge_subtype)
-      
     end
   end
 
