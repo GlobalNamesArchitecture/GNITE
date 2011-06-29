@@ -48,3 +48,12 @@ end
 #     DatabaseCleaner.strategy = :transaction
 #   end
 #
+After do |scenario|
+  if(scenario.failed?)
+    puts
+    puts "*" * 80
+    puts scenario.exception.message
+    puts scenario.backtrace_line
+    puts "*" * 80
+  end
+end
