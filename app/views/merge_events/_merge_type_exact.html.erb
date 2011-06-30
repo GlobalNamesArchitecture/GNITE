@@ -11,7 +11,7 @@
         <% @exact_matches.each do |exact| %>
           <tr class="<% row_type = cycle("even", "odd") %><%= row_type %><%= (exact == @exact_matches.last && row_type == 'even') ? " last last-even" : (exact == @exact_matches.last && row_type == 'odd') ? " last last-odd": "" %>">
             <td class="merge-decision">
-              <%= render :partial => 'merge_inputs', :locals => { :merge_id => exact[:id], :decision_types => @decision_types } %>
+              <%= render :partial => 'merge_inputs', :locals => { :merge_id => exact[:id], :decision_types => @decision_types, :decision => exact[:merge_decision] } %>
             </td>
             <td><%= exact[:primary_path] %></td>
             <td class="<%= exact[:type] %><%= !exact[:subtype].nil? ? " " << exact[:subtype] : "" %>"><%= exact[:secondary_path] %></td>

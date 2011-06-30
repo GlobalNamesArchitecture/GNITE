@@ -11,7 +11,7 @@
         <% @fuzzy_matches.each do |fuzzy| %>
           <tr class="<% row_type = cycle("even", "odd") %><%= row_type %><%= (fuzzy == @fuzzy_matches.last && row_type == 'even') ? " last last-even" : (fuzzy == @fuzzy_matches.last && row_type == 'odd') ? " last last-odd": "" %>">
             <td class="merge-decision">
-              <%= render :partial => 'merge_inputs', :locals => { :merge_id => fuzzy[:id], :decision_types => @decision_types } %>
+              <%= render :partial => 'merge_inputs', :locals => { :merge_id => fuzzy[:id], :decision_types => @decision_types, :decision => fuzzy[:merge_decision] } %>
             </td>
             <td><%= fuzzy[:primary_path] %></td>
             <td class="<%= fuzzy[:type] %><%= !fuzzy[:subtype].nil? ? " " << fuzzy[:subtype] : "" %>"><%= fuzzy[:secondary_path] %></td>
