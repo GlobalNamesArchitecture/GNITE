@@ -45,4 +45,62 @@ $(function() {
      });
 
   }
+
+  $('.header-decision a').click(function () {
+    //TODO: make array to submit to PUT controller
+
+    switch($(this).attr("class")) {
+      case 'accept':
+        $(this).parents("table").find("input.accept").attr("checked", true);
+      break;
+
+      case 'postpone':
+        $(this).parents("table").find("input.postpone").attr("checked", true);
+      break;
+
+      case 'reject':
+        $(this).parents("table").find("input.reject").attr("checked", true);
+      break;
+    }
+
+/*
+    $.ajax({
+      type        : 'PUT',
+      url         : url,
+      data        : JSON.stringify({ 'id' : id, 'value' : value }),
+      contentType : 'application/json',
+      dataType    : 'json',
+      success     : function() {
+      },
+      error       : function() {
+      }
+    });
+*/
+    return false;
+  });
+
+  $('input.merge-input').click(function() {
+    //TODO: pass variables to PUT controller
+
+    var value = $(this).val(),
+        id    = $(this).attr("name").split("-")[1];
+
+    $(this).attr("disabled", "disabled");
+/*
+    $.ajax({
+      type        : 'PUT',
+      url         : url,
+      data        : JSON.stringify({ 'id' : id, 'value' : value }),
+      contentType : 'application/json',
+      dataType    : 'json',
+      success     : function() {
+      },
+      error       : function() {
+      }
+    });
+*/
+    $(this).removeAttr("disabled");
+
+  });
+
 });
