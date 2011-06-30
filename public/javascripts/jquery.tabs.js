@@ -1,6 +1,6 @@
 $(function() {
   $('.ui-tabs-nav a').click(function() {
-    if ($(this).attr('id') == 'all-tabs') {
+    if ($(this).attr('id') === "all-tabs") {
       $('#reference-trees').parent().toggleClass('ui-tabs-selected ui-state-active');
     } else {
       var id = $(this).attr('href');
