@@ -21,10 +21,4 @@ describe MergeEvent do
     merges.keys.size.should > 0
   end
 
-  it "should create a temporary tree from merged results" do
-    MergeResultPrimary.import_merge(@me)  
-    merge_tree = @me.make_merged_tree
-    merge_tree.is_a?(Tree).should be_true
-  end
-
 end

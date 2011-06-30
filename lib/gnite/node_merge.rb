@@ -2,7 +2,6 @@ module Gnite
   module NodeMerge
 
     def deep_merge(merge_event)
-
       copy = self.clone
       copy.tree = merge_event.merge_tree
       copy.save!
@@ -10,7 +9,7 @@ module Gnite
       children.each do |child|
         child_copy = child.deep_merge(merge_event)
         child_copy.parent = copy
-        add_merges(child) if merge_has_node?(child.id)
+        add_merges(merge_event, child) if merge_has_node?(merge_event.id, child.id)
         child_copy.save! 
       end
       copy_metadata(copy, self)
@@ -40,21 +39,21 @@ module Gnite
 
     private
 
-    def merge_has_node?(node_id)
-      @current_merged_node = MergeResultPrimary.where("merge_event_id = #{self.id} and node_id = #{node_id}").limit(1)[0]
+    def merge_has_node?(merge_event_id, node_id)
+      @current_merged_node = MergeResultPrimary.where("merge_event_id = #{merge_event_id} and node_id = #{node_id}").limit(1)[0]
       !!@current_merged_node
     end
 
-    def add_merges(node)
-      @current_merged_node.merge_result_secondaries.each do |merge_node|
-        if [MergeDecision.accepted.id, MergeDecision.postponed.id].includes? merge_node.merge_decision_id
-          if merge_node.merge_type.label = 'new'
+    def add_merges(merge_event, node)
+      @current_merged_node.merge_result_secondaries.each do |merge_node|   
+        if [MergeDecision.accepted.id, MergeDecision.postponed.id].include? merge_node.merge_decision_id
+          if merge_node.merge_type.label == 'new'
             merge_node_copy = node.clone
             merge_node_copy.parent = node
-            merge_node_copy.tree = self.merge_tree
-            copy_metadata(merge_node_copy, merge_node)
+            merge_node_copy.tree = merge_event.merge_tree
+            copy_metadata(merge_node_copy, Node.find(merge_node.node_id))
           else
-            copy_metadata(node, merge_node)
+            copy_metadata(node, Node.find(merge_node.node_id))
           end
         end
       end
