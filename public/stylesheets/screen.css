@@ -2207,3 +2207,7 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   top: 45%;
   width: 100%;
 }
+
+.merge-results .new {
+  color:green;
+}

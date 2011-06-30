@@ -10,33 +10,85 @@
 <% end %>
 
 <div id="merge-results-wrapper">
-<table id="merge-results-table" class="gnite-table">
-  <thead>
-    <tr>
-      <td class="header-path">Primary Path</td>
-      <td class="header-path">Secondary Path</td>
-      <td class="header-type">Merge Type</td>
-      <td class="header-type">Merge Subtype</td>
-    </tr>
-  </thead>
-  <tbody>
-    <% if @merges.any? %>
-      <% @merges.each do |merge| %>
-      <tr class="<% row_type = cycle("even", "odd") %><%= row_type %><%= (merge == @merges.last && row_type == 'even') ? " last last-even" : (merge == @merges.last && row_type == 'odd') ? " last last-odd": "" %>">
-        <td><%= merge[:primary_path] %></td>
-        <td><%= merge[:secondary_path] %></td>
-        <td><%= merge[:type] %></td>
-        <td><%= merge[:subtype] %></td>
-      </tr>
-      <% end %>
-    <% else %>
-      <tr class="single">
-        <td colspan="4">There are not yet any merge results</td>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
 
+<div class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+
+  <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+    <% if @new_names.any? %>
+      <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#new-tab">New Names (<%= @new_names.count %>)</a></li>
+    <% end %>
+    <% if @exact_matches.any? %>
+      <li class="ui-state-default ui-corner-top"><a href="#exact-tab">Exact Matches (<%= @exact_matches.count %>)</a></li>
+    <% end %>
+    <% if @fuzzy_matches.any? %>
+      <li class="ui-state-default ui-corner-top"><a href="#fuzzy-tab">Fuzzy Matches (<%= @fuzzy_matches.count %>)</a></li>
+    <% end %>
+  </ul>
+
+  <% if @new_names.any? %>
+  <div id="new-tab" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+    <table id="merge-results-new" class="gnite-table merge-results">
+      <thead>
+        <tr>
+          <td class="header-path">New Names</td>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody>
+        <% @new_names.each do |new_name| %>
+          <tr class="<% row_type = cycle("even", "odd") %><%= row_type %><%= (new_name == @new_names.last && row_type == 'even') ? " last last-even" : (new_name == @new_names.last && row_type == 'odd') ? " last last-odd": "" %>">
+            <td class="<%= new_name[:type] %><%= !new_name[:subtype].nil? ? " " << new_name[:subtype] : "" %>"><%= new_name[:secondary_path] %></td>
+            <td></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <% end %>
+
+  <% if @exact_matches.any? %>
+  <div id="exact-tab" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+    <table id="merge-results-exact" class="gnite-table merge-results">
+      <thead>
+        <tr>
+          <td class="header-path">Primary Path</td>
+          <td class="header-path">Secondary Path</td>
+        </tr>
+      </thead>
+      <tbody>
+        <% @exact_matches.each do |exact_match| %>
+          <tr class="<% row_type = cycle("even", "odd") %><%= row_type %><%= (exact_match == @exact_matches.last && row_type == 'even') ? " last last-even" : (exact_match == @exact_matches.last && row_type == 'odd') ? " last last-odd": "" %>">
+            <td><%= exact_match[:primary_path] %></td>
+            <td class="<%= exact_match[:type] %><%= !exact_match[:subtype].nil? ? " " << exact_match[:subtype] : "" %>"><%= exact_match[:secondary_path] %></td>
+          </tr>
+        <% end %>
+    </tbody>
+  </table>
+  </div>
+  <% end %>
+
+  <% if @fuzzy_matches.any? %>
+  <div id="fuzzy-tab" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+    <table id="merge-results-fuzzy" class="gnite-table merge-results">
+      <thead>
+        <tr>
+          <td class="header-path">Primary Path</td>
+          <td class="header-path">Secondary Path</td>
+        </tr>
+      </thead>
+      <tbody>
+        <% @fuzzy_matches.each do |fuzzy_match| %>
+          <tr class="<% row_type = cycle("even", "odd") %><%= row_type %><%= (fuzzy_match == @fuzzy_matches.last && row_type == 'even') ? " last last-even" : (fuzzy_match == @fuzzy_matches.last && row_type == 'odd') ? " last last-odd": "" %>">
+            <td><%= fuzzy_match[:primary_path] %></td>
+            <td class="<%= fuzzy_match[:type] %><%= !fuzzy_match[:subtype].nil? ? " " << fuzzy_match[:subtype] : "" %>"><%= fuzzy_match[:secondary_path] %></td>
+          </tr>
+        <% end %>
+    </tbody>
+  </table>
+  </div>
+  <% end %>
+
+</div>
 </div>
 
 <% content_for :javascript do %>

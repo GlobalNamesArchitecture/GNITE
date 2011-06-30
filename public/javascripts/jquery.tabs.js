@@ -1,11 +1,11 @@
 $(function() {
-  $('#tab-titles a').live('click', function() {
+  $('.ui-tabs-nav a').click(function() {
     if ($(this).attr('id') == 'all-tabs') {
       $('#reference-trees').parent().toggleClass('ui-tabs-selected ui-state-active');
     } else {
       var id = $(this).attr('href');
 
-      $('#tabs > .ui-tabs-panel:visible').addClass('ui-tabs-hide');
+      $('.ui-tabs > .ui-tabs-panel:visible').addClass('ui-tabs-hide');
       $('.ui-tabs-selected.ui-state-active').removeClass('ui-tabs-selected ui-state-active');
 
       $(id).removeClass('ui-tabs-hide');
@@ -16,8 +16,10 @@ $(function() {
   });
 
   $('body').click(function(event) {
-    if ($(event.target).parent('#tabs').length == 0 || event.target.nodeName != 'A') {
-      $('#all-tabs').parent().removeClass('ui-tabs-selected ui-state-active');
+    if ($(event.target).parent('.ui-tabs').length == 0 || event.target.nodeName != 'A') {
+      $('.ui-tabs').find('.ui-tabs-selected').each(function() {
+        if($(this).children("ul").length > 0) { $(this).removeClass('ui-tabs-selected ui-state-active'); }
+      });
     }
   });
 });

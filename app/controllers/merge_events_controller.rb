@@ -16,21 +16,46 @@ class MergeEventsController < ApplicationController
     reference_tree = ReferenceTree.find(Node.find(@merge_event.secondary_node_id).tree_id)
     @reference_tree = !reference_tree.blank? ? reference_tree : ReferenceTree.find(Node.find(@merge_event.primary_node_id).tree_id)
 
-    @type_to_label ||= MergeType.all.each_with_object({}){ |type,hash| hash[type.id] = type.label }
-    @subtype_to_label ||= MergeSubtype.all.each_with_object({}){ |subtype,hash| hash[subtype.id] = subtype.label }
+    type_to_label ||= MergeType.all.each_with_object({}){ |type,key| key[type.id] = type.label }
+    subtype_to_label ||= MergeSubtype.all.each_with_object({}){ |subtype,key| key[subtype.id] = subtype.label.gsub(/ /,'-') }
     
-    @merges = []
     results = MergeResultPrimary.includes(:merge_result_secondaries).where(:merge_event_id => params[:id])
+    @exact_matches = []
+    @fuzzy_matches = []
+    @new_names = []
     results.each do |primary|      
-      primary.merge_result_secondaries.each do |secondary|  
-        @merges << {:id => primary.id,
-          :primary_path => primary.path,
-          :secondary_path => secondary.path,
-          :type => @type_to_label[secondary.merge_type_id],
-          :subtype => @subtype_to_label[secondary.merge_subtype_id] 
-        }
+      primary.merge_result_secondaries.each do |secondary|
+        type = type_to_label[secondary.merge_type_id]
+        if type == "exact"
+          @exact_matches << {
+            :id             => secondary.id,
+            :primary_path   => primary.path,
+            :secondary_path => secondary.path,
+            :type           => type_to_label[secondary.merge_type_id],
+            :subtype        => subtype_to_label[secondary.merge_subtype_id] 
+          }
+        elsif type == "fuzzy"
+          @fuzzy_matches << {
+            :id             => secondary.id,
+            :primary_path   => primary.path,
+            :secondary_path => secondary.path,
+            :type           => type_to_label[secondary.merge_type_id],
+            :subtype        => subtype_to_label[secondary.merge_subtype_id] 
+          }
+        else
+          @new_names << {
+            :id             => secondary.id,
+            :secondary_path => secondary.path,
+            :type           => type_to_label[secondary.merge_type_id]
+          }
+        end
       end
     end
+    
+    @exact_matches.sort! { |a,b| a[:primary_path] <=> b[:primary_path] }
+    @fuzzy_matches.sort! { |a,b| a[:primary_path] <=> b[:primary_path] }
+    @new_names.sort! { |a,b| a[:secondary_path] <=> b[:secondary_path] }
+    
   end
 
   def create
