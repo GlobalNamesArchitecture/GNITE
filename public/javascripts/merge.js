@@ -47,59 +47,76 @@ $(function() {
   }
 
   $('.header-decision a').click(function () {
-    //TODO: make array to submit to PUT controller
+    var merge_decisions = [], i = 0, id = "", decision_id;
 
     switch($(this).attr("class")) {
       case 'accepted':
-        $(this).parents("table").find("input.accepted").attr("checked", true);
+        $(this).parents("table").find("input.accepted").each(function() {
+          $(this).attr("disabled", "disabled");
+          id = $(this).attr("name").split("-")[1];
+          decision_id = $(this).val();
+          merge_decisions.push({ 'merge_result_secondary_id' : id, 'merge_decision_id' : decision_id });
+          $(this).attr("checked", true);
+        });
       break;
 
       case 'postponed':
-        $(this).parents("table").find("input.postponed").attr("checked", true);
+        $(this).parents("table").find("input.postponed").each(function() {
+          $(this).attr("disabled", "disabled");
+          id = $(this).attr("name").split("-")[1];
+          decision_id = $(this).val();
+          merge_decisions.push({ 'merge_result_secondary_id' : id, 'merge_decision_id' : decision_id });
+          $(this).attr("checked", true);
+        });
       break;
 
       case 'rejected':
-        $(this).parents("table").find("input.rejected").attr("checked", true);
+        $(this).parents("table").find("input.rejected").each(function() {
+          $(this).attr("disabled", "disabled");
+          id = $(this).attr("name").split("-")[1];
+          decision_id = $(this).val();
+          merge_decisions.push({ 'merge_result_secondary_id' : id, 'merge_decision_id' : decision_id });
+          $(this).attr("checked", true);
+        });
       break;
     }
 
-/*
     $.ajax({
       type        : 'PUT',
-      url         : url,
-      data        : JSON.stringify({ 'id' : id, 'value' : value }),
+      url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/merge_events/' + GNITE.Tree.MasterTree.merge_event,
+      data        : JSON.stringify({ 'data' : merge_decisions }),
       contentType : 'application/json',
       dataType    : 'json',
-      success     : function() {
-      },
-      error       : function() {
+      success     : function(data) {
+        if(data.status == "OK") {
+          for(i = 0; i < merge_decisions.length; i += 1) {
+            $('input[name="merge-' + merge_decisions[i].merge_result_secondary_id + '"]').removeAttr("disabled");
+          }
+        }
       }
     });
-*/
+
     return false;
   });
 
   $('input.merge-input').click(function() {
-    //TODO: pass variables to PUT controller
 
-    var value = $(this).val(),
-        id    = $(this).attr("name").split("-")[1];
+    var self        = this,
+        decision_id = $(this).val(),
+        id          = $(this).attr("name").split("-")[1];
 
-    $(this).attr("disabled", "disabled");
-/*
+    $(self).attr("disabled", "disabled");
+
     $.ajax({
       type        : 'PUT',
-      url         : url,
-      data        : JSON.stringify({ 'id' : id, 'value' : value }),
+      url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/merge_events/' + GNITE.Tree.MasterTree.merge_event,
+      data        : JSON.stringify({'data' : [{ 'merge_result_secondary_id' : id, 'merge_decision_id' : decision_id }]}),
       contentType : 'application/json',
       dataType    : 'json',
-      success     : function() {
-      },
-      error       : function() {
+      success     : function(data) {
+        if(data.status == "OK") { $(self).removeAttr("disabled"); }
       }
     });
-*/
-    $(this).removeAttr("disabled");
 
   });
 

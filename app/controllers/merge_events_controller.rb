@@ -80,4 +80,18 @@ class MergeEventsController < ApplicationController
     Resque.enqueue(MergeEvent, @merge_event.id)
     redirect_to master_tree_merge_event_url(params[:master_tree_id], @merge_event.id)
   end
+  
+  def update
+    params[:data].each do |decision|
+      decision_item = MergeResultSecondary.find(decision[:merge_result_secondary_id])
+      decision_item.update_attributes(:merge_decision_id => decision[:merge_decision_id])
+      decision_item.save
+    end
+    respond_to do |format|
+      format.json do
+        render :json => { :status => "OK" }
+      end
+    end
+  end
+  
 end
