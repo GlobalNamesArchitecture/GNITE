@@ -30,7 +30,6 @@ $(function() {
 
   GNITE.Tree.MasterTree.channel = "tree_"+GNITE.Tree.MasterTree.id;
 
-
   /**************************************************************
            TREE CONFIGURATION
   **************************************************************/
@@ -1801,7 +1800,9 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
 
     GNITE.Tree.buildViewMenuActions();
 
-    $('#tabs li:first-child ul li a[href="#' + response.domid +'"]').trigger('click');
+    $('#' + response.domid).siblings('.ui-tabs-nav').children('.ui-state-default').removeClass('ui-tabs-selected ui-state-active');
+    $('#' + response.domid).removeClass("ui-tabs-hide").siblings('.ui-tabs-panel').addClass("ui-tabs-hide");
+
   }
 
   if (options) {

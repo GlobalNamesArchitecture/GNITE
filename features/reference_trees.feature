@@ -13,7 +13,7 @@ Feature: Work with reference trees
       | Pardosa distincta   |
       | Pardosa moesta      |
       | Pardosa xerampelina |
-    And pause 3
+    And I wait for the websocket to activate
     And I follow "All reference trees"
     And I follow "List"
 
