@@ -1,0 +1,3 @@
+<% decision_types.each do |decision| %>
+<input class="merge-input <%= decision.label %>" type="radio" name="merge-<%= merge_id %>" value="<%= decision.id %>"></input>
+<% end %>

@@ -15,6 +15,7 @@ class MergeEventsController < ApplicationController
     @master_tree = @merge_event.master_tree
     reference_tree = ReferenceTree.find(Node.find(@merge_event.secondary_node_id).tree_id)
     @reference_tree = !reference_tree.blank? ? reference_tree : ReferenceTree.find(Node.find(@merge_event.primary_node_id).tree_id)
+    @decision_types = MergeDecision.all
 
     type_to_label ||= MergeType.all.each_with_object({}){ |type,key| key[type.id] = type.label }
     subtype_to_label ||= MergeSubtype.all.each_with_object({}){ |subtype,key| key[subtype.id] = subtype.label.gsub(/ /,'-') }
@@ -31,7 +32,7 @@ class MergeEventsController < ApplicationController
             :id             => secondary.id,
             :primary_path   => primary.path,
             :secondary_path => secondary.path,
-            :type           => type_to_label[secondary.merge_type_id],
+            :type           => type,
             :subtype        => subtype_to_label[secondary.merge_subtype_id] 
           }
         elsif type == "fuzzy"
@@ -39,14 +40,14 @@ class MergeEventsController < ApplicationController
             :id             => secondary.id,
             :primary_path   => primary.path,
             :secondary_path => secondary.path,
-            :type           => type_to_label[secondary.merge_type_id],
+            :type           => type,
             :subtype        => subtype_to_label[secondary.merge_subtype_id] 
           }
         else
           @new_names << {
             :id             => secondary.id,
             :secondary_path => secondary.path,
-            :type           => type_to_label[secondary.merge_type_id]
+            :type           => type
           }
         end
       end

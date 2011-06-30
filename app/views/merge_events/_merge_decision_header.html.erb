@@ -1,0 +1,8 @@
+<td class="header-decision">
+  Decision
+  <div>
+    <% @decision_types.each do |decision| %>
+      <a class="<%= decision.label %>" title="all <%= decision.label %>" href="#">&nbsp;</a>
+    <% end %>
+  </div>
+</td>

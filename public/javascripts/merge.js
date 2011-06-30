@@ -50,16 +50,16 @@ $(function() {
     //TODO: make array to submit to PUT controller
 
     switch($(this).attr("class")) {
-      case 'accept':
-        $(this).parents("table").find("input.accept").attr("checked", true);
+      case 'accepted':
+        $(this).parents("table").find("input.accepted").attr("checked", true);
       break;
 
-      case 'postpone':
-        $(this).parents("table").find("input.postpone").attr("checked", true);
+      case 'postponed':
+        $(this).parents("table").find("input.postponed").attr("checked", true);
       break;
 
-      case 'reject':
-        $(this).parents("table").find("input.reject").attr("checked", true);
+      case 'rejected':
+        $(this).parents("table").find("input.rejected").attr("checked", true);
       break;
     }
 
