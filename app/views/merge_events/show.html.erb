@@ -1,7 +1,7 @@
 <% content_for :header do %>
   <div class="tree_list_header clearfix">
     <div class="tree_list_header_inner clearfix">
-      <h1>Merge Results for <%= @merge_event.memo %></h1>
+      <h1><%= @merge_event.memo %></h1>
       <div id="tree-return" class="tree-link clearfix">
         <a href="<%= master_tree_path(:id => @master_tree.id) %>"><span>View Master Tree</span></a>
       </div>
@@ -10,7 +10,7 @@
 <% end %>
 
 <div id="merge-results-wrapper">
-  <form autocomplete="off">
+  <%= form_tag(:autocomplete => "off", :only_path => true) do %>
     <div class="ui-tabs ui-widget ui-widget-content ui-corner-all">
 
     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
@@ -38,7 +38,8 @@
     <% end %>
 
     </div>
-  </form>
+  <%= submit_tag "Execute", :class => "green-submit submit" %>
+  <% end -%>
 </div>
 
 <% content_for :javascript do %>
