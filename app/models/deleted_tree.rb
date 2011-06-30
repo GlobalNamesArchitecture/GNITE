@@ -1,6 +1,6 @@
 class DeletedTree < Tree
   belongs_to :master_tree
-  before_create :set_title
+  before_validation :set_title
 
   validates_presence_of :master_tree
 

@@ -33,7 +33,7 @@ class ActionBulkCopyNode < ActionCommand
   end
   
   def generate_log
-    roots = Node.roots(tree_id)
+    roots = Tree.find(tree_id).root.children
     parent = Node.find(parent_id)
     destination = (parent_id == roots[0].id) ? "root": parent.name.name_string
     bulk_copied = JSON.parse(json_message, :symbolize_names => true)[:do].join(", ")
