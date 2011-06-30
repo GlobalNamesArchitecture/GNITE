@@ -1,4 +1,5 @@
 class MergeEventsController < ApplicationController
+  before_filter :authenticate
 
   def index
     page = (params[:page]) ? params[:page] : 1
@@ -33,7 +34,8 @@ class MergeEventsController < ApplicationController
             :primary_path   => primary.path,
             :secondary_path => secondary.path,
             :type           => type,
-            :subtype        => subtype_to_label[secondary.merge_subtype_id] 
+            :subtype        => subtype_to_label[secondary.merge_subtype_id],
+            :merge_decision => secondary.merge_decision_id
           }
         elsif type == "fuzzy"
           @fuzzy_matches << {
@@ -41,13 +43,15 @@ class MergeEventsController < ApplicationController
             :primary_path   => primary.path,
             :secondary_path => secondary.path,
             :type           => type,
-            :subtype        => subtype_to_label[secondary.merge_subtype_id] 
+            :subtype        => subtype_to_label[secondary.merge_subtype_id],
+            :merge_decision => secondary.merge_decision_id
           }
         else
           @new_names << {
             :id             => secondary.id,
             :secondary_path => secondary.path,
-            :type           => type
+            :type           => type,
+            :merge_decision => secondary.merge_decision_id
           }
         end
       end

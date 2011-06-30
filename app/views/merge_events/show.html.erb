@@ -10,34 +10,35 @@
 <% end %>
 
 <div id="merge-results-wrapper">
+  <form autocomplete="off">
+    <div class="ui-tabs ui-widget ui-widget-content ui-corner-all">
 
-<div class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+      <% if @new_names.any? %>
+        <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#new-tab">New Names (<%= @new_names.count %>)</a></li>
+      <% end %>
+      <% if @exact_matches.any? %>
+        <li class="ui-state-default ui-corner-top"><a href="#exact-tab">Exact Matches (<%= @exact_matches.count %>)</a></li>
+      <% end %>
+      <% if @fuzzy_matches.any? %>
+        <li class="ui-state-default ui-corner-top"><a href="#fuzzy-tab">Fuzzy Matches (<%= @fuzzy_matches.count %>)</a></li>
+      <% end %>
+    </ul>
 
-  <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
     <% if @new_names.any? %>
-      <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#new-tab">New Names (<%= @new_names.count %>)</a></li>
+      <%= render :partial => 'merge_type_new_name' %>
     <% end %>
+
     <% if @exact_matches.any? %>
-      <li class="ui-state-default ui-corner-top"><a href="#exact-tab">Exact Matches (<%= @exact_matches.count %>)</a></li>
+      <%= render :partial => 'merge_type_exact' %>
     <% end %>
+
     <% if @fuzzy_matches.any? %>
-      <li class="ui-state-default ui-corner-top"><a href="#fuzzy-tab">Fuzzy Matches (<%= @fuzzy_matches.count %>)</a></li>
+      <%= render :partial => 'merge_type_fuzzy' %>
     <% end %>
-  </ul>
 
-  <% if @new_names.any? %>
-    <%= render :partial => 'merge_type_new_name' %>
-  <% end %>
-
-  <% if @exact_matches.any? %>
-    <%= render :partial => 'merge_type_exact' %>
-  <% end %>
-
-  <% if @fuzzy_matches.any? %>
-    <%= render :partial => 'merge_type_fuzzy' %>
-  <% end %>
-
-</div>
+    </div>
+  </form>
 </div>
 
 <% content_for :javascript do %>

@@ -2248,6 +2248,16 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 .merge-results td.merge-decision {
   width:72px;
   border-right:1px dotted #BABFC3;
+  text-align:center;
+}
+
+.merge-results label {
+	
+}
+
+.merge-results input.merge-input {
+  margin-left:4px;
+  margin-right:4px;
 }
 
 .merge-results td.new {
