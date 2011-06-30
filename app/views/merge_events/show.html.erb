@@ -26,114 +26,25 @@
   </ul>
 
   <% if @new_names.any? %>
-  <div id="new-tab" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
-    <table id="merge-results-new" class="gnite-table merge-results">
-      <thead>
-        <tr>
-          <td class="header-decision">
-            Decision
-            <div>
-              <a class="accept" title="accept all" href="#">&nbsp;</a>
-              <a class="postpone" title="postpone all" href="#">&nbsp;</a>
-              <a class="reject" title="reject all" href="#">&nbsp;</a>
-            </div>
-          </td>
-          <td class="header-path">New Names</td>
-        </tr>
-      </thead>
-      <tbody>
-        <% @new_names.each do |new_name| %>
-          <tr class="<% row_type = cycle("even", "odd") %><%= row_type %><%= (new_name == @new_names.last && row_type == 'even') ? " last last-even" : (new_name == @new_names.last && row_type == 'odd') ? " last last-odd": "" %>">
-            <td class="merge-decision">
-              <input class="merge-input accept" type="radio" name="merge-<%= new_name[:id] %>" value="1"></input>
-              <input class="merge-input postpone" type="radio" name="merge-<%= new_name[:id] %>" value="2"></input>
-              <input class="merge-input reject" type="radio" name="merge-<%= new_name[:id] %>" value="3"></input>
-            </td>
-            <td class="<%= new_name[:type] %><%= !new_name[:subtype].nil? ? " " << new_name[:subtype] : "" %>">
-              <%= new_name[:secondary_path] %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+    <%= render :partial => 'merge_type_new_name' %>
   <% end %>
 
   <% if @exact_matches.any? %>
-  <div id="exact-tab" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
-    <table id="merge-results-exact" class="gnite-table merge-results">
-      <thead>
-        <tr>
-          <td class="header-decision">
-            Decision
-            <div>
-              <a class="accept" title="accept all" href="#">&nbsp;</a>
-              <a class="postpone" title="postpone all" href="#">&nbsp;</a>
-              <a class="reject" title="reject all" href="#">&nbsp;</a>
-            </div>
-          </td>
-          <td class="header-path">Primary Path</td>
-          <td class="header-path">Secondary Path</td>
-        </tr>
-      </thead>
-      <tbody>
-        <% @exact_matches.each do |exact| %>
-          <tr class="<% row_type = cycle("even", "odd") %><%= row_type %><%= (exact == @exact_matches.last && row_type == 'even') ? " last last-even" : (exact == @exact_matches.last && row_type == 'odd') ? " last last-odd": "" %>">
-            <td class="merge-decision">
-              <input class="merge-input accept" type="radio" name="merge-<%= exact[:id] %>" value="1"></input>
-              <input class="merge-input postpone" type="radio" name="merge-<%= exact[:id] %>" value="2"></input>
-              <input class="merge-input reject" type="radio" name="merge-<%= exact[:id] %>" value="3"></input>
-            </td>
-            <td><%= exact[:primary_path] %></td>
-            <td class="<%= exact[:type] %><%= !exact[:subtype].nil? ? " " << exact[:subtype] : "" %>"><%= exact[:secondary_path] %></td>
-          </tr>
-        <% end %>
-    </tbody>
-  </table>
-  </div>
+    <%= render :partial => 'merge_type_exact' %>
   <% end %>
 
   <% if @fuzzy_matches.any? %>
-  <div id="fuzzy-tab" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
-    <table id="merge-results-fuzzy" class="gnite-table merge-results">
-      <thead>
-        <tr>
-          <td class="header-decision">
-            Decision
-            <div>
-              <a class="accept" title="accept all" href="#">&nbsp;</a>
-              <a class="postpone" title="postpone all" href="#">&nbsp;</a>
-              <a class="reject" title="reject all" href="#">&nbsp;</a>
-          </td>
-          <td class="header-path">Primary Path</td>
-          <td class="header-path">Secondary Path</td>
-        </tr>
-      </thead>
-      <tbody>
-        <% @fuzzy_matches.each do |fuzzy| %>
-          <tr class="<% row_type = cycle("even", "odd") %><%= row_type %><%= (fuzzy == @fuzzy_matches.last && row_type == 'even') ? " last last-even" : (fuzzy == @fuzzy_matches.last && row_type == 'odd') ? " last last-odd": "" %>">
-            <td class="merge-decision">
-              <input class="merge-input accept" type="radio" name="merge-<%= fuzzy[:id] %>" value="1"></input>
-              <input class="merge-input postpone" type="radio" name="merge-<%= fuzzy[:id] %>" value="2"></input>
-              <input class="merge-input reject" type="radio" name="merge-<%= fuzzy[:id] %>" value="3"></input>
-            </td>
-            <td><%= fuzzy[:primary_path] %></td>
-            <td class="<%= fuzzy[:type] %><%= !fuzzy[:subtype].nil? ? " " << fuzzy[:subtype] : "" %>"><%= fuzzy[:secondary_path] %></td>
-          </tr>
-        <% end %>
-    </tbody>
-  </table>
-  </div>
+    <%= render :partial => 'merge_type_fuzzy' %>
   <% end %>
 
 </div>
 </div>
 
 <% content_for :javascript do %>
-<%= javascript_include_tag 'juggernaut/json', 'juggernaut/socket_io', 'juggernaut/juggernaut', 'jquery.spinner', 'merge' %>
+  <%= javascript_include_tag 'juggernaut/json', 'juggernaut/socket_io', 'juggernaut/juggernaut', 'jquery.spinner', 'merge' %>
 
-<script type="text/javascript">
-<!--//--><![CDATA[//><!--
-jQuery.extend(GNITE.Tree.MasterTree, { "id" : "<%= @master_tree.id %>", "merge_event" : "<%= @merge_event.id %>", "merge_status" : "<%= @merge_event.status %>" });
-</script>
+  <script type="text/javascript">
+  <!--//--><![CDATA[//><!--
+  jQuery.extend(GNITE.Tree.MasterTree, { "id" : "<%= @master_tree.id %>", "merge_event" : "<%= @merge_event.id %>", "merge_status" : "<%= @merge_event.status %>" });
+  </script>
 <% end %>
