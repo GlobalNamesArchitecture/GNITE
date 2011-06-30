@@ -19,7 +19,7 @@ $(function() {
           message_wrapper   = {};
 
      container.spinner();
-     message_wrapper = container.find(".spinner").append('<p class="status"></p>');
+     message_wrapper = container.find(".spinner").append('<p class="status">Starting merge...</p>');
 
      GNITE.Tree.MasterTree.channel = "tree_"+GNITE.Tree.MasterTree.id;
 
