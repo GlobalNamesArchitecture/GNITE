@@ -14,30 +14,26 @@
     <div class="ui-tabs ui-widget ui-widget-content ui-corner-all">
 
     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-      <% if @new_names.any? %>
-        <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#new-tab">New Names (<%= @new_names.count %>)</a></li>
+      <% @data.sort.reverse.each do |key, data| %>
+        <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#<%= key %>-tab"><%= key %> (<%= @data[key].count %>)</a></li>
       <% end %>
-      <% if @exact_matches.any? %>
-        <li class="ui-state-default ui-corner-top"><a href="#exact-tab">Exact Matches (<%= @exact_matches.count %>)</a></li>
+      <% if @data[:new_matches].any? %>
+        <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#new-tab">New Names (<%= @data[:new_matches].count %>)</a></li>
       <% end %>
-      <% if @fuzzy_matches.any? %>
-        <li class="ui-state-default ui-corner-top"><a href="#fuzzy-tab">Fuzzy Matches (<%= @fuzzy_matches.count %>)</a></li>
+      <% if @data[:exact_matches].any? %>
+        <li class="ui-state-default ui-corner-top"><a href="#exact-tab">Exact Matches (<%= @data[:exact_matches].count %>)</a></li>
+      <% end %>
+      <% if @data[:fuzzy_matches].any? %>
+        <li class="ui-state-default ui-corner-top"><a href="#fuzzy-tab">Fuzzy Matches (<%= @data[:fuzzy_matches].count %>)</a></li>
       <% end %>
     </ul>
 
-    <% if @new_names.any? %>
-      <%= render :partial => 'merge_type_new_name' %>
-    <% end %>
+     <% @data.each do |match| %>
 
-    <% if @exact_matches.any? %>
-      <%= render :partial => 'merge_type_exact' %>
-    <% end %>
-
-    <% if @fuzzy_matches.any? %>
-      <%= render :partial => 'merge_type_fuzzy' %>
-    <% end %>
+     <% end %>
 
     </div>
+
   <%= submit_tag "Execute", :class => "green-submit submit" %>
   <% end -%>
 </div>
