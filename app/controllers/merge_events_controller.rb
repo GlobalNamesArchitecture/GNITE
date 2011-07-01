@@ -21,11 +21,9 @@ class MergeEventsController < ApplicationController
     type_to_label ||= MergeType.all.each_with_object({}){ |type,key| key[type.id] = type.label }
     subtype_to_label ||= MergeSubtype.all.each_with_object({}){ |subtype,key| key[subtype.id] = subtype.label.gsub(/ /,'-') }
     
+    @data = { new_matches: [], exact_matches: [], fuzzy_matches: [] }
+    
     results = MergeResultPrimary.includes(:merge_result_secondaries).where(:merge_event_id => params[:id])
-    @exact_matches = []
-    @fuzzy_matches = []
-    @new_names = []
-    @data = { exact_matches: [], fuzzy_matches: [], new_matches: [] }
     results.each do |primary|      
       primary.merge_result_secondaries.each do |secondary|
         type = type_to_label[secondary.merge_type_id]
@@ -38,7 +36,7 @@ class MergeEventsController < ApplicationController
             :merge_decision => secondary.merge_decision_id
         }
       end
-    end 
+    end
   end
 
   def create
