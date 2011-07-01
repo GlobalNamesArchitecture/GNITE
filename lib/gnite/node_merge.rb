@@ -49,7 +49,6 @@ module Gnite
         if [MergeDecision.accepted.id, MergeDecision.postponed.id].include? secondary_node.merge_decision_id
           merge_node = Node.find(secondary_node.node_id)
           if secondary_node.merge_type.label == 'new'
-            require 'ruby-debug'; debugger
             merge_node_copy = merge_node.clone
             merge_node_copy.parent = node_copy
             merge_node_copy.tree = merge_event.merge_tree

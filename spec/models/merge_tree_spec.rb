@@ -23,8 +23,7 @@ describe MergeTree do
     end
     @merge_tree.nodes.size.should == 1
     @merge_tree.populate
-    @merge_tree.nodes.size.should > 1
-    require 'ruby-debug'; debugger
-    puts ''
+    @merge_tree.nodes.size.should == 18
+    @merge_tree.nodes.map {|n| n.synonyms}.flatten.compact.size.should == 6
   end
 end
