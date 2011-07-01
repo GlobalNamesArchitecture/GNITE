@@ -9,7 +9,7 @@ module Gnite
       children.each do |child|
         child_copy = child.deep_merge(merge_event)
         child_copy.parent = copy
-        add_merges(merge_event, child) if merge_has_node?(merge_event.id, child.id)
+        add_merges(merge_event, child, child_copy) if merge_has_node?(merge_event.id, child.id)
         child_copy.save! 
       end
       copy_metadata(copy, self)
@@ -44,17 +44,19 @@ module Gnite
       !!@current_merged_node
     end
 
-    def add_merges(merge_event, node)
+    def add_merges(merge_event, node, node_copy)
       @current_merged_node.merge_result_secondaries.each do |secondary_node|   
         if [MergeDecision.accepted.id, MergeDecision.postponed.id].include? secondary_node.merge_decision_id
           merge_node = Node.find(secondary_node.node_id)
           if secondary_node.merge_type.label == 'new'
+            require 'ruby-debug'; debugger
             merge_node_copy = merge_node.clone
-            merge_node_copy.parent = node
+            merge_node_copy.parent = node_copy
             merge_node_copy.tree = merge_event.merge_tree
+            merge_node_copy.save!
             copy_metadata(merge_node_copy, merge_node)
           else
-            copy_metadata(node, merge_node)
+            copy_metadata(node_copy, merge_node)
           end
         end
       end

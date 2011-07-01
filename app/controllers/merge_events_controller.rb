@@ -37,6 +37,9 @@ class MergeEventsController < ApplicationController
         }
       end
     end
+    
+    @data.delete_if { |k, v| v.empty? }
+    
   end
 
   def create
