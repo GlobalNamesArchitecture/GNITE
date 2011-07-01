@@ -24,7 +24,8 @@
            <%= render :partial => "merge_#{key}" %>
          <% end %>
       </div>
-      <%= submit_tag "Execute", :class => "green-submit submit" %>
+      <%= submit_tag "Preview", :class => "green-submit preview", :name => "preview" %>
+      <%= submit_tag "Execute", :class => "green-submit submit", :name => "commit" %>
     <% end %>
   <% end %>
 </div>

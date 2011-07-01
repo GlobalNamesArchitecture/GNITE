@@ -120,4 +120,33 @@ $(function() {
 
   });
 
+  $('input.preview').click(function() {
+    return false;
+  });
+
+  $('input.submit').click(function() {
+    if($('.merge-input:checked').length === 0) {
+      var message = 'You have not yet made any decisions';
+      $('body').append('<div id="dialog-message" class="ui-state-highlight" title="Warning">' + message + '</div>');
+      $('#dialog-message').dialog({
+        height : 200,
+        width : 500,
+        modal : true,
+        closeText : "",
+        buttons: [
+         {
+           className : "green-submit",
+           text : "OK",
+           click : function() {
+             $('#dialog-message').dialog("destroy").hide().remove();
+           }
+         }
+       ],
+       draggable : false,
+       resizable : false
+      });
+    return false;
+    }
+  });
+
 });
