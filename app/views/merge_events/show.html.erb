@@ -10,28 +10,22 @@
 <% end %>
 
 <div id="merge-results-wrapper">
-  <%= form_tag(:autocomplete => "off", :only_path => true) do %>
-    <div class="ui-tabs ui-widget ui-widget-content ui-corner-all">
-
-    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-      <% @data.each_with_index do |(key,value),index| %>
-        <li class="ui-state-default ui-corner-top<%= (index == 0) ? " ui-tabs-selected ui-state-active" : "" %>">
-          <a href="#<%= key %>_tab"><%= key.to_s.split("_").each{|word| word.capitalize!}.join(" ") %> (<%= @data[key].count %>)</a>
-        </li>
-      <% end %>
-    </ul>
-
-     <% @data.each do |key, data| %>
-       <%= render :partial => "merge_#{key}" %>
-     <% end %>
-
-    </div>
-
-    <% @data.each do |data| %>
+  <% if !@data.empty? %>
+    <%= form_tag(:autocomplete => "off", :only_path => true) do %>
+      <div class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+          <% @data.each_with_index do |(key,value),index| %>
+            <li class="ui-state-default ui-corner-top<%= (index == 0) ? " ui-tabs-selected ui-state-active" : "" %>">
+              <a href="#<%= key %>_tab"><%= key.to_s.split("_").each{|word| word.capitalize!}.join(" ") %> (<%= @data[key].count %>)</a>
+            </li>
+          <% end %>
+        </ul>
+         <% @data.each do |key, data| %>
+           <%= render :partial => "merge_#{key}" %>
+         <% end %>
+      </div>
       <%= submit_tag "Execute", :class => "green-submit submit" %>
-      <% break data if data.count > 0 %>
     <% end %>
-
   <% end %>
 </div>
 

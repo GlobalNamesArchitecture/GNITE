@@ -7,8 +7,9 @@
         </tr>
       </thead>
       <tbody>
-        <% @data[:new_matches].each do |new_name| %>
-          <tr class="<% row_type = cycle("even", "odd") %><%= row_type %><%= (new_name == @data[:new_matches].last && row_type == 'even') ? " last last-even" : (new_name == @data[:new_matches].last && row_type == 'odd') ? " last last-odd": "" %>">
+        <% data = @data[:new_matches].sort { |a,b| a[:secondary_path] <=> b[:secondary_path] } %>
+        <% data.each do |new_name| %>
+          <tr class="<% row_type = cycle("even", "odd") %><%= row_type %><%= (new_name == data.last && row_type == 'even') ? " last last-even" : (new_name == data.last && row_type == 'odd') ? " last last-odd": "" %>">
             <td class="merge-decision">
               <%= render :partial => 'merge_inputs', :locals => { :merge_id => new_name[:id], :decision_types => @decision_types, :decision => new_name[:merge_decision] } %>
             </td>
