@@ -1,4 +1,4 @@
-  <div id="new-tab" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+  <div id="new_matches_tab" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
     <table id="merge-results-new" class="gnite-table merge-results">
       <thead>
         <tr>
@@ -7,8 +7,8 @@
         </tr>
       </thead>
       <tbody>
-        <% @new_names.each do |new_name| %>
-          <tr class="<% row_type = cycle("even", "odd") %><%= row_type %><%= (new_name == @new_names.last && row_type == 'even') ? " last last-even" : (new_name == @new_names.last && row_type == 'odd') ? " last last-odd": "" %>">
+        <% @data[:new_matches].each do |new_name| %>
+          <tr class="<% row_type = cycle("even", "odd") %><%= row_type %><%= (new_name == @data[:new_matches].last && row_type == 'even') ? " last last-even" : (new_name == @data[:new_matches].last && row_type == 'odd') ? " last last-odd": "" %>">
             <td class="merge-decision">
               <%= render :partial => 'merge_inputs', :locals => { :merge_id => new_name[:id], :decision_types => @decision_types, :decision => new_name[:merge_decision] } %>
             </td>

@@ -21,46 +21,22 @@ class MergeEventsController < ApplicationController
     type_to_label ||= MergeType.all.each_with_object({}){ |type,key| key[type.id] = type.label }
     subtype_to_label ||= MergeSubtype.all.each_with_object({}){ |subtype,key| key[subtype.id] = subtype.label.gsub(/ /,'-') }
     
+    @data = { new_matches: [], exact_matches: [], fuzzy_matches: [] }
+    
     results = MergeResultPrimary.includes(:merge_result_secondaries).where(:merge_event_id => params[:id])
-    @exact_matches = []
-    @fuzzy_matches = []
-    @new_names = []
     results.each do |primary|      
       primary.merge_result_secondaries.each do |secondary|
         type = type_to_label[secondary.merge_type_id]
-        if type == "exact"
-          @exact_matches << {
+        @data["#{type}_matches".to_sym] << {
             :id             => secondary.id,
             :primary_path   => primary.path,
             :secondary_path => secondary.path,
             :type           => type,
             :subtype        => subtype_to_label[secondary.merge_subtype_id],
             :merge_decision => secondary.merge_decision_id
-          }
-        elsif type == "fuzzy"
-          @fuzzy_matches << {
-            :id             => secondary.id,
-            :primary_path   => primary.path,
-            :secondary_path => secondary.path,
-            :type           => type,
-            :subtype        => subtype_to_label[secondary.merge_subtype_id],
-            :merge_decision => secondary.merge_decision_id
-          }
-        else
-          @new_names << {
-            :id             => secondary.id,
-            :secondary_path => secondary.path,
-            :type           => type,
-            :merge_decision => secondary.merge_decision_id
-          }
-        end
+        }
       end
     end
-    
-    @exact_matches.sort! { |a,b| a[:primary_path] <=> b[:primary_path] }
-    @fuzzy_matches.sort! { |a,b| a[:primary_path] <=> b[:primary_path] }
-    @new_names.sort! { |a,b| a[:secondary_path] <=> b[:secondary_path] }
-    
   end
 
   def create
