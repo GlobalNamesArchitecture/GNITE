@@ -1981,6 +1981,7 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   -moz-border-radius: 6px 6px 0px 0px;
   -webkit-border-radius: 6px 6px 0px 0px;
   position:relative;
+  cursor:pointer;
 }
 
 #chat-messages-wrapper #chat-messages-title {
@@ -1991,24 +1992,23 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 
 #chat-messages-wrapper #chat-messages-head #chat-messages-options {
   text-align:right;
-  width:50px;
+  width:75px;
   position:absolute;
   top:0px;
   right:0px;
 }
 
 #chat-messages-options a.chat-messages-control {
-  width:16px;
   height:16px;
   margin:0px 3px;
-  padding:0px 5px;
-  background-position: center center;
+  padding-left:15px;
+  background-position: left center;
   background-repeat: no-repeat;
   text-decoration:none;
 }
 
-#chat-messages-options #chat-messages-minimize { background-image: url("../images/icons/bullet_yellow.png"); }
-#chat-messages-options #chat-messages-maximize { background-image: url("../images/icons/bullet_green.png"); }
+#chat-messages-options #chat-messages-maximize { background-image: url("../images/icons/bullet_green.png"); color:green }
+#chat-messages-options #chat-messages-minimize { background-image: url("../images/icons/bullet_yellow.png"); color:yellow; display:none }
 
 #chat-messages-scroller {
   overflow-y:auto;
