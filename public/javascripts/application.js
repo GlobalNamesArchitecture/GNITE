@@ -1234,19 +1234,22 @@ $(function() {
   /**************************************************************
            CHAT
   **************************************************************/
+  $('#chat-messages-head').click(function() {
+    if($('#chat-messages-wrapper > div:not(:first)').is(':visible')) {
+      $('#chat-messages-wrapper > div:not(:first)').hide();
+      $('#chat-messages-maximize').show();
+      $('#chat-messages-minimize').hide();
+    } else {
+      $('#chat-messages-wrapper > div:not(:first)').show();
+      $('#chat-messages-maximize').hide();
+      $('#chat-messages-minimize').show();
+    }
+  });
   $('#chat-messages-input').keypress(function(event) {
     if (event.which === 13) {
       GNITE.postChat();
       $(this).val('');
     }
-  });
-  $('#chat-messages-minimize').click(function() {
-    $('#chat-messages-wrapper > div:not(:first)').hide();
-    return false;
-  });
-  $('#chat-messages-maximize').click(function() {
-    $('#chat-messages-wrapper > div:not(:first)').show();
-    return false;
   });
 
 });
