@@ -2197,7 +2197,7 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 }
 
 .merge_events .spinner {
-  background: #FFF url("/images/loading.gif") no-repeat center 300px;
+  background: #FFF url("/images/loading.gif") no-repeat center center;
 }
 
 .merge_events .spinner p.status {

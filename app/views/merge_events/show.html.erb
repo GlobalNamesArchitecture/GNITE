@@ -31,10 +31,10 @@
 </div>
 
 <% content_for :javascript do %>
-  <%= javascript_include_tag 'juggernaut/json', 'juggernaut/socket_io', 'juggernaut/juggernaut', 'jquery.spinner', 'merge' %>
+  <%= javascript_include_tag 'juggernaut/json', 'juggernaut/socket_io', 'juggernaut/juggernaut', 'jquery.spinner', 'merge', 'jstree/jquery.jstree', 'jquery.hotkeys' %>
 
   <script type="text/javascript">
   <!--//--><![CDATA[//><!--
-  jQuery.extend(GNITE.Tree.MasterTree, { "id" : "<%= @master_tree.id %>", "merge_event" : "<%= @merge_event.id %>", "merge_status" : "<%= @merge_event.status %>" });
+  jQuery.extend(GNITE.MergeEvent, { "merge_event" : "<%= @merge_event.id %>", "master_tree_id" : "<%= @merge_event.master_tree_id %>", "merge_status" : "<%= @merge_event.status %>", "merge_tree_id" : "<%= @merge_event.merge_tree_id %>" });
   </script>
 <% end %>

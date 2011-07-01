@@ -44,5 +44,10 @@ Gnite::Application.routes.draw do
     resource  :tree_expand,  :only => [:show]
   end
   
+  resources :merge_trees, :only => [:show] do
+    resources :nodes,        :only => [:index, :show]
+    resource  :tree_expand,  :only => [:show]
+  end
+  
   root :to => "homes#show"
 end
