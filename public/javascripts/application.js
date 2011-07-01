@@ -920,7 +920,7 @@ $(function() {
 
     var self     = $(this),
         metadata = self.parent().parent().next(),
-        wrapper  = self.parent(),
+        wrapper  = self.parent().parent(),
         url      = '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes/' + data.rslt.obj.attr("id");
 
     GNITE.Tree.Node.getMetadata(url, metadata, wrapper);
