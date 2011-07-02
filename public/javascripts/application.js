@@ -789,8 +789,11 @@ $(function() {
     event = null; data = null;
     $(this).addClass('loaded');
     // Lock the master tree if refreshed in midst of active job
-    if(GNITE.Tree.MasterTree.state === "working") {
+    if(GNITE.Tree.MasterTree.state === "working" || GNITE.Tree.MasterTree.state === "merging") {
       $(this).jstree("lock");
+    }
+    if(GNITE.Tree.MasterTree.state === "merging") {
+      GNITE.Tree.MasterTree.addMergeWarning();
     }
   });
 
@@ -1643,6 +1646,14 @@ GNITE.Tree.MasterTree.updateMetadataTitle = function(name) {
   "use strict";
 
   $('#treewrap-main .node-metadata span.ui-dialog-title').text(name);
+};
+
+GNITE.Tree.MasterTree.addMergeWarning = function() {
+
+  "use strict";
+
+  $('#toolbar .topnav').hide();
+  $('#merge-warning').show();
 };
 
 GNITE.Tree.MasterTree.merge = function() {

@@ -2190,6 +2190,43 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 
 /* Merge Results Screen */
 /************************************************************************/
+#merge-warning {
+  display:none;
+  position:absolute;
+  top:100px;
+  left:40px;
+  right:40px;
+  padding:25px;
+}
+
+#merge-warning ul li {
+  border-radius: 8px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  background: #E0E2E4;
+  background: -moz-linear-gradient(0% 100% 90deg,#BBC0C4, #E0E2E4);
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#E0E2E4), to(#BBC0C4));
+  border: 1px solid #aaa;
+  box-shadow: inset 0  1px 0  #fff;
+  -moz-box-shadow: inset 0  1px 0  #fff;
+  -webkit-box-shadow: inset 0  1px 0  #fff;
+}
+
+#merge-warning ul li:hover {
+  background: -moz-linear-gradient(0% 100% 90deg,#aeb3b8, #d2d4d6);
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#d2d4d6), to(#aeb3b8));
+}
+
+#merge-warning ul li a {
+  color:red;
+  font-weight:bold;
+  text-shadow:0 1px 0 #FFFFFF;
+  text-align:center;
+  font-size:1.5em;
+  text-decoration:none;
+  display:block;
+  padding:20px;
+}
 
 #merge-results-preview {
   display:none;

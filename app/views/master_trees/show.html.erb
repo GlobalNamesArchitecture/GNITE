@@ -31,6 +31,14 @@
 
       <div class="node-metadata ui-dialog clearfix"></div>
 
+      <div id="merge-warning">
+        <ul><li>
+        <%= link_to master_tree_merge_events_path(:master_tree_id => @master_tree.id) do %>
+          This tree has an active merge event and cannot be edited
+        <% end %>
+        </li></ul>
+      </div>
+
     </div>
   </div>
 

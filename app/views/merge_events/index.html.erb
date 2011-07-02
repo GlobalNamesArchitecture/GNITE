@@ -2,9 +2,11 @@
   <div class="tree_list_header clearfix">
     <div class="tree_list_header_inner clearfix">
       <h1>Merge Events for <%= @master_tree.title %></h1>
+      <% if !@merge_events.any? %>
       <div id="tree-return" class="tree-link clearfix">
         <a href="<%= master_tree_path(:id => @master_tree.id) %>"><span>View Master Tree</span></a>
       </div>
+      <% end %>
     </div>
   </div>
 <% end %>
