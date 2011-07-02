@@ -1656,13 +1656,13 @@ GNITE.Tree.MasterTree.merge = function() {
 
   var master                    = $('#master-tree'),
       master_selected           = master.jstree("get_selected"),
-      reference                 = $('.reference-tree-container div.jstree-focused'),
+      reference                 = $(".reference-tree:not('.ui-tabs-hide') div.jstree"),
       reference_selected        = reference.jstree("get_selected"),
       master_selected_string    = "",
       reference_selected_string = "",
       message                   = "";
 
-  if(master_selected.length === 0 || master_selected.legnth > 1 || reference_selected.length > 1 || reference_selected.length === 0) {
+  if(master_selected.length === 0 || master_selected.length > 1 || reference_selected.length > 1 || reference_selected.length === 0) {
     message = '<p>Select one name in your working tree and one name in your reference tree then re-execute merge.</p>';
     $('body').append('<div id="dialog-message" class="ui-state-highlight" title="Merge Instructions">' + message + '</div>');
     $('#dialog-message').dialog({
@@ -1675,7 +1675,7 @@ GNITE.Tree.MasterTree.merge = function() {
            className : "green-submit",
            text : "OK",
            click : function() {
-             $('#dialog-message').dialog("destroy").hide().remove();
+             $('#dialog-message').dialog("destroy").remove();
            }
          }
        ],
@@ -1695,6 +1695,7 @@ GNITE.Tree.MasterTree.merge = function() {
 
     $("#merge-form").dialog("open");
   }
+
 
   return false;
 };
