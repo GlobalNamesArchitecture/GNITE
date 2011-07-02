@@ -55,6 +55,15 @@ $(function() {
 
       if(node.obj !== -1) { node.obj.find("span.jstree-loading").remove(); }
     });
+
+    $('#preview-tree').bind('select_node.jstree', function(event, data) {
+      event = null;
+      var self     = $(this),
+          metadata = self.parent().next(),
+          wrapper  = self.parent(),
+          url      = '/merge_trees/' + GNITE.MergeEvent.merge_tree_id + '/nodes/' + data.rslt.obj.attr("id");
+      GNITE.MergeEvent.Tree.getMetadata(url, metadata, wrapper);
+    });
   }
 
   if(GNITE.MergeEvent.merge_status && GNITE.MergeEvent.merge_status === "computing") {
@@ -158,12 +167,15 @@ $(function() {
   $('input.preview').click(function() {
 
     if($('#merge-results-preview').is(":visible")) {
+      $('#preview-tree').jstree("deselect_all");
+      $('.node-metadata').hide();
+      $('.tree-container').css('bottom', '5px');
       GNITE.MergeEvent.generatePreview();
     } else {
       $('#merge-results-table').animate({
-        width:'70%'
+        width:'64%'
       }, 1000, function() { 
-        $('#merge-results-preview').show().animate({ width:'23%'}, 1000);
+        $('#merge-results-preview').show().animate({ width:'28%'}, 1000);
         GNITE.MergeEvent.generatePreview();
       });
     }
@@ -204,16 +216,44 @@ $(function() {
   });
 
   GNITE.MergeEvent.generatePreview = function() {
-    $('#preview-tree').removeClass("merge-complete").jstree("lock").spinner();
+    $('#merge-results-preview .tree-container').spinner();
+    $('#preview-tree').removeClass("merge-complete").jstree("close_all").jstree("lock");
     $.get('/merge_trees/' + GNITE.MergeEvent.merge_tree_id + '/populate', {}, function(populate_response) {
       setTimeout(function checkStatus() {
         if(populate_response.status !== "OK") {
           setTimeout(checkStatus, 100);
         } else {
-          $('#preview-tree').addClass("merge-complete").jstree("unlock").jstree("refresh").unspinner();
+          $('#preview-tree').addClass("merge-complete").jstree("unlock").jstree("refresh");
+          $('#merge-results-preview .tree-container').unspinner();
         }
       }, 100);
     }, 'json'); 
+  };
+
+  GNITE.MergeEvent.Tree.getMetadata = function(url, container, wrapper) {
+
+    "use strict";
+
+    container.spinner();
+
+    $.ajax({
+      type        : 'GET',
+      url         : url,
+      contentType : 'text/html',
+      dataType    : 'html',
+      success     : function(data) {
+        container.html(data);
+        wrapper.css('bottom', container.height());
+        container.find(".ui-icon").click(function() {
+          container.hide();
+          wrapper.css('bottom', '5px');
+          return false;
+        });
+      }
+    });
+
+    container.unspinner().show();
+    wrapper.css('bottom', container.height());
   };
 
 });

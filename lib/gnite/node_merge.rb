@@ -10,7 +10,7 @@ module Gnite
         child_copy = child.deep_merge(merge_event)
         child_copy.parent = copy
         add_merges(merge_event, child) if merge_has_node?(merge_event.id, child.id)
-        child_copy.save! 
+        child_copy.save!
       end
       copy_metadata(copy, self)
       copy.reload

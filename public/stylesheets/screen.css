@@ -2200,11 +2200,17 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   box-shadow:none;
 }
 
-#preview-tree {
-  margin:0.2em;
-  padding:0;
-  height: 520px;
+#merge-results-preview .tree-container {
+  position:absolute;
   overflow: auto;
+  top:38px;
+  width:100%;
+  bottom:5px;
+}
+
+#preview-tree {
+  padding:0;
+  height:100%;
 }
 
 #merge-results-table {
@@ -2220,6 +2226,7 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 
 .merge_events .spinner {
   background: #FFF url("/images/loading.gif") no-repeat center center;
+  z-index:100;
 }
 
 .merge_events .spinner p.status {
