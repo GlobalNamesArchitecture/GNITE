@@ -1256,9 +1256,10 @@ $(function() {
     }
   });
   $('#chat-messages-input').keypress(function(e) {
-    var msg = $(this).val().replace("\n", "");
-
-    if (e.keyCode !== 13) { return };
+    var msg  = $(this).val().replace("\n", ""),
+        code = (e.keyCode ? e.keyCode : e.which);
+ 
+    if(code !== 13) { return; }
     if (!$.isBlank(msg)) {
       GNITE.pushMessage("chat", msg, false);
       $(this).val("");
