@@ -465,6 +465,8 @@ $(function() {
 
       case 'chat':
         $('#chat-messages-head').effect("highlight", { color : "green" }, 2000);
+        $('#chat-messages-maximize').hide();
+        $('#chat-messages-minimize').show();
         $('#chat-messages-wrapper div').show();
         $('#chat-messages-list').append("<li class=\"chat\"><span class=\"user\">" + response.user.email + "</span>:<span class=\"message\">" + response.message + "</span></li>").parent().scrollTo('li:last',500);
       break;
