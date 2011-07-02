@@ -57,8 +57,8 @@ $(function() {
 
         switch(response.message) {
           case "Merging is complete":
-            jug.unsubscribe("tree_" + GNITE.MergeEvent.channel);
             message_wrapper.find(".status").html(response.message);
+            jug.unsubscribe("tree_" + GNITE.MergeEvent.channel);
             container.addClass("merge-complete").delay(2000).queue(function() {
               $(this).find(".status").html("Reloading...");
               window.location = "/master_trees/" + GNITE.MergeEvent.master_tree_id + "/merge_events/" + GNITE.MergeEvent.merge_event;
@@ -140,6 +140,41 @@ $(function() {
       resizable : true
     }).spinner();
 
+    /*****************************************
+    * TEMPORARY: Remove when we are able to render a tree in flat HTML AND when we can trash the merge tree and re-render it on demand
+    ******************************************/
+    $.get('/merge_trees/' + GNITE.MergeEvent.merge_tree_id + '/populate', {}, function(populate_response) {
+      setTimeout(function checkStatus() {
+        if(populate_response.status !== "OK") {
+          setTimeout(checkStatus, 10);
+        } else {
+          $('#preview-tree').addClass("merge-complete").delay(2000).queue(function() {
+            if ($.fn.jstree) {
+              $('#preview-tree').jstree($.extend(true, {}, GNITE.MergeEvent.Tree.configuration, {
+                'html_data': {
+                  'ajax' : {
+                    'url'   : '/merge_trees/' + GNITE.MergeEvent.merge_tree_id + '/nodes',
+                    'error' : function() {
+                      $('#preview-tree').find("span.jstree-loading").remove();
+                    }
+                  }
+                }
+              })).parent().unspinner();
+
+              $('#preview-tree').bind('load_node.jstree', function(event, data) {
+                event = null;
+                var node = data.rslt;
+
+                if(node.obj !== -1) { node.obj.find("span.jstree-loading").remove(); }
+              });
+            }
+          });
+        }
+      }, 10);
+    }, 'json');
+    /***************************************/
+
+    /*
     if ($.fn.jstree) {
       $('#preview-tree').jstree($.extend(true, {}, GNITE.MergeEvent.Tree.configuration, {
         'html_data': {
@@ -151,7 +186,15 @@ $(function() {
           }
         }
       })).parent().unspinner();
-  }
+
+      $('#preview-tree').bind('load_node.jstree', function(event, data) {
+        event = null;
+        var node = data.rslt;
+
+        if(node.obj !== -1) { node.obj.find("span.jstree-loading").remove(); }
+      });
+    }
+    */
 
     $('.ui-dialog-titlebar-close').click(function() {
       $('#dialog-message').dialog("destroy").remove();

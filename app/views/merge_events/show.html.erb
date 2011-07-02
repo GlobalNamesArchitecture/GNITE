@@ -20,8 +20,8 @@
             </li>
           <% end %>
         </ul>
-         <% @data.each do |key, data| %>
-           <%= render :partial => "merge_#{key}" %>
+         <% @data.each_with_index do |(key, value),index| %>
+           <%= render :partial => "merge_#{key}", :locals => { :index => index } %>
          <% end %>
       </div>
       <%= submit_tag "Preview", :class => "green-submit preview", :name => "preview" %>

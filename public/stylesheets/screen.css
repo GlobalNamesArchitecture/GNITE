@@ -2209,6 +2209,7 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 
 .merge-results td.header-decision {
   text-align:center;
+  width:7%;
 }
 
 .merge-results td.header-decision div {
