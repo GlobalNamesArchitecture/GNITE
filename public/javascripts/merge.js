@@ -37,6 +37,26 @@ $(function() {
     'plugins' : ['themes', 'html_data', 'hotkeys', 'ui']
   };
 
+  if ($.fn.jstree && GNITE.MergeEvent.merge_status && GNITE.MergeEvent.merge_status !== "computing") {
+    $('#preview-tree').jstree($.extend(true, {}, GNITE.MergeEvent.Tree.configuration, {
+      'html_data': {
+        'ajax' : {
+          'url'   : '/merge_trees/' + GNITE.MergeEvent.merge_tree_id + '/nodes',
+          'error' : function() {
+            $('#preview-tree').find("span.jstree-loading").remove();
+          }
+        }
+      }
+    }));
+
+    $('#preview-tree').bind('load_node.jstree', function(event, data) {
+      event = null;
+      var node = data.rslt;
+
+      if(node.obj !== -1) { node.obj.find("span.jstree-loading").remove(); }
+    });
+  }
+
   if(GNITE.MergeEvent.merge_status && GNITE.MergeEvent.merge_status === "computing") {
 
      var jug               = new Juggernaut(),
@@ -126,79 +146,27 @@ $(function() {
 
   });
 
+  $('#merge-results-preview .ui-dialog-titlebar-close').click(function() {
+    $('#merge-results-preview').hide();
+    $('#merge-results-table').animate({
+      width:'100%'
+    }, 1000);
+    return false;
+  })
+
   /**************************** PREVIEW TREE *********************************/
   $('input.preview').click(function() {
 
-    $('body').append('<div id="dialog-message" class="ui-state-highlight" title="Preview"><div id="preview-tree"></div></div>');
-    $('#dialog-message').dialog({
-      height    : 500,
-      width     : 750,
-      modal     : true,
-      closeText : "",
-      position  : ['center',75],
-      draggable : true,
-      resizable : true
-    }).spinner();
-
-    /*****************************************
-    * TEMPORARY: Remove when we are able to render a tree in flat HTML AND when we can trash the merge tree and re-render it on demand
-    ******************************************/
-    $.get('/merge_trees/' + GNITE.MergeEvent.merge_tree_id + '/populate', {}, function(populate_response) {
-      setTimeout(function checkStatus() {
-        if(populate_response.status !== "OK") {
-          setTimeout(checkStatus, 10);
-        } else {
-          $('#preview-tree').addClass("merge-complete").delay(2000).queue(function() {
-            if ($.fn.jstree) {
-              $('#preview-tree').jstree($.extend(true, {}, GNITE.MergeEvent.Tree.configuration, {
-                'html_data': {
-                  'ajax' : {
-                    'url'   : '/merge_trees/' + GNITE.MergeEvent.merge_tree_id + '/nodes',
-                    'error' : function() {
-                      $('#preview-tree').find("span.jstree-loading").remove();
-                    }
-                  }
-                }
-              })).parent().unspinner();
-
-              $('#preview-tree').bind('load_node.jstree', function(event, data) {
-                event = null;
-                var node = data.rslt;
-
-                if(node.obj !== -1) { node.obj.find("span.jstree-loading").remove(); }
-              });
-            }
-          });
-        }
-      }, 10);
-    }, 'json');
-    /***************************************/
-
-    /*
-    if ($.fn.jstree) {
-      $('#preview-tree').jstree($.extend(true, {}, GNITE.MergeEvent.Tree.configuration, {
-        'html_data': {
-          'ajax' : {
-            'url'   : '/merge_trees/' + GNITE.MergeEvent.merge_tree_id + '/nodes',
-            'error' : function() {
-              $('#preview-tree').find("span.jstree-loading").remove();
-            }
-          }
-        }
-      })).parent().unspinner();
-
-      $('#preview-tree').bind('load_node.jstree', function(event, data) {
-        event = null;
-        var node = data.rslt;
-
-        if(node.obj !== -1) { node.obj.find("span.jstree-loading").remove(); }
+    if($('#merge-results-preview').is(":visible")) {
+      GNITE.MergeEvent.generatePreview();
+    } else {
+      $('#merge-results-table').animate({
+        width:'70%'
+      }, 1000, function() { 
+        $('#merge-results-preview').show().animate({ width:'23%'}, 1000);
+        GNITE.MergeEvent.generatePreview();
       });
     }
-    */
-
-    $('.ui-dialog-titlebar-close').click(function() {
-      $('#dialog-message').dialog("destroy").remove();
-    });
 
     return false;
   });
@@ -234,6 +202,19 @@ $(function() {
    }
 
   });
+
+  GNITE.MergeEvent.generatePreview = function() {
+    $('#preview-tree').removeClass("merge-complete").jstree("lock").spinner();
+    $.get('/merge_trees/' + GNITE.MergeEvent.merge_tree_id + '/populate', {}, function(populate_response) {
+      setTimeout(function checkStatus() {
+        if(populate_response.status !== "OK") {
+          setTimeout(checkStatus, 100);
+        } else {
+          $('#preview-tree').addClass("merge-complete").jstree("unlock").jstree("refresh").unspinner();
+        }
+      }, 100);
+    }, 'json'); 
+  };
 
 });
 /****************** END jQUERY ****************************/

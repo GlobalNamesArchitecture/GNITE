@@ -83,7 +83,7 @@ hr {
 
 #bodywrap {
   color: black;
-  margin: 20px 40px;
+  margin: 20px 30px;
 }
 
 .infobox-wrap {
@@ -2190,6 +2190,28 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 
 /* Merge Results Screen */
 /************************************************************************/
+
+#merge-results-preview {
+  display:none;
+  float:left;
+  background-color:white;
+  height:560px;
+  width:0px;
+  box-shadow:none;
+}
+
+#preview-tree {
+  margin:0.2em;
+  padding:0;
+  height: 520px;
+  overflow: auto;
+}
+
+#merge-results-table {
+  float:right;
+  width:100%;
+}
+
 #merge-results {
   background-color:#FFF;
   min-height:400px;
@@ -2210,7 +2232,7 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 
 .merge-results td.header-decision {
   text-align:center;
-  width:7%;
+  width:70px;
 }
 
 .merge-results td.header-decision div {
@@ -2247,7 +2269,6 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 }
 
 .merge-results td.merge-decision {
-  width:7%;
   border-right:1px dotted #BABFC3;
   text-align:center;
 }
