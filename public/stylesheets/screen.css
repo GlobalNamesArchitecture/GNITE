@@ -2271,6 +2271,10 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   padding:20px;
 }
 
+#merge-results-wrapper #merge-warning ul li a {
+  color:green;
+}
+
 #preview-tree {
   padding:0;
   height:100%;

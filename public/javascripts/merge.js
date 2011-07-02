@@ -34,6 +34,12 @@ $(function() {
         }
       }
     },
+    'hotkeys' : {
+      'return'       : function() { if(this.data.ui.hovered) { this.data.ui.hovered.children("a:eq(0)").click(); } },
+      'ctrl+r'       : function() { this.refresh( this.data.ui.hovered || this._get_node(null) ); },
+      'ctrl+shift+r' : function() { this.refresh(); },
+      'ctrl+c'       : function() { this.close_all(); }
+    },
     'plugins' : ['themes', 'html_data', 'hotkeys', 'ui']
   };
 
@@ -124,7 +130,7 @@ $(function() {
       contentType : 'application/json',
       dataType    : 'json',
       success     : function(data) {
-        if(data.status == "OK") {
+        if(data.status === "OK") {
           for(i = 0; i < merge_decisions.length; i += 1) {
             $('input[name="merge-' + merge_decisions[i].merge_result_secondary_id + '"]').removeAttr("disabled");
           }
@@ -151,7 +157,7 @@ $(function() {
       contentType : 'application/json',
       dataType    : 'json',
       success     : function(data) {
-        if(data.status == "OK") { 
+        if(data.status === "OK") { 
           $(self).removeAttr("disabled");
           GNITE.MergeEvent.showMergeWarning();
         }
@@ -280,6 +286,7 @@ $(function() {
     });
 
   GNITE.MergeEvent.generatePreview = function() {
+    $('#merge-warning').hide();
     $('.tree-background').spinner();
     $('#preview-tree').removeClass("merge-complete").jstree("close_all").jstree("lock");
     $.get('/merge_trees/' + GNITE.MergeEvent.merge_tree_id + '/populate', {}, function(populate_response) {
@@ -336,6 +343,18 @@ $(function() {
     }
   };
 
+  GNITE.MergeEvent.showMergeWarning = function() {
+    if($('#treewrap-main').is(':visible')) {
+      $('#preview-tree').jstree("lock");
+      $('#merge-warning').show();
+
+      $('#merge-warning a').click(function() {
+        GNITE.MergeEvent.generatePreview();
+        return false;
+      });
+    }
+  };
+
   GNITE.MergeEvent.Tree.getMetadata = function(url, container, wrapper) {
 
     "use strict";
@@ -360,10 +379,6 @@ $(function() {
 
     container.unspinner().show();
     wrapper.css('bottom', container.height());
-  };
-
-  GNITE.MergeEvent.showMergeWarning = function() {
-
   };
 
 });
