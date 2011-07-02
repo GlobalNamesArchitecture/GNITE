@@ -8,15 +8,29 @@
 
 <div id="merge-results-wrapper">
   <% if !@data.empty? %>
-    <div id="merge-results-preview" class="ui-dialog ui-widget ui-widget-content ui-corner-all">
-      <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
-        <span id="ui-dialog-title-bookmarks-results-1" class="ui-dialog-title">Preview</span>
-        <a class="ui-dialog-titlebar-close ui-corner-all" href="#" role="button"><span class="ui-icon ui-icon-closethick"></span></a>
+    <div id="treewrap-main">
+    <div class="tree-background">
+      <div class="breadcrumbs">
+        <ul>
+          <li>Preview</li>
+        </ul>
       </div>
-      <div class="tree-container">
-        <div id="preview-tree" class="ui-dialog-content ui-widget-content"></div>
+
+      <%= render :partial => 'shared/tree_searches.html' %>
+
+      <a class="ui-dialog-titlebar-close" role="button" href="#">
+        <span class="ui-icon ui-icon-closethick"></span>
+      </a>
+
+      <div id="add-node-wrap">
+        <div class="tree-container" data-database-id="<%= @merge_event.merge_tree_id %>">
+          <div id="preview-tree"></div>
+        </div>
       </div>
+
       <div class="node-metadata ui-dialog clearfix"></div>
+
+    </div>
     </div>
 
     <div id="merge-results-table" class="clearfix">
@@ -41,7 +55,7 @@
 </div>
 
 <% content_for :javascript do %>
-  <%= javascript_include_tag 'juggernaut/json', 'juggernaut/socket_io', 'juggernaut/juggernaut', 'jquery.spinner', 'merge', 'jstree/jquery.jstree', 'jquery.hotkeys' %>
+  <%= javascript_include_tag 'juggernaut/json', 'juggernaut/socket_io', 'juggernaut/juggernaut', 'jquery.spinner', 'merge', 'jstree/jquery.jstree', 'jquery.hotkeys', 'jquery.scrollTo.min' %>
 
   <script type="text/javascript">
   <!--//--><![CDATA[//><!--

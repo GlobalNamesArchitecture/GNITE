@@ -890,7 +890,7 @@ body form input {
 
 .searchbar-dropdown {
   position:absolute;
-  right:4px;
+  right:5px;
   top:0px;
   margin:0px;  
 }
@@ -2190,6 +2190,49 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 
 /* Merge Results Screen */
 /************************************************************************/
+#merge-results-wrapper #treewrap-main {
+  display:none;
+  float:left;
+  width:0px;
+  margin:0px;
+  height:560px;
+}
+
+#merge-results-wrapper .tree-background {
+  min-height:560px;
+}
+
+#merge-results-wrapper #add-node-wrap {
+  top:45px;
+}
+
+#merge-results-wrapper .searchbar {
+  right:40px;
+}
+
+#merge-results-wrapper .searchbar-dropdown {
+  right:30px;
+}
+
+#merge-results-wrapper .ui-dialog-titlebar-close {
+  background-color: transparent !important;
+  height: 16px;
+  margin: -10px 0 0;
+  padding: 0;
+  position: absolute;
+  right: 5px;
+  top: 15px;
+  width: 16px;
+}
+
+#merge-results-wrapper .ui-dialog-titlebar-close span {
+  background: url("../stylesheets/Aristo/images/icon_sprite.png") no-repeat scroll 0 -16px transparent;
+  display: block;
+  height: 16px;
+  margin: 1px;
+  width: 16px;
+}
+
 #merge-warning {
   display:none;
   position:absolute;
@@ -2226,23 +2269,6 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   text-decoration:none;
   display:block;
   padding:20px;
-}
-
-#merge-results-preview {
-  display:none;
-  float:left;
-  background-color:white;
-  height:560px;
-  width:0px;
-  box-shadow:none;
-}
-
-#merge-results-preview .tree-container {
-  position:absolute;
-  overflow: auto;
-  top:38px;
-  width:100%;
-  bottom:5px;
 }
 
 #preview-tree {
