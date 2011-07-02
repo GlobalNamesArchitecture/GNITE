@@ -11,9 +11,14 @@ class MergeEvent < ActiveRecord::Base
   
   def self.perform(merge_event_id)
     me = MergeEvent.find(merge_event_id)
+    
     master_tree = me.master_tree
     master_tree.state = "merging"
     master_tree.save
+    
+    channel = "tree_#{master_tree.id}"
+    Juggernaut.publish(channel, "{ \"subject\" : \"merge\" }")
+    
     me.merge
     MergeResultPrimary.import_merge(me)
     me.status = "in review"

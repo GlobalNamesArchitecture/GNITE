@@ -447,6 +447,11 @@ $(function() {
         $('.deleted-tree-container .jstree').jstree("refresh");
       break;
 
+      case 'merge':
+        $('#master-tree').jstree("lock");
+        GNITE.Tree.MasterTree.showMergeWarning();
+      break;
+
       case 'lock':
         $('#master-tree').jstree("lock");
       break;
@@ -793,7 +798,7 @@ $(function() {
       $(this).jstree("lock");
     }
     if(GNITE.Tree.MasterTree.state === "merging") {
-      GNITE.Tree.MasterTree.addMergeWarning();
+      GNITE.Tree.MasterTree.showMergeWarning();
     }
   });
 
@@ -1648,7 +1653,7 @@ GNITE.Tree.MasterTree.updateMetadataTitle = function(name) {
   $('#treewrap-main .node-metadata span.ui-dialog-title').text(name);
 };
 
-GNITE.Tree.MasterTree.addMergeWarning = function() {
+GNITE.Tree.MasterTree.showMergeWarning = function() {
 
   "use strict";
 
