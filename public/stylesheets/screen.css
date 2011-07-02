@@ -2021,7 +2021,8 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 }
 
 #chat-messages-list li {
-  margin-left: 1em;
+  margin-left:1em;
+  margin-top:4px;
 }
 
 #chat-messages-list li span.user {
