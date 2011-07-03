@@ -39,7 +39,46 @@ Feature: Merge nodes between trees
     And I follow "Merge" within "toolbar"
     Then I should see "Select one name in your working tree and one name in your reference tree then re-execute merge." within the dialog box
     And I press "OK"
-    When I select the node "Lycosidae"
+    When I expand the node "Lycosidae" in my reference tree "My Reference Tree"
+    And I wait for the reference tree to load
+    And I select the node "Pardosa" in my reference tree
     And I follow "Merge" within "toolbar"
-    Then I should not see "Select one name in your working tree and one name in your reference tree then re-execute merge." within the dialog box
+    Then I should see "Select one name in your working tree and one name in your reference tree then re-execute merge." within the dialog box
+    And I press "OK"
+    When I select the node "Pardosa" in my reference tree
+    And I select the node "Lycosidae"
+    And I follow "Merge" within "toolbar"
+    Then I should see "Lycosidae" within the dialog box
+    And I should not see "Pardosa" within the dialog box
+    And I should see "Lycosidae" within "#master-tree-merge-selection"
+    And I should see "Lycosidae" within "#reference-tree-merge-selection"
+
+  @javascript
+  Scenario: Executing merge redirects to the merge results page
+    When I go to the master tree page for "My Master Tree"
+    And I wait for the tree to load
+    And I follow "All reference trees (1)"
+    And I follow "My Reference Tree"
+    And I wait for the reference tree to load
+    And I select the node "Lycosidae"
+    And I select the node "Lycosidae" in my reference tree
+    And I follow "Tools" within "toolbar"
+    And I follow "Merge" within "toolbar"
+    And I press "Merge"
+    Then I should be on the merge results page for "My Master Tree"
+    And I should see "Starting merge..."
+    And I should see a spinner
+
+# WIP: Capybara/Cucumber are not responding to window.location.href
+    When merge jobs are run
+    Then I should be on the merge results page for "My Master Tree"
+    And I should not see a spinner
+    And I should see "Lycosidae merged with Lycosidae in My Reference Tree"
+
+#  @javascript
+#  Scenario: An active merge event locks the tree and a message is shown
+#    When I go to the master tree page for "My Master Tree"
+#    Then the master tree should be locked
+#    And I should see "This tree has an active merge event and cannot be edited"
+    
     

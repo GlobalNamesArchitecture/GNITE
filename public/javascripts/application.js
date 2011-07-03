@@ -148,8 +148,8 @@ $(function() {
       'ctrl+z'       : function() { this.undo(); },
       'ctrl+shift+z' : function() { this.redo(); },
       'ctrl+s'       : function() { GNITE.Tree.MasterTree.publish(); },
-      'ctrl+h'       : function() { window.location = "/master_trees/" + GNITE.Tree.MasterTree.id + "/edits"; },
-      'ctrl+m'       : function() { window.location = "/master_trees/" + GNITE.Tree.MasterTree.id + "/merge_events"; },
+      'ctrl+h'       : function() { window.location.href = "/master_trees/" + GNITE.Tree.MasterTree.id + "/edits"; },
+      'ctrl+m'       : function() { window.location.href = "/master_trees/" + GNITE.Tree.MasterTree.id + "/merge_events"; },
       'ctrl+c'       : function() { this.close_all(); }
     },
     'bookmarks' : {
@@ -309,6 +309,11 @@ $(function() {
                 });
               });
 
+              self.bind('loaded.jstree', function(event, data) {
+                event = null; data = null;
+                self.addClass('loaded');
+              });
+
               // Hide the spinner icon once node is loaded
               self.bind('open_node.jstree', function(event, data) {
                 event = null;
@@ -419,6 +424,11 @@ $(function() {
               classname: 'ddsmoothmenu',
               contentsource: "markup"
             });
+          });
+
+          self.bind('loaded.jstree', function(event, data) {
+            event = null; data = null;
+            self.addClass('loaded');
           });
 
           // Hide the spinner icon once node is loaded
@@ -597,7 +607,7 @@ $(function() {
                 url         :  '/master_trees/' + GNITE.Tree.MasterTree.id,
                 data        :  formData,
                 success     : function() {
-                  window.location = "/master_trees";
+                  window.location.href = "/master_trees";
                 }
               });
            }

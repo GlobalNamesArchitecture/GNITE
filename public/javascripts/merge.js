@@ -14,16 +14,6 @@ $(function() {
 
   "use strict";
 
-/*
-  $('table.merge-results').each(function() {
-    $(this).find('tr:eq(2)').waypoint().find('td.merge-decision').waypoint(function(event, direction) {
-      if(direction === "up") { $("table.merge-results td.header-decision").removeClass("sticky"); }
-      if(direction === "down") { $(this).parents("table:visible").find(".header-decision").addClass("sticky"); }
-      event.stopPropagation();
-    });
-  });
-*/
-
   $('#merge-results-wrapper').waypoint().find('#treewrap-main').waypoint(function(event, direction) {
     if($(this).hasClass("opened") && direction === "up") { $(this).parent().addClass('docked').removeClass("sticky"); }
     if($(this).hasClass("opened") && direction === "down") { $(this).parent().removeClass("docked").addClass("sticky"); }
@@ -113,7 +103,7 @@ $(function() {
             jug.unsubscribe("tree_" + GNITE.MergeEvent.channel);
             container.addClass("merge-complete").delay(2000).queue(function() {
               $(this).find(".status").html("Reloading...");
-              window.location = "/master_trees/" + GNITE.MergeEvent.master_tree_id + "/merge_events/" + GNITE.MergeEvent.merge_event;
+              window.location.href = "/master_trees/" + GNITE.MergeEvent.master_tree_id + "/merge_events/" + GNITE.MergeEvent.merge_event;
             });
             break;
 
