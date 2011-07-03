@@ -14,6 +14,22 @@ $(function() {
 
   "use strict";
 
+/*
+  $('table.merge-results').each(function() {
+    $(this).find('tr:eq(2)').waypoint().find('td.merge-decision').waypoint(function(event, direction) {
+      if(direction === "up") { $("table.merge-results td.header-decision").removeClass("sticky"); }
+      if(direction === "down") { $(this).parents("table:visible").find(".header-decision").addClass("sticky"); }
+      event.stopPropagation();
+    });
+  });
+*/
+
+  $('#merge-results-wrapper').waypoint().find('#treewrap-main').waypoint(function(event, direction) {
+    if($(this).hasClass("opened") && direction === "up") { $(this).parent().addClass('docked').removeClass("sticky"); }
+    if($(this).hasClass("opened") && direction === "down") { $(this).parent().removeClass("docked").addClass("sticky"); }
+    event.stopPropagation();
+  });
+
   /**************************************************************
            TREE CONFIGURATION
   **************************************************************/
@@ -167,27 +183,26 @@ $(function() {
   });
 
   $('#merge-results-wrapper .ui-dialog-titlebar-close').click(function() {
-    $('#treewrap-main').hide().css('width', '0px');
-    $('#merge-results-table').animate({
-      width:'100%'
-    }, 1000);
+    $('#treewrap-main').removeClass("opened").parent().removeClass("sticky docked");
+    $('#merge-results-table').removeClass("squeezed");
     return false;
   });
 
   /**************************** PREVIEW TREE *********************************/
   $('input.preview').click(function() {
 
-    if($('#treewrap-main').is(":visible")) {
+    if($('#treewrap-main').hasClass('opened')) {
       $('.node-metadata').hide();
-      $('#preview-tree').jstree("deselect_all").parent().parent().css('bottom', '20px');
+      $('#preview-tree').jstree("deselect_all").parent().parent().css('bottom','20px');
       GNITE.MergeEvent.generatePreview();
     } else {
-      $('#merge-results-table').animate({
-        width:'64%'
-      }, 1000, function() { 
-        $('#treewrap-main').show().animate({ width:'34%'}, 1000);
-        GNITE.MergeEvent.generatePreview();
-      });
+      $('#merge-results-table').addClass("squeezed");
+      $.waypoints('refresh');
+      $('#treewrap-main').addClass('opened').parent().addClass("sticky");
+      if($('#merge-results-wrapper').offset().top - $('#treewrap-main').offset().top > 0) {
+        $('#treewrap-main').parent().removeClass("sticky").addClass("docked");
+      }
+      GNITE.MergeEvent.generatePreview();
     }
 
     return false;

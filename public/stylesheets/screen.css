@@ -77,7 +77,7 @@ hr {
 /************************************************************************/
 #content {
   height: 100%;
-  min-height: 800px;
+  min-height: 700px;
   min-width: 1050px;
 }
 
@@ -2190,12 +2190,44 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 
 /* Merge Results Screen */
 /************************************************************************/
-#merge-results-wrapper #treewrap-main {
-  display:none;
-  float:left;
+#merge-results-wrapper {
+  position:relative;
+  width:100%;
+}
+
+.sticky #treewrap-main {
+  position: fixed;
+  top: 0;
+  width: 395px;
+  left:205px;
+}
+
+.docked #treewrap-main {
+  left:0px;
+}
+
+#treewrap-main {
   width:0px;
   margin:0px;
   height:560px;
+  position:absolute;
+  left:-1000px;
+  top:0;
+  width:395px;
+}
+
+#merge-results-wrapper .full {
+  position:relative;
+  width:100%;
+  float:right;
+}
+
+#merge-results-wrapper .squeezed {
+  width:auto;
+  position:absolute;
+  right:0px;
+  left:410px;
+  float:none;
 }
 
 #merge-results-wrapper .tree-background {
@@ -2280,11 +2312,6 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   height:100%;
 }
 
-#merge-results-table {
-  float:right;
-  width:100%;
-}
-
 #merge-results {
   background-color:#FFF;
   min-height:400px;
@@ -2308,6 +2335,11 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   text-align:center;
   width:70px;
 }
+
+.merge-results td.sticky {
+  position:fixed;
+  top:0px;
+} 
 
 .merge-results td.header-decision div {
   display:block;
@@ -2345,6 +2377,7 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 .merge-results td.merge-decision {
   border-right:1px dotted #BABFC3;
   text-align:center;
+  width:70px;
 }
 
 .merge-results input.merge-input {

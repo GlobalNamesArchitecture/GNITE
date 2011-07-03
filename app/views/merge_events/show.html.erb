@@ -35,7 +35,7 @@
     </div>
     </div>
 
-    <div id="merge-results-table" class="clearfix">
+    <div id="merge-results-table" class="full clearfix">
     <%= form_tag(:autocomplete => "off", :only_path => true) do %>
       <div class="ui-tabs ui-widget ui-widget-content ui-corner-all">
         <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
@@ -57,7 +57,7 @@
 </div>
 
 <% content_for :javascript do %>
-  <%= javascript_include_tag 'juggernaut/json', 'juggernaut/socket_io', 'juggernaut/juggernaut', 'jquery.spinner', 'merge', 'jstree/jquery.jstree', 'jquery.hotkeys', 'jquery.scrollTo.min' %>
+  <%= javascript_include_tag 'juggernaut/json', 'juggernaut/socket_io', 'juggernaut/juggernaut', 'jquery.spinner', 'merge', 'jstree/jquery.jstree', 'jquery.hotkeys', 'jquery.scrollTo.min', 'waypoints.min' %>
 
   <script type="text/javascript">
   <!--//--><![CDATA[//><!--

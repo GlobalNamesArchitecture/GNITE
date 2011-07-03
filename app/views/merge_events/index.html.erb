@@ -24,7 +24,7 @@
   <% if @merge_events.any? %>
     <% @merge_events.each do |event| %>
     <tr class="<% row_type = cycle("even", "odd") %><%= row_type %><%= (event == @merge_events.last && row_type == 'even') ? " last last-even" : (event == @merge_events.last && row_type == 'odd') ? " last last-odd": "" %>">
-      <td><%= event.memo  %></td>
+      <td><%= event.memo %></td>
       <td><%= raw (event.status == 'in review') ? link_to(event.status.split(' ').map {|w| w.capitalize }.join(' '), master_tree_merge_event_path(params[:master_tree_id], event.id), :class => 'button-link') : event.status %></td>
       <td><%= event.user.email %></td>
       <td><%= event.created_at %></td>
