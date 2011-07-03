@@ -24,6 +24,14 @@ Feature: Merge nodes between trees
     And I should see a node "Lycosidae" at the root level in my reference tree "My Reference Tree"
 
   @javascript
+  Scenario: Viewing the merge events list page should not yet have any entries
+    When I go to the master tree page for "My Master Tree"
+    And I follow "View" within "toolbar"
+    And I follow "Merge events" within "toolbar"
+    Then I should be on the merge events page for "My Master Tree"
+    And I should see "There are not yet any merge events"
+
+  @javascript
   Scenario: Improperly selecting nodes prior to executing merge throws a message
     When I go to the master tree page for "My Master Tree"
     And I wait for the tree to load
