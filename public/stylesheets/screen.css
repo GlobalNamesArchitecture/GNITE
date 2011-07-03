@@ -2210,7 +2210,6 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 #merge-results-wrapper #treewrap-main {
   width:0px;
   margin:0px;
-  height:560px;
   position:absolute;
   left:-1000px;
   top:0;
@@ -2232,7 +2231,7 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 }
 
 #merge-results-wrapper .tree-background {
-  min-height:560px;
+  min-height:650px;
 }
 
 #merge-results-wrapper #add-node-wrap {

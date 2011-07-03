@@ -43,9 +43,13 @@ RSpec.configure do |config|
 end
 
 
-def get_tree1
+def get_master_tree1(options = {})
   english = Language.find_by_iso_639_1('en')
-  tree = Factory(:master_tree)
+  user = Factory(:user) unless options[:user]
+  tree = Factory(:master_tree,
+                 :title => (options[:title].nil? ? "Master Tree One" : options[:title]), 
+                 :user => (options[:user].nil? ? user : options[:user])
+         )
   merge_node = Factory(:node, :tree => tree, :name => Name.find_or_create_by_name_string("Lycosidae"))
   bulk_add1 = Factory(:action_bulk_add_node, :tree_id => tree.id, :parent_id => merge_node.id, :json_message => '{"do": ["Pardosa", "Schizocosa", "Trochosa", "Alopecosa"]}')
   ActionBulkAddNode.perform(bulk_add1.id)
@@ -59,9 +63,13 @@ def get_tree1
   tree
 end
 
-def get_tree2
+def get_master_tree2(options = {})
   portuguese = Language.find_by_iso_639_1('pt')
-  tree = Factory(:master_tree)
+  user = Factory(:user) unless options[:user]
+  tree = Factory(:master_tree,
+                 :title => (options[:title].nil? ? "Master Tree Two" : options[:title]),
+                 :user => (options[:user].nil? ? user : options[:user])
+         )
   merge_node = Factory(:node, :tree => tree, :name => Name.find_or_create_by_name_string("Lycosidae"))
   bulk_add1 = Factory(:action_bulk_add_node, :tree_id => tree.id, :parent_id => merge_node.id, :json_message => '{"do": ["Pardosa", "Schizocosa", "Varacosa", "Trochosa", "Alopecosa"]}')
   ActionBulkAddNode.perform(bulk_add1.id)
