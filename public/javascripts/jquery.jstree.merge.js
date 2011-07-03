@@ -33,7 +33,7 @@
                         resizable: false,
                         buttons: [
                           {
-                            className : "green-submit",
+                            'class' : "green-submit",
                             text : "Merge",
                             click : function() {
                               self.merge_submit();
@@ -41,7 +41,7 @@
                             }
                           },
                           {
-                            className : "cancel-button",
+                            'class' : "cancel-button",
                             text : "Cancel",
                             click : function() {
                               $(this).dialog("close");

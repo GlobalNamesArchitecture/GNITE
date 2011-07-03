@@ -222,7 +222,7 @@ $(function() {
         closeText : "",
         buttons   : [
          {
-           className : "green-submit",
+           'class' : "green-submit",
            text  : "OK",
            click : function() {
              $('#dialog-message').dialog("destroy").remove();

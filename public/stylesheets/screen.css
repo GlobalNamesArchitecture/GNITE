@@ -1185,6 +1185,7 @@ body form input {
 #merge-form {
   text-align:center;
   margin:10px 0px 20px 0px;
+  display:none;
 }
 
 #merge-form div.merge-column {

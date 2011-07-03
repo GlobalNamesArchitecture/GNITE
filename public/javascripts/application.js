@@ -588,8 +588,8 @@ $(function() {
         closeText : "",
         buttons: [
           {
-            className : "green-submit",
-            text : "Delete",
+            'class' : "green-submit",
+            text  : "Delete",
             click : function() {
               var formData = $("form").serialize();
               $.ajax({
@@ -603,8 +603,8 @@ $(function() {
            }
          },
          {
-           className : "cancel-button",
-           text : "Cancel",
+           'class' : "cancel-button",
+           text  : "Cancel",
            click : function() {
              $('#dialog-message').dialog("destroy").hide().remove();
            }
@@ -1595,9 +1595,9 @@ GNITE.Tree.MasterTree.publish = function() {
         closeText : "",
         buttons: [
           {
-            className : "green-submit",
-            text      : "OK",
-            click     : function() { $(this).dialog("close"); }
+            'class' : "green-submit",
+            text  : "OK",
+            click : function() { $(this).dialog("close"); }
           }
         ],
         draggable : false,
@@ -1684,8 +1684,8 @@ GNITE.Tree.MasterTree.merge = function() {
         closeText : "",
         buttons: [
          {
-           className : "green-submit",
-           text : "OK",
+           'class' : "green-submit",
+           text  : "OK",
            click : function() {
              $('#dialog-message').dialog("destroy").remove();
            }
