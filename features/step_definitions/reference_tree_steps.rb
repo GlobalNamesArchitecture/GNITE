@@ -56,3 +56,8 @@ When /^I refresh the reference tree "(.*)"$/ do |reference_tree_title|
   page.execute_script("jQuery('#{reference_tree_matcher}').jstree('refresh');");
   sleep 1
 end
+
+When /^I select the node "([^"]*)" in my reference tree$/ do |node_text|
+  When %{I follow "#{node_text}" within ".reference-tree-container"}
+  sleep 1
+end

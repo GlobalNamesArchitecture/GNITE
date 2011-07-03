@@ -1417,7 +1417,8 @@ GNITE.Tree.viewBookmarks = function(obj) {
       input     = "",
       val       = "";
 
-  bookmarks.html("").spinner().dialog("open");
+  bookmarks.html("");
+  bookmarks.spinner().dialog("open");
 
   $.ajax({
     url      : url,

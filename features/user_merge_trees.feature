@@ -20,7 +20,26 @@ Feature: Merge nodes between trees
     When I follow "All reference trees (1)"
     And I follow "My Reference Tree"
     And I wait for the tree to load
-    And I wait for the websocket to activate
     Then I should see a node "Lycosidae" at the root level in my master tree
     And I should see a node "Lycosidae" at the root level in my reference tree "My Reference Tree"
+
+  @javascript
+  Scenario: Improperly selecting nodes prior to executing merge throws a message
+    When I go to the master tree page for "My Master Tree"
+    And I wait for the tree to load
+    And I follow "All reference trees (1)"
+    And I follow "My Reference Tree"
+    And I select the node "Lycosidae"
+    And I follow "Tools" within "toolbar"
+    And I follow "Merge" within "toolbar"
+    Then I should see "Select one name in your working tree and one name in your reference tree then re-execute merge." within the dialog box
+    And I press "OK"
+    When I click the master tree background
+    And I select the node "Lycosidae" in my reference tree
+    And I follow "Merge" within "toolbar"
+    Then I should see "Select one name in your working tree and one name in your reference tree then re-execute merge." within the dialog box
+    And I press "OK"
+    When I select the node "Lycosidae"
+    And I follow "Merge" within "toolbar"
+    Then I should not see "Select one name in your working tree and one name in your reference tree then re-execute merge." within the dialog box
     
