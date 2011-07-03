@@ -2196,17 +2196,17 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 }
 
 .sticky #treewrap-main {
-  position: fixed;
-  top: 0;
-  width: 395px;
-  left:205px;
+  position: fixed !important;
+  top: 0 !important;
+  width: 395px !important;
+  left:205px !important;
 }
 
 .docked #treewrap-main {
-  left:0px;
+  left:0px !important;
 }
 
-#treewrap-main {
+#merge-results-wrapper #treewrap-main {
   width:0px;
   margin:0px;
   height:560px;
