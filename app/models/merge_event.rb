@@ -17,7 +17,7 @@ class MergeEvent < ActiveRecord::Base
     master_tree.save
     
     channel = "tree_#{master_tree.id}"
-    Juggernaut.publish(channel, "{ \"subject\" : \"merge\" }")
+    Juggernaut.publish(channel, "{ \"subject\" : \"merge\", \"merge_id\" : \"#{merge_event_id}\"  }")
     
     me.merge
     MergeResultPrimary.import_merge(me)

@@ -56,8 +56,10 @@
   <% end %>
 </div>
 
+<%= render :partial => 'shared/chat_messages.html' %>
+
 <% content_for :javascript do %>
-  <%= javascript_include_tag 'juggernaut/json', 'juggernaut/socket_io', 'juggernaut/juggernaut', 'jquery.spinner', 'merge', 'jstree/jquery.jstree', 'jquery.hotkeys', 'jquery.scrollTo.min', 'waypoints.min' %>
+  <%= javascript_include_tag 'juggernaut/json', 'juggernaut/socket_io', 'juggernaut/juggernaut', 'jquery.spinner', 'merge', 'jstree/jquery.jstree', 'jquery.hotkeys', 'jquery.scrollTo.min', 'waypoints.min', 'jquery.extensions' %>
 
   <script type="text/javascript">
   <!--//--><![CDATA[//><!--

@@ -14,6 +14,54 @@ $(function() {
 
   "use strict";
 
+  var jug      = new Juggernaut(),
+      response = {};
+
+  /****************** JUGGERNAUT ***************************/
+
+  GNITE.MergeEvent.channel = "tree_" + GNITE.MergeEvent.master_tree_id;
+
+  if(GNITE.MergeEvent.merge_status && GNITE.MergeEvent.merge_status === "computing") {
+     $('#content').spinner().find(".spinner").append('<p class="status">Starting merge...</p>');
+  }
+
+  jug.on("connect", function() { "use strict"; $('#merge-results-wrapper').addClass("juggernaut-connected"); });
+  jug.on("disconnect", function() { "use strict"; });
+
+  jug.subscribe(GNITE.MergeEvent.channel, function(data) {
+    response = $.parseJSON(data);
+
+    switch(response.subject) {
+      case 'member-login':
+        $("#chat-messages-head").effect("highlight", { color : "green" }, 2000);
+        $("#chat-messages-list").append("<li class=\"new-user\"><span class=\"user\">" + response.user.email + "</span><span class=\"message\">arrived [" + response.time + "]</span></li>").parent().scrollTo('li:last',500);
+      break;
+
+      case 'member-logout':
+      break;
+
+      case 'chat':
+        $('#chat-messages-head').effect("highlight", { color : "green" }, 2000);
+        $('#chat-messages-maximize').hide();
+        $('#chat-messages-minimize').show();
+        $('#chat-messages-wrapper div').show();
+        $('#chat-messages-list').append("<li class=\"chat\"><span class=\"user\">" + response.user.email + "</span>:<span class=\"message\">" + response.message + "</span></li>").parent().scrollTo('li:last',500);
+      break;
+
+      case 'MergeEvent':
+        if(response.message === "Merging is complete") {
+          $(".spinner").find(".status").html(response.message);
+          $("#content").addClass("merge-complete").delay(2000).queue(function() {
+            $(this).find(".status").html("Reloading...");
+            window.location.href = "/master_trees/" + GNITE.MergeEvent.master_tree_id + "/merge_events/" + GNITE.MergeEvent.merge_event;
+          });
+        } else {
+          $(".spinner").find(".status").html(response.message);
+        }
+      break;
+    }
+  });
+
   $('#merge-results-wrapper').waypoint().find('#treewrap-main').waypoint(function(event, direction) {
     if($(this).hasClass("opened") && direction === "up") { $(this).parent().addClass('docked').removeClass("sticky"); }
     if($(this).hasClass("opened") && direction === "down") { $(this).parent().removeClass("docked").addClass("sticky"); }
@@ -79,40 +127,6 @@ $(function() {
     });
   }
 
-  if(GNITE.MergeEvent.merge_status && GNITE.MergeEvent.merge_status === "computing") {
-
-     var jug               = new Juggernaut(),
-         container         = $("#content"),
-         message_wrapper   = {},
-         response          = "";
-
-     container.spinner();
-     message_wrapper = container.find(".spinner").append('<p class="status">Starting merge...</p>');
-
-     GNITE.MergeEvent.channel = "tree_" + GNITE.MergeEvent.master_tree_id;
-
-     jug.on("connect", function() { "use strict"; $('#merge-results-wrapper').addClass("juggernaut-connected"); });
-     jug.on("disconnect", function() { "use strict"; });
-
-     jug.subscribe(GNITE.MergeEvent.channel, function(data) {
-        response = $.parseJSON(data);
-
-        switch(response.message) {
-          case "Merging is complete":
-            message_wrapper.find(".status").html(response.message);
-            jug.unsubscribe("tree_" + GNITE.MergeEvent.channel);
-            container.addClass("merge-complete").delay(2000).queue(function() {
-              $(this).find(".status").html("Reloading...");
-              window.location.href = "/master_trees/" + GNITE.MergeEvent.master_tree_id + "/merge_events/" + GNITE.MergeEvent.merge_event;
-            });
-            break;
-
-          default:
-            message_wrapper.find(".status").html(response.message);
-        }
-     });
-  }
-
   $('.header-decision a').click(function () {
 
     var merge_decisions = [],
@@ -175,6 +189,30 @@ $(function() {
   $('#merge-results-wrapper .ui-dialog-titlebar-close').click(function() {
     $('#treewrap-main').removeClass("opened").parent().removeClass("sticky docked");
     $('#merge-results-table').removeClass("squeezed");
+    return false;
+  });
+
+  /**************************** CHAT ****************************************/
+  $('#chat-messages-head').click(function() {
+    if($('#chat-messages-wrapper > div:not(:first)').is(':visible')) {
+      $('#chat-messages-wrapper > div:not(:first)').hide();
+      $('#chat-messages-maximize').show();
+      $('#chat-messages-minimize').hide();
+    } else {
+      $('#chat-messages-wrapper > div:not(:first)').show();
+      $('#chat-messages-maximize').hide();
+      $('#chat-messages-minimize').show();
+    }
+  });
+  $('#chat-messages-input').keypress(function(e) {
+    var msg  = $(this).val().replace("\n", ""),
+        code = (e.keyCode ? e.keyCode : e.which);
+ 
+    if(code !== 13) { return; }
+    if (!$.isBlank(msg)) {
+      GNITE.pushMessage("chat", msg, false);
+      $(this).val("");
+    }
     return false;
   });
 
@@ -289,6 +327,23 @@ $(function() {
     .next().click(function() {
         $(this).blur();
     });
+
+  GNITE.pushMessage = function(subject, message, ignore) {
+
+    "use strict";
+
+    $.ajax({
+      type        : 'PUT',
+      async       : true,
+      url         : '/push_messages/',
+      contentType : 'application/json',
+      dataType    : 'json',
+      data        : JSON.stringify({ 'channel' : GNITE.MergeEvent.channel, 'subject' : subject, 'message' : message }),
+      beforeSend  : function(xhr) {
+        if(ignore) { xhr.setRequestHeader("X-Session-ID", jug.sessionID); }
+      }
+    });
+  };
 
   GNITE.MergeEvent.generatePreview = function() {
     $('#merge-warning').hide();

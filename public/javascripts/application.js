@@ -459,7 +459,7 @@ $(function() {
 
       case 'merge':
         $('#master-tree').jstree("lock");
-        GNITE.Tree.MasterTree.showMergeWarning();
+        GNITE.Tree.MasterTree.showMergeWarning(response.merge_id);
       break;
 
       case 'lock':
@@ -1665,11 +1665,12 @@ GNITE.Tree.MasterTree.updateMetadataTitle = function(name) {
   $('#treewrap-main .node-metadata span.ui-dialog-title').text(name);
 };
 
-GNITE.Tree.MasterTree.showMergeWarning = function() {
+GNITE.Tree.MasterTree.showMergeWarning = function(merge_id) {
 
   "use strict";
 
   $('#toolbar .topnav').hide();
+  if(merge_id) { $('#merge-warning a').attr("href", "/master_trees/" + GNITE.Tree.MasterTree.id + "/merge_events/" + merge_id); }
   $('#merge-warning').show();
 };
 
@@ -1863,10 +1864,3 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
   container.unspinner().show();
   wrapper.css('bottom', container.height());
 };
-
-/**************************** jQUERY EXTENSIONS *****************************************/
-(function($){
-  $.isBlank = function(obj){
-    return(!obj || $.trim(obj) === "");
-  };
-})(jQuery);

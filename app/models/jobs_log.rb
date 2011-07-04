@@ -4,6 +4,6 @@ class JobsLog < ActiveRecord::Base
 
   private
   def push_message
-    Juggernaut.publish("tree_#{tree.id}", "{\"message\" : \"#{message}\"}")
+    Juggernaut.publish("tree_#{tree.id}", "{\"subject\" : \"#{self.job_type}\", \"message\" : \"#{message}\"}")
   end
 end
