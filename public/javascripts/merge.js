@@ -22,6 +22,7 @@ $(function() {
   GNITE.MergeEvent.channel = "tree_" + GNITE.MergeEvent.master_tree_id;
 
   if(GNITE.MergeEvent.merge_status && GNITE.MergeEvent.merge_status === "computing") {
+     $('#chat-messages-wrapper').hide();
      $('#content').spinner().find(".spinner").append('<p class="status">Starting merge...</p>');
   }
 
