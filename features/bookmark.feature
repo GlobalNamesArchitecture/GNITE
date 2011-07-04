@@ -5,16 +5,16 @@ Feature: Manage bookmarks
 
   Background: I have a master tree
     Given I have signed in with "email@person.com/password"
-    And "email@person.com" has created an existing master tree titled "Spiders" with the following nodes:
-      | id   | parent_id | name                |
-      | 100  | 0         | Pardosa             |
-      | 101  | 100       | Pardosa distincta   |
-      | 102  | 100       | Pardosa moesta      |
-      | 103  | 100       | Pardosa xerampelina |
-    And there is an existing bookmark called "First bookmark" for a node "Pardosa distincta"
-    And there is an existing bookmark called "Second bookmark" for a node "Pardosa moesta"
+    And "email@person.com" has created an existing master tree titled "Fishing Spiders" with the following nodes:
+      | id   | parent_id | name                   |
+      | 100  | 0         | Dolomedes              |
+      | 101  | 100       | Dolomedes tenebrosus   |
+      | 102  | 100       | Dolomedes albinaeus    |
+      | 103  | 100       | Dolomedes fimbriatus   |
+    And there is an existing bookmark called "First bookmark" for a node "Dolomedes tenebrosus"
+    And there is an existing bookmark called "Second bookmark" for a node "Dolomedes albinaeus"
     And I am on the master tree index page
-    When I follow "Spiders"
+    When I follow "Fishing Spiders"
     And I wait for the tree to load
 
   @javascript
@@ -27,8 +27,8 @@ Feature: Manage bookmarks
 
   @javascript
   Scenario: User can add a bookmark to a node in the master tree from the toolbar
-    When I expand the node "Pardosa"
-    And I select the node "Pardosa xerampelina"
+    When I expand the node "Dolomedes"
+    And I select the node "Dolomedes fimbriatus"
     And I follow "Bookmarks" within "toolbar"
     And I follow "Add bookmark" within "toolbar"
     And I wait for the bookmark form to load
@@ -45,13 +45,13 @@ Feature: Manage bookmarks
     And I wait for the bookmark results to load
     And I follow "First bookmark"
     And I wait for the tree to load
-    Then I should see a node "Pardosa distincta" under "Pardosa"
-    And the "Pardosa distincta" tree node should be selected
+    Then I should see a node "Dolomedes tenebrosus" under "Dolomedes"
+    And the "Dolomedes tenebrosus" tree node should be selected
 
   @javascript
   Scenario: User can add a bookmark using the context menu in the master tree
-    When I expand the node "Pardosa"
-    And I select the node "Pardosa xerampelina"
+    When I expand the node "Dolomedes"
+    And I select the node "Dolomedes fimbriatus"
     And I click "Add bookmark" in the context menu
     And I wait for the bookmark form to load
     And I fill in "Name" with "My bookmark"
