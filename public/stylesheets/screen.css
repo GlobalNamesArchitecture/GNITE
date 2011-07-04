@@ -2319,15 +2319,16 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 }
 
 .merge_events .spinner {
-  background: #FFF url("/images/loading.gif") no-repeat center center;
+  background: #FFF url("/images/loading.gif") no-repeat center 30%;
   z-index:100;
+  top:50px;
 }
 
 .merge_events .spinner p.status {
   font-size:1.5em;
   position: absolute;
   text-align: center;
-  top: 45%;
+  top: 35%;
   width: 100%;
 }
 

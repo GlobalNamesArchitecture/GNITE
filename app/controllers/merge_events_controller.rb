@@ -40,6 +40,10 @@ class MergeEventsController < ApplicationController
     
     @data.delete_if { |k, v| v.empty? }
     
+    last_log = JobsLog.where(:tree_id => @master_tree, :job_type => 'MergeEvent').last unless @merge_event.status == "in review" 
+    
+    @merge_last_log = (!last_log.nil?) ? last_log.message : ""
+   
   end
 
   def create
