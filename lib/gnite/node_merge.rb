@@ -45,23 +45,24 @@ module Gnite
     end
 
     def add_merges(merge_event, node)
-      @current_merged_node.merge_result_secondaries.each do |merge_node|   
-        if [MergeDecision.accepted.id, MergeDecision.postponed.id].include? merge_node.merge_decision_id
-          if merge_node.merge_type.label == 'new'
-            merge_node = Node.find(merge_node.node_id)
+      @current_merged_node.merge_result_secondaries.each do |secondary_node|   
+        if [MergeDecision.accepted.id, MergeDecision.postponed.id].include? secondary_node.merge_decision_id
+          merge_node = Node.find(secondary_node.node_id)
+          merge_type = secondary_node.merge_subtype ? "#{secondary_node.merge_type.label} #{secondary_node.merge_subtype.label}" : secondary_node.merge_type.label
+          if merge_type == 'new'
             merge_node_copy = merge_node.clone
             merge_node_copy.parent = node
             merge_node_copy.tree = merge_event.merge_tree
-            copy_metadata(merge_node_copy, merge_node)
+            copy_metadata(merge_node_copy, merge_node, merge_type)
             merge_node_copy.save!
           else
-            copy_metadata(node, Node.find(merge_node.node_id))
+            copy_metadata(node, merge_node, merge_type)
           end
         end
       end
     end
 
-    def copy_metadata(target_node, source_node)
+    def copy_metadata(target_node, source_node, merge_type)
       known_vernaculars = target_node.vernacular_names.map { |v| v.name.name_string }.uniq
       known_synonyms = target_node.synonyms.map { |s| s.name.name_string }.uniq
 
@@ -80,6 +81,15 @@ module Gnite
           synonym_copy.save!
         end
       end
+      
+      if target_node.name != source_node.name
+        if merge_type == 'exact valid to valid'
+          Synonym.create(:node_id => target_node.id, :name => source_node.name, :status => 'lexical variant') 
+        else
+          Synonym.create(:node_id => target_node.id, :name => source_node.name, :status => 'merge alt name') 
+        end
+      end
+
     end
   end
 end
