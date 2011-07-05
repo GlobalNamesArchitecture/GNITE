@@ -3,9 +3,7 @@ class MergeTreesController < ApplicationController
 
   def populate
     merge_tree = MergeTree.find(params[:id])
-    merge_tree.root.children.each do |child|
-      child.destroy_with_children
-    end
+    merge_tree.nuke_nodes
     merge_tree.populate
     render :json => { :status => "OK" }
 #    redirect_to :show

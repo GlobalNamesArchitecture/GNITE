@@ -17,6 +17,30 @@ describe MasterTree do
   it { should have_many(:reference_tree_collections) }
   it { should have_many(:reference_trees).through(:reference_tree_collections) }
 
+  it "should nuke the tree and deleted_names tree" do
+    master_tree = Factory(:master_tree, :abstract => "It is my tree of very strange taxa")
+    root = Factory(:node, :tree => master_tree)
+    5.times { Factory(:node, :parent => root, :tree => master_tree) }
+    master_tree.children_of(root).each do |child|
+      5.times { Factory(:node, :parent => child, :tree => master_tree) }
+      5.times { Factory(:vernacular_name, :node => child) }
+      5.times { Factory(:synonym, :node => child) }
+    end
+    vernacular_count = VernacularName.count
+    synonyms_count = Synonym.count
+    tree_id = master_tree.id
+    deleted_tree_id = master_tree.deleted_tree.id
+    MasterTreeContributor.where(:master_tree_id => tree_id).size.should == 1
+    master_tree.nuke
+    expect { Tree.find(tree_id) }.to raise_error(ActiveRecord::RecordNotFound)
+    expect { Tree.find(deleted_tree_id) }.to raise_error(ActiveRecord::RecordNotFound)
+    Node.where(:tree_id => tree_id).should == []
+    Node.where(:tree_id => deleted_tree_id).should == []
+    MasterTreeContributor.where(:master_tree_id => tree_id).size.should == 0
+    (vernacular_count - VernacularName.count).should == 25
+    (synonyms_count - Synonym.count).should == 25
+  end
+
   it "should get deleted tree upon creation" do
     tree = Factory(:master_tree)
     deleted_names = DeletedTree.where(:master_tree_id => tree.id)

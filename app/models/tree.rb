@@ -28,10 +28,13 @@ class Tree < ActiveRecord::Base
   end
 
   def nuke
-    Tree.connection.execute("DELETE n, b, s, v FROM nodes n LEFT JOIN bookmarks b ON b.node_id = n.id LEFT JOIN synonyms s ON s.node_id = n.id LEFT JOIN vernacular_names v ON v.node_id = n.id WHERE tree_id = #{id}")
+    nuke_nodes
     Tree.connection.execute("DELETE FROM nodes WHERE tree_id = #{id}")
-    Tree.connection.execute("DELETE FROM master_tree_contributors WHERE master_tree_id = #{id}")
     destroy
+  end
+
+  def nuke_nodes
+    Tree.connection.execute("DELETE n, b, s, v FROM nodes n LEFT JOIN bookmarks b ON b.node_id = n.id LEFT JOIN synonyms s ON s.node_id = n.id LEFT JOIN vernacular_names v ON v.node_id = n.id WHERE tree_id = #{id} and n.parent_id is not null")
   end
 
   def root

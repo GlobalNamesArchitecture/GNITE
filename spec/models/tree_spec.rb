@@ -75,6 +75,33 @@ describe Tree do
   end
 end
 
+describe Tree, '#nuke_nodes' do
+  it "should destroy all nodes, but not the tree and its root" do
+    user = Factory(:email_confirmed_user)
+    tree = Factory(:tree)
+    root = Factory(:node, :tree => tree)
+    child = Factory(:node, :tree => tree, :parent_id => root)
+    grandchild = Factory(:node, :tree => tree, :parent_id => child)
+    bookmark = Factory(:bookmark, :node => child)
+    vern = Factory(:vernacular_name, :node => child)
+    syn = Factory(:synonym, :node => grandchild)
+    tree_id = tree.id
+    tree_count = Tree.count
+    root = tree.root
+    node_count = Node.count
+    bookmark_count = Bookmark.count
+    vern_count = VernacularName.count
+    syn_count = Synonym.count
+    tree.nuke_nodes
+    (tree_count - Tree.count).should == 0
+    tree.reload.root.should == root
+    (node_count - Node.count).should == 3
+    (bookmark_count - Bookmark.count).should == 1
+    (vern_count - VernacularName.count).should == 1
+    (syn_count - Synonym.count).should == 1
+  end
+end
+
 describe Tree, '#nuke' do
   it "should destroy all nodes, bookmarks, synonyms and vernaculars" do
     user = Factory(:email_confirmed_user)
