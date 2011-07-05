@@ -5,15 +5,15 @@ module Gnite
       copy = self.clone
       copy.tree = merge_event.merge_tree
       copy.save!
+      add_merges(merge_event, copy) if merge_has_node?(merge_event.id, self.id)
+      copy.reload
 
       children.each do |child|
         child_copy = child.deep_merge(merge_event)
         child_copy.parent = copy
-        add_merges(merge_event, child) if merge_has_node?(merge_event.id, child.id)
         child_copy.save!
       end
-      copy_metadata(copy, self)
-      copy.reload
+      copy
     end
   
     def merge_data(path = [self], result = { :empty_nodes => [], :leaves => []})
@@ -48,10 +48,12 @@ module Gnite
       @current_merged_node.merge_result_secondaries.each do |merge_node|   
         if [MergeDecision.accepted.id, MergeDecision.postponed.id].include? merge_node.merge_decision_id
           if merge_node.merge_type.label == 'new'
-            merge_node_copy = node.clone
+            merge_node = Node.find(merge_node.node_id)
+            merge_node_copy = merge_node.clone
             merge_node_copy.parent = node
             merge_node_copy.tree = merge_event.merge_tree
-            copy_metadata(merge_node_copy, Node.find(merge_node.node_id))
+            copy_metadata(merge_node_copy, merge_node)
+            merge_node_copy.save!
           else
             copy_metadata(node, Node.find(merge_node.node_id))
           end
