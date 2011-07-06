@@ -73,8 +73,7 @@ Feature: Merge nodes between trees
     And I follow "Tools" within "toolbar"
     And I follow "Merge" within "toolbar"
     And I press "Merge"
-    Then I should be on the merge results page for "My Master Tree"
-    And I should see "Starting merge..."
+    Then I should see "Starting merge..."
     And I should see a spinner
 
     When merge jobs are run
