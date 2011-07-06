@@ -54,8 +54,10 @@ $(function() {
         if(response.message === "Merging is complete") {
           $(".spinner").find(".status").html(response.message);
           $("#content").addClass("merge-complete").delay(2000).queue(function() {
-            $(this).find(".status").html("Reloading...");
-            window.location.href = "/master_trees/" + GNITE.MergeEvent.master_tree_id + "/merge_events/" + GNITE.MergeEvent.merge_event;
+            $(".spinner").find(".status").html("Reloading...");
+            var url   = "/master_trees/" + GNITE.MergeEvent.master_tree_id + "/merge_events/" + GNITE.MergeEvent.merge_event,
+                input = '<input type="hidden" name="" value="" />';
+            jQuery('<form action="'+ url +'" method="GET">'+input+'</form>').appendTo('body').submit().remove();
           });
         } else {
           $(".spinner").find(".status").html(response.message);
@@ -409,6 +411,7 @@ $(function() {
     if($('#treewrap-main').is(':visible')) {
       $('#preview-tree').jstree("lock");
       $('#merge-warning').show();
+      $('.node-metadata').hide();
 
       $('#merge-warning a').click(function() {
         GNITE.MergeEvent.generatePreview();

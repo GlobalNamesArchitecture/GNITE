@@ -12,3 +12,11 @@ Given /^"([^"]*)" has created a master tree "([^"]*)" and a reference tree "([^"
   ReferenceTreeCollection.create!(:master_tree => master_tree, :reference_tree => reference_tree)
   reference_tree.reload
 end
+
+When /^I wait for the merge results page to refresh$/ do
+  loaded = false
+  When %{pause 1}
+  while !loaded
+    loaded = page.has_css?("#merge-results-table")
+  end
+end

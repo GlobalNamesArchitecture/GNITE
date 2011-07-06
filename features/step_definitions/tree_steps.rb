@@ -19,6 +19,6 @@ When /^I refresh the master tree$/ do
   page.execute_script("jQuery('#master-tree').jstree('refresh');")
 end
 
-Then /^The master tree should be locked$/ do
+Then /^the master tree should be locked$/ do
   page.should have_css(".jstree-locked")
 end

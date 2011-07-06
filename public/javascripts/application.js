@@ -148,8 +148,16 @@ $(function() {
       'ctrl+z'       : function() { this.undo(); },
       'ctrl+shift+z' : function() { this.redo(); },
       'ctrl+s'       : function() { GNITE.Tree.MasterTree.publish(); },
-      'ctrl+h'       : function() { window.location.href = "/master_trees/" + GNITE.Tree.MasterTree.id + "/edits"; },
-      'ctrl+m'       : function() { window.location.href = "/master_trees/" + GNITE.Tree.MasterTree.id + "/merge_events"; },
+      'ctrl+h'       : function() {
+        var url   = "/master_trees/" + GNITE.Tree.MasterTree.id + "/edits",
+            input = '<input type="hidden" name="" value="" />';
+        jQuery('<form action="'+ url +'" method="GET">'+input+'</form>').appendTo('body').submit().remove();
+      },
+      'ctrl+m'       : function() {
+        var url   = "/master_trees/" + GNITE.Tree.MasterTree.id + "/merge_events",
+            input = '<input type="hidden" name="" value="" />';
+       jQuery('<form action="'+ url +'" method="GET">'+input+'</form>').appendTo('body').submit().remove(); 
+      },
       'ctrl+c'       : function() { this.close_all(); }
     },
     'bookmarks' : {
@@ -607,7 +615,9 @@ $(function() {
                 url         :  '/master_trees/' + GNITE.Tree.MasterTree.id,
                 data        :  formData,
                 success     : function() {
-                  window.location.href = "/master_trees";
+                  var url   = "/master_trees",
+                      input = '<input type="hidden" name="" value="" />';
+                  jQuery('<form action="'+ url +'" method="GET">'+input+'</form>').appendTo('body').submit().remove();
                 }
               });
            }
