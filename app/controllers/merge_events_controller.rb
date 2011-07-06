@@ -61,7 +61,12 @@ class MergeEventsController < ApplicationController
       :memo => memo,
       :status => 'computing')
     Resque.enqueue(MergeEvent, @merge_event.id)
-    redirect_to master_tree_merge_event_url(params[:master_tree_id], @merge_event.id)
+
+    respond_to do |format|
+      format.json do
+        render :json => { :status => "OK", :merge_event => @merge_event.id }
+      end
+    end
   end
   
   def update

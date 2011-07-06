@@ -252,6 +252,10 @@ body form input {
   background: -webkit-gradient(linear,left bottom,left top, color-stop(0.04, rgb(139,35,35)), color-stop(0.58, rgb(255,64,64)), color-stop(0.98, rgb(255,193,193))) !important;
 }
 
+.hidden-button {
+  display:none;
+}
+
 .cancel-button:hover, .green-submit:hover, .green-submit-small:hover {
   cursor: pointer;
   border: 0 solid rgb(15, 18, 21) !important;
@@ -1194,8 +1198,11 @@ body form input {
 }
 
 #merge-form p {
-  font-style:italic;
   margin-bottom:10px;
+}
+
+#merge-form .spinner p {
+  top:80%;
 }
 
 /* GNACLR Search results */

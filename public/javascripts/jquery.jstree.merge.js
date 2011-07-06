@@ -21,6 +21,11 @@
                 this.__callback({ "obj" : obj });
                 if(callback) { callback.call(); }
             },
+            merge_view : function(obj, callback) {
+               obj = this._get_node(obj, true);
+               this.__callback({ "obj" : obj });
+               if(callback) { callback.call(); }
+            },
             _merge_initialize : function() {
                 var self = this;
                 var s = self.get_settings().merge;
@@ -33,11 +38,18 @@
                         resizable: false,
                         buttons: [
                           {
+                            'class' : "green-submit hidden-button",
+                            text : "View",
+                            click : function() {
+                              $(s.merge_form).find("form").submit();
+                              $(this).dialog("close");
+                            }
+                          },
+                          {
                             'class' : "green-submit",
                             text : "Merge",
                             click : function() {
                               self.merge_submit();
-                              $(this).dialog("close");
                             }
                           },
                           {

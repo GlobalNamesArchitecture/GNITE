@@ -5,10 +5,10 @@
 **************************************************************/
 var GNITE = {
   Tree : {
-    MasterTree      : {},
-    DeletedTree     : {},
-    ReferenceTree   : {},
-    Node            : {}
+    MasterTree    : {},
+    DeletedTree   : {},
+    ReferenceTree : {},
+    Node          : {}
   }
 };
 
@@ -468,6 +468,17 @@ $(function() {
       case 'merge':
         $('#master-tree').jstree("lock");
         GNITE.Tree.MasterTree.showMergeWarning(response.merge_id);
+      break;
+
+      case 'MergeEvent':
+        $(".spinner").find(".status").html(response.message);
+        if(response.message === "Merging is complete") {
+          $(".spinner").css("background-image", "none").find(".status").html(response.message);
+          $(".green-submit").hide();
+          $(".cancel-button").hide();
+          $(".hidden-button").show();
+          $(".ui-dialog-buttonpane").show();
+        }
       break;
 
       case 'lock':
@@ -1078,8 +1089,29 @@ $(function() {
     event = null;
     
     if(data.rslt.obj) {
-      $('#merge-form form').submit();
+      data = JSON.stringify({ 
+        "merge" : {
+          "master_tree_node"    : $('#merge_master_tree_node').val(), 
+          "reference_tree_node" : $('#merge_reference_tree_node').val(),
+          "authoritative_node"  : $('input[name="merge[authoritative_node]"]:checked').val()
+        }
+      });
+      $(".ui-dialog-buttonpane").hide();
+      $(".ui-dialog-titlebar-close").hide();
+      $('#merge-form').spinner().find(".spinner").append('<p class="status">Starting merge...</p>');
+      $.ajax({
+        url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/merge_events',
+        type        : 'POST',
+        data        : data,
+        contentType : 'application/json',
+        success     : function(response) {
+          var url = $('#merge-form form').attr("action");
+          $('#merge-form form').clearForm().attr("action", url + "/" + response.merge_event).find("input:hidden").remove();
+        }
+      });
     }
+
+    return false;
 
   });
 
