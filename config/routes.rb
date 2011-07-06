@@ -31,7 +31,7 @@ Gnite::Application.routes.draw do
     resources :gnaclr_classifications, :only => [:index, :show]
     resources :imports,                :only => [:new]
     resource  :tree_expand,            :only => [:show]
-    resources :merge_events,           :only => [:index, :create, :show, :update]
+    resources :merge_events,           :only => [:index, :create, :show, :update] { post :do, :on => :member}
   end
 
   resources :reference_trees, :only => [:create, :show] do

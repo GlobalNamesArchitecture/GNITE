@@ -36,7 +36,7 @@
     </div>
 
     <div id="merge-results-table" class="full clearfix">
-    <%= form_tag(:autocomplete => "off", :only_path => true) do %>
+    <%= form_tag(:autocomplete => "off", :only_path => true, :action => :do) do %>
       <div class="ui-tabs ui-widget ui-widget-content ui-corner-all">
         <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
           <% @data.each_with_index do |(key,value),index| %>
