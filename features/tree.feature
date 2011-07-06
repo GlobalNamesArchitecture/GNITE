@@ -209,6 +209,7 @@ Feature: Edit a master tree
     And I wait for the websocket to activate
     And I select the node "chocolate"
     And I click "New child" in the context menu
+    And pause 1
     And I enter "cookie" in the new node and press enter
     And I wait for the tree to load
     And I refresh the master tree
