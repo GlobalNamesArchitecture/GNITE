@@ -19,6 +19,8 @@ module NamedElementHelper
       ".reference-tree .jstree-leaf"
     when /toolbar/
       "#toolbar"
+    when /the dialog box/
+      ".ui-dialog-content"
     else
       named_element
     end

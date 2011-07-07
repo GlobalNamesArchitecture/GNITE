@@ -1,4 +1,4 @@
 # encoding: utf-8
 Given /^I debug$/ do
-  debugger
+  require 'ruby-debug'; debugger
 end

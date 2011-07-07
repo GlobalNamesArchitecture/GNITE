@@ -56,3 +56,23 @@ When /^I refresh the reference tree "(.*)"$/ do |reference_tree_title|
   page.execute_script("jQuery('#{reference_tree_matcher}').jstree('refresh');");
   sleep 1
 end
+
+When /^I select the node "([^"]*)" in my reference tree$/ do |node_text|
+  When %{I follow "#{node_text}" within ".reference-tree-container"}
+  sleep 1
+end
+
+When /^I expand the node "([^"]*)" in my reference tree "(.*)"$/ do |node_name, reference_tree_title|
+  reference_tree = ReferenceTree.find_by_title(reference_tree_title)
+  node = ::Node.joins(:name).where('names.name_string = ? and nodes.tree_id = ?', node_name, reference_tree.id).first
+  page.execute_script("jQuery('.reference-tree-container > div').jstree('open_node', '##{node.id}');")
+  sleep 1
+end
+
+When /^I wait for the reference tree to load$/ do
+  loaded = false
+  When %{pause 1}
+  while !loaded
+    loaded = page.has_css?(".reference-tree-container > div.loaded") && !page.has_css?("span.jstree-loading")
+  end
+end

@@ -31,6 +31,20 @@
 
       <div class="node-metadata ui-dialog clearfix"></div>
 
+      <div id="merge-warning">
+        <ul><li>
+        <% if @master_tree.merge_events.any? %>
+          <%= link_to master_tree_merge_event_path(:master_tree_id => @master_tree.id, :id => @master_tree.merge_events.first.id) do %>
+            This tree has an active merge event and cannot be edited
+          <% end %>
+        <% else %>
+          <%= link_to master_tree_merge_events_path(:master_tree_id => @master_tree.id) do %>
+            This tree has an active merge event and cannot be edited
+          <% end %>
+        <% end %>
+        </li></ul>
+      </div>
+
     </div>
   </div>
 
@@ -42,10 +56,10 @@
 
 <%= render :partial => 'merge_form.html' %>
 
-<%= render :partial => 'chat_messages.html' %>
+<%= render :partial => 'shared/chat_messages.html' %>
 
 <% content_for :javascript do %>
-<%= javascript_include_tag 'juggernaut/json', 'juggernaut/socket_io', 'juggernaut/juggernaut', 'application', 'jstree/jquery.jstree', 'jquery.jstree.bookmarks', 'jquery.cookie', 'jquery.hotkeys', 'jquery.jstree.bulkcreate', 'jquery.jstree.undoredo', 'jquery.jstree.merge', 'jquery.scrollTo-min', 'jquery.spinner', 'ddsmoothmenu' %>
+<%= javascript_include_tag 'juggernaut/json', 'juggernaut/socket_io', 'juggernaut/juggernaut', 'application', 'jstree/jquery.jstree', 'jquery.jstree.bookmarks', 'jquery.cookie', 'jquery.hotkeys', 'jquery.jstree.bulkcreate', 'jquery.jstree.undoredo', 'jquery.jstree.merge', 'jquery.spinner', 'ddsmoothmenu', 'jquery.scrollTo.min', 'jquery.extensions' %>
 
 <script type="text/javascript">
 <!--//--><![CDATA[//><!--

@@ -7,6 +7,7 @@ Gnite::Application.routes.draw do
   match "/master_trees/:id/redo" => "master_trees#redo"
   match "/tree_searches/:tree_id/:name_string" => "tree_searches#show"
   match "/push_messages" => "push_messages#update"
+  match "/merge_trees/:id/populate" => "merge_trees#populate"
 
   resource :session, :only => [:new, :create, :destroy], :controller => "sessions"
 
@@ -30,7 +31,7 @@ Gnite::Application.routes.draw do
     resources :gnaclr_classifications, :only => [:index, :show]
     resources :imports,                :only => [:new]
     resource  :tree_expand,            :only => [:show]
-    resources :merge_events,           :only => [:index, :create, :show, :update]
+    resources :merge_events,           :only => [:index, :create, :show, :update] { post :do, :on => :member}
   end
 
   resources :reference_trees, :only => [:create, :show] do
@@ -40,6 +41,11 @@ Gnite::Application.routes.draw do
   end
 
   resources :deleted_trees, :only => [:show] do
+    resources :nodes,        :only => [:index, :show]
+    resource  :tree_expand,  :only => [:show]
+  end
+  
+  resources :merge_trees, :only => [:show] do
     resources :nodes,        :only => [:index, :show]
     resource  :tree_expand,  :only => [:show]
   end

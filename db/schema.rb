@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110629152955) do
+ActiveRecord::Schema.define(:version => 20110703231727) do
 
   create_table "action_commands", :force => true do |t|
     t.string   "type"
@@ -161,7 +161,7 @@ ActiveRecord::Schema.define(:version => 20110629152955) do
     t.integer  "parent_id"
   end
 
-  add_index "nodes", ["local_id", "tree_id"], :name => "index_nodes_on_local_id_and_tree_id", :unique => true
+  add_index "nodes", ["local_id", "tree_id"], :name => "index_nodes_on_local_id_and_tree_id"
   add_index "nodes", ["name_id"], :name => "index_nodes_on_name_id"
   add_index "nodes", ["parent_id"], :name => "index_nodes_on_parent_id"
   add_index "nodes", ["tree_id"], :name => "index_nodes_on_tree_id"

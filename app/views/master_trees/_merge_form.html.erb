@@ -1,5 +1,5 @@
 <div id="merge-form" title="Merge">
-    <%= form_tag("/master_trees/#{@master_tree.id}/merge_events") do %>
+    <%= form_tag("/master_trees/#{@master_tree.id}/merge_events", :method => "get") do %>
       <p>Pick the most authoritative node</p>
       <div id="master-tree-merge-selection" class="merge-column">
         <h2></h2>
@@ -14,4 +14,5 @@
         <%= hidden_field "merge", "reference_tree_node" %>
       </div>
     <% end %>
+    <div id="merge-view-results"><a href="/master_trees/<%= @master_tree.id %>/merge_events">View</a></div>
 </div>

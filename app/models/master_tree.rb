@@ -27,6 +27,12 @@ class MasterTree < Tree
     dwca_file
   end
 
+  def nuke
+    Tree.connection.execute("DELETE FROM master_tree_contributors WHERE master_tree_id = #{id}")
+    Tree.find(self.deleted_tree.id).nuke
+    super
+  end
+
   private
   def core_fields
     [ "http://rs.tdwg.org/dwc/terms/taxonID",

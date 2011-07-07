@@ -58,6 +58,26 @@ describe "routing to reference_trees" do
   end
 end
 
+describe "routing to deleted_trees" do
+  it "routes /deleted_trees/:id to deleted_trees#show" do
+    {  :get => "/deleted_trees/12" }.should route_to(
+       :controller => "deleted_trees",
+       :action => "show",
+       :id => "12"
+    )
+  end
+end
+
+describe "routing to master tree edits" do
+  it "routes /master_trees/:master_tree_id/edits to master_tree_logs#index" do
+    { :get => "/master_trees/123/edits" }.should route_to(
+      :controller => "master_tree_logs",
+      :action => "index",
+      :master_tree_id => "123"
+    )
+  end
+end
+
 describe "routing to users" do
   it "routes /users/abc/edit to users#edit" do
     { :get => "/users/abc/edit" }.should route_to(
@@ -85,7 +105,14 @@ describe "routing to passwords" do
 end
 
 describe "routing to nodes" do
-  it "routes /master_trees/:id/nodes.json to nodes#index" do
+  it "routes /master_trees/:master_tree_id/nodes to nodes#index" do
+    { :get => "/master_trees/123/nodes" }.should route_to(
+      :controller => "nodes",
+      :action     => "index",
+      :master_tree_id    => "123"
+    )
+  end
+  it "routes /master_trees/:master_tree_id/nodes.json to nodes#index" do
     { :get => "/master_trees/123/nodes.json" }.should route_to(
       :controller => "nodes",
       :action     => "index",
@@ -93,8 +120,7 @@ describe "routing to nodes" do
       :format     => "json"
     )
   end
-
-  it "routes POST /master_trees/:id/nodes.json to nodes#create" do
+  it "routes POST /master_trees/:master_tree_id/nodes.json to nodes#create" do
     { :post => "/master_trees/123/nodes.json" }.should route_to(
       :controller => "nodes",
       :action     => "create",
@@ -121,12 +147,125 @@ describe "routing to nodes" do
     )
   end
 
-  it "routes /reference_trees/:id/nodes.json to nodes#index" do
+  it "routes /reference_trees/:reference_tree_id/nodes to nodes#index" do
+    { :get => "/reference_trees/123/nodes" }.should route_to(
+      :controller => "nodes",
+      :action     => "index",
+      :reference_tree_id    => "123"
+    )
+  end
+  it "routes /reference_trees/:reference_tree_id/nodes.json to nodes#index" do
     { :get => "/reference_trees/123/nodes.json" }.should route_to(
       :controller => "nodes",
       :action     => "index",
       :reference_tree_id    => "123",
       :format     => "json"
+    )
+  end
+
+  it "routes /deleted_trees/:deleted_tree_id/nodes to nodes#index" do
+    { :get => "/deleted_trees/123/nodes" }.should route_to(
+      :controller => "nodes",
+      :action     => "index",
+      :deleted_tree_id    => "123"
+    )
+  end
+  it "routes /deleted_trees/:deleted_tree_id/nodes.json to nodes#index" do
+    { :get => "/deleted_trees/123/nodes.json" }.should route_to(
+      :controller => "nodes",
+      :action     => "index",
+      :deleted_tree_id    => "123",
+      :format     => "json"
+    )
+  end
+
+  it "routes /merge_trees/:merge_tree_id/nodes to nodes#index" do
+    { :get => "/merge_trees/123/nodes" }.should route_to(
+      :controller => "nodes",
+      :action     => "index",
+      :merge_tree_id    => "123"
+    )
+  end
+  it "routes /merge_trees/:merge_tree_id/nodes.json to nodes#index" do
+    { :get => "/merge_trees/123/nodes.json" }.should route_to(
+      :controller => "nodes",
+      :action     => "index",
+      :merge_tree_id    => "123",
+      :format     => "json"
+    )
+  end
+
+end
+
+describe "routing to node metadata" do
+  it "routes /master_trees/:master_tree_id/nodes/:id to nodes#show" do
+    { :get => "/master_trees/123/nodes/12" }.should route_to(
+      :controller => "nodes",
+      :action     => "show",
+      :master_tree_id    => "123",
+      :id => "12"
+    )
+  end
+  it "routes /reference_trees/:reference_tree_id/nodes/:id to nodes#show" do
+    { :get => "/reference_trees/123/nodes/12" }.should route_to(
+      :controller => "nodes",
+      :action     => "show",
+      :reference_tree_id    => "123",
+      :id => "12"
+    )
+  end
+  it "routes /merge_trees/:merge_tree_id/nodes/:id to nodes#show" do
+    { :get => "/merge_trees/123/nodes/12" }.should route_to(
+      :controller => "nodes",
+      :action     => "show",
+      :merge_tree_id    => "123",
+      :id => "12"
+    )
+  end
+end
+
+describe "routing to merge events" do
+  
+  it "routes /master_trees/:master_tree_id/merge_events to merge_events#index" do
+    { :get => "/master_trees/123/merge_events" }.should route_to(
+      :controller => "merge_events",
+      :action => "index",
+      :master_tree_id => "123"
+    )
+  end
+  
+  it "routes /master_trees/:master_tree_id/merge_events to merge_events#create" do
+    { :post => "/master_trees/123/merge_events" }.should route_to(
+      :controller => "merge_events",
+      :action => "create",
+      :master_tree_id => "123"
+    )
+  end
+
+  it "routes /master_trees/:master_tree_id/merge_events/:id to merge_events#show" do
+    { :get => "/master_trees/123/merge_events/12" }.should route_to(
+      :controller => "merge_events",
+      :action => "show",
+      :master_tree_id => "123",
+      :id => "12"
+    )
+  end
+
+  it "routes /master_trees/:master_tree_id/merge_events/:id to merge_events#show" do
+    { :get => "/master_trees/123/merge_events/12" }.should route_to(
+      :controller => "merge_events",
+      :action => "show",
+      :master_tree_id => "123",
+      :id => "12"
+    )
+  end
+
+  it "routes /master_trees/:master_tree_id/merge_events/:id to merge_events#update" do
+    { :put => "/master_trees/123/merge_events/12" }.should route_to(
+      :controller => "merge_events",
+      :action => "update",
+      :master_tree_id => "123",
+      :id => "12"
     )
   end
 

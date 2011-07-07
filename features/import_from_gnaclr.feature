@@ -21,7 +21,7 @@ Feature: Importing trees from GNACLR
     And I follow "NCBI"
     And I press "Import"
     And I should not see the gnaclr import button
-    When resque jobs are run
+    When import jobs are run
     Then I should not see a spinner
     And I should see an "NCBI" tab
     Then I should see "All reference trees (1)"
@@ -40,7 +40,7 @@ Feature: Importing trees from GNACLR
     When I choose "Published: 2011-03-14 17:05:17"
     And I press "Import"
     And I should not see the gnaclr import button
-    When resque jobs are run
+    When import jobs are run
     Then I should not see a spinner
     And I should see an "NCBI" tab
     Then I should see "All reference trees (1)"
@@ -62,7 +62,7 @@ Feature: Importing trees from GNACLR
     Then I should see the breadcrumb path "NCBI"
     And I should not see any reference tree nodes
     And I should see a spinner
-    When resque jobs are run
+    When import jobs are run
     Then I should not see a spinner
     And I should see "All reference trees (1)"
     And I should see a node "Cyphophthalmi incertae sedis" at the root level in my reference tree "NCBI"

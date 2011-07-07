@@ -5,10 +5,10 @@
 **************************************************************/
 var GNITE = {
   Tree : {
-    MasterTree      : {},
-    DeletedTree     : {},
-    ReferenceTree   : {},
-    Node            : {}
+    MasterTree    : {},
+    DeletedTree   : {},
+    ReferenceTree : {},
+    Node          : {}
   }
 };
 
@@ -148,8 +148,16 @@ $(function() {
       'ctrl+z'       : function() { this.undo(); },
       'ctrl+shift+z' : function() { this.redo(); },
       'ctrl+s'       : function() { GNITE.Tree.MasterTree.publish(); },
-      'ctrl+h'       : function() { window.location = "/master_trees/" + GNITE.Tree.MasterTree.id + "/edits"; },
-      'ctrl+m'       : function() { window.location = "/master_trees/" + GNITE.Tree.MasterTree.id + "/merge_events"; },
+      'ctrl+h'       : function() {
+        var url   = "/master_trees/" + GNITE.Tree.MasterTree.id + "/edits",
+            input = '<input type="hidden" name="" value="" />';
+        jQuery('<form action="'+ url +'" method="GET">'+input+'</form>').appendTo('body').submit().remove();
+      },
+      'ctrl+m'       : function() {
+        var url   = "/master_trees/" + GNITE.Tree.MasterTree.id + "/merge_events",
+            input = '<input type="hidden" name="" value="" />';
+       jQuery('<form action="'+ url +'" method="GET">'+input+'</form>').appendTo('body').submit().remove(); 
+      },
       'ctrl+c'       : function() { this.close_all(); }
     },
     'bookmarks' : {
@@ -309,6 +317,11 @@ $(function() {
                 });
               });
 
+              self.bind('loaded.jstree', function(event, data) {
+                event = null; data = null;
+                self.addClass('loaded');
+              });
+
               // Hide the spinner icon once node is loaded
               self.bind('open_node.jstree', function(event, data) {
                 event = null;
@@ -421,6 +434,11 @@ $(function() {
             });
           });
 
+          self.bind('loaded.jstree', function(event, data) {
+            event = null; data = null;
+            self.addClass('loaded');
+          });
+
           // Hide the spinner icon once node is loaded
           self.bind('open_node.jstree', function(event, data) {
             event = null;
@@ -447,6 +465,19 @@ $(function() {
         $('.deleted-tree-container .jstree').jstree("refresh");
       break;
 
+      case 'merge':
+        $('#master-tree').jstree("lock");
+        GNITE.Tree.MasterTree.showMergeWarning(response.merge_id);
+      break;
+
+      case 'MergeEvent':
+        $(".spinner").find(".status").html(response.message);
+        if(response.message === "Merging is complete") {
+          $(".spinner").css("background-image", "none").find(".status").html(response.message).addClass("merge-complete");
+          $("#merge-view-results").show()
+        }
+      break;
+
       case 'lock':
         $('#master-tree').jstree("lock");
       break;
@@ -457,7 +488,7 @@ $(function() {
 
       case 'member-login':
         $("#chat-messages-head").effect("highlight", { color : "green" }, 2000);
-        $("#chat-messages-list").prepend("<li class=\"new-user\"><span class=\"user\">" + response.user.email + "</span><span class=\"message\">arrived [" + response.time + "]</span></li>");
+        $("#chat-messages-list").append("<li class=\"new-user\"><span class=\"user\">" + response.user.email + "</span><span class=\"message\">arrived [" + response.time + "]</span></li>").parent().scrollTo('li:last',500);
       break;
 
       case 'member-logout':
@@ -465,8 +496,10 @@ $(function() {
 
       case 'chat':
         $('#chat-messages-head').effect("highlight", { color : "green" }, 2000);
+        $('#chat-messages-maximize').hide();
+        $('#chat-messages-minimize').show();
         $('#chat-messages-wrapper div').show();
-        $('#chat-messages-list').prepend("<li class=\"chat\"><span class=\"user\">" + response.user.email + "</span>:<span class=\"message\">" + response.message + "</span></li>");
+        $('#chat-messages-list').append("<li class=\"chat\"><span class=\"user\">" + response.user.email + "</span>:<span class=\"message\">" + response.message + "</span></li>").parent().scrollTo('li:last',500);
       break;
     }
   });
@@ -581,8 +614,8 @@ $(function() {
         closeText : "",
         buttons: [
           {
-            className : "green-submit",
-            text : "Delete",
+            'class' : "green-submit",
+            text  : "Delete",
             click : function() {
               var formData = $("form").serialize();
               $.ajax({
@@ -590,14 +623,16 @@ $(function() {
                 url         :  '/master_trees/' + GNITE.Tree.MasterTree.id,
                 data        :  formData,
                 success     : function() {
-                  window.location = "/master_trees";
+                  var url   = "/master_trees",
+                      input = '<input type="hidden" name="" value="" />';
+                  jQuery('<form action="'+ url +'" method="GET">'+input+'</form>').appendTo('body').submit().remove();
                 }
               });
            }
          },
          {
-           className : "cancel-button",
-           text : "Cancel",
+           'class' : "cancel-button",
+           text  : "Cancel",
            click : function() {
              $('#dialog-message').dialog("destroy").hide().remove();
            }
@@ -787,8 +822,11 @@ $(function() {
     event = null; data = null;
     $(this).addClass('loaded');
     // Lock the master tree if refreshed in midst of active job
-    if(GNITE.Tree.MasterTree.state === "working") {
+    if(GNITE.Tree.MasterTree.state === "working" || GNITE.Tree.MasterTree.state === "merging") {
       $(this).jstree("lock");
+    }
+    if(GNITE.Tree.MasterTree.state === "merging") {
+      GNITE.Tree.MasterTree.showMergeWarning();
     }
   });
 
@@ -1048,7 +1086,26 @@ $(function() {
     event = null;
     
     if(data.rslt.obj) {
-      $('#merge-form form').submit();
+      data = JSON.stringify({ 
+        "merge" : {
+          "master_tree_node"    : $('#merge_master_tree_node').val(), 
+          "reference_tree_node" : $('#merge_reference_tree_node').val(),
+          "authoritative_node"  : $('input[name="merge[authoritative_node]"]:checked').val()
+        }
+      });
+      $(".ui-dialog-buttonpane").hide();
+      $(".ui-dialog-titlebar-close").hide();
+      $('#merge-form').spinner().find(".spinner").append('<p class="status">Starting merge...</p>');
+      $.ajax({
+        url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/merge_events',
+        type        : 'POST',
+        data        : data,
+        contentType : 'application/json',
+        success     : function(response) {
+          var url = $('#merge-view-results a').attr("href");
+          $('#merge-view-results a').attr("href", url + "/" + response.merge_event);
+        }
+      });
     }
 
   });
@@ -1245,11 +1302,16 @@ $(function() {
       $('#chat-messages-minimize').show();
     }
   });
-  $('#chat-messages-input').keypress(function(event) {
-    if (event.which === 13) {
-      GNITE.postChat();
-      $(this).val('');
+  $('#chat-messages-input').keypress(function(e) {
+    var msg  = $(this).val().replace("\n", ""),
+        code = (e.keyCode ? e.keyCode : e.which);
+ 
+    if(code !== 13) { return; }
+    if (!$.isBlank(msg)) {
+      GNITE.pushMessage("chat", msg, false);
+      $(this).val("");
     }
+    return false;
   });
 
 });
@@ -1275,17 +1337,6 @@ GNITE.pushMessage = function(subject, message, ignore) {
         if(ignore) { xhr.setRequestHeader("X-Session-ID", jug.sessionID); }
     }
   });
-};
-
-GNITE.postChat = function() {
-
-  "use strict";
-
-  var message = $('#chat-messages-input').val().trim();
-
-  if(message) {
-    GNITE.pushMessage("chat", message, false);
-  }
 };
 
 GNITE.Tree.hideMenu = function() {
@@ -1413,7 +1464,8 @@ GNITE.Tree.viewBookmarks = function(obj) {
       input     = "",
       val       = "";
 
-  bookmarks.html("").spinner().dialog("open");
+  bookmarks.html("");
+  bookmarks.spinner().dialog("open");
 
   $.ajax({
     url      : url,
@@ -1591,9 +1643,9 @@ GNITE.Tree.MasterTree.publish = function() {
         closeText : "",
         buttons: [
           {
-            className : "green-submit",
-            text      : "OK",
-            click     : function() { $(this).dialog("close"); }
+            'class' : "green-submit",
+            text  : "OK",
+            click : function() { $(this).dialog("close"); }
           }
         ],
         draggable : false,
@@ -1650,19 +1702,28 @@ GNITE.Tree.MasterTree.updateMetadataTitle = function(name) {
   $('#treewrap-main .node-metadata span.ui-dialog-title').text(name);
 };
 
+GNITE.Tree.MasterTree.showMergeWarning = function(merge_id) {
+
+  "use strict";
+
+  $('#toolbar .topnav').hide();
+  if(merge_id) { $('#merge-warning a').attr("href", "/master_trees/" + GNITE.Tree.MasterTree.id + "/merge_events/" + merge_id); }
+  $('#merge-warning').show();
+};
+
 GNITE.Tree.MasterTree.merge = function() {
 
   "use strict";
 
   var master                    = $('#master-tree'),
       master_selected           = master.jstree("get_selected"),
-      reference                 = $('.reference-tree-container div.jstree-focused'),
+      reference                 = $(".reference-tree:not('.ui-tabs-hide') div.jstree"),
       reference_selected        = reference.jstree("get_selected"),
       master_selected_string    = "",
       reference_selected_string = "",
       message                   = "";
 
-  if(master_selected.length === 0 || master_selected.legnth > 1 || reference_selected.length > 1 || reference_selected.length === 0) {
+  if(master_selected.length === 0 || master_selected.length > 1 || reference_selected.length > 1 || reference_selected.length === 0) {
     message = '<p>Select one name in your working tree and one name in your reference tree then re-execute merge.</p>';
     $('body').append('<div id="dialog-message" class="ui-state-highlight" title="Merge Instructions">' + message + '</div>');
     $('#dialog-message').dialog({
@@ -1672,10 +1733,10 @@ GNITE.Tree.MasterTree.merge = function() {
         closeText : "",
         buttons: [
          {
-           className : "green-submit",
-           text : "OK",
+           'class' : "green-submit",
+           text  : "OK",
            click : function() {
-             $('#dialog-message').dialog("destroy").hide().remove();
+             $('#dialog-message').dialog("destroy").remove();
            }
          }
        ],
@@ -1695,6 +1756,7 @@ GNITE.Tree.MasterTree.merge = function() {
 
     $("#merge-form").dialog("open");
   }
+
 
   return false;
 };
@@ -1838,48 +1900,4 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
 
   container.unspinner().show();
   wrapper.css('bottom', container.height());
-};
-
-
-/**************************************************************
-           CUSTOM jQuery PLUGINS
-**************************************************************/
-
-$.fn.spinner = function() {
-
-  "use strict";
-
-  if (this[0].spinnerElement) {
-    return;
-  }
-
-  var position = this.css('position'), spinnerElement = $('<div class="spinner"></div>');
-
-  if (position !== 'absolute' && position !== 'relative') {
-    position = 'relative';
-  }
-
-  this.css('position', position).prepend(spinnerElement);
-
-  spinnerElement.fadeIn('fast');
-
-  return this.each(function () {
-    this.spinnerElement = spinnerElement[0];
-  });
-};
-
-$.fn.unspinner = function() {
-
-  "use strict";
-
-  this.each(function () {
-    if (this.spinnerElement) {
-      $(this.spinnerElement).fadeOut('fast', function() {
-        $(this).remove();
-      });
-
-      this.spinnerElement = null;
-    }
-  });
-  return this;
 };

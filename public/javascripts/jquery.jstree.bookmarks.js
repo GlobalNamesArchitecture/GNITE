@@ -49,7 +49,7 @@
                         resizable: false,
                         buttons: [
                           {
-                            className : "green-submit",
+                            'class' : "green-submit",
                             text : "Add bookmark",
                             click : function() {
                                 var bValid = true;
@@ -62,7 +62,7 @@
                             }
                           },
                           {
-                            className : "cancel-button",
+                            'class' : "cancel-button",
                             text : "Cancel",
                             click : function() {
                               $(this).dialog("close");
@@ -95,7 +95,7 @@
                         resizable: false,
                         buttons: [
                           {
-                            className : "green-submit",
+                            'class' : "green-submit",
                             text : "Close",
                             click : function() {
                               $(this).dialog("close");

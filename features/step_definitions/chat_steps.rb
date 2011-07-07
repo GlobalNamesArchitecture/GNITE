@@ -16,6 +16,7 @@ When /^I enter "([^"]*)" in the chat box and press enter$/ do |text|
   page.execute_script <<-JS
     var e = jQuery.Event("keypress");
     e.which = 13;
+    e.keyCode = 13;
     $("#chat-messages-input").trigger(e);
   JS
   sleep 2

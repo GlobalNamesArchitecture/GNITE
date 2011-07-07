@@ -40,6 +40,10 @@ class MergeEventsController < ApplicationController
     
     @data.delete_if { |k, v| v.empty? }
     
+    last_log = JobsLog.where(:tree_id => @master_tree, :job_type => 'MergeEvent').last unless @merge_event.status == "in review" 
+    
+    @merge_last_log = (!last_log.nil?) ? last_log.message : ""
+
   end
 
   def create
@@ -57,7 +61,41 @@ class MergeEventsController < ApplicationController
       :memo => memo,
       :status => 'computing')
     Resque.enqueue(MergeEvent, @merge_event.id)
-    redirect_to master_tree_merge_event_url(params[:master_tree_id], @merge_event.id)
+
+    respond_to do |format|
+      format.json do
+        render :json => { :status => "OK", :merge_event => @merge_event.id }
+      end
+    end
+  end
+  
+  def update
+    params[:data].each do |decision|
+      decision_item = MergeResultSecondary.find(decision[:merge_result_secondary_id])
+      decision_item.update_attributes(:merge_decision_id => decision[:merge_decision_id])
+      decision_item.save
+    end
+    respond_to do |format|
+      format.json do
+        render :json => { :status => "OK" }
+      end
+    end
+  end
+
+  def do
+    me = MergeEvent.find(params[:id])
+    master_tree_node = me.primary_node.tree == me.master_tree ? me.primary_node : me.secondary_node
+    parent = master_tree_node.parent
+    params[:action_type] = "ActionMoveNodeToDeletedTree"
+    schedule_action(master_tree_node, me.master_tree, params)
+    merge_tree_node = me.merge_tree.root.children[0]
+    params[:node] = {}
+    params[:node][:parent_id] = parent.id
+    params[:action_type] = "ActionCopyNodeFromAnotherTree"
+    schedule_action(merge_tree_node, me.master_tree, params)
+    me.status = "complete"
+    me.save!
+    redirect_to master_tree_path(me.master_tree)
   end
   
   def update

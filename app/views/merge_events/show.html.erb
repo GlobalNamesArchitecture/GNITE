@@ -2,16 +2,41 @@
   <div class="tree_list_header clearfix">
     <div class="tree_list_header_inner clearfix">
       <h1><%= @merge_event.memo %></h1>
-      <div id="tree-return" class="tree-link clearfix">
-        <a href="<%= master_tree_path(:id => @master_tree.id) %>"><span>View Master Tree</span></a>
-      </div>
     </div>
   </div>
 <% end %>
 
 <div id="merge-results-wrapper">
   <% if !@data.empty? %>
-    <%= form_tag(:autocomplete => "off", :only_path => true) do %>
+    <div id="treewrap-main">
+    <div class="tree-background">
+      <div class="breadcrumbs">
+        <ul>
+          <li>Preview</li>
+        </ul>
+      </div>
+
+      <%= render :partial => 'shared/tree_searches.html' %>
+
+      <a class="ui-dialog-titlebar-close" role="button" href="#">
+        <span class="ui-icon ui-icon-closethick"></span>
+      </a>
+
+      <div id="add-node-wrap">
+        <div class="tree-container" data-database-id="<%= @merge_event.merge_tree_id %>">
+          <div id="preview-tree"></div>
+        </div>
+      </div>
+
+      <div class="node-metadata ui-dialog clearfix"></div>
+
+      <div id="merge-warning"><ul><li><a href="#">Regenerate the tree</a></li></ul></div>
+
+    </div>
+    </div>
+
+    <div id="merge-results-table" class="full clearfix">
+    <%= form_tag(:autocomplete => "off", :only_path => true, :action => :do) do %>
       <div class="ui-tabs ui-widget ui-widget-content ui-corner-all">
         <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
           <% @data.each_with_index do |(key,value),index| %>
@@ -20,21 +45,24 @@
             </li>
           <% end %>
         </ul>
-         <% @data.each do |key, data| %>
-           <%= render :partial => "merge_#{key}" %>
+         <% @data.each_with_index do |(key, value),index| %>
+           <%= render :partial => "merge_#{key}", :locals => { :index => index } %>
          <% end %>
       </div>
       <%= submit_tag "Preview", :class => "green-submit preview", :name => "preview" %>
       <%= submit_tag "Execute", :class => "green-submit submit", :name => "commit" %>
     <% end %>
+    </div>
   <% end %>
 </div>
 
+<%= render :partial => 'shared/chat_messages.html' %>
+
 <% content_for :javascript do %>
-  <%= javascript_include_tag 'juggernaut/json', 'juggernaut/socket_io', 'juggernaut/juggernaut', 'jquery.spinner', 'merge' %>
+  <%= javascript_include_tag 'juggernaut/json', 'juggernaut/socket_io', 'juggernaut/juggernaut', 'jquery.spinner', 'merge', 'jstree/jquery.jstree', 'jquery.hotkeys', 'jquery.scrollTo.min', 'waypoints.min', 'jquery.extensions' %>
 
   <script type="text/javascript">
   <!--//--><![CDATA[//><!--
-  jQuery.extend(GNITE.Tree.MasterTree, { "id" : "<%= @master_tree.id %>", "merge_event" : "<%= @merge_event.id %>", "merge_status" : "<%= @merge_event.status %>" });
+  jQuery.extend(GNITE.MergeEvent, { "merge_event" : "<%= @merge_event.id %>", "master_tree_id" : "<%= @merge_event.master_tree_id %>", "merge_status" : "<%= @merge_event.status %>", "merge_tree_id" : "<%= @merge_event.merge_tree_id %>", "merge_last_log" : "<%= @merge_last_log %>" });
   </script>
 <% end %>
