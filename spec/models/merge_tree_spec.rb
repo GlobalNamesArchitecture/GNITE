@@ -4,8 +4,8 @@ describe MergeTree do
   it { should have_one(:merge_event) }
   
   before(:all) do
-    @tree1 = get_master_tree1
-    @tree2 = get_master_tree2
+    @tree1 = Gnite::FixtureHelper.get_master_tree1
+    @tree2 = Gnite::FixtureHelper.get_master_tree2
     primary_node = @tree1.root.children.first
     secondary_node = @tree2.root.children.first
     @me = MergeEvent.create(:master_tree => @tree1, :primary_node_id => primary_node.id, :secondary_node_id => secondary_node.id, :user => Factory(:user))
