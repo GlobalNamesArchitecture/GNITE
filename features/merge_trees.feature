@@ -62,7 +62,7 @@ Feature: Merge nodes between trees
     And I should see "Lycosidae" within "#reference-tree-merge-selection"
 
   @javascript
-  Scenario: Executing merge redirects to the merge results page
+  Scenario: Executing merge produces a spinner then a view button
     When I go to the master tree page for "My Master Tree"
     And I wait for the tree to load
     And I follow "All reference trees (1)"
@@ -77,14 +77,9 @@ Feature: Merge nodes between trees
     And I should see a spinner
 
     When merge jobs are run
-#    And I wait for the merge results page to refresh
-#    Then I should not see a spinner
-#    And I should see "Lycosidae merged with Lycosidae in My Reference Tree"
+    And I wait for the merge to complete
+    Then the master tree should be locked
 
-#  @javascript
-#  Scenario: An active merge event locks the tree and a message is shown
-#    When I go to the master tree page for "My Master Tree"
-#    Then the master tree should be locked
-#    And I should see "This tree has an active merge event and cannot be edited"
-    
+    When I follow "View" within the dialog box
+    Then I should be on the merge results page for "My Master Tree"
     

@@ -473,11 +473,8 @@ $(function() {
       case 'MergeEvent':
         $(".spinner").find(".status").html(response.message);
         if(response.message === "Merging is complete") {
-          $(".spinner").css("background-image", "none").find(".status").html(response.message);
-          $(".green-submit").hide();
-          $(".cancel-button").hide();
-          $(".hidden-button").show();
-          $(".ui-dialog-buttonpane").show();
+          $(".spinner").css("background-image", "none").find(".status").html(response.message).addClass("merge-complete");
+          $("#merge-view-results").show()
         }
       break;
 
@@ -1105,13 +1102,11 @@ $(function() {
         data        : data,
         contentType : 'application/json',
         success     : function(response) {
-          var url = $('#merge-form form').attr("action");
-          $('#merge-form form').clearForm().attr("action", url + "/" + response.merge_event).find("input:hidden").remove();
+          var url = $('#merge-view-results a').attr("href");
+          $('#merge-view-results a').attr("href", url + "/" + response.merge_event);
         }
       });
     }
-
-    return false;
 
   });
 
