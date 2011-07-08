@@ -20,7 +20,7 @@ Feature: Edit history
     And I refresh the master tree
     And I wait for the tree to load
     And I follow "View" within "toolbar"
-    And I follow "Edit history" within "toolbar"
+    And I follow "History" within "toolbar"
     Then I should be on the edit history page for "Spiders"
     And I should see "Edit History for Spiders"
     And I should see "Pardosa moesta added under Pardosa"

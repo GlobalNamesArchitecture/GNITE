@@ -6,7 +6,6 @@ class MergeTreesController < ApplicationController
     merge_tree.nuke_nodes
     merge_tree.populate
     render :json => { :status => "OK" }
-#    redirect_to :show
   end
 
   def show

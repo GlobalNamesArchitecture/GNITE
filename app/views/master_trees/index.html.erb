@@ -26,7 +26,7 @@
           </span>
         </a>
         <% if !tree.merge_events.find_by_status("in review").nil? %>
-          <a href="<%= master_tree_merge_events_url(tree.id) %>" class="clearfix action green-submit">View Active Merges</a>
+          <a href="<%= master_tree_merge_events_url(tree.id) %>" class="clearfix action green-submit">View Active Merge</a>
         <% end %>
       </li>
     <% end %>
