@@ -36,11 +36,14 @@ class ActionBulkCopyNode < ActionCommand
     reference_tree = Tree.find(node.tree).title   
     parent = Node.find(parent_id)
     destination = (parent_id == parent.tree.root.id) ? "root": parent.name_string
-    bulk_added = JSON.parse(json_message, :symbolize_names => true)[:do]
-    bulk_added.each do |i|
+    bulk_copied_names = []
+    bulk_copied = JSON.parse(json_message, :symbolize_names => true)[:do]
+    bulk_copied.each do |i|
+      bulk_copied_names << Node.find(i).name
     end
+    bulk_copied_names.join(", ")
 
-    "#{bulk_copied} and their children (if any) copied to #{destination} from #{reference_tree}"
+    "#{bulk_copied_names} and each of their children (if any) copied to #{destination} from #{reference_tree}"
   end
 
   def nodes
