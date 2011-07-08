@@ -51,7 +51,7 @@ module Gnite
           merge_type = secondary_node.merge_subtype ? "#{secondary_node.merge_type.label} #{secondary_node.merge_subtype.label}" : secondary_node.merge_type.label
           if merge_type == 'new'
             merge_node_copy = merge_node.clone
-            merge_node_copy.parent = node
+            set_parent(merge_node_copy, node)
             merge_node_copy.tree = merge_event.merge_tree
             copy_metadata(merge_node_copy, merge_node, merge_type)
             merge_node_copy.save!
@@ -91,5 +91,31 @@ module Gnite
       end
 
     end
+
+    #TODO slow method, speed it up if needed
+    def set_parent(node, ancestor)
+      canonical_parts = node.canonical_name.split(" ")
+      if canonical_parts.size > 1
+        if ancestor.canonical_name == canonical_parts[0]
+          node.parent = ancestor
+        elsif node_parent = get_parent_from_children(canonical_parts[0], ancestor)
+          node.parent = node_parent
+        else
+          name = Name.find_or_create_by_name_string(canonical_parts[0])
+          genus_node = Node.create!(:tree => node.tree, :name => name, :parent_id => ancestor.id, :rank => "genus")
+          node.parent = genus_node
+        end
+      else
+        node.parent = ancestor
+      end
+    end
+
+    def get_parent_from_children(genus_name, ancestor)
+      ancestor.children.each do |n| 
+        return n if n.canonical_name == genus_name
+      end
+      nil 
+    end
+
   end
 end
