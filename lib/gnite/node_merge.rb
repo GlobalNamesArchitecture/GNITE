@@ -51,8 +51,8 @@ module Gnite
           merge_type = secondary_node.merge_subtype ? "#{secondary_node.merge_type.label} #{secondary_node.merge_subtype.label}" : secondary_node.merge_type.label
           if merge_type == 'new'
             merge_node_copy = merge_node.clone
-            set_parent(merge_node_copy, node)
             merge_node_copy.tree = merge_event.merge_tree
+            set_parent(merge_node_copy, node)
             copy_metadata(merge_node_copy, merge_node, merge_type)
             merge_node_copy.save!
           else
