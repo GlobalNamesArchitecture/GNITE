@@ -876,6 +876,8 @@ $(function() {
          action_type        = "",
          reference          = $(".reference-tree:not('.ui-tabs-hide') div.jstree"),
          reference_selected = reference.jstree("get_selected"),
+         deleted            = $(".deleted-tree:not('.ui-tabs-hide') div.jstree"),
+         deleted_selected   = deleted.jstree("get_selected"),
          do_ids             = [],
          url                = '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes',
          movedNodeID        = "";
@@ -887,6 +889,12 @@ $(function() {
      if (isCopy) {
        action_type = "ActionCopyNodeFromAnotherTree";
        if(reference_selected.length > 1) {
+         action_type = "ActionBulkCopyNode";
+         data.rslt.o.each(function() {
+           do_ids.push(this.id);
+         });
+       }
+       if(deleted_selected.length > 1) {
          action_type = "ActionBulkCopyNode";
          data.rslt.o.each(function() {
            do_ids.push(this.id);
