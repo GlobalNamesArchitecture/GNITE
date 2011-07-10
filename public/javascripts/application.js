@@ -863,19 +863,22 @@ $(function() {
   });
 
   /*
-   * ActionType: ActionCopyNodeFromAnotherTree and ActionMoveNodeWithinTree
-   * Moves node within Master Tree
-   * TODO: if node was dragged from reference to master 2+ times, it will fail because of a duplicate key in nodes table on 'index_nodes_on_local_id_and_tree_id'
-   * TODO: if a multi-select copy from reference to master, this should be a new action command model
+   * ActionType: ActionCopyNodeFromAnotherTree, ActionBulkCopyNode and ActionMoveNodeWithinTree
+   * Moves node within Master Tree or copies from Reference Tree to Master Tree
    */
   $('#master-tree').bind('move_node.jstree', function(event, data) {
      event = null;
 
-     var self        = $(this),
-         result      = data.rslt,
-         isCopy      = result.cy,
-         parentID    = result.np.attr('id'),
-         action_type = "";
+     var self               = $(this),
+         result             = data.rslt,
+         isCopy             = result.cy,
+         parentID           = result.np.attr('id'),
+         action_type        = "",
+         reference          = $(".reference-tree:not('.ui-tabs-hide') div.jstree"),
+         reference_selected = reference.jstree("get_selected"),
+         do_ids             = [],
+         url                = '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes',
+         movedNodeID        = "";
 
      if (parentID === 'master-tree') {
        parentID = GNITE.Tree.MasterTree.root;
@@ -883,38 +886,46 @@ $(function() {
     
      if (isCopy) {
        action_type = "ActionCopyNodeFromAnotherTree";
+       if(reference_selected.length > 1) {
+         action_type = "ActionBulkCopyNode";
+         data.rslt.o.each(function() {
+           do_ids.push(this.id);
+         });
+       }
      } else {
        action_type = "ActionMoveNodeWithinTree";
      }
 
+     movedNodeID = data.rslt.o[0].id;
+     if(!isCopy) { url += '/' + movedNodeID; }
+     url += '.json';
+
      // lock the tree
      self.jstree("lock");
 
-     data.rslt.o.each(function() {
+     $.ajax({
+       type        : isCopy ? 'POST' : 'PUT',
+       async       : true,
+       url         : url,
+       data        : JSON.stringify({ 'node' : {'id' : movedNodeID, 'parent_id' : parentID }, 'json_message' : { 'do' : do_ids }, 'action_type' : action_type }),
+       contentType : 'application/json',
+       dataType    : 'json',
+       beforeSend  : function(xhr) {
+         xhr.setRequestHeader("X-Session-ID", jug.sessionID);
+       },
+       success     : function(r) {
+         var i = 0;
 
-       var movedNodeID = $(this).attr("id"), url = '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes';
-
-       if(!isCopy) { url += '/' + movedNodeID; }
-       url += '.json';
-
-       $.ajax({
-           type        : isCopy ? 'POST' : 'PUT',
-           async       : true,
-           url         : url,
-           data        : JSON.stringify({ 'node' : {'id' : movedNodeID, 'parent_id' : parentID }, 'action_type' : action_type }),
-           contentType : 'application/json',
-           dataType    : 'json',
-           beforeSend  : function(xhr) {
-             xhr.setRequestHeader("X-Session-ID", jug.sessionID);
-           },
-           success     : function(r) {
-             if (isCopy) {
-               // recommended data.rslt.oc.attr("id", r.node.id) not used because it applies same id to all new nodes in collection
-               self.find('#copy_'+movedNodeID).attr("id", r.node.id);
-             }
+         if (isCopy && do_ids.length === 0) {
+           // recommended data.rslt.oc.attr("id", r.node.id) not used because it applies same id to all new nodes in collection
+           self.find('#copy_'+movedNodeID).attr("id", r.node.id);
+         } else {
+           for(i = 0; i < r.do.length; i += 1) {
+             self.find('#copy_' + r.do[i]).attr("id", r.undo[i])
            }
-        });
-    });
+         } 
+       }
+     });
 
   });
 

@@ -19,7 +19,7 @@ class ActionBulkCopyNode < ActionCommand
       copy_node = node.deep_copy_to(@destination_parent.tree)
       copy_node.parent_id = @destination_parent.id
       copy_node.save!
-      node_ids << node.id
+      node_ids << copy_node.id
     end
     self.json_message = {:do => @json_do, :undo => node_ids}.to_json
     save!
@@ -39,11 +39,10 @@ class ActionBulkCopyNode < ActionCommand
     bulk_copied_names = []
     bulk_copied = JSON.parse(json_message, :symbolize_names => true)[:do]
     bulk_copied.each do |i|
-      bulk_copied_names << Node.find(i).name
+      bulk_copied_names << Node.find(i).name_string
     end
-    bulk_copied_names.join(", ")
 
-    "#{bulk_copied_names} and each of their children (if any) copied to #{destination} from #{reference_tree}"
+    "#{bulk_copied_names.join(", ")} and each of their children (if any) copied to #{destination} from #{reference_tree}"
   end
 
   def nodes
