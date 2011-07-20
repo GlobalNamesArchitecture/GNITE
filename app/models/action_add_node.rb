@@ -23,10 +23,13 @@ class ActionAddNode < ActionCommand
     save!
   end
   
-  def generate_log
-    parent = Node.find(parent_id)
-    destination = (parent_id == parent.tree.root.id) ? "root": parent.name_string
+  def do_log
+    destination = (parent_id == @parent.tree.root.id) ? "root": @parent.name_string
     "#{new_name} added under #{destination}"
+  end
+  
+  def undo_log
+    "#{new_name} removed"
   end
 
 end

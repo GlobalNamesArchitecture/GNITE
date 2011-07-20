@@ -11,7 +11,7 @@ describe ActionCopyNodeFromAnotherTree do
     subject.master_tree.should == Node.find(subject.destination_parent_id).tree
   end
 
-  it 'should move the node on first perform and move it back on second perform' do
+  it 'should copy the node on first perform and remove it on second perform' do
     node = subject.node
     child = Factory(:node, :parent => node, :tree => node.tree)
     grandchild = Factory(:node, :parent => child, :tree => node.tree)

@@ -1,9 +1,8 @@
 class ActionBulkCopyNode < ActionCommand
 
   def precondition_do
-    @destination_parent = Node.find(destination_parent_id)
     @json_do = JSON.parse(json_message, :symbolize_names => true)[:do]
-    !!(tree_id && parent_id && @json_do && @parent = Node.find(parent_id) && @destination_parent && ancestry_ok?(@destination_parent))
+    !!(tree_id && destination_parent_id && @json_do && @destination_parent = Node.find(destination_parent_id))
   end
 
   def precondition_undo
@@ -26,27 +25,35 @@ class ActionBulkCopyNode < ActionCommand
   end
 
   def undo_action
+    #TODO add transaction
     @json_undo.each do |i|
       node = Node.find(i) rescue nil
       node.destroy_with_children
     end
   end
   
-  def generate_log
-    reference_tree = Tree.find(node.tree).title   
-    parent = Node.find(parent_id)
-    destination = (parent_id == parent.tree.root.id) ? "root": parent.name_string
+  def do_log
+    destination = (destination_parent_id == @destination_parent.tree.root.id) ? "root" : @destination_parent.name_string
     bulk_copied_names = []
     bulk_copied = JSON.parse(json_message, :symbolize_names => true)[:do]
     bulk_copied.each do |i|
       bulk_copied_names << Node.find(i).name_string
     end
-
+    reference_tree = Node.find(bulk_copied[0]).tree.title
     "#{bulk_copied_names.join(", ")} and each of their children (if any) copied to #{destination} from #{reference_tree}"
   end
-
+  
+  def undo_log
+    bulk_copied_names = []
+    bulk_copied = JSON.parse(json_message, :symbolize_names => true)[:do]
+    bulk_copied.each do |i|
+      bulk_copied_names << Node.find(i).name_string
+    end
+    "#{bulk_copied_names.join(", ")} and each of their children (if any) removed"
+  end
+  
   def nodes
-    undo_nodes = @json_undo || JSON.parse(json_message, :symbolize_names => true)[:undo] || []
+    undo_nodes = @json_do || JSON.parse(json_message, :symbolize_names => true)[:undo] || []
     undo_nodes.map { |i| Node.find(i) rescue nil }.compact
   end
 

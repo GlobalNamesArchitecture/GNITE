@@ -22,10 +22,12 @@ class ActionMoveNodeWithinTree < ActionCommand
     node.save!
   end
   
-  def generate_log
-    old_parent = Node.find(parent_id)
-    new_parent = Node.find(destination_parent_id)
-    "#{node.name_string} moved from #{old_parent.name_string} to #{new_parent.name_string}"
+  def do_log
+    "#{node.name_string} moved from #{@parent.name_string} to #{@destination_parent.name_string}"
+  end
+  
+  def undo_log
+    "#{node.name_string} reverted from #{@destination_parent.name_string} to #{@parent.name_string}"
   end
 
 end

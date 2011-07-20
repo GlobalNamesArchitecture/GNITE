@@ -11,16 +11,22 @@ class ActionCommand < ActiveRecord::Base
 
   def self.perform(instance_id)
     ac = ActionCommand.find(instance_id)
-    log = ac.generate_log
     if ac.undo?
-      ac.precondition_undo ?  perform_undo(ac) : ac.precondition_undo_error
-      log << " (undone)"
+      if ac.precondition_undo
+        perform_undo(ac)
+        generate_log(ac, 'undo')
+      else 
+        ac.precondition_undo_error
+      end
     else
-      ac.precondition_do ?  perform_do(ac) : ac.precondition_do_error
+      if ac.precondition_do
+        perform_do(ac)
+        generate_log(ac, 'do')
+      else
+        ac.precondition_do_error
+      end
     end
     ac.save!
-
-    MasterTreeLog.create(:master_tree => ac.master_tree, :user => ac.user, :message => log)
   end
 
   def self.schedule_actions(action_command, session_id)
@@ -85,7 +91,11 @@ class ActionCommand < ActiveRecord::Base
     precondition_do_error
   end
   
-  def generate_log
+  def do_log
+    raise_not_implemented
+  end
+  
+  def undo_log
     raise_not_implemented
   end
 
@@ -124,4 +134,10 @@ class ActionCommand < ActiveRecord::Base
     end
     UndoActionCommand.create(:master_tree => action_command.master_tree, :action_command => action_command)
   end
+  
+  def self.generate_log(action_command, type)
+    log = (type == 'undo') ? action_command.undo_log : action_command.do_log
+    MasterTreeLog.create(:master_tree => action_command.master_tree, :user => action_command.user, :message => log)
+  end
+
 end

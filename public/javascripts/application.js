@@ -927,7 +927,7 @@ $(function() {
          if (isCopy && do_ids.length === 0) {
            // recommended data.rslt.oc.attr("id", r.node.id) not used because it applies same id to all new nodes in collection
            self.find('#copy_'+movedNodeID).attr("id", r.node.id);
-         } else {
+         } else if (isCopy && do_ids.length > 0) {
            for(i = 0; i < r.do.length; i += 1) {
              self.find('#copy_' + r.do[i]).attr("id", r.undo[i])
            }

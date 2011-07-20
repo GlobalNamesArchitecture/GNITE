@@ -11,6 +11,7 @@ class ActionBulkAddNode < ActionCommand
   end
 
   def do_action
+    #TODO add transaction
     node_ids = []
     @json_do.each do |new_name|
       name = Name.find_or_create_by_name_string(new_name)
@@ -22,17 +23,22 @@ class ActionBulkAddNode < ActionCommand
   end
 
   def undo_action
+    #TODO add transaction
     @json_undo.each do |i|
       node = Node.find(i) rescue nil
       node.destroy if node
     end
   end
   
-  def generate_log
-    parent = Node.find(parent_id)
-    destination = (parent_id == parent.tree.root.id) ? "root": parent.name_string
+  def do_log
+    destination = (parent_id == @parent.tree.root.id) ? "root" : @parent.name_string
     bulk_added = JSON.parse(json_message, :symbolize_names => true)[:do].join(", ")
     "#{bulk_added} added under #{destination}"
+  end
+  
+  def undo_log
+    bulk_added = JSON.parse(json_message, :symbolize_names => true)[:do].join(", ")
+    "#{bulk_added} removed"
   end
 
   def nodes

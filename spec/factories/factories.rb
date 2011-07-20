@@ -70,6 +70,16 @@ Factory.define :gnaclr_importer do |gnaclr_importer|
   gnaclr_importer.url {'foo'}
 end
 
+Factory.define :master_tree_contributor do |master_tree_contributor|
+  master_tree_contributor.association :user, :factory => :email_confirmed_user
+  master_tree_contributor.association :master_tree
+end
+
+Factory.define :reference_tree_collection do |reference_tree_collection|
+  reference_tree_collection.association :reference_tree
+  reference_tree_collection.association :master_tree
+end
+
 Factory.define :action_rename_node do |action_rename_node|
   action_rename_node.tree_id { Factory(:master_tree).id }
   action_rename_node.association :user
@@ -113,12 +123,9 @@ Factory.define :action_bulk_add_node do |action_bulk_add_node|
   action_bulk_add_node.json_message { {:do => %w(name1 name2 name3)}.to_json }
 end
 
-Factory.define :master_tree_contributor do |master_tree_contributor|
-  master_tree_contributor.association :user, :factory => :email_confirmed_user
-  master_tree_contributor.association :master_tree
-end
-
-Factory.define :reference_tree_collection do |reference_tree_collection|
-  reference_tree_collection.association :reference_tree
-  reference_tree_collection.association :master_tree
+Factory.define :action_bulk_copy_node do |action_bulk_copy_node|
+  action_bulk_copy_node.tree_id { Factory(:master_tree).id }
+  action_bulk_copy_node.association :user
+  action_bulk_copy_node.destination_parent_id { |a| Factory(:node, :tree_id => a.tree_id).id }
+  action_bulk_copy_node.json_message { {:do => nil}.to_json }
 end

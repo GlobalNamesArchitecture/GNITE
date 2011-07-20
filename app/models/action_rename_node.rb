@@ -19,8 +19,12 @@ class ActionRenameNode < ActionCommand
     node.rename(old_name)
   end
   
-  def generate_log
+  def do_log
     "#{old_name} renamed to #{new_name}"
+  end
+  
+  def undo_log
+    "#{new_name} reverted to #{old_name}"
   end
 
 end

@@ -29,8 +29,12 @@ class ActionMoveNodeToDeletedTree < ActionCommand
     end
   end
   
-  def generate_log
+  def do_log
     "#{node.name_string} and its children (if any) deleted"
+  end
+  
+  def undo_log
+    "#{node.name_string} and its children (if any) restored"
   end
 
 end

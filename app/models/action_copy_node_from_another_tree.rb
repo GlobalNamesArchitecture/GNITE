@@ -1,8 +1,8 @@
 class ActionCopyNodeFromAnotherTree < ActionCommand
 
   def precondition_do
-    @destination_parent = Node.find(destination_parent_id)
-    !!(tree_id && node && @destination_parent && ancestry_ok?(@destination_parent))
+    @destination_node = Node.find(destination_parent_id)
+    !!(tree_id && node && @destination_node && ancestry_ok?(@destination_node))
   end
 
   def precondition_undo
@@ -12,8 +12,8 @@ class ActionCopyNodeFromAnotherTree < ActionCommand
 
   def do_action
     #TODO add transaction
-    copy_node = node.deep_copy_to(@destination_parent.tree)
-    copy_node.parent_id = @destination_parent.id
+    copy_node = node.deep_copy_to(@destination_node.tree)
+    copy_node.parent_id = @destination_node.id
     copy_node.save!
     self.destination_node_id = copy_node.id
     self.json_message = copy_node.to_json
@@ -24,10 +24,14 @@ class ActionCopyNodeFromAnotherTree < ActionCommand
     @destination_node.destroy_with_children
   end
   
-  def generate_log
-    destination = (destination_parent_id == node.tree.root.id) ? "root": Node.find(destination_parent_id).name_string
-    reference_tree = Tree.find(node.tree).title
-    "#{node.name.name_string} and its children (if any) copied to #{destination} from #{reference_tree}"
+  def do_log
+    destination = (destination_parent_id == @destination_node.tree.root.id) ? "root": @destination_node.name_string
+    reference_tree = node.tree.title
+    "#{node.name_string} and its children (if any) copied to #{destination} from #{reference_tree}"
+  end
+  
+  def undo_log
+    "#{node.name_string} and its children (if any) removed"
   end
 
   def master_tree

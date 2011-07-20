@@ -98,5 +98,59 @@ Feature: Perform undo and redo in a master tree
     And I wait for the tree to load
     Then I should see a node "Pardosa fuscula" under "Pardosa"
 
+  @javascript
+  Scenario: User can undo and redo bulk insertion
+    When I select the node "Pardosa"
+    And I follow "File" within "toolbar"
+    And I follow "Add many nodes" within "toolbar"
+    And I type the following node names into the import box:
+      | Pardosa moesta  |
+      | Pardosa fuscula |
+    And I press "Add children"
+    And I wait for the tree to load
+    And I refresh the master tree
+    Then I should see a node "Pardosa moesta" under "Pardosa"
+    And I should see a node "Pardosa fuscula" under "Pardosa"
 
-    
+    When I follow "Edit" within "toolbar"
+    And I follow "Undo" within "toolbar"
+    And I wait for the tree to load
+    Then I should not see a node "Pardosa moesta" under "Pardosa"
+    And I should not see a node "Pardosa fuscula" under "Pardosa"
+
+    When I follow "Edit" within "toolbar"
+    And I follow "Redo" within "toolbar"
+    And I wait for the tree to load
+    Then I should see a node "Pardosa moesta" under "Pardosa"
+    And I should see a node "Pardosa fuscula" under "Pardosa"
+
+  @javascript
+  Scenario: User can undo and redo bulk copy
+    When I follow "Import"
+    And I import a flat list tree with the following nodes:
+      | Pardosa modica   |
+      | Pardosa fuscula  |
+    And pause 3
+    And I follow "All reference trees"
+    And I follow "List"
+    Then I should see a node "Pardosa modica" at the root level in my reference tree "List"
+    And I should see a node "Pardosa fuscula" at the root level in my reference tree "List"
+
+    When I select the node "Pardosa modica" in my reference tree
+    And I select the node "Pardosa fuscula" in my reference tree
+    When I drag selected nodes in my reference tree "List" to "Pardosa" in my master tree
+    And I wait for the tree to load
+    Then I should see a node "Pardosa modica" under "Pardosa"
+    And I should see a node "Pardosa fuscula" under "Pardosa"
+
+    When I follow "Edit" within "toolbar"
+    And I follow "Undo" within "toolbar"
+    And I wait for the tree to load
+    Then I should not see a node "Pardosa modica" under "Pardosa"
+    And I should not see a node "Pardosa fuscula" under "Pardosa"
+
+    When I follow "Edit" within "toolbar"
+    And I follow "Redo" within "toolbar"
+    And I wait for the tree to load
+    Then I should see a node "Pardosa modica" under "Pardosa"
+    And I should see a node "Pardosa fuscula" under "Pardosa"

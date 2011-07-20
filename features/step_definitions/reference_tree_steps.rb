@@ -28,7 +28,7 @@ end
 When /^I drag "([^"]*)" in my reference tree "(.*)" to "([^"]*)" in my master tree$/ do |origin_node_text, reference_tree_title, destination_node_text|
   reference_tree         = ReferenceTree.find_by_title(reference_tree_title)
   # we had a namespace conflict with Capybara::Node
-  origin_node            = ::Node.joins(:name).where('names.name_string = ?', origin_node_text).first
+  origin_node            = ::Node.joins(:name).where('names.name_string = ? AND nodes.tree_id = ?', origin_node_text, reference_tree.id).first
   destination_node       = ::Node.joins(:name).where('names.name_string = ?', destination_node_text).first
   
   When %{I select the node "#{origin_node.name_string}"}
@@ -46,6 +46,14 @@ When /^I drag "([^"]*)" to "([^"]*)" in my reference tree "(.*)"$/ do |origin_no
   When %{I select the node "#{origin_node.name_string}"}
   sleep 1
   page.execute_script("jQuery('#{reference_tree_matcher}').jstree('move_node', '##{origin_node.id}', '##{destination_node.id}', 'first', false);")
+end
+
+When /^I drag selected nodes in my reference tree "(.*)" to "([^"]*)" in my master tree$/ do |reference_tree_title, destination_node_text|
+  reference_tree         = ReferenceTree.find_by_title(reference_tree_title)
+  reference_tree_matcher = "div##{dom_id(reference_tree, "container_for")}"
+  destination_node       = ::Node.joins(:name).where('names.name_string = ?', destination_node_text).first
+  
+  page.execute_script("jQuery('#master-tree').jstree('move_node', '.jstree-clicked:parent', '##{destination_node.id}', 'first', true);")
 end
 
 When /^I refresh the reference tree "(.*)"$/ do |reference_tree_title|
