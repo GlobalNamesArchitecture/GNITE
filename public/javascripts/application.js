@@ -205,6 +205,12 @@ $(function() {
     'dnd' : {
       'drag_check' : function() {
         return false;
+      },
+      'drag_finish' : function(data) {
+        GNITE.Tree.MasterTree.externalDragged(data);
+      }, 
+      'drop_finish' : function(data) {
+        GNITE.Tree.MasterTree.externalDropped(data);
       }
     },
     'plugins' : ['themes', 'html_data', 'ui', 'dnd', 'crrm', 'cookies', 'bookmarks', 'hotkeys']
