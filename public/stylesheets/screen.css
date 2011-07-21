@@ -1125,6 +1125,13 @@ body form input {
   border-top: 0px;
 }
 
+.metadata-section {
+  background: #BABFC3;
+  border-top: 1px solid #dadddf;
+  margin: 0;
+  padding: 0;
+}
+
 .node-metadata {
   background: #fff;
   border-radius: 0px 0px 8px 8px;
@@ -1141,19 +1148,12 @@ body form input {
   width: 100%; 
 }
 
-.metadata-section {
-  background: #BABFC3;
-  border-top: 1px solid #dadddf;
-  margin: 0;
-  padding: 0;
-}
-
 .node-metadata h4 {
   float: left;
   margin: 0;
   padding: 10px 0 0 0;
   text-shadow: #DADEE2 0  1px 0px;
-  width: 20%;
+  width: 17%;
 }
 
 .node-metadata h4 span {
@@ -1164,17 +1164,58 @@ body form input {
   background: #fff;
   float: left;
   padding: 0 0 5px 0;
-  width: 80%;
+  width: 83%;
 }
 
 .node-metadata ul li {
-  background: #cdd3d7;
+  background: none repeat scroll 0 0 #cdd3d7;
+  border: 1px solid #cdd3d7;
   border-radius: 8px;
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
   float: left;
   margin: 6px 5px 0 5px;
   padding: 5px 8px;
+  position:relative;
+}
+
+.node-metadata ul li.metadata-add {
+  cursor:pointer;
+  height:15px;
+}
+
+.node-metadata ul li.jstree-draggable {
+  cursor:move;
+}
+
+.node-metadata ul li.jstree-draggable:hover {
+  background: none repeat scroll 0 0 #BEEBFF;
+  border: 1px solid #99DEFD;
+}
+
+.node-metadata ul li input.metadata-input {
+  position: absolute;
+  left: -1px;
+  top: -2px;
+  border: 1px solid #cdd3d7;
+  border-radius: 8px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  margin: 0px;
+  padding: 5px 8px;
+  width:200px;
+}
+
+.node-metadata ul li a.metadata-remove {
+  background: url("/images/icons/delete.png") no-repeat;
+  width:16px;
+  height:16px;
+  position:absolute;
+  display:block;
+  right:-3px;
+  top:-3px;
+  z-index:50;
+  text-decoration:none;
 }
 
 /* Dialog message */

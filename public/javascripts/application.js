@@ -174,6 +174,21 @@ $(function() {
       'select_limit' : -1,
       'select_multiple_modifier' : "ctrl"
     },
+    'dnd' : {
+      'drag_check' : function() {
+        return { 
+          after  : false, 
+          before : false, 
+          inside : true 
+        };
+      },
+      'drag_finish' : function(data) {
+        GNITE.Tree.MasterTree.externalDragged(data);
+      }, 
+      'drop_finish' : function(data) {
+        GNITE.Tree.MasterTree.externalDropped(data);
+      }
+    },
     'plugins' : ['themes', 'html_data', 'ui', 'dnd', 'crrm', 'cookies', 'contextmenu', 'bookmarks', 'hotkeys', 'bulkcreate', 'undoredo', 'merge']
   });
 
@@ -187,6 +202,11 @@ $(function() {
       'select_limit' : -1,
       'select_multiple_modifier' : "on"
     },
+    'dnd' : {
+      'drag_check' : function() {
+        return false;
+      }
+    },
     'plugins' : ['themes', 'html_data', 'ui', 'dnd', 'crrm', 'cookies', 'bookmarks', 'hotkeys']
   });
 
@@ -199,6 +219,14 @@ $(function() {
     'ui' : {
       'select_limit' : -1,
       'select_multiple_modifier' : "on"
+    },
+    'dnd' : {
+      'drag_check' : function() {
+        return false;
+      },
+      'drop_check' : function() {
+        return false;
+      },
     },
     'plugins' : ['themes', 'html_data', 'ui', 'dnd', 'crrm', 'cookies', 'hotkeys']
   });
@@ -1780,6 +1808,86 @@ GNITE.Tree.MasterTree.merge = function() {
   return false;
 };
 
+GNITE.Tree.MasterTree.externalDragged = function(data) {
+  var self     = $('#master-tree'),
+      foreign  = data.o,
+      node     = data.r,
+      parentID = node.attr('id'),
+      name     = $(foreign).text();
+
+  alert("Sorry, this function is not yet implemented");
+
+/*  COMMENTED OUT UNTIL FULLY IMPLEMENTED AND TESTED
+
+  TODO:
+    1. check if drag from master synonym into master tree (i.e. synonym elevated to valid)
+       - synonym needs to be removed and metadata panel refreshed
+       - parent node needs to be refreshed
+       - Undo/redo? Does not fit the action_type paradigm because a valid/synonym needs to be toggled
+    2. check if drag from reference (or deleted) metadata panel into master metadata panel (i.e. new synonym created)
+       - metadata panel needs to be refreshed
+       - Undo/redo works fine
+
+  // lock the tree
+  self.jstree("lock");
+
+  $.ajax({
+    type        : 'POST',
+    async       : false,
+    url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes.json',
+    data        : JSON.stringify({ 'node' : { 'name' : { 'name_string' : name }, 'parent_id' : parentID }, 'action_type' : "ActionAddNode" }),
+    contentType : 'application/json',
+    dataType    : 'json',
+    beforeSend  : function(xhr) {
+      xhr.setRequestHeader("X-Session-ID", jug.sessionID);
+    },
+    success     : function() {
+      self.jstree("refresh", $('#'+parentID));
+    }
+  });
+*/
+};
+
+GNITE.Tree.MasterTree.externalDropped = function(data) {
+  var self = $('#master-tree'),
+      node = data.o,
+      target = data.r;
+
+  alert("Sorry, this function is not yet implemented");
+
+/*  COMMENTED OUT UNTIL FULLY IMPLEMENTED AND TESTED
+
+  TODO:
+    1. check if drag from master node into own metadata panel (i.e. valid becomes synonym)
+       - parent node needs to be refreshed & parent_id of affected node needs to be set to null
+    2. check if drag from reference (or deleted) node into master metadata panel (i.e. new synonym created)
+       - metadata panel needs to be refreshed
+    3. check if drag from reference metadata panel into master metadata panel
+       - metadata panel needs to be refreshed
+    3. Undo/redo? Does not fit the action_type paradigm
+
+  if(target.hasClass('synonyms')) {
+  }
+
+  //lock the tree
+  self.jstree("lock");
+
+  $.ajax({
+    type       : 'POST',
+    async      : false,
+    url        : '',
+    data       : JSON.stringify({ }),
+    dataType   : 'json',
+    beforeSend : function(xhr) {
+      xhr.setRequestHeader("X-Session-ID", jug.sessionID);
+    },
+    success    : function() {
+
+    }
+  });
+*/
+};
+
 GNITE.Tree.ReferenceTree.add = function(response, options) {
 
   "use strict";
@@ -1914,9 +2022,143 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
         wrapper.css('bottom', '20px');
         return false;
       });
+
+      //allow editing of synonyms/vernaculars only for master tree
+      if(wrapper.find("#master-tree").length) {
+        var selected = $('#master-tree').jstree('get_selected'),
+            node_id  = $(selected[0]).attr("id");
+
+        container.find("li.synonym, li.vernacular, li.metadata-add").each(function() {
+          var self = $(this), type = "", action = "";
+
+          if(self.parent().attr("data-type").length && !self.hasClass("metadata-add")) {
+            type = self.parent().attr("data-type");
+            action = "PUT";
+            self.hover(
+              function() {
+                self.append("<a href=\"#\" class=\"metadata-remove\" alt=\"Delete\" title=\"Delete\"></a>");
+                self.find("a.metadata-remove").click(function() {
+                  container.spinner();
+                  GNITE.Tree.MasterTree.reconciliation({ 
+                    type        : type, 
+                    action      : 'DELETE', 
+                    id          : self.attr("id").split("-")[1], 
+                    name_string : self.text(), 
+                    node_id     : node_id
+                  });
+                  container.unspinner();
+                  $('#master-tree').jstree("deselect_all").jstree("select_node", $('#' + node_id));
+                  return false;
+                });
+              }, 
+              function() {
+                self.find("a.metadata-remove").remove();
+              }
+            );
+            self.dblclick(function() {
+              GNITE.Tree.MasterTree.addMetadataEditor(self, type, action);
+            });
+          }
+          else if(self.hasClass("metadata-add")) {
+            type = self.parent().attr("data-type");
+            action = "POST";
+            self.click(function() { GNITE.Tree.MasterTree.addMetadataEditor(self, type, action); });
+          }
+        });
+      }
     }
   });
 
   container.unspinner().show();
   wrapper.css('bottom', container.height());
+};
+
+GNITE.Tree.MasterTree.addMetadataEditor = function(elem, type, action) {
+  var container = elem.parents(".node-metadata"),
+      elem_id   = (elem.attr("id")) ? elem.attr("id").split("-")[1] : null,
+      selected  = $('#master-tree').jstree('get_selected'),
+      node_id   = $(selected[0]).attr("id"),
+      width     = (elem.width() < 150) ? 150 : elem.width(),
+      position  = "",
+      t         = "",
+      input     = "";
+
+  if(elem.hasClass("metadata-add")) {
+    elem.before("<li>&nbsp;</li>").prev().css({"width":"150px"});
+  } else {
+    elem.css({"width": width}).removeClass("jstree-draggable").unbind('mouseenter mouseleave').find("a.metadata-remove").remove();
+    t = elem.text();
+  }
+
+  input =  $("<input />", { 
+    "value" : t,
+    "class" : "metadata-input",
+    "css"   : {"width" : width + "px"},
+    "blur"  : $.proxy(function() {
+      var i = (elem.hasClass("metadata-add")) ? elem.prev().children(".metadata-input") : elem.children(".metadata-input"),
+          v = i.val();
+
+      if(v === "") { v = t; }
+      if(elem.hasClass("metadata-add")) { elem.prev().text(v); } else { elem.text(v); }
+      i.remove();
+      if(t !== v) {
+        container.spinner();
+        GNITE.Tree.MasterTree.reconciliation({ 
+          type        : type, 
+          action      : action, 
+          id          : elem_id, 
+          name_string : v, 
+          node_id     : node_id
+        });
+        container.unspinner();
+      }
+      t = v;
+      $('#master-tree').jstree("deselect_all").jstree("select_node", $('#' + node_id));
+    }, this),
+    "keyup" : function(event) {
+      var key = event.keyCode || event.which;
+
+      if(key == 27) { this.value = t; this.blur(); return; }
+      else if(key == 13) { this.blur(); return; }
+    },
+    "keypress" : function(event) {
+      var key = event.keyCode || event.which;
+      if(key == 13) { return false; }
+    }
+  });
+
+  if(elem.hasClass("metadata-add")) {
+    elem.prev().append(input).children(".metadata-input").focus();
+    elem.hide();
+  } else {
+    elem.append(input).children(".metadata-input").focus();
+    elem.parent().find(".metadata-add").hide();
+  }
+
+};
+
+GNITE.Tree.MasterTree.reconciliation = function(params) {
+  var url = "/master_trees/" + GNITE.Tree.MasterTree.id + "/nodes/" + params.node_id + "/" + params.type;
+
+  switch(params.action) {
+    case 'POST':
+      url += ".json";
+    break;
+    case 'PUT':
+      url += "/" + params.id + ".json";
+    break;
+    case 'DELETE':
+      url += "/" + params.id + ".json";
+    break;
+  }
+
+  $.ajax({
+    type        : params.action,
+    async       : false,
+    url         : url,
+    data        : JSON.stringify({'name_string' : params.name_string}),
+    dataType    : 'json',
+    contentType : 'application/json'
+  });
+
 };

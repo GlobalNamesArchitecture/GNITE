@@ -24,7 +24,10 @@ Gnite::Application.routes.draw do
   end
 
   resources :master_trees, :only => [:index, :new, :create, :show, :edit, :update, :destroy] do
-    resources :nodes,                  :only => [:index, :show, :create, :update, :destroy]
+    resources :nodes,                  :only => [:index, :show, :create, :update, :destroy] do
+      resources :synonyms,                :only => [:create, :update, :destroy]
+      resources :vernacular_names,        :only => [:create, :update, :destroy]
+    end
     resources :bookmarks,              :only => [:index, :create, :update, :destroy]
     resources :edits, :controller => 'master_tree_logs', :only => [:index]
     resources :flat_list_imports,      :only => [:new]

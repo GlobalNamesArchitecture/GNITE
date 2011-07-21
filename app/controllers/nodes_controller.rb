@@ -44,7 +44,12 @@ class NodesController < ApplicationController
       end
       
       format.html do
-        render :partial => 'shared/metadata'
+        if params[:master_tree_id]
+          tree_type = 'MasterTree'
+        elsif params[:reference_tree_id]
+          tree_type = 'ReferenceTree'
+        end
+        render :partial => 'shared/metadata', :locals => { :tree_type => tree_type }
       end
     end
 
