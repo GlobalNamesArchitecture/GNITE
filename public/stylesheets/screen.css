@@ -2216,15 +2216,42 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   -webkit-box-shadow: inset 1px 1px 5px 1px rgb(126, 229, 44), 0 1px 2px rgba(0,0,0, 1);
 }
 
-.gnite-table .pagination {
-  margin:10px;
-  font-size:1.5em;
-  color:white;
-  font-weight:bold;
+/* Pagination */
+/************************************************************************/
+.pagination { padding: 3px; margin: 10px 3px 3px; }
+.pagination a {
+  margin: 2px;
+  padding: 2px 5px;
+  text-decoration: none;
+  color: #000;
+  border: 1px solid #AAAAAA;
+  background: #E0E2E4;
+  background: -moz-linear-gradient(0% 100% 90deg,#BBC0C4, #E0E2E4);
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#E0E2E4), to(#BBC0C4));
+  font-weight: bold;
 }
-
-.gnite-table .pagination a {
-  color:green;
+.pagination a:hover, .pagination a:active {
+  background: #ccd0d4;
+  background: -moz-linear-gradient(19% 75% 90deg,#919598, #ccd0d4);
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccd0d4), to(#919598));
+}
+.pagination span.current {
+  padding: 2px 5px;
+  margin: 2px;
+  border: 1px solid #AAAAAA;
+  font-weight: bold;
+  background: #ccd0d4;
+  background: -moz-linear-gradient(19% 75% 90deg,#919598, #ccd0d4);
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccd0d4), to(#919598));
+}
+.pagination span.disabled {
+  padding: 2px 5px;
+  margin: 2px;
+  border: 1px solid #AAAAAA;
+  color: white;
+  background: #E0E2E4;
+  background: -moz-linear-gradient(0% 100% 90deg,#BBC0C4, #E0E2E4);
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#E0E2E4), to(#BBC0C4));
 }
 
 /* Merge Results Screen */
