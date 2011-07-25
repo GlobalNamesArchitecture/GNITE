@@ -17,10 +17,6 @@ var GNITE = {
 **************************************************************/
 var jug = new Juggernaut();
 
-jug.on("connect", function() { "use strict"; $('#master-tree').addClass("socket-active"); });
-jug.on("disconnect", function() { "use strict"; $('#master-tree').removeClass("socket-active"); });
-
-
 /********************************* jQuery START *********************************/
 $(function() {
 
@@ -29,6 +25,9 @@ $(function() {
   GNITE.Tree.MasterTree.id = $('.tree-container:first').attr('data-database-id');
 
   GNITE.Tree.MasterTree.channel = "tree_"+GNITE.Tree.MasterTree.id;
+
+  jug.on("connect", function() { "use strict"; $('#master-tree').addClass("socket-active"); });
+  jug.on("disconnect", function() { "use strict"; $('#master-tree').removeClass("socket-active"); });
 
   /**************************************************************
            TREE CONFIGURATION
