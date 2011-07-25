@@ -2265,7 +2265,7 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   padding: 2px 5px;
   text-decoration: none;
   color: #000;
-  border: 1px solid #AAAAAA;
+  border: 1px solid #868D92;
   background: #E0E2E4;
   background: -moz-linear-gradient(0% 100% 90deg,#BBC0C4, #E0E2E4);
   background: -webkit-gradient(linear, 0 0, 0 100%, from(#E0E2E4), to(#BBC0C4));
@@ -2279,7 +2279,7 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 .pagination span.current {
   padding: 2px 5px;
   margin: 2px;
-  border: 1px solid #AAAAAA;
+  border: 1px solid #868D92;
   font-weight: bold;
   background: #ccd0d4;
   background: -moz-linear-gradient(19% 75% 90deg,#919598, #ccd0d4);
@@ -2288,7 +2288,7 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 .pagination span.disabled {
   padding: 2px 5px;
   margin: 2px;
-  border: 1px solid #AAAAAA;
+  border: 1px solid #868D92;
   color: white;
   background: #E0E2E4;
   background: -moz-linear-gradient(0% 100% 90deg,#BBC0C4, #E0E2E4);
