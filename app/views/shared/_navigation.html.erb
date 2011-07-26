@@ -2,6 +2,7 @@
   <div id="logo"><a href="/"><img src="/images/logo-nav.png" alt="Global Names Integrated Taxonomic Editor"/></a></div>
   <div id="nav">
     <ul>
+      <!-- Link to Working Trees -->
       <% if controller_name == 'master_trees' || controller_name == 'master_tree_logs' || controller_name == 'merge_events' %>
         <li id="active">
       <% else %>
@@ -11,6 +12,8 @@
           <span class="nav_master_tree">Working Trees</span>
         <% end %>
       </li>
+
+      <!-- Link to Profile Settings -->
       <% if controller_name == 'users' || controller_name == 'passwords' %>
         <li id="active">
           <%= link_to edit_user_path(current_user.id) do %>
@@ -30,6 +33,13 @@
         <% end %>
       <% end %>
       </li>
+
+      <!-- Link to Feedback -->
+      <li>
+        <a href="javascript:UserVoice.showPopupWidget();" title="Feedback"><span class="nav_feedback">Feedback</span></a>
+      </li>
+
+      <!-- Link to Sign Out -->
       <li>
         <%= link_to sign_out_path do %>
           <img class="icon" src="/images/sign-out.png"/>Sign Out
@@ -38,3 +48,14 @@
     </ul>
   </div>
 </div>
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+  var uvOptions = {};
+  (function() {
+    var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
+    uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/AWgdy8RnNtPodnFpGvp9rg.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
+  })();
+</script>
+<% end %>

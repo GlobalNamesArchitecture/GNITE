@@ -9,8 +9,20 @@
   <%= csrf_meta_tag %>
 </head>
 <body class="<%= body_class %>">
-  <%= render :partial => 'shared/flashes' -%>
-  <%= yield %>
-  <%= render :partial => 'shared/javascript' %>
+  <div id="wrapper">
+    <%= render :partial => 'shared/navigation' %>
+    <div id="content">
+      <% if content_for?(:header) %>
+        <div id="header">
+          <h1><%= yield :header %></h1>
+        </div>
+      <% end %>
+      <div id="bodywrap">
+        <%= render :partial => 'shared/flashes' -%>
+        <%= yield %>
+      </div>
+    </div>
+    <%= render :partial => 'shared/javascript' %>
+  </div>
 </body>
 </html>

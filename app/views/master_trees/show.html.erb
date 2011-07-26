@@ -67,14 +67,4 @@ jQuery.extend(GNITE.Tree.MasterTree, { "root" : "<%= @master_tree.root.id %>", "
 //--><!]]>
 $.jstree._themes = '/javascripts/jstree/themes/';
 </script>
-<% if Rails.env == "production" %>
-<script type="text/javascript">
-  var uvOptions = {};
-  (function() {
-    var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
-    uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/0unHMYjehcXD953IZwNbCw.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
-  })();
-</script>
-<% end %>
 <% end %>

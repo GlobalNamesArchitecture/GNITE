@@ -81,6 +81,10 @@ hr {
   min-width: 1050px;
 }
 
+#content p {
+  font-size:1.5em;
+}
+
 #bodywrap {
   color: black;
   margin: 20px 30px;
@@ -154,13 +158,27 @@ body form input {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+#wrapper p {
+  color: #bbb;
+  line-height:1.5em;
+}
+
+#wrapper p a {
+  color: #fff;
+  text-decoration: none;
+}
+
+#wrapper p a:hover {
+  border-bottom: 1px dotted;
+}
+
 /* Login Screen */
 /************************************************************************/
 #loginwrap {
   margin: 0 auto;
-  padding: 150px 0;
+  padding: 125px 0px 50px 0px;
   text-align: left;
-  width: 960px;
+  width: 850px;
 }
 
 #loginlogo {
@@ -175,6 +193,10 @@ body form input {
   text-align:right;
   font-style:italic;
   padding-top:5px;
+}
+
+#loginlogo p {
+  text-align:right;
 }
 
 #loginform {
@@ -288,20 +310,13 @@ body form input {
 }
 
 #loginform form {
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 
-#loginform p {
-  color: #bbb;
-}
-
-#loginform p a {
-  color: #fff;
-  text-decoration: none;
-}
-
-#loginform p a:hover {
-  border-bottom: 1px dotted;
+#disclaimer {
+  width: 850px;
+  text-align:center;
+  margin:0 auto;
 }
 
 /* Sidebar Navigation */
@@ -383,25 +398,13 @@ body form input {
   padding: 0 0 0 25px;
 }
 
-#nav li .nav_master_tree {
-  background: transparent url("/images/tree-nonactive.png") left center no-repeat;
-}
-
-#nav li#active .nav_master_tree {
-  background: transparent url("/images/tree-active.png") left center no-repeat;
-}
-
-#nav li .nav_profile {
-  background: transparent url("/images/profile-nonactive.png") left center no-repeat;
-}
-
-#nav li#active .nav_profile {
-  background: transparent url("/images/profile-active.png") left center no-repeat;
-}
-
-#nav li#active .nav_profile {
-  background: transparent url("/images/profile-active.png") left center no-repeat;
-}
+#nav li .nav_master_tree { background: transparent url("/images/tree-nonactive.png") left center no-repeat; }
+#nav li#active .nav_master_tree { background: transparent url("/images/tree-active.png") left center no-repeat; }
+#nav li .nav_profile { background: transparent url("/images/profile-nonactive.png") left center no-repeat; }
+#nav li#active .nav_profile { background: transparent url("/images/profile-active.png") left center no-repeat; }
+#nav li .nav_feedback { background: transparent url("/images/nav-bullhorn.png") left center no-repeat; }
+#nav li .nav_about { background: transparent url("/images/nav-about.png") left center no-repeat; }
+#nav li#active .nav_about { background: transparent url("/images/nav-about-active.png") left center no-repeat; }
 
 .icon {
   float: left;
