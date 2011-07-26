@@ -67,6 +67,7 @@ jQuery.extend(GNITE.Tree.MasterTree, { "root" : "<%= @master_tree.root.id %>", "
 //--><!]]>
 $.jstree._themes = '/javascripts/jstree/themes/';
 </script>
+<% if Rails.env == "production" %>
 <script type="text/javascript">
   var uvOptions = {};
   (function() {
@@ -75,4 +76,5 @@ $.jstree._themes = '/javascripts/jstree/themes/';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
   })();
 </script>
+<% end %>
 <% end %>
