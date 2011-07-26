@@ -81,10 +81,6 @@ hr {
   min-width: 1050px;
 }
 
-#content p {
-  font-size:1.5em;
-}
-
 #bodywrap {
   color: black;
   margin: 20px 30px;
@@ -176,7 +172,7 @@ body form input {
 /************************************************************************/
 #loginwrap {
   margin: 0 auto;
-  padding: 125px 0px 50px 0px;
+  padding: 125px 0px 30px 0px;
   text-align: left;
   width: 850px;
 }
