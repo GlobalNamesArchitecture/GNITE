@@ -1445,6 +1445,35 @@ GNITE.Tree.buildViewMenuActions = function() {
   "use strict";
 
   /*
+  * VIEW: Select all nodes
+  */
+  $('.nav-view-selectall').click(function() {
+
+    var self    = $(this),
+        tree_id = self.parents('.tree-background').find('.jstree').attr("id");
+
+    $('#'+tree_id+' li').each(function() {
+      $('#'+tree_id).jstree('select_node', $(this), true);
+    });
+
+    GNITE.Tree.hideMenu();
+    return false;
+  });
+
+  /*
+  * VIEW: Deselect all nodes
+  */
+  $('.nav-view-deselectall').click(function() {
+
+    var self    = $(this),
+        tree_id = self.parents('.tree-background').find('.jstree').attr("id");
+
+    $('#'+tree_id).jstree('deselect_all');
+    GNITE.Tree.hideMenu();
+    return false;
+  });
+
+  /*
   * VIEW: Refresh tree
   * Generic refresh action for any tree
   */
@@ -1814,6 +1843,9 @@ GNITE.Tree.MasterTree.merge = function() {
 };
 
 GNITE.Tree.MasterTree.externalDragged = function(data) {
+
+  "use strict";
+
   var self     = $('#master-tree'),
       foreign  = data.o,
       node     = data.r,
@@ -1854,6 +1886,9 @@ GNITE.Tree.MasterTree.externalDragged = function(data) {
 };
 
 GNITE.Tree.MasterTree.externalDropped = function(data) {
+
+  "use strict";
+
   var self = $('#master-tree'),
       node = data.o,
       target = data.r;
