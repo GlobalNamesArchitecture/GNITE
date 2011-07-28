@@ -48,7 +48,7 @@ class SynonymsController < ApplicationController
       end
     end
     
-    Juggernaut.publish(channel, "{ \"subject\" : \"metadata\", \"action\" : #{@synonym.serializable_hash.to_json} }", :except => request.headers["X-Session-ID"]);
+    Juggernaut.publish(channel, "{ \"subject\" : \"metadata\", \"action\" :#{@synonym.serializable_hash.to_json} }", :except => request.headers["X-Session-ID"]);
     
   end
 
