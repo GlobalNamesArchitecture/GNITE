@@ -17,6 +17,7 @@ var GNITE = {
 **************************************************************/
 var jug = new Juggernaut();
 
+
 /********************************* jQuery START *********************************/
 $(function() {
 
@@ -24,7 +25,7 @@ $(function() {
 
   GNITE.Tree.MasterTree.id = $('.tree-container:first').attr('data-database-id');
 
-  GNITE.Tree.MasterTree.channel = "tree_"+GNITE.Tree.MasterTree.id;
+  GNITE.Tree.MasterTree.channel = "tree_" + GNITE.Tree.MasterTree.id;
 
   jug.on("connect", function() { "use strict"; $('#master-tree').addClass("socket-active"); });
   jug.on("disconnect", function() { "use strict"; $('#master-tree').removeClass("socket-active"); });
@@ -185,8 +186,12 @@ $(function() {
         GNITE.Tree.MasterTree.externalDragged(data);
       },
       'drop_check': function(data) {
-        if(data.o.attr("id") == $(".node-metadata .ui-dialog-titlebar").attr("data-node-id")) { return false; }
-        return true;
+        var response = true;
+
+        if(data.o.attr("id") == $(".node-metadata .ui-dialog-titlebar").attr("data-node-id")) { response = false; }
+        if(!data.o.hasClass("jstree-leaf")) { response = false; }
+
+        return response;
       },
       'drop_finish' : function(data) {
         GNITE.Tree.MasterTree.externalDropped(data);
@@ -211,6 +216,13 @@ $(function() {
       },
       'drag_finish' : function(data) {
         GNITE.Tree.MasterTree.externalDragged(data);
+      },
+      'drop_check' : function(data) {
+        var response = true;
+        data.o.each(function() {
+          if(!$(this).hasClass("jstree-leaf")) { response = false; }
+        });
+        return response;
       }, 
       'drop_finish' : function(data) {
         GNITE.Tree.MasterTree.externalDropped(data);
@@ -495,7 +507,7 @@ $(function() {
   **************************************************************/
 
   jug.subscribe(GNITE.Tree.MasterTree.channel, function(data) {
-    var response = $.parseJSON(data);
+    var response = $.parseJSON(data), selected = "", self = $('#master-tree');
     switch(response.subject) {
       case 'edit':
         GNITE.Tree.MasterTree.flashNode(response.action);
@@ -503,7 +515,7 @@ $(function() {
       break;
 
       case 'merge':
-        $('#master-tree').jstree("lock");
+        self.jstree("lock");
         GNITE.Tree.MasterTree.showMergeWarning(response.merge_id);
       break;
 
@@ -511,16 +523,16 @@ $(function() {
         $(".spinner").find(".status").html(response.message);
         if(response.message === "Merging is complete") {
           $(".spinner").css("background-image", "none").find(".status").html(response.message).addClass("merge-complete");
-          $("#merge-view-results").show()
+          $("#merge-view-results").show();
         }
       break;
 
       case 'lock':
-        $('#master-tree').jstree("lock");
+        self.jstree("lock");
       break;
 
       case 'unlock':
-        $('#master-tree').jstree("unlock");
+        self.jstree("unlock");
       break;
 
       case 'member-login':
@@ -537,6 +549,11 @@ $(function() {
         $('#chat-messages-minimize').show();
         $('#chat-messages-wrapper div').show();
         $('#chat-messages-list').append("<li class=\"chat\"><span class=\"user\">" + response.user.email + "</span>:<span class=\"message\">" + response.message + "</span></li>").parent().scrollTo('li:last',500);
+      break;
+
+      case 'metadata':
+        selected = self.jstree("get_selected");
+        if($(selected).attr("id") == response.action.node_id) { self.jstree("deselect_all").jstree("select_node", $('#' + response.action.node_id)); }
       break;
     }
   });
@@ -847,8 +864,7 @@ $(function() {
     setTimeout(function checkClosed() {
       if(node.obj.hasClass("jstree-closed")) {
         self.jstree("open_node", node.obj);
-      }
-      else {
+      } else {
         setTimeout(checkClosed, 10);
       }
     }, 10); 
@@ -1845,19 +1861,8 @@ GNITE.Tree.MasterTree.merge = function() {
   return false;
 };
 
-GNITE.Tree.MasterTree.externalDragged = function(data) {
-
-  "use strict";
-
-  var self     = $('#master-tree'),
-      foreign  = data.o,
-      node     = data.r,
-      parentID = node.attr('id'),
-      name     = $(foreign).text();
-
-  alert("Sorry, this function is not yet implemented");
-
-/*  COMMENTED OUT UNTIL FULLY IMPLEMENTED AND TESTED
+/*
+  DRAG ITEM FROM METADATA PANEL INTO TREE - COMMENTED OUT UNTIL BELOW ACCOMMODATED
 
   TODO:
     1. check if drag from master synonym into master tree (i.e. synonym elevated to valid)
@@ -1868,6 +1873,19 @@ GNITE.Tree.MasterTree.externalDragged = function(data) {
        - metadata panel needs to be refreshed
        - Undo/redo works fine
     3. To implement: jstree-dragged class needs to be added to li elements in metadata panel in _metadata.html.erb view
+    4. Use juggernaut to refresh the metadata panel
+*/
+GNITE.Tree.MasterTree.externalDragged = function(data) {
+/*
+  "use strict";
+
+  var self     = $('#master-tree'),
+      foreign  = data.o,
+      node     = data.r,
+      parentID = node.attr('id'),
+      name     = $(foreign).text();
+
+  alert("Sorry, this function is not yet implemented");
 
   // lock the tree
   self.jstree("lock");
@@ -1889,30 +1907,55 @@ GNITE.Tree.MasterTree.externalDragged = function(data) {
 */
 };
 
+/*
+  DROP ITEM FROM TREE INTO METADATA PANEL
+
+  TODO:
+    1. When node dragged from MasterTree into metadata panel
+       - node must be deleted
+       - bookmarks must be deleted
+    2. Accommodate bulk drag/drop from ReferenceTree/DeletedTree into metadata panel
+    3. Allow specification of metadata qualifiers (e.g. vernacular language and synonym type)
+    4. Use juggernaut to refresh metadata panel
+*/
 GNITE.Tree.MasterTree.externalDropped = function(data) {
 
   "use strict";
 
-  var self    = $('#master-tree'),
-      node    = data.o,
-      node_id = data.r.parents(".node-metadata").find(".ui-dialog-titlebar").attr("data-node-id"),
-      type    = data.r.attr("data-type");
+  var self        = $('#master-tree'),
+      node        = data.o,
+      name_string = self.jstree("get_text", node),
+      parent      = self.find(".jstree-clicked").parent("li"),
+      type        = data.r.attr("data-type"),
+      metadata    = self.parents(".tree-background").find(".node-metadata");
 
-  if($('#'+node.attr("id")).parents().is("#master-tree")) {
-    //TODO: node needs to be deleted and a record added to the synonyms table with node_id the parent of the dragged node
-    alert("Sorry, this function is not yet implemented");
+  if($('#' + node.attr("id")).parents().is("#master-tree")) {
+    GNITE.Tree.MasterTree.reconciliation({
+      type        : type,
+      action      : 'POST',
+      node_id     : parent.attr("id"),
+      name_string : self.jstree("get_text", node)
+    });
+    self.jstree("remove", node);
   } else {
-    //TODO: accommodate bulk drag/drop from reference to metadata panel instead of one AJAX call per node
     data.o.each(function() {
+      name_string = $('#' + node.attr("id")).parents("jstree").jstree("get_text", $(this));
       GNITE.Tree.MasterTree.reconciliation({
         type        : type,
         action      : 'POST',
-        node_id     : node_id,
-        name_string : $(this).text().trim()
+        node_id     : parent.attr("id"),
+        name_string : name_string
       });
     });
-    $('#master-tree').jstree("deselect_all").jstree("select_node", $('#' + node_id));
   }
+
+  setTimeout(function checkCopiedStatus() {
+    if(metadata.text().indexOf(name_string) < 0) {
+      self.jstree("deselect_all").jstree("select_node", $('#' + parent.attr("id")));
+    } else {
+      setTimeout(checkCopiedStatus, 100);
+    }
+  }, 100);
 
 };
 
@@ -1927,17 +1970,12 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
 
   if ($('a[href="#' + response.domid + '"]').length !== 0 && $('#' + response.domid).hasClass("reference-tree-active")) {
     $('#tabs li:first-child ul li a[href="#' + response.domid +'"]').trigger('click');
-  }
-  else {
+  } else {
     if($('a[href="#' + response.domid + '"]').length === 0) {
-
       tab = $('#all-tabs');
       count = parseInt(tab.text().replace(/[^0-9]+/, ''), 10);
-
       tab.text('All reference trees (' + (count + 1) + ')');
-
       $('#new-tab').before(response.tree);
-
       $('#tab-titles li:first-child').show();
       $('#reference-trees').append('<li><a href="#' + response.domid + '">' + response.title + '</a></li>');
     }
@@ -1973,7 +2011,6 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
       });
     });
 
-    // hide the spinner icon once node is loaded
     self.bind('open_node.jstree', function(event, data) {
       event = null;
 
@@ -2149,12 +2186,12 @@ GNITE.Tree.MasterTree.addMetadataEditor = function(elem, type, action) {
     "keyup" : function(event) {
       var key = event.keyCode || event.which;
 
-      if(key == 27) { this.value = t; this.blur(); return; }
-      else if(key == 13) { this.blur(); return; }
+      if(key === 27) { this.value = t; this.blur(); return; }
+      else if(key === 13) { this.blur(); return; }
     },
     "keypress" : function(event) {
       var key = event.keyCode || event.which;
-      if(key == 13) { return false; }
+      if(key === 13) { return false; }
     }
   });
 
@@ -2193,7 +2230,13 @@ GNITE.Tree.MasterTree.reconciliation = function(params) {
     url         : url,
     data        : JSON.stringify({'name_string' : params.name_string}),
     dataType    : 'json',
-    contentType : 'application/json'
+    contentType : 'application/json',
+    beforeSend  : function(xhr) {
+      xhr.setRequestHeader("X-Session-ID", jug.sessionID);
+    },
+    success : function() { return true; },
+    error : function() { },
+    complete : function() { }
   });
 
 };
