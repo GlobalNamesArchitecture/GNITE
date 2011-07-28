@@ -32,6 +32,7 @@ class NodesController < ApplicationController
     node = tree.nodes.find(params[:id])
     
     @metadata = {
+      :id          => node.id,
       :name        => node.name_string,
       :rank        => node.rank_string,
       :synonyms    => node.synonym_data,

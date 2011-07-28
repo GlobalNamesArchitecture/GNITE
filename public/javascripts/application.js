@@ -183,7 +183,11 @@ $(function() {
       },
       'drag_finish' : function(data) {
         GNITE.Tree.MasterTree.externalDragged(data);
-      }, 
+      },
+      'drop_check': function(data) {
+        if(data.o.attr("id") == $(".node-metadata .ui-dialog-titlebar").attr("data-node-id")) { return false; }
+        return true;
+      },
       'drop_finish' : function(data) {
         GNITE.Tree.MasterTree.externalDropped(data);
       }
@@ -1838,7 +1842,6 @@ GNITE.Tree.MasterTree.merge = function() {
     $("#merge-form").dialog("open");
   }
 
-
   return false;
 };
 
@@ -1864,6 +1867,7 @@ GNITE.Tree.MasterTree.externalDragged = function(data) {
     2. check if drag from reference (or deleted) metadata panel into master metadata panel (i.e. new synonym created)
        - metadata panel needs to be refreshed
        - Undo/redo works fine
+    3. To implement: jstree-dragged class needs to be added to li elements in metadata panel in _metadata.html.erb view
 
   // lock the tree
   self.jstree("lock");
@@ -1889,43 +1893,27 @@ GNITE.Tree.MasterTree.externalDropped = function(data) {
 
   "use strict";
 
-  var self = $('#master-tree'),
-      node = data.o,
-      target = data.r;
+  var self    = $('#master-tree'),
+      node    = data.o,
+      node_id = data.r.parents(".node-metadata").find(".ui-dialog-titlebar").attr("data-node-id"),
+      type    = data.r.attr("data-type");
 
-  alert("Sorry, this function is not yet implemented");
-
-/*  COMMENTED OUT UNTIL FULLY IMPLEMENTED AND TESTED
-
-  TODO:
-    1. check if drag from master node into own metadata panel (i.e. valid becomes synonym)
-       - parent node needs to be refreshed & parent_id of affected node needs to be set to null
-    2. check if drag from reference (or deleted) node into master metadata panel (i.e. new synonym created)
-       - metadata panel needs to be refreshed
-    3. check if drag from reference metadata panel into master metadata panel
-       - metadata panel needs to be refreshed
-    3. Undo/redo? Does not fit the action_type paradigm
-
-  if(target.hasClass('synonyms')) {
+  if($('#'+node.attr("id")).parents().is("#master-tree")) {
+    //TODO: node needs to be deleted and a record added to the synonyms table with node_id the parent of the dragged node
+    alert("Sorry, this function is not yet implemented");
+  } else {
+    //TODO: accommodate bulk drag/drop from reference to metadata panel instead of one AJAX call per node
+    data.o.each(function() {
+      GNITE.Tree.MasterTree.reconciliation({
+        type        : type,
+        action      : 'POST',
+        node_id     : node_id,
+        name_string : $(this).text().trim()
+      });
+    });
+    $('#master-tree').jstree("deselect_all").jstree("select_node", $('#' + node_id));
   }
 
-  //lock the tree
-  self.jstree("lock");
-
-  $.ajax({
-    type       : 'POST',
-    async      : false,
-    url        : '',
-    data       : JSON.stringify({ }),
-    dataType   : 'json',
-    beforeSend : function(xhr) {
-      xhr.setRequestHeader("X-Session-ID", jug.sessionID);
-    },
-    success    : function() {
-
-    }
-  });
-*/
 };
 
 GNITE.Tree.ReferenceTree.add = function(response, options) {
@@ -2114,6 +2102,9 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
 };
 
 GNITE.Tree.MasterTree.addMetadataEditor = function(elem, type, action) {
+
+  "use strict";
+
   var container = elem.parents(".node-metadata"),
       elem_id   = (elem.attr("id")) ? elem.attr("id").split("-")[1] : null,
       selected  = $('#master-tree').jstree('get_selected'),
@@ -2178,7 +2169,11 @@ GNITE.Tree.MasterTree.addMetadataEditor = function(elem, type, action) {
 };
 
 GNITE.Tree.MasterTree.reconciliation = function(params) {
-  var url = "/master_trees/" + GNITE.Tree.MasterTree.id + "/nodes/" + params.node_id + "/" + params.type;
+
+  "use strict";
+
+  var self = $('#master-tree'),
+      url  = "/master_trees/" + GNITE.Tree.MasterTree.id + "/nodes/" + params.node_id + "/" + params.type;
 
   switch(params.action) {
     case 'POST':

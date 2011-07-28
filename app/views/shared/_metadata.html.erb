@@ -1,4 +1,4 @@
-<div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix">
+<div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix" data-node-id="<%= @metadata[:id] %>">
   <span class="ui-dialog-title"><%= @metadata[:name] %></span>
   <a class="ui-dialog-titlebar-close" href="#" role="button">
     <span class="ui-icon ui-icon-closethick"></span>
@@ -19,7 +19,7 @@
       <li class="metadata-none">None</li>
     <% else %>
       <% @metadata[:synonyms].each do |synonym| %>
-        <li id="synonyms-<%= synonym[:metadata][:id] %>" class="jstree-draggable synonym"><%= synonym[:name_string] %></li>
+        <li id="synonyms-<%= synonym[:metadata][:id] %>" class="synonym"><%= synonym[:name_string] %></li>
       <% end %>
     <% end %>
     <%= raw (tree_type == "MasterTree") ? "<li class=\"metadata-add green-submit-small\">Add</li>": "" %>

@@ -1180,8 +1180,11 @@ body form input {
   position:relative;
 }
 
-.node-metadata ul li.metadata-add {
+.node-metadata ul li.metadata-add, .node-metadata ul li.synonym {
   cursor:pointer;
+}
+
+.node-metadata ul li.metadata-add {
   height:15px;
 }
 
@@ -1208,13 +1211,13 @@ body form input {
 }
 
 .node-metadata ul li a.metadata-remove {
-  background: url("/images/icons/delete.png") no-repeat;
+  background: url("/images/icons/bin_closed.png") no-repeat;
   width:16px;
   height:16px;
   position:absolute;
   display:block;
   right:-3px;
-  top:-3px;
+  top:-5px;
   z-index:50;
   text-decoration:none;
 }
@@ -2023,6 +2026,7 @@ ul#treelist li,  #gnaclr-search, .tree-background, #loginform .input, .green-sub
   position: absolute;
   top: 0;
   width: 100%;
+  z-index:1000;
 }
 
 .spinner p.status {
