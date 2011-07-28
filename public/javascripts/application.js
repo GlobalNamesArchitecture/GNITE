@@ -847,12 +847,10 @@ $(function() {
         setTimeout(function checkLockedStatus() {
           if(self.find('ul:first').hasClass('jstree-locked')) {
             setTimeout(checkLockedStatus, 10);
-          }
-          else {
+          } else {
            if(typeof node.obj.attr("id") !== "undefined") {
              self.jstree("refresh", node.obj);
-           }
-           else {
+           } else {
              self.jstree("refresh");
            }
          }
@@ -1106,8 +1104,7 @@ $(function() {
       success     : function(data) {
         if(data.status) {
           GNITE.pushMessage("perform", "unlock", false);
-        }
-        else {
+        } else {
           GNITE.Tree.MasterTree.flashNode(data);
         }
       }
@@ -1489,12 +1486,10 @@ GNITE.Tree.openAncestry = function(tree, obj) {
         end = $(val);
         tree_wrapper.scrollTo($(val), {axis:'y'});
         current.push(val);
-      }
-      else if($(val).length && !$(val).is(".jstree-closed")) {
+      } else if($(val).length && !$(val).is(".jstree-closed")) {
         end = $(val);
         tree_wrapper.scrollTo($(val), {axis:'y'});
-      }
-      else {
+      } else {
         remaining.push(val);
       }
     });
@@ -1748,8 +1743,7 @@ GNITE.Tree.importTree = function(opts) {
       status = null;
       if (xhr.status === 200) {
         GNITE.Tree.ReferenceTree.add(response, opts);
-      }
-      else if (xhr.status === 204) {
+      } else if (xhr.status === 204) {
         var jugImporter = new Juggernaut();
         jugImporter.on("connect", function() { opts.spinnedElement.find(".status").addClass("juggernaut-connected"); });
         jugImporter.subscribe("tree_" + tree_id, function(data) {
@@ -1821,21 +1815,18 @@ GNITE.Tree.MasterTree.flashNode = function(data) {
   setTimeout(function checkLockedStatus() {
     if(self.find('ul:first').hasClass('jstree-locked')) {
       setTimeout(checkLockedStatus, 10);
-    }
-    else {
+    } else {
       //Adjust the Metadata Title if node is selected and the action was an undo or a redo of a rename
       if(data.new_name !== data.old_name && $(selected[0]).attr("id") === data.node_id.toString()) {
         if(data.undo) {
           GNITE.Tree.MasterTree.updateMetadataTitle(data.old_name);
-        }
-        else {
+        } else {
           GNITE.Tree.MasterTree.updateMetadataTitle(data.new_name);
         }
       }
       if(data.parent_id.toString() === GNITE.Tree.MasterTree.root) {
         self.jstree("refresh");
-      }
-      else {
+      } else {
         if(data.destination_parent_id && destination_parent.length > 0) {
           self.jstree("refresh", $('#'+data.destination_parent_id));
           self.find('#' + data.destination_parent_id + ' a:first').effect("highlight", { color : "#BABFC3" }, 2000);
@@ -1897,8 +1888,7 @@ GNITE.Tree.MasterTree.merge = function() {
        draggable : false,
        resizable : false
     });
-  }
-  else {
+  } else {
     master_selected_string = master.jstree("get_text", $('#'+master_selected[0].id));
     reference_selected_string = reference.jstree("get_text", $('#'+reference_selected[0].id));
 
@@ -1937,8 +1927,6 @@ GNITE.Tree.MasterTree.externalDragged = function(data) {
       node     = data.r,
       parentID = node.attr('id'),
       name     = $(foreign).text();
-
-  alert("Sorry, this function is not yet implemented");
 
   // lock the tree
   self.jstree("lock");
@@ -2156,8 +2144,7 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
             self.dblclick(function() {
               GNITE.Tree.MasterTree.addMetadataEditor(self, type, action);
             });
-          }
-          else if(self.hasClass("metadata-add")) {
+          } else if(self.hasClass("metadata-add")) {
             type = self.parent().attr("data-type");
             action = "POST";
             self.click(function() { GNITE.Tree.MasterTree.addMetadataEditor(self, type, action); });
