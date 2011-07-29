@@ -2089,6 +2089,7 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
 
 };
 
+/* TODO: add functionality for editing rank; see comment below */
 GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
 
   "use strict";
@@ -2109,15 +2110,15 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
         return false;
       });
 
-      //allow editing of synonyms/vernaculars only for master tree
+      //allow editing of metadata elements only for master tree
       if(wrapper.find("#master-tree").length) {
         var selected = $('#master-tree').jstree('get_selected'),
             node_id  = $(selected[0]).attr("id");
 
-        container.find("li.synonym, li.vernacular, li.metadata-add").each(function() {
+        container.find("li.rank, li.synonym, li.vernacular, li.metadata-add").each(function() {
           var self = $(this), type = "", action = "";
 
-          if(self.parent().attr("data-type").length && !self.hasClass("metadata-add")) {
+          if(self.hasClass("vernacular") || self.hasClass("synonym")) {
             type = self.parent().attr("data-type");
             action = "PUT";
             self.hover(
@@ -2144,6 +2145,10 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
             self.dblclick(function() {
               GNITE.Tree.MasterTree.addMetadataEditor(self, type, action);
             });
+          } else if(self.hasClass("rank")) {
+            // GNITE.Tree.MasterTree.addMetadataEditor method could be used, but we may also need an action_command
+            // e.g. action_change_rank (or generalized as action_change_metadata if it can be)
+            // what about autocomplete and use of controlled vocabularies for addMetadataEditor method?
           } else if(self.hasClass("metadata-add")) {
             type = self.parent().attr("data-type");
             action = "POST";

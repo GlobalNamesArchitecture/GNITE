@@ -1180,7 +1180,7 @@ body form input {
   position:relative;
 }
 
-.node-metadata ul li.metadata-add, .node-metadata ul li.synonym {
+.node-metadata ul li.metadata-add, .node-metadata ul li.synonym, .node-metadata ul li.vernacular {
   cursor:pointer;
 }
 
