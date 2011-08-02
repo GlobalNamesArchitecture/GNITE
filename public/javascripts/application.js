@@ -499,63 +499,6 @@ $(function() {
 
   });
 
-
-  /**************************************************************
-           JUGGERNAUT LISTENER
-  **************************************************************/
-/*
-  jug.subscribe(GNITE.Tree.MasterTree.channel, function(data) {
-    var response = $.parseJSON(data), self = $('#master-tree');
-    switch(response.subject) {
-      case 'edit':
-        GNITE.Tree.MasterTree.flashNode(response.action);
-        $('.deleted-tree-container .jstree').jstree("refresh");
-      break;
-
-      case 'merge':
-        self.jstree("lock");
-        GNITE.Tree.MasterTree.showMergeWarning(response.merge_id);
-      break;
-
-      case 'MergeEvent':
-        $(".spinner").find(".status").html(response.message);
-        if(response.message === "Merging is complete") {
-          $(".spinner").css("background-image", "none").find(".status").html(response.message).addClass("merge-complete");
-          $("#merge-view-results").show();
-        }
-      break;
-
-      case 'lock':
-        self.jstree("lock");
-      break;
-
-      case 'unlock':
-        self.jstree("unlock");
-      break;
-
-      case 'member-login':
-        $("#chat-messages-head").effect("highlight", { color : "green" }, 2000);
-        $("#chat-messages-list").append("<li class=\"new-user\"><span class=\"user\">" + response.user.email + "</span><span class=\"message\">arrived [" + response.time + "]</span></li>").parent().scrollTo('li:last',500);
-      break;
-
-      case 'member-logout':
-      break;
-
-      case 'chat':
-        $('#chat-messages-head').effect("highlight", { color : "green" }, 2000);
-        $('#chat-messages-maximize').hide();
-        $('#chat-messages-minimize').show();
-        $('#chat-messages-wrapper div').show();
-        $('#chat-messages-list').append("<li class=\"chat\"><span class=\"user\">" + response.user.email + "</span>:<span class=\"message\">" + response.message + "</span></li>").parent().scrollTo('li:last',500);
-      break;
-
-      case 'metadata':
-        GNITE.Tree.MasterTree.refreshMetadata(response.action.node_id);
-      break;
-    }
-  });
-*/
-
   /**************************************************************
            SEARCH WITHIN TREES
   **************************************************************/

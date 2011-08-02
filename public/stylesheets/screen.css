@@ -1163,13 +1163,13 @@ body form input {
 
 .metadata-section .metadata-select {
   position:absolute;
+  line-height:1.5em;
 }
 
 .metadata-section select {
   opacity:0;
   position:relative;
   z-index:5;
-  border:0px;
 }
 
 .node-metadata ul {
@@ -1193,6 +1193,9 @@ body form input {
 
 .node-metadata ul li.select {
   background: url("/images/down.gif") no-repeat scroll 95% center #CDD3D7;
+  padding:2px 8px;
+  line-height:1.5em;
+  height:1.5em;
 }
 
 .node-metadata ul li.metadata-add, .node-metadata ul li.synonym, .node-metadata ul li.vernacular {
