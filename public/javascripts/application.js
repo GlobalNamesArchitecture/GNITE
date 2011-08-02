@@ -17,7 +17,6 @@ var GNITE = {
 **************************************************************/
 var jug = new Juggernaut();
 
-
 /********************************* jQuery START *********************************/
 $(function() {
 
@@ -171,8 +170,7 @@ $(function() {
       'merge_form' : '#merge-form'
     },
     'ui' : {
-      'select_limit' : -1,
-      'select_multiple_modifier' : "ctrl"
+      'select_limit' : 1
     },
     'dnd' : {
       'drag_check' : function() {
@@ -1040,6 +1038,9 @@ $(function() {
     $('.jstree-focused').jstree('rename');
   });
 
+  /*
+   * Deselect nodes
+   */
   $('#add-node-wrap').live('click', function(event) {
 
     var target = $(event.target);
@@ -1047,7 +1048,6 @@ $(function() {
     if (event.target.tagName !== 'A' && event.target.tagName !== 'INS') {
       $('#add-node-wrap').css('bottom', '20px');
       $('#add-node-wrap + .node-metadata').hide();
-
       target.closest('.jstree').jstree('deselect_all');
     }
 
@@ -1948,6 +1948,9 @@ GNITE.Tree.MasterTree.externalDragged = function(data) {
 */
 };
 
+/*
+ * TODO: before removing node in master tree and dragging into metadata panel, need to get its synonyms
+ */
 GNITE.Tree.MasterTree.externalDropped = function(data) {
 
   "use strict";
@@ -1966,7 +1969,7 @@ GNITE.Tree.MasterTree.externalDropped = function(data) {
       node_id     : parent.attr("id"),
       name_string : self.jstree("get_text", node)
     });
-    self.jstree("remove", node);
+    self.jstree("remove", node); //Cannot do this without first getting the node's own vernaculars and synonyms
   } else {
     data.o.each(function() {
       name_string = $('#' + node.attr("id")).parents(".jstree").jstree("get_text", $(this));
@@ -2089,7 +2092,6 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
 
 };
 
-/* TODO: add functionality for editing rank; see comment below */
 GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
 
   "use strict";
@@ -2110,7 +2112,6 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
         return false;
       });
 
-      //allow editing of metadata elements only for master tree
       if(wrapper.find("#master-tree").length) {
         var selected = $('#master-tree').jstree('get_selected'),
             node_id  = $(selected[0]).attr("id");
@@ -2143,16 +2144,29 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
               }
             );
             self.dblclick(function() {
-              GNITE.Tree.MasterTree.addMetadataEditor(self, type, action);
+              GNITE.Tree.MasterTree.editMetadata(self, type, action);
             });
           } else if(self.hasClass("rank")) {
-            // GNITE.Tree.MasterTree.addMetadataEditor method could be used, but we may also need an action_command
-            // e.g. action_change_rank (or generalized as action_change_metadata if it can be)
-            // what about autocomplete and use of controlled vocabularies for addMetadataEditor method?
+              self.find("select").change(function() {
+                $.ajax({
+                  type        : 'PUT',
+                  async       : true,
+                  url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes/' + node_id + '.json',
+                  data        : JSON.stringify({ 'node' : {  }, 'json_message' : { 'do' : this.value }, 'action_type' : 'ActionChangeRank' }),
+                  contentType : 'application/json',
+                  dataType    : 'json',
+                  beforeSend  : function(xhr) {
+                    xhr.setRequestHeader("X-Session-ID", jug.sessionID);
+                  },
+                  success     : function(data) {
+                    self.find(".metadata-select").text(data.node.rank);
+                  }
+                });
+              });
           } else if(self.hasClass("metadata-add")) {
             type = self.parent().attr("data-type");
             action = "POST";
-            self.click(function() { GNITE.Tree.MasterTree.addMetadataEditor(self, type, action); });
+            self.click(function() { GNITE.Tree.MasterTree.editMetadata(self, type, action); });
           }
         });
       }
@@ -2163,7 +2177,7 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
   wrapper.css('bottom', container.height());
 };
 
-GNITE.Tree.MasterTree.addMetadataEditor = function(elem, type, action) {
+GNITE.Tree.MasterTree.editMetadata = function(elem, type, action) {
 
   "use strict";
 

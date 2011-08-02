@@ -1161,6 +1161,17 @@ body form input {
   padding: 0 10px;
 }
 
+.metadata-section .metadata-select {
+  position:absolute;
+}
+
+.metadata-section select {
+  opacity:0;
+  position:relative;
+  z-index:5;
+  border:0px;
+}
+
 .node-metadata ul {
   background: #fff;
   float: left;
@@ -1178,6 +1189,10 @@ body form input {
   margin: 6px 5px 0 5px;
   padding: 5px 8px;
   position:relative;
+}
+
+.node-metadata ul li.select {
+  background: url("/images/down.gif") no-repeat scroll 95% center #CDD3D7;
 }
 
 .node-metadata ul li.metadata-add, .node-metadata ul li.synonym, .node-metadata ul li.vernacular {

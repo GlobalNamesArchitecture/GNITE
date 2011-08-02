@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110703231727) do
+ActiveRecord::Schema.define(:version => 20110801202425) do
 
   create_table "action_commands", :force => true do |t|
     t.string   "type"
@@ -194,6 +194,19 @@ ActiveRecord::Schema.define(:version => 20110703231727) do
 
   add_index "synonyms", ["node_id", "name_id"], :name => "index_synonyms_on_node_id_and_name_id", :unique => true
 
+  create_table "terms", :force => true do |t|
+    t.integer  "vocabulary_id"
+    t.string   "name"
+    t.string   "identifier"
+    t.string   "uri"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "terms", ["identifier"], :name => "index_terms_on_identifier", :unique => true
+  add_index "terms", ["vocabulary_id"], :name => "index_terms_on_vocabulary_id"
+
   create_table "trees", :force => true do |t|
     t.string   "title"
     t.datetime "created_at"
@@ -244,5 +257,16 @@ ActiveRecord::Schema.define(:version => 20110703231727) do
   end
 
   add_index "vernacular_names", ["node_id", "name_id"], :name => "index_vernacular_names_on_node_id_and_name_id", :unique => true
+
+  create_table "vocabularies", :force => true do |t|
+    t.string   "name"
+    t.string   "identifier"
+    t.string   "uri"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "vocabularies", ["identifier"], :name => "index_vocabularies_on_identifier", :unique => true
 
 end
