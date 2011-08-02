@@ -12,15 +12,15 @@ class ActionChangeRank < ActionCommand
   end
 
   def do_action
-    node.rank = @json_do
-    node.save!
     self.json_message = {:do => @json_do, :undo => node.rank}.to_json
     save!
+    node.rank = @json_do
+    node.save!
   end
 
   def undo_action
     node.rank = JSON.parse(json_message, :symbolize_names => true)[:undo]
-    save!
+    node.save!
   end
   
   def do_log
