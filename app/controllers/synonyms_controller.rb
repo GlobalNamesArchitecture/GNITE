@@ -4,8 +4,7 @@ class SynonymsController < ApplicationController
   def create
     channel     = "tree_#{params[:master_tree_id]}"
     name        = Name.find_or_create_by_name_string(params[:name_string])
-    #TODO need UI to select the synonym type
-    @synonym    = Synonym.new(:name => name, :node_id => params[:node_id], :type => 'synonym')
+    @synonym    = Synonym.new(:name => name, :node_id => params[:node_id], :status => 'synonym')
     @synonym.save
 
     respond_to do |format|
@@ -44,7 +43,7 @@ class SynonymsController < ApplicationController
     
     respond_to do |format|
       format.json do
-        render :json => { :status => "OK" }
+        render :json => @synonym
       end
     end
     

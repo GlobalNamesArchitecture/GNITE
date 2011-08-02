@@ -2060,34 +2060,31 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
             node_id  = $(selected[0]).attr("id");
 
         container.find("li.rank, li.synonym, li.vernacular, li.metadata-add").each(function() {
-          var self = $(this), type = "", action = "";
+          var self = $(this), type = self.parent().attr("data-type"), action = "";
 
-          if(self.hasClass("vernacular") || self.hasClass("synonym")) {
-            type = self.parent().attr("data-type");
-            action = "PUT";
-            self.hover(
-              function() {
-                self.append("<a href=\"#\" class=\"metadata-remove\" alt=\"Delete\" title=\"Delete\"></a>");
-                self.find("a.metadata-remove").click(function() {
-                  container.spinner();
-                  GNITE.Tree.MasterTree.reconciliation({ 
-                    type        : type, 
-                    action      : 'DELETE', 
-                    id          : self.attr("id").split("-")[1], 
-                    name_string : self.text(), 
-                    node_id     : node_id
-                  });
-                  container.unspinner();
-                  $('#master-tree').jstree("deselect_all").jstree("select_node", $('#' + node_id));
-                  return false;
-                });
-              }, 
-              function() {
-                self.find("a.metadata-remove").remove();
-              }
-            );
-            self.dblclick(function() {
-              GNITE.Tree.MasterTree.editMetadata(self, type, action);
+          if(self.hasClass("synonym") || self.hasClass("vernacular")) {
+            self.contextMenu({
+                menu: 'synonym-context'
+              }, function(action, el, pos) {
+                switch(action) {
+                  case 'edit':
+                    GNITE.Tree.MasterTree.editMetadata(self, type, "PUT");
+                  break;
+
+                  case 'delete':
+                    container.spinner();
+                    GNITE.Tree.MasterTree.reconciliation({ 
+                      type        : type, 
+                      action      : 'DELETE', 
+                      id          : self.attr("id").split("-")[1], 
+                      name_string : self.text(), 
+                      node_id     : node_id
+                    });
+                    container.unspinner();
+                  break;
+                }
+            }).dblclick(function() {
+              GNITE.Tree.MasterTree.editMetadata(self, type, "PUT");
             });
           } else if(self.hasClass("rank")) {
               self.find("select").change(function() {
@@ -2136,7 +2133,7 @@ GNITE.Tree.MasterTree.editMetadata = function(elem, type, action) {
   if(elem.hasClass("metadata-add")) {
     elem.before("<li>&nbsp;</li>").prev().css({"width":"150px"});
   } else {
-    elem.css({"width": width}).removeClass("jstree-draggable").unbind('mouseenter mouseleave').find("a.metadata-remove").remove();
+    elem.css({"width": width}).removeClass("jstree-draggable").unbind('mouseenter mouseleave');
     t = elem.text();
   }
 
@@ -2182,6 +2179,7 @@ GNITE.Tree.MasterTree.editMetadata = function(elem, type, action) {
     elem.hide();
   } else {
     elem.append(input).children(".metadata-input").focus();
+    elem.find("span").hide();
     elem.parent().find(".metadata-add").hide();
   }
 
