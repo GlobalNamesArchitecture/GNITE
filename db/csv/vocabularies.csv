@@ -1,3 +1,0 @@
-1	rank	rank	http://rs.gbif.org/vocabulary/gbif/rank	Common taxonomic ranks
-2	nomenclatural codes	nomenclatural_code	http://rs.gbif.org/vocabulary/gbif/nomenclatural_code	GBIF recommended terms for denoting a nomenclatural code
-3	taxonomic status	taxonomic_status	http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/	Simple vocabulary to describe the taxonomic status of a name
