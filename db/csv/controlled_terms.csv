@@ -1,0 +1,44 @@
+1	1	domain	domain	http://rs.gbif.org/vocabulary/gbif/rank/domain	
+2	1	kingdom	kingdom	http://rs.gbif.org/vocabulary/gbif/rank/kingdom	
+3	1	subkingdom	subkingdom	http://rs.gbif.org/vocabulary/gbif/rank/subkingdom	
+4	1	phylum	phylum	http://rs.gbif.org/vocabulary/gbif/rank/phylum	
+5	1	subphylum	subphylum	http://rs.gbif.org/vocabulary/gbif/rank/subphylum	
+6	1	superclass	superclass	http://rs.gbif.org/vocabulary/gbif/rank/superclass	
+7	1	class	class	http://rs.gbif.org/vocabulary/gbif/rank/class	
+8	1	subclass	subclass	http://rs.gbif.org/vocabulary/gbif/rank/subclass	
+9	1	superorder	superorder	http://rs.gbif.org/vocabulary/gbif/rank/superorder	
+10	1	order	order	http://rs.gbif.org/vocabulary/gbif/rank/order	
+11	1	suborder	suborder	http://rs.gbif.org/vocabulary/gbif/rank/suborder	
+12	1	infraorder	infraorder	http://rs.gbif.org/vocabulary/gbif/rank/infraorder	
+13	1	superfamily	superfamily	http://rs.gbif.org/vocabulary/gbif/rank/superfamily	
+14	1	family	family	http://rs.gbif.org/vocabulary/gbif/rank/family	
+15	1	subfamily	subfamily	http://rs.gbif.org/vocabulary/gbif/rank/subfamily	
+16	1	tribe	tribe	http://rs.gbif.org/vocabulary/gbif/rank/tribe	
+17	1	subtribe	subtribe	http://rs.gbif.org/vocabulary/gbif/rank/subtribe	
+18	1	genus	genus	http://rs.gbif.org/vocabulary/gbif/rank/genus	
+19	1	subgenus	subgenus	http://rs.gbif.org/vocabulary/gbif/rank/subgenus	
+20	1	section	section	http://rs.gbif.org/vocabulary/gbif/rank/section	
+21	1	subsection	subsection	http://rs.gbif.org/vocabulary/gbif/rank/subsection	
+22	1	species aggregate	speciesAggregate	http://rs.gbif.org/vocabulary/gbif/rank/speciesAggregate	
+23	1	species	species	http://rs.gbif.org/vocabulary/gbif/rank/species	
+24	1	subspecific aggregate	subspecificAggregate	http://rs.gbif.org/vocabulary/gbif/rank/subspecificAggregate	
+25	1	subspecies	subspecies	http://rs.gbif.org/vocabulary/gbif/rank/subspecies	
+26	1	variety	variety	http://rs.gbif.org/vocabulary/gbif/rank/variety	
+27	1	subvariety	subvariety	http://rs.gbif.org/vocabulary/gbif/rank/subvariety	
+28	1	form	form	http://rs.gbif.org/vocabulary/gbif/rank/form	
+29	1	subform	subform	http://rs.gbif.org/vocabulary/gbif/rank/subform	
+30	1	cultivar group	cultivarGroup	http://rs.gbif.org/vocabulary/gbif/rank/cultivarGroup	
+31	1	cultivar	cultivar	http://rs.gbif.org/vocabulary/gbif/rank/cultivar	
+32	1	strain	strain	http://rs.gbif.org/vocabulary/gbif/rank/strain	
+33	2	ICBN	ICBN	http://rs.gbif.org/vocabulary/gbif/nomenclatural_code/ICBN	International Code of Botanical Nomenclature
+34	2	ICZN	ICZN	http://rs.gbif.org/vocabulary/gbif/nomenclatural_code/ICZN	International Code of Zoological Nomenclature
+35	2	ICVCN	ICVCN	http://rs.gbif.org/vocabulary/gbif/nomenclatural_code/ICVCN	International Code of Virus Classifications and Nomenclature
+36	2	ICNB	ICNB	http://rs.gbif.org/vocabulary/gbif/nomenclatural_code/ICNB	International Code of Nomenclature of Bacteria
+37	2	ICNCP	ICNCP	http://rs.gbif.org/vocabulary/gbif/nomenclatural_code/ICNCP	International Code of Nomenclature for Cultivated Plants
+38	2	BioCode	BioCode	http://rs.gbif.org/vocabulary/gbif/nomenclatural_code/BioCode	International Code of Botanical Nomenclature
+39	3	accepted	accepted	http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/accepted	The status of a taxon according to the taxonomic judgement of a cited authority
+40	3	synonym	synonym	http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/synonym	
+41	3	heterotypic synonym	heterotypicSynonym	http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/heterotypicSynonym	Subjective synonym based on different type(s)
+42	3	homotypic synonym	homotypicSynonym	http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/homotypicSynonym	Objective synonym based on the same type(s)
+43	3	pro parte synonym	proParteSynonym	http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/proParteSynonym	Some specimens of the original type series have been assigned to a new type
+44	3	misapplied	misapplied	http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/misapplied	
