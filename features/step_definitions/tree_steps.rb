@@ -17,6 +17,7 @@ end
 
 When /^I refresh the master tree$/ do
   page.execute_script("jQuery('#master-tree').jstree('refresh');")
+  sleep 2
 end
 
 Then /^the master tree should be locked$/ do

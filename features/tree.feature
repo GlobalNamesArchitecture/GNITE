@@ -125,6 +125,7 @@ Feature: Edit a master tree
     And I drag "Rocky" under "Bullwinkle"
     And I wait for the tree to load
     And I refresh the master tree
+    And I select the node "Bullwinkle"
     And I delete the node "Bullwinkle"
     And I wait for the tree to load
     And I refresh the master tree
