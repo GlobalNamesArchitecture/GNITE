@@ -384,6 +384,10 @@ $(function() {
                 GNITE.Tree.Node.getMetadata(url, metadata, wrapper);
               });
 
+              self.bind('deselect_all.jstree', function() {
+                self.parent().next().hide();
+              });
+
               self.bind('bookmarks_form.jstree', function(event, data) {
                 event = null;
                 $('#bookmarks-addition-form-' + tree_id).dialog("option", "title", "Bookmark " + $('#' + data.rslt.obj.attr('id') + ' a:first').text()).dialog("open");
@@ -974,6 +978,10 @@ $(function() {
     GNITE.Tree.Node.getMetadata(url, metadata, wrapper);
   });
 
+  $('#master-tree').bind('deselect_all.jstree', function() {
+    $(this).parent().parent().next().hide();
+  });
+
   /*
    * Double-click rename
    */
@@ -990,7 +998,6 @@ $(function() {
 
     if (event.target.tagName !== 'A' && event.target.tagName !== 'INS') {
       $('#add-node-wrap').css('bottom', '20px');
-      $('#add-node-wrap + .node-metadata').hide();
       target.closest('.jstree').jstree('deselect_all');
     }
 
@@ -1454,22 +1461,6 @@ GNITE.Tree.openAncestry = function(tree, obj) {
 GNITE.Tree.buildViewMenuActions = function() {
 
   "use strict";
-
-  /*
-  * VIEW: Select all nodes
-  */
-  $('.nav-view-selectall').click(function() {
-
-    var self    = $(this),
-        tree_id = self.parents('.tree-background').find('.jstree').attr("id");
-
-    $('#'+tree_id+' li').each(function() {
-      $('#'+tree_id).jstree('select_node', $(this), true);
-    });
-
-    GNITE.Tree.hideMenu();
-    return false;
-  });
 
   /*
   * VIEW: Deselect all nodes
@@ -1993,6 +1984,10 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
           url      = '/reference_trees/' + tree_id + '/nodes/' + data.rslt.obj.attr("id");
 
       GNITE.Tree.Node.getMetadata(url, metadata, wrapper);
+    });
+
+    self.bind('deselect_all.jstree', function() {
+      self.parent().next().hide();
     });
 
     // Bind bookmarks for the new reference tree
