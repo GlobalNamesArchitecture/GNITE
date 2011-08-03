@@ -2060,7 +2060,7 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
             node_id  = $(selected[0]).attr("id");
 
         container.find("li.rank, li.synonym, li.vernacular, li.metadata-add").each(function() {
-          var self = $(this), type = self.parent().attr("data-type"), action = "";
+          var self = $(this), type = self.parent().attr("data-type");
 
           if(self.hasClass("synonym") || self.hasClass("vernacular")) {
             self.contextMenu({
@@ -2105,8 +2105,7 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
               });
           } else if(self.hasClass("metadata-add")) {
             type = self.parent().attr("data-type");
-            action = "POST";
-            self.click(function() { GNITE.Tree.MasterTree.editMetadata(self, type, action); });
+            self.click(function() { GNITE.Tree.MasterTree.editMetadata(self, type, "POST"); });
           }
         });
       }

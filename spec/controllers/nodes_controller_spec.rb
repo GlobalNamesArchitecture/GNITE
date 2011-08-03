@@ -208,6 +208,7 @@ describe NodesController, 'GET to show for master tree' do
     sign_in_as(user)
 
     @expected = {
+      :id          => node.id,
       :name        => node.name_string,
       :rank        => node.rank,
       :synonyms    => node.synonym_data,
@@ -238,6 +239,7 @@ describe NodesController, 'GET to show for reference tree' do
     sign_in_as(user)
 
     @expected = {
+      :id          => node.id,
       :name        => node.name_string,
       :rank        => node.rank,
       :synonyms    => node.synonym_data,
