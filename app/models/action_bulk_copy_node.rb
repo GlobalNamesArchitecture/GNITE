@@ -2,7 +2,8 @@ class ActionBulkCopyNode < ActionCommand
 
   def precondition_do
     @json_do = JSON.parse(json_message, :symbolize_names => true)[:do]
-    !!(tree_id && destination_parent_id && @json_do && @destination_parent = Node.find(destination_parent_id))
+    @destination_parent = Node.find(destination_parent_id) rescue nil
+    !!(tree_id && destination_parent_id && @json_do && @destination_parent)
   end
 
   def precondition_undo
@@ -37,9 +38,11 @@ class ActionBulkCopyNode < ActionCommand
     bulk_copied_names = []
     bulk_copied = JSON.parse(json_message, :symbolize_names => true)[:do]
     bulk_copied.each do |i|
-      bulk_copied_names << Node.find(i).name_string
+      node = Node.find(i) rescue nil
+      bulk_copied_names << node.name_string if node
     end
-    reference_tree = Node.find(bulk_copied[0]).tree.title
+    node = Node.find(bulk_copied[0]) rescue nil
+    reference_tree = node.tree.title if node
     "#{bulk_copied_names.join(", ")} and each of their children (if any) copied to #{destination} from #{reference_tree}"
   end
   
@@ -47,7 +50,8 @@ class ActionBulkCopyNode < ActionCommand
     bulk_copied_names = []
     bulk_copied = JSON.parse(json_message, :symbolize_names => true)[:do]
     bulk_copied.each do |i|
-      bulk_copied_names << Node.find(i).name_string
+      node = Node.find(i) rescue nil
+      bulk_copied_names << node.name_string if node
     end
     "#{bulk_copied_names.join(", ")} and each of their children (if any) removed"
   end

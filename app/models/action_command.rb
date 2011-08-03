@@ -106,7 +106,7 @@ class ActionCommand < ActiveRecord::Base
 
   def node
     return nil unless node_id
-    @node = defined?(@node) ? @node : Node.find(node_id)
+    @node = defined?(@node) ? @node : (Node.find(node_id) rescue nil)
   end
 
   def master_tree

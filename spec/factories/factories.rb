@@ -129,3 +129,10 @@ Factory.define :action_bulk_copy_node do |action_bulk_copy_node|
   action_bulk_copy_node.destination_parent_id { |a| Factory(:node, :tree_id => a.tree_id).id }
   action_bulk_copy_node.json_message { {:do => nil}.to_json }
 end
+Factory.define :action_node_to_synonym do |action_node_to_synonym|
+  action_node_to_synonym.tree_id { Factory(:master_tree).id }
+  action_node_to_synonym.association :user
+  action_node_to_synonym.node_id { |a| Factory(:node, :tree_id => a.tree_id).id }
+  action_node_to_synonym.destination_node_id { |a| Factory(:node, :tree_id => a.tree_id).id }
+  action_node_to_synonym.json_message { {:do => nil, :undo => nil}.to_json }
+end
