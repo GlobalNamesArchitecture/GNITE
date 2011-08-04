@@ -2,7 +2,7 @@ class ActionNodeToSynonym < ActionCommand
 
   def precondition_do
     @destination_node = Node.find(destination_node_id) rescue nil
-    !!(node && @destination_node && node.ancestry_ok? && @destination_node.ancestry_ok? && !node.has_children?)
+    !!(node && @destination_node && ancestry_ok?(node) && ancestry_ok?(@destination_node) && !node.has_children?)
   end
 
   def precondition_undo
@@ -16,16 +16,24 @@ class ActionNodeToSynonym < ActionCommand
     @destination_node.synonyms.each do |synonym|
       Synonym.create!(:node => merged_node, :name => synonym.name, :status => synonym.status)
     end
-
-    new_synonyms.each do |name|
+    new_synonym_names.each do |name|
       Synonym.create!(:node => merged_node, :name => name, :status => nil)
     end
+    
     new_json_message = JSON.parse(json_message, :symbolize_keys => true)
     new_json_message.merge({ :undo => { :node_id => merged_node.id } })
-    #node.parent_id = 
+    
+    self.json_message = new_json_message
+    save!
+    
+    @destination_node.delete_softly
   end
 
   def undo_action
+    merged_node_id = JSON.parse(json_message, :symbolize_names => true)[:undo][:node_id]
+    merged_node = Node.find(merged_node_id) rescue nil
+    merged_node.destroy
+    @destination_node.restore
   end
 
   def do_log
