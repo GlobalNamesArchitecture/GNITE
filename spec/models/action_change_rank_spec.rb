@@ -11,7 +11,7 @@ describe ActionChangeRank do
     subject.master_tree.should == subject.node.tree
   end
 
-  it 'should rename the node on first perform and get old name on second perform' do
+  it 'should change the rank on first perform and get the old rank on second perform' do
     node = Node.find(subject.node_id)
     old_node_rank = node.rank
     ActionChangeRank.perform(subject.id)
