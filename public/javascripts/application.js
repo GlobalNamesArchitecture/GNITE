@@ -1746,6 +1746,8 @@ GNITE.Tree.MasterTree.flashNode = function(data) {
       source_parent      = self.find('#' + data.parent_id),
       selected           = self.jstree("get_selected");
 
+//TODO: accommodate moving node to synonym
+
   setTimeout(function checkLockedStatus() {
     if(self.find('ul:first').hasClass('jstree-locked')) {
       setTimeout(checkLockedStatus, 10);
@@ -1909,8 +1911,14 @@ GNITE.Tree.MasterTree.externalDropped = function(data) {
         xhr.setRequestHeader("X-Session-ID", jug.sessionID);
       },
       success     : function(data) {
-        self.jstree("refresh", node_parent).jstree("refresh", destination.parent().parent()); //refresh the source and destination parents
-        self.jstree("select_node", $('#' + data.undo.node_id)); //select the new node NOTE: need a setTimeout here until in DOM
+        self.jstree("refresh", node_parent).jstree("refresh", destination.parent().parent());
+        setTimeout(function checkVisible() {
+          if($('#' + data.undo.node_id).length === 0) {
+            setTimeout(checkVisible, 10);
+          } else {
+            self.jstree("select_node", $('#' + data.undo.node_id));
+         }
+        }, 10);
       }
     });
   } else {

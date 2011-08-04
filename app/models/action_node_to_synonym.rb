@@ -6,12 +6,14 @@ class ActionNodeToSynonym < ActionCommand
   end
 
   def precondition_undo
-    true
+    new_node_id = JSON.parse(json_message, :symbolize_names => true)[:undo][:node_id]
+    new_node = Node.find(new_node_id) rescue nil
+    !!(new_node_id && new_node && node && @destination_node)
   end
 
   def do_action
     merged_node = Node.create!(:tree_id => tree_id, :parent => @destination_node.parent, :name => @destination_node.name, :rank => @destination_node.rank)
-    
+
     new_synonym_names = node.synonyms.map { |s| s.name }
     new_synonym_names = new_synonym_names - @destination_node.synonyms.map { |s| s.name }
     @destination_node.synonyms.each do |synonym|
@@ -31,13 +33,13 @@ class ActionNodeToSynonym < ActionCommand
       VernacularName.create!(:node => merged_node, :name => name, :language => nil)
     end
     
-    require 'ruby-debug'; debugger
-    
     new_json_message = JSON.parse(json_message, :symbolize_keys => true)
     self.json_message = new_json_message.merge({ :undo => { :node_id => merged_node.id } }).to_json
     save!
     
+    Synonym.create(:node => merged_node, :name => node.name, :status => 'synonym')
     node.delete_softly
+
     @destination_node.delete_softly
   end
 
@@ -50,11 +52,11 @@ class ActionNodeToSynonym < ActionCommand
   end
 
   def do_log
-    "#{node.name} made a synonym of #{@destination_node.name}"
+    "#{node.name.name_string} made a synonym of #{@destination_node.name.name_string}"
   end
 
   def undo_log
-    "#{node.name} reverted from being a synonym of #{@destination_node.name}"
+    "#{node.name.name_string} reverted from being a synonym of #{@destination_node.name.name_string}"
   end
 
 end
