@@ -11,7 +11,7 @@
     <% if(tree_type == "MasterTree") %>
       <li class="rank select">
       <span class="metadata-select"><%= @metadata[:rank] %></span>
-      <%= select_tag "rank", options_for_select(["--None--"] + ControlledVocabulary.find_by_identifier("rank").controlled_terms.collect {|p| [ p.name, p.identifier ] }, @metadata[:rank]) %>
+      <%= select_tag "rank", options_for_select([["--None--", ""]] + ControlledVocabulary.find_by_identifier("rank").controlled_terms.collect {|p| [ p.name, p.identifier ] }, @metadata[:rank]) %>
     <% else %>
       <li class="rank">
       <%= @metadata[:rank] %>

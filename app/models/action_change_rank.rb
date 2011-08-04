@@ -1,7 +1,6 @@
 class ActionChangeRank < ActionCommand
 
   def precondition_do
-    node = Node.find(node_id)
     @json_do = JSON.parse(json_message, :symbolize_names => true)[:do]
     !!(node && @json_do)
   end

@@ -2094,7 +2094,8 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
                     xhr.setRequestHeader("X-Session-ID", jug.sessionID);
                   },
                   success     : function(data) {
-                    self.find(".metadata-select").text(data.node.rank);
+                    var rank = (data.node.rank) ? data.node.rank : "None";
+                    self.find(".metadata-select").text(rank);
                   }
                 });
               });
