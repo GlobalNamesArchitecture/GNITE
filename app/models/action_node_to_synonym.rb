@@ -2,7 +2,7 @@ class ActionNodeToSynonym < ActionCommand
 
   def precondition_do
     @destination_node = Node.find(destination_node_id) rescue nil
-    !!(node && @destination_node && ancestry_ok?(node) && ancestry_ok?(@destination_node) && !node.has_children?)
+    !!(tree_id && node && @destination_node && ancestry_ok?(node) && ancestry_ok?(@destination_node) && !node.has_children?)
   end
 
   def precondition_undo
@@ -10,7 +10,7 @@ class ActionNodeToSynonym < ActionCommand
   end
 
   def do_action
-    merged_node = Node.create!(:tree => master_tree, :parent => @destination_node.parent, :name => @destination_node.name)
+    merged_node = Node.create!(:tree_id => tree_id, :parent => @destination_node.parent, :name => @destination_node.name, :rank => @destination_node.rank)
     
     new_synonym_names = node.synonyms.map { |s| s.name }
     new_synonym_names = new_synonym_names - @destination_node.synonyms.map { |s| s.name }
@@ -31,12 +31,13 @@ class ActionNodeToSynonym < ActionCommand
       VernacularName.create!(:node => merged_node, :name => name, :language => nil)
     end
     
-    new_json_message = JSON.parse(json_message, :symbolize_keys => true)
-    new_json_message.merge({ :undo => { :node_id => merged_node.id } })
+    require 'ruby-debug'; debugger
     
-    self.json_message = new_json_message
+    new_json_message = JSON.parse(json_message, :symbolize_keys => true)
+    self.json_message = new_json_message.merge({ :undo => { :node_id => merged_node.id } }).to_json
     save!
     
+    node.delete_softly
     @destination_node.delete_softly
   end
 
@@ -44,6 +45,7 @@ class ActionNodeToSynonym < ActionCommand
     merged_node_id = JSON.parse(json_message, :symbolize_names => true)[:undo][:node_id]
     merged_node = Node.find(merged_node_id) rescue nil
     merged_node.destroy
+    node.restore
     @destination_node.restore
   end
 

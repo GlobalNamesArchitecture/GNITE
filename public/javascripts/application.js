@@ -1891,27 +1891,36 @@ GNITE.Tree.MasterTree.externalDropped = function(data) {
 
   var self        = $('#master-tree'),
       node        = data.o,
+      node_parent = node.parent().parent(),
       name_string = self.jstree("get_text", node),
-      parent      = self.find(".jstree-clicked").parent("li"),
+      destination = self.find(".jstree-clicked").parent("li"),
       type        = data.r.attr("data-type"),
       metadata    = self.parents(".tree-background").find(".node-metadata");
 
   if($('#' + node.attr("id")).parents().is("#master-tree")) {
-    GNITE.Tree.MasterTree.reconciliation({
-      type        : type,
-      action      : 'POST',
-      node_id     : parent.attr("id"),
-      name_string : self.jstree("get_text", node)
+    $.ajax({
+      type        : 'POST',
+      async       : false,
+      url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes.json',
+      data        : JSON.stringify({ 'node' : { 'id' : node.attr("id"), 'destination_node_id' : destination.attr("id") }, 'json_message' : { 'do' : '' }, 'action_type' : "ActionNodeToSynonym" }),
+      contentType : 'application/json',
+      dataType    : 'json',
+      beforeSend  : function(xhr) {
+        xhr.setRequestHeader("X-Session-ID", jug.sessionID);
+      },
+      success     : function(data) {
+        self.jstree("refresh", node_parent).jstree("refresh", destination.parent().parent()); //refresh the source and destination parents
+        self.jstree("select_node", $('#' + data.undo.node_id)); //select the new node NOTE: need a setTimeout here until in DOM
+      }
     });
-    self.jstree("remove", node); //Cannot do this without first getting the node's own vernaculars and synonyms
   } else {
     data.o.each(function() {
       name_string = $('#' + node.attr("id")).parents(".jstree").jstree("get_text", $(this));
       GNITE.Tree.MasterTree.reconciliation({
-        type        : type,
-        action      : 'POST',
-        node_id     : parent.attr("id"),
-        name_string : name_string
+        type           : type,
+        action         : 'POST',
+        destination_id : destination.attr("id"),
+        name_string    : name_string
       });
     });
   }
@@ -2069,11 +2078,11 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
                   case 'delete':
                     container.spinner();
                     GNITE.Tree.MasterTree.reconciliation({ 
-                      type        : type, 
-                      action      : 'DELETE', 
-                      id          : self.attr("id").split("-")[1], 
-                      name_string : self.text(), 
-                      node_id     : node_id
+                      type           : type, 
+                      action         : 'DELETE', 
+                      id             : self.attr("id").split("-")[1], 
+                      name_string    : self.text(), 
+                      destination_id : node_id
                     });
                     container.unspinner();
                   break;
@@ -2146,11 +2155,11 @@ GNITE.Tree.MasterTree.editMetadata = function(elem, type, action) {
       if(t !== v) {
         container.spinner();
         GNITE.Tree.MasterTree.reconciliation({ 
-          type        : type, 
-          action      : action, 
-          id          : elem_id, 
-          name_string : v, 
-          node_id     : node_id
+          type           : type, 
+          action         : action, 
+          id             : elem_id, 
+          name_string    : v, 
+          destination_id : node_id
         });
         container.unspinner();
       }
@@ -2185,7 +2194,7 @@ GNITE.Tree.MasterTree.reconciliation = function(params) {
   "use strict";
 
   var self = $('#master-tree'),
-      url  = "/master_trees/" + GNITE.Tree.MasterTree.id + "/nodes/" + params.node_id + "/" + params.type;
+      url  = "/master_trees/" + GNITE.Tree.MasterTree.id + "/nodes/" + params.destination_id + "/" + params.type;
 
   switch(params.action) {
     case 'POST':
@@ -2210,7 +2219,7 @@ GNITE.Tree.MasterTree.reconciliation = function(params) {
       xhr.setRequestHeader("X-Session-ID", jug.sessionID);
     },
     success : function() {
-      GNITE.Tree.MasterTree.refreshMetadata(params.node_id);
+      GNITE.Tree.MasterTree.refreshMetadata(params.destination_id);
     }
   });
 

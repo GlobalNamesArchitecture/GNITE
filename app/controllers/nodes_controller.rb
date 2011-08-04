@@ -59,8 +59,6 @@ class NodesController < ApplicationController
   def create
     master_tree = current_user.master_trees.find(params[:master_tree_id])
     params[:node][:parent_id] = master_tree.root.id unless params[:node] && params[:node][:parent_id]
-    #node will exist if we create a new node by copy from a reference tree
-    #TODO: if node was dragged from reference to master 2+ times, it will fail because of a duplicate key in nodes table on 'index_nodes_on_local_id_and_tree_id'
     node = params[:node] && params[:node][:id] ? Node.find(params[:node][:id]) : nil
     action_command = schedule_action(node, master_tree, params)
     respond_to do |format|
