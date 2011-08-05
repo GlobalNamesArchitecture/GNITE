@@ -9,15 +9,14 @@ class ActionNodeToSynonym < ActionCommand
     message = JSON.parse(json_message, :symbolize_names => true)
     merged_node_id = message[:undo][:merged_node_id]
     @merged_node = Node.find(merged_node_id) rescue nil
-    original_parent_id = message[:do][:original_parent_id]
-    @original_parent = Node.find(original_parent_id) rescue nil
+    @original_parent = Node.find(self.parent_id) rescue nil
     @destination_node = Node.find(destination_node_id) rescue nil
     !!(node && @merged_node && @original_parent && @destination_node)
   end
 
   def do_action
     merged_node = Node.create!(:tree_id => tree_id, :parent => @destination_node.parent, :name => @destination_node.name, :rank => @destination_node.rank)
-
+    self.parent_id = node.parent_id
     new_synonym_names = node.synonyms.map { |s| s.name }
     new_synonym_names = new_synonym_names - @destination_node.synonyms.map { |s| s.name }
     @destination_node.synonyms.each do |synonym|
@@ -38,7 +37,7 @@ class ActionNodeToSynonym < ActionCommand
     end
     
     new_json_message = JSON.parse(json_message, :symbolize_keys => true)
-    self.json_message = new_json_message.merge({ :do => { :original_parent_id => node.parent.id }, :undo => { :merged_node_id => merged_node.id } }).to_json
+    self.json_message = new_json_message.merge({ :undo => { :merged_node_id => merged_node.id } }).to_json
     save!
     
     Synonym.create(:node => merged_node, :name => node.name, :status => nil)

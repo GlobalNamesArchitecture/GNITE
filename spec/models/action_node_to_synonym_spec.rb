@@ -103,8 +103,8 @@ describe ActionNodeToSynonym do
     ActionNodeToSynonym.perform(ans.id)
     ans.reload.undo?.should be_true
     message = JSON.parse(ans.json_message, :symbolize_names => true)
-    Node.find(message[:do][:original_parent_id]).is_a?(::Node).should be_true
-    Node.find(message[:do][:original_parent_id]).destroy
+    Node.find(ans.parent_id).is_a?(::Node).should be_true
+    Node.find(ans.parent_id).destroy
     expect{ ActionNodeToSynonym.perform(ans.id) }.to raise_error
   end
   
