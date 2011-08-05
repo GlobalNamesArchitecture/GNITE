@@ -51,6 +51,8 @@ class ActionNodeToSynonym < ActionCommand
     node.restore(@original_parent)
     @destination_node.restore(@merged_node.parent)
     @merged_node.destroy
+    self.json_message = { :do => nil, :undo => nil }.to_json
+    save!
   end
 
   def do_log

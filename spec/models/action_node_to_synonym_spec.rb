@@ -24,10 +24,26 @@ describe ActionNodeToSynonym do
     merged_node = Node.find(undo_info[:merged_node_id])
     merged_node.name_string.should == Node.find(subject.destination_node_id).name_string
     merged_node.rank == Node.find(subject.destination_node_id).rank
-    merged_node.synonyms.map {|s| s.name_string}.include?(subject.node.name_string)
-    merged_node.synonyms.size.should == 5
-    merged_node.vernacular_names.size.should == 5
-    subject.undo?.should be_true
+    synonym_names = merged_node.synonyms.map {|s| s.name_string}
+    synonym_names.include?(subject.node.name_string)
+    synonym_names.size.should == 5
+    synonym_names.uniq.size.should == synonym_names.size
+    orig_syn, new_syn = merged_node.synonyms.partition { |s| ["Synonym one", "Synonym four"].include? s.name.name_string }
+    orig_status = orig_syn.map { |s| s.status }.uniq
+    orig_status.size.should == 1
+    orig_status[0].should == "synonym"
+    new_status = new_syn.map { |s| s.status }.uniq
+    new_status.size.should == 1
+    new_status[0].should be_nil
+    vernacular_names = merged_node.vernacular_names
+    vernacular_names.size.should == 5
+    vernacular_names.uniq.size.should == vernacular_names.size
+    #undo
+    ActionNodeToSynonym.perform(subject.id)
+    subject.reload.undo?.should be_false
+  end
+
+  it 'should undo merge' do
   end
 
   it 'should not move node to synonyms if precondition "node has kids" is not met' do
