@@ -1750,7 +1750,7 @@ GNITE.Tree.MasterTree.flashNode = function(data) {
     if(self.find('ul:first').hasClass('jstree-locked')) {
       setTimeout(checkLockedStatus, 10);
     } else {
-      //Adjust the Metadata Title if node is selected and the action was an undo or a redo of a rename
+      //update metadata title if node is selected and the action was an undo or a redo of a rename
       if(data.new_name !== data.old_name && $(selected[0]).attr("id") === data.node_id.toString()) {
         if(data.undo) {
           GNITE.Tree.MasterTree.updateMetadataTitle(data.old_name);
@@ -1779,6 +1779,7 @@ GNITE.Tree.MasterTree.flashNode = function(data) {
             } else {
               $('#' + data.parent_id + ' a:first').effect("highlight", { color : "#BABFC3" }, 2000);
 
+              //for user executing action
               if(data.json_message && data.json_message.undo && data.json_message.undo.merged_node_id) {
                 if($('#' + data.json_message.undo.merged_node_id).length > 0) {
                   //undo
@@ -1795,6 +1796,12 @@ GNITE.Tree.MasterTree.flashNode = function(data) {
                   self.jstree("refresh", $('#' + data.destination_node_id).parent().parent()); //no way to re-select node with redo
                 }
               }
+
+              //for recipient of juggernaut message
+              if(GNITE.Tree.MasterTree.user_id !== data.user_id && $('#' + data.destination_node_id).parent().parent().length > 0) {
+                self.jstree("refresh", $('#' + data.destination_node_id).parent().parent()); //no way to re-select node
+              }
+
             }
           }, 10);
         }
@@ -1911,9 +1918,6 @@ GNITE.Tree.MasterTree.externalDragged = function(data) {
 */
 };
 
-/*
- * TODO: before removing node in master tree and dragging into metadata panel, need to get its synonyms
- */
 GNITE.Tree.MasterTree.externalDropped = function(data) {
 
   "use strict";
@@ -2106,6 +2110,7 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
                 menu: 'synonym-context'
               }, function(action, el, pos) {
                 switch(action) {
+
                   case 'edit':
                     GNITE.Tree.MasterTree.editMetadata(self, type, "PUT");
                   break;
