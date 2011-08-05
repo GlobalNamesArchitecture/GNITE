@@ -1778,30 +1778,6 @@ GNITE.Tree.MasterTree.flashNode = function(data) {
               setTimeout(checkVisible, 10);
             } else {
               $('#' + data.parent_id + ' a:first').effect("highlight", { color : "#BABFC3" }, 2000);
-
-              //for user executing action
-              if(data.json_message && data.json_message.undo && data.json_message.undo.merged_node_id) {
-                if($('#' + data.json_message.undo.merged_node_id).length > 0) {
-                  //undo
-                  self.jstree("refresh", $('#' + data.json_message.undo.merged_node_id).parent().parent());
-                  setTimeout(function checkVisible() {
-                    if($('#' + data.destination_node_id).length === 0) {
-                      setTimeout(checkVisible, 10);
-                    } else {
-                      self.jstree("select_node", $('#' + data.destination_node_id));
-                    }
-                  }, 10);
-                } else {
-                  //redo
-                  self.jstree("refresh", $('#' + data.destination_node_id).parent().parent()); //no way to re-select node with redo
-                }
-              }
-
-              //for recipient of juggernaut message
-              if(GNITE.Tree.MasterTree.user_id !== data.user_id && $('#' + data.destination_node_id).parent().parent().length > 0) {
-                self.jstree("refresh", $('#' + data.destination_node_id).parent().parent()); //no way to re-select node
-              }
-
             }
           }, 10);
         }
@@ -1926,7 +1902,8 @@ GNITE.Tree.MasterTree.externalDropped = function(data) {
       node        = data.o,
       node_parent = node.parent().parent(),
       name_string = self.jstree("get_text", node),
-      destination = self.find(".jstree-clicked").parent("li"),
+      dest        = self.find(".jstree-clicked").parent("li"),
+      dest_parent = dest.parent().parent(),
       type        = data.r.attr("data-type"),
       metadata    = self.parents(".tree-background").find(".node-metadata");
 
@@ -1935,21 +1912,24 @@ GNITE.Tree.MasterTree.externalDropped = function(data) {
       type        : 'POST',
       async       : false,
       url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes.json',
-      data        : JSON.stringify({ 'node' : { 'id' : node.attr("id"), 'destination_node_id' : destination.attr("id") }, 'json_message' : { }, 'action_type' : "ActionNodeToSynonym" }),
+      data        : JSON.stringify({ 'node' : { 'id' : node.attr("id"), 'destination_node_id' : dest.attr("id"), 'destination_parent_id' : dest_parent.attr("id") }, 'json_message' : { }, 'action_type' : "ActionNodeToSynonym" }),
       contentType : 'application/json',
       dataType    : 'json',
       beforeSend  : function(xhr) {
         xhr.setRequestHeader("X-Session-ID", jug.sessionID);
       },
       success     : function(data) {
-        self.jstree("refresh", node_parent).jstree("refresh", destination.parent().parent());
-        setTimeout(function checkVisible() {
-          if($('#' + data.undo.merged_node_id).length === 0) {
-            setTimeout(checkVisible, 10);
-          } else {
-            self.jstree("select_node", $('#' + data.undo.merged_node_id));
-         }
-        }, 10);
+        if(node_parent.length > 0) { self.jstree("refresh", node_parent); }
+        if(dest_parent.length > 0) { self.jstree("refresh", dest_parent); }
+        if(node_parent.length > 0 && dest_parent.length > 0) {
+          setTimeout(function checkVisible() {
+            if($('#' + data.undo.merged_node_id).length === 0) {
+              setTimeout(checkVisible, 10);
+            } else {
+              self.jstree("select_node", $('#' + data.undo.merged_node_id));
+            }
+          }, 10);
+        }
       }
     });
   } else {
@@ -1958,7 +1938,7 @@ GNITE.Tree.MasterTree.externalDropped = function(data) {
       GNITE.Tree.MasterTree.reconciliation({
         type           : type,
         action         : 'POST',
-        destination_id : destination.attr("id"),
+        destination_id : dest.attr("id"),
         name_string    : name_string
       });
     });

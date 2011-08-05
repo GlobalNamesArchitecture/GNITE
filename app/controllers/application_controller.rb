@@ -32,6 +32,7 @@ class ApplicationController < ActionController::Base
 
     tree_id = master_tree.id
     destination_parent_id = (params[:node] && params[:node][:parent_id]) ? params[:node][:parent_id] : nil
+    destination_parent_id = (params[:node] && params[:node][:destination_parent_id]) ? params[:node][:destination_parent_id] : destination_parent_id
     destination_node_id = (params[:node] && params[:node][:destination_node_id]) ? params[:node][:destination_node_id] : nil
     parent_id = node.is_a?(::Node) ? node.parent_id : params[:node][:parent_id]
     node_id = node.is_a?(::Node) ? node.id : nil
