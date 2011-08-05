@@ -13,7 +13,7 @@ describe ActionNodeToSynonym do
     subject.reload.undo?.should be_true
     undo_info = JSON.parse(subject.reload.json_message, :symbolize_keys => true)[:undo]
     undo_info.should_not be_nil
-    merged_node = Node.find(undo_info[:node_id])
+    merged_node = Node.find(undo_info[:merged_node_id])
     merged_node.name_string.should == Node.find(subject.destination_node_id).name_string
     merged_node.rank == Node.find(subject.destination_node_id).rank
     merged_node.synonyms.map {|s| s.name_string}.include?(subject.node.name_string)
@@ -51,8 +51,8 @@ describe ActionNodeToSynonym do
     ActionNodeToSynonym.perform(ans.id)
     ans.reload.undo?.should be_true
     message = JSON.parse(ans.json_message, :symbolize_names => true)
-    Node.find(message[:undo][:node_id]).is_a?(::Node).should be_true
-    Node.find(message[:undo][:node_id]).destroy
+    Node.find(message[:undo][:merged_node_id]).is_a?(::Node).should be_true
+    Node.find(message[:undo][:merged_node_id]).destroy
     expect{ ActionNodeToSynonym.perform(ans.id) }.to raise_error
   end
   
@@ -69,6 +69,16 @@ describe ActionNodeToSynonym do
     ans.reload.undo?.should be_true
     Node.find(ans.node_id).is_a?(::Node).should be_true
     Node.find(ans.node_id).destroy
+    expect{ ActionNodeToSynonym.perform(ans.id) }.to raise_error
+  end
+  
+  it 'should not restore node from synonyms if precondition "original node parent" is not met' do
+    ans = Factory(:action_node_to_synonym)
+    ActionNodeToSynonym.perform(ans.id)
+    ans.reload.undo?.should be_true
+    message = JSON.parse(ans.json_message, :symbolize_names => true)
+    Node.find(message[:do][:original_parent_id]).is_a?(::Node).should be_true
+    Node.find(message[:do][:original_parent_id]).destroy
     expect{ ActionNodeToSynonym.perform(ans.id) }.to raise_error
   end
   

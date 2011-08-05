@@ -6,9 +6,13 @@ class ActionNodeToSynonym < ActionCommand
   end
 
   def precondition_undo
-    new_node_id = JSON.parse(json_message, :symbolize_names => true)[:undo][:node_id]
-    new_node = Node.find(new_node_id) rescue nil
-    !!(new_node_id && new_node && node && @destination_node)
+    message = JSON.parse(json_message, :symbolize_names => true)
+    merged_node_id = message[:undo][:merged_node_id]
+    @merged_node = Node.find(merged_node_id) rescue nil
+    original_parent_id = message[:do][:original_parent_id]
+    @original_parent = Node.find(original_parent_id) rescue nil
+    @destination_node = Node.find(destination_node_id) rescue nil
+    !!(node && @merged_node && @original_parent && @destination_node)
   end
 
   def do_action
@@ -34,7 +38,7 @@ class ActionNodeToSynonym < ActionCommand
     end
     
     new_json_message = JSON.parse(json_message, :symbolize_keys => true)
-    self.json_message = new_json_message.merge({ :undo => { :node_id => merged_node.id } }).to_json
+    self.json_message = new_json_message.merge({ :do => { :original_parent_id => node.parent.id }, :undo => { :merged_node_id => merged_node.id } }).to_json
     save!
     
     Synonym.create(:node => merged_node, :name => node.name, :status => 'synonym')
@@ -44,11 +48,9 @@ class ActionNodeToSynonym < ActionCommand
   end
 
   def undo_action
-    merged_node_id = JSON.parse(json_message, :symbolize_names => true)[:undo][:node_id]
-    merged_node = Node.find(merged_node_id) rescue nil
-    merged_node.destroy
-    node.restore
-    @destination_node.restore
+    node.restore(@original_parent)
+    @destination_node.restore(@merged_node.parent)
+    @merged_node.destroy
   end
 
   def do_log

@@ -1746,8 +1746,6 @@ GNITE.Tree.MasterTree.flashNode = function(data) {
       source_parent      = self.find('#' + data.parent_id),
       selected           = self.jstree("get_selected");
 
-//TODO: accommodate moving node to synonym
-
   setTimeout(function checkLockedStatus() {
     if(self.find('ul:first').hasClass('jstree-locked')) {
       setTimeout(checkLockedStatus, 10);
@@ -1764,12 +1762,41 @@ GNITE.Tree.MasterTree.flashNode = function(data) {
         self.jstree("refresh");
       } else {
         if(data.destination_parent_id && destination_parent.length > 0) {
-          self.jstree("refresh", $('#'+data.destination_parent_id));
-          self.find('#' + data.destination_parent_id + ' a:first').effect("highlight", { color : "#BABFC3" }, 2000);
+          self.jstree("refresh", $('#' + data.destination_parent_id));
+          setTimeout(function checkVisible() {
+            if($('#' + data.destination_parent_id).length === 0) {
+              setTimeout(checkVisible, 10);
+            } else {
+              $('#' + data.destination_parent_id + ' a:first').effect("highlight", { color : "#BABFC3" }, 2000);
+            }
+          }, 10);
         }
         if(data.destination_parent_id !== data.parent_id && source_parent.length > 0) {
-          self.jstree("refresh", $('#'+data.parent_id));
-          self.find('#' + data.parent_id + ' a:first').effect("highlight", { color : "#BABFC3" }, 2000);
+          self.jstree("refresh", $('#' + data.parent_id));
+          setTimeout(function checkVisible() {
+            if($('#' + data.parent_id).length === 0) {
+              setTimeout(checkVisible, 10);
+            } else {
+              $('#' + data.parent_id + ' a:first').effect("highlight", { color : "#BABFC3" }, 2000);
+
+              if(data.json_message && data.json_message.undo && data.json_message.undo.merged_node_id) {
+                if($('#' + data.json_message.undo.merged_node_id).length > 0) {
+                  //undo
+                  self.jstree("refresh", $('#' + data.json_message.undo.merged_node_id).parent().parent());
+                  setTimeout(function checkVisible() {
+                    if($('#' + data.destination_node_id).length === 0) {
+                      setTimeout(checkVisible, 10);
+                    } else {
+                      self.jstree("select_node", $('#' + data.destination_node_id));
+                    }
+                  }, 10);
+                } else {
+                  //redo
+                  self.jstree("refresh", $('#' + data.destination_node_id).parent().parent()); //no way to re-select node with redo
+                }
+              }
+            }
+          }, 10);
         }
       }
     }
@@ -1904,7 +1931,7 @@ GNITE.Tree.MasterTree.externalDropped = function(data) {
       type        : 'POST',
       async       : false,
       url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes.json',
-      data        : JSON.stringify({ 'node' : { 'id' : node.attr("id"), 'destination_node_id' : destination.attr("id") }, 'json_message' : { 'do' : '' }, 'action_type' : "ActionNodeToSynonym" }),
+      data        : JSON.stringify({ 'node' : { 'id' : node.attr("id"), 'destination_node_id' : destination.attr("id") }, 'json_message' : { }, 'action_type' : "ActionNodeToSynonym" }),
       contentType : 'application/json',
       dataType    : 'json',
       beforeSend  : function(xhr) {
@@ -1913,10 +1940,10 @@ GNITE.Tree.MasterTree.externalDropped = function(data) {
       success     : function(data) {
         self.jstree("refresh", node_parent).jstree("refresh", destination.parent().parent());
         setTimeout(function checkVisible() {
-          if($('#' + data.undo.node_id).length === 0) {
+          if($('#' + data.undo.merged_node_id).length === 0) {
             setTimeout(checkVisible, 10);
           } else {
-            self.jstree("select_node", $('#' + data.undo.node_id));
+            self.jstree("select_node", $('#' + data.undo.merged_node_id));
          }
         }, 10);
       }
