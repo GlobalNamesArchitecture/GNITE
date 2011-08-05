@@ -3,6 +3,14 @@ require 'spec_helper'
 describe ActionNodeToSynonym do
   subject { Factory(:action_node_to_synonym) }
 
+  before(:all) do
+    ["Synonym one", "Synonym two", "Synonym three", "Synonym four", "Vern1", "Vern2", "Vern3", "Vern4", "Vern6"].each { |n| Factory(:name, :name_string => n) }
+    ["Synonym one", "Synonym two", "Synonym three"].each { |n| Factory(:synonym, :node => Node.find(subject.node_id), :name => Name.find_by_name_string(n)) }
+    ["Vern1", "Vern2", "Vern3"].each { |n| Factory(:vernacular_name, :node => Node.find(subject.node_id), :name => Name.find_by_name_string(n)) }
+    ["Synonym one", "Synonym four"].each { |n| Factory(:synonym, :node => Node.find(subject.destination_node_id), :name => Name.find_by_name_string(n)) }
+    ["Vern4", "Vern2", "Vern6"].each { |n| Factory(:vernacular_name, :node => Node.find(subject.destination_node_id), :name => Name.find_by_name_string(n)) }
+  end
+
   it 'should return master tree' do
     subject.master_tree.should == Node.find(subject.node_id).tree
   end
@@ -17,6 +25,8 @@ describe ActionNodeToSynonym do
     merged_node.name_string.should == Node.find(subject.destination_node_id).name_string
     merged_node.rank == Node.find(subject.destination_node_id).rank
     merged_node.synonyms.map {|s| s.name_string}.include?(subject.node.name_string)
+    merged_node.synonyms.size.should == 5
+    merged_node.vernacular_names.size.should == 5
     subject.undo?.should be_true
   end
 

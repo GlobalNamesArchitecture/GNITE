@@ -41,7 +41,7 @@ class ActionNodeToSynonym < ActionCommand
     self.json_message = new_json_message.merge({ :do => { :original_parent_id => node.parent.id }, :undo => { :merged_node_id => merged_node.id } }).to_json
     save!
     
-    Synonym.create(:node => merged_node, :name => node.name, :status => 'synonym')
+    Synonym.create(:node => merged_node, :name => node.name, :status => nil)
     node.delete_softly
 
     @destination_node.delete_softly
