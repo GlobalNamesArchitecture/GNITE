@@ -1254,7 +1254,7 @@ body form input {
   display: none;
 }
 
-.contextMenu li {
+.contextMenu ul li, #jqContextMenu ul li {
   list-style: none;
   padding: 0px !important;
   margin: 0px !important;
@@ -1263,7 +1263,7 @@ body form input {
   float:none !important;
 }
 
-.contextMenu a {
+.contextMenu ul li a, #jqContextMenu ul li a {
   color: black;
   text-decoration: none;
   display: block;
@@ -1276,26 +1276,13 @@ body form input {
   padding-left: 28px;
 }
 
-.contextMenu li.hover a {
+.contextMenu ul li.hover a, #jqContextMenu ul li:hover a {
   color: black;
   background-color: #BABFC3;
 }
 
-.contextMenu li.disabled a {
-  color: #AAA;
-  cursor: default;
-}
-
-.contextMenu li.hover.disabled a {
-  background-color: transparent;
-}
-
-.contextMenu li.separator {
-  border-top: solid 1px #E0E0E0;
-}
-
-.contextMenu li.edit a { background-image: url(../images/icons/page_white_edit.png); }
-.contextMenu li.delete a { background-image: url(../images/icons/bin_closed.png); }
+.contextMenu ul li.edit a, #jqContextMenu ul li.edit a { background-image: url(../images/icons/page_white_edit.png); }
+.contextMenu ul li.delete a, #jqContextMenu ul li.delete a { background-image: url(../images/icons/bin_closed.png); }
 
 /* Dialog message */
 #dialog-message p {

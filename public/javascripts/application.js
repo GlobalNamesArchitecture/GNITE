@@ -2086,16 +2086,12 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
           var self = $(this), type = self.parent().attr("data-type");
 
           if(self.hasClass("synonym") || self.hasClass("vernacular")) {
-            self.contextMenu({
-                menu: 'synonym-context'
-              }, function(action, el, pos) {
-                switch(action) {
-
-                  case 'edit':
-                    GNITE.Tree.MasterTree.editMetadata(self, type, "PUT");
-                  break;
-
-                  case 'delete':
+            self.contextMenu('synonym-context', {
+              'bindings' : {
+                'edit' : function(t) {
+                  GNITE.Tree.MasterTree.editMetadata(self, type, "PUT");
+                },
+                'delete' : function(t) {
                     container.spinner();
                     GNITE.Tree.MasterTree.reconciliation({ 
                       type           : type, 
@@ -2105,8 +2101,8 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
                       destination_id : node_id
                     });
                     container.unspinner();
-                  break;
                 }
+              }
             }).dblclick(function() {
               GNITE.Tree.MasterTree.editMetadata(self, type, "PUT");
             });
