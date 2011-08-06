@@ -1242,38 +1242,45 @@ body form input {
 }
 
 /* Context Menu for Metadata */
-.contextMenu {
+.contextMenu, #jqContextMenu {
   position: absolute;
   width: 120px !important;
   z-index: 99999;
-  border: 1px solid #979797 !important;
-  background:none repeat scroll 0 0 #F0F0F0 !important;
-  box-shadow:1px 1px 2px #999999 !important;
   padding: 0px !important;
   margin: 0px !important;
+  background:#F0F0F0;
+  border:1px solid #979797;
+  -moz-box-shadow: 1px 1px 2px #999;
+  -webkit-box-shadow: 1px 1px 2px #999;
+  box-shadow: 1px 1px 2px #999;
   display: none;
 }
 
-.contextMenu ul li, #jqContextMenu ul li {
+.contextMenu ul, #jqContextMenu ul {
   list-style: none;
   padding: 0px !important;
   margin: 0px !important;
-  background:none !important;
+  background:transparent !important;
   border:0px !important;
   float:none !important;
+  width:100% !important;
+}
+
+.contextMenu ul li, #jqContextMenu ul li {
+  border:0px !important;
+  padding-left:0px !important;
 }
 
 .contextMenu ul li a, #jqContextMenu ul li a {
   color: black;
   text-decoration: none;
   display: block;
-  line-height: 20px;
-  height: 20px;
-  background-position: 6px center;
+  line-height: 15px;
+  height: 15px;
+  background-position: 2px center;
   background-repeat: no-repeat;
   outline: none;
-  padding: 1px 5px;
-  padding-left: 28px;
+  padding: 1px 5px 1px 22px;
 }
 
 .contextMenu ul li.hover a, #jqContextMenu ul li:hover a {
