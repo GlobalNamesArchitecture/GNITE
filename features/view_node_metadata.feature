@@ -69,3 +69,20 @@ Feature: View metadata for master tree nodes
     And I should see "None" as synonyms for the "Fruits" tree
     And I should see "None" as vernacular names for the "Fruits" tree
     And I should see "None" as rank for the "Fruits" tree
+
+  @javascript
+  Scenario: User can edit a synonym in the metadata panel
+    When I select the node "Nut"
+    Then I should see "Kernel, Nutmeat" as synonyms for the "Foods" tree
+    When I rename the synonym "Kernel" to "Walnut"
+    And I select the node "Nut"
+    Then I should see "Walnut, Nutmeat" as synonyms for the "Foods" tree
+
+#  @javascript
+#  Scenario: User can edit the rank of a node in the metadata panel
+#    When I select the node "Nut"
+#    Then I should see "Species" as rank for the "Foods" tree
+#    When I select "subspecies" from "Rank"
+#    And I select the node "Nut"
+#    Then I should see "subpsecies" as rank for the "Foods" tree
+    

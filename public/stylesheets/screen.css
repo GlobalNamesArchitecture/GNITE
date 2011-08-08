@@ -1157,6 +1157,19 @@ body form input {
   width: 18%;
 }
 
+.node-metadata div.label {
+  float: left;
+  margin: 0;
+  padding: 10px 0 0 0;
+  text-shadow: #DADEE2 0  1px 0px;
+  width: 18%;
+}
+
+.node-metadata div.label label {
+  padding-left:10px;
+  font-weight:bold;
+}
+
 .node-metadata h4 span {
   padding: 0 10px;
 }
@@ -1191,16 +1204,14 @@ body form input {
   position:relative;
 }
 
-.node-metadata ul li.select {
-  background: url("/images/down.gif") no-repeat scroll 95% center #CDD3D7;
-  padding:2px 8px;
-  line-height:1.5em;
-  height:1.5em;
-}
-
 .node-metadata ul li.metadata-add, .node-metadata ul li.synonym, .node-metadata ul li.vernacular {
   cursor:pointer;
   height:1em;
+}
+
+.node-metadata ul li.select {
+  padding:2px 8px;
+  height:1.5em;
 }
 
 .node-metadata ul li.metadata-add {

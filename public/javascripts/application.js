@@ -2160,6 +2160,7 @@ GNITE.Tree.MasterTree.editMetadata = function(elem, type, action) {
   input =  $("<input />", { 
     "value" : t,
     "class" : "metadata-input",
+    "name"  : type,
     "css"   : {"width" : width + "px"},
     "blur"  : $.proxy(function() {
       var i = (elem.hasClass("metadata-add")) ? elem.prev().children(".metadata-input") : elem.children(".metadata-input"),
