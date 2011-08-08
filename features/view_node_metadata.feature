@@ -85,4 +85,3 @@ Feature: View metadata for master tree nodes
 #    When I select "subspecies" from "Rank"
 #    And I select the node "Nut"
 #    Then I should see "subpsecies" as rank for the "Foods" tree
-    

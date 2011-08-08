@@ -7,7 +7,11 @@
 
 <div class="metadata-section metadata-rank clearfix">
   <div class="label">
-    <%= label_tag 'rank', 'Rank' %>
+    <% if(tree_type == "MasterTree") %>
+      <%= label_tag 'rank', 'Rank' %>
+    <% else %>
+      <h4>Rank</h4>
+    <% end %>
   </div>
   <ul class="clearfix" data-type="ranks">
     <% if(tree_type == "MasterTree") %>
@@ -24,7 +28,11 @@
 
 <div class="metadata-section metadata-synonyms clearfix">
   <div class="label">
-    <%= label_tag 'synonyms', 'Synonyms' %>
+    <% if(tree_type == "MasterTree") %>
+      <%= label_tag 'synonyms', 'Synonyms' %>
+    <% else %>
+      <h4>Synonyms</h4>
+    <% end %>
   </div>
   <ul class="clearfix synonyms<%= raw (tree_type == "MasterTree") ? " jstree-drop" : ""%>" data-type="synonyms">
     <% if @metadata[:synonyms].empty? %>
@@ -40,7 +48,11 @@
 
 <div class="metadata-section metadata-vernacular-names clearfix">
   <div class="label">
-    <%= label_tag 'vernacular_names', 'Vernaculars' %>
+    <% if(tree_type == "MasterTree") %>
+      <%= label_tag 'vernacular_names', 'Vernaculars' %>
+    <% else %>
+      <h4>Vernaculars</h4>
+    <% end %>
   </div>
   <ul class="clearfix vernaculars" data-type="vernacular_names">
     <% if @metadata[:vernaculars].empty? %>

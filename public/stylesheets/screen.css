@@ -1149,14 +1149,6 @@ body form input {
   width: 100%; 
 }
 
-.node-metadata h4 {
-  float: left;
-  margin: 0;
-  padding: 10px 0 0 0;
-  text-shadow: #DADEE2 0  1px 0px;
-  width: 18%;
-}
-
 .node-metadata div.label {
   float: left;
   margin: 0;
@@ -1165,13 +1157,9 @@ body form input {
   width: 18%;
 }
 
-.node-metadata div.label label {
+.node-metadata div.label label, .node-metadata div.label h4 {
   padding-left:10px;
   font-weight:bold;
-}
-
-.node-metadata h4 span {
-  padding: 0 10px;
 }
 
 .metadata-section .metadata-select {
@@ -1212,6 +1200,9 @@ body form input {
 .node-metadata ul li.select {
   padding:2px 8px;
   height:1.5em;
+  background-image: url("/images/down.gif");
+  background-position: 98% center;
+  background-repeat: no-repeat;
 }
 
 .node-metadata ul li.metadata-add {
