@@ -1231,18 +1231,6 @@ body form input {
   width:200px;
 }
 
-.node-metadata ul li a.metadata-remove {
-  background: url("/images/icons/bin_closed.png") no-repeat;
-  width:16px;
-  height:16px;
-  position:absolute;
-  display:block;
-  right:-3px;
-  top:-5px;
-  z-index:50;
-  text-decoration:none;
-}
-
 /* Context Menu for Metadata */
 .contextMenu, #jqContextMenu {
   position: absolute;

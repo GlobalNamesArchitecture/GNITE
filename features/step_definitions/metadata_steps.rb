@@ -24,8 +24,8 @@ end
 
 When /^I rename the synonym "([^"]*)" to "([^"]*)"$/ do |old_synonym, new_synonym|
   page.execute_script("jQuery('div.node-metadata li:contains(#{old_synonym.strip})').dblclick();")
-  sleep 1
   field = find(:css, "input.metadata-input")
   field.set(new_synonym.strip)
   page.execute_script("jQuery('input.metadata-input').blur();")
+  sleep 2
 end

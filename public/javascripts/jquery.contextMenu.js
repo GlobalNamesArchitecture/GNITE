@@ -116,6 +116,9 @@
     });
 
     menu.css({'left':e[cur.eventPosX],'top':e[cur.eventPosY]}).show();
+    if( (e[cur.eventPosY] + menu.height()) > ($(window).height() + $(window).scrollTop()) ) {
+      menu.css({'left':e[cur.eventPosX],'top':e[cur.eventPosY]-menu.height()});
+    }
     if (cur.shadow) shadow.css({width:menu.width(),height:menu.height(),left:e.pageX+2,top:e.pageY+2}).show();
     $(document).one('click', hide);
   }

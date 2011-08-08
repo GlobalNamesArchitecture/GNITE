@@ -2087,6 +2087,7 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
 
           if(self.hasClass("synonym") || self.hasClass("vernacular")) {
             self.contextMenu('synonym-context', {
+              'shadow'   : false,
               'bindings' : {
                 'edit' : function(t) {
                   GNITE.Tree.MasterTree.editMetadata(self, type, "PUT");
