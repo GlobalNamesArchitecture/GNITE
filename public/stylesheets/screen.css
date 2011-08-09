@@ -722,12 +722,16 @@ body form input {
   background: -moz-linear-gradient(center bottom, rgb(208,212,215) 0, rgb(248,253,255) 100%);
 }
 
-/* TOOLSBAR ABOVE TREES */
+/* TOOLSBAR ABOVE TREES & CONTEXT MENU FOR METADATA PANELS */
 .ddsmoothmenu {
   width: 100%;
 }
 
-.ddsmoothmenu ul {
+.ddsmoothmenu-v {
+  display:none;
+}
+
+.ddsmoothmenu ul, .ddsmoothmenu-v ul {
   z-index:100;
   margin: 0;
   padding: 0;
@@ -742,17 +746,15 @@ body form input {
   line-height: 1.25em;
 }
 
-.ddsmoothmenu ul li span {
+.ddsmoothmenu ul li span, .ddsmoothmenu-v ul li span {
   position:absolute;
   right:3px;
   top:5px;
 }
 
-.ddsmoothmenu ul li.divider-after {
-  border-bottom:1px solid #e0e0e0; margin:0;
-}
+.ddsmoothmenu ul li.divider-after, .ddsmoothmenu-v ul li.divider-after { border-bottom:1px solid #e0e0e0; margin:0; }
 
-.ddsmoothmenu ul li a {
+.ddsmoothmenu ul li a, .ddsmoothmenu-v ul li a {
   display: block;
   padding: 8px 10px;
   text-decoration: none;
@@ -760,45 +762,8 @@ body form input {
   height:1.15em;
 }
 
-.ddsmoothmenu ul li a.nav-file-add { background: transparent url(../images/icons/page_white_add.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-file-bulkadd { background: transparent url(../images/icons/page_white_add_bulk.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-file-publish { background: transparent url(../images/icons/book_go.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-file-edit { background: transparent url(../images/icons/page_white_edit.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-file-delete { background: transparent url(../images/icons/bin_closed.png) no-repeat 5px center; }
-
-.ddsmoothmenu ul li a.nav-edit-rename { background: transparent url(../images/icons/page_white_edit.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-edit-undo { background: transparent url(../images/icons/arrow_undo.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-edit-redo { background: transparent url(../images/icons/arrow_redo.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-edit-cut { background: transparent url(../images/icons/cut.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-edit-paste { background: transparent url(../images/icons/page_white_paste.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-edit-delete { background: transparent url(../images/icons/bin_closed.png) no-repeat 5px center; }
-
-.ddsmoothmenu ul li a.nav-refresh-node { background: transparent url(../images/icons/arrow_refresh_small.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-bookmarks-add { background: transparent url(../images/icons/asterisk_yellow_add.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-bookmarks-view { background: transparent url(../images/icons/asterisk_yellow.png) no-repeat 5px center; }
-
-.ddsmoothmenu ul li a.nav-view-selectall { background: transparent url(../images/icons/page_white_stack_select.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-view-deselectall { background: transparent url(../images/icons/page_white_stack_deselect.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-view-history { background: transparent url(../images/icons/table.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-view-merge { background: transparent url(../images/icons/arrow_join_down.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-view-refresh { background: transparent url(../images/icons/arrow_refresh.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-view-collapse { background: transparent url(../images/icons/door.png) no-repeat 5px center; }
-
-.ddsmoothmenu ul li a.nav-tools-merge { background: transparent url(../images/icons/arrow_join_down.png) no-repeat 5px center; }
-
-* html .ddsmoothmenu ul li a {
+* html .ddsmoothmenu ul li a, * html .ddsmoothmenu-v ul li a {
   display: inline-block;
-}
-
-.ddsmoothmenu ul li a:link, .ddsmoothmenu ul li a:visited {
-}
-
-.ddsmoothmenu ul li a.selected {
-    background-color:#BABFC3; 
-}
-
-.ddsmoothmenu ul li a:hover {
-    background-color:#BABFC3;
 }
     
 /* 1st sub level menu */
@@ -822,12 +787,15 @@ body form input {
 }
 
 /* Sub level menu links style */
-.ddsmoothmenu ul li ul li a {
-  min-width: 160px;
+.ddsmoothmenu ul li ul li a, .ddsmoothmenu-v ul li a, .ddsmoothmenu-v ul li ul li a {
   padding: 5px;
   padding-left:25px;
   margin: 0;
   border-top-width: 0;
+}
+
+.ddsmoothmenu ul li ul li a {
+  min-width: 160px;
 }
 
 * html .ddsmoothmenu { height: 1%; }
@@ -852,6 +820,75 @@ body form input {
   height: 0;
   background: silver;
 }
+
+.ddsmoothmenu-v ul {
+  margin: 0;
+  padding: 0;
+  width: 170px;
+  list-style-type: none;
+  background-color: #EEF1F3;
+  border: 1px solid #868D92;
+}
+ 
+.ddsmoothmenu-v ul li {
+  position: relative;
+}
+
+/* Top level menu links style */
+.ddsmoothmenu-v ul li a {
+  overflow: auto;
+}
+
+.ddsmoothmenu-v ul li ul {
+  position: absolute;
+  width: 170px;
+  top: 0;
+  font-weight: normal;
+  visibility: hidden;
+}
+
+/* Holly Hack for IE \*/
+* html .ddsmoothmenu-v ul li { float: left; height: 1%; }
+* html .ddsmoothmenu-v ul li a { height: 1%; }
+
+.ddsmoothmenu ul li a.nav-file-add { background: transparent url(../images/icons/page_white_add.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-file-bulkadd { background: transparent url(../images/icons/page_white_add_bulk.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-file-publish { background: transparent url(../images/icons/book_go.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-file-edit { background: transparent url(../images/icons/page_white_edit.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-file-delete { background: transparent url(../images/icons/bin_closed.png) no-repeat 5px center; }
+
+.ddsmoothmenu ul li a.nav-edit-rename, .ddsmoothmenu-v ul li a.nav-edit-rename { background: transparent url(../images/icons/page_white_edit.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-edit-undo { background: transparent url(../images/icons/arrow_undo.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-edit-redo { background: transparent url(../images/icons/arrow_redo.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-edit-cut { background: transparent url(../images/icons/cut.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-edit-paste { background: transparent url(../images/icons/page_white_paste.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-edit-delete, .ddsmoothmenu-v ul li a.nav-edit-delete { background: transparent url(../images/icons/bin_closed.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-edit-tag-red, .ddsmoothmenu-v ul li a.nav-edit-tag-red { background: transparent url(../images/icons/tag_red.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-edit-tag-blue, .ddsmoothmenu-v ul li a.nav-edit-tag-blue { background: transparent url(../images/icons/tag_blue.png) no-repeat 5px center; }
+
+.ddsmoothmenu ul li a.nav-refresh-node { background: transparent url(../images/icons/arrow_refresh_small.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-bookmarks-add { background: transparent url(../images/icons/asterisk_yellow_add.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-bookmarks-view { background: transparent url(../images/icons/asterisk_yellow.png) no-repeat 5px center; }
+
+.ddsmoothmenu ul li a.nav-view-selectall { background: transparent url(../images/icons/page_white_stack_select.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-view-deselectall { background: transparent url(../images/icons/page_white_stack_deselect.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-view-history { background: transparent url(../images/icons/table.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-view-merge { background: transparent url(../images/icons/arrow_join_down.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-view-refresh { background: transparent url(../images/icons/arrow_refresh.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-view-collapse { background: transparent url(../images/icons/door.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-view-checked, .ddsmoothmenu-v ul li a.nav-view-checked { background: transparent url(../images/icons/tick.png) no-repeat 5px center; }
+
+.ddsmoothmenu ul li a.nav-tools-merge { background: transparent url(../images/icons/arrow_join_down.png) no-repeat 5px center; }
+
+.ddsmoothmenu ul li a:link, .ddsmoothmenu ul li a:visited, .ddsmoothmenu-v ul li a:link, .ddsmoothmenu-v ul li a:visited { }
+.ddsmoothmenu ul li a.selected, .ddsmoothmenu-v ul li a.selected { background-color:#BABFC3; }
+.ddsmoothmenu ul li a:hover, .ddsmoothmenu-v ul li a:hover { background-color:#BABFC3; }
+
+
+#synonym-context {
+  float:left;
+}
+
 
 /* SEARCHBAR ABOVE TREES */
 .searchbar {
@@ -1230,56 +1267,6 @@ body form input {
   padding: 5px 8px;
   width:200px;
 }
-
-/* Context Menu for Metadata */
-.contextMenu, #jqContextMenu {
-  position: absolute;
-  width: 120px !important;
-  z-index: 99999;
-  padding: 0px !important;
-  margin: 0px !important;
-  background:#F0F0F0;
-  border:1px solid #979797;
-  -moz-box-shadow: 1px 1px 2px #999;
-  -webkit-box-shadow: 1px 1px 2px #999;
-  box-shadow: 1px 1px 2px #999;
-  display: none;
-}
-
-.contextMenu ul, #jqContextMenu ul {
-  list-style: none;
-  padding: 0px !important;
-  margin: 0px !important;
-  background:transparent !important;
-  border:0px !important;
-  float:none !important;
-  width:100% !important;
-}
-
-.contextMenu ul li, #jqContextMenu ul li {
-  border:0px !important;
-  padding-left:0px !important;
-}
-
-.contextMenu ul li a, #jqContextMenu ul li a {
-  color: black;
-  text-decoration: none;
-  display: block;
-  line-height: 15px;
-  height: 15px;
-  background-position: 2px center;
-  background-repeat: no-repeat;
-  outline: none;
-  padding: 1px 5px 1px 22px;
-}
-
-.contextMenu ul li.hover a, #jqContextMenu ul li:hover a {
-  color: black;
-  background-color: #BABFC3;
-}
-
-.contextMenu ul li.edit a, #jqContextMenu ul li.edit a { background-image: url(../images/icons/page_white_edit.png); }
-.contextMenu ul li.delete a, #jqContextMenu ul li.delete a { background-image: url(../images/icons/bin_closed.png); }
 
 /* Dialog message */
 #dialog-message p {

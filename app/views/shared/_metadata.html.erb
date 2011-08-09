@@ -39,7 +39,7 @@
       <li class="metadata-none">None</li>
     <% else %>
       <% @metadata[:synonyms].each do |synonym| %>
-        <li id="synonyms-<%= synonym[:metadata][:id] %>" class="synonym" title="<%= synonym[:metadata][:status] %>"><span><%= synonym[:name_string] %></span></li>
+        <li id="synonyms-<%= synonym[:metadata][:id] %>" class="synonym" title="<%= synonym[:metadata][:status] %>" data-metadata-flag="<%= synonym[:metadata][:status] %>"><span><%= synonym[:name_string] %></span></li>
       <% end %>
     <% end %>
     <%= raw (tree_type == "MasterTree") ? "<li class=\"metadata-add green-submit-small\">Add</li>": "" %>
