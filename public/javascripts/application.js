@@ -2188,7 +2188,7 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
                   },
                   success     : function(data) {
                     var rank = (data.node.rank) ? data.node.rank : "None";
-                    self.find(".metadata-select").text(rank);
+                    self.find("span.metadata-value").text(rank);
                   }
                 });
               });
