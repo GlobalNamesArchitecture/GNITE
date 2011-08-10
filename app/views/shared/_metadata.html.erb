@@ -59,7 +59,7 @@
       <li class="metadata-none">None</li>
     <% else %>
       <% @metadata[:vernaculars].each do |vernacular| %>
-        <li id="vernacular_names-<%= vernacular[:metadata][:id] %>" class="vernacular"><%= vernacular[:name_string] %></li>
+        <li id="vernacular_names-<%= vernacular[:metadata][:id] %>" class="vernacular" title="<%= vernacular[:metadata][:language][:name] %>"><%= vernacular[:name_string] %></li>
       <% end %>
     <% end %>
     <%= raw (tree_type == "MasterTree") ? "<li class=\"metadata-add green-submit-small\">Add</li>": "" %>

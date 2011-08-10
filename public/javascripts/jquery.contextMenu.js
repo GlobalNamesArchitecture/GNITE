@@ -53,7 +53,7 @@
     $(this).bind('contextmenu', function(e) {
       // Check if onContextMenu() defined
       var bShowContext = (!!hash[index].onContextMenu) ? hash[index].onContextMenu(e) : true;
-      if (bShowContext) display(index, this, e, options);
+      if (bShowContext) { display(index, this, e, options); }
       return false;
     });
     return this;
@@ -81,7 +81,7 @@
     $.each(cur.bindings, function(klass, func) {
       $('.'+klass, menu).bind('click', function(e) {
         hide();
-        func(trigger, currentTarget);
+        func(trigger, this);
         return false;
       });
     });

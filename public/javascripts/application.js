@@ -1939,7 +1939,9 @@ GNITE.Tree.MasterTree.externalDropped = function(data) {
         type           : type,
         action         : 'POST',
         destination_id : dest.attr("id"),
-        name_string    : name_string
+        data           : {
+          name_string    : name_string
+        }
       });
     });
   }
@@ -2088,9 +2090,9 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
           if(self.hasClass("synonym") || self.hasClass("vernacular")) {
             self.contextMenu(self.attr("class") + '-context', {
               'onShowMenu' : function(e, menu) {
-$(menu).find("li.metadata-flag a").each(function() {
-	if($(this).text() === $(e.target).parent().attr("data-metadata-flag")) { $(this).addClass("nav-view-checked"); }
-});
+                $(menu).find("li.metadata-flag a").each(function() {
+                  if($(this).text() === $(e.target).parent().attr("data-metadata-flag")) { $(this).addClass("nav-view-checked"); }
+                });
                 return menu;
               },
               'bindings' : {
@@ -2102,15 +2104,17 @@ $(menu).find("li.metadata-flag a").each(function() {
                     GNITE.Tree.MasterTree.reconciliation({ 
                       type           : type, 
                       action         : 'DELETE', 
-                      id             : self.attr("id").split("-")[1], 
-                      name_string    : self.text(), 
-                      destination_id : node_id
+                      id             : self.attr("id").split("-")[1],
+                      destination_id : node_id,
+                      data           : {
+                        name_string    : self.text(),
+                      }
                     });
                     container.unspinner();
                 },
-                'metadata-flag' : function(t) {
-                  container.spinnner();
-                  //TODO: fix this
+                'metadata-flag' : function(t, e) {
+                  container.spinner();
+                  GNITE.Tree.Node.contextUpdate(self, type, node_id, e);
                   container.unspinner();
                 }
               }
@@ -2146,6 +2150,25 @@ $(menu).find("li.metadata-flag a").each(function() {
 
   container.unspinner().show();
   wrapper.css('bottom', container.height());
+};
+
+GNITE.Tree.Node.contextUpdate = function(elem, type, node_id, obj) {
+  var data = {};
+
+  if(elem.hasClass("synonym")) {
+    data = { status : $(obj).text() }
+  }
+  if(elem.hasClass("vernacular")) {
+    data = { language_id : $(obj).attr("data-language-id") }
+  }
+
+  GNITE.Tree.MasterTree.reconciliation({ 
+    type           : type, 
+    action         : 'PUT', 
+    id             : elem.attr("id").split("-")[1],
+    destination_id : node_id,
+    data           : data
+  });
 };
 
 GNITE.Tree.MasterTree.editMetadata = function(elem, type, action) {
@@ -2186,8 +2209,10 @@ GNITE.Tree.MasterTree.editMetadata = function(elem, type, action) {
           type           : type, 
           action         : action, 
           id             : elem_id, 
-          name_string    : v, 
-          destination_id : node_id
+          destination_id : node_id,
+          data           : {
+            name_string : v
+          }
         });
         container.unspinner();
       }
@@ -2240,7 +2265,7 @@ GNITE.Tree.MasterTree.reconciliation = function(params) {
     type        : params.action,
     async       : false,
     url         : url,
-    data        : JSON.stringify({'name_string' : params.name_string}),
+    data        : JSON.stringify(params.data),
     dataType    : 'json',
     contentType : 'application/json',
     beforeSend  : function(xhr) {

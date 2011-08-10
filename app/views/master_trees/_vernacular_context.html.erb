@@ -4,7 +4,7 @@
     <li><a href="#" class="nav-edit-tag-blue">Language</a>
       <ul class="subnav">
         <% Language.all.each do |language| %>
-          <li class="metadata-flag"><a href="#"><%= language.name %></a></li>
+          <li class="metadata-flag" data-language-id="<%= language.id %>"><a href="#"><%= language.name %></a></li>
         <% end %>
       </ul>
     </li>

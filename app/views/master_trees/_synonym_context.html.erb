@@ -4,7 +4,7 @@
     <li><a href="#" class="nav-edit-tag-red">Status</a>
       <ul class="subnav">
         <% ControlledVocabulary.find_by_identifier("taxonomic_status").controlled_terms.each do |status| %>
-          <li class="metadata-flag"><a href="#"><%= status.name %></a></li>
+          <li><a href="#" class="metadata-flag"><%= status.name %></a></li>
         <% end %>
       </ul>
     </li>

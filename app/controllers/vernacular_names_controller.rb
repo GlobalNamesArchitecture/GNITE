@@ -5,7 +5,7 @@ class VernacularNamesController < ApplicationController
     name     = Name.find_or_create_by_name_string(params[:name_string])
     #TODO Need UI to select language
     language = Language.find_by_name('English')
-    @vernacular    = VernacularName.new(:name => name, :node_id => params[:node_id], :language => language)
+    @vernacular    = VernacularName.new(:name => name, :node_id => params[:node_id], :language => nil)
     @vernacular.save
 
     respond_to do |format|
@@ -19,14 +19,20 @@ class VernacularNamesController < ApplicationController
     master_tree = current_user.master_trees.find(params[:master_tree_id])
     node        = master_tree.nodes.find(params[:node_id])
     @vernacular = node.vernacular_names.find(params[:id])
-    @vernacular.rename(params[:name_string])
+    if(params[:language_id])
+      @vernacular.update_attributes(:language_id => params[:language_id])
+      @vernacular.save
+    end
+    if(params[:name_string])
+      @vernacular.rename(params[:name_string])
+    end
     respond_to do |format|
       format.json do
         render :json => @vernacular
       end
     end
   end
-  
+      
   def destroy
     master_tree = current_user.master_trees.find(params[:master_tree_id])
     node        = master_tree.nodes.find(params[:node_id])

@@ -22,7 +22,13 @@ class SynonymsController < ApplicationController
     master_tree = current_user.master_trees.find(params[:master_tree_id])
     node        = master_tree.nodes.find(params[:node_id])
     @synonym    = node.synonyms.find(params[:id])
-    @synonym.rename(params[:name_string])
+    if(params[:status])
+      @synonym.update_attributes(:status => params[:status])
+      @synonym.save
+    end
+    if(params[:name_string])
+      @synonym.rename(params[:name_string])
+    end
     
     respond_to do |format|
       format.json do
