@@ -69,6 +69,7 @@
 #vakata-contextmenu.jstree-gnite-context ins.context-paste { background-image: url('../../../../images/icons/page_white_paste.png'); }
 #vakata-contextmenu.jstree-gnite-context ins.context-refresh { background-image: url('../../../../images/icons/arrow_refresh_small.png'); }
 #vakata-contextmenu.jstree-gnite-context ins.context-bookmark { background-image: url('../../../../images/icons/asterisk_yellow_add.png'); }
+#vakata-contextmenu.jstree-gnite-context ins.context-chat { background-image: url('../../../../images/icons/user_comment.png'); }
 #vakata-contextmenu.jstree-gnite-context ins.context-delete { background-image: url('../../../../images/icons/bin_closed.png'); }
 
 /* IE6 BEGIN */

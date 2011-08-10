@@ -119,6 +119,13 @@ $(function() {
             'separator_before' : false,
             'icon'             : 'context-bookmark'
           },
+          'chat' : {
+            'label'            : 'Send link to chat',
+            'action'           : function(obj) { GNITE.nodeMessage(obj); },
+            'separator_after'  : true,
+            'separator_before' : false,
+            'icon'             : 'context-chat'
+          },
           'remove' : {
             'label'            : 'Delete',
             'action'           : function(obj) { this.remove(obj); },
@@ -1417,6 +1424,19 @@ GNITE.appendMessage = function(type, response) {
   }
 
   $('#chat-messages-list').append("<li class=\"" + type + "\"><span class=\"user\">" + response.user.email + "</span>:<span class=\"message\">" + message + "</span></li>").parent().scrollTo('li:last',500);
+
+  $("#chat-messages-list a.chat-node-link").click(function() {
+    var self          = $('#master-tree'),
+        ancestry_arr  = $(this).attr("data-treepath-ids").split(","),
+        ancestry_arr2 = [];
+
+    $.each(ancestry_arr, function(i, val) {
+      ancestry_arr2.push('#' + val);
+    });
+    self.jstree("deselect_all");
+    GNITE.Tree.openAncestry(self, ancestry_arr2);
+    return false;
+  });
 };
 
 GNITE.pushMessage = function(subject, message, ignore) {
@@ -1434,6 +1454,16 @@ GNITE.pushMessage = function(subject, message, ignore) {
         if(ignore) { xhr.setRequestHeader("X-Session-ID", jug.sessionID); }
     }
   });
+};
+
+GNITE.nodeMessage = function(obj) {
+  var self        = $('#master-tree');
+      path        = self.jstree("get_path", obj, true),
+      node_string = self.jstree("get_text", obj);
+
+  GNITE.flashChatWindow();
+  
+  $('#chat-messages-input').val("<a href=\"#\" class=\"chat-node-link\" data-treepath-ids=\"" + path + "\">" + node_string + "</a>");
 };
 
 GNITE.Tree.hideMenu = function() {
