@@ -1,13 +1,6 @@
 <div id="synonym-context" class="ddsmoothmenu-v">
   <ul class="topnav">
     <li><a href="#" class="nav-edit-rename">Edit</a></li>
-    <li><a href="#" class="nav-edit-tag-red">Status</a>
-      <ul class="subnav">
-        <% ControlledVocabulary.find_by_identifier("taxonomic_status").controlled_terms.each do |status| %>
-          <li><a href="#" class="metadata-flag"><%= status.name %></a></li>
-        <% end %>
-      </ul>
-    </li>
     <li><a href="#" class="nav-edit-delete">Delete</a></li>
   </ul>
 </div>

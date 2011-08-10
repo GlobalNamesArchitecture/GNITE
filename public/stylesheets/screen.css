@@ -1199,7 +1199,7 @@ body form input {
   font-weight:bold;
 }
 
-.metadata-section .metadata-select {
+.metadata-section .metadata-value {
   position:absolute;
   line-height:1.5em;
 }
@@ -2164,6 +2164,11 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 #chat-messages-list li.new-user span.message {
   display:block;
   color:green;
+}
+
+#chat-messages-list li.log span.message {
+  display:block;
+  color:red;
 }
 
 #chat-messages-list li span.message {

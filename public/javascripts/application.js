@@ -1338,6 +1338,7 @@ $(function() {
   jug.subscribe(GNITE.Tree.MasterTree.channel, function(data) {
     var response = $.parseJSON(data), self = $('#master-tree');
     switch(response.subject) {
+
       case 'edit':
         GNITE.Tree.MasterTree.flashNode(response.action);
         $('.deleted-tree-container .jstree').jstree("refresh");
@@ -1365,19 +1366,21 @@ $(function() {
       break;
 
       case 'member-login':
-        $("#chat-messages-head").effect("highlight", { color : "green" }, 2000);
-        $("#chat-messages-list").append("<li class=\"new-user\"><span class=\"user\">" + response.user.email + "</span><span class=\"message\">arrived [" + response.time + "]</span></li>").parent().scrollTo('li:last',500);
+        GNITE.flashChatWindow();
+        GNITE.appendMessage("new-user", response);
       break;
 
       case 'member-logout':
       break;
 
       case 'chat':
-        $('#chat-messages-head').effect("highlight", { color : "green" }, 2000);
-        $('#chat-messages-maximize').hide();
-        $('#chat-messages-minimize').show();
-        $('#chat-messages-wrapper div').show();
-        $('#chat-messages-list').append("<li class=\"chat\"><span class=\"user\">" + response.user.email + "</span>:<span class=\"message\">" + response.message + "</span></li>").parent().scrollTo('li:last',500);
+        GNITE.flashChatWindow();
+        GNITE.appendMessage("chat", response);
+      break;
+
+      case 'log':
+        if(GNITE.Tree.MasterTree.user_id !== response.user.id.toString()) { GNITE.flashChatWindow(); }
+        GNITE.appendMessage("log", response);
       break;
 
       case 'metadata':
@@ -1394,6 +1397,28 @@ $(function() {
 /**************************************************************
            HELPER FUNCTIONS
 **************************************************************/
+GNITE.flashChatWindow = function() {
+  $('#chat-messages-head').effect("highlight", { color : "green" }, 2000);
+  $('#chat-messages-maximize').hide();
+  $('#chat-messages-minimize').show();
+  $('#chat-messages-wrapper div').show();
+};
+
+GNITE.appendMessage = function(type, response) {
+  var message = response.message;
+
+  switch(type) {
+    case 'new-user':
+      message = "<strong>arrived</strong> [" + response.time + "]";
+    break;
+    case 'log':
+      message = "<strong>edited</strong> [" + response.time + "]</span><span class=\"message\">" + response.message;
+    break;
+  }
+
+  $('#chat-messages-list').append("<li class=\"" + type + "\"><span class=\"user\">" + response.user.email + "</span>:<span class=\"message\">" + message + "</span></li>").parent().scrollTo('li:last',500);
+};
+
 GNITE.pushMessage = function(subject, message, ignore) {
 
   "use strict";
@@ -1751,7 +1776,7 @@ GNITE.Tree.MasterTree.flashNode = function(data) {
       setTimeout(checkLockedStatus, 10);
     } else {
       //update metadata title if node is selected and the action was an undo or a redo of a rename
-      if(data.new_name !== data.old_name && $(selected[0]).attr("id") === data.node_id.toString()) {
+      if(data.new_name !== data.old_name && data.node_id && $(selected[0]).attr("id") === data.node_id.toString()) {
         if(data.undo) {
           GNITE.Tree.MasterTree.updateMetadataTitle(data.old_name);
         } else {
@@ -2088,7 +2113,7 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
           var self = $(this), type = self.parent().attr("data-type");
 
           if(self.hasClass("synonym") || self.hasClass("vernacular")) {
-            self.contextMenu(self.attr("class") + '-context', {
+            self.contextMenu(self.attr("class").replace("select", "").trim() + '-context', {
               'onShowMenu' : function(e, menu) {
                 $(menu).find("li.metadata-flag a").each(function() {
                   if($(this).text() === $(e.target).parent().attr("data-metadata-flag")) { $(this).addClass("nav-view-checked"); }
@@ -2118,8 +2143,6 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
                   container.unspinner();
                 }
               }
-            }).dblclick(function() {
-              GNITE.Tree.MasterTree.editMetadata(self, type, "PUT");
             });
           } else if(self.hasClass("rank")) {
               self.find("select").change(function() {

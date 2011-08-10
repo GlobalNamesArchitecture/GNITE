@@ -39,8 +39,10 @@ class ActionCommand < ActiveRecord::Base
     master_tree.state = 'working'
     master_tree.save
     
-    Juggernaut.publish(channel, "{ \"subject\" : \"edit\", \"action\" : #{action_command.serializable_hash(:except => :json_message).to_json} }", :except => session_id)
-    Juggernaut.publish(channel, "{ \"subject\" : \"lock\" }", :except => session_id)
+    message = { :subject => "edit", :action => action_command.serializable_hash(:except => :json_message) }.to_json
+
+    Juggernaut.publish(channel, message, :except => session_id)
+    Juggernaut.publish(channel, { :subject => "lock"}.to_json, :except => session_id)
     
     Resque.enqueue(action_command.class, action_command.id)
     action_command.class.queue = nil
@@ -59,7 +61,7 @@ class ActionCommand < ActiveRecord::Base
     master_tree.state = 'active'
     master_tree.save
     
-    Juggernaut.publish(channel, "{ \"subject\" : \"unlock\" }")
+    Juggernaut.publish(channel, { :subject => "unlock" }.to_json)
     
   end
 
@@ -138,6 +140,9 @@ class ActionCommand < ActiveRecord::Base
   def self.generate_log(action_command, type)
     log = (type == 'undo') ? action_command.undo_log : action_command.do_log
     MasterTreeLog.create(:master_tree => action_command.master_tree, :user => action_command.user, :message => log)
+    user = { :id => action_command.user.id, :email => action_command.user.email }
+    message = { :subject => "log", :message => log, :user => user, :time => Time.new.to_s }.to_json
+    Juggernaut.publish("tree_#{action_command.master_tree.id}", message)
   end
 
 end
