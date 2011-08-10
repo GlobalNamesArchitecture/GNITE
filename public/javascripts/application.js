@@ -1425,9 +1425,9 @@ GNITE.appendMessage = function(type, response) {
 
   $('#chat-messages-list').append("<li class=\"" + type + "\"><span class=\"user\">" + response.user.email + "</span>:<span class=\"message\">" + message + "</span></li>").parent().scrollTo('li:last',500);
 
-  $("#chat-messages-list a.chat-node-link").click(function() {
+  $("#chat-messages-list a[data-path]").click(function() {
     var self          = $('#master-tree'),
-        ancestry_arr  = $(this).attr("data-treepath-ids").split(","),
+        ancestry_arr  = $(this).attr("data-path").split(","),
         ancestry_arr2 = [];
 
     $.each(ancestry_arr, function(i, val) {
@@ -1463,7 +1463,7 @@ GNITE.nodeMessage = function(obj) {
 
   GNITE.flashChatWindow();
   
-  $('#chat-messages-input').val("<a href=\"#\" class=\"chat-node-link\" data-treepath-ids=\"" + path + "\">" + node_string + "</a>");
+  $('#chat-messages-input').val("<a href=\"#\" data-path=\"" + path + "\">" + node_string + "</a>");
 };
 
 GNITE.Tree.hideMenu = function() {
