@@ -7,56 +7,53 @@
 
 <div class="metadata-section metadata-rank clearfix">
   <div class="label">
-    <% if(tree_type == "MasterTree") %>
-      <%= label_tag 'rank', 'Rank' %>
-    <% else %>
-      <h4>Rank</h4>
-    <% end %>
+    <h4>Rank</h4>
   </div>
-  <ul class="clearfix" data-type="ranks">
-    <% if(tree_type == "MasterTree") %>
-      <li class="rank select">
-        <span class="metadata-value"><%= @metadata[:rank] %></span>
-      <%= select_tag "rank", options_for_select([["--None--", ""]] + ControlledVocabulary.find_by_identifier("rank").controlled_terms.collect {|p| [ p.name, p.identifier ] }, @metadata[:rank]) %>
-      </li>
-    <% else %>
-      <li class="rank"><%= @metadata[:rank] %></li>
-    <% end %>
-  </ul>
+  <div id="metadata-rank" class="ddsmoothmenu">
+    <ul class="topnav" data-type="ranks">
+      <% if(tree_type == "MasterTree") %>
+        <li class="rank"><a href="#"><span><%= @metadata[:rank] %></span></a>
+          <ul class="subnav">
+            <% ControlledVocabulary.find_by_identifier("rank").controlled_terms.each do |rank| %>
+            <li data-metadata-term="<%= rank.identifier %>"><a href="#"><%= rank.name %></a></li>
+            <% end %>
+          </ul>
+        </li>
+      <% else %>
+        <li class="rank"><%= @metadata[:rank] %></li>
+      <% end %>
+    </ul>
+  </div>
 </div>
 
 <div class="metadata-section metadata-synonyms clearfix">
   <div class="label">
-    <% if(tree_type == "MasterTree") %>
-      <%= label_tag 'synonyms', 'Synonyms' %>
-    <% else %>
-      <h4>Synonyms</h4>
-    <% end %>
+    <h4>Synonyms</h4>
   </div>
-  <ul class="clearfix synonyms<%= raw (tree_type == "MasterTree") ? " jstree-drop" : ""%>" data-type="synonyms">
-    <% if @metadata[:synonyms].empty? %>
-      <li class="metadata-none">None</li>
-    <% else %>
-      <% @metadata[:synonyms].each do |synonym| %>
-        <li id="synonyms-<%= synonym[:metadata][:id] %>" class="synonym select" title="<%= synonym[:metadata][:status] %>" data-metadata-flag="<%= synonym[:metadata][:status] %>">
-          <span class="metadata-value"><%= synonym[:name_string] %></span>
-          <span class="metadata-select">
-            <%= select_tag "synonyms", options_for_select([["--None--", ""]] + ControlledVocabulary.find_by_identifier("taxonomic_status").controlled_terms.collect {|p| [ p.name, p.identifier ] }, synonym[:metadata][:status]) %>
-          </span>
-        </li>
+  <div id="metadata-synonyms" class="ddsmoothmenu">
+    <ul class="topnav" data-type="synonyms">
+      <% if @metadata[:synonyms].empty? %>
+        <li class="metadata-none">None</li>
+      <% else %>
+        <% @metadata[:synonyms].each do |synonym| %>
+          <li id="synonym-<%= synonym[:metadata][:id] %>" class="synonym"><a href="#"><span><%= synonym[:name_string] %></span></a>
+            <ul class="subnav">
+              <% ControlledVocabulary.find_by_identifier("taxonomic_status").controlled_terms.each do |status| %>
+                <% metadata_class = (status.name == synonym[:metadata][:status]) ? " class=\"nav-view-checked\"": "" %>
+                <li data-metadata-term="<%= status.identifier %>" class="metadata-edit"><a href="#"<%= raw metadata_class %>><%= status.name %></a></li>
+              <% end %>
+            </ul>
+         </li>
+        <% end %>
       <% end %>
-    <% end %>
-    <%= raw (tree_type == "MasterTree") ? "<li class=\"metadata-add green-submit-small\">Add</li>": "" %>
-  </ul>
+      <%= raw (tree_type == "MasterTree") ? "<li class=\"metadata-add green-submit-small\">Add</li>": "" %>
+    </ul>
+  </div>
 </div>
 
 <div class="metadata-section metadata-vernacular-names clearfix">
   <div class="label">
-    <% if(tree_type == "MasterTree") %>
-      <%= label_tag 'vernacular_names', 'Vernaculars' %>
-    <% else %>
-      <h4>Vernaculars</h4>
-    <% end %>
+    <h4>Vernaculars</h4>
   </div>
   <ul class="clearfix vernaculars" data-type="vernacular_names">
     <% if @metadata[:vernaculars].empty? %>

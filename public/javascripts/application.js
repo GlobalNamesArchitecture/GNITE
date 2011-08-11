@@ -2139,11 +2139,22 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
         var selected = $('#master-tree').jstree('get_selected'),
             node_id  = $(selected[0]).attr("id");
 
+        $(".metadata-section").find(".ddsmoothmenu").each(function() {
+          ddsmoothmenu.init({
+            mainmenuid: $(this).attr("id"),
+            orientation: 'h',
+            classname: 'ddsmoothmenu',
+            contentsource: "markup"
+          });
+        });
+
         container.find("li.rank, li.synonym, li.vernacular, li.metadata-add").each(function() {
           var self = $(this), type = self.parent().attr("data-type");
 
+          $(this).not('.metadata-add').click(function() { return false; });
+
           if(self.hasClass("synonym") || self.hasClass("vernacular")) {
-            self.contextMenu(self.attr("class").replace("select", "").trim() + '-context', {
+            self.contextMenu(self.attr("class") + '-context', {
               'onShowMenu' : function(e, menu) {
                 $(menu).find("li.metadata-flag a").each(function() {
                   if($(this).text() === $(e.target).parent().attr("data-metadata-flag")) { $(this).addClass("nav-view-checked"); }
@@ -2154,7 +2165,7 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
                 'nav-edit-rename' : function(t) {
                   GNITE.Tree.MasterTree.editMetadata(self, type, "PUT");
                 },
-                'nav-file-delete' : function(t) {
+                'nav-edit-delete' : function(t) {
                     container.spinner();
                     GNITE.Tree.MasterTree.reconciliation({ 
                       type           : type, 
@@ -2162,25 +2173,22 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
                       id             : self.attr("id").split("-")[1],
                       destination_id : node_id,
                       data           : {
-                        name_string    : self.text(),
+                        name_string    : self.find("a span").text(),
                       }
                     });
                     container.unspinner();
-                },
-                'metadata-flag' : function(t, e) {
-                  container.spinner();
-                  GNITE.Tree.Node.contextUpdate(self, type, node_id, e);
-                  container.unspinner();
                 }
               }
+            }).dblclick(function() {
+              GNITE.Tree.MasterTree.editMetadata(self, type, "PUT");
             });
           } else if(self.hasClass("rank")) {
-              self.find("select").change(function() {
+              self.find("ul.subnav li a").click(function() {
                 $.ajax({
                   type        : 'PUT',
                   async       : true,
                   url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes/' + node_id + '.json',
-                  data        : JSON.stringify({ 'node' : {  }, 'json_message' : { 'do' : this.value }, 'action_type' : 'ActionChangeRank' }),
+                  data        : JSON.stringify({ 'node' : {  }, 'json_message' : { 'do' : $(this).text() }, 'action_type' : 'ActionChangeRank' }),
                   contentType : 'application/json',
                   dataType    : 'json',
                   beforeSend  : function(xhr) {
@@ -2188,9 +2196,10 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
                   },
                   success     : function(data) {
                     var rank = (data.node.rank) ? data.node.rank : "None";
-                    self.find("span.metadata-value").text(rank);
+                    self.find("a:first span").text(rank);
                   }
                 });
+                return false;
               });
           } else if(self.hasClass("metadata-add")) {
             type = self.parent().attr("data-type");
@@ -2237,18 +2246,20 @@ GNITE.Tree.MasterTree.editMetadata = function(elem, type, action) {
       t         = "",
       input     = "";
 
+  elem.find("ul.subnav").hide();
+
   if(elem.hasClass("metadata-add")) {
-    elem.before("<li>&nbsp;</li>").prev().css({"width":"150px"});
+    elem.before("<li>&nbsp;</li>").prev().addClass("active-edit");
   } else {
-    elem.css({"width": width}).removeClass("jstree-draggable").unbind('mouseenter mouseleave');
-    t = elem.text();
+    elem.addClass("active-edit").removeClass("jstree-draggable").unbind('mouseenter mouseleave');
+    t = elem.find("a:first span").text();
   }
 
   input =  $("<input />", { 
     "value" : t,
     "class" : "metadata-input",
     "name"  : type,
-    "css"   : {"width" : width + "px"},
+    "css"   : {"width" : width},
     "blur"  : $.proxy(function() {
       var i = (elem.hasClass("metadata-add")) ? elem.prev().children(".metadata-input") : elem.children(".metadata-input"),
           v = i.val();
@@ -2256,6 +2267,7 @@ GNITE.Tree.MasterTree.editMetadata = function(elem, type, action) {
       if(v === "") { v = t; }
       if(elem.hasClass("metadata-add")) { elem.prev().text(v); } else { elem.text(v); }
       i.remove();
+      elem.removeClass("active-edit");
       if(t !== v) {
         container.spinner();
         GNITE.Tree.MasterTree.reconciliation({ 
@@ -2289,7 +2301,6 @@ GNITE.Tree.MasterTree.editMetadata = function(elem, type, action) {
     elem.hide();
   } else {
     elem.append(input).children(".metadata-input").focus();
-    elem.find("span").hide();
     elem.parent().find(".metadata-add").hide();
   }
 
