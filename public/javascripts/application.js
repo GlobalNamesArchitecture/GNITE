@@ -2182,6 +2182,12 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
             }).dblclick(function() {
               GNITE.Tree.MasterTree.editMetadata(self, type, "PUT");
             });
+
+            self.find("ul.subnav li a").click(function() {
+              GNITE.Tree.Node.updateMetadata(self, type, node_id, this);
+              return false;
+            });
+
           } else if(self.hasClass("rank")) {
               self.find("ul.subnav li a").click(function() {
                 $.ajax({
@@ -2214,7 +2220,7 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
   wrapper.css('bottom', container.height());
 };
 
-GNITE.Tree.Node.contextUpdate = function(elem, type, node_id, obj) {
+GNITE.Tree.Node.updateMetadata = function(elem, type, node_id, obj) {
   var data = {};
 
   if(elem.hasClass("synonym")) {
