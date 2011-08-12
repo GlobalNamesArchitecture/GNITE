@@ -1346,6 +1346,7 @@ body form input {
   left:0px;
   right:0px;
   top:50%;
+  z-index:1001;
 }
 
 #merge-view-results a {
