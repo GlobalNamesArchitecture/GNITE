@@ -14,6 +14,11 @@ class MergeEventsController < ApplicationController
   def show
     @merge_event = MergeEvent.find(params[:id])
     @master_tree = @merge_event.master_tree
+
+    if @merge_event.status == "complete"
+      redirect_to master_tree_path(@master_tree)
+    end
+
     reference_tree = ReferenceTree.find(Node.find(@merge_event.secondary_node_id).tree_id)
     @reference_tree = !reference_tree.blank? ? reference_tree : ReferenceTree.find(Node.find(@merge_event.primary_node_id).tree_id)
     @decision_types = MergeDecision.all

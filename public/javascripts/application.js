@@ -2153,7 +2153,7 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
         });
 
         container.find("li.rank, li.synonym, li.vernacular, li.metadata-add").each(function() {
-          var self = $(this), type = self.parent().attr("data-type");
+          var self = $(this), type = self.parent().parent().attr("data-type");
 
           $(this).not('.metadata-add').click(function() { return false; });
 
@@ -2187,23 +2187,10 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
             });
 
           } else if(self.hasClass("rank")) {
-              self.find("ul.subnav li a").click(function() {
-                $.ajax({
-                  type        : 'PUT',
-                  async       : true,
-                  url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes/' + node_id + '.json',
-                  data        : JSON.stringify({ 'node' : {  }, 'json_message' : { 'do' : $(this).text() }, 'action_type' : 'ActionChangeRank' }),
-                  contentType : 'application/json',
-                  dataType    : 'json',
-                  beforeSend  : function(xhr) {
-                    xhr.setRequestHeader("X-Session-ID", jug.sessionID);
-                  },
-                  success     : function(data) {
-                    $('#master-tree').jstree("deselect_all").jstree("select_node", $('#' + node_id));
-                  }
-                });
-                return false;
+              self.dblclick(function() {
+                GNITE.Tree.MasterTree.editMetadata(self, type, "PUT");
               });
+
           } else if(self.hasClass("metadata-add")) {
             type = self.parent().attr("data-type");
             self.click(function() { GNITE.Tree.MasterTree.editMetadata(self, type, "POST"); });
@@ -2235,6 +2222,8 @@ GNITE.Tree.Node.updateMetadata = function(elem, type, node_id, obj) {
     data           : data
   });
 };
+
+//TODO: add autocomplete for ranks and vernacular languages
 
 GNITE.Tree.MasterTree.editMetadata = function(elem, type, action) {
 
@@ -2273,15 +2262,29 @@ GNITE.Tree.MasterTree.editMetadata = function(elem, type, action) {
       elem.removeClass("active-edit");
       if(t !== v) {
         container.spinner();
-        GNITE.Tree.MasterTree.reconciliation({ 
-          type           : type, 
-          action         : action, 
-          id             : elem_id, 
-          destination_id : node_id,
-          data           : {
-            name_string : v
-          }
-        });
+        if(type === "ranks") {
+          $.ajax({
+            type        : 'PUT',
+            async       : true,
+            url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes/' + node_id + '.json',
+            data        : JSON.stringify({ 'node' : {  }, 'json_message' : { 'do' : v }, 'action_type' : 'ActionChangeRank' }),
+            contentType : 'application/json',
+            dataType    : 'json',
+            beforeSend  : function(xhr) {
+              xhr.setRequestHeader("X-Session-ID", jug.sessionID);
+            },
+          });
+        } else {
+          GNITE.Tree.MasterTree.reconciliation({ 
+            type           : type, 
+            action         : action, 
+            id             : elem_id, 
+            destination_id : node_id,
+            data           : {
+              name_string : v
+            }
+          });
+        }
         container.unspinner();
       }
       t = v;

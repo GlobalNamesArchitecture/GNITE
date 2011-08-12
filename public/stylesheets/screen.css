@@ -740,6 +740,10 @@ body form input {
   padding:0px;
 }
 
+#treewrap-main .metadata-section ul.topnav li {
+  cursor:pointer;
+}
+
 .metadata-section .ddsmoothmenu ul.topnav {
   padding-bottom:5px;
 }
@@ -845,7 +849,7 @@ body form input {
 .node-metadata ul li input.metadata-input {
   position: absolute;
   left: -1px;
-  top: -2px;
+  top: 0px;
   border: 1px solid #cdd3d7;
   border-radius: 8px;
   -moz-border-radius: 8px;
@@ -855,8 +859,21 @@ body form input {
   width:200px;
 }
 
+.node-metadata ul li label {
+  margin-left:5px;
+  font-weight:bold;
+}
+
+.node-metadata ul li input.metadata-autocomplete {
+  margin:5px;
+  padding:5px;
+  border: 1px solid #cdd3d7;
+  border-radius: 8px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+}
+
 .node-metadata ul li.active-edit {
-  width:150px;
   border:0px;
   background:none;
 }
