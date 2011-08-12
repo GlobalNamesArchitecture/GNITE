@@ -2159,12 +2159,6 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
 
           if(self.hasClass("synonym") || self.hasClass("vernacular")) {
             self.contextMenu(self.attr("class") + '-context', {
-              'onShowMenu' : function(e, menu) {
-                $(menu).find("li.metadata-flag a").each(function() {
-                  if($(this).text() === $(e.target).parent().attr("data-metadata-flag")) { $(this).addClass("nav-view-checked"); }
-                });
-                return menu;
-              },
               'bindings' : {
                 'nav-edit-rename' : function(t) {
                   GNITE.Tree.MasterTree.editMetadata(self, type, "PUT");
