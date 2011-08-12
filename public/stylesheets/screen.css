@@ -765,7 +765,7 @@ body form input {
 }
 
 .metadata-section .ddsmoothmenu ul.topnav ul.subnav li a {
-  padding:5px 0px 5px 25px;
+  padding:5px 5px 5px 25px;
   margin:0px;
   min-width:0px;
 }
@@ -904,7 +904,6 @@ body form input {
   position: absolute;
   left: 0;
   display: none;
-  visibility: hidden;
   z-index:1000;
   border: 1px solid #868D92;
   background-color:#EEF1F3;
@@ -977,7 +976,7 @@ body form input {
   width: 170px;
   top: 0;
   font-weight: normal;
-  visibility: hidden;
+  display:none;
 }
 
 /* Holly Hack for IE \*/

@@ -147,7 +147,7 @@ buildmenu:function($, setting) {
             $toplevelul.css(shadowprop[i], css3shadow);
         }
     }
-    $mainmenu.find("ul").css({display:'none', visibility:'visible'});
+    $mainmenu.find("ul").css({display:'none'});
 },
 
 init:function(setting){
