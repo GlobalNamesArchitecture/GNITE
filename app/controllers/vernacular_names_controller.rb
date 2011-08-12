@@ -3,9 +3,7 @@ class VernacularNamesController < ApplicationController
   
   def create
     name     = Name.find_or_create_by_name_string(params[:name_string])
-    #TODO Need UI to select language
-    language = Language.find_by_name('English')
-    @vernacular    = VernacularName.new(:name => name, :node_id => params[:node_id], :language => nil)
+    @vernacular    = VernacularName.new(:name => name, :node_id => params[:node_id])
     @vernacular.save
 
     respond_to do |format|

@@ -11,7 +11,7 @@
   </div>
   <div id="metadata-rank" class="lists ddsmoothmenu">
     <ul class="topnav" data-type="ranks">
-      <% if(tree_type == "MasterTree") %>
+      <% if tree_type == "MasterTree" %>
         <li class="rank"><a href="#"><span><%= @metadata[:rank] %></span></a>
           <ul class="subnav">
             <% ControlledVocabulary.find_by_identifier("rank").controlled_terms.each do |rank| %>
@@ -37,6 +37,7 @@
         <li class="metadata-none">None</li>
       <% else %>
         <% @metadata[:synonyms].each do |synonym| %>
+          <% if tree_type == "MasterTree" %>
           <li id="synonym-<%= synonym[:metadata][:id] %>" class="synonym"><a href="#"><span><%= synonym[:name_string] %></span></a>
             <ul class="subnav">
               <% ControlledVocabulary.find_by_identifier("taxonomic_status").controlled_terms.each do |status| %>
@@ -45,6 +46,9 @@
               <% end %>
             </ul>
          </li>
+         <% else %>
+          <li><%= synonym[:name_string] %></li>
+          <% end %>
         <% end %>
       <% end %>
       <%= raw (tree_type == "MasterTree") ? "<li class=\"metadata-add green-submit-small\">Add</li>": "" %>
@@ -62,11 +66,15 @@
         <li class="metadata-none">None</li>
       <% else %>
         <% @metadata[:vernaculars].each do |vernacular| %>
+          <% if tree_type == "MasterTree" %>
           <li id="vernacular_names-<%= vernacular[:metadata][:id] %>" class="vernacular"><a href="#"><span><%= vernacular[:name_string] %></span></a>
             <ul class="subnav">
               <li><input type="text" value="<%= vernacular[:metadata][:language][:name] %>" /></li>
             </ul>
           </li>
+          <% else %>
+          <li><%= vernacular[:name_string] %></li>
+          <% end %>
         <% end %>
       <% end %>
       <%= raw (tree_type == "MasterTree") ? "<li class=\"metadata-add green-submit-small\">Add</li>": "" %>
