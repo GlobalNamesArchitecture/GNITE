@@ -747,11 +747,6 @@ body form input {
   right:4px;
 }
 
-.metadata-section .ddsmoothmenu ul.topnav ul.subnav {
-  width:100% !important;
-  min-width:120px;
-}
-
 .metadata-section .ddsmoothmenu ul.topnav ul.subnav li {
   border:0px;
   border-radius:0px;
@@ -760,6 +755,7 @@ body form input {
   background:transparent;
   padding:0px;
   margin:0px;
+  white-space:nowrap;
 }
 
 .metadata-section .ddsmoothmenu ul.topnav ul.subnav li a {
@@ -782,6 +778,7 @@ body form input {
   position: absolute;
   top: auto;
   width: 100%; 
+  overflow:visible;
 }
 
 .node-metadata div.label {
@@ -864,7 +861,6 @@ body form input {
   position: relative;
   display: inline;
   float: left;
-  min-width: 60px;
   line-height: 1.25em;
 }
 
