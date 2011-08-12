@@ -86,7 +86,7 @@
       });
     });
 
-    $(document).one('click', hide);
+    $(document).one('click', hide); //TODO: fix disappearance of context menu when positioned about bottom portion of DOM
   }
 
   function hide() {

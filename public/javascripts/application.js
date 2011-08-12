@@ -1316,17 +1316,9 @@ $(function() {
   /**************************************************************
            CHAT
   **************************************************************/
-  $('#chat-messages-head').click(function() {
-    if($('#chat-messages-wrapper > div:not(:first)').is(':visible')) {
-      $('#chat-messages-wrapper > div:not(:first)').hide();
-      $('#chat-messages-maximize').show();
-      $('#chat-messages-minimize').hide();
-    } else {
-      $('#chat-messages-wrapper > div:not(:first)').show();
-      $('#chat-messages-maximize').hide();
-      $('#chat-messages-minimize').show();
-    }
-  });
+  $('#chat-messages-head').click(function() { GNITE.toggleChatWindow(); });
+  $('#chat-messages-options a').click(function() { GNITE.toggleChatWindow(); return false; });
+
   $('#chat-messages-input').keypress(function(e) {
     var msg  = $(this).val().replace("\n", ""),
         code = (e.keyCode ? e.keyCode : e.which);
@@ -1404,6 +1396,18 @@ $(function() {
 /**************************************************************
            HELPER FUNCTIONS
 **************************************************************/
+GNITE.toggleChatWindow = function() {
+  if($('#chat-messages-wrapper > div:not(:first)').is(':visible')) {
+    $('#chat-messages-wrapper > div:not(:first)').hide();
+    $('#chat-messages-maximize').show();
+    $('#chat-messages-minimize').hide();
+  } else {
+    $('#chat-messages-wrapper > div:not(:first)').show();
+    $('#chat-messages-maximize').hide();
+    $('#chat-messages-minimize').show();
+  }
+};
+
 GNITE.flashChatWindow = function() {
   $('#chat-messages-head').effect("highlight", { color : "green" }, 2000);
   $('#chat-messages-maximize').hide();
@@ -2201,8 +2205,7 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
                     xhr.setRequestHeader("X-Session-ID", jug.sessionID);
                   },
                   success     : function(data) {
-                    var rank = (data.node.rank) ? data.node.rank : "None";
-                    self.find("a:first span").text(rank);
+                    $('#master-tree').jstree("deselect_all").jstree("select_node", $('#' + node_id));
                   }
                 });
                 return false;
