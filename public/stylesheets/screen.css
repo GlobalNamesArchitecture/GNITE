@@ -730,6 +730,12 @@ body form input {
   padding: 0;
 }
 
+.node-metadata .metadata-section:last-child {
+  border-radius:0px 0px 8px 8px;
+  -moz-border-radius:0px 0px 8px 8px;
+  -webkit-border-radius:0px 0px 8px 8px;
+}
+
 .metadata-section ul.topnav a {
   padding:0px;
 }
@@ -794,15 +800,24 @@ body form input {
   font-weight:bold;
 }
 
-.node-metadata ul {
-  background: #fff;
-  float: left;
-  padding: 0 0 5px 0;
+.node-metadata div.lists {
   width: 82%;
+  float:left;
+  background: #fff;
+  padding:0 0 5px 0;
+}
+
+.node-metadata .metadata-section:last-child .lists {
+  border-radius:0px 0px 8px 0px;
+  -moz-border-radius: 0px 0px 8px 0px;
+  -webkit-border-radius: 0px 0px 8px 0px;
+}
+
+.node-metadata ul {
 }
 
 .node-metadata ul li {
-  background: none repeat scroll 0 0 #BABFC3;
+  background: none repeat scroll 0 0 #E6E6E6;
   border: 1px solid #BABFC3;
   border-radius: 8px;
   -moz-border-radius: 8px;
@@ -1002,6 +1017,8 @@ body form input {
 .ddsmoothmenu ul li a.selected, .ddsmoothmenu-v ul li a.selected { background-color:#BABFC3; }
 .ddsmoothmenu ul li a:hover, .ddsmoothmenu-v ul li a:hover { background-color:#BABFC3; }
 
+.node-metadata ul li a.selected, .node-metadata ul li a:hover { background-color:transparent; }
+.node-metadata ul li ul li a.selected, .node-metadata ul li ul li a:hover { background-color:#BABFC3; }
 
 #synonym-context {
   float:left;

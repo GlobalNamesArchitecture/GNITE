@@ -9,7 +9,7 @@
   <div class="label">
     <h4>Rank</h4>
   </div>
-  <div id="metadata-rank" class="ddsmoothmenu">
+  <div id="metadata-rank" class="lists ddsmoothmenu">
     <ul class="topnav" data-type="ranks">
       <% if(tree_type == "MasterTree") %>
         <li class="rank"><a href="#"><span><%= @metadata[:rank] %></span></a>
@@ -31,7 +31,7 @@
   <div class="label">
     <h4>Synonyms</h4>
   </div>
-  <div id="metadata-synonyms" class="ddsmoothmenu jstree-drop">
+  <div id="metadata-synonyms" class="lists ddsmoothmenu jstree-drop">
     <ul class="topnav" data-type="synonyms">
       <% if @metadata[:synonyms].empty? %>
         <li class="metadata-none">None</li>
@@ -56,7 +56,7 @@
   <div class="label">
     <h4>Vernaculars</h4>
   </div>
-  <div id="metadata-vernaculars" class="ddsmoothmenu">
+  <div id="metadata-vernaculars" class="lists ddsmoothmenu">
     <ul class="topnav" data-type="vernacular_names">
       <% if @metadata[:vernaculars].empty? %>
         <li class="metadata-none">None</li>
