@@ -19,15 +19,16 @@ class MergeEventsController < ApplicationController
       redirect_to master_tree_path(@master_tree)
     end
 
-    reference_tree = ReferenceTree.find(Node.find(@merge_event.secondary_node_id).tree_id)
-    @reference_tree = !reference_tree.blank? ? reference_tree : ReferenceTree.find(Node.find(@merge_event.primary_node_id).tree_id)
+    reference_tree = ReferenceTree.find(Node.find(@merge_event.secondary_node_id).tree_id) rescue nil
+    @reference_tree = !reference_tree.nil? ? reference_tree : ReferenceTree.find(Node.find(@merge_event.primary_node_id).tree_id)
     @decision_types = MergeDecision.all
 
     type_to_label ||= MergeType.all.each_with_object({}){ |type,key| key[type.id] = type.label }
     subtype_to_label ||= MergeSubtype.all.each_with_object({}){ |subtype,key| key[subtype.id] = subtype.label.gsub(/ /,'-') }
     
     @data = { new_matches: [], exact_matches: [], fuzzy_matches: [] }
-    
+    @busy = false
+
     results = MergeResultPrimary.includes(:merge_result_secondaries).where(:merge_event_id => params[:id])
     results.each do |primary|      
       primary.merge_result_secondaries.each do |secondary|
@@ -40,6 +41,9 @@ class MergeEventsController < ApplicationController
             :subtype        => subtype_to_label[secondary.merge_subtype_id],
             :merge_decision => secondary.merge_decision_id
         }
+        if secondary.merge_decision_id == nil || secondary.merge_decision_id == 3
+          @busy = true
+        end
       end
     end
     

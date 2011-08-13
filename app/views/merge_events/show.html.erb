@@ -50,7 +50,10 @@
          <% end %>
       </div>
       <%= submit_tag "Preview", :class => "green-submit preview", :name => "preview" %>
-      <%= submit_tag "Execute", :class => "green-submit submit", :name => "commit" %>
+
+      <% disabled = (@busy == true) ? " disabled": "" %>
+      <%= submit_tag "Apply Merge", :class => "green-submit submit" << disabled, :name => "commit", :disabled => (@busy == true) ? true : false %>
+
     <% end %>
     </div>
   <% end %>

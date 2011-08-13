@@ -264,6 +264,11 @@ body form input {
   background: -webkit-gradient(linear,left bottom,left top, color-stop(0.04, rgb(27,112,4)), color-stop(0.58, rgb(90,165,43)), color-stop(0.98, rgb(144,207,76))) !important;
 }
 
+.disabled {
+  background: #E6E6E6 !important;
+  color:#C0C0C0 !important;
+}
+
 .cancel-button {
   background: #FF4040;
   background: -moz-linear-gradient(center bottom, rgb(139,35,35) 4%, rgb(255,64,64) 58%, rgb(255,193,193) 98%) !important;
@@ -279,6 +284,14 @@ body form input {
   box-shadow: inset 1px 1px 5px 1px rgb(126, 229, 44), 0 1px 2px rgba(0,0,0, 1);
   -moz-box-shadow: inset 1px 1px 5px 1px rgb(126, 229, 44), 0 1px 2px rgba(0,0,0, 1);
   -webkit-box-shadow: inset 1px 1px 5px 1px rgb(126, 229, 44), 0 1px 2px rgba(0,0,0, 1);
+}
+
+.disabled:hover {
+  border:0px !important;
+  cursor:auto;
+  box-shadow:none;
+  -moz-box-shadow:none;
+  -webkit-box-shadow:none;
 }
 
 .cancel-button:hover {
@@ -2439,21 +2452,13 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   float:none;
 }
 
-#merge-results-wrapper .tree-background {
-  min-height:650px;
-}
+#merge-results-wrapper .tree-background { min-height:650px; }
 
-#merge-results-wrapper #add-node-wrap {
-  top:45px;
-}
+#merge-results-wrapper #add-node-wrap { top:45px; }
 
-#merge-results-wrapper .searchbar {
-  right:40px;
-}
+#merge-results-wrapper .searchbar { right:40px; }
 
-#merge-results-wrapper .searchbar-dropdown {
-  right:30px;
-}
+#merge-results-wrapper .searchbar-dropdown { right:30px; }
 
 #merge-results-wrapper .ui-dialog-titlebar-close {
   background-color: transparent !important;
@@ -2472,6 +2477,10 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   height: 16px;
   margin: 1px;
   width: 16px;
+}
+
+#merge-results-wrapper .metadata-section ul.topnav li {
+  cursor:auto;
 }
 
 #merge-warning {
