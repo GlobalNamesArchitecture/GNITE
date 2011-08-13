@@ -139,6 +139,12 @@ $(function() {
         id              = "",
         decision_id     = 0;
 
+    if(decision === "postponed") { 
+      $("input.submit").addClass("disabled").attr("disabled", true);
+    } else {
+      //TODO: remove "disabled" class and disabled attribute if all decisions have been made and none are "postponed"
+    }
+
     $(this).parents("table").find("input." + decision).each(function() {
       $(this).attr("disabled", "disabled");
       id = $(this).attr("name").split("-")[1];
@@ -173,6 +179,12 @@ $(function() {
         id          = $(this).attr("name").split("-")[1];
 
     $(self).attr("disabled", "disabled");
+
+    if(decision_id === 3) {
+      $("input.submit").addClass("disabled").attr("disabled", true);
+    } else {
+      //TODO: remove "disabled" class and disabled attribute if all decisions have been made and none are "postponed"
+    }
 
     $.ajax({
       type        : 'PUT',
@@ -245,6 +257,7 @@ $(function() {
 
     var message = 'You have not yet made any decisions';
 
+    //TODO: find if there is a single row (i.e. radio inputs with name="name-x") that is unselected
     if($('.merge-input:checked').length === 0) {
       $('body').append('<div id="dialog-message" class="ui-state-highlight" title="Warning">' + message + '</div>');
       $('#dialog-message').dialog({
@@ -314,8 +327,6 @@ $(function() {
                return false;
             });
           },
-          error : function() {
-          },
           complete : function() {
             results.unspinner();
           }
@@ -383,12 +394,10 @@ $(function() {
           end = $(val);
           tree_wrapper.scrollTo($(val), {axis:'y'});
           current.push(val);
-        }
-        else if($(val).length && !$(val).is(".jstree-closed")) {
+        } else if($(val).length && !$(val).is(".jstree-closed")) {
           end = $(val);
           tree_wrapper.scrollTo($(val), {axis:'y'});
-        }
-        else {
+        } else {
           remaining.push(val);
         }
       });
