@@ -137,12 +137,27 @@ $(function() {
         decision        = $(this).attr("class"),
         i               = 0,
         id              = "",
-        decision_id     = 0;
+        decision_id     = 0,
+        num_decisions   = $("td.merge-decision").size(),
+        decision_item   = "",
+        postponed       = false;
 
     if(decision === "postponed") { 
+      postponed = true;
+    } else {
+      for(var i = 0; i < num_decisions; i += 1) {
+        decision_item = $("td.merge-decision:eq(" + i + ") ");
+        $(".merge-input", decision_item).each(function() {
+          if($(this).is(":checked") && $(this).val() === "3") { postponed = true; }
+        });
+        break;
+      }
+    }
+
+    if(postponed) {
       $("input.submit").addClass("disabled").attr("disabled", true);
     } else {
-      //TODO: remove "disabled" class and disabled attribute if all decisions have been made and none are "postponed"
+      $("input.submit").removeClass("disabled").attr("disabled", false);
     }
 
     $(this).parents("table").find("input." + decision).each(function() {
@@ -174,16 +189,31 @@ $(function() {
 
   $('input.merge-input').click(function() {
 
-    var self        = this,
-        decision_id = $(this).val(),
-        id          = $(this).attr("name").split("-")[1];
+    var self          = this,
+        decision_id   = $(this).val(),
+        id            = $(this).attr("name").split("-")[1],
+        num_decisions = $("td.merge-decision").size(),
+        decision_item = "",
+        postponed     = false; 
 
     $(self).attr("disabled", "disabled");
 
-    if(decision_id === 3) {
+    if(decision_id === "3") {
+      postponed = true;
+    } else {
+      for(var i = 0; i < num_decisions; i += 1) {
+        decision_item = $("td.merge-decision:eq(" + i + ") ");
+        $(".merge-input", decision_item).each(function() {
+          if($(this).is(":checked") && $(this).val() === "3") { postponed = true; alert($(this).val()); }
+        });
+        break;
+      }
+    }
+
+    if(postponed) {
       $("input.submit").addClass("disabled").attr("disabled", true);
     } else {
-      //TODO: remove "disabled" class and disabled attribute if all decisions have been made and none are "postponed"
+      $("input.submit").removeClass("disabled").attr("disabled", false);
     }
 
     $.ajax({
