@@ -204,7 +204,7 @@ $(function() {
       for(var i = 0; i < num_decisions; i += 1) {
         decision_item = $("td.merge-decision:eq(" + i + ") ");
         $(".merge-input", decision_item).each(function() {
-          if($(this).is(":checked") && $(this).val() === "3") { postponed = true; alert($(this).val()); }
+          if($(this).is(":checked") && $(this).val() === "3") { postponed = true; }
         });
         break;
       }
