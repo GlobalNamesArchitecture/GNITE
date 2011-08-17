@@ -2192,7 +2192,7 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
               });
 
           } else if(self.hasClass("metadata-add")) {
-            type = self.parent().attr("data-type");
+            type = self.parent().parent().attr("data-type");
             self.click(function() { GNITE.Tree.MasterTree.editMetadata(self, type, "POST"); });
           }
         });
