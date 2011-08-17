@@ -111,7 +111,7 @@ buildmenu:function($, setting) {
                     }
 
                     // Hack by D. Shorthouse to pop menu up if necessary
-                    if(setting.orientation!='v' && e.pageY + $targetul.height() > $(window).height() + $(window).scrollTop()) { 
+                    if(setting.orientation!='v' && e.pageY + $targetul.height() + 15 > $(window).height() + $(window).scrollTop()) { 
                       $targetul.css({top:-$targetul.height()+"px"});
                     }
 
