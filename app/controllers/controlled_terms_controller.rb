@@ -9,4 +9,5 @@ class ControlledTermsController < ApplicationController
     end
 
   end
+
 end
