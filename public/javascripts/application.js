@@ -2192,7 +2192,7 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
 
           } else if(self.hasClass("rank")) {
               self.dblclick(function() {
-                GNITE.Tree.MasterTree.editMetadata(self, type, "PUT");
+                GNITE.Tree.MasterTree.editMetadata(self, type, "PUT", '/vocabularies/rank.json');
               });
 
           } else if(self.hasClass("metadata-add")) {
@@ -2228,7 +2228,7 @@ GNITE.Tree.Node.updateMetadata = function(elem, type, node_id, obj) {
 
 //TODO: add autocomplete for ranks and vernacular languages
 
-GNITE.Tree.MasterTree.editMetadata = function(elem, type, action) {
+GNITE.Tree.MasterTree.editMetadata = function(elem, type, action, autocomplete_url) {
 
   "use strict";
 
@@ -2247,8 +2247,10 @@ GNITE.Tree.MasterTree.editMetadata = function(elem, type, action) {
     elem.before("<li>&nbsp;</li>").prev().addClass("active-edit");
   } else {
     elem.addClass("active-edit").removeClass("jstree-draggable").unbind('mouseenter mouseleave');
-    t = elem.find("a:first span").text();
+    t = elem.find("a.selected span").text();
   }
+
+  elem.find("a.selected").css({"width" : width});
 
   input =  $("<input />", { 
     "value" : t,
@@ -2303,13 +2305,16 @@ GNITE.Tree.MasterTree.editMetadata = function(elem, type, action) {
       var key = event.keyCode || event.which;
       if(key === 13) { return false; }
     }
+
   });
 
   if(elem.hasClass("metadata-add")) {
     elem.prev().append(input).children(".metadata-input").focus();
+    if(autocomplete_url) { $(".metadata-input").inlineComplete({ terms: autocomplete_url }); }
     elem.hide();
   } else {
     elem.append(input).children(".metadata-input").focus();
+    if(autocomplete_url) { $(".metadata-input").inlineComplete({ terms: autocomplete_url }); }
     elem.parent().find(".metadata-add").hide();
   }
 
