@@ -2143,6 +2143,8 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
         var selected = $('#master-tree').jstree('get_selected'),
             node_id  = $(selected[0]).attr("id");
 
+        $('.metadata-autocomplete').inlineComplete();
+
         $(".metadata-section").find(".ddsmoothmenu").each(function() {
           ddsmoothmenu.init({
             mainmenuid: $(this).attr("id"),
@@ -2177,7 +2179,7 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
                     container.unspinner();
                 }
               }
-            }).dblclick(function() {
+            }).find("a:first").dblclick(function() {
               if(self.hasClass("metadata-none")) {
                 GNITE.Tree.MasterTree.editMetadata(self, type, "POST");
               } else {
@@ -2189,6 +2191,10 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
               GNITE.Tree.Node.updateMetadata(self, type, node_id, this);
               return false;
             });
+
+            self.find("ul.subnav li input.metadata-autocomplete").each(function() {
+              GNITE.Tree.Node.autoComplete(self, type, node_id, this);
+            })
 
           } else if(self.hasClass("rank")) {
               self.dblclick(function() {
@@ -2207,6 +2213,20 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
   wrapper.css('bottom', container.height());
 };
 
+GNITE.Tree.Node.autoComplete = function(elem, type, node_id, obj) {
+  $(obj).blur(function() {
+    $(obj).parent().parent().hide();
+    GNITE.Tree.Node.updateMetadata(elem, type, node_id, obj);
+  }).keyup(function(event) {
+      var key = event.keyCode || event.which;
+      if(key === 27) { this.blur(); return; }
+      else if(key === 13) { this.blur(); return; }
+  }).keypress(function(event) {
+      var key = event.keyCode || event.which;
+      if(key === 13) { return false; }
+  });
+};
+
 GNITE.Tree.Node.updateMetadata = function(elem, type, node_id, obj) {
   var data = {};
 
@@ -2214,7 +2234,7 @@ GNITE.Tree.Node.updateMetadata = function(elem, type, node_id, obj) {
     data = { status : $(obj).text() }
   }
   if(elem.hasClass("vernacular")) {
-    data = { language_id : $(obj).attr("data-language-id") }
+    data = { language_id : $(obj).attr("data-term-id") }
   }
 
   GNITE.Tree.MasterTree.reconciliation({ 
@@ -2225,8 +2245,6 @@ GNITE.Tree.Node.updateMetadata = function(elem, type, node_id, obj) {
     data           : data
   });
 };
-
-//TODO: add autocomplete for ranks and vernacular languages
 
 GNITE.Tree.MasterTree.editMetadata = function(elem, type, action, autocomplete_url) {
 
@@ -2244,21 +2262,22 @@ GNITE.Tree.MasterTree.editMetadata = function(elem, type, action, autocomplete_u
   elem.find("ul.subnav").hide();
 
   if(elem.hasClass("metadata-add")) {
-    elem.before("<li>&nbsp;</li>").prev().addClass("active-edit");
+    elem.before("<li><a href=\"#\" class=\"selected\"><span>&nbsp;</span></a></li>").prev().addClass("active-edit").find("a.selected").css({"width" : width});
   } else {
     elem.addClass("active-edit").removeClass("jstree-draggable").unbind('mouseenter mouseleave');
-    t = elem.find("a.selected span").text();
+    t = elem.find("a:first span").text();
   }
 
   elem.find("a.selected").css({"width" : width});
 
   input =  $("<input />", { 
-    "value" : t,
-    "class" : "metadata-input",
-    "name"  : type,
-    "type"  : "text",
-    "css"   : {"width" : width},
-    "blur"  : $.proxy(function() {
+    "value"        : t,
+    "class"        : "metadata-input",
+    "name"         : type,
+    "type"         : "text",
+    "data-term-id" : "",
+    "css"          : {"width" : width},
+    "blur"         : $.proxy(function() {
       var i = (elem.hasClass("metadata-add")) ? elem.prev().children(".metadata-input") : elem.children(".metadata-input"),
           v = i.val();
 
@@ -2306,7 +2325,6 @@ GNITE.Tree.MasterTree.editMetadata = function(elem, type, action, autocomplete_u
       var key = event.keyCode || event.which;
       if(key === 13) { return false; }
     }
-
   });
 
   if(elem.hasClass("metadata-add")) {

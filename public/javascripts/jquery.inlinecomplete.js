@@ -100,7 +100,7 @@
 
             if(term != '') {
                 for(var i = 0; i < termList.length; i++) {
-                    currentTerm = termList[i];
+                    currentTerm = termList[i].term;
 
                     if(!options.matchCase) {
                         currentTerm = currentTerm.toLowerCase();
@@ -111,7 +111,7 @@
                         // in matched term, the event is keydown and if there
                         // is selected text.
 
-                        if(termList[i].substr(curPos, 1) == letter
+                        if(termList[i].term.substr(curPos, 1) == letter
                             && event.type == 'keydown'
                             && $this.selection('start') != $this.selection('end'))
                             {
@@ -125,7 +125,8 @@
                             // inserted into the text field.
                             returnValue = false;
                         } else {
-                            $this.val(termList[i]).select(curPos, currentTerm.length);
+                            $this.val(termList[i].term).select(curPos, currentTerm.length);
+                            $this.attr("data-term-id", termList[i].id);
                         }
 
                         break;
@@ -252,17 +253,13 @@
         // TODO wouldn't it be great if you could pass a jqXHR object which
         // is handled by inlineComplete?
         if(typeof options.terms == 'string') {
-            var $that = this, allterms = [];
+            var $that = this;
 
             $.getJSON(options.terms, function(response) {
                 if(!response.terms && window.console && window.console.error)
                     console.error("Invalid response for inline complete terms!");
                 
-                for(i = 0; i < response.terms.length; i += 1) {
-                  allterms.push(response.terms[i].controlled_term.name);
-                }
-
-                if(!allterms) { options.terms = response.terms; } else { options.terms = allterms; }
+                options.terms = response.terms;
 
                 $that.inlineComplete(options);
             });

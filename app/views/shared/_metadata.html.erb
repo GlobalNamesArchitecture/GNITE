@@ -11,7 +11,7 @@
   </div>
   <div id="metadata-rank" class="lists ddsmoothmenu" data-type="ranks">
     <ul class="topnav">
-      <li class="rank"><%= @metadata[:rank] %></li>
+      <li class="rank"><a href="#"><span><%= @metadata[:rank] %></span></a></li>
     </ul>
   </div>
 </div>
@@ -60,7 +60,7 @@
             <ul class="subnav">
               <li>
                 <label for="vernacular-language">Language</label>
-                <input id="vernacular-language" type="text" class="metadata-autocomplete" value="<%= vernacular[:metadata][:language][:name] %>" data-autocomplete="" id_element="<%= vernacular[:metadata][:language][:id] %>" /></li>
+                <input id="vernacular-language" type="text" class="metadata-autocomplete" value="<%= vernacular[:metadata][:language][:name] %>" data-terms="url:/languages.json" data-term-id="<%= vernacular[:metadata][:language][:id] %>" /></li>
             </ul>
           </li>
           <% else %>
