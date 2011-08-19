@@ -252,12 +252,17 @@
         // TODO wouldn't it be great if you could pass a jqXHR object which
         // is handled by inlineComplete?
         if(typeof options.terms == 'string') {
-            var $that = this;
+            var $that = this, allterms = [];
+
             $.getJSON(options.terms, function(response) {
                 if(!response.terms && window.console && window.console.error)
                     console.error("Invalid response for inline complete terms!");
+                
+                for(i = 0; i < response.terms.length; i += 1) {
+                  allterms.push(response.terms[i].controlled_term.name);
+                }
 
-                options.terms = response.terms;
+                if(!allterms) { options.terms = response.terms; } else { options.terms = allterms; }
 
                 $that.inlineComplete(options);
             });
