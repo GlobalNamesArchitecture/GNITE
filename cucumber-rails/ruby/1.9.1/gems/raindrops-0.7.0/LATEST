@@ -1,0 +1,5 @@
+=== raindrops 0.7.0 - FreeBSD fix, code cleanups / 2011-06-27 07:26 UTC
+
+  This release fixes a build issue on FreeBSD.  There are various
+  documentation and code cleanups, too.
+

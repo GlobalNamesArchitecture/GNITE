@@ -1,0 +1,91 @@
+have_macro: checking for SIZEOF_OFF_T in ruby.h... -------------------- yes
+
+"gcc -o conftest -I/Users/dshorthouse/.rvm/rubies/ruby-1.9.2-p180/include/ruby-1.9.1/x86_64-darwin10.7.1 -I/Users/dshorthouse/.rvm/rubies/ruby-1.9.2-p180/include/ruby-1.9.1/ruby/backward -I/Users/dshorthouse/.rvm/rubies/ruby-1.9.2-p180/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wpointer-arith -Wwrite-strings -Wno-missing-field-initializers -Wshorten-64-to-32 -Wno-long-long  -fno-common -pipe conftest.c  -L. -L/Users/dshorthouse/.rvm/rubies/ruby-1.9.2-p180/lib -L.      -lruby.1.9.1-static  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+"gcc -I/Users/dshorthouse/.rvm/rubies/ruby-1.9.2-p180/include/ruby-1.9.1/x86_64-darwin10.7.1 -I/Users/dshorthouse/.rvm/rubies/ruby-1.9.2-p180/include/ruby-1.9.1/ruby/backward -I/Users/dshorthouse/.rvm/rubies/ruby-1.9.2-p180/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wpointer-arith -Wwrite-strings -Wno-missing-field-initializers -Wshorten-64-to-32 -Wno-long-long  -fno-common -pipe   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <ruby.h>
+4: /*top*/
+5: #ifndef SIZEOF_OFF_T
+6: # error
+7: >>>>>> SIZEOF_OFF_T undefined <<<<<<
+8: #endif
+/* end */
+
+--------------------
+
+have_macro: checking for SIZEOF_SIZE_T in ruby.h... -------------------- yes
+
+"gcc -I/Users/dshorthouse/.rvm/rubies/ruby-1.9.2-p180/include/ruby-1.9.1/x86_64-darwin10.7.1 -I/Users/dshorthouse/.rvm/rubies/ruby-1.9.2-p180/include/ruby-1.9.1/ruby/backward -I/Users/dshorthouse/.rvm/rubies/ruby-1.9.2-p180/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wpointer-arith -Wwrite-strings -Wno-missing-field-initializers -Wshorten-64-to-32 -Wno-long-long  -fno-common -pipe   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <ruby.h>
+4: /*top*/
+5: #ifndef SIZEOF_SIZE_T
+6: # error
+7: >>>>>> SIZEOF_SIZE_T undefined <<<<<<
+8: #endif
+/* end */
+
+--------------------
+
+have_macro: checking for SIZEOF_LONG in ruby.h... -------------------- yes
+
+"gcc -I/Users/dshorthouse/.rvm/rubies/ruby-1.9.2-p180/include/ruby-1.9.1/x86_64-darwin10.7.1 -I/Users/dshorthouse/.rvm/rubies/ruby-1.9.2-p180/include/ruby-1.9.1/ruby/backward -I/Users/dshorthouse/.rvm/rubies/ruby-1.9.2-p180/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wpointer-arith -Wwrite-strings -Wno-missing-field-initializers -Wshorten-64-to-32 -Wno-long-long  -fno-common -pipe   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <ruby.h>
+4: /*top*/
+5: #ifndef SIZEOF_LONG
+6: # error
+7: >>>>>> SIZEOF_LONG undefined <<<<<<
+8: #endif
+/* end */
+
+--------------------
+
+have_func: checking for rb_str_set_len() in ruby.h... -------------------- yes
+
+"gcc -o conftest -I/Users/dshorthouse/.rvm/rubies/ruby-1.9.2-p180/include/ruby-1.9.1/x86_64-darwin10.7.1 -I/Users/dshorthouse/.rvm/rubies/ruby-1.9.2-p180/include/ruby-1.9.1/ruby/backward -I/Users/dshorthouse/.rvm/rubies/ruby-1.9.2-p180/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wpointer-arith -Wwrite-strings -Wno-missing-field-initializers -Wshorten-64-to-32 -Wno-long-long  -fno-common -pipe conftest.c  -L. -L/Users/dshorthouse/.rvm/rubies/ruby-1.9.2-p180/lib -L.      -lruby.1.9.1-static  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <ruby.h>
+4: 
+5: /*top*/
+6: int main() {return 0;}
+7: int t() { void ((*volatile p)()); p = (void ((*)()))rb_str_set_len; return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for gmtime_r() in time.h... -------------------- yes
+
+"gcc -o conftest -I/Users/dshorthouse/.rvm/rubies/ruby-1.9.2-p180/include/ruby-1.9.1/x86_64-darwin10.7.1 -I/Users/dshorthouse/.rvm/rubies/ruby-1.9.2-p180/include/ruby-1.9.1/ruby/backward -I/Users/dshorthouse/.rvm/rubies/ruby-1.9.2-p180/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wpointer-arith -Wwrite-strings -Wno-missing-field-initializers -Wshorten-64-to-32 -Wno-long-long  -fno-common -pipe conftest.c  -L. -L/Users/dshorthouse/.rvm/rubies/ruby-1.9.2-p180/lib -L.      -lruby.1.9.1-static  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <time.h>
+4: 
+5: /*top*/
+6: int main() {return 0;}
+7: int t() { void ((*volatile p)()); p = (void ((*)()))gmtime_r; return 0; }
+/* end */
+
+--------------------
+

@@ -1,0 +1,6 @@
+Makefile
+*.o
+*.bundle
+pkg/*
+doc/*
+*.rbc

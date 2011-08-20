@@ -1,0 +1,6 @@
+=== kgio 2.6.0 - minor feature update and cleanups / 2011-07-15 02:01 UTC
+
+  We now export SOCK_NONBLOCK, SOCK_CLOEXEC constants in the Kgio
+  namespace to make kgio_tryaccept/kgio_accept easier-to-use.
+  There are also some minor internal cleanups.
+

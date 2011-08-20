@@ -1,0 +1,10 @@
+=== unicorn 4.0.1 - regression bugfixes / 2011-06-29 18:59 UTC
+
+  This release fixes things for users of per-worker "listen"
+  directives in the after_fork hook.  Thanks to ghazel@gmail.com
+  for reporting the bug.
+
+  The "timeout" configurator directive is now truncated to
+  0x7ffffffe seconds to prevent overflow when calling
+  IO.select.
+

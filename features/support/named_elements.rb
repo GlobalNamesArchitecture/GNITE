@@ -14,7 +14,7 @@ module NamedElementHelper
     when /the Scientific Name tab/
       "li#scientific-name-tab"
     when /the signout link/
-      'a[href^='#{sign_out_path}']"
+      "a[href^='#{sign_out_path}']"
     when /any reference tree nodes/
       ".reference-tree .jstree-leaf"
     when /toolbar/
