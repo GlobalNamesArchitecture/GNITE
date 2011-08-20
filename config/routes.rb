@@ -55,8 +55,8 @@ Gnite::Application.routes.draw do
   
   resource :languages, :only => [:show]
   
-  resources :vocabularies, :controller => :controlled_vocabularies, :only => [:index, :show] do
-    resources :terms, :controller => :controlled_terms, :only => [:index, :show]
+  resources :vocabularies, :controller => :controlled_vocabularies, :only => [:show] do
+    resources :terms, :controller => :controlled_terms, :only => [:show]
   end
   
   root :to => "homes#show"
