@@ -1,0 +1,16 @@
+lib/biodiversity/parser/*rb
+*.gemspec
+*.sw?
+.DS_Store
+coverage
+rdoc
+pkg
+*.swp
+*.swo
+biodiversity*.gem
+*json
+*xml
+tmp
+.DS_Store
+spec/parser/test_data_new.txt
+t

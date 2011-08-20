@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.9'
-gem 'mysql2'
+gem 'mysql2', '0.2.6'
 gem 'clearance', '0.9.0.rc9'
 gem 'formtastic', '1.1.0'
 gem 'engineyard'
@@ -34,7 +34,7 @@ end
 
 group :test do
   gem 'polyglot'
-  gem 'capybara', '1.0.0'
+  gem 'capybara', '1.0.1'
   gem 'cucumber', '1.0.0'
   gem 'cucumber-rails', '1.0.0'
   gem 'database_cleaner'
