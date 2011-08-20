@@ -82,6 +82,15 @@ Feature: View metadata for master tree nodes
   Scenario: User can edit the rank of a node in the metadata panel
     When I select the node "Nut"
     Then I should see "Species" as rank for the "Foods" tree
-    When I select "subspecies" from "Rank" within "the master tree metadata panel"
+    When I edit the rank to "subspecies"
     And I select the node "Nut"
-    Then I should see "subpsecies" as rank for the "Foods" tree
+    Then I should see "subspecies" as rank for the "Foods" tree
+
+  @javascript
+  Scenario: User can change the synonym designation in the metadata panel
+    When I select the node "Nut"
+    And I follow "Kernel" within "the master tree metadata panel"
+    And I follow "homotypic synonym" within "the master tree metadata panel"
+    And I select the node "Nut"
+    And I follow "Kernel" within "the master tree metadata panel"
+    Then the synonym should be of type "synonym"

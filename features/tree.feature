@@ -59,9 +59,9 @@ Feature: Edit a master tree
     And I double click "Bullwinkle" and change it to "Monkey"
     And I refresh the master tree
     And I wait for the tree to load
-    Then I should see "Monkey"
-    And I should see "Rocky"
-    And I should not see "Bullwinkle"
+    Then I should see "Monkey" within "#master-tree"
+    And I should see "Rocky" within "#master-tree"
+    And I should not see "Bullwinkle" within "#master-tree"
 
    @javascript
    Scenario: User can drag a node and drop it onto another within the master tree
