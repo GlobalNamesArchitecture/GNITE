@@ -1,3 +1,0 @@
-#!/usr/bin/env ruby
-
-puts 'it will be command line interface to configure and operate parsley store'
