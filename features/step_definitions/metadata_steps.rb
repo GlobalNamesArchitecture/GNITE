@@ -18,8 +18,11 @@ end
 
 Then /^I should see "([^"]*)" as rank for the "([^"]*)" tree$/ do |rank, tree_title|
   tree = Tree.find_by_title!(tree_title)
-  id   = tree.type == 'MasterTree' ? 'add-node-wrap +' : "reference_tree_#{tree.id}"
-  page.should have_css("##{id} .node-metadata .metadata-rank ul li a span:contains('#{rank.strip}')")
+  if tree.type == 'MasterTree'
+    page.should have_css("#add-node-wrap + .node-metadata .metadata-rank ul li a span:contains('#{rank.strip}')")
+  else
+    page.should have_css("#reference_tree_#{tree.id} .node-metadata .metadata-rank ul li:contains('#{rank.strip}')")
+  end
 end
 
 When /^I rename the synonym "([^"]*)" to "([^"]*)"$/ do |old_synonym, new_synonym|
@@ -48,7 +51,7 @@ Then /^the synonym "([^"]*)" should be of type "([^"]*)"$/ do |synonym, type|
 end
 
 When /^I add a new synonym "([^"]*)"$/ do |new_synonym|
-  page.execute_script("jQuery('div#metadata-synonyms li.metadata-add').click();")
+  page.execute_script("jQuery('.metadata-synonyms li.metadata-add').click();")
   field = find(:css, "input.metadata-input")
   field.set(new_synonym)
   page.execute_script("jQuery('input.metadata-input').blur();")
@@ -56,7 +59,7 @@ When /^I add a new synonym "([^"]*)"$/ do |new_synonym|
 end
 
 When /^I add a new vernacular "([^"]*)"$/ do |new_vernacular|
-  page.execute_script("jQuery('div#metadata-vernaculars li.metadata-add').click();")
+  page.execute_script("jQuery('.metadata-vernacular-names li.metadata-add').click();")
   field = find(:css, "input.metadata-input")
   field.set(new_vernacular)
   page.execute_script("jQuery('input.metadata-input').blur();")

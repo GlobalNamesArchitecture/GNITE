@@ -110,7 +110,7 @@ Feature: View metadata for master tree nodes
     Then I should see "Almond, Peanut, Cashew" as vernacular names for the "Foods" tree
 
   @javascript
-  Scenario: User can change the language for a synonym in the metadata panel
+  Scenario: User can change the language for a vernacular in the metadata panel
     When I select the node "Nut"
     And I follow "Almond" within "the master tree metadata panel"
     And I change the language to "French"
