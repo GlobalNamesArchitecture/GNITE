@@ -94,3 +94,26 @@ Feature: View metadata for master tree nodes
     And I select the node "Nut"
     And I follow "Kernel" within "the master tree metadata panel"
     Then the synonym should be of type "synonym"
+
+  @javascript
+  Scenario: User can add a new synonym in the metadata panel
+    When I select the node "Nut"
+    And I add a new synonym "Macadamia"
+    And I select the node "Nut"
+    Then I should see "Kernel, Nutmeat, Macadamia" as synonyms for the "Foods" tree
+
+  @javascript
+  Scenario: User can add a new vernacular in the metadata panel
+    When I select the node "Nut"
+    And I add a new vernacular "Cashew"
+    And I select the node "Nut"
+    Then I should see "Almond, Peanut, Cashew" as vernacular names for the "Foods" tree
+
+  @javascript
+  Scenario: User can change the language for a synonym in the metadata panel
+    When I select the node "Nut"
+    And I follow "Almond" within "the master tree metadata panel"
+    And I change the language to "French"
+    And I select the node "Nut"
+    And I follow "Almond" within "the master tree metadata panel"
+    Then I should see "French" as the vernacular language for "Almond"

@@ -35,8 +35,41 @@ When /^I edit the rank to "([^"]*)"$/ do |new_rank|
   field = find(:css, "input.metadata-input")
   field.set(new_rank)
   page.execute_script("jQuery('input.metadata-input').blur();")
+  sleep 2
 end
 
 Then /^the synonym should be of type "([^"]*)"$/ do |type|
   page.should have_xpath("//a[@class='nav-view-checked']", :text => type)
+end
+
+When /^I add a new synonym "([^"]*)"$/ do |new_synonym|
+  page.execute_script("jQuery('div#metadata-synonyms li.metadata-add').click();")
+  field = find(:css, "input.metadata-input")
+  field.set(new_synonym)
+  page.execute_script("jQuery('input.metadata-input').blur();")
+  sleep 2
+end
+
+When /^I add a new vernacular "([^"]*)"$/ do |new_vernacular|
+  page.execute_script("jQuery('div#metadata-vernaculars li.metadata-add').click();")
+  field = find(:css, "input.metadata-input")
+  field.set(new_vernacular)
+  page.execute_script("jQuery('input.metadata-input').blur();")
+  sleep 2
+end
+
+When /^I change the language to "([^"]*)"$/ do |language|
+  field = find(:css, "li.vernacular ul.subnav li input.metadata-autocomplete")
+  field.set(language)
+  page.execute_script("jQuery('li.vernacular ul.subnav li input.metadata-autocomplete').blur();")
+  sleep 2
+end
+
+Then /^I should see "([^"]*)" as the vernacular language for "([^"]*)"$/ do |language, vernacular|
+  field = find(:xpath, "//li[@class='vernacular']/a/span[contains(.,'#{vernacular}')]/parent::node()/parent::node()/ul[@class='subnav']/li/input[@class='metadata-autocomplete']")
+  if field.value.respond_to? :should
+    field.value.should =~ /#{language}/
+  else
+    assert_match(/#{language}/, field.value)
+  end
 end

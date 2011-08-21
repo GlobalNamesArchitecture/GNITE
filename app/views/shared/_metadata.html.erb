@@ -9,9 +9,15 @@
   <div class="label">
     <h4>Rank</h4>
   </div>
-  <div id="metadata-rank" class="lists ddsmoothmenu" data-type="ranks">
+  <div id="metadata-rank-<%= @metadata[:id] %>"class="lists ddsmoothmenu" data-type="ranks">
     <ul class="topnav">
-      <li class="rank"><a href="#"><span><%= @metadata[:rank] %></span></a></li>
+      <li class="rank">
+        <% if tree_type == "MasterTree" %>
+          <a href="#"><span><%= @metadata[:rank] %></span></a>
+        <% else %>
+          <%= @metadata[:rank] %>
+        <% end %>
+      </li>
     </ul>
   </div>
 </div>
@@ -20,7 +26,7 @@
   <div class="label">
     <h4>Synonyms</h4>
   </div>
-  <div id="metadata-synonyms" class="lists ddsmoothmenu jstree-drop" data-type="synonyms">
+  <div id="metadata-synonyms-<%= @metadata[:id] %>" class="lists ddsmoothmenu jstree-drop" data-type="synonyms">
     <ul class="topnav">
       <% if @metadata[:synonyms].empty? %>
         <li class="synonym metadata-none">None</li>
@@ -36,7 +42,7 @@
             </ul>
          </li>
          <% else %>
-          <li><%= synonym[:name_string] %></li>
+          <li title="<%= synonym[:metadata][:status] %>"><%= synonym[:name_string] %></li>
           <% end %>
         <% end %>
       <% end %>
@@ -49,7 +55,7 @@
   <div class="label">
     <h4>Vernaculars</h4>
   </div>
-  <div id="metadata-vernaculars" class="lists ddsmoothmenu" data-type="vernacular_names">
+  <div id="metadata-vernaculars-<%= @metadata[:id] %>" class="lists ddsmoothmenu" data-type="vernacular_names">
     <ul class="topnav">
       <% if @metadata[:vernaculars].empty? %>
         <li class="vernacular metadata-none">None</li>
@@ -59,12 +65,12 @@
           <li id="vernacular_names-<%= vernacular[:metadata][:id] %>" class="vernacular"><a href="#"><span><%= vernacular[:name_string] %></span></a>
             <ul class="subnav">
               <li>
-                <label for="vernacular-language">Language</label>
-                <input id="vernacular-language" type="text" class="metadata-autocomplete" value="<%= vernacular[:metadata][:language][:name] %>" data-terms="url:/languages.json" data-term-id="<%= vernacular[:metadata][:language][:id] %>" /></li>
+                <label for="vernacular-language-<%= vernacular[:metadata][:id] %>">Language</label>
+                <input id="vernacular-language-<%= vernacular[:metadata][:id] %>" type="text" class="metadata-autocomplete" value="<%= vernacular[:metadata][:language][:name] %>" data-terms="url:/languages.json" data-term-id="<%= vernacular[:metadata][:language][:id] %>" /></li>
             </ul>
           </li>
           <% else %>
-          <li><%= vernacular[:name_string] %></li>
+          <li title="<%= vernacular[:metadata][:language][:name] %>"><%= vernacular[:name_string] %></li>
           <% end %>
         <% end %>
       <% end %>

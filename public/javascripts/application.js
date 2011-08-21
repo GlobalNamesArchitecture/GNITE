@@ -2180,6 +2180,7 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
                 }
               }
             }).find("a:first").dblclick(function() {
+              $(this).unbind('dblclick');
               if(self.hasClass("metadata-none")) {
                 GNITE.Tree.MasterTree.editMetadata(self, type, "POST");
               } else {
@@ -2198,6 +2199,7 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
 
           } else if(self.hasClass("rank")) {
               self.dblclick(function() {
+                self.unbind('dblclick');
                 GNITE.Tree.MasterTree.editMetadata(self, type, "PUT", '/vocabularies/rank.json');
               });
 
@@ -2264,7 +2266,7 @@ GNITE.Tree.MasterTree.editMetadata = function(elem, type, action, autocomplete_u
   if(elem.hasClass("metadata-add")) {
     elem.before("<li><a href=\"#\" class=\"selected\"><span>&nbsp;</span></a></li>").prev().addClass("active-edit").find("a.selected").css({"width" : width});
   } else {
-    elem.addClass("active-edit").removeClass("jstree-draggable").unbind('mouseenter mouseleave');
+    elem.addClass("active-edit").removeClass("jstree-draggable").unbind('mouseenter mouseleave').find("a:first").css({"width" : width});
     t = elem.find("a:first span").text();
   }
 
