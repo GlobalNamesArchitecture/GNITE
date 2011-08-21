@@ -93,7 +93,7 @@ Feature: View metadata for master tree nodes
     And I follow "homotypic synonym" within "the master tree metadata panel"
     And I select the node "Nut"
     And I follow "Kernel" within "the master tree metadata panel"
-    Then the synonym should be of type "synonym"
+    Then the synonym "Kernel" should be of type "homotypic synonym"
 
   @javascript
   Scenario: User can add a new synonym in the metadata panel

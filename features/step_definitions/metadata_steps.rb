@@ -38,8 +38,13 @@ When /^I edit the rank to "([^"]*)"$/ do |new_rank|
   sleep 2
 end
 
-Then /^the synonym should be of type "([^"]*)"$/ do |type|
-  page.should have_xpath("//a[@class='nav-view-checked']", :text => type)
+Then /^the synonym "([^"]*)" should be of type "([^"]*)"$/ do |synonym, type|
+  synonym_type = find(:xpath, "//li[@class='synonym']/a/span[contains(.,'#{synonym}')]/parent::node()/parent::node()/ul[@class='subnav']/li/a[@class='nav-view-checked']")
+  if synonym_type.text.respond_to? :should
+    synonym_type.text.should == "#{type}"
+  else
+    assert_match("#{type}", synonym_type.text)
+  end
 end
 
 When /^I add a new synonym "([^"]*)"$/ do |new_synonym|
