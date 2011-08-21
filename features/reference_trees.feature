@@ -50,3 +50,12 @@ Feature: Work with reference trees
     And I select the node "Pardosa"
     And I expand the node "Pardosa"
     Then I should see a node "Pardosa xerampelina" under "Pardosa"
+
+  @javascript
+  Scenario: User can deselect all nodes in a reference tree
+    And I select the node "Pardosa distincta" in my reference tree
+    And I select the node "Pardosa moesta" in my reference tree
+    And I select the node "Pardosa xerampelina" in my reference tree
+    When I follow "View" within ".reference-tree"
+    And I follow "Deselect all" within ".reference-tree"
+    Then no nodes should be selected in the reference tree

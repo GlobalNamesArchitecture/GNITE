@@ -117,3 +117,15 @@ Feature: View metadata for master tree nodes
     And I select the node "Nut"
     And I follow "Almond" within "the master tree metadata panel"
     Then I should see "French" as the vernacular language for "Almond"
+
+  @javascript
+  Scenario: User can delete a synonym in the metadata panel
+
+  @javascript
+  Scenario: User can delete a vernacular in the metadata panel
+
+  @javascript
+  Scenario: User can edit a synonym in the metadata panel via a context menu
+
+  @javascript
+  Scenario: User can edit a vernacular in the metadata panel via a context menu

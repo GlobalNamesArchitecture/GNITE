@@ -84,3 +84,7 @@ When /^I wait for the reference tree to load$/ do
     loaded = page.has_css?(".reference-tree-container > div.loaded") && !page.has_css?("span.jstree-loading")
   end
 end
+
+Then /^no nodes should be selected in the reference tree$/ do
+  page.should_not have_css(".reference-tree-container a.jstree-clicked")
+end

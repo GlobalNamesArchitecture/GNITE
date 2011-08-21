@@ -152,6 +152,18 @@ Feature: Edit a master tree
     And I click a non-text area of a node in the master tree
     Then no nodes should be selected in the master tree
 
+  @javascript
+  Scenario: User can deselect all nodes
+    Given I have signed in with "email@person.com/password"
+    And "email@person.com" has created an existing master tree titled "Moose tree" with:
+      | Bullwinkle |
+    And I am on the master tree index page
+    When I follow "Moose tree"
+    And I select the node "Bullwinkle"
+    And I follow "View" within "toolbar"
+    When I follow "Deselect all" within "toolbar"
+    Then no nodes should be selected in the master tree
+
   Scenario: User can edit the metadata for a tree
     Given I have signed in with "email@person.com/password"
     And "email@person.com" has created an existing master tree titled "Moose tree" with:
