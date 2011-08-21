@@ -1900,8 +1900,8 @@ GNITE.Tree.MasterTree.merge = function() {
     $('#master-tree-merge-selection h2').text($('#header h1').text());
     $('#reference-tree-merge-selection h2').text(reference.parents('.reference-tree').find('.breadcrumbs ul li').text());
 
-    $('#master-tree-merge-selection span').text(master_selected_string).parent().find("input").val(master_selected[0].id);
-    $('#reference-tree-merge-selection span').text(reference_selected_string).parent().find("input").val(reference_selected[0].id);
+    $('#master-tree-merge-selection label').text(master_selected_string).parent().find("input").val(master_selected[0].id);
+    $('#reference-tree-merge-selection label').text(reference_selected_string).parent().find("input").val(reference_selected[0].id);
 
     $("#merge-form").dialog("open");
   }

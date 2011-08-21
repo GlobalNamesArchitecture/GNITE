@@ -388,3 +388,22 @@ describe "search in trees" do
     )
   end
 end
+
+describe "languges list" do
+  it "routes GET /languages to languages#show" do
+    { :get => "/languages" }.should route_to(
+      :controller => "languages",
+      :action => "show"
+    )
+  end
+end
+
+describe "vocabularies list" do
+  it "routes GET /vocabularies/:id to vocabularies#show" do
+    { :get => "/vocabularies/ranks" }.should route_to(
+      :controller => "controlled_vocabularies",
+      :action => "show",
+      :id => "ranks"
+    )
+  end
+end

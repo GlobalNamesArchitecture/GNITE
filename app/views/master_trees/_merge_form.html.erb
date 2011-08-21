@@ -4,13 +4,13 @@
       <div id="master-tree-merge-selection" class="merge-column">
         <h2></h2>
         <%= radio_button("merge", "authoritative_node", "master_tree_node", { :checked => true }) %>
-        <span></span>
+        <%= label "merge", "authoritative_node_master_tree_node" %>
         <%= hidden_field "merge", "master_tree_node" %>
       </div>
       <div id="reference-tree-merge-selection" class="merge-column">
         <h2></h2>
         <%= radio_button("merge", "authoritative_node", "reference_tree_node") %>
-        <span></span>
+        <%= label "merge", "authoritative_node_reference_tree_node" %>
         <%= hidden_field "merge", "reference_tree_node" %>
       </div>
     <% end %>
