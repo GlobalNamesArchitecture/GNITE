@@ -736,7 +736,7 @@ body form input {
 }
 
 /* TOOLSBAR ABOVE TREES & CONTEXT MENU FOR METADATA PANELS */
-#treewrap-right .node-metadata ul li {
+#treewrap-right .node-metadata ul li, #merge-results-wrapper .node-metadata ul li {
   background-color:transparent;
   border:1px solid transparent;
 }

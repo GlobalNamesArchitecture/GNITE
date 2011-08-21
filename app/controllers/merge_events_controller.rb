@@ -15,7 +15,7 @@ class MergeEventsController < ApplicationController
     @merge_event = MergeEvent.find(params[:id])
     @master_tree = @merge_event.master_tree
 
-    if @merge_event.status == "complete"
+    if @merge_event.status != "in review"
       redirect_to master_tree_path(@master_tree)
     end
 
@@ -92,19 +92,31 @@ class MergeEventsController < ApplicationController
   end
 
   def do
+
     me = MergeEvent.find(params[:id])
-    master_tree_node = me.primary_node.tree == me.master_tree ? me.primary_node : me.secondary_node
-    parent = master_tree_node.parent
-    params[:action_type] = "ActionMoveNodeToDeletedTree"
-    schedule_action(master_tree_node, me.master_tree, params)
-    merge_tree_node = me.merge_tree.root.children[0]
-    params[:node] = {}
-    params[:node][:parent_id] = parent.id
-    params[:action_type] = "ActionCopyNodeFromAnotherTree"
-    schedule_action(merge_tree_node, me.master_tree, params)
-    me.status = "complete"
+    
+    if params[:discard]
+      me.master_tree.state = 'active'
+      me.master_tree.save!
+      channel = "tree_#{me.master_tree.id}"
+      Juggernaut.publish(channel, { :subject => "unlock" }.to_json)
+      me.status = "discarded"      
+    else
+      master_tree_node = me.primary_node.tree == me.master_tree ? me.primary_node : me.secondary_node
+      parent = master_tree_node.parent
+      params[:action_type] = "ActionMoveNodeToDeletedTree"
+      schedule_action(master_tree_node, me.master_tree, params)
+      merge_tree_node = me.merge_tree.root.children[0]
+      params[:node] = {}
+      params[:node][:parent_id] = parent.id
+      params[:action_type] = "ActionCopyNodeFromAnotherTree"
+      schedule_action(merge_tree_node, me.master_tree, params)
+      me.status = "complete"
+    end
+
     me.save!
     redirect_to master_tree_path(me.master_tree)
+
   end
   
   def update
