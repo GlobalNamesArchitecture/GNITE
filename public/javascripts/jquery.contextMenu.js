@@ -31,7 +31,7 @@
       menu = $('<div></div>')
                .hide()
                .attr("id", "ddsmoothmenu-context")
-               .css({position:'absolute', zIndex:'500'})
+               .css({position:'absolute', zIndex:'1000'})
                .addClass('ddsmoothmenu-v')
                .appendTo('body')
                .bind('click', function(e) {
@@ -68,15 +68,13 @@
 
     if (!!cur.onShowMenu) { menu = cur.onShowMenu(e, menu); }
 
-    menu.css({'left':e[cur.eventPosX],'top':e[cur.eventPosY]}).show();
-    if( (e[cur.eventPosY] + menu.height()) > ($(window).height() + $(window).scrollTop()) ) { menu.css({'left':e[cur.eventPosX],'top':e[cur.eventPosY]-menu.height()}); }
+    if( (e[cur.eventPosY] + menu.height()) > ($(window).height() + $(window).scrollTop()) ) {
+      menu.css({'left':e[cur.eventPosX],'top':e[cur.eventPosY]-menu.height()});
+    } else {
+      menu.css({'left':e[cur.eventPosX],'top':e[cur.eventPosY]});
+    }
 
-    ddsmoothmenu.init({
-      mainmenuid: 'ddsmoothmenu-context',
-      orientation: 'v',
-      classname: 'ddsmoothmenu-v',
-      contentsource: 'markup'
-    });
+    menu.show();
 
     $.each(cur.bindings, function(klass, func) {
       $('.'+klass, menu).bind('click', function(e) {
@@ -86,7 +84,9 @@
       });
     });
 
-    $(document).one('click', hide); //TODO: fix disappearance of context menu when positioned about bottom portion of DOM
+    $(document).one('click', function() {
+      hide();
+    });
   }
 
   function hide() {

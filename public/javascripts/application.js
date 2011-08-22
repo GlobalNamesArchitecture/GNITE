@@ -552,8 +552,6 @@ $(function() {
                return false;
             });
           },
-          error : function() {
-          },
           complete : function() {
             results.unspinner();
           }
