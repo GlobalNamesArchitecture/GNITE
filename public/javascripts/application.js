@@ -2138,81 +2138,89 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
         wrapper.css('bottom', '20px');
         return false;
       });
-
       if(wrapper.find("#master-tree").length) {
-        var selected = $('#master-tree').jstree('get_selected'),
-            node_id  = $(selected[0]).attr("id");
-
-        $('.metadata-autocomplete').inlineComplete();
-
-        $(".metadata-section").find(".ddsmoothmenu").each(function() {
-          ddsmoothmenu.init({
-            mainmenuid: $(this).attr("id"),
-            orientation: 'h',
-            classname: 'ddsmoothmenu',
-            contentsource: "markup"
-          });
-        });
-
-        container.find("li.rank, li.synonym, li.vernacular, li.metadata-add").each(function() {
-          var self = $(this), type = self.parent().parent().attr("data-type");
-
-          $(this).not('.metadata-add').click(function() { return false; });
-
-          if(self.hasClass("synonym") || self.hasClass("vernacular")) {
-            self.contextMenu(self.attr("class") + '-context', {
-              'bindings' : {
-                'nav-edit-rename' : function(t) {
-                  GNITE.Tree.MasterTree.editMetadata(self, type, "PUT");
-                },
-                'nav-edit-delete' : function(t) {
-                    container.spinner();
-                    GNITE.Tree.MasterTree.reconciliation({ 
-                      type           : type, 
-                      action         : 'DELETE', 
-                      id             : self.attr("id").split("-")[1],
-                      destination_id : node_id,
-                      data           : {
-                        name_string    : self.find("a span").text(),
-                      }
-                    });
-                    container.unspinner();
-                }
-              }
-            }).find("a:first").dblclick(function() {
-              $(this).unbind('dblclick');
-              if(self.hasClass("metadata-none")) {
-                GNITE.Tree.MasterTree.editMetadata(self, type, "POST");
-              } else {
-                GNITE.Tree.MasterTree.editMetadata(self, type, "PUT");
-              }
-            });
-
-            self.find("ul.subnav li a").click(function() {
-              GNITE.Tree.Node.updateMetadata(self, type, node_id, this);
-              return false;
-            });
-
-            self.find("ul.subnav li input.metadata-autocomplete").each(function() {
-              GNITE.Tree.Node.autoComplete(self, type, node_id, this);
-            })
-
-          } else if(self.hasClass("rank")) {
-              self.dblclick(function() {
-                self.unbind('dblclick');
-                GNITE.Tree.MasterTree.editMetadata(self, type, "PUT", '/vocabularies/rank.json');
-              });
-
-          } else if(self.hasClass("metadata-add")) {
-            self.click(function() { GNITE.Tree.MasterTree.editMetadata(self, type, "POST"); });
-          }
-        });
+        GNITE.Tree.Node.adjustMasterTreeMetadata(container);
       }
+      wrapper.css('bottom', container.height());
     }
   });
 
   container.unspinner().show();
-  wrapper.css('bottom', container.height());
+
+};
+
+GNITE.Tree.Node.adjustMasterTreeMetadata = function(container) {
+
+  "use strict";
+
+  var selected = $('#master-tree').jstree('get_selected'),
+      node_id  = $(selected[0]).attr("id");
+
+  $('.metadata-autocomplete').inlineComplete();
+
+  $(".metadata-section").find(".ddsmoothmenu").each(function() {
+    ddsmoothmenu.init({
+      mainmenuid: $(this).attr("id"),
+      orientation: 'h',
+      classname: 'ddsmoothmenu',
+      contentsource: "markup"
+    });
+  });
+
+  container.find("li.rank, li.synonym, li.vernacular, li.metadata-add").each(function() {
+    var self = $(this), type = self.parent().parent().attr("data-type");
+
+    $(this).not('.metadata-add').click(function() { return false; });
+
+    if(self.hasClass("synonym") || self.hasClass("vernacular")) {
+      self.contextMenu(self.attr("class") + '-context', {
+        'bindings' : {
+          'nav-edit-rename' : function(t) {
+            GNITE.Tree.MasterTree.editMetadata(self, type, "PUT");
+           },
+           'nav-edit-delete' : function(t) {
+             container.spinner();
+             GNITE.Tree.MasterTree.reconciliation({ 
+               type           : type, 
+               action         : 'DELETE', 
+               id             : self.attr("id").split("-")[1],
+               destination_id : node_id,
+               data           : {
+                 name_string    : self.find("a span").text(),
+               }
+             });
+             container.unspinner();
+           }
+         },
+         'onContextMenu' : function() { self.find('ul.subnav').hide(); return true; }
+       }).find("a:first").dblclick(function() {
+         $(this).unbind('dblclick');
+         if(self.hasClass("metadata-none")) {
+           GNITE.Tree.MasterTree.editMetadata(self, type, "POST");
+         } else {
+           GNITE.Tree.MasterTree.editMetadata(self, type, "PUT");
+         }
+       });
+
+       self.find("ul.subnav li a").click(function() {
+         GNITE.Tree.Node.updateMetadata(self, type, node_id, this);
+         return false;
+       });
+
+       self.find("ul.subnav li input.metadata-autocomplete").each(function() {
+         GNITE.Tree.Node.autoComplete(self, type, node_id, this);
+       });
+
+     } else if(self.hasClass("rank")) {
+       self.dblclick(function() {
+         self.unbind('dblclick');
+         GNITE.Tree.MasterTree.editMetadata(self, type, "PUT", '/vocabularies/rank.json');
+       });
+
+     } else if(self.hasClass("metadata-add")) {
+       self.click(function() { GNITE.Tree.MasterTree.editMetadata(self, type, "POST"); });
+     }
+   });
 };
 
 GNITE.Tree.Node.autoComplete = function(elem, type, node_id, obj) {
