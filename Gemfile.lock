@@ -161,18 +161,19 @@ GEM
       vegas (~> 0.1.2)
     rest-client (1.6.1)
       mime-types (>= 1.16)
-    rspec (2.0.1)
-      rspec-core (~> 2.0.1)
-      rspec-expectations (~> 2.0.1)
-      rspec-mocks (~> 2.0.1)
-    rspec-core (2.0.1)
-    rspec-expectations (2.0.1)
-      diff-lcs (>= 1.1.2)
-    rspec-mocks (2.0.1)
-      rspec-core (~> 2.0.1)
-      rspec-expectations (~> 2.0.1)
-    rspec-rails (2.0.1)
-      rspec (~> 2.0.0)
+    rspec (2.6.0)
+      rspec-core (~> 2.6.0)
+      rspec-expectations (~> 2.6.0)
+      rspec-mocks (~> 2.6.0)
+    rspec-core (2.6.4)
+    rspec-expectations (2.6.0)
+      diff-lcs (~> 1.1.2)
+    rspec-mocks (2.6.0)
+    rspec-rails (2.6.1)
+      actionpack (~> 3.0)
+      activesupport (~> 3.0)
+      railties (~> 3.0)
+      rspec (~> 2.6.0)
     ruby-debug-base19 (0.11.24)
       columnize (>= 0.3.1)
       linecache19 (>= 0.5.11)
@@ -184,6 +185,8 @@ GEM
     ruby_core_source (0.1.4)
       archive-tar-minitar (>= 0.5.2)
     rubyzip (0.9.4)
+    sanitize (2.0.3)
+      nokogiri (>= 1.4.4, < 1.6)
     selenium-webdriver (2.4.0)
       childprocess (>= 0.2.1)
       ffi (>= 1.0.7)
@@ -243,7 +246,7 @@ DEPENDENCIES
   juggernaut (= 2.0.1)
   launchy
   mocha
-  mysql2 (= 0.2.6)
+  mysql2
   nokogiri
   parsley-store (= 0.2.2)
   polyglot
@@ -251,8 +254,9 @@ DEPENDENCIES
   rails (= 3.0.9)
   resque (= 1.16.1)
   rest-client (= 1.6.1)
-  rspec-rails (= 2.0.1)
+  rspec-rails (= 2.6.1)
   ruby-debug19
+  sanitize (= 2.0.3)
   sham_rack
   shoulda!
   sinatra
