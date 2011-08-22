@@ -1,12 +1,12 @@
 class ActionCopyNodeFromAnotherTree < ActionCommand
 
   def precondition_do
-    @destination_node = Node.find(destination_parent_id)
+    @destination_node = Node.find(destination_parent_id) rescue nil
     !!(tree_id && node && @destination_node && ancestry_ok?(@destination_node))
   end
 
   def precondition_undo
-    @destination_node = Node.find(destination_node_id)
+    @destination_node = Node.find(destination_node_id) rescue nil
     !!(tree_id && @destination_node)
   end
 

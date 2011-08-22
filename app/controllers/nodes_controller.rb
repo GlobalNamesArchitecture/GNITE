@@ -32,6 +32,7 @@ class NodesController < ApplicationController
     node = tree.nodes.find(params[:id])
     
     @metadata = {
+      :id          => node.id,
       :name        => node.name_string,
       :rank        => node.rank_string,
       :synonyms    => node.synonym_data,
@@ -44,7 +45,12 @@ class NodesController < ApplicationController
       end
       
       format.html do
-        render :partial => 'shared/metadata'
+        if params[:master_tree_id]
+          tree_type = 'MasterTree'
+        elsif params[:reference_tree_id]
+          tree_type = 'ReferenceTree'
+        end
+        render :partial => 'shared/metadata', :locals => { :tree_type => tree_type }
       end
     end
 
@@ -53,8 +59,6 @@ class NodesController < ApplicationController
   def create
     master_tree = current_user.master_trees.find(params[:master_tree_id])
     params[:node][:parent_id] = master_tree.root.id unless params[:node] && params[:node][:parent_id]
-    #node will exist if we create a new node by copy from a reference tree
-    #TODO: if node was dragged from reference to master 2+ times, it will fail because of a duplicate key in nodes table on 'index_nodes_on_local_id_and_tree_id'
     node = params[:node] && params[:node][:id] ? Node.find(params[:node][:id]) : nil
     action_command = schedule_action(node, master_tree, params)
     respond_to do |format|

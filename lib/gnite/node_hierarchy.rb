@@ -84,7 +84,27 @@ module Gnite
         c.collect_children_to_delete(nodes_to_delete)
       end
     end
-  
+    
+    def delete_softly
+      self.parent_id = self.tree.deleted_tree.root.id
+      self.tree_id = self.tree.deleted_tree.id
+      save!
+      self.descendants.each do |descendant|
+        descendant.tree_id = self.tree.deleted_tree.id
+        descendant.save!
+      end
+    end
+
+    def restore(restore_parent)
+      self.parent_id = restore_parent.id
+      self.tree_id = restore_parent.tree.id
+      save!
+      self.descendants.each do |descendant|
+        descendant.tree_id = restore_parent.tree.id
+        descendant.save!
+      end
+    end
+
     private
     
     def delete_nodes_records(ids)

@@ -116,6 +116,13 @@ Factory.define :action_add_node do |action_add_node|
   action_add_node.parent_id { |a| Factory(:node, :tree_id => a.tree_id).id }
 end
 
+Factory.define :action_change_rank do |action_change_rank|
+  action_change_rank.tree_id { Factory(:master_tree).id }
+  action_change_rank.association :user
+  action_change_rank.node_id { |a| Factory(:node, :tree_id => a.tree_id, :rank => "species" ).id }
+  action_change_rank.json_message { {:do => "subpecies"}.to_json }
+end
+
 Factory.define :action_bulk_add_node do |action_bulk_add_node|
   action_bulk_add_node.tree_id { Factory(:master_tree).id }
   action_bulk_add_node.association :user
@@ -128,4 +135,12 @@ Factory.define :action_bulk_copy_node do |action_bulk_copy_node|
   action_bulk_copy_node.association :user
   action_bulk_copy_node.destination_parent_id { |a| Factory(:node, :tree_id => a.tree_id).id }
   action_bulk_copy_node.json_message { {:do => nil}.to_json }
+end
+
+Factory.define :action_node_to_synonym do |action_node_to_synonym|
+  action_node_to_synonym.tree_id { Factory(:master_tree).id }
+  action_node_to_synonym.association :user
+  action_node_to_synonym.node_id { |a| Factory(:node, :tree_id => a.tree_id).id }
+  action_node_to_synonym.destination_node_id { |a| Factory(:node, :tree_id => a.tree_id).id }
+  action_node_to_synonym.json_message { {:do => nil, :undo => nil}.to_json }
 end

@@ -1,8 +1,8 @@
 class ActionMoveNodeWithinTree < ActionCommand
 
   def precondition_do
-    @parent = Node.find(parent_id)
-    @destination_parent = Node.find(destination_parent_id)
+    @parent = Node.find(parent_id) rescue nil
+    @destination_parent = Node.find(destination_parent_id) rescue nil
     !!(tree_id \
        && node && @parent && @destination_parent \
        && ancestry_ok?(@parent) \

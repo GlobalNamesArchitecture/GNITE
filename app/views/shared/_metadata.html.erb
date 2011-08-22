@@ -1,33 +1,80 @@
-<div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix">
+<div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix" data-node-id="<%= @metadata[:id] %>">
   <span class="ui-dialog-title"><%= @metadata[:name] %></span>
   <a class="ui-dialog-titlebar-close" href="#" role="button">
     <span class="ui-icon ui-icon-closethick"></span>
   </a>
 </div>
 
-<!--<h3 class="metadata-title"><%= @metadata[:name] %></h3>-->
-
 <div class="metadata-section metadata-rank clearfix">
-  <h4><span>Rank</span></h4>
-  <ul class="clearfix">
-    <li><%= @metadata[:rank] %></li>
-  </ul>
+  <div class="label">
+    <h4>Rank</h4>
+  </div>
+  <div id="metadata-rank-<%= @metadata[:id] %>"class="lists ddsmoothmenu" data-type="ranks">
+    <ul class="topnav">
+      <li class="rank">
+        <% if tree_type == "MasterTree" %>
+          <a href="#"><span><%= @metadata[:rank] %></span></a>
+        <% else %>
+          <%= @metadata[:rank] %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
 </div>
 
 <div class="metadata-section metadata-synonyms clearfix">
-  <h4><span>Synonyms</span></h4>
-  <ul class="clearfix">
-    <% @metadata[:synonyms].each do |synonym| %>
-      <li><%= synonym[:name_string] %></li>
-    <% end %>
-  </ul>
+  <div class="label">
+    <h4>Synonyms</h4>
+  </div>
+  <div id="metadata-synonyms-<%= @metadata[:id] %>" class="lists ddsmoothmenu jstree-drop" data-type="synonyms">
+    <ul class="topnav">
+      <% if @metadata[:synonyms].empty? %>
+        <li class="synonym metadata-none">None</li>
+      <% else %>
+        <% @metadata[:synonyms].each do |synonym| %>
+          <% if tree_type == "MasterTree" %>
+          <li id="synonym-<%= synonym[:metadata][:id] %>" class="synonym"><a href="#"><span><%= synonym[:name_string] %></span></a>
+            <ul class="subnav">
+              <% ControlledVocabulary.find_by_identifier("taxonomic_status").controlled_terms.each do |status| %>
+                <% metadata_class = (status.name == synonym[:metadata][:status]) ? " class=\"nav-view-checked\"": "" %>
+                <li data-metadata-term="<%= status.identifier %>" class="metadata-edit"><a href="#"<%= raw metadata_class %>><%= status.name %></a></li>
+              <% end %>
+            </ul>
+         </li>
+         <% else %>
+          <li title="<%= synonym[:metadata][:status] %>"><%= synonym[:name_string] %></li>
+          <% end %>
+        <% end %>
+      <% end %>
+      <%= raw (tree_type == "MasterTree") ? "<li class=\"metadata-add green-submit-small\">Add</li>": "" %>
+    </ul>
+  </div>
 </div>
 
 <div class="metadata-section metadata-vernacular-names clearfix">
-  <h4><span>Vernaculars</span></h4>
-  <ul class="clearfix">
-    <% @metadata[:vernaculars].each do |vernacular| %>
-      <li><%= vernacular[:name_string] %></li>
-    <% end %>
-  </ul>
+  <div class="label">
+    <h4>Vernaculars</h4>
+  </div>
+  <div id="metadata-vernaculars-<%= @metadata[:id] %>" class="lists ddsmoothmenu" data-type="vernacular_names">
+    <ul class="topnav">
+      <% if @metadata[:vernaculars].empty? %>
+        <li class="vernacular metadata-none">None</li>
+      <% else %>
+        <% @metadata[:vernaculars].each do |vernacular| %>
+          <% if tree_type == "MasterTree" %>
+          <li id="vernacular_names-<%= vernacular[:metadata][:id] %>" class="vernacular"><a href="#"><span><%= vernacular[:name_string] %></span></a>
+            <ul class="subnav">
+              <li>
+                <label for="vernacular-language-<%= vernacular[:metadata][:id] %>">Language</label>
+                <input id="vernacular-language-<%= vernacular[:metadata][:id] %>" type="text" class="metadata-autocomplete" value="<%= vernacular[:metadata][:language][:name] %>" data-terms="url:/languages.json" data-term-id="<%= vernacular[:metadata][:language][:id] %>" /></li>
+            </ul>
+          </li>
+          <% else %>
+          <li title="<%= vernacular[:metadata][:language][:name] %>"><%= vernacular[:name_string] %></li>
+          <% end %>
+        <% end %>
+      <% end %>
+      <%= raw (tree_type == "MasterTree") ? "<li class=\"metadata-add green-submit-small\">Add</li>": "" %>
+    </ul>
+  </div>
 </div>

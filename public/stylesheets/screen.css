@@ -264,6 +264,11 @@ body form input {
   background: -webkit-gradient(linear,left bottom,left top, color-stop(0.04, rgb(27,112,4)), color-stop(0.58, rgb(90,165,43)), color-stop(0.98, rgb(144,207,76))) !important;
 }
 
+.disabled {
+  background: #E6E6E6 !important;
+  color:#C0C0C0 !important;
+}
+
 .cancel-button {
   background: #FF4040;
   background: -moz-linear-gradient(center bottom, rgb(139,35,35) 4%, rgb(255,64,64) 58%, rgb(255,193,193) 98%) !important;
@@ -279,6 +284,14 @@ body form input {
   box-shadow: inset 1px 1px 5px 1px rgb(126, 229, 44), 0 1px 2px rgba(0,0,0, 1);
   -moz-box-shadow: inset 1px 1px 5px 1px rgb(126, 229, 44), 0 1px 2px rgba(0,0,0, 1);
   -webkit-box-shadow: inset 1px 1px 5px 1px rgb(126, 229, 44), 0 1px 2px rgba(0,0,0, 1);
+}
+
+.disabled:hover {
+  border:0px !important;
+  cursor:auto;
+  box-shadow:none;
+  -moz-box-shadow:none;
+  -webkit-box-shadow:none;
 }
 
 .cancel-button:hover {
@@ -722,12 +735,172 @@ body form input {
   background: -moz-linear-gradient(center bottom, rgb(208,212,215) 0, rgb(248,253,255) 100%);
 }
 
-/* TOOLSBAR ABOVE TREES */
-.ddsmoothmenu {
-  width: 100%;
+/* TOOLSBAR ABOVE TREES & CONTEXT MENU FOR METADATA PANELS */
+#treewrap-right .node-metadata ul li, #merge-results-wrapper .node-metadata ul li {
+  background-color:transparent;
+  border:1px solid transparent;
 }
 
-.ddsmoothmenu ul {
+.metadata-section {
+  background: #BABFC3;
+  border-top: 1px solid #dadddf;
+  margin: 0;
+  padding: 0;
+}
+
+.node-metadata .metadata-section:last-child {
+  border-radius:0px 0px 8px 8px;
+  -moz-border-radius:0px 0px 8px 8px;
+  -webkit-border-radius:0px 0px 8px 8px;
+}
+
+.metadata-section ul.topnav a {
+  padding:0px;
+}
+
+#treewrap-main .metadata-section ul.topnav li {
+  cursor:pointer;
+}
+
+.metadata-section .ddsmoothmenu ul.topnav {
+  padding-bottom:5px;
+}
+
+.metadata-section .ddsmoothmenu ul.topnav li span {
+  position:inherit;
+}
+
+.metadata-section .ddsmoothmenu ul.topnav img.downarrowclass {
+  top:8px;
+  right:4px;
+}
+
+.metadata-section .ddsmoothmenu ul.topnav ul.subnav li {
+  border:0px;
+  border-radius:0px;
+  -moz-border-radius:0px;
+  -webkit-border-radius:0px;
+  background:transparent;
+  padding:0px;
+  margin:0px;
+  white-space:nowrap;
+}
+
+.metadata-section .ddsmoothmenu ul.topnav ul.subnav li a {
+  padding:5px 5px 5px 25px;
+  margin:0px;
+  min-width:0px;
+}
+
+.node-metadata {
+  background: #fff;
+  border-radius: 0px 0px 8px 8px;
+  -moz-border-radius: 0px 0px 8px 8px;
+  -webkit-border-radius: 0px 0px 8px 8px;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  bottom: 0;
+  display: none;
+  margin: 10px 0 0 0;
+  position: absolute;
+  top: auto;
+  width: 100%; 
+  overflow:visible;
+}
+
+.node-metadata div.label {
+  float: left;
+  margin: 0;
+  padding: 10px 0 0 0;
+  text-shadow: #DADEE2 0  1px 0px;
+  width: 18%;
+}
+
+.node-metadata div.label h4 {
+  padding-left:10px;
+  font-weight:bold;
+}
+
+.node-metadata div.lists {
+  width: 82%;
+  float:left;
+  background: #fff;
+  padding:0 0 5px 0;
+}
+
+.node-metadata .metadata-section:last-child .lists {
+  border-radius:0px 0px 8px 0px;
+  -moz-border-radius: 0px 0px 8px 0px;
+  -webkit-border-radius: 0px 0px 8px 0px;
+}
+
+.node-metadata ul {
+}
+
+.node-metadata ul li {
+  background: none repeat scroll 0 0 #E6E6E6;
+  border: 1px solid #BABFC3;
+  border-radius: 8px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  float: left;
+  margin: 6px 5px 0 5px;
+  padding:5px 8px;
+  position:relative;
+}
+
+.node-metadata ul li.metadata-add {
+  height:15px;
+  min-width:24px;
+}
+
+.node-metadata ul li.jstree-draggable {
+  cursor:move;
+}
+
+.node-metadata ul li.jstree-draggable:hover {
+  background: none repeat scroll 0 0 #BEEBFF;
+  border: 1px solid #99DEFD;
+}
+
+.node-metadata ul li input.metadata-input {
+  position: absolute;
+  left: -1px;
+  top: 0px;
+  border: 1px solid #cdd3d7;
+  border-radius: 8px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  margin: 0px;
+  padding: 5px 8px;
+  width:200px;
+}
+
+.node-metadata ul li label {
+  margin-left:5px;
+  font-weight:bold;
+}
+
+.node-metadata ul li input.metadata-autocomplete {
+  margin:5px;
+  padding:5px;
+  border: 1px solid #cdd3d7;
+  border-radius: 8px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+}
+
+.node-metadata ul li.active-edit {
+  border:0px;
+  background:none;
+}
+
+.ddsmoothmenu-v {
+  display:none;
+}
+
+.ddsmoothmenu ul, .ddsmoothmenu-v ul {
   z-index:100;
   margin: 0;
   padding: 0;
@@ -738,21 +911,18 @@ body form input {
   position: relative;
   display: inline;
   float: left;
-  min-width: 60px;
   line-height: 1.25em;
 }
 
-.ddsmoothmenu ul li span {
+.ddsmoothmenu ul li span, .ddsmoothmenu-v ul li span {
   position:absolute;
   right:3px;
   top:5px;
 }
 
-.ddsmoothmenu ul li.divider-after {
-  border-bottom:1px solid #e0e0e0; margin:0;
-}
+.ddsmoothmenu ul li.divider-after, .ddsmoothmenu-v ul li.divider-after { border-bottom:1px solid #e0e0e0; margin:0; }
 
-.ddsmoothmenu ul li a {
+.ddsmoothmenu ul li a, .ddsmoothmenu-v ul li a {
   display: block;
   padding: 8px 10px;
   text-decoration: none;
@@ -760,43 +930,8 @@ body form input {
   height:1.15em;
 }
 
-.ddsmoothmenu ul li a.nav-file-add { background: transparent url(../images/icons/page_white_add.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-file-bulkadd { background: transparent url(../images/icons/page_white_add_bulk.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-file-publish { background: transparent url(../images/icons/book_go.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-file-edit { background: transparent url(../images/icons/page_white_edit.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-file-delete { background: transparent url(../images/icons/bin_closed.png) no-repeat 5px center; }
-
-.ddsmoothmenu ul li a.nav-edit-rename { background: transparent url(../images/icons/page_white_edit.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-edit-undo { background: transparent url(../images/icons/arrow_undo.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-edit-redo { background: transparent url(../images/icons/arrow_redo.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-edit-cut { background: transparent url(../images/icons/cut.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-edit-paste { background: transparent url(../images/icons/page_white_paste.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-edit-delete { background: transparent url(../images/icons/bin_closed.png) no-repeat 5px center; }
-
-.ddsmoothmenu ul li a.nav-refresh-node { background: transparent url(../images/icons/arrow_refresh_small.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-bookmarks-add { background: transparent url(../images/icons/asterisk_yellow_add.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-bookmarks-view { background: transparent url(../images/icons/asterisk_yellow.png) no-repeat 5px center; }
-
-.ddsmoothmenu ul li a.nav-view-history { background: transparent url(../images/icons/table.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-view-merge { background: transparent url(../images/icons/arrow_join_down.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-view-refresh { background: transparent url(../images/icons/arrow_refresh.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-view-collapse { background: transparent url(../images/icons/door.png) no-repeat 5px center; }
-
-.ddsmoothmenu ul li a.nav-tools-merge { background: transparent url(../images/icons/arrow_join_down.png) no-repeat 5px center; }
-
-* html .ddsmoothmenu ul li a {
+* html .ddsmoothmenu ul li a, * html .ddsmoothmenu-v ul li a {
   display: inline-block;
-}
-
-.ddsmoothmenu ul li a:link, .ddsmoothmenu ul li a:visited {
-}
-
-.ddsmoothmenu ul li a.selected {
-    background-color:#BABFC3; 
-}
-
-.ddsmoothmenu ul li a:hover {
-    background-color:#BABFC3;
 }
     
 /* 1st sub level menu */
@@ -804,7 +939,6 @@ body form input {
   position: absolute;
   left: 0;
   display: none;
-  visibility: hidden;
   z-index:1000;
   border: 1px solid #868D92;
   background-color:#EEF1F3;
@@ -820,12 +954,15 @@ body form input {
 }
 
 /* Sub level menu links style */
-.ddsmoothmenu ul li ul li a {
-  min-width: 160px;
+.ddsmoothmenu ul li ul li a, .ddsmoothmenu-v ul li a, .ddsmoothmenu-v ul li ul li a {
   padding: 5px;
   padding-left:25px;
   margin: 0;
   border-top-width: 0;
+}
+
+.ddsmoothmenu ul li ul li a {
+  min-width: 160px;
 }
 
 * html .ddsmoothmenu { height: 1%; }
@@ -850,6 +987,77 @@ body form input {
   height: 0;
   background: silver;
 }
+
+.ddsmoothmenu-v ul {
+  margin: 0;
+  padding: 0;
+  width: 170px;
+  list-style-type: none;
+  background-color: #EEF1F3;
+  border: 1px solid #868D92;
+}
+ 
+.ddsmoothmenu-v ul li {
+  position: relative;
+}
+
+/* Top level menu links style */
+.ddsmoothmenu-v ul li a {
+  overflow: auto;
+}
+
+.ddsmoothmenu-v ul li ul {
+  position: absolute;
+  width: 170px;
+  top: 0;
+  font-weight: normal;
+  display:none;
+}
+
+/* Holly Hack for IE \*/
+* html .ddsmoothmenu-v ul li { float: left; height: 1%; }
+* html .ddsmoothmenu-v ul li a { height: 1%; }
+
+.ddsmoothmenu ul li a.nav-file-add { background: transparent url(../images/icons/page_white_add.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-file-bulkadd { background: transparent url(../images/icons/page_white_add_bulk.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-file-publish { background: transparent url(../images/icons/book_go.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-file-edit { background: transparent url(../images/icons/page_white_edit.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-file-delete { background: transparent url(../images/icons/bin_closed.png) no-repeat 5px center; }
+
+.ddsmoothmenu ul li a.nav-edit-rename, .ddsmoothmenu-v ul li a.nav-edit-rename { background: transparent url(../images/icons/page_white_edit.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-edit-undo { background: transparent url(../images/icons/arrow_undo.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-edit-redo { background: transparent url(../images/icons/arrow_redo.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-edit-cut { background: transparent url(../images/icons/cut.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-edit-paste { background: transparent url(../images/icons/page_white_paste.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-edit-delete, .ddsmoothmenu-v ul li a.nav-edit-delete { background: transparent url(../images/icons/bin_closed.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-edit-tag-red, .ddsmoothmenu-v ul li a.nav-edit-tag-red { background: transparent url(../images/icons/tag_red.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-edit-tag-blue, .ddsmoothmenu-v ul li a.nav-edit-tag-blue { background: transparent url(../images/icons/tag_blue.png) no-repeat 5px center; }
+
+.ddsmoothmenu ul li a.nav-refresh-node { background: transparent url(../images/icons/arrow_refresh_small.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-bookmarks-add { background: transparent url(../images/icons/asterisk_yellow_add.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-bookmarks-view { background: transparent url(../images/icons/asterisk_yellow.png) no-repeat 5px center; }
+
+.ddsmoothmenu ul li a.nav-view-selectall { background: transparent url(../images/icons/page_white_stack_select.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-view-deselectall { background: transparent url(../images/icons/page_white_stack_deselect.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-view-history { background: transparent url(../images/icons/table.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-view-merge { background: transparent url(../images/icons/arrow_join_down.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-view-refresh { background: transparent url(../images/icons/arrow_refresh.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-view-collapse { background: transparent url(../images/icons/door.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-view-checked, .ddsmoothmenu-v ul li a.nav-view-checked { background: transparent url(../images/icons/tick.png) no-repeat 5px center; }
+
+.ddsmoothmenu ul li a.nav-tools-merge { background: transparent url(../images/icons/arrow_join_down.png) no-repeat 5px center; }
+
+.ddsmoothmenu ul li a:link, .ddsmoothmenu ul li a:visited, .ddsmoothmenu-v ul li a:link, .ddsmoothmenu-v ul li a:visited { }
+.ddsmoothmenu ul li a.selected, .ddsmoothmenu-v ul li a.selected { background-color:#BABFC3; }
+.ddsmoothmenu ul li a:hover, .ddsmoothmenu-v ul li a:hover { background-color:#BABFC3; }
+
+.node-metadata ul li a.selected, .node-metadata ul li a:hover { background-color:transparent; }
+.node-metadata ul li ul li a.selected, .node-metadata ul li ul li a:hover { background-color:#BABFC3; }
+
+#synonym-context {
+  float:left;
+}
+
 
 /* SEARCHBAR ABOVE TREES */
 .searchbar {
@@ -1124,58 +1332,6 @@ body form input {
   border-top: 0px;
 }
 
-.node-metadata {
-  background: #fff;
-  border-radius: 0px 0px 8px 8px;
-  -moz-border-radius: 0px 0px 8px 8px;
-  -webkit-border-radius: 0px 0px 8px 8px;
-  box-shadow: none;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  bottom: 0;
-  display: none;
-  margin: 10px 0 0 0;
-  position: absolute;
-  top: auto;
-  width: 100%; 
-}
-
-.metadata-section {
-  background: #BABFC3;
-  border-top: 1px solid #dadddf;
-  margin: 0;
-  padding: 0;
-}
-
-.node-metadata h4 {
-  float: left;
-  margin: 0;
-  padding: 10px 0 0 0;
-  text-shadow: #DADEE2 0  1px 0px;
-  width: 20%;
-}
-
-.node-metadata h4 span {
-  padding: 0 10px;
-}
-
-.node-metadata ul {
-  background: #fff;
-  float: left;
-  padding: 0 0 5px 0;
-  width: 80%;
-}
-
-.node-metadata ul li {
-  background: #cdd3d7;
-  border-radius: 8px;
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
-  float: left;
-  margin: 6px 5px 0 5px;
-  padding: 5px 8px;
-}
-
 /* Dialog message */
 #dialog-message p {
   line-height:1.5em;
@@ -1208,6 +1364,7 @@ body form input {
   left:0px;
   right:0px;
   top:50%;
+  z-index:1001;
 }
 
 #merge-view-results a {
@@ -1980,6 +2137,7 @@ ul#treelist li,  #gnaclr-search, .tree-background, #loginform .input, .green-sub
   position: absolute;
   top: 0;
   width: 100%;
+  z-index:1000;
 }
 
 .spinner p.status {
@@ -2071,6 +2229,11 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 #chat-messages-list li.new-user span.message {
   display:block;
   color:green;
+}
+
+#chat-messages-list li.log span.message {
+  display:block;
+  color:red;
 }
 
 #chat-messages-list li span.message {
@@ -2223,7 +2386,7 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   padding: 2px 5px;
   text-decoration: none;
   color: #000;
-  border: 1px solid #AAAAAA;
+  border: 1px solid #868D92;
   background: #E0E2E4;
   background: -moz-linear-gradient(0% 100% 90deg,#BBC0C4, #E0E2E4);
   background: -webkit-gradient(linear, 0 0, 0 100%, from(#E0E2E4), to(#BBC0C4));
@@ -2237,7 +2400,7 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 .pagination span.current {
   padding: 2px 5px;
   margin: 2px;
-  border: 1px solid #AAAAAA;
+  border: 1px solid #868D92;
   font-weight: bold;
   background: #ccd0d4;
   background: -moz-linear-gradient(19% 75% 90deg,#919598, #ccd0d4);
@@ -2246,7 +2409,7 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 .pagination span.disabled {
   padding: 2px 5px;
   margin: 2px;
-  border: 1px solid #AAAAAA;
+  border: 1px solid #868D92;
   color: white;
   background: #E0E2E4;
   background: -moz-linear-gradient(0% 100% 90deg,#BBC0C4, #E0E2E4);
@@ -2294,21 +2457,13 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   float:none;
 }
 
-#merge-results-wrapper .tree-background {
-  min-height:650px;
-}
+#merge-results-wrapper .tree-background { min-height:650px; }
 
-#merge-results-wrapper #add-node-wrap {
-  top:45px;
-}
+#merge-results-wrapper #add-node-wrap { top:45px; }
 
-#merge-results-wrapper .searchbar {
-  right:40px;
-}
+#merge-results-wrapper .searchbar { right:40px; }
 
-#merge-results-wrapper .searchbar-dropdown {
-  right:30px;
-}
+#merge-results-wrapper .searchbar-dropdown { right:30px; }
 
 #merge-results-wrapper .ui-dialog-titlebar-close {
   background-color: transparent !important;
@@ -2327,6 +2482,10 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   height: 16px;
   margin: 1px;
   width: 16px;
+}
+
+#merge-results-wrapper .metadata-section ul.topnav li {
+  cursor:auto;
 }
 
 #merge-warning {

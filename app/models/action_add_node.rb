@@ -1,7 +1,8 @@
 class ActionAddNode < ActionCommand
 
   def precondition_do
-    !!(tree_id && parent_id && @parent = Node.find(parent_id))
+    @parent = Node.find(parent_id) rescue nil
+    !!(tree_id && parent_id && @parent)
   end
 
   def precondition_undo

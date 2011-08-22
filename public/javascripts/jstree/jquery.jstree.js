@@ -3581,7 +3581,7 @@
 					}, this))
 				.delegate("a", "click.jstree", $.proxy(function (e) {
 						if(this.data.contextmenu) {
-							$.vakata.context.hide();
+//							$.vakata.context.hide();
 						}
 					}, this))
 				.bind("destroy.jstree", $.proxy(function () {

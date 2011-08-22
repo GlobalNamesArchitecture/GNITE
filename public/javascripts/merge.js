@@ -137,7 +137,28 @@ $(function() {
         decision        = $(this).attr("class"),
         i               = 0,
         id              = "",
-        decision_id     = 0;
+        decision_id     = 0,
+        num_decisions   = $("td.merge-decision").size(),
+        decision_item   = "",
+        postponed       = false;
+
+    if(decision === "postponed") { 
+      postponed = true;
+    } else {
+      for(var i = 0; i < num_decisions; i += 1) {
+        decision_item = $("td.merge-decision:eq(" + i + ") ");
+        $(".merge-input", decision_item).each(function() {
+          if($(this).is(":checked") && $(this).val() === "3") { postponed = true; }
+        });
+        break;
+      }
+    }
+
+    if(postponed) {
+      $("input.submit").addClass("disabled").attr("disabled", true);
+    } else {
+      $("input.submit").removeClass("disabled").attr("disabled", false);
+    }
 
     $(this).parents("table").find("input." + decision).each(function() {
       $(this).attr("disabled", "disabled");
@@ -168,11 +189,32 @@ $(function() {
 
   $('input.merge-input').click(function() {
 
-    var self        = this,
-        decision_id = $(this).val(),
-        id          = $(this).attr("name").split("-")[1];
+    var self          = this,
+        decision_id   = $(this).val(),
+        id            = $(this).attr("name").split("-")[1],
+        num_decisions = $("td.merge-decision").size(),
+        decision_item = "",
+        postponed     = false; 
 
     $(self).attr("disabled", "disabled");
+
+    if(decision_id === "3") {
+      postponed = true;
+    } else {
+      for(var i = 0; i < num_decisions; i += 1) {
+        decision_item = $("td.merge-decision:eq(" + i + ") ");
+        $(".merge-input", decision_item).each(function() {
+          if($(this).is(":checked") && $(this).val() === "3") { postponed = true; }
+        });
+        break;
+      }
+    }
+
+    if(postponed) {
+      $("input.submit").addClass("disabled").attr("disabled", true);
+    } else {
+      $("input.submit").removeClass("disabled").attr("disabled", false);
+    }
 
     $.ajax({
       type        : 'PUT',
@@ -245,6 +287,7 @@ $(function() {
 
     var message = 'You have not yet made any decisions';
 
+    //TODO: find if there is a single row (i.e. radio inputs with name="name-x") that is unselected
     if($('.merge-input:checked').length === 0) {
       $('body').append('<div id="dialog-message" class="ui-state-highlight" title="Warning">' + message + '</div>');
       $('#dialog-message').dialog({
@@ -314,8 +357,6 @@ $(function() {
                return false;
             });
           },
-          error : function() {
-          },
           complete : function() {
             results.unspinner();
           }
@@ -383,12 +424,10 @@ $(function() {
           end = $(val);
           tree_wrapper.scrollTo($(val), {axis:'y'});
           current.push(val);
-        }
-        else if($(val).length && !$(val).is(".jstree-closed")) {
+        } else if($(val).length && !$(val).is(".jstree-closed")) {
           end = $(val);
           tree_wrapper.scrollTo($(val), {axis:'y'});
-        }
-        else {
+        } else {
           remaining.push(val);
         }
       });

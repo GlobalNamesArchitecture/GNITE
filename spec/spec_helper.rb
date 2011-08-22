@@ -20,12 +20,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
-    csv_dir = File.join(Rails.root.to_s, 'db', 'csv')
-    Dir.entries(csv_dir).each do |file|
-      next if file[-4..-1] != '.csv'
-      table_name = file.gsub(/.csv$/, '')
-      ::Node.connection.execute "load data infile '#{File.join(csv_dir, file)}' into table #{table_name} character set utf8"  
-    end
+    Gnite::DbData.populate
   end
 
   config.after(:suite) do

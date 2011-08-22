@@ -1,5 +1,6 @@
 
 Gnite::ResqueHelper.cleanup
+Gnite::DbData.populate
 
 
 ###########################

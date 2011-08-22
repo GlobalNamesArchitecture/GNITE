@@ -59,9 +59,9 @@ Feature: Edit a master tree
     And I double click "Bullwinkle" and change it to "Monkey"
     And I refresh the master tree
     And I wait for the tree to load
-    Then I should see "Monkey"
-    And I should see "Rocky"
-    And I should not see "Bullwinkle"
+    Then I should see "Monkey" within "#master-tree"
+    And I should see "Rocky" within "#master-tree"
+    And I should not see "Bullwinkle" within "#master-tree"
 
    @javascript
    Scenario: User can drag a node and drop it onto another within the master tree
@@ -125,6 +125,7 @@ Feature: Edit a master tree
     And I drag "Rocky" under "Bullwinkle"
     And I wait for the tree to load
     And I refresh the master tree
+    And I select the node "Bullwinkle"
     And I delete the node "Bullwinkle"
     And I wait for the tree to load
     And I refresh the master tree
@@ -149,6 +150,18 @@ Feature: Edit a master tree
 
     When I select the node "Bullwinkle"
     And I click a non-text area of a node in the master tree
+    Then no nodes should be selected in the master tree
+
+  @javascript
+  Scenario: User can deselect all nodes
+    Given I have signed in with "email@person.com/password"
+    And "email@person.com" has created an existing master tree titled "Moose tree" with:
+      | Bullwinkle |
+    And I am on the master tree index page
+    When I follow "Moose tree"
+    And I select the node "Bullwinkle"
+    And I follow "View" within "toolbar"
+    When I follow "Deselect all" within "toolbar"
     Then no nodes should be selected in the master tree
 
   Scenario: User can edit the metadata for a tree

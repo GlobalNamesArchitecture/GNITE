@@ -62,7 +62,7 @@ Feature: Merge nodes between trees
     And I should see "Lycosidae" within "#reference-tree-merge-selection"
 
   @javascript
-  Scenario: Executing merge produces a spinner then a view button
+  Scenario: Executing merge by selecting one authoritative node produces a spinner then a view button
     When I go to the master tree page for "My Master Tree"
     And I wait for the tree to load
     And I follow "All reference trees (1)"
@@ -72,6 +72,30 @@ Feature: Merge nodes between trees
     And I select the node "Lycosidae" in my reference tree
     And I follow "Tools" within "toolbar"
     And I follow "Merge" within "toolbar"
+    And I choose "Lycosidae" within "#reference-tree-merge-selection"
+    And I press "Merge"
+    Then I should see "Starting merge..."
+    And I should see a spinner
+
+    When merge jobs are run
+    And I wait for the merge to complete
+    Then the master tree should be locked
+
+    When I follow "View" within the dialog box
+    Then I should be on the merge results page for "My Master Tree"
+
+  @javascript
+  Scenario: Executing merge by selecting the other authoritative node produces a spinner then a view button
+    When I go to the master tree page for "My Master Tree"
+    And I wait for the tree to load
+    And I follow "All reference trees (1)"
+    And I follow "My Reference Tree"
+    And I wait for the reference tree to load
+    And I select the node "Lycosidae"
+    And I select the node "Lycosidae" in my reference tree
+    And I follow "Tools" within "toolbar"
+    And I follow "Merge" within "toolbar"
+    And I choose "Lycosidae" within "#reference-tree-merge-selection" 
     And I press "Merge"
     Then I should see "Starting merge..."
     And I should see a spinner

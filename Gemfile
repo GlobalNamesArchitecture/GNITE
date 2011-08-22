@@ -22,13 +22,14 @@ gem 'rest-client', '1.6.1'
 gem 'juggernaut', '2.0.1'
 gem 'will_paginate', '2.3.15'
 gem 'family-reunion', '0.2.4'
+gem 'sanitize', '2.0.3'
 
 group :development do
   gem 'high_voltage'
 end
 
 group :test, :development do
-  gem 'rspec-rails', '2.0.1'
+  gem 'rspec-rails', '2.6.1'
   gem "escape_utils"
 end
 

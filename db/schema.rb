@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110703231727) do
+ActiveRecord::Schema.define(:version => 20110801202425) do
 
   create_table "action_commands", :force => true do |t|
     t.string   "type"
@@ -38,6 +38,29 @@ ActiveRecord::Schema.define(:version => 20110703231727) do
   end
 
   add_index "bookmarks", ["node_id"], :name => "index_bookmarks_on_node_id"
+
+  create_table "controlled_terms", :force => true do |t|
+    t.integer  "controlled_vocabulary_id"
+    t.string   "name"
+    t.string   "identifier"
+    t.string   "uri"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "controlled_terms", ["controlled_vocabulary_id"], :name => "index_controlled_terms_on_controlled_vocabulary_id"
+
+  create_table "controlled_vocabularies", :force => true do |t|
+    t.string   "name"
+    t.string   "identifier"
+    t.string   "uri"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "controlled_vocabularies", ["identifier"], :name => "index_controlled_vocabularies_on_identifier", :unique => true
 
   create_table "gnaclr_importers", :force => true do |t|
     t.integer  "reference_tree_id"
