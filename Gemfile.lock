@@ -246,7 +246,7 @@ DEPENDENCIES
   juggernaut (= 2.0.1)
   launchy
   mocha
-  mysql2
+  mysql2 (= 0.2.6)
   nokogiri
   parsley-store (= 0.2.2)
   polyglot
