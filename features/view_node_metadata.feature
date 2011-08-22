@@ -116,12 +116,18 @@ Feature: View metadata for master tree nodes
 
   @javascript
   Scenario: User can delete a synonym in the metadata panel
+    When I select the node "Nut"
+    And I right-click the synonym "Kernel"
+    And I follow "Delete" within "the metadata panel context menu"
+    And I select the node "Nut"
+    Then I should see "Nutmeat" as synonyms for the "Foods" tree
+    And I should not see "Kernel" as synonyms for the "Foods" tree
 
   @javascript
   Scenario: User can delete a vernacular in the metadata panel
-
-  @javascript
-  Scenario: User can edit a synonym in the metadata panel via a context menu
-
-  @javascript
-  Scenario: User can edit a vernacular in the metadata panel via a context menu
+    When I select the node "Nut"
+    And I right-click the vernacular name "Peanut"
+    And I follow "Delete" within "the metadata panel context menu"
+    And I select the node "Nut"
+    Then I should see "Almond" as vernacular names for the "Foods" tree
+    And I should not see "Peanut" as vernacular names for the "Foods" tree

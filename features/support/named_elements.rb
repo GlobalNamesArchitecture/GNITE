@@ -23,6 +23,8 @@ module NamedElementHelper
       ".ui-dialog-content"
     when /the master tree metadata panel/
       "#treewrap-main .tree-background .node-metadata"
+    when /the metadata panel context menu/
+      "#ddsmoothmenu-context"
     else
       named_element
     end
