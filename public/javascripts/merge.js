@@ -142,15 +142,24 @@ $(function() {
         decision_item   = "",
         postponed       = false;
 
+    $(this).parents("table").find("input." + decision).each(function() {
+      $(this).attr("disabled", "disabled");
+      id = $(this).attr("name").split("-")[1];
+      decision_id = $(this).val();
+      merge_decisions.push({ 'merge_result_secondary_id' : id, 'merge_decision_id' : decision_id });
+      $(this).attr("checked", true);
+    });
+
     if(decision === "postponed") { 
       postponed = true;
     } else {
       for(var i = 0; i < num_decisions; i += 1) {
         decision_item = $("td.merge-decision:eq(" + i + ") ");
         $(".merge-input", decision_item).each(function() {
-          if($(this).is(":checked") && $(this).val() === "3") { postponed = true; }
+          if($(this).prop("checked") && $(this).val() === "3") { postponed = true; return false; }
         });
-        break;
+        if(decision_item.find("input:checked").size() === 0) { postponed = true; }
+        if(postponed) { break; }
       }
     }
 
@@ -159,14 +168,6 @@ $(function() {
     } else {
       $("input.submit").removeClass("disabled").attr("disabled", false);
     }
-
-    $(this).parents("table").find("input." + decision).each(function() {
-      $(this).attr("disabled", "disabled");
-      id = $(this).attr("name").split("-")[1];
-      decision_id = $(this).val();
-      merge_decisions.push({ 'merge_result_secondary_id' : id, 'merge_decision_id' : decision_id });
-      $(this).attr("checked", true);
-    });
 
     $.ajax({
       type        : 'PUT',
@@ -194,7 +195,7 @@ $(function() {
         id            = $(this).attr("name").split("-")[1],
         num_decisions = $("td.merge-decision").size(),
         decision_item = "",
-        postponed     = false; 
+        postponed     = false;
 
     $(self).attr("disabled", "disabled");
 
@@ -202,11 +203,12 @@ $(function() {
       postponed = true;
     } else {
       for(var i = 0; i < num_decisions; i += 1) {
-        decision_item = $("td.merge-decision:eq(" + i + ") ");
+        decision_item = $("td.merge-decision:eq(" + i + ")");
         $(".merge-input", decision_item).each(function() {
-          if($(this).is(":checked") && $(this).val() === "3") { postponed = true; }
+          if($(this).prop("checked") && $(this).val() === "3") { postponed = true; return false; }
         });
-        break;
+        if(decision_item.find("input:checked").size() === 0) { postponed = true; }
+        if(postponed) { break; }
       }
     }
 
