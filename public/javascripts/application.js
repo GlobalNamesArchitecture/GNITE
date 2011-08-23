@@ -392,7 +392,7 @@ $(function() {
               });
 
               self.bind('deselect_all.jstree', function() {
-                self.parent().next().hide();
+                self.parent().css('bottom','20px').next().hide();
               });
 
               self.bind('bookmarks_form.jstree', function(event, data) {
@@ -984,7 +984,7 @@ $(function() {
   });
 
   $('#master-tree').bind('deselect_all.jstree', function() {
-    $(this).parent().parent().next().hide();
+    $(this).parent().parent().css('bottom', '20px').next().hide();
   });
 
   /*
@@ -1002,7 +1002,6 @@ $(function() {
     var target = $(event.target);
 
     if (event.target.tagName !== 'A' && event.target.tagName !== 'INS') {
-      $('#add-node-wrap').css('bottom', '20px');
       target.closest('.jstree').jstree('deselect_all');
     }
 
@@ -2074,7 +2073,7 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
     });
 
     self.bind('deselect_all.jstree', function() {
-      self.parent().next().hide();
+      self.parent().css('bottom','20px').next().hide();
     });
 
     // Bind bookmarks for the new reference tree
