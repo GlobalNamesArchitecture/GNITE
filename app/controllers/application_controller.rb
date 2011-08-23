@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
-  include Clearance::Authentication
+  
+  before_filter :authenticate_user!
+  
   protect_from_forgery
   layout 'application'
 

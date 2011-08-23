@@ -1,5 +1,5 @@
 class SynonymsController < ApplicationController
-  before_filter :authenticate
+  before_filter :authenticate_user!
   
   def create
     channel     = "tree_#{params[:master_tree_id]}"

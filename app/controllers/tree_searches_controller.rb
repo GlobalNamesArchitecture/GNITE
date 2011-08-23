@@ -1,5 +1,5 @@
 class TreeSearchesController < ApplicationController
-  before_filter :authenticate
+  before_filter :authenticate_user!
 
   def show
     @searched_term = params[:name_string]

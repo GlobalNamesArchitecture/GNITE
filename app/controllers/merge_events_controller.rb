@@ -1,5 +1,5 @@
 class MergeEventsController < ApplicationController
-  before_filter :authenticate
+  before_filter :authenticate_user!
 
   def index
     page = (params[:page]) ? params[:page] : 1

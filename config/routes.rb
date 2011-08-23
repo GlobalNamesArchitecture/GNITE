@@ -1,6 +1,8 @@
 Gnite::Application.routes.draw do
-  match 'sign_out', :to => 'sessions#destroy', :as => :sign_out
-  match 'sign_in',  :to => 'sessions#new',     :as => :sign_in
+  devise_for :users
+
+  match 'sign_out', :to => 'devise/sessions#destroy', :as => :sign_out
+  match 'sign_in',  :to => 'devise/sessions#new',     :as => :sign_in
   match 'sign_up',  :to => 'users#new',        :as => :sign_up
   match "/master_trees/:id/publish" => "master_trees#publish"
   match "/master_trees/:id/undo" => "master_trees#undo"
@@ -9,7 +11,7 @@ Gnite::Application.routes.draw do
   match "/push_messages" => "push_messages#update"
   match "/merge_trees/:id/populate" => "merge_trees#populate"
 
-  resource :session, :only => [:new, :create, :destroy], :controller => "sessions"
+  resource :session, :only => [:new, :create, :destroy], :controller => "devise/sessions"
 
   resources :users, :controller => 'users', :only => [:new, :create, :edit, :update] do
     resource :confirmation, :controller => 'confirmations', :only => [:new, :create]

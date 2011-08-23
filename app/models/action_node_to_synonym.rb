@@ -31,6 +31,7 @@ class ActionNodeToSynonym < ActionCommand
     @destination_node.vernacular_names.each do |vernacular|
       VernacularName.create!(:node => merged_node, :name => vernacular.name, :language => vernacular.language)
     end
+    
     # TODO: each new_vernacular_names needs :language
     new_vernacular_names.each do |name|
       VernacularName.create!(:node => merged_node, :name => name, :language => nil)

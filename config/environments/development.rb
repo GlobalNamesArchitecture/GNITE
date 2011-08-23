@@ -20,10 +20,6 @@ Gnite::Application.configure do
   config.action_mailer.default_url_options = { :host => "localhost:3000" }
 
   config.log_level = :debug # :error
-#  if ENV['RAILS_ENV'] == 'development'
-#    ActiveRecord::Base.logger = Logger.new(STDOUT)
-#    ActionController::Base.logger = Logger.new(STDOUT)
-#  end
 
 end
 Gnite::Config.gnaclr_url = "http://gnaclr.globalnames.org"

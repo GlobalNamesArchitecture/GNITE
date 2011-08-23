@@ -1,5 +1,5 @@
 class VernacularNamesController < ApplicationController
-  before_filter :authenticate
+  before_filter :authenticate_user!
   
   def create
     name     = Name.find_or_create_by_name_string(params[:name_string])

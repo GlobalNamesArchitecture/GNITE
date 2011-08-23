@@ -1,5 +1,5 @@
 class PushMessagesController < ApplicationController
-  before_filter :authenticate
+  before_filter :authenticate_user!
   
   def update
     session_id = (request.headers["X-Session-ID"]) ? request.headers["X-Session-ID"] : ""

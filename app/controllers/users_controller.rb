@@ -1,5 +1,5 @@
 class UsersController < Clearance::UsersController
-  before_filter :authenticate, :only => [:edit, :update]
+  before_filter :authenticate_user!, :only => [:edit, :update]
 
   def new
     @user = User.new
