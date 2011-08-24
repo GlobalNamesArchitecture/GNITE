@@ -10,9 +10,11 @@
 </head>
 <body class="<%= body_class %>">
   <div id="wrapper">
+
     <% if current_user %>
       <%= render :partial => 'shared/navigation' %>
     <% end %>
+    
     <div id="content">
       <% if content_for?(:header) %>
         <div id="header">
@@ -20,11 +22,13 @@
         </div>
       <% end %>
       <div id="bodywrap">
-        <%= render :partial => 'shared/flashes' -%>
+        <%= render :partial => 'shared/flashes' %>
         <%= yield %>
       </div>
     </div>
+
     <%= render :partial => 'shared/javascript' %>
   </div>
 </body>
 </html>
+

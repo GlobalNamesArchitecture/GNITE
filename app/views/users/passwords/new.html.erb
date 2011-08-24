@@ -1,0 +1,13 @@
+<div id="loginform" class="clearfix">
+  <%= semantic_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+
+    <%= f.inputs :title => "Reset password" do %>
+      <%= f.input :email, :label => "Email", :input_html => { :class => "input" } %>
+    <% end -%>
+
+    <%= f.buttons do %>
+      <%= f.commit_button "Send instructions", :button_html => { :class => "green-submit" } %>
+    <% end -%>
+
+  <% end %>
+</div>

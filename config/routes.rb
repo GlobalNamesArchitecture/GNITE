@@ -1,5 +1,11 @@
 Gnite::Application.routes.draw do
-  devise_for :users
+  devise_for :users, :controllers => {
+    :sessions => "users/sessions",
+    :registrations => "users/registrations",
+    :passwords => "users/passwords",
+    :confirmations => "users/confirmations",
+    :unlocks => "users/unlocks"
+  }
 
   match "/master_trees/:id/publish" => "master_trees#publish"
   match "/master_trees/:id/undo" => "master_trees#undo"

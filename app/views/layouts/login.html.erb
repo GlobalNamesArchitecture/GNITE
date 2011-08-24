@@ -2,39 +2,16 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="<%= meta_description %>" >
+  <meta name="description" content="<%= meta_description %>">
   <title>GNITE</title>
   <%= favicon_link_tag %>
-  <%= stylesheet_link_tag :all %>
+  <%= stylesheet_link_tag :all, :recursive => true %>
   <%= csrf_meta_tag %>
 </head>
 <body class="<%= body_class %>">
   <div id="wrapper">
 
-    <!-- Start of Login Content -->
-    <div id="loginwrap" class="clearfix">
-      <div id="flash-login-wrap">
-        <%= render :partial => 'shared/flashes' -%>
-      </div>
-      <!-- Start of Logo -->
-      <div id="loginlogo">
-        <img src="/images/login-logo.png"/>
-        <h1>Global Names Interface for Taxonomic Editing</h1>
-      </div>
-      <!-- End of Logo -->
-
-      <%= yield %>
-
-    </div>
-    <!-- End of Login Content -->
-
-    <!-- Start of Disclaimer -->
-    <div id="disclaimer">
-     <hr>
-     <p>
-      GNITE is an open project <a href="https://github.com/GlobalNamesArchitecture/GNITE">under active development</a> and a component of <a href="http://www.globalnames.org">Global Names</a> (GN).<br />It allows taxonomists and other enthusiasts to build and edit classifications and lists that can be used to manage biodiversity information.</p>
-    </div>
-    <!-- End of Disclaimer -->
+    <%= render :partial => 'shared/login' %>
 
     <%= render :partial => 'shared/javascript' %>
   </div>

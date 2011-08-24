@@ -12,7 +12,6 @@ body {
 }
 
 body.sessions #wrapper,
-body.clearance-passwords #wrapper,
 body.users-new #wrapper {
   margin: 0;
 }
@@ -181,7 +180,7 @@ body form input {
 /************************************************************************/
 #loginwrap {
   margin: 0 auto;
-  padding: 125px 0px 30px 0px;
+  padding: 125px 0px 15px 0px;
   text-align: left;
   width: 850px;
 }
@@ -207,6 +206,7 @@ body form input {
 #loginform {
   float: left;
   padding: 0 20px;
+  min-height:225px;
 }
 
 #loginform legend {
@@ -214,6 +214,10 @@ body form input {
   font-size: 1.8em;
   padding-bottom: 15px;
   text-shadow: 1px 1px 0 rgba(26, 26, 26, 0.6);
+}
+
+#loginform label.remember-me {
+  display:inline;
 }
 
 #loginform label {
@@ -243,6 +247,23 @@ body form input {
   text-shadow: 0 0 1px rgba(0,0,0,.25);
   width: 380px;
 }
+
+#loginlinks {
+  text-align:center;
+}
+
+#loginform p.inline-hints {
+  color: #666 !important;
+  margin: 0.5em 0 0 27%;
+  line-height:0.5em !important;
+}
+
+#loginform p.inline-errors {
+  color: red;
+  line-height:0.5em;
+  font-style:italic;
+}
+
 
 .cancel-button, .green-submit, .green-submit-small {
   border: 0 solid rgb(15, 18, 21) !important;
@@ -1985,7 +2006,7 @@ ul#treelist a:hover,
   margin: 0 0 30px 0;
 }
 
-#flash_error, #flash_success, #flash_failure, #flash_notice {
+#flash_error, #flash_success, #flash_failure, #flash_notice, #flash_alert {
   background: #fff;
   border: 0px;
   color: #fff;
@@ -1994,7 +2015,7 @@ ul#treelist a:hover,
   padding: 15px;
 }
 
-#flash_success, #flash_notice {
+#flash_success, #flash_notice, #flash_alert {
   background: #5aa52b;
   background: -moz-linear-gradient(center bottom, rgba(98,161,38,0.6) 0%, rgba(98,161,38,0.6) 54%, rgba(30,117,5,0.6) 100%);
   background: -webkit-gradient(linear,left bottom,left top, color-stop(0.0, rgba(98,161,38,0.6)), color-stop(0.54, rgba(98,161,38,0.6)), color-stop(1.0, rgba(30,117,5,0.6)));
@@ -2102,7 +2123,7 @@ ul#reference-trees li a:hover {
 
 /* Border Radius */
 /************************************************************************/
-#flash_error, #flash_success, #flash_failure, #flash_notice,
+#flash_error, #flash_success, #flash_failure, #flash_notice, #flash_alert,
 ul#treelist li,  #gnaclr-search, .tree-background, #loginform .input, .green-submit, .cancel-button,
 .infobox-wrap, .infobox, .tree-back-wrap, #tree-newimport li, .bookmark-addition .input, .bookmarks-input .input {
   border-radius: 6px;
