@@ -112,8 +112,8 @@ hr {
   padding: 10px 10px 20px;
 }
 
-.infobox p {
-  padding: 10px 0 10px;
+.infobox ol li, .infobox ul li {
+  margin-top: 15px;
 }
 
 .infobox label {
@@ -122,11 +122,7 @@ hr {
   font-weight: bold;
   margin: 10px 10px 0 0;
   text-align: right;
-  width: 120px;
-}
-
-.infobox ul li {
-  margin: 15px;
+  width: 140px;
 }
 
 .infobox input {
@@ -139,6 +135,19 @@ hr {
   padding: 0 10px;
   width: 286px;
   font-size:1.25em;
+}
+
+.infobox p.inline-hints {
+  color: #666 !important;
+  margin: 0.5em 0 0 27%;
+  line-height:0.5em !important;
+}
+
+.infobox p.inline-errors {
+  color: red !important;
+  margin: 0.5em 0 0 27%;
+  line-height:0.5em !important;
+  font-style:italic;
 }
 
 .input {
