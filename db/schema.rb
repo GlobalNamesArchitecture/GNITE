@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110823190515) do
+ActiveRecord::Schema.define(:version => 20110824161332) do
 
   create_table "action_commands", :force => true do |t|
     t.string   "type"
@@ -262,6 +262,7 @@ ActiveRecord::Schema.define(:version => 20110823190515) do
     t.integer  "failed_attempts",                       :default => 0
     t.string   "unlock_token"
     t.datetime "locked_at"
+    t.boolean  "admin",                                 :default => false
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
