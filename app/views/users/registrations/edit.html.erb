@@ -10,12 +10,11 @@
       </ul>
     </div>
     <div class="infobox">
-    <%= devise_error_messages! %>
 
     <div class="info-content">
       <%= f.inputs do -%>
         <%= f.input :email, :required => true %>
-        <%= f.input :password, :hint => "leave blank if you do not want to change it" %>
+        <%= f.input :password, :label => "New password", :hint => "leave blank if you do not want to change it" %>
         <%= f.input :password_confirmation %>
         <%= f.input :current_password, :hint => "required to confirm changes" %>
       <% end -%>
