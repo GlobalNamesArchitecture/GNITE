@@ -1,10 +1,5 @@
 class DeviseUpdate < ActiveRecord::Migration
   def self.up
-    #remove columns created with clearance
-    remove_column :users, :salt
-    remove_column :users, :confirmation_token
-    remove_column :users, :remember_token
-    remove_column :users, :email_confirmed
     
     #add columns for devise
     change_table(:users) do |t|
@@ -14,6 +9,15 @@ class DeviseUpdate < ActiveRecord::Migration
       t.confirmable
       t.lockable :lock_strategy => :failed_attempts, :unlock_strategy => :both
     end
+    
+    #if email_confirmed, update the confirmed_at column
+    execute "UPDATE users SET confirmed_at = NOW() WHERE email_confirmed = 1"
+    
+    #remove columns created with clearance
+    remove_column :users, :salt
+    remove_column :users, :confirmation_token
+    remove_column :users, :remember_token
+    remove_column :users, :email_confirmed
     
     # add_index :users, :email,                :unique => true
     add_index :users, :reset_password_token, :unique => true
@@ -28,6 +32,8 @@ class DeviseUpdate < ActiveRecord::Migration
     add_column :users, :confirmation_token, :string, :limit => 128
     add_column :users, :remember_token, :string, :limit => 128
     add_column :users, :email_confirmed, :boolean, :default => false, :null => false
+    
+    execute "UPDATE users SET email_confirmed = 1 WHERE confirmed_at <> ''"
     
     remove_column :users, :reset_password_token
     remove_column :users, :reset_password_sent_at
