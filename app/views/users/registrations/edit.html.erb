@@ -14,9 +14,28 @@
     <div class="info-content">
       <%= f.inputs do -%>
         <%= f.input :email, :required => true %>
-        <%= f.input :password, :label => "New password", :hint => "leave blank if you do not want to change it" %>
+        <%= f.input :current_password, :hint => "required to confirm changes", :required => true %>
+        <%= f.input :password, :label => "New password", :hint => "leave blank if you do not want to change your current password" %>
         <%= f.input :password_confirmation %>
-        <%= f.input :current_password, :hint => "required to confirm changes" %>
+      <% end -%>
+    </div>
+
+    </div>
+  </div>
+
+  <div class="infobox-wrap">
+    <div class="breadcrumbs">
+      <ul>
+        <li>Profile</li>
+      </ul>
+    </div>
+    <div class="infobox">
+
+    <div class="info-content">
+      <%= f.inputs do -%>
+        <%= f.input :given_name %>
+        <%= f.input :surname %>
+        <%= f.input :affiliation %>
       <% end -%>
     </div>
 

@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :confirmable, :lockable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :given_name, :surname, :affiliation
 
   has_many :action_commands
   has_many :master_tree_contributors

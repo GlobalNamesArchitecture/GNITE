@@ -16,11 +16,16 @@ module NavigationHelpers
       new_user_registration_path
     when /the sign in page/i
       new_user_session_path
+    when /the password reset request page/i
+      new_user_password_path
+    when /the resend confirmation page/i
+      new_user_confirmation_path
+    when /the resend unlock instructions page/i
+      new_user_unlock_path
     when /the master tree index page/i
       master_trees_path
-    when /the edit user settings page for "(.+)"/i
-      user = User.find_by_email($1)
-      edit_user_registration(user.id)
+    when /the edit user settings page for/i
+      edit_user_registration_path
     when /the master tree page for "(.+)"/i
       tree = MasterTree.find_by_title($1)
       master_tree_path(tree.id)

@@ -10,15 +10,25 @@ Feature: Sign in, sign up, and reset password from the homepage
     And I fill in "Email" with "email@person.com"
     And I fill in "Password" with "password"
     And I press "Sign in"
-    Then I should see "Signed in"
+    Then I should see "Signed in successfully"
     And I should be signed in
 
   Scenario: Signing up from the homepage
     When I go to the home page
-    And I follow "Need a GNITE account?"
+    And I follow "Sign up"
     Then I should be on the sign up page
 
   Scenario: Resetting my password from the homepage
     When I go to the home page
     And I follow "Forgot your password?"
     Then I should be on the password reset request page
+
+  Scenario: Resend confirmation instructions from the homepage
+    When I go to the homepage
+    And I follow "Didn't receive confirmation instructions?"
+    Then I should be on the resend confirmation page
+
+  Scenario: Resend unlock instructions from the homepage
+    When I go to the homepage
+    And I follow "Didn't receive unlock instructions?"
+    Then I should be on the resend unlock instructions page

@@ -71,7 +71,7 @@ Factory.define :gnaclr_importer do |gnaclr_importer|
 end
 
 Factory.define :master_tree_contributor do |master_tree_contributor|
-  master_tree_contributor.association :user, :factory => :email_confirmed_user
+  master_tree_contributor.association :user, :factory => :user
   master_tree_contributor.association :master_tree
 end
 

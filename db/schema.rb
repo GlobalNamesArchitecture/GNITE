@@ -263,6 +263,9 @@ ActiveRecord::Schema.define(:version => 20110824161332) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.boolean  "admin",                                 :default => false
+    t.string   "given_name",             :limit => 128
+    t.string   "surname",                :limit => 128
+    t.string   "affiliation"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
