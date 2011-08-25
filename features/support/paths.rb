@@ -13,16 +13,14 @@ module NavigationHelpers
 
     # Add more mappings here.
     when /the sign up page/i
-      sign_up_path
+      new_user_registration_path
     when /the sign in page/i
-      sign_in_path
-    when /the password reset request page/i
-      new_password_path
+      new_user_session_path
     when /the master tree index page/i
       master_trees_path
     when /the edit user settings page for "(.+)"/i
       user = User.find_by_email($1)
-      edit_user_path(user.id)
+      edit_user_registration(user.id)
     when /the master tree page for "(.+)"/i
       tree = MasterTree.find_by_title($1)
       master_tree_path(tree.id)

@@ -18,14 +18,13 @@ Given /^I signed up with "(.*)\/(.*)"$/ do |email, password|
   user = Factory :user,
     :email                 => email,
     :password              => password,
-    :password_confirmation => password
 end 
 
 Given /^I am signed up and confirmed as "(.*)\/(.*)"$/ do |email, password|
-  user = Factory :email_confirmed_user,
+  user = Factory :user,
     :email                 => email,
     :password              => password,
-    :password_confirmation => password
+    :confirmed_at          => Time.now
 end
 
 # Session
@@ -115,19 +114,13 @@ When /^I sign in as "(.*)\/(.*)"$/ do |email, password|
 end
 
 When /^I sign out$/ do
-  visit '/sign_out'
+  visit '/users/sign_out#destroy'
 end
 
 When /^I request password reset link to be sent to "(.*)"$/ do |email|
   When %{I go to the password reset request page}
   And %{I fill in "Email address" with "#{email}"}
   And %{I press "Reset password"}
-end
-
-When /^I update my password with "(.*)\/(.*)"$/ do |password, confirmation|
-  And %{I fill in "Choose password" with "#{password}"}
-  And %{I fill in "Confirm password" with "#{confirmation}"}
-  And %{I press "Save this password"}
 end
 
 When /^I return next time$/ do
