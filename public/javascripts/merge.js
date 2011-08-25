@@ -7,6 +7,7 @@ var GNITE = {
   MergeEvent : {
     Tree : { }
   }
+  token : ""
 };
 
 /****************** START jQUERY ****************************/
@@ -16,6 +17,8 @@ $(function() {
 
   var jug      = new Juggernaut(),
       response = {};
+
+  GNITE.token = $("meta[name='csrf-token']").attr("content");
 
   /****************** JUGGERNAUT ***************************/
 
@@ -175,6 +178,9 @@ $(function() {
       data        : JSON.stringify({ 'data' : merge_decisions }),
       contentType : 'application/json',
       dataType    : 'json',
+      beforeSend  : function(xhr) {
+        xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
+      },
       success     : function(data) {
         if(data.status === "OK") {
           for(i = 0; i < merge_decisions.length; i += 1) {
@@ -224,6 +230,9 @@ $(function() {
       data        : JSON.stringify({'data' : [{ 'merge_result_secondary_id' : id, 'merge_decision_id' : decision_id }]}),
       contentType : 'application/json',
       dataType    : 'json',
+      beforeSend  : function(xhr) {
+        xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
+      },
       success     : function(data) {
         if(data.status === "OK") { 
           $(self).removeAttr("disabled");
@@ -346,10 +355,13 @@ $(function() {
         results.spinner().show();
 
         $.ajax({
-          url     : '/tree_searches/' + self.parents('.tree-background').find('.tree-container').attr('data-database-id') + '/' + term,
-          type    : 'GET',
-          data    : { },
-          success : function(data) {
+          url        : '/tree_searches/' + self.parents('.tree-background').find('.tree-container').attr('data-database-id') + '/' + term,
+          type       : 'GET',
+          data       : { },
+          beforeSend : function(xhr) {
+            xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
+          },
+          success    : function(data) {
             results.html(data);
             results.find("a").click(function() {
                results.hide();
@@ -359,7 +371,7 @@ $(function() {
                return false;
             });
           },
-          complete : function() {
+          complete   : function() {
             results.unspinner();
           }
         });
@@ -387,6 +399,7 @@ $(function() {
       dataType    : 'json',
       data        : JSON.stringify({ 'channel' : GNITE.MergeEvent.channel, 'subject' : subject, 'message' : message }),
       beforeSend  : function(xhr) {
+        xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
         if(ignore) { xhr.setRequestHeader("X-Session-ID", jug.sessionID); }
       }
     });
@@ -396,16 +409,24 @@ $(function() {
     $('#merge-warning').hide();
     $('.tree-background').spinner();
     $('#preview-tree').removeClass("merge-complete").jstree("close_all").jstree("lock");
-    $.get('/merge_trees/' + GNITE.MergeEvent.merge_tree_id + '/populate', {}, function(populate_response) {
-      setTimeout(function checkStatus() {
-        if(populate_response.status !== "OK") {
-          setTimeout(checkStatus, 100);
-        } else {
-          $('#preview-tree').addClass("merge-complete").jstree("unlock").jstree("refresh");
-          $('.tree-background').unspinner();
-        }
-      }, 100);
-    }, 'json'); 
+    $.ajax({
+      type       : 'GET',
+      url        : '/merge_trees/' + GNITE.MergeEvent.merge_tree_id + '/populate',
+      data       : {},
+      beforeSend : function(xhr) {
+        xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
+      },
+      success    : function(populate_response) {
+        setTimeout(function checkStatus() {
+          if(populate_response.status !== "OK") {
+            setTimeout(checkStatus, 100);
+          } else {
+            $('#preview-tree').addClass("merge-complete").jstree("unlock").jstree("refresh");
+            $('.tree-background').unspinner();
+          }
+        }, 100);
+      }
+    }); 
   };
 
   GNITE.MergeEvent.openAncestry = function(tree, obj) {
@@ -472,6 +493,9 @@ $(function() {
       url         : url,
       contentType : 'text/html',
       dataType    : 'html',
+      beforeSend : function(xhr) {
+        xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
+      },
       success     : function(data) {
         container.html(data);
         wrapper.css('bottom', container.height());
