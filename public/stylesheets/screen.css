@@ -88,8 +88,8 @@ hr {
 .infobox-wrap {
   background-color: #EEF1F3;
   float: left;
-  margin: 10px 0px;
-  width: 600px;
+  margin: 10px 20px 0px 0px;
+  width: 500px;
 }
 
 .infobox-wrap .title {
@@ -138,14 +138,14 @@ hr {
 
 .infobox p.inline-hints {
   color: #666 !important;
-  margin: 0.5em 0 0 27%;
-  line-height:0.5em !important;
+  margin: 0.5em 0 0 32%;
+  line-height:1em !important;
 }
 
 .infobox p.inline-errors {
   color: red !important;
-  margin: 0.5em 0 0 27%;
-  line-height:0.5em !important;
+  margin: 0.5em 0 0 32%;
+  line-height:1em !important;
   font-style:italic;
 }
 

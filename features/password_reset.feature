@@ -6,16 +6,20 @@ Feature: Password reset
     Scenario: User is not signed up
       Given no user exists with an email of "email@person.com"
       When I request password reset link to be sent to "email@person.com"
-      Then I should see "Unknown email"
+      Then I should see "not found"
 
     Scenario: User is signed up and requests password reset
       Given I signed up with "email@person.com/password"
       When I request password reset link to be sent to "email@person.com"
-      Then I should see "instructions for changing your password"
+      Then I should see "You will receive an email"
       And a password reset message should be sent to "email@person.com"
 
-    Scenario: User is signed up updated his password and types wrong confirmation
+    Scenario: User is signed up updated his password and types wrong confirmation password
       Given I signed up with "email@person.com/password"
+      When I request password reset link to be sent to "email@person.com"
+      Then I should see "You will receive an email"
+      And a password reset message should be sent to "email@person.com"
+
       When I follow the password reset link sent to "email@person.com"
       And I update my password with "newpassword/wrongconfirmation"
       Then I should see "doesn't match confirmation"
@@ -23,6 +27,10 @@ Feature: Password reset
 
     Scenario: User is signed up and updates his password
       Given I signed up with "email@person.com/password"
+      When I request password reset link to be sent to "email@person.com"
+      Then I should see "You will receive an email"
+      And a password reset message should be sent to "email@person.com"
+
       When I follow the password reset link sent to "email@person.com"
       And I update my password with "newpassword/newpassword"
       Then I should be signed in
@@ -30,8 +38,3 @@ Feature: Password reset
       Then I should be signed out
       And I sign in as "email@person.com/newpassword"
       Then I should be signed in
-
-    Scenario: User uses an old password reset link
-      Given I signed up with "email@person.com/password"
-      When I follow the old password reset link sent to "email@person.com"
-      Then I should see "must use the link from the most recently sent password reset email"

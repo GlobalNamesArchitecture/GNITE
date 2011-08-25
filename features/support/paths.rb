@@ -24,7 +24,7 @@ module NavigationHelpers
       new_user_unlock_path
     when /the master tree index page/i
       master_trees_path
-    when /the edit user settings page for/i
+    when /the edit user settings page/i
       edit_user_registration_path
     when /the master tree page for "(.+)"/i
       tree = MasterTree.find_by_title($1)

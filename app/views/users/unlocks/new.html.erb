@@ -1,5 +1,6 @@
 <div id="loginform" class="clearfix">
   <%= semantic_form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post }) do |f| %>
+    <%= f.hidden_field :unlock_token %>
 
     <%= f.inputs :title => "Resend unlock instructions" do %>
       <%= f.input :email, :label => "Email", :input_html => { :class => "input" } %>
