@@ -1,7 +1,7 @@
 <div id="loginform" class="clearfix">
   <%= semantic_form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
 
-    <%= f.inputs :title => "Resend confirmation" do %>
+    <%= f.inputs :title => "Resend confirmation instructions" do %>
       <%= f.input :email, :label => "Email", :input_html => { :class => "input" } %>
     <% end -%>
 

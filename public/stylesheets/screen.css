@@ -209,6 +209,11 @@ body form input {
   min-height:225px;
 }
 
+#loginform ol li, #loginform ul li {
+  margin-top: 10px;
+  position:relative;
+}
+
 #loginform legend {
   color: rgb(127, 196, 67);
   font-size: 1.8em;
@@ -242,7 +247,7 @@ body form input {
   -webkit-box-shadow: 0 1px 1px 0 rgba(26, 26, 26, 0.6) inset;
   color: #232323;
   font-size: 1.4em;
-  margin-bottom: 12px;
+  margin-bottom:12px;
   padding: 8px 10px;
   text-shadow: 0 0 1px rgba(0,0,0,.25);
   width: 380px;
@@ -260,8 +265,9 @@ body form input {
 
 #loginform p.inline-errors {
   color: red;
-  line-height:0.5em;
   font-style:italic;
+  position:absolute;
+  bottom:-0.5em;
 }
 
 

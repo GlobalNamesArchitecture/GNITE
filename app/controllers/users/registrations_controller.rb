@@ -4,10 +4,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
   
   def get_layout
-    if action_name != "edit"
-      "login"
-    else
+    if action_name == "edit" || action_name == "update"
       "application"
+    else
+      "login"
     end
   end
   
