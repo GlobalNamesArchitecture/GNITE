@@ -10,14 +10,13 @@ describe HomesController do
 
       subject { controller }
 
-      it { should redirect_to(sign_in_url) }
+      it { should redirect_to(new_user_session_url) }
     end
   end
 
   context "when signed in" do
     before do
-      @user = Factory(:email_confirmed_user)
-      sign_in_as(@user)
+      sign_in Factory(:user)
     end
 
     context "on GET to #show" do

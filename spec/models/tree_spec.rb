@@ -77,7 +77,7 @@ end
 
 describe Tree, '#nuke_nodes' do
   it "should destroy all nodes, but not the tree and its root" do
-    user = Factory(:email_confirmed_user)
+    user = Factory(:user)
     tree = Factory(:tree)
     root = Factory(:node, :tree => tree)
     child = Factory(:node, :tree => tree, :parent_id => root)
@@ -104,7 +104,7 @@ end
 
 describe Tree, '#nuke' do
   it "should destroy all nodes, bookmarks, synonyms and vernaculars" do
-    user = Factory(:email_confirmed_user)
+    user = Factory(:user)
     tree = Factory(:tree)
     root = Factory(:node, :tree => tree)
     child = Factory(:node, :tree => tree, :parent_id => root)

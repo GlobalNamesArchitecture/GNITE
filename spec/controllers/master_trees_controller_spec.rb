@@ -3,8 +3,8 @@ require 'spec_helper'
 describe MasterTreesController do
   context "signed in" do
     before do
-      @user = Factory(:email_confirmed_user)
-      sign_in_as(@user)
+      @user = Factory(:user)
+      sign_in @user
     end
 
     context "on GET to #index" do
@@ -114,25 +114,25 @@ end
 
 describe MasterTreesController, 'GET index without authenticating' do
   before { get :index }
-  it     { should redirect_to(sign_in_url) }
+  it     { should redirect_to(new_user_session_url) }
 end
 
 describe MasterTreesController, 'GET new without authenticating' do
   before { get :new }
-  it     { should redirect_to(sign_in_url) }
+  it     { should redirect_to(new_user_session_url) }
 end
 
 describe MasterTreesController, 'GET show without authenticating' do
   before { get :show, :id => 1 }
-  it     { should redirect_to(sign_in_url) }
+  it     { should redirect_to(new_user_session_url) }
 end
 
 describe MasterTreesController, 'GET edit without authenticating' do
   before { get :edit, :id => 1 }
-  it     { should redirect_to(sign_in_url) }
+  it     { should redirect_to(new_user_session_url) }
 end
 
 describe MasterTreesController, 'PUT update without authenticating' do
   before { put :update, :id => 1 }
-  it     { should redirect_to(sign_in_url) }
+  it     { should redirect_to(new_user_session_url) }
 end

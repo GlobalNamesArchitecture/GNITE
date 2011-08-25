@@ -8,7 +8,7 @@ describe GnaclrImportsController, 'xhr POST create' do
     reference_tree = Factory(:reference_tree, :title => 'NCBI')
     ReferenceTree.stubs(:create!).returns(reference_tree)
     GnaclrImporter.stubs(:create!).returns(Factory(:gnaclr_importer, :reference_tree => reference_tree, :url => 'foo'))
-    sign_in_as user
+    sign_in user
     xhr :post,
         :create,
         :title            => reference_tree.title,
@@ -44,7 +44,7 @@ describe GnaclrImportsController, 'reuse of a tree' do
   it 'reuses existing reference tree for the second import of the same classification' do
     GnaclrImporter.stubs(:create!).returns(gnaclr_importer)
     ReferenceTree.stubs(:create!).returns(reference_tree)
-    sign_in_as user
+    sign_in user
     xhr :post,
         :create,
         :title            => 'NCBI',
@@ -82,7 +82,7 @@ describe GnaclrImportsController, 'html POST create' do
   let(:user) { Factory(:user) }
   subject { controller }
   before do
-    sign_in_as user
+    sign_in user
     post :create
   end
   it { should respond_with(:bad_request) }

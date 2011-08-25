@@ -5,7 +5,7 @@ describe GnaclrSearchesController, 'route' do
 end
 
 describe GnaclrSearchesController, 'xhr GET to show' do
-  let(:user)           { Factory(:email_confirmed_user) }
+  let(:user)           { Factory(:user) }
   let(:master_tree)    { Factory(:master_tree, :user => user) }
   let(:search_results) { File.open('features/support/fixtures/gnaclr_search_result.json') }
 
@@ -14,7 +14,7 @@ describe GnaclrSearchesController, 'xhr GET to show' do
     GnaclrSearch.stubs(:new => gnaclr_search_mock)
     gnaclr_search_mock.stubs(:results => search_results)
 
-    sign_in_as(user)
+    sign_in user
 
     xhr :get,
         :show,
@@ -32,12 +32,14 @@ describe GnaclrSearchesController, 'xhr GET to show' do
 end
 
 describe GnaclrSearchesController, 'xhr GET to show with GNACLR service down' do
+  let(:user)           { Factory(:user) }
+
   before do
     gnaclr_search_mock = mock('gnaclr_search')
     GnaclrSearch.stubs(:new => gnaclr_search_mock)
     gnaclr_search_mock.stubs(:results).raises(Gnite::ServiceUnavailable)
 
-    sign_in
+    sign_in user
 
     xhr :get,
         :show,

@@ -9,16 +9,16 @@ describe ImportsController do
 
       subject { controller }
 
-      it { should redirect_to(sign_in_url) }
+      it { should redirect_to(new_user_session_url) }
       it { should set_the_flash.to(/sign in/) }
     end
   end
 
   context "signed in" do
-    let(:user) { Factory(:email_confirmed_user) }
+    let(:user) { Factory(:user) }
 
     before do
-      sign_in_as(user)
+      sign_in user
       controller.stubs(:current_user => user)
     end
 

@@ -117,7 +117,7 @@ describe MasterTree do
 end
 
 describe MasterTree, 'finding in sorted by title' do
-  let(:user) { Factory(:email_confirmed_user) }
+  let(:user) { Factory(:user) }
   let(:z_tree) { Factory(:master_tree, :title => 'z', :user => user) }
   let(:b_tree) { Factory(:master_tree, :title => 'b', :user => user) }
   let(:a_tree) { Factory(:master_tree, :title => 'a', :user => user) }

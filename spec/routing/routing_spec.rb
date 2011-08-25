@@ -78,32 +78,6 @@ describe "routing to master tree edits" do
   end
 end
 
-describe "routing to users" do
-  it "routes /users/abc/edit to users#edit" do
-    { :get => "/users/abc/edit" }.should route_to(
-      :controller => "users",
-      :action => "edit",
-      :id => "abc"
-    )
-  end
-  it "routes /users/abc to users#update" do
-    { :put => "/users/abc" }.should route_to(
-      :controller => "users",
-      :action => "update",
-      :id => "abc"
-    )
-  end
-end
-
-describe "routing to passwords" do
-  it "routes /your/password/edit to passwords#edit" do
-    { :get => "/your/password/edit" }.should route_to(
-      :controller => "your/passwords",
-      :action => "edit"
-    )
-  end
-end
-
 describe "routing to nodes" do
   it "routes /master_trees/:master_tree_id/nodes to nodes#index" do
     { :get => "/master_trees/123/nodes" }.should route_to(
@@ -269,27 +243,6 @@ describe "routing to merge events" do
     )
   end
 
-end
-
-describe "sign_up, sign_in, sign_out" do
-  it "route /sign_up to users#new" do
-    { :get => "/sign_up" }.should route_to(
-      :controller => 'users',
-      :action => 'new'
-    )
-  end
-  it "route /sign_in to sessions#new" do
-    { :get => "/sign_in" }.should route_to(
-      :controller => 'sessions',
-      :action => 'new'
-    )
-  end
-  it "route /sign_out to sessions#destroy" do
-    { :get => "/sign_out" }.should route_to(
-      :controller => 'sessions',
-      :action => 'destroy'
-    )
-  end
 end
 
 describe "imports" do

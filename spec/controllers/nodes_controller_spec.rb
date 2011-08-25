@@ -5,20 +5,20 @@ describe NodesController, 'when signed out on POST to create' do
     post :create, :master_tree_id => 123, :node_id => 456
   end
   subject { controller }
-  it { should redirect_to(sign_in_url) }
+  it { should redirect_to(new_user_session_url) }
   it { should set_the_flash.to(/sign in/) }
 end
 
 describe NodesController do
   context "signed in with a tree and nodes" do
-    let(:user)        { Factory(:email_confirmed_user) }
+    let(:user)        { Factory(:user) }
 
     before do
-      sign_in_as(user)
+      sign_in user
     end
 
     context "when signed in with a tree" do
-      let(:user) { Factory(:email_confirmed_user) }
+      let(:user) { Factory(:user) }
       let(:tree) do
         tree = Factory(:master_tree)
         Factory(:node, :tree => tree)
@@ -27,7 +27,7 @@ describe NodesController do
       let(:nodes) { tree.nodes }
 
       before do
-        sign_in_as(user)
+        sign_in user
 
         controller.stubs(:current_user => user)
         user_trees = [tree]
@@ -56,7 +56,7 @@ end
 
 describe NodesController, 'POST to create a node' do
   subject { controller }
-  let(:user) { Factory(:email_confirmed_user) }
+  let(:user) { Factory(:user) }
   let(:tree) do
     tree = Factory(:master_tree)
     Factory(:node, :tree => tree)
@@ -70,7 +70,7 @@ describe NodesController, 'POST to create a node' do
   let(:new_node) { Factory.build(:node, node_attributes) }
 
   before do
-    sign_in_as(user)
+    sign_in user
     controller.stubs(:current_user => user)
     user_trees = [tree]
     user.stubs(:master_trees => user_trees)
@@ -97,7 +97,7 @@ end
 
 
 describe NodesController, 'POST to copy a node from a reference tree' do
-  let(:user) { Factory(:email_confirmed_user) }
+  let(:user) { Factory(:user) }
   let(:master_tree) { Factory(:master_tree, :user => user) }
   let(:parent_node) { Factory(:node, :tree => master_tree) }
   let(:reference_node) do
@@ -111,7 +111,7 @@ describe NodesController, 'POST to copy a node from a reference tree' do
   subject { controller }
 
   before do
-    sign_in_as(user)
+    sign_in user
     @node_count = parent_node.children.size
     post :create, :master_tree_id => master_tree.id, :format => 'json', :node => {:id => reference_node.id, :parent_id => parent_node.id }, :action_type => 'ActionCopyNodeFromAnotherTree'
     @clone_node = ::Node.find(JSON.parse(response.body)['node']['id'])
@@ -137,13 +137,13 @@ end
 
 
 describe NodesController, 'PUT to update' do
-  let(:user) { Factory(:email_confirmed_user) }
+  let(:user) { Factory(:user) }
   let(:tree) { Factory(:master_tree, :user => user) }
   let(:node)  { Factory(:node, :tree => tree) }
   subject { controller }
 
   before do
-    sign_in_as(user)
+    sign_in user
     put :update,
       :id => node.id,
       :master_tree_id => tree.id,
@@ -195,7 +195,7 @@ describe NodesController, 'PUT to update' do
 end
 
 describe NodesController, 'GET to show for master tree' do
-  let(:user) { Factory(:email_confirmed_user) }
+  let(:user) { Factory(:user) }
   let(:tree) { Factory(:master_tree, :user => user) }
   let(:node) { Factory(:node, :tree => tree) }
   let(:synonym) { Factory(:synonym, :node => node, :name => Factory(:name, :name_string => 'Point'), :status => 'synonym') }
@@ -205,7 +205,7 @@ describe NodesController, 'GET to show for master tree' do
   subject { controller }
 
   before do
-    sign_in_as(user)
+    sign_in user
 
     @expected = {
       :id          => node.id,
@@ -226,7 +226,7 @@ describe NodesController, 'GET to show for master tree' do
 end
 
 describe NodesController, 'GET to show for reference tree' do
-  let(:user) { Factory(:email_confirmed_user) }
+  let(:user) { Factory(:user) }
   let(:tree) { Factory(:reference_tree) }
   let(:node) { Factory(:node, :tree => tree) }
   let(:synonym) { Factory(:synonym, :node => node, :name => Factory(:name, :name_string => 'Point'), :status => 'synonym') }
@@ -236,7 +236,7 @@ describe NodesController, 'GET to show for reference tree' do
   subject { controller }
 
   before do
-    sign_in_as(user)
+    sign_in user
 
     @expected = {
       :id          => node.id,

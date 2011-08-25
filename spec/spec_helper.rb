@@ -15,7 +15,8 @@ require 'shoulda'
 RSpec.configure do |config|
   config.mock_with :mocha
   config.use_transactional_fixtures = true
-  config.include SessionHelpers
+  config.include Devise::TestHelpers, :type => :controller
+  config.extend ControllerMacros, :type => :controller
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction

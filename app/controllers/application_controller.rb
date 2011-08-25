@@ -1,13 +1,7 @@
 class ApplicationController < ActionController::Base
   
-  before_filter :authenticate_user!
-  
   protect_from_forgery
   layout 'application'
-
-  def authenticate
-    deny_access("You must sign in to view that page") unless signed_in?
-  end
 
   private
 

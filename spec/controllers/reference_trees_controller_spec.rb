@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe ReferenceTreesController, 'html POST create' do
   context "when signed in with a master tree" do
-    let(:user) { Factory(:email_confirmed_user) }
+    let(:user) { Factory(:user) }
     let(:master_tree) { Factory(:master_tree, :user => user) }
 
     before do
-      sign_in_as(user)
+      sign_in user
 
       controller.stubs(:current_user => user)
     end
@@ -35,16 +35,16 @@ end
 
 describe ReferenceTreesController, 'POST create without authenticating' do
   before { post :create }
-  it     { should redirect_to(sign_in_url) }
+  it     { should redirect_to(new_user_session_url) }
 end
 
 describe ReferenceTreesController, 'xhr GET show for a tree that is importing' do
-  let(:user) { Factory(:email_confirmed_user) }
+  let(:user) { Factory(:user) }
   let(:reference_tree) { Factory(:reference_tree,
                                 :state => 'importing') }
   subject { controller }
   before do
-    sign_in_as user
+    sign_in user
     get :show,
         :id     => reference_tree.id,
         :format => :json
@@ -57,12 +57,12 @@ describe ReferenceTreesController, 'xhr GET show for a tree that is importing' d
 end
 
 describe ReferenceTreesController, 'xhr GET show for a tree that is active' do
-  let(:user) { Factory(:email_confirmed_user) }
+  let(:user) { Factory(:user) }
   let(:reference_tree) { Factory(:reference_tree,
                                 :state => 'active') }
   subject { controller }
   before do
-    sign_in_as user
+    sign_in user
     xhr :get,
         :show,
         :id => reference_tree.id,
@@ -75,8 +75,9 @@ describe ReferenceTreesController, 'xhr GET show for a tree that is active' do
 end
 
 describe ReferenceTreesController, 'html GET to show' do
+  let(:user) { Factory(:user) }
   before do
-    sign_in
+    sign_in user
     get :show, :id => 1
   end
 
@@ -84,6 +85,7 @@ describe ReferenceTreesController, 'html GET to show' do
 end
 
 describe ReferenceTreesController, 'GET show without authenticating' do
-  before { xhr :get, :show, :id => 1, :format => :json }
-  it     { should redirect_to(sign_in_url) }
+  before { get :show, :id => 1 }
+  it     { should redirect_to(new_user_session_url) }
+  it     { should set_the_flash.to(/sign in/) }
 end
