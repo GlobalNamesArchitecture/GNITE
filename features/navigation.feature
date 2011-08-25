@@ -26,5 +26,5 @@ Feature: Interact with navigation bar
     Then I should be on the edit user settings page for "belinda@belew.com"
     And the "Profile Settings" bar should be highlighted
     And the "Working Trees" bar should not be highlighted
-    And I should see "Change Password"
+    And I should see "New password"
     And I should see the signout link

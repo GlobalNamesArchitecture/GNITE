@@ -1,5 +1,26 @@
 require 'spec_helper'
 
+describe "sign_up, sign_in, sign_out" do
+  it "route /users/sign_up to users/sign_up#new" do
+    { :get => "/users/sign_up" }.should route_to(
+      :controller => 'users/registrations',
+      :action => 'new'
+    )
+  end
+  it "route /users/sign_in to users/sessions#new" do
+    { :get => "/users/sign_in" }.should route_to(
+      :controller => 'users/sessions',
+      :action => 'new'
+    )
+  end
+  it "route /users/sign_out to users/sessions#destroy" do
+    { :delete => "/users/sign_out" }.should route_to(
+      :controller => 'users/sessions',
+      :action => 'destroy'
+    )
+  end
+end
+
 describe "routing to master_trees" do
   it "routes /master_trees to master_trees#index" do
     { :get => "/master_trees" }.should route_to(

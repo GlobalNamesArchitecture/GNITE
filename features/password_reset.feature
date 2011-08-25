@@ -26,7 +26,7 @@ Feature: Password reset
       And I should be signed out
 
     Scenario: User is signed up and updates his password
-      Given I signed up with "email@person.com/password"
+      Given I am signed up and confirmed as "email@person.com/password"
       When I request password reset link to be sent to "email@person.com"
       Then I should see "You will receive an email"
       And a password reset message should be sent to "email@person.com"
@@ -36,5 +36,6 @@ Feature: Password reset
       Then I should be signed in
       When I sign out
       Then I should be signed out
+
       And I sign in as "email@person.com/newpassword"
       Then I should be signed in

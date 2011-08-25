@@ -18,6 +18,7 @@ Given /^I signed up with "(.*)\/(.*)"$/ do |email, password|
   user = Factory :user,
     :email                 => email,
     :password              => password,
+    :confirmed_at          => nil
 end 
 
 Given /^I am signed up and confirmed as "(.*)\/(.*)"$/ do |email, password|
@@ -67,8 +68,7 @@ end
 
 When /^I follow the confirmation link sent to "(.*)"$/ do |email|
   user = User.find_by_email(email)
-  visit new_user_confirmation_path(:user_id => user,
-                                   :token   => user.confirmation_token)
+  visit "/users/confirmation?confirmation_token=#{user.confirmation_token}"
 end
 
 Then /^a password reset message should be sent to "(.*)"$/ do |email|
