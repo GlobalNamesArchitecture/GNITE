@@ -236,13 +236,13 @@ PLATFORMS
 DEPENDENCIES
   biodiversity19
   bourne
-  cancan
+  cancan (= 1.6.5)
   capybara (= 1.0.1)
   crack
   cucumber (= 1.0.0)
   cucumber-rails (= 1.0.0)
   database_cleaner
-  devise
+  devise (= 1.4.2)
   dwc-archive (= 0.5.15)
   engineyard
   escape_utils

@@ -9,7 +9,8 @@ var GNITE = {
     DeletedTree   : {},
     ReferenceTree : {},
     Node          : {}
-  }
+  },
+  token : ""
 };
 
 /**************************************************************
@@ -21,6 +22,8 @@ var jug = new Juggernaut();
 $(function() {
 
   "use strict";
+
+  GNITE.token = $("meta[name='csrf-token']").attr("content");
 
   jug.on("connect", function() { "use strict"; $('#master-tree').addClass("socket-active"); });
   jug.on("disconnect", function() { "use strict"; $('#master-tree').removeClass("socket-active"); });
@@ -285,17 +288,17 @@ $(function() {
       } else {
         title = self.val();
 
-        $.post('/master_trees/' + GNITE.Tree.MasterTree.id, { 'master_tree[title]' : title, '_method' : 'put' }, function(response) {
-          response = null;
-          self
-            .next()
-              .remove()
-            .end()
-            .parent()
-              .append('<h1>' + title + '</h1>')
-            .end()
-            .remove();
-        }, 'json');
+        $.ajax({
+          type    : 'POST',
+          url     : '/master_trees/' + GNITE.Tree.MasterTree.id,
+          data    : { 'master_tree[title]' : title, '_method' : 'PUT' },
+          success : function() {
+            self.next().remove().end().parent().append('<h1>' + title + '</h1').end().remove();
+          },
+          beforeSend  : function(xhr) {
+            xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
+          }
+        });
       }
     })
     .keypress(function(event) {
@@ -416,7 +419,10 @@ $(function() {
                   url         : '/reference_trees/' + tree_id + '/bookmarks',
                   data        : JSON.stringify({ 'id' : id, 'bookmark_title' : title }),
                   contentType : 'application/json',
-                  dataType    : 'json'
+                  dataType    : 'json',
+                  beforeSend  : function(xhr) {
+                    xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
+                  }
                 });
               });
 
@@ -436,9 +442,14 @@ $(function() {
         var response = $.parseJSON(data);
         switch(response.message) {
           case 'Import is successful':
-            $.get('/reference_trees/' + tree_id + '.json', function(response, status, xhr) {
-              status = null;
-              if (xhr.status === 200) {
+            $.ajax({
+              'type'       : 'GET',
+              'url'        : '/reference_trees/' + tree_id + '.json',
+              'data'       : {},
+              'beforeSend' : function(xhr) {
+                xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
+              },
+              'success'    : function(response) {
                 self.parent().find(".status").addClass("juggernaut-complete");
                 jugImporter.unsubscribe("tree_" + tree_id);
                 self.parent().find(".status").html(response.message);
@@ -542,6 +553,9 @@ $(function() {
           url     : '/tree_searches/' + self.parents('.tree-background').find('.tree-container').attr('data-database-id') + '/' + term,
           type    : 'GET',
           data    : { },
+          beforeSend  : function(xhr) {
+            xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
+          },
           success : function(data) {
             results.html(data);
             results.find("a").click(function() {
@@ -625,6 +639,9 @@ $(function() {
                 type        : 'DELETE',
                 url         :  '/master_trees/' + GNITE.Tree.MasterTree.id,
                 data        :  formData,
+                beforeSend  : function(xhr) {
+                  xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
+                },
                 success     : function() {
                   var url   = "/master_trees",
                       input = '<input type="hidden" name="" value="" />';
@@ -752,6 +769,7 @@ $(function() {
       contentType : 'application/json',
       dataType    : 'json',
       beforeSend  : function(xhr) {
+        xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
         xhr.setRequestHeader("X-Session-ID", jug.sessionID);
       },
       success     : function(data) {
@@ -791,6 +809,7 @@ $(function() {
       contentType : 'application/json',
       dataType    : 'json',
       beforeSend  : function(xhr) {
+        xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
         xhr.setRequestHeader("X-Session-ID", jug.sessionID);
       },
       success     : function() {
@@ -853,6 +872,7 @@ $(function() {
       contentType : 'application/json',
       dataType    : 'json',
       beforeSend  : function(xhr) {
+        xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
         xhr.setRequestHeader("X-Session-ID", jug.sessionID);
       },
       success     : function(data) {
@@ -919,6 +939,7 @@ $(function() {
        contentType : 'application/json',
        dataType    : 'json',
        beforeSend  : function(xhr) {
+         xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
          xhr.setRequestHeader("X-Session-ID", jug.sessionID);
        },
        success     : function(r) {
@@ -959,6 +980,7 @@ $(function() {
         contentType : 'application/json',
         dataType    : 'json',
         beforeSend  : function(xhr) {
+          xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
           xhr.setRequestHeader("X-Session-ID", jug.sessionID);
         }
       });
@@ -1026,8 +1048,10 @@ $(function() {
       contentType : 'application/json',
       dataType    : 'json',
       beforeSend  : function(xhr) {
+        xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
         xhr.setRequestHeader("X-Session-ID", jug.sessionID);
       },
+
       success     : function(data) {
         GNITE.Tree.MasterTree.flashNode(data);
       }
@@ -1053,6 +1077,7 @@ $(function() {
       contentType : 'application/json',
       dataType    : 'json',
       beforeSend  : function(xhr) {
+        xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
         xhr.setRequestHeader("X-Session-ID", jug.sessionID);
       },
       success     : function(data) {
@@ -1091,7 +1116,10 @@ $(function() {
       url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/bookmarks',
       data        : JSON.stringify({ 'id' : id, 'bookmark_title' : title }),
       contentType : 'application/json',
-      dataType    : 'json'
+      dataType    : 'json',
+      beforeSend  : function(xhr) {
+        xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
+      }
     });
 
   });
@@ -1123,6 +1151,9 @@ $(function() {
         type        : 'POST',
         data        : data,
         contentType : 'application/json',
+        beforeSend  : function(xhr) {
+          xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
+        },
         success     : function(response) {
           var url = $('#merge-view-results a').attr("href");
           $('#merge-view-results a').attr("href", url + "/" + response.merge_event);
@@ -1176,6 +1207,9 @@ $(function() {
           type    : 'GET',
           data    : { 'search_term' : term, 'master_tree_id' : GNITE.Tree.MasterTree.id },
           format  : 'html',
+          beforeSend  : function(xhr) {
+            xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
+          },
           success : function(results) {
             $('#gnaclr-error').hide();
             $('#new-tab .tree-background').html(results);
@@ -1302,6 +1336,9 @@ $(function() {
       type        : 'POST',
       data        : data,
       contentType : 'application/json',
+      beforeSend  : function(xhr) {
+        xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
+      },
       success     : function(response) {
         GNITE.Tree.ReferenceTree.add(response);
       }
@@ -1452,7 +1489,8 @@ GNITE.pushMessage = function(subject, message, ignore) {
     dataType    : 'json',
     data        : JSON.stringify({ 'channel' : GNITE.Tree.MasterTree.channel, 'subject' : subject, 'message' : message }),
     beforeSend  : function(xhr) {
-        if(ignore) { xhr.setRequestHeader("X-Session-ID", jug.sessionID); }
+      xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
+      if(ignore) { xhr.setRequestHeader("X-Session-ID", jug.sessionID); }
     }
   });
 };
@@ -1610,6 +1648,9 @@ GNITE.Tree.viewBookmarks = function(obj) {
     url      : url,
     type     : 'GET',
     dataType : 'html',
+    beforeSend  : function(xhr) {
+      xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
+    },
     success  : function(data) {
       bookmarks.html(data);
 
@@ -1651,6 +1692,9 @@ GNITE.Tree.viewBookmarks = function(obj) {
             contentType : 'application/json',
             dataType    : 'json',
             data  : JSON.stringify({ 'bookmark_title' : newval }),
+            beforeSend  : function(xhr) {
+              xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
+            },
             success : function(data) {
               link.children("a").text(data.bookmark.bookmark_title);
               input.hide();
@@ -1677,6 +1721,9 @@ GNITE.Tree.viewBookmarks = function(obj) {
         $.ajax({
           url   : url + '/' + $(self).attr("data-node-id"),
           type  : 'DELETE',
+          beforeSend  : function(xhr) {
+            xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
+          },
           success : function() {
             $(self).parent().parent().remove();
           }
@@ -1717,6 +1764,9 @@ GNITE.Tree.importTree = function(opts) {
     contentType : 'application/json',
     dataType    : 'json',
     data        : data,
+    beforeSend  : function(xhr) {
+      xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
+    },
     success     : function(response) {
       tree_id = response.tree_id;
     },
@@ -1729,32 +1779,50 @@ GNITE.Tree.importTree = function(opts) {
 
   //see if the tree already exists and if not, initiate a juggernaut connection
   if(tree_id) {
-    $.get('/reference_trees/' + tree_id, { format : 'json' }, function(response, status, xhr) {
-      status = null;
-      if (xhr.status === 200) {
-        GNITE.Tree.ReferenceTree.add(response, opts);
-      } else if (xhr.status === 204) {
-        var jugImporter = new Juggernaut();
-        jugImporter.on("connect", function() { opts.spinnedElement.find(".status").addClass("juggernaut-connected"); });
-        jugImporter.subscribe("tree_" + tree_id, function(data) {
-        var response = $.parseJSON(data);
-        switch(response.message) {
-          case 'Import is successful':
-            $.get('/reference_trees/' + tree_id, { format : 'json' }, function(response, status, xhr) {
-              status = null;
-              if (xhr.status === 200) {
-                opts.spinnedElement.find(".status").addClass("juggernaut-complete");
-                jugImporter.unsubscribe("tree_" + tree_id);
-                opts.spinnedElement.find(".status").html(response.message);
-                GNITE.Tree.ReferenceTree.add(response, opts);
-              }
-            });
-            break;
+    $.ajax({
+      'type'       : 'GET',
+      'url'        : '/reference_trees/' + tree_id,
+      'data'       : { format : 'json' },
+      'beforeSend' : function(xhr) {
+        xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
+      },
+      'success'    : function(response, status, xhr) {
+        status = null;
 
-            default:
-              opts.spinnedElement.find(".status").html(response.message);
-          }
-        });
+        if (xhr.status === 200) {
+          GNITE.Tree.ReferenceTree.add(response, opts);
+        } else if (xhr.status === 204) {
+          var jugImporter = new Juggernaut();
+          jugImporter.on("connect", function() { opts.spinnedElement.find(".status").addClass("juggernaut-connected"); });
+          jugImporter.subscribe("tree_" + tree_id, function(data) {
+            var response = $.parseJSON(data);
+            switch(response.message) {
+              case 'Import is successful':
+                $.ajax({
+                  'type' : 'GET',
+                  'url'  : '/reference_trees/' + tree_id,
+                  'data' : { format : 'json' },
+                  'beforeSend' : function(xhr) {
+                    xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
+                  },
+                  'success' : function(response, status, xhr) {
+                    status = null;
+
+                    if (xhr.status === 200) {
+                      opts.spinnedElement.find(".status").addClass("juggernaut-complete");
+                      jugImporter.unsubscribe("tree_" + tree_id);
+                      opts.spinnedElement.find(".status").html(response.message);
+                      GNITE.Tree.ReferenceTree.add(response, opts);
+                    }
+                  }
+                });
+              break;
+
+              default:
+                opts.spinnedElement.find(".status").html(response.message);
+            }
+          });
+        }
       }
     });
   }
@@ -1771,6 +1839,9 @@ GNITE.Tree.MasterTree.publish = function() {
     url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/publish.json',
     contentType : 'application/json',
     dataType    : 'json',
+    beforeSend  : function(xhr) {
+      xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
+    },
     success     : function() {
       var message = 'Your tree is being queued for publishing';
       $('body').append('<div id="dialog-message" class="ui-state-highlight" title="Publishing Confirmation">' + message + '</div>');
@@ -1941,6 +2012,7 @@ GNITE.Tree.MasterTree.externalDragged = function(data) {
     contentType : 'application/json',
     dataType    : 'json',
     beforeSend  : function(xhr) {
+      xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
       xhr.setRequestHeader("X-Session-ID", jug.sessionID);
     },
     success     : function() {
@@ -1972,6 +2044,7 @@ GNITE.Tree.MasterTree.externalDropped = function(data) {
       contentType : 'application/json',
       dataType    : 'json',
       beforeSend  : function(xhr) {
+        xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
         xhr.setRequestHeader("X-Session-ID", jug.sessionID);
       },
       success     : function(data) {
@@ -2099,7 +2172,10 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
         url         : '/reference_trees/' + tree_id + '/bookmarks',
         data        : JSON.stringify({ 'id' : id, 'bookmark_title' : title }),
         contentType : 'application/json',
-        dataType    : 'json'
+        dataType    : 'json',
+        beforeSend  : function(xhr) {
+          xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
+        }
       });
     });
 
@@ -2127,6 +2203,9 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
     url         : url,
     contentType : 'text/html',
     dataType    : 'html',
+    beforeSend  : function(xhr) {
+      xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
+    },
     success     : function(data) {
       container.html(data);
       wrapper.css('bottom', container.height());
@@ -2303,6 +2382,7 @@ GNITE.Tree.MasterTree.editMetadata = function(elem, type, action, autocomplete_u
             contentType : 'application/json',
             dataType    : 'json',
             beforeSend  : function(xhr) {
+              xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
               xhr.setRequestHeader("X-Session-ID", jug.sessionID);
             },
           });
@@ -2373,6 +2453,7 @@ GNITE.Tree.MasterTree.reconciliation = function(params) {
     dataType    : 'json',
     contentType : 'application/json',
     beforeSend  : function(xhr) {
+      xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
       xhr.setRequestHeader("X-Session-ID", jug.sessionID);
     },
     success : function() {

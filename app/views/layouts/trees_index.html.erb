@@ -10,6 +10,7 @@
 </head>
 <body class="<%= body_class %>">
   <div id="wrapper">
+
     <% if current_user %>
       <%= render :partial => 'shared/navigation' %>
     <% end %>
@@ -24,7 +25,8 @@
         <%= yield %>
       </div>
     </div>
-    <%= render :partial => 'shared/javascript' %>
+
   </div>
+  <%= render :partial => 'shared/javascript' %>
 </body>
 </html>
