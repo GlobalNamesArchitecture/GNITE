@@ -245,7 +245,7 @@ ActiveRecord::Schema.define(:version => 20110824161332) do
 
   create_table "users", :force => true do |t|
     t.string   "email"
-    t.string   "encrypted_password",     :limit => 128
+    t.string   "encrypted_password"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "reset_password_token"
