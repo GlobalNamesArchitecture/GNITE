@@ -9,6 +9,7 @@ describe ActionNodeToSynonym do
     ["Vern1", "Vern2", "Vern3"].each { |n| Factory(:vernacular_name, :node => Node.find(subject.node_id), :name => Name.find_by_name_string(n)) }
     ["Synonym one", "Synonym four"].each { |n| Factory(:synonym, :node => Node.find(subject.destination_node_id), :name => Name.find_by_name_string(n)) }
     ["Vern4", "Vern2", "Vern6"].each { |n| Factory(:vernacular_name, :node => Node.find(subject.destination_node_id), :name => Name.find_by_name_string(n)) }
+    ["child1", "child2"].each { |n| Factory(:node, :tree_id => subject.tree_id, :parent => Node.find(subject.destination_node_id), :name => Name.find_or_create_by_name_string(n)) }
   end
 
   it 'should return master tree' do
@@ -17,6 +18,8 @@ describe ActionNodeToSynonym do
  
   it 'should create a node with merged metadata' do
     JSON.parse(subject.json_message, :symbolize_keys => true)[:undo].should be_nil
+    destination_node = Node.find(subject.destination_node_id)
+    destination_node.child_count.should == 2
     ActionNodeToSynonym.perform(subject.id)
     subject.reload.undo?.should be_true
     undo_info = JSON.parse(subject.reload.json_message, :symbolize_keys => true)[:undo]
@@ -24,6 +27,7 @@ describe ActionNodeToSynonym do
     merged_node = Node.find(undo_info[:merged_node_id])
     merged_node.name_string.should == Node.find(subject.destination_node_id).name_string
     merged_node.rank == Node.find(subject.destination_node_id).rank
+    merged_node.child_count.should == 2
     synonym_names = merged_node.synonyms.map {|s| s.name_string}
     synonym_names.include?(subject.node.name_string)
     synonym_names.size.should == 5
@@ -41,6 +45,7 @@ describe ActionNodeToSynonym do
     #undo
     ActionNodeToSynonym.perform(subject.id)
     subject.reload.undo?.should be_false
+    destination_node.reload.child_count.should == 2
   end
 
   it 'should undo merge' do

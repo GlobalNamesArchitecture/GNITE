@@ -43,12 +43,22 @@ class ActionNodeToSynonym < ActionCommand
     save!
     
     Synonym.create(:node => merged_node, :name => node.name, :status => nil)
+    
+    @destination_node.children.each do |child|
+      child.parent_id = merged_node.id
+      child.save!
+    end
+    
     node.delete_softly
 
     @destination_node.delete_softly
   end
 
   def undo_action
+    @merged_node.children.each do |child|
+      child.parent_id = @destination_node.id
+      child.save!
+    end
     node.restore(@original_parent)
     @destination_node.restore(@merged_node.parent)
     @merged_node.destroy
