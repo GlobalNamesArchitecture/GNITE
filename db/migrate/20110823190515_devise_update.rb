@@ -15,7 +15,7 @@ class DeviseUpdate < ActiveRecord::Migration
       t.lockable :lock_strategy => :failed_attempts, :unlock_strategy => :both
     end
     
-    change_column :users, :encrypted_password, :limit => 255
+    change_column :users, :encrypted_password, :string, :limit => 255
     
     #if email_confirmed, update the confirmed_at column
     execute "UPDATE users SET confirmed_at = NOW() WHERE email_confirmed = 1"
