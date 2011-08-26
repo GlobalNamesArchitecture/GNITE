@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110801202425) do
+ActiveRecord::Schema.define(:version => 20110824161332) do
 
   create_table "action_commands", :force => true do |t|
     t.string   "type"
@@ -245,19 +245,32 @@ ActiveRecord::Schema.define(:version => 20110801202425) do
 
   create_table "users", :force => true do |t|
     t.string   "email"
-    t.string   "encrypted_password", :limit => 128
+    t.string   "encrypted_password",     :limit => 128
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                         :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.string   "salt",               :limit => 128
-    t.string   "remember_token",     :limit => 128
-    t.string   "confirmation_token", :limit => 128
-    t.boolean  "email_confirmed",                   :default => false, :null => false
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.integer  "failed_attempts",                       :default => 0
+    t.string   "unlock_token"
+    t.datetime "locked_at"
+    t.string   "given_name",             :limit => 128
+    t.string   "surname",                :limit => 128
+    t.string   "affiliation"
   end
 
+  add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email"
-  add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true
 
   create_table "vernacular_names", :force => true do |t|
     t.integer  "node_id"
