@@ -55,5 +55,7 @@ Gnite::Application.routes.draw do
     resources :terms, :controller => :controlled_terms, :only => [:show]
   end
   
+  resource :administration, :controller => "administration/menu", :only => [:show]
+  
   root :to => "homes#show"
 end

@@ -13,4 +13,11 @@ class User < ActiveRecord::Base
   has_many :master_trees, :through => :master_tree_contributors
   has_many :master_tree_logs
   has_many :merge_events
+  
+  has_and_belongs_to_many :roles
+  
+  def has_role?(role_sym)
+    roles.any? { |r| r.name.underscore.to_sym == role_sym }
+  end
+
 end

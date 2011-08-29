@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110824161332) do
+ActiveRecord::Schema.define(:version => 20110829174252) do
 
   create_table "action_commands", :force => true do |t|
     t.string   "type"
@@ -206,6 +206,17 @@ ActiveRecord::Schema.define(:version => 20110824161332) do
   end
 
   add_index "reference_tree_collections", ["master_tree_id", "reference_tree_id"], :name => "index_rtc_on_master_tree_id_etc", :unique => true
+
+  create_table "roles", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "roles_users", :id => false, :force => true do |t|
+    t.integer "role_id"
+    t.integer "user_id"
+  end
 
   create_table "synonyms", :force => true do |t|
     t.integer  "node_id"

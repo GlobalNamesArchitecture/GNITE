@@ -448,8 +448,8 @@ body form input {
 #nav li .nav_profile { background: transparent url("/images/profile-nonactive.png") left center no-repeat; }
 #nav li#active .nav_profile { background: transparent url("/images/profile-active.png") left center no-repeat; }
 #nav li .nav_feedback { background: transparent url("/images/nav-bullhorn.png") left center no-repeat; }
-#nav li .nav_about { background: transparent url("/images/nav-about.png") left center no-repeat; }
-#nav li#active .nav_about { background: transparent url("/images/nav-about-active.png") left center no-repeat; }
+#nav li .nav_admin { background: transparent url("/images/settings-nonactive.png") left center no-repeat; }
+#nav li#active .nav_admin { background: transparent url("/images/settings-active.png") left center no-repeat; }
 
 .icon {
   float: left;
@@ -2047,11 +2047,11 @@ ul#treelist a:hover,
   background-image: url("../images/flash-success.png");
 }
 
-#flash_image_failure, #flash_image_alert {
+#flash_image_failure, #flash_image_alert, #flash_image_error {
   background-image: url("../images/flash-failure.png");
 }
 
-#flash_image_success, #flash_image_failure, #flash_image_alert, #flash_image_notice {
+#flash_image_success, #flash_image_failure, #flash_image_alert, #flash_image_notice, #flash_image_error {
   height: 16px;
   float: left;
   margin-right: 10px;

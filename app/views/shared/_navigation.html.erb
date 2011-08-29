@@ -16,15 +16,12 @@
       <!-- Link to Profile Settings -->
       <% if controller_name == 'registrations' %>
         <li id="active">
-          <%= link_to edit_user_registration_path do %>
-            <span class="nav_profile">Profile Settings</span>
-          <% end %>
       <% else %>
         <li>
-        <%= link_to edit_user_registration_path do %>
-          <img class="icon" src="/images/profile-nonactive.png"/>Profile Settings
-        <% end %>
       <% end %>
+        <%= link_to edit_user_registration_path do %>
+          <span class="nav_profile">Profile Settings</span>
+        <% end %>
       </li>
 
       <!-- Link to Feedback -->
@@ -32,12 +29,26 @@
         <a href="javascript:UserVoice.showPopupWidget();" title="Feedback"><span class="nav_feedback">Feedback</span></a>
       </li>
 
+      <!-- Link to Admin -->
+      <% if current_user.has_role? :admin %>
+        <% if controller_name == 'menu' %>
+          <li id="active">
+        <% else %>
+          <li>
+        <% end %>
+          <%= link_to administration_path do %>
+            <span class="nav_admin">Administration</span>
+          <% end %>
+        </li>
+      <% end %>
+
       <!-- Link to Sign Out -->
       <li>
         <%= link_to destroy_user_session_path, :method => :delete do %>
           <img class="icon" src="/images/sign-out.png"/>Sign Out
         <% end %>
       </li>
+
     </ul>
   </div>
 </div>
