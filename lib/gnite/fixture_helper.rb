@@ -5,7 +5,7 @@ module Gnite::FixtureHelper
     user = Factory(:user) unless options[:user]
     tree = Factory(:master_tree,
                    :title => (options[:title].nil? ? "Master Tree One" : options[:title]), 
-                   :user => (options[:user].nil? ? user : options[:user])
+                   :user_id => (options[:user].nil? ? user.id : options[:user].id)
            )
     merge_node = Factory(:node, :tree => tree, :name => Name.find_or_create_by_name_string("Lycosidae"))
     bulk_add1 = Factory(:action_bulk_add_node, :tree_id => tree.id, :parent_id => merge_node.id, :json_message => '{"do": ["Pardosa", "Schizocosa", "Trochosa", "Alopecosa"]}')
@@ -25,7 +25,7 @@ module Gnite::FixtureHelper
     user = Factory(:user) unless options[:user]
     tree = Factory(:master_tree,
                    :title => (options[:title].nil? ? "Master Tree Two" : options[:title]),
-                   :user => (options[:user].nil? ? user : options[:user])
+                   :user_id => (options[:user].nil? ? user.id : options[:user].id)
            )
     merge_node = Factory(:node, :tree => tree, :name => Name.find_or_create_by_name_string("Lycosidae"))
     bulk_add1 = Factory(:action_bulk_add_node, :tree_id => tree.id, :parent_id => merge_node.id, :json_message => '{"do": ["Pardosa", "Schizocosa", "Varacosa", "Trochosa", "Alopecosa", "Crocodilosa"]}')

@@ -1,0 +1,38 @@
+<% content_for :header do %>
+  <div class="tree_list_header clearfix">
+    <div class="tree_list_header_inner clearfix">
+      <h1>Administration :: Users</h1>
+    </div>
+  </div>
+<% end %>
+
+<table class="gnite-table">
+  <thead>
+    <tr>
+      <td class="header-user">Given Name</td>
+      <td class="header-user">Surname</td>
+      <td class="header-user">Email</td>
+      <td class="header-updated">Last Accessed</td>
+      <td class="header-action">Actions</td>
+    </tr>
+  </thead>
+  <tbody>
+  <% if @users.any? %>
+    <% @users.each do |user| %>
+    <tr class="<% row_type = cycle("even", "odd") %><%= row_type %><%= (user == @users.last && row_type == 'even') ? " last last-even" : (user == @users.last && row_type == 'odd') ? " last last-odd": "" %>">
+      <td><%= user.given_name %></td>
+      <td><%= user.surname %></td>
+      <td><%= user.email %></td>
+      <td><%= user.last_sign_in_at %></td>
+      <td></td>
+    </tr>
+    <% end %>
+  <% else %>
+     <tr class="single">
+       <td colspan="3">There are not yet any users</td>
+     </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @users, :class => 'pagination' %>

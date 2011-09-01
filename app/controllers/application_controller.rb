@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
 
     if params[:master_tree_id]
       tree = MasterTree.find(tree_id) rescue nil
-#      tree = nil unless can? :show, tree
+      tree = nil unless can? :show, tree
     elsif params[:reference_tree_id]
       tree = ReferenceTree.find(tree_id) rescue nil
     elsif params[:deleted_tree_id]

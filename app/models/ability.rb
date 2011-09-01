@@ -8,7 +8,7 @@ class Ability
       can :manage, :all
     else
       can :index, MasterTree, :master_tree_contributors => { :user_id => user.id }
-      can :show, MasterTree do |master_tree|
+      can [:show, :undo, :redo], MasterTree do |master_tree|
         master_tree.users.include?(user) || master_tree.user_id == user.id
       end
       can :new, MasterTree

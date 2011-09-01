@@ -54,8 +54,13 @@ Gnite::Application.routes.draw do
   resources :vocabularies, :controller => :controlled_vocabularies, :only => [:show] do
     resources :terms, :controller => :controlled_terms, :only => [:show]
   end
+
+  resource :admin, :controller => 'admin/menu', :only => [:index, :show]
   
-  resource :administration, :controller => "administration/menu", :only => [:show]
+  namespace :admin do
+    resources :menu, :only => [:index]
+    resources :users, :only => [:index]
+  end
   
   root :to => "homes#show"
 end

@@ -1219,6 +1219,10 @@ body form input {
     background-color:#BABFC3;
 }
 
+.bookmarks-show {
+  border-bottom:1px dotted;
+}
+
 .searchbar-results div.results-message, .bookmarks-results div.results-message {
     margin-top:10px;
     font-style:italic;
@@ -1859,7 +1863,7 @@ ul#revisions li:hover {
   padding: 0;
 }
 
-.master_trees-index h2 {
+.master_trees-index h2, .admin-menu h2 {
   color: white;
   padding: 15px 45px;
 }
@@ -2282,6 +2286,16 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 
 #chat-messages-list li span.message {
   margin-left:3px;
+}
+
+#chat-messages-list li span.message a {
+  color:#232323;
+  text-decoration:none;
+  border-bottom:1px dotted;
+}
+
+#chat-messages-list li span.message a:hover {
+  background-color:#BABFC3;
 }
 
 #chat-messages-form {

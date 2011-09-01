@@ -24,7 +24,8 @@ Factory.define :tree do |tree|
 end
 
 Factory.define :master_tree, :parent => :tree, :class => 'MasterTree' do |master_tree|
-  master_tree.user { Factory(:user) }
+  master_tree.association :user
+  master_tree.user_id { Factory(:user) }
 end
 
 Factory.define :reference_tree, :parent => :tree, :class => 'ReferenceTree' do |reference_tree|

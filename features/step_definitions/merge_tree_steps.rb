@@ -4,6 +4,7 @@ Given /^"([^"]*)" has created a master tree "([^"]*)" and a reference tree "([^"
   
   tree = Gnite::FixtureHelper.get_master_tree2({:title => reference_tree_title, :user => user})
   tree.type = "ReferenceTree"
+  tree.user_id = nil
   tree.save
   
   reference_tree = ReferenceTree.find_by_title(reference_tree_title)
