@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe BookmarksController, 'GET to show bookmarks for master tree' do
   let(:user) { Factory(:user) }
-  let(:master_tree) { Factory(:master_tree, :user => user) }
+  let(:master_tree) { Factory(:master_tree, :user_id => user.id) }
   let(:node)  { Factory(:node, :tree => master_tree) }
   let(:bookmark) { Factory(:bookmark, :node => node, :bookmark_title => "My new bookmark") }
   
@@ -19,7 +19,7 @@ end
 
 describe BookmarksController, 'POST to create bookmark in master tree' do
   let(:user) { Factory(:user) }
-  let(:master_tree) { Factory(:master_tree, :user => user) }
+  let(:master_tree) { Factory(:master_tree, :user_id => user.id) }
   let(:node)  { Factory(:node, :tree => master_tree) }
 
   subject { controller }
@@ -48,7 +48,7 @@ end
 
 describe BookmarksController, 'PUT to update a bookmark in master tree' do
   let(:user) { Factory(:user) }
-  let(:master_tree) { Factory(:master_tree, :user => user) }
+  let(:master_tree) { Factory(:master_tree, :user_id => user.id) }
   let(:node) { Factory(:node, :tree => master_tree) }
   let(:bookmark) { Factory(:bookmark, :node => node) }
   

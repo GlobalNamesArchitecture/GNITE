@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110829174252) do
+ActiveRecord::Schema.define(:version => 20110830182643) do
 
   create_table "action_commands", :force => true do |t|
     t.string   "type"
@@ -241,6 +241,7 @@ ActiveRecord::Schema.define(:version => 20110829174252) do
     t.string   "type"
     t.string   "state",            :default => "active", :null => false
     t.string   "revision"
+    t.integer  "user_id"
   end
 
   add_index "trees", ["revision", "id"], :name => "index_trees_on_revision_and_id"

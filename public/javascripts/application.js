@@ -1399,7 +1399,7 @@ $(function() {
       break;
 
       case 'member-login':
-        GNITE.flashChatWindow();
+        if(GNITE.Tree.MasterTree.user_id !== response.user.id.toString()) { GNITE.flashChatWindow(); }
         GNITE.appendMessage("new-user", response);
       break;
 

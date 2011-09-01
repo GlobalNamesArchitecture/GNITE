@@ -14,8 +14,13 @@ describe MasterTree do
   end
 
   it { should be_kind_of(Tree) }
+  it { should belong_to(:user) }
+  it { should have_many(:users).through(:master_tree_contributors) }
+  it { should have_one(:deleted_tree) }
   it { should have_many(:reference_tree_collections) }
   it { should have_many(:reference_trees).through(:reference_tree_collections) }
+  it { should have_many(:merge_events) }
+  it { should have_many(:master_tree_logs) }
 
   it "should nuke the tree and deleted_names tree" do
     master_tree = Factory(:master_tree, :abstract => "It is my tree of very strange taxa")
@@ -65,7 +70,6 @@ describe MasterTree do
       @vernacular_extension = vernacular_extension.empty? ? nil : vernacular_extension[0]
       synonym_extension = @dwca.extensions.select {|e| !!(e.fields.select {|f| f[:type] == "http://rs.tdwg.org/dwc/terms/scientificName" }.empty?) }
       @synonym_extension = synonym_extension.empty? ? nil : synonym_extension[0]
-
     end
 
     it "should have publish method" do
@@ -118,9 +122,9 @@ end
 
 describe MasterTree, 'finding in sorted by title' do
   let(:user) { Factory(:user) }
-  let(:z_tree) { Factory(:master_tree, :title => 'z', :user => user) }
-  let(:b_tree) { Factory(:master_tree, :title => 'b', :user => user) }
-  let(:a_tree) { Factory(:master_tree, :title => 'a', :user => user) }
+  let(:z_tree) { Factory(:master_tree, :title => 'z', :user_id => user.id) }
+  let(:b_tree) { Factory(:master_tree, :title => 'b', :user_id => user.id) }
+  let(:a_tree) { Factory(:master_tree, :title => 'a', :user_id => user.id) }
 
   it 'finds the trees in ascending title order' do
     user.master_trees.by_title.should == [a_tree, b_tree, z_tree]

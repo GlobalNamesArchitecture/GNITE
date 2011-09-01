@@ -24,7 +24,7 @@ describe FlatListImportsController do
     end
 
     context "GET to #new with a master_tree_id" do
-      let(:master_tree)  { Factory(:master_tree, :user => user) }
+      let(:master_tree)  { Factory(:master_tree, :user_id => user.id) }
       let(:master_trees) { [master_tree] }
 
       before do
@@ -42,10 +42,6 @@ describe FlatListImportsController do
         assigns(:master_tree).should == master_tree
       end
 
-      it "should find the correct master tree" do
-        user.should have_received(:master_trees).with()
-        master_trees.should have_received(:find).with(master_tree.to_param)
-      end
     end
   end
 

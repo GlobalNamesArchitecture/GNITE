@@ -6,9 +6,18 @@
       <ul class="subnav">
           <li><a href="#" class="nav-file-add">Add single node</a><span>ctrl+n</span></li>
           <li class="divider-after"><a href="#" class="nav-file-bulkadd">Add many nodes</a><span>ctrl+shift+n</span></li>
-          <li><%= link_to edit_master_tree_path, :class => "nav-file-edit" do %>Edit tree info<% end %></li>
-          <li class="divider-after"><a href="#" class="nav-file-publish" data-master-tree-id="<%= tree.id %>">Publish tree</a><span>ctrl+s</span></li>
-          <li><a href="#" class="nav-file-delete" data-master-tree-id="<%= tree.id %>">Delete tree</a></li>
+
+          <% if can? :edit, tree %>
+            <li><%= link_to edit_master_tree_path, :class => "nav-file-edit" do %>Edit tree info<% end %></li>
+          <% end %>
+
+          <% if can? :publish, tree %>
+            <li class="divider-after"><a href="#" class="nav-file-publish" data-master-tree-id="<%= tree.id %>">Publish tree</a><span>ctrl+s</span></li>
+          <% end %>
+
+          <% if can? :destroy, tree %>
+            <li><a href="#" class="nav-file-delete" data-master-tree-id="<%= tree.id %>">Delete tree</a></li>
+          <% end %>
       </ul>
     </li>
     <li><a href="#">Edit</a>

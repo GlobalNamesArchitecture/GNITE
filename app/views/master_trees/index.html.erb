@@ -1,7 +1,7 @@
 <% content_for :header do %>
   <div class="tree_list_header clearfix">
     <div class="tree_list_header_inner clearfix">
-      <h1>Your Working Trees</h1>
+      <h1>Your Trees</h1>
         <div id="tree-new" class="tree-link clearfix">
           <a href="<%= new_master_tree_path %>"><span>Create Working Tree</span></a>
         </div>
@@ -10,20 +10,53 @@
 <% end %>
 
 <% if @master_trees.any? %>
-  <ul id="treelist" class="clearfix">
+  <h2>Trees You Created</h2>
+  <ul class="treelist clearfix">
     <% @master_trees.each do |tree| %>
       <li>
         <a href="<%= master_tree_url(tree.id) %>" class="clearfix button">
-          <span class="content">
+          <div class="content">
             <h3><%= tree.title %></h3>
-            <span class="date-wrap">
-              <div class="date"><strong>Created:</strong> <%= tree.created_at.to_s(:long) %></div>
+            <div class="metadata-wrap">
+              <div class="activity created"><strong>Created:</strong> <%= tree.created_at.to_s(:long) %></div>
               <% if tree.master_tree_logs.any? %>
-                <div class="date"><strong>Last Edited:</strong> <%= tree.master_tree_logs.last.created_at.to_s(:long) %></div>
-                <div class="date"><strong>Last Edited By:</strong> <%= tree.master_tree_logs.last.user.email %></div>
+                <div class="activity edited">
+                  <span class="date"><strong>Last Edited:</strong> <%= tree.master_tree_logs.last.created_at.to_s(:long) %></span>
+                  <span class="date"><strong>Last Edited By:</strong> <%= tree.master_tree_logs.last.user.email %></span>
+                </div>
               <% end %>
-            </span>
-          </span>
+            </div>
+          </div>
+        </a>
+        <% if !tree.merge_events.find_by_status("in review").nil? %>
+          <a href="<%= master_tree_merge_events_url(tree.id) %>" class="clearfix action green-submit">View Active Merge</a>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @accessible_trees.any? %>
+  <h2>Trees You Can Edit</h2>
+  <ul class="treelist clearfix">
+    <% @accessible_trees.each do |tree| %>
+      <li>
+        <a href="<%= master_tree_url(tree.id) %>" class="clearfix button">
+          <div class="content">
+            <h3><%= tree.title %></h3>
+            <div class="metadata-wrap">
+              <div class="activity created">
+                <span class="author"><strong>Created:</strong> <%= tree.created_at.to_s(:long) %></span>
+                <span class="author"><strong>Created By:</strong> <%= tree.creator.email %></span>
+              </div>
+              <% if tree.master_tree_logs.any? %>
+                <div class="activity edited">
+                  <span class="date"><strong>Last Edited:</strong> <%= tree.master_tree_logs.last.created_at.to_s(:long) %></span>
+                  <span class="date"><strong>Last Edited By:</strong> <%= tree.master_tree_logs.last.user.email %></span>
+                </div>
+              <% end %>
+            </div>
+          </div>
         </a>
         <% if !tree.merge_events.find_by_status("in review").nil? %>
           <a href="<%= master_tree_merge_events_url(tree.id) %>" class="clearfix action green-submit">View Active Merge</a>

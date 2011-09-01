@@ -1,10 +1,11 @@
 class MasterTree < Tree
+  belongs_to :user
   has_one :deleted_tree
   has_many :master_tree_contributors
+  has_many :users, :through => :master_tree_contributors
   has_many :master_tree_logs
   has_many :reference_tree_collections
   has_many :reference_trees, :through => :reference_tree_collections
-  has_many :users, :through => :master_tree_contributors
   has_many :merge_events
 
   attr_accessor :user
@@ -32,6 +33,10 @@ class MasterTree < Tree
     Tree.find(self.deleted_tree.id).nuke
     super
   end
+  
+  def creator
+    User.find(self.user_id) rescue nil
+  end
 
   private
   def core_fields
@@ -57,7 +62,7 @@ class MasterTree < Tree
   def get_authors
     self.users.map { |u| { :first_name => nil, :last_name => nil, :email => u.email } }
   end
-
+  
   def create_contributor
     return unless self.user
     MasterTreeContributor.create!(:master_tree => self, :user => self.user)

@@ -1859,24 +1859,29 @@ ul#revisions li:hover {
   padding: 0;
 }
 
-ul#treelist {
-  margin: 40px 40px 50px 40px;
+.master_trees-index h2 {
+  color: white;
+  padding: 15px 45px;
+}
+
+ul.treelist {
+  margin: 10px 40px 20px;
   padding: 0;
 }
 
-ul#treelist li {
+ul.treelist li {
   margin: 0 0 10px 0;
   position:relative;
   width:60%;
 }
 
-ul#treelist li h3 {
+ul.treelist li h3 {
   font-size: 1.3em;
-  margin: 0 0 8px 0;
+  margin: 0 0 4px 0;
   padding: 0;
 }
 
-ul#treelist li a.button {
+ul.treelist li a.button {
   background: #E0E2E4 url("/images/master_tree_icon.png") 5px 15px no-repeat;
   background: url("/images/master_tree_icon.png") 5px 15px no-repeat, -moz-linear-gradient(0% 100% 90deg,#BBC0C4, #E0E2E4);
   background: url("/images/master_tree_icon.png") 5px 15px no-repeat, -webkit-gradient(linear, 0 0, 0 100%, from(#E0E2E4), to(#BBC0C4));
@@ -1885,22 +1890,22 @@ ul#treelist li a.button {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   display: block;
-  padding: 12px 15px 12px 57px;
+  padding: 12px 10px 12px 57px;
 }
 
-ul#treelist li a.button:hover {
+ul.treelist li a.button:hover {
   background: #ccd0d4 url("/images/master_tree_icon_hover.png") 5px 15px no-repeat;
   background: url("/images/master_tree_icon_hover.png") 5px 15px no-repeat, -moz-linear-gradient(19% 75% 90deg,#919598, #ccd0d4);
   background: url("/images/master_tree_icon_hover.png") 5px 15px no-repeat, -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccd0d4), to(#919598));
 }
 
-ul#treelist li a.button:active {
+ul.treelist li a.button:active {
   background: #b3b6ba url("/images/master_tree_icon.png") 5px 15px no-repeat;
   background: url("/images/master_tree_icon.png") 5px 15px no-repeat, -moz-linear-gradient(19% 75% 90deg,#797d80, #b3b6ba);
   background: url("/images/master_tree_icon.png") 5px 15px no-repeat, -webkit-gradient(linear, 0% 0%, 0% 100%, from(#b3b6ba), to(#797d80));
 }
 
-ul#treelist li a.action {
+ul.treelist li a.action {
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -1915,16 +1920,16 @@ ul#treelist li a.action {
   font-size:1em;
 }
 
-ul#treelist li p {
+ul.treelist li p {
   font-size: 1em;
   line-height: 1.4;
   margin: 10px 0;
 }
 
-ul#treelist a:link,
-ul#treelist a:visited,
-ul#treelist a:active,
-ul#treelist a:hover,
+ul.treelist a:link,
+ul.treelist a:visited,
+ul.treelist a:active,
+ul.treelist a:hover,
 .tree-link a:link,
 .tree-link a:hover,
 .tree-link a:active,
@@ -1937,23 +1942,26 @@ ul#treelist a:hover,
   text-decoration: none;
 }
 
-.date-wrap {
-  margin: 5px 0 10px;
+.metadata-wrap {
+  margin-left: 5px;
   padding: 0;
+  min-height:25px;
 }
 
-.date-wrap .date, .date-wrap .author {
+.metadata-wrap .created, .metadata-wrap .edited {
   color: #393d3f;
-  display: inline-block;
-  float: left;
   font-size: .9em;
   font-weight: normal;
-  margin-right: 20px;
+  margin: 5px 10px 0px 0px;
   text-shadow: 0 1px 1px rgba(255,255,255,.3);
 }
 
-.date-wrap .date strong {
+.metadata-wrap .activity strong {
   color: #232323;
+}
+
+.metadata-wrap .date, .metadata-wrap .author {
+  margin-right:5px;
 }
 
 .tree-link {
@@ -2130,20 +2138,20 @@ ul#reference-trees li a:hover {
 /* Border Radius */
 /************************************************************************/
 #flash_error, #flash_success, #flash_failure, #flash_notice, #flash_alert,
-ul#treelist li,  #gnaclr-search, .tree-background, #loginform .input, .green-submit, .cancel-button,
+ul.treelist li,  #gnaclr-search, .tree-background, #loginform .input, .green-submit, .cancel-button,
 .infobox-wrap, .infobox, .tree-back-wrap, #tree-newimport li, .bookmark-addition .input, .bookmarks-input .input {
   border-radius: 6px;
   -moz-border-radius: 6px;
   -webkit-border-radius: 6px;
 }
 
-.tree-background, #treelist li a.button, .tree-back-wrap, #tree-newimport li {
+.tree-background, .treelist li a.button, .tree-back-wrap, #tree-newimport li {
   border-radius: 8px;
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
 }
 
-.tree-background, #treelist li a.button, #newtree a, .tree-back-wrap  {
+.tree-background, .treelist li a.button, #newtree a, .tree-back-wrap  {
   box-shadow: 0 1px 7px 0 rgba(0,0,0,.7);
   -moz-box-shadow: 0 1px 7px 0 rgba(0,0,0,.7);
   -webkit-box-shadow: 0 1px 7px 0 rgba(0,0,0,.7);

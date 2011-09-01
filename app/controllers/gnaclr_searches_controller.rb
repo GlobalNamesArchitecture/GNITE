@@ -6,7 +6,7 @@ class GnaclrSearchesController < ApplicationController
       wants.js do
         begin
           @results     = GnaclrSearch.new(:search_term => params[:search_term]).results
-          @master_tree = current_user.master_trees.find(params[:master_tree_id])
+          @master_tree = MasterTree.find(params[:master_tree_id])
         rescue Gnite::ServiceUnavailable
           head :service_unavailable
           return

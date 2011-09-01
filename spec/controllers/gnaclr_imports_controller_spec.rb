@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe GnaclrImportsController, 'xhr POST create' do
   let(:user) { Factory(:user) }
-  let(:master_tree) { Factory(:master_tree, :user => user) }
+  let(:master_tree) { Factory(:master_tree, :user_id => user.id) }
 
   before do
     reference_tree = Factory(:reference_tree, :title => 'NCBI')
@@ -37,7 +37,7 @@ end
 
 describe GnaclrImportsController, 'reuse of a tree' do
   let(:user) { Factory(:user) }
-  let(:master_tree) { Factory(:master_tree, :user => user) }
+  let(:master_tree) { Factory(:master_tree, :user_id => user.id) }
   let(:reference_tree) { Factory(:reference_tree) }
   let(:gnaclr_importer) { Factory(:gnaclr_importer, :reference_tree => reference_tree, :url => 'foo') }
 

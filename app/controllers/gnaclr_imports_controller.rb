@@ -18,7 +18,7 @@ class GnaclrImportsController < ApplicationController
   private
 
   def get_reference_tree
-    master_tree = current_user.master_trees.find(params[:master_tree_id])
+    master_tree = MasterTree.find(params[:master_tree_id])
     reference_tree = ReferenceTree.find_by_revision(params[:revision])
     is_new_tree = false
     unless reference_tree

@@ -1,6 +1,11 @@
 class ApplicationController < ActionController::Base
   
   protect_from_forgery
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:error] = "Access denied."
+    redirect_to root_url
+  end
+  
   layout 'application'
 
   private
@@ -9,13 +14,14 @@ class ApplicationController < ActionController::Base
     tree_id = params[:master_tree_id] || params[:reference_tree_id] || params[:deleted_tree_id] || params[:merge_tree_id]
 
     if params[:master_tree_id]
-      tree = current_user.master_trees.find(tree_id)
+      tree = MasterTree.find(tree_id) rescue nil
+#      tree = nil unless can? :show, tree
     elsif params[:reference_tree_id]
-      tree = ReferenceTree.find(tree_id)
+      tree = ReferenceTree.find(tree_id) rescue nil
     elsif params[:deleted_tree_id]
-      tree = DeletedTree.find(tree_id)
+      tree = DeletedTree.find(tree_id) rescue nil
     elsif params[:merge_tree_id]
-      tree = MergeTree.find(tree_id)
+      tree = MergeTree.find(tree_id) rescue nil
     else
       tree = nil unless tree.master_tree.users.find(current_user)
     end

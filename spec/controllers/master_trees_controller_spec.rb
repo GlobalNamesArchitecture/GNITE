@@ -27,13 +27,13 @@ describe MasterTreesController do
         assigns(:master_trees).should == trees
       end
 
-      it 'sorts the tress by title' do
+      it 'sorts the trees by title' do
         trees.should have_received(:by_title)
       end
     end
 
     context "on a valid GET to #new" do
-      let(:master_tree) { Factory(:master_tree) }
+      let(:master_tree) { Factory(:master_tree, :user_id => @user.id) }
 
       before do
         MasterTree.stubs(:new => master_tree)
@@ -55,7 +55,7 @@ describe MasterTreesController do
     end
 
     context "on a valid GET to #new" do
-      let(:tree) { Factory(:master_tree) }
+      let(:tree) { Factory(:master_tree, :user_id => @user.id) }
 
       before do
         get :edit, :id => tree.id
@@ -73,7 +73,7 @@ describe MasterTreesController do
     end
 
     context "on a valid PUT to #upate" do
-      let(:tree) { Factory(:master_tree) }
+      let(:tree) { Factory(:master_tree, :user_id => @user.id) }
 
       before do
         MasterTree.stubs(:find => tree)
@@ -91,8 +91,27 @@ describe MasterTreesController do
       it { should set_the_flash.to(/updated/) }
     end
 
-    context "on an invalid POST to #update" do
-      let(:tree) { Factory(:master_tree) }
+    context "on a valid PUT to #upate without permission" do
+      let(:tree) { Factory(:master_tree, :user => @user) }
+
+      before do
+        MasterTree.stubs(:find => tree)
+        tree.stubs(:save => true)
+        put :update, :id => tree.id, :tree => {}
+      end
+
+      subject { controller }
+
+      it "should assign_to(:master_tree).with(tree)" do
+        assigns(:master_tree).should == tree
+      end
+
+      it { should redirect_to(root_url) }
+      it { should set_the_flash.to(/denied/) }
+    end
+
+    context "on a valid POST to #update" do
+      let(:tree) { Factory(:master_tree, :user_id => @user.id) }
 
       before do
         MasterTree.stubs(:find => tree)
@@ -108,6 +127,47 @@ describe MasterTreesController do
 
       it { should_not set_the_flash }
       it { should render_template(:edit) }
+    end
+    
+    context "on a valid POST to #update without permission" do
+      let(:tree) { Factory(:master_tree, :user => @user) }
+
+      before do
+        MasterTree.stubs(:find => tree)
+        tree.stubs(:save => false)
+        put :update, :id => tree.id, :master_tree => {}
+      end
+
+      subject { controller }
+
+      it { should set_the_flash.to(/denied/) }
+      it { should redirect_to(root_url) }
+    end
+    
+    context "on a valid DELETE to #destroy" do
+      let(:tree) { Factory(:master_tree, :user_id => @user.id) }
+      
+      before do
+        delete :destroy, :id => tree.id
+      end
+      
+      subject { controller }
+      
+      it { should set_the_flash.to(/deleted/) }
+      it { should redirect_to(master_trees_url) }
+    end
+    
+    context "on a valid DELETE to #destroy without permission" do
+      let(:tree) { Factory(:master_tree, :user => @user) }
+      
+      before do
+        delete :destroy, :id => tree.id
+      end
+      
+      subject { controller }
+      
+      it { should set_the_flash.to(/denied/) }
+      it { should redirect_to(root_url) }
     end
   end
 end
@@ -134,5 +194,10 @@ end
 
 describe MasterTreesController, 'PUT update without authenticating' do
   before { put :update, :id => 1 }
+  it     { should redirect_to(new_user_session_url) }
+end
+
+describe MasterTreesController, 'DELETE destroy without authenticating' do
+  before { delete :destroy, :id => 1 }
   it     { should redirect_to(new_user_session_url) }
 end

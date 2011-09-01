@@ -1,34 +1,32 @@
 class MasterTreesController < ApplicationController
   before_filter :authenticate_user!
+  load_and_authorize_resource
 
   def index
     @master_trees = current_user.master_trees.by_title
+    @accessible_trees = MasterTree.accessible_by(current_ability) - @master_trees
   end
 
   def new
     @master_tree = MasterTree.new(:title => 'New Working Tree')
     @master_tree.user = current_user
+    @master_tree.user_id = current_user.id
     @master_tree.save
-
     redirect_to master_tree_url(@master_tree.id)
   end
 
   def show
-    @master_tree = MasterTree.find(params[:id])
-    user_details = current_user.serializable_hash(:except => [:encrypted_password, :confirmation_token, :remember_token, :salt, :email_confirmed]).to_json
-    message = "{\"subject\" : \"member-login\", \"message\" : \"\", \"user\" : " + user_details + ", \"time\" : \"" + Time.new.to_s + "\" }"
+    message = { :subject => "member-login", :message => "", :time => Time.new.to_s, :user => { :id => current_user.id, :email => current_user.email } }.to_json
     Juggernaut.publish("tree_" + @master_tree.id.to_s, message)
   end
 
   def edit
-    @master_tree = MasterTree.find(params[:id])
   end
 
   def update
     if params[:cancel]
       redirect_to master_tree_url(params[:id])
     else
-      @master_tree = MasterTree.find(params[:id])
       @master_tree.update_attributes(params[:master_tree])
       if @master_tree.save
         if request.xhr?
@@ -44,7 +42,6 @@ class MasterTreesController < ApplicationController
   end
 
   def destroy
-    @master_tree = MasterTree.find(params[:id])
     @deleted_tree = DeletedTree.find_by_master_tree_id(params[:id])
     if @master_tree.nuke && @deleted_tree.nuke
       flash[:notice] = 'Tree successfully deleted'

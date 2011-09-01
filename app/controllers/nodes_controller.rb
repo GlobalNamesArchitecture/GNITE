@@ -29,7 +29,7 @@ class NodesController < ApplicationController
 
   def show
     tree = get_tree
-    node = tree.nodes.find(params[:id])
+    node = tree.nodes.find(params[:id]) rescue nil
     
     @metadata = {
       :id          => node.id,
@@ -57,7 +57,7 @@ class NodesController < ApplicationController
   end
 
   def create
-    master_tree = current_user.master_trees.find(params[:master_tree_id])
+    master_tree = MasterTree.find(params[:master_tree_id])
     params[:node][:parent_id] = master_tree.root.id unless params[:node] && params[:node][:parent_id]
     node = params[:node] && params[:node][:id] ? Node.find(params[:node][:id]) : nil
     action_command = schedule_action(node, master_tree, params)
@@ -69,7 +69,7 @@ class NodesController < ApplicationController
   end
 
   def update
-    master_tree = current_user.master_trees.find(params[:master_tree_id])
+    master_tree = MasterTree.find(params[:master_tree_id])
     node        = master_tree.nodes.find(params[:id])
     respond_to do |format|
       format.json do

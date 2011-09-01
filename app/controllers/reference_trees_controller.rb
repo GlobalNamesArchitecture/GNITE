@@ -7,7 +7,7 @@ class ReferenceTreesController < ApplicationController
         node_list       = params[:nodes_list]
         revision = Digest::SHA1.hexdigest(params['nodes_list'].to_s)
         tree_params     = params[:reference_tree].merge!(:revision => revision, :publication_date => Time.now)
-        master_tree = current_user.master_trees.find(params[:reference_tree][:master_tree_id])
+        master_tree = MasterTree.find(params[:reference_tree][:master_tree_id])
         @reference_tree = ReferenceTree.create_from_list(tree_params, node_list)
         ReferenceTreeCollection.create!(:master_tree => master_tree, :reference_tree => @reference_tree)
         render :partial => 'reference_tree'

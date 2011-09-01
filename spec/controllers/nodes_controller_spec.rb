@@ -19,35 +19,36 @@ describe NodesController do
 
     context "when signed in with a tree" do
       let(:user) { Factory(:user) }
-      let(:tree) do
-        tree = Factory(:master_tree)
-        Factory(:node, :tree => tree)
-        tree
+      let(:tree) { Factory(:master_tree, :user_id => user.id, :user => user) }
+      let(:node) do 
+        node = Factory(:node, :tree => tree)
+        Factory(:node, :tree => tree, :parent => node)
+        node
       end
       let(:nodes) { tree.nodes }
+      
+      subject { controller }
 
       before do
         sign_in user
-
-        controller.stubs(:current_user => user)
-        user_trees = [tree]
-        user.stubs(:master_trees => user_trees)
-        user_trees.stubs(:find => tree)
-        tree.stubs(:children_of => nodes)
       end
 
-      subject { controller }
-
-      context "on GET to #index for a given parent_id" do
+      context "on GET to #index without a parent_id" do
         before do
-          @parent_id = 12345
-          @tree_id   = 456
-          get :index, :master_tree_id => @tree_id, :parent_id => @parent_id, :format => 'html'
+          get :index, :master_tree_id => tree.id, :format => 'html'
         end
 
         it { should respond_with(:success) }
         it { should render_template(:node) }
+      end
+      
+      context "on GET to #index with a parent_id" do
+        before do
+          get :index, :master_tree_id => tree.id, :parent_id => node.id, :format => 'html'
+        end
 
+        it { should respond_with(:success) }
+        it { should render_template(:node) }
       end
 
     end
