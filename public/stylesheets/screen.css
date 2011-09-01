@@ -2206,9 +2206,11 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 #chat-messages-wrapper {
   position:fixed;
   bottom:0px;
-  right:10px;
+  right:20px;
   border:1px solid #AAA;
-  box-shadow: 0 1px 0 #DEE4E8 inset;
+  box-shadow: 5px 5px 5px #AAA;
+  -moz-box-shadow: 5px 5px 5px #AAA;
+  -webkit-box-shadow: 5px 5px 5px #AAA;
   background-color:white;
   z-index:1000;
   border-radius: 6px 6px 0px 0px;
@@ -2220,12 +2222,19 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 #chat-messages-wrapper #chat-messages-head {
   height:20px;
   line-height:20px;
-  background-color:#BABFC3;
+  background: #BABFC3;
+  background: -moz-linear-gradient(0% 100% 90deg,#BBC0C4, #E0E2E4);
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#E0E2E4), to(#BBC0C4));
   border-radius: 6px 6px 0px 0px;
   -moz-border-radius: 6px 6px 0px 0px;
   -webkit-border-radius: 6px 6px 0px 0px;
   position:relative;
   cursor:pointer;
+}
+
+#chat-messages-wrapper #chat-messages-head:hover {
+  background: -moz-linear-gradient(0% 100% 90deg,#aeb3b8, #d2d4d6);
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#d2d4d6), to(#aeb3b8));
 }
 
 #chat-messages-wrapper #chat-messages-title {
