@@ -2208,9 +2208,9 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   bottom:0px;
   right:20px;
   border:1px solid #AAA;
-  box-shadow: 5px 5px 5px #AAA;
-  -moz-box-shadow: 5px 5px 5px #AAA;
-  -webkit-box-shadow: 5px 5px 5px #AAA;
+  box-shadow: -5px 5px 5px #AAA;
+  -moz-box-shadow: -5px 5px 5px #AAA;
+  -webkit-box-shadow: -5px 5px 5px #AAA;
   background-color:white;
   z-index:1000;
   border-radius: 6px 6px 0px 0px;
