@@ -3,7 +3,6 @@ Feature: Create and manage master trees
   I can create a new master tree, or edit an existing one
   So I can manage my classification work
 
-  @javascript
   Scenario: User can create a new tree
     Given I have signed in with "email@person.com/password"
     Then I should be on the master tree index page
@@ -21,22 +20,55 @@ Feature: Create and manage master trees
     When I go to the master tree page for "My new tree"
     Then I should see "My new tree"
 
-  Scenario: User can view their list of trees
+  Scenario: User can view a list of trees they have access to
+    Given I have signed in with "email@person.com/password"
+    And a user "notme@person.com/password" already exists
+    Then I should be on the master tree index page
+
+    When "notme@person.com" has created an existing master tree titled "A new tree" with:
+      | hydrochaeris |
+    And the following master tree contributor exists:
+      | master tree      | user                   |
+      | title:A new tree | email:email@person.com |
+    And I go to the master trees page
+    Then I should see "Trees You Can Edit"
+    And I should not see "Trees You Created"
+    And I should see "A new tree"
+
+    When I follow "A new tree"
+    Then I should be on the master tree page for "A new tree"
+
+  Scenario: User can view a list of trees they created
     Given I have signed in with "email@person.com/password"
     Then I should be on the master tree index page
-    And I should not see "Or choose an existing tree to edit"
 
-    When the following master tree exists:
-      | title       |
-      | My new tree |
-    And the following master tree contributor exists:
-      | master tree       | user                   |
-      | title:My new tree | email:email@person.com |
-    And I go to the master trees page
-    Then should see "My new tree"
+    When "email@person.com" has created an existing master tree titled "My new tree" with:
+      | hydrochaeris |
+    And I go to the master tree index page
+    Then I should see "Trees You Created"
+    And I should not see "Trees You Can Edit"
+    And I should see "My new tree"
 
     When I follow "My new tree"
     Then I should be on the master tree page for "My new tree"
+
+  Scenario: User can view a list of trees they created and a list of trees they have access to
+    Given I have signed in with "email@person.com/password"
+    And a user "notme@person.com/password" already exists
+    Then I should be on the master tree index page
+
+    When "notme@person.com" has created an existing master tree titled "A new tree" with:
+      | peanuts |
+    And "email@person.com" has created an existing master tree titled "My new tree" with:
+      | walnuts |
+    And the following master tree contributor exists:
+      | master tree      | user                   |
+      | title:A new tree | email:email@person.com |
+    And I go to the master trees page
+    Then I should see "Trees You Created"
+    And I should see "Trees You Can Edit"
+    And I should see "A new tree"
+    And I should see "My new tree"
 
   Scenario: Tree details are displayed on the tree list
     Given I have signed in with "email@person.com/password"
