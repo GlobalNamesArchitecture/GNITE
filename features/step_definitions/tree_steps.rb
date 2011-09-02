@@ -15,6 +15,12 @@ Given /^"([^"]*)" has created an existing master tree titled "([^"]*)" with the 
   end
 end
 
+When /^"([^"]*)" is a contributor to the master tree "([^"]*)"$/ do |email, tree_title|
+  user = User.find_by_email(email)
+  master_tree = MasterTree.find_by_title(tree_title)
+  Factory(:master_tree_contributor, :user => user, :master_tree => master_tree)
+end
+
 When /^I refresh the master tree$/ do
   page.execute_script("jQuery('#master-tree').jstree('refresh');")
   sleep 2

@@ -4,9 +4,8 @@ class MasterTreeUser < ActiveRecord::Migration
       t.references :user
     end
     
-    #delete master_trees_contributors - how?
     #update trees to have a user_id for the owner - how?
-    execute "TRUNCATE TABLE master_tree_contributors"
+    execute "UPDATE trees AS t INNER JOIN (SELECT * FROM master_tree_contributors mtc2 GROUP BY mtc2.master_tree_id) AS mtc ON t.id = mtc.master_tree_id SET t.user_id = mtc.user_id WHERE t.type = 'MasterTree'"
   end
 
   def self.down

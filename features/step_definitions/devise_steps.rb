@@ -52,6 +52,10 @@ Given /^I have signed in with "(.*)\/(.*)"$/ do |email, password|
   And %{I sign in as "#{email}/#{password}"}
 end
 
+When /^a user "(.*)\/(.*)" already exists$/ do |email, password|
+  Given %{I am signed up and confirmed as "#{email}/#{password}"}
+end
+
 # Emails
 
 Then /^a confirmation message should be sent to "(.*)"$/ do |email|

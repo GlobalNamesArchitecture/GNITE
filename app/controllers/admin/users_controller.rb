@@ -3,7 +3,7 @@ class Admin::UsersController < ApplicationController
   
   def index
     page = (params[:page]) ? params[:page] : 1
-    @users = User.all.paginate(:page => page, :per_page => 25)
+    @users = User.find(:all, :order => :surname).paginate(:page => page, :per_page => 25)
   end
 
   def show
