@@ -211,7 +211,6 @@ body form input {
 
 #loginform ol li, #loginform ul li {
   margin-top: 10px;
-  position:relative;
 }
 
 #loginform legend {
