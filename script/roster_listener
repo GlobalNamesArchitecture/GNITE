@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+# script/roster_listener
+
+require File.expand_path('../../config/environment',  __FILE__)
+
+puts "Starting master tree roster listener"
+Roster.subscribe

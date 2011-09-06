@@ -24,13 +24,12 @@ $(function() {
   "use strict";
 
   GNITE.token = $("meta[name='csrf-token']").attr("content");
+  GNITE.Tree.MasterTree.id = $('.tree-container:first').attr('data-database-id');
+  GNITE.Tree.MasterTree.channel = "tree_" + GNITE.Tree.MasterTree.id;
 
+  jug.meta = { master_tree_id: GNITE.Tree.MasterTree.id, user_id: GNITE.Tree.MasterTree.user_id };
   jug.on("connect", function() { "use strict"; $('#master-tree').addClass("socket-active"); });
   jug.on("disconnect", function() { "use strict"; $('#master-tree').removeClass("socket-active"); });
-
-  GNITE.Tree.MasterTree.id = $('.tree-container:first').attr('data-database-id');
-
-  GNITE.Tree.MasterTree.channel = "tree_" + GNITE.Tree.MasterTree.id;
 
   /**************************************************************
            TREE CONFIGURATION
@@ -1403,9 +1402,6 @@ $(function() {
         GNITE.appendMessage("new-user", response);
       break;
 
-      case 'member-logout':
-      break;
-
       case 'chat':
         GNITE.flashChatWindow();
         GNITE.appendMessage("chat", response);
@@ -1418,6 +1414,15 @@ $(function() {
 
       case 'metadata':
         GNITE.Tree.MasterTree.refreshMetadata(response.action.node_id);
+      break;
+
+      case 'roster':
+        if(response.status == "destroy" && GNITE.Tree.MasterTree.user_id != response.user.id.toString()) {
+          GNITE.flashChatWindow();
+          GNITE.appendMessage("departed", response)
+        }
+        $('#chat-messages-users').html("(" + response.count + ")").show();
+        
       break;
     }
   });
@@ -1455,6 +1460,9 @@ GNITE.appendMessage = function(type, response) {
   switch(type) {
     case 'new-user':
       message = "<strong>arrived</strong> [" + response.time + "]";
+    break;
+    case 'departed':
+      message = "<strong>departed</strong> [" + response.time + "]";
     break;
     case 'log':
       message = "<strong>edited</strong> [" + response.time + "]</span><span class=\"message\">" + response.message;

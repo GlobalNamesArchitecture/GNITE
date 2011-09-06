@@ -1,8 +1,7 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.9'
+gem 'rails', '3.1.0'
 gem 'mysql2', '0.2.6'
-#gem 'clearance', '0.9.0.rc9'
 gem 'devise', '1.4.2'
 gem 'cancan', '1.6.5'
 gem 'formtastic', '1.1.0'
@@ -25,6 +24,7 @@ gem 'juggernaut', '2.0.1'
 gem 'will_paginate', '2.3.15'
 gem 'family-reunion', '0.2.4'
 gem 'sanitize', '2.0.3'
+gem 'supermodel', '0.1.6'
 
 group :development do
   gem 'high_voltage'

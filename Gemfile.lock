@@ -140,7 +140,7 @@ GEM
       rack (>= 1.0.0)
     rack-test (0.5.7)
       rack (>= 1.0)
-    rails (3.0.9)
+    rails (3.1.0)
       actionmailer (= 3.0.9)
       actionpack (= 3.0.9)
       activerecord (= 3.0.9)
@@ -202,6 +202,8 @@ GEM
       rack (~> 1.1)
       tilt (~> 1.1)
     spork (0.8.4)
+    supermodel (0.1.6)
+      activemodel (~> 3.0.0)
     taxamatch_rb (0.7.6)
       biodiversity (~> 0.7.3)
       biodiversity19 (~> 0.7.3)
@@ -259,7 +261,7 @@ DEPENDENCIES
   parsley-store (= 0.2.2)
   polyglot
   rack-google_analytics (= 1.0.1)
-  rails (= 3.0.9)
+  rails (= 3.1.0)
   resque (= 1.16.1)
   rest-client (= 1.6.1)
   rspec-rails (= 2.6.1)
@@ -269,6 +271,7 @@ DEPENDENCIES
   shoulda!
   sinatra
   spork
+  supermodel (= 0.1.6)
   thin
   timecop
   unicorn

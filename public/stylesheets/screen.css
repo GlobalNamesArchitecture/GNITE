@@ -2219,8 +2219,8 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 }
 
 #chat-messages-wrapper #chat-messages-head {
-  height:20px;
-  line-height:20px;
+  height:24px;
+  line-height:24px;
   background: #BABFC3;
   background: -moz-linear-gradient(0% 100% 90deg,#BBC0C4, #E0E2E4);
   background: -webkit-gradient(linear, 0 0, 0 100%, from(#E0E2E4), to(#BBC0C4));
@@ -2240,6 +2240,14 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   padding: 0 0px 0 12px;
   text-shadow: 0 1px 0 #DADEE2;
   font-weight:bold;
+}
+
+#chat-messages-wrapper #chat-messages-users {
+  padding: 0 0px 0 18px;
+  font-weight:bold;
+  background: transparent url("../images/icons/group.png") no-repeat left center;
+  margin-left:5px;
+  display:none;
 }
 
 #chat-messages-wrapper #chat-messages-head #chat-messages-options {
@@ -2285,6 +2293,11 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 #chat-messages-list li.new-user span.message {
   display:block;
   color:green;
+}
+
+#chat-messages-list li.departed span.message {
+  display:block;
+  color:red;
 }
 
 #chat-messages-list li.log span.message {

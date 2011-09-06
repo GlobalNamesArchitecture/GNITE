@@ -7,6 +7,7 @@ class MasterTree < Tree
   has_many :reference_tree_collections
   has_many :reference_trees, :through => :reference_tree_collections
   has_many :merge_events
+  has_many :rosters
 
   attr_accessor :user
 
