@@ -16,6 +16,19 @@ class MasterTreesController < ApplicationController
   end
 
   def show
+    @master_tree.rosters.delete_if { |h| h.user_id == current_user.id }
+    @master_tree.master_tree_contributors.delete_if { |h| h.user_id == current_user.id }
+    
+    editors = []
+    @master_tree.rosters.each do |roster|
+      editors << { :id => roster.user.id, :email => roster.user.email, :status => "online" }
+    end
+    @master_tree.master_tree_contributors.each do |contributor|
+      editors << { :id => contributor.user.id, :email => contributor.user.email, :status => "offline" } unless editors.any? { |h| h[:id] == contributor.user.id }
+    end
+    
+    @editors = editors.sort_by { |h| h[:email] }
+    
     message = { :subject => "member-login", :message => "", :time => Time.new.to_s, :user => { :id => current_user.id, :email => current_user.email } }.to_json
     Juggernaut.publish("tree_" + @master_tree.id.to_s, message)
   end

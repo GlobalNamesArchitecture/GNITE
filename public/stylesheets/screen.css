@@ -2219,16 +2219,18 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 }
 
 #chat-messages-wrapper #chat-messages-head {
-  height:24px;
-  line-height:24px;
-  background: #BABFC3;
-  background: -moz-linear-gradient(0% 100% 90deg,#BBC0C4, #E0E2E4);
-  background: -webkit-gradient(linear, 0 0, 0 100%, from(#E0E2E4), to(#BBC0C4));
+  line-height:2em;
+  background-color: #BABFC3;
   border-radius: 6px 6px 0px 0px;
   -moz-border-radius: 6px 6px 0px 0px;
   -webkit-border-radius: 6px 6px 0px 0px;
   position:relative;
   cursor:pointer;
+  border-bottom: 1px solid #DADDDF;
+}
+
+#chat-messages-wrapper #chat-messages-head div {
+  border-bottom: 1px solid #868D92;
 }
 
 #chat-messages-wrapper #chat-messages-head:hover {
@@ -2242,12 +2244,42 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   font-weight:bold;
 }
 
-#chat-messages-wrapper #chat-messages-users {
+#chat-messages-wrapper #chat-messages-user-count {
   padding: 0 0px 0 18px;
   font-weight:bold;
   background: transparent url("../images/icons/group.png") no-repeat left center;
   margin-left:5px;
+}
+
+#chat-messages-wrapper #chat-messages-status {
+  background-color:#BABFC3;
+  border-bottom:1px solid #AAAAAA;
   display:none;
+}
+
+#chat-messages-wrapper #chat-messages-status ul {
+  height:2em;
+  line-height:2em;
+}
+
+#chat-messages-wrapper #chat-messages-status li {
+  display:block;
+  float:left;
+  width: 50%;
+  text-align:center;
+}
+
+#chat-messages-wrapper #chat-messages-status li:hover {
+  background-color:#EEF1F3;
+}
+
+#chat-messages-wrapper #chat-messages-status li.active {
+ background-color:#EEF1F3;
+}
+
+#chat-messages-wrapper #chat-messages-status a {
+  color:#232323;
+  text-decoration:none;
 }
 
 #chat-messages-wrapper #chat-messages-head #chat-messages-options {
@@ -2276,13 +2308,45 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   display:none;
 }
 
+#chat-messages-users {
+  overflow-y:auto;
+  min-height:250px;
+  max-height:400px;
+  display:none;
+}
+
+#chat-messages-users ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#chat-messages-users ul li {
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  padding: 0 0 0 18px;
+  margin:0.4em 0;
+}
+
+#chat-messages-users ul li.online {
+  background-image: url("../images/icons/bullet_green.png"); 
+  color:green;
+}
+
+#chat-messages-users ul li.offline {
+  background-image: url("../images/icons/bullet_red.png");
+  color:red; 
+}
+
 #chat-messages-list {
-  margin:5px;
+  margin:5px 0px;
 }
 
 #chat-messages-list li {
   margin-left:1em;
   margin-top:4px;
+  padding:0 5px 0 5px;
 }
 
 #chat-messages-list li span.user {

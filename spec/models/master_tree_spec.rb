@@ -21,6 +21,7 @@ describe MasterTree do
   it { should have_many(:reference_trees).through(:reference_tree_collections) }
   it { should have_many(:merge_events) }
   it { should have_many(:master_tree_logs) }
+  it { should have_many(:rosters) }
 
   it "should nuke the tree and deleted_names tree" do
     master_tree = Factory(:master_tree, :abstract => "It is my tree of very strange taxa")

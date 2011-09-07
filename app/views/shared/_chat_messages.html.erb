@@ -1,14 +1,29 @@
 <div id="chat-messages-wrapper">
   <div id="chat-messages-head">
-    <span id="chat-messages-title">Chat</span>
-    <span id="chat-messages-users">(<%= participant_count %>)</span>
-    <div id="chat-messages-options">
-      <a href="#" id="chat-messages-minimize" class="chat-messages-control" alt="minimize" title="minimize">Hide</a>
-      <a href="#" id="chat-messages-maximize" class="chat-messages-control" alt="maximize" title="maximize">Show</a>
+    <div>
+      <span id="chat-messages-title">Chat</span>
+      <span id="chat-messages-user-count">(<%= @editors.select { |i| i[:status] == "online" }.count %>)</span>
+      <div id="chat-messages-options">
+        <a href="#" id="chat-messages-minimize" class="chat-messages-control" alt="minimize" title="minimize">Hide</a>
+        <a href="#" id="chat-messages-maximize" class="chat-messages-control" alt="maximize" title="maximize">Show</a>
+      </div>
     </div>
+  </div>
+  <div id="chat-messages-status">
+    <ul class="clearfix">
+      <li class="show-chat active"><a href="#">Show chat window</a></li>
+      <li class="show-users"><a href="#">Show online editors</a></li>
+    </ul>
   </div>
   <div id="chat-messages-scroller">
     <ul id="chat-messages-list"></ul>
+  </div>
+  <div id="chat-messages-users">
+    <ul>
+      <% editors.each do |editor| %>
+        <li class="<%= editor[:status]%> chat-user-<%= editor[:id] %>"><%= editor[:email] %></li>
+      <% end %>
+    </ul>
   </div>
   <div id="chat-messages-form">
     <form>

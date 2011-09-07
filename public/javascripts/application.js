@@ -1352,6 +1352,8 @@ $(function() {
   $('#chat-messages-head').click(function() { GNITE.toggleChatWindow(); });
   $('#chat-messages-options a').click(function() { GNITE.toggleChatWindow(); return false; });
 
+  $('#chat-messages-status li a').click(function() { GNITE.toggleChatPanel(this); return false; });
+
   $('#chat-messages-input').keypress(function(e) {
     var msg  = $(this).val().replace("\n", ""),
         code = (e.keyCode ? e.keyCode : e.which);
@@ -1419,10 +1421,10 @@ $(function() {
       case 'roster':
         if(response.status == "destroy" && GNITE.Tree.MasterTree.user_id != response.user.id.toString()) {
           GNITE.flashChatWindow();
-          GNITE.appendMessage("departed", response)
+          GNITE.appendMessage("departed", response);
         }
-        $('#chat-messages-users').html("(" + response.count + ")").show();
-        
+        $('#chat-messages-user-count').html("(" + response.count + ")").show();
+        GNITE.editChatUserStatus(response);
       break;
     }
   });
@@ -1445,13 +1447,34 @@ GNITE.toggleChatWindow = function() {
     $('#chat-messages-maximize').hide();
     $('#chat-messages-minimize').show();
   }
+
+  if($('#chat-messages-scroller').is(':visible')) { $('#chat-messages-users').hide(); }
+
 };
+
+GNITE.toggleChatPanel = function(obj) {
+  var self = $(obj).parent();
+
+  if(self.hasClass("show-chat")) {
+    $('#chat-messages-scroller').show();
+    $('#chat-messages-users').hide();
+  } else {
+    $('#chat-messages-scroller').hide();
+    $('#chat-messages-users').show();
+  }
+
+  self.siblings().removeClass("active");
+  self.addClass("active");
+}
 
 GNITE.flashChatWindow = function() {
   $('#chat-messages-head').effect("highlight", { color : "green" }, 2000);
   $('#chat-messages-maximize').hide();
   $('#chat-messages-minimize').show();
   $('#chat-messages-wrapper div').show();
+
+  if($('#chat-messages-scroller').is(':visible')) { $('#chat-messages-users').hide(); }
+  if($('#chat-messages-users').is(':visible')) { $('#chat-messages-scroller').hide(); }
 };
 
 GNITE.appendMessage = function(type, response) {
@@ -1470,6 +1493,7 @@ GNITE.appendMessage = function(type, response) {
   }
 
   $('#chat-messages-list').append("<li class=\"" + type + "\"><span class=\"user\">" + response.user.email + "</span>:<span class=\"message\">" + message + "</span></li>").parent().scrollTo('li:last',500);
+  $('#chat-messages-users').height($('#chat-messages-scroller').height());
 
   $("#chat-messages-list a[data-path]").click(function() {
     var self          = $('#master-tree'),
@@ -1483,6 +1507,18 @@ GNITE.appendMessage = function(type, response) {
     GNITE.Tree.openAncestry(self, ancestry_arr2);
     return false;
   });
+};
+
+GNITE.editChatUserStatus = function(response) {
+  if(GNITE.Tree.MasterTree.user_id !== response.user.id.toString()) {
+    if(response.status == "create") {
+      if($('.chat-user-' + response.user.id).length === 0) {
+        $('#chat-messages-users ul').append('<li class="chat-user-' + response.user.id + '">' + response.user.email + '</li>'); }
+      $('.chat-user-' + response.user.id).removeClass("offline").addClass("online");
+    } else {
+      $('.chat-user-' + response.user.id).removeClass("online").addClass("offline");
+    }
+  }
 };
 
 GNITE.pushMessage = function(subject, message, ignore) {

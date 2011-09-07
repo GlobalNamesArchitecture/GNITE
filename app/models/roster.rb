@@ -1,7 +1,7 @@
 class Roster < ActiveRecord::Base
 
+  belongs_to :user
   belongs_to :master_tree
-  has_many :roster_participants
   
   class << self
     
@@ -16,7 +16,7 @@ class Roster < ActiveRecord::Base
           when :subscribe
             event_subscribe(master_tree_id, user_id)
           when :unsubscribe
-            event_unsubscribe(master_tree_id, user_id)
+            event_unsubscribe(user_id)
           end
         end
     end
@@ -24,21 +24,23 @@ class Roster < ActiveRecord::Base
     protected
     
       def event_subscribe(master_tree_id, user_id)
-        master_tree_roster = find_by_master_tree_id(master_tree_id) || self.create(:master_tree_id => master_tree_id)
-        master_tree_roster.roster_participants.create(:user_id => user_id)
+        master_tree_roster_user = find_by_master_tree_id_and_user_id(master_tree_id, user_id) || self.new(:master_tree_id => master_tree_id, :user_id => user_id)
+        master_tree_roster_user.increment!
       end
 
-      def event_unsubscribe(master_tree_id, user_id)
-        master_tree_roster = find_by_master_tree_id(master_tree_id) rescue nil
-        master_tree_roster && master_tree_roster.decrement(user_id)
+      def event_unsubscribe(user_id)
+        master_tree_roster_user = find_by_user_id(user_id) rescue nil
+        master_tree_roster_user && master_tree_roster_user.decrement
       end
     
   end
   
-  def decrement(user_id)
-    participant = self.roster_participants.find_by_user_id(user_id) rescue nil
-    participant && participant.destroy
-    self.roster_participants.count > 0 ? save! : destroy
+  def increment!
+    save!
+  end
+  
+  def decrement
+    destroy
   end
   
 end

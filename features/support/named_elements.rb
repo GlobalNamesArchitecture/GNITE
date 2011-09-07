@@ -25,6 +25,8 @@ module NamedElementHelper
       "#treewrap-main .tree-background .node-metadata"
     when /the metadata panel context menu/
       "#ddsmoothmenu-context"
+    when /the chat window/
+      "#chat-messages-wrapper"
     else
       named_element
     end

@@ -58,7 +58,9 @@
 
 <%= render :partial => 'merge_form.html' %>
 
-<%= render :partial => 'shared/chat_messages.html', :locals => { :participant_count => @master_tree.rosters[0] && @master_tree.rosters[0].roster_participants.count } %>
+<% if @editors.count > 0 %>
+  <%= render :partial => 'shared/chat_messages.html', :locals => { :editors => @editors } %>
+<% end %>
 
 <% content_for :javascript do %>
 <%= javascript_include_tag 'juggernaut/json', 'juggernaut/socket_io', 'juggernaut/juggernaut', 'application', 'jstree/jquery.jstree', 'jquery.jstree.bookmarks', 'jquery.cookie', 'jquery.hotkeys', 'jquery.jstree.bulkcreate', 'jquery.jstree.undoredo', 'jquery.jstree.merge', 'jquery.spinner', 'ddsmoothmenu', 'jquery.scrollTo.min', 'jquery.extensions', 'jquery.contextMenu', 'jquery.inlinecomplete' %>

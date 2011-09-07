@@ -22,6 +22,7 @@ When /^I enter "([^"]*)" in the chat box and press enter$/ do |text|
   sleep 2
 end
 
-Then /^I should see a chat message "([^"]*)"$/ do |chat_message|
+Then /^I should see a chat message "([^"]*)" authored by "([^"]*)"$/ do |chat_message, email|
   page.should have_css("div#chat-messages-scroller>ul>li>span.message:contains('#{chat_message}')")
+  page.should have_css("div#chat-messages-scroller>ul>li>span.user:contains('#{email}')")
 end

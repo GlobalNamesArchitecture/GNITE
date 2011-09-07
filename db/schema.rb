@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110906135318) do
+ActiveRecord::Schema.define(:version => 20110906135054) do
 
   create_table "action_commands", :force => true do |t|
     t.string   "type"
@@ -218,16 +218,14 @@ ActiveRecord::Schema.define(:version => 20110906135318) do
     t.integer "user_id"
   end
 
-  create_table "roster_participants", :force => true do |t|
-    t.integer "roster_id"
-    t.integer "user_id"
-  end
-
   create_table "rosters", :force => true do |t|
     t.integer  "master_tree_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "rosters", ["master_tree_id", "user_id"], :name => "index_rosters_on_master_tree_id_and_user_id"
 
   create_table "synonyms", :force => true do |t|
     t.integer  "node_id"
