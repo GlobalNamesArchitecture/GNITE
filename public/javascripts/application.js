@@ -117,7 +117,7 @@ $(function() {
           'bookmark' : {
             'label'            : 'Add bookmark',
             'action'           : function(obj) { this.bookmarks_form(obj); },
-            'separator_after'  : true,
+            'separator_after'  : false,
             'separator_before' : false,
             'icon'             : 'context-bookmark'
           },
@@ -126,7 +126,9 @@ $(function() {
             'action'           : function(obj) { GNITE.nodeMessage(obj); },
             'separator_after'  : true,
             'separator_before' : false,
-            'icon'             : 'context-chat'
+            'icon'             : 'context-chat',
+            '_disabled'        : function() { if($('#chat-messages-wrapper').length > 0) { return false; } return true; },
+            '_class'           : function() { if($('#chat-messages-wrapper').length > 0) { return; } return "chat-shortcut"; }
           },
           'remove' : {
             'label'            : 'Delete',

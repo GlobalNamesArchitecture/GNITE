@@ -56,6 +56,7 @@
 #vakata-contextmenu.jstree-gnite-context a { color:black; }
 #vakata-contextmenu.jstree-gnite-context a:hover, 
 #vakata-contextmenu.jstree-gnite-context .vakata-hover > a { padding:0 5px; border: 1px solid #BABFC3; background-color:#BABFC3; color:black; }
+#vakata-contextmenu.jstree-gnite-context li.chat-shortcut { display: none; }
 #vakata-contextmenu.jstree-gnite-context li.jstree-contextmenu-disabled a, 
 #vakata-contextmenu.jstree-gnite-context li.jstree-contextmenu-disabled a:hover { color:silver; background:transparent; border:0; padding:1px 4px; }
 #vakata-contextmenu.jstree-gnite-context li.vakata-separator { background:white; border-top:1px solid #e0e0e0; margin:0; }

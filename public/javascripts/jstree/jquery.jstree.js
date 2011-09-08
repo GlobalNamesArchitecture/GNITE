@@ -3467,6 +3467,8 @@
 					str += "<li class='vakata-separator vakata-separator-before'></li>";
 				}
 				was_sep = false;
+				if($.isFunction(val._disabled)) { val._disabled = val._disabled(); }
+				if($.isFunction(val._class)) { val._class = val._class(); }
 				str += "<li class='" + (val._class || "") + (val._disabled ? " jstree-contextmenu-disabled " : "") + "'><ins ";
 				if(val.icon && val.icon.indexOf("/") === -1) { str += " class='" + val.icon + "' "; }
 				if(val.icon && val.icon.indexOf("/") !== -1) { str += " style='background:url(" + val.icon + ") center center no-repeat;' "; }
