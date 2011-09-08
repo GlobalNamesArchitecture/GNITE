@@ -371,6 +371,9 @@ $(function() {
     });
 
   GNITE.MergeEvent.generatePreview = function() {
+
+    "use strict";
+
     $('#merge-warning').hide();
     $('.tree-background').spinner();
     $('#preview-tree').removeClass("merge-complete").jstree("close_all").jstree("lock");
@@ -435,6 +438,9 @@ $(function() {
   };
 
   GNITE.MergeEvent.showMergeWarning = function() {
+
+    "use strict";
+
     if($('#treewrap-main').is(':visible')) {
       $('#preview-tree').jstree("lock");
       $('#merge-warning').show();

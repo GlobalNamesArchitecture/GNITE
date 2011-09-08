@@ -1444,7 +1444,7 @@ GNITE.nodeMessage = function(obj) {
       path        = self.jstree("get_path", obj, true),
       node_string = self.jstree("get_text", obj);
 
-  GNITE.flashChatWindow();
+  GNITE.Chat.flashChatWindow();
   
   $('#chat-messages-input').val("<a href=\"#\" data-path=\"" + path + "\">" + node_string + "</a>");
 };
