@@ -29,6 +29,6 @@ Feature: Chat
     And "email2@person.com" is a contributor to the master tree "Spiders"
     When I go to the master tree page for "Spiders"
     And I wait for the websocket to activate
-    And I follow "Show" within "#chat-messages-options"
+    And I follow "Maximize" within "#chat-messages-options"
     And I enter "I have just edited the tree" in the chat box and press enter
     Then I should see a chat message "I have just edited the tree" authored by "email@person.com"
