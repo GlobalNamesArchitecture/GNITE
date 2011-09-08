@@ -299,7 +299,7 @@ body form input {
   background: -webkit-gradient(linear,left bottom,left top, color-stop(0.04, rgb(27,112,4)), color-stop(0.58, rgb(90,165,43)), color-stop(0.98, rgb(144,207,76))) !important;
 }
 
-.disabled {
+input.disabled {
   background: #E6E6E6 !important;
   color:#C0C0C0 !important;
 }
@@ -2184,7 +2184,7 @@ ul.treelist li,  #gnaclr-search, .tree-background, #loginform .input, .green-sub
   position: absolute;
   top: 0;
   width: 100%;
-  z-index:1000;
+  z-index:100;
 }
 
 .spinner p.status {
@@ -2284,7 +2284,7 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 
 #chat-messages-wrapper #chat-messages-head #chat-messages-options {
   text-align:right;
-  width:50px;
+  width:80px;
   position:absolute;
   top:0px;
   right:3px;
@@ -2523,40 +2523,26 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 
 /* Pagination */
 /************************************************************************/
-.pagination { padding: 3px; margin: 10px 3px 3px; }
+.pagination { padding: 3px; margin: 10px 3px 10px; font-size:1.1em; font-weight:bold; color:white; float:right; }
 .pagination a {
   margin: 2px;
   padding: 2px 5px;
   text-decoration: none;
-  color: #000;
-  border: 1px solid #868D92;
-  background: #E0E2E4;
-  background: -moz-linear-gradient(0% 100% 90deg,#BBC0C4, #E0E2E4);
-  background: -webkit-gradient(linear, 0 0, 0 100%, from(#E0E2E4), to(#BBC0C4));
-  font-weight: bold;
+  color: white;
+  border:1px solid transparent;
 }
 .pagination a:hover, .pagination a:active {
-  background: #ccd0d4;
-  background: -moz-linear-gradient(19% 75% 90deg,#919598, #ccd0d4);
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccd0d4), to(#919598));
+  border:1px solid #E0E2E4;
 }
 .pagination span.current {
   padding: 2px 5px;
   margin: 2px;
-  border: 1px solid #868D92;
-  font-weight: bold;
-  background: #ccd0d4;
-  background: -moz-linear-gradient(19% 75% 90deg,#919598, #ccd0d4);
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccd0d4), to(#919598));
+  border:1px solid #E0E2E4;
 }
 .pagination span.disabled {
   padding: 2px 5px;
   margin: 2px;
-  border: 1px solid #868D92;
-  color: white;
-  background: #E0E2E4;
-  background: -moz-linear-gradient(0% 100% 90deg,#BBC0C4, #E0E2E4);
-  background: -webkit-gradient(linear, 0 0, 0 100%, from(#E0E2E4), to(#BBC0C4));
+  color: #E0E2E4;
 }
 
 /* Merge Results Screen */

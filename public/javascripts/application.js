@@ -3,20 +3,19 @@
 /**************************************************************
            GLOBAL VARIABLE(S)
 **************************************************************/
-var GNITE = {
-  Tree : {
+var GNITE = GNITE || {
+  Tree    : {
     MasterTree    : {},
     DeletedTree   : {},
     ReferenceTree : {},
     Node          : {}
   },
-  token : ""
+  Chat    : {},
+  jug     : new Juggernaut(),
+  channel : "",
+  token   : "",
+  user_id : ""
 };
-
-/**************************************************************
-         JUGGERNAUT
-**************************************************************/
-var jug = new Juggernaut();
 
 /********************************* jQuery START *********************************/
 $(function() {
@@ -25,13 +24,13 @@ $(function() {
 
   GNITE.token = $("meta[name='csrf-token']").attr("content");
   GNITE.Tree.MasterTree.id = $('.tree-container:first').attr('data-database-id');
-  GNITE.Tree.MasterTree.channel = "tree_" + GNITE.Tree.MasterTree.id;
+  GNITE.channel = "tree_" + GNITE.Tree.MasterTree.id;
 
   if($('#chat-messages-wrapper').length > 0) {
-    jug.meta = { master_tree_id: GNITE.Tree.MasterTree.id, user_id: GNITE.Tree.MasterTree.user_id };
+    GNITE.jug.meta = { master_tree_id: GNITE.Tree.MasterTree.id, user_id: GNITE.user_id };
   }
-  jug.on("connect", function() { "use strict"; $('#master-tree').addClass("socket-active"); });
-  jug.on("disconnect", function() { "use strict"; $('#master-tree').removeClass("socket-active"); });
+  GNITE.jug.on("connect", function() { "use strict"; $('#master-tree').addClass("socket-active"); });
+  GNITE.jug.on("disconnect", function() { "use strict"; $('#master-tree').removeClass("socket-active"); });
 
   /**************************************************************
            TREE CONFIGURATION
@@ -773,7 +772,7 @@ $(function() {
       dataType    : 'json',
       beforeSend  : function(xhr) {
         xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
-        xhr.setRequestHeader("X-Session-ID", jug.sessionID);
+        xhr.setRequestHeader("X-Session-ID", GNITE.jug.sessionID);
       },
       success     : function(data) {
         node.obj.attr('id', data.node.id);
@@ -813,7 +812,7 @@ $(function() {
       dataType    : 'json',
       beforeSend  : function(xhr) {
         xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
-        xhr.setRequestHeader("X-Session-ID", jug.sessionID);
+        xhr.setRequestHeader("X-Session-ID", GNITE.jug.sessionID);
       },
       success     : function() {
         setTimeout(function checkLockedStatus() {
@@ -876,7 +875,7 @@ $(function() {
       dataType    : 'json',
       beforeSend  : function(xhr) {
         xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
-        xhr.setRequestHeader("X-Session-ID", jug.sessionID);
+        xhr.setRequestHeader("X-Session-ID", GNITE.jug.sessionID);
       },
       success     : function(data) {
         node.obj.attr('id', data.node.id);
@@ -943,7 +942,7 @@ $(function() {
        dataType    : 'json',
        beforeSend  : function(xhr) {
          xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
-         xhr.setRequestHeader("X-Session-ID", jug.sessionID);
+         xhr.setRequestHeader("X-Session-ID", GNITE.jug.sessionID);
        },
        success     : function(r) {
          var i = 0;
@@ -984,7 +983,7 @@ $(function() {
         dataType    : 'json',
         beforeSend  : function(xhr) {
           xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
-          xhr.setRequestHeader("X-Session-ID", jug.sessionID);
+          xhr.setRequestHeader("X-Session-ID", GNITE.jug.sessionID);
         }
       });
     });
@@ -1052,7 +1051,7 @@ $(function() {
       dataType    : 'json',
       beforeSend  : function(xhr) {
         xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
-        xhr.setRequestHeader("X-Session-ID", jug.sessionID);
+        xhr.setRequestHeader("X-Session-ID", GNITE.jug.sessionID);
       },
 
       success     : function(data) {
@@ -1081,7 +1080,7 @@ $(function() {
       dataType    : 'json',
       beforeSend  : function(xhr) {
         xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
-        xhr.setRequestHeader("X-Session-ID", jug.sessionID);
+        xhr.setRequestHeader("X-Session-ID", GNITE.jug.sessionID);
       },
       success     : function(data) {
         if(data.status) {
@@ -1351,29 +1350,9 @@ $(function() {
   });
 
   /**************************************************************
-           CHAT
-  **************************************************************/
-  $('#chat-messages-head').click(function() { GNITE.toggleChatWindow(); });
-  $('#chat-messages-options a').click(function() { GNITE.toggleChatWindow(); return false; });
-
-  $('#chat-messages-status li a').click(function() { GNITE.toggleChatPanel(this); return false; });
-
-  $('#chat-messages-input').keypress(function(e) {
-    var msg  = $(this).val().replace("\n", ""),
-        code = (e.keyCode ? e.keyCode : e.which);
- 
-    if(code !== 13) { return; }
-    if (!$.isBlank(msg)) {
-      GNITE.pushMessage("chat", msg, false);
-      $(this).val("");
-    }
-    return false;
-  });
-
-  /**************************************************************
            JUGGERNAUT LISTENER
   **************************************************************/
-  jug.subscribe(GNITE.Tree.MasterTree.channel, function(data) {
+  GNITE.jug.subscribe(GNITE.channel, function(data) {
     var response = $.parseJSON(data), self = $('#master-tree');
     switch(response.subject) {
 
@@ -1404,18 +1383,18 @@ $(function() {
       break;
 
       case 'member-login':
-        if(GNITE.Tree.MasterTree.user_id !== response.user.id.toString()) { GNITE.flashChatWindow(); }
-        GNITE.appendMessage("new-user", response);
+        if(GNITE.user_id !== response.user.id.toString()) { GNITE.Chat.flashChatWindow(); }
+        GNITE.Chat.appendMessage("new-user", response);
       break;
 
       case 'chat':
-        GNITE.flashChatWindow();
-        GNITE.appendMessage("chat", response);
+        GNITE.Chat.flashChatWindow();
+        GNITE.Chat.appendMessage("chat", response, "editor");
       break;
 
       case 'log':
-        if(GNITE.Tree.MasterTree.user_id !== response.user.id.toString()) { GNITE.flashChatWindow(); }
-        GNITE.appendMessage("log", response);
+        if(GNITE.user_id !== response.user.id.toString()) { GNITE.Chat.flashChatWindow(); }
+        GNITE.Chat.appendMessage("log", response);
       break;
 
       case 'metadata':
@@ -1423,12 +1402,12 @@ $(function() {
       break;
 
       case 'roster':
-        if(response.status == "destroy" && GNITE.Tree.MasterTree.user_id != response.user.id.toString()) {
-          GNITE.flashChatWindow();
-          GNITE.appendMessage("departed", response);
+        if(response.status == "destroy" && GNITE.user_id != response.user.id.toString()) {
+          GNITE.Chat.flashChatWindow();
+          GNITE.Chat.appendMessage("departed", response);
         }
         $('#chat-messages-user-count').html("(" + response.count + ")").show();
-        GNITE.editChatUserStatus(response);
+        GNITE.Chat.editChatUserStatus(response);
       break;
     }
   });
@@ -1441,89 +1420,6 @@ $(function() {
 /**************************************************************
            HELPER FUNCTIONS
 **************************************************************/
-GNITE.toggleChatWindow = function() {
-  if($('#chat-messages-wrapper > div:not(:first)').is(':visible')) {
-    $('#chat-messages-wrapper > div:not(:first)').hide();
-    $('#chat-messages-maximize').show();
-    $('#chat-messages-minimize').hide();
-  } else {
-    $('#chat-messages-wrapper > div:not(:first)').show();
-    $('#chat-messages-maximize').hide();
-    $('#chat-messages-minimize').show();
-  }
-
-  if($('#chat-messages-scroller').is(':visible')) { $('#chat-messages-users').hide(); }
-
-};
-
-GNITE.toggleChatPanel = function(obj) {
-  var self = $(obj).parent();
-
-  if(self.hasClass("show-chat")) {
-    $('#chat-messages-scroller').show();
-    $('#chat-messages-users').hide();
-  } else {
-    $('#chat-messages-scroller').hide();
-    $('#chat-messages-users').show();
-  }
-
-  self.siblings().removeClass("active");
-  self.addClass("active");
-}
-
-GNITE.flashChatWindow = function() {
-  $('#chat-messages-head').effect("highlight", { color : "green" }, 2000);
-  $('#chat-messages-maximize').hide();
-  $('#chat-messages-minimize').show();
-  $('#chat-messages-wrapper div').show();
-
-  if($('#chat-messages-scroller').is(':visible')) { $('#chat-messages-users').hide(); }
-  if($('#chat-messages-users').is(':visible')) { $('#chat-messages-scroller').hide(); }
-};
-
-GNITE.appendMessage = function(type, response) {
-  var message = response.message;
-
-  switch(type) {
-    case 'new-user':
-      message = "<strong>arrived</strong> [" + response.time + "]";
-    break;
-    case 'departed':
-      message = "<strong>departed</strong> [" + response.time + "]";
-    break;
-    case 'log':
-      message = "<strong>edited</strong> [" + response.time + "]</span><span class=\"message\">" + response.message;
-    break;
-  }
-
-  $('#chat-messages-list').append("<li class=\"" + type + "\"><span class=\"user\">" + response.user.email + "</span>:<span class=\"message\">" + message + "</span></li>").parent().scrollTo('li:last',500);
-  $('#chat-messages-users').height($('#chat-messages-scroller').height());
-
-  $("#chat-messages-list a[data-path]").click(function() {
-    var self          = $('#master-tree'),
-        ancestry_arr  = $(this).attr("data-path").split(","),
-        ancestry_arr2 = [];
-
-    $.each(ancestry_arr, function(i, val) {
-      ancestry_arr2.push('#' + val);
-    });
-    self.jstree("deselect_all");
-    GNITE.Tree.openAncestry(self, ancestry_arr2);
-    return false;
-  });
-};
-
-GNITE.editChatUserStatus = function(response) {
-  if(GNITE.Tree.MasterTree.user_id !== response.user.id.toString()) {
-    if(response.status == "create") {
-      if($('.chat-user-' + response.user.id).length === 0) {
-        $('#chat-messages-users ul').append('<li class="chat-user-' + response.user.id + '">' + response.user.email + '</li>'); }
-      $('.chat-user-' + response.user.id).removeClass("offline").addClass("online");
-    } else {
-      $('.chat-user-' + response.user.id).removeClass("online").addClass("offline");
-    }
-  }
-};
 
 GNITE.pushMessage = function(subject, message, ignore) {
 
@@ -1535,10 +1431,10 @@ GNITE.pushMessage = function(subject, message, ignore) {
     url         : '/push_messages/',
     contentType : 'application/json',
     dataType    : 'json',
-    data        : JSON.stringify({ 'channel' : GNITE.Tree.MasterTree.channel, 'subject' : subject, 'message' : message }),
+    data        : JSON.stringify({ 'channel' : GNITE.channel, 'subject' : subject, 'message' : message }),
     beforeSend  : function(xhr) {
       xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
-      if(ignore) { xhr.setRequestHeader("X-Session-ID", jug.sessionID); }
+      if(ignore) { xhr.setRequestHeader("X-Session-ID", GNITE.jug.sessionID); }
     }
   });
 };
@@ -2061,7 +1957,7 @@ GNITE.Tree.MasterTree.externalDragged = function(data) {
     dataType    : 'json',
     beforeSend  : function(xhr) {
       xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
-      xhr.setRequestHeader("X-Session-ID", jug.sessionID);
+      xhr.setRequestHeader("X-Session-ID", GNITE.jug.sessionID);
     },
     success     : function() {
       self.jstree("refresh", $('#'+parentID));
@@ -2093,7 +1989,7 @@ GNITE.Tree.MasterTree.externalDropped = function(data) {
       dataType    : 'json',
       beforeSend  : function(xhr) {
         xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
-        xhr.setRequestHeader("X-Session-ID", jug.sessionID);
+        xhr.setRequestHeader("X-Session-ID", GNITE.jug.sessionID);
       },
       success     : function(data) {
         if(node_parent.length > 0) { self.jstree("refresh", node_parent); }
@@ -2431,7 +2327,7 @@ GNITE.Tree.MasterTree.editMetadata = function(elem, type, action, autocomplete_u
             dataType    : 'json',
             beforeSend  : function(xhr) {
               xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
-              xhr.setRequestHeader("X-Session-ID", jug.sessionID);
+              xhr.setRequestHeader("X-Session-ID", GNITE.jug.sessionID);
             },
           });
         } else {
@@ -2502,7 +2398,7 @@ GNITE.Tree.MasterTree.reconciliation = function(params) {
     contentType : 'application/json',
     beforeSend  : function(xhr) {
       xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
-      xhr.setRequestHeader("X-Session-ID", jug.sessionID);
+      xhr.setRequestHeader("X-Session-ID", GNITE.jug.sessionID);
     },
     success : function() {
       GNITE.Tree.MasterTree.refreshMetadata(params.destination_id);

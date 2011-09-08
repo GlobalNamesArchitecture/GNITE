@@ -61,13 +61,22 @@
   <% end %>
 </div>
 
-<%= render :partial => 'shared/chat_messages.html' %>
+<% if @editors.count > 0 %>
+  <%= render :partial => 'shared/chat_messages.html', :locals => { :editors => @editors } %>
+<% end %>
 
 <% content_for :javascript do %>
-  <%= javascript_include_tag 'juggernaut/json', 'juggernaut/socket_io', 'juggernaut/juggernaut', 'jquery.spinner', 'merge', 'jstree/jquery.jstree', 'jquery.hotkeys', 'jquery.scrollTo.min', 'waypoints.min', 'jquery.extensions' %>
+  <%= javascript_include_tag 'juggernaut/json', 'juggernaut/socket_io', 'juggernaut/juggernaut', 'jquery.spinner', 'merge', 'chat', 'jstree/jquery.jstree', 'jquery.hotkeys', 'jquery.scrollTo.min', 'waypoints.min', 'jquery.extensions' %>
 
-  <script type="text/javascript">
-  <!--//--><![CDATA[//><!--
-  jQuery.extend(GNITE.MergeEvent, { "merge_event" : "<%= @merge_event.id %>", "master_tree_id" : "<%= @merge_event.master_tree_id %>", "merge_status" : "<%= @merge_event.status %>", "merge_tree_id" : "<%= @merge_event.merge_tree_id %>", "merge_last_log" : "<%= @merge_last_log %>" });
-  </script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(GNITE, { "user_id" : "<%= current_user.id %>" });
+jQuery.extend(GNITE.MergeEvent, {
+  "merge_event"    : "<%= @merge_event.id %>",
+  "master_tree_id" : "<%= @merge_event.master_tree_id %>",
+  "merge_status"   : "<%= @merge_event.status %>",
+  "merge_tree_id"  : "<%= @merge_event.merge_tree_id %>",
+  "merge_last_log" : "<%= @merge_last_log %>"
+});
+</script>
 <% end %>

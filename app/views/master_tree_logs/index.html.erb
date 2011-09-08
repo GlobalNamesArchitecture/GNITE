@@ -9,6 +9,10 @@
   </div>
 <% end %>
 
+<div class="clearfix">
+  <%= will_paginate @logs, :class => 'pagination' %>
+</div
+>
 <table class="gnite-table">
   <thead>
     <tr>
@@ -34,4 +38,6 @@
   </tbody>
 </table>
 
-<%= will_paginate @logs, :class => 'pagination' %>
+<div class="clearfix">
+  <%= will_paginate @logs, :class => 'pagination' %>
+</div>

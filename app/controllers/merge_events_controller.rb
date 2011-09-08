@@ -15,6 +15,19 @@ class MergeEventsController < ApplicationController
     @merge_event = MergeEvent.find(params[:id])
     @master_tree = @merge_event.master_tree
 
+    @master_tree.rosters.delete_if { |h| h.user_id == current_user.id }
+    @master_tree.master_tree_contributors.delete_if { |h| h.user_id == current_user.id }
+    
+    editors = []
+    @master_tree.rosters.each do |roster|
+      editors << { :id => roster.user.id, :email => roster.user.email, :status => "online" }
+    end
+    @master_tree.master_tree_contributors.each do |contributor|
+      editors << { :id => contributor.user.id, :email => contributor.user.email, :status => "offline" } unless editors.any? { |h| h[:id] == contributor.user.id }
+    end
+    
+    @editors = editors.sort_by { |h| h[:email] }
+    
     if @merge_event.status != "in review"
       redirect_to master_tree_path(@master_tree)
     end

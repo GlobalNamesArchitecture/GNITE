@@ -3,11 +3,16 @@
 /**************************************************************
            GLOBAL VARIABLE(S)
 **************************************************************/
-var GNITE = {
+var GNITE = GNITE || {
   MergeEvent : {
     Tree : { }
-  }
-  token : ""
+  },
+  Chat     : {},
+  jug      : new Juggernaut(),
+  channel  : "",
+  token    : "",
+  user_id  : "",
+  response : {}
 };
 
 /****************** START jQUERY ****************************/
@@ -15,42 +20,35 @@ $(function() {
 
   "use strict";
 
-  var jug      = new Juggernaut(),
-      response = {};
-
   GNITE.token = $("meta[name='csrf-token']").attr("content");
+  GNITE.channel = "tree_" + GNITE.MergeEvent.master_tree_id;
 
   /****************** JUGGERNAUT ***************************/
 
-  GNITE.MergeEvent.channel = "tree_" + GNITE.MergeEvent.master_tree_id;
-
   if(GNITE.MergeEvent.merge_status === "computing") {
      $('#chat-messages-wrapper').hide();
-     response = (GNITE.MergeEvent.merge_last_log) ? GNITE.MergeEvent.merge_last_log : 'Starting merge...';
-     $('#content').spinner().find(".spinner").append('<p class="status">' + response + '</p>');
+     GNITE.response = (GNITE.MergeEvent.merge_last_log) ? GNITE.MergeEvent.merge_last_log : 'Starting merge...';
+     $('#content').spinner().find(".spinner").append('<p class="status">' + GNITE.response + '</p>');
   }
 
-  jug.on("connect", function() { "use strict"; $('#merge-results-wrapper').addClass("juggernaut-connected"); });
-  jug.on("disconnect", function() { "use strict"; });
+  if($('#chat-messages-wrapper').length > 0) {
+    GNITE.jug.meta = { master_tree_id: GNITE.MergeEvent.master_tree_id, user_id: GNITE.user_id };
+  }
+  GNITE.jug.on("connect", function() { "use strict"; $('#merge-results-wrapper').addClass("juggernaut-connected"); });
+  GNITE.jug.on("disconnect", function() { "use strict"; });
 
-  jug.subscribe(GNITE.MergeEvent.channel, function(data) {
-    response = $.parseJSON(data);
+  GNITE.jug.subscribe(GNITE.channel, function(data) {
+    var response = $.parseJSON(data);
 
     switch(response.subject) {
       case 'member-login':
-        $("#chat-messages-head").effect("highlight", { color : "green" }, 2000);
-        $("#chat-messages-list").append("<li class=\"new-user\"><span class=\"user\">" + response.user.email + "</span><span class=\"message\">arrived [" + response.time + "]</span></li>").parent().scrollTo('li:last',500);
-      break;
-
-      case 'member-logout':
+        if(GNITE.user_id !== response.user.id.toString()) { GNITE.Chat.flashChatWindow(); }
+        GNITE.Chat.appendMessage("new-user", response);
       break;
 
       case 'chat':
-        $('#chat-messages-head').effect("highlight", { color : "green" }, 2000);
-        $('#chat-messages-maximize').hide();
-        $('#chat-messages-minimize').show();
-        $('#chat-messages-wrapper div').show();
-        $('#chat-messages-list').append("<li class=\"chat\"><span class=\"user\">" + response.user.email + "</span>:<span class=\"message\">" + response.message + "</span></li>").parent().scrollTo('li:last',500);
+        GNITE.Chat.flashChatWindow();
+        GNITE.Chat.appendMessage("chat", response);
       break;
 
       case 'MergeEvent':
@@ -65,6 +63,15 @@ $(function() {
         } else {
           $(".spinner").find(".status").html(response.message);
         }
+      break;
+
+      case 'roster':
+        if(response.status == "destroy" && GNITE.user_id !== response.user.id.toString()) {
+          GNITE.Chat.flashChatWindow();
+          GNITE.Chat.appendMessage("departed", response);
+        }
+        $('#chat-messages-user-count').html("(" + response.count + ")").show();
+        GNITE.Chat.editChatUserStatus(response);
       break;
     }
   });
@@ -249,30 +256,6 @@ $(function() {
     return false;
   });
 
-  /**************************** CHAT ****************************************/
-  $('#chat-messages-head').click(function() {
-    if($('#chat-messages-wrapper > div:not(:first)').is(':visible')) {
-      $('#chat-messages-wrapper > div:not(:first)').hide();
-      $('#chat-messages-maximize').show();
-      $('#chat-messages-minimize').hide();
-    } else {
-      $('#chat-messages-wrapper > div:not(:first)').show();
-      $('#chat-messages-maximize').hide();
-      $('#chat-messages-minimize').show();
-    }
-  });
-  $('#chat-messages-input').keypress(function(e) {
-    var msg  = $(this).val().replace("\n", ""),
-        code = (e.keyCode ? e.keyCode : e.which);
- 
-    if(code !== 13) { return; }
-    if (!$.isBlank(msg)) {
-      GNITE.pushMessage("chat", msg, false);
-      $(this).val("");
-    }
-    return false;
-  });
-
   /**************************** PREVIEW TREE *********************************/
   $('input.preview').click(function() {
 
@@ -386,24 +369,6 @@ $(function() {
     .next().click(function() {
         $(this).blur();
     });
-
-  GNITE.pushMessage = function(subject, message, ignore) {
-
-    "use strict";
-
-    $.ajax({
-      type        : 'PUT',
-      async       : true,
-      url         : '/push_messages/',
-      contentType : 'application/json',
-      dataType    : 'json',
-      data        : JSON.stringify({ 'channel' : GNITE.MergeEvent.channel, 'subject' : subject, 'message' : message }),
-      beforeSend  : function(xhr) {
-        xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
-        if(ignore) { xhr.setRequestHeader("X-Session-ID", jug.sessionID); }
-      }
-    });
-  };
 
   GNITE.MergeEvent.generatePreview = function() {
     $('#merge-warning').hide();
