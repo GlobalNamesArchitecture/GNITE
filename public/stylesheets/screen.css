@@ -82,12 +82,11 @@ hr {
 
 #bodywrap {
   color: black;
-  margin: 20px 30px;
+  margin: 20px 40px;
 }
 
 .infobox-wrap {
   background-color: #EEF1F3;
-  float: left;
   margin: 10px 20px 0px 0px;
   width: 500px;
 }
@@ -134,6 +133,15 @@ hr {
   padding: 0 10px;
   width: 286px;
   font-size:1.25em;
+}
+
+.infobox input.checkbox {
+  width:1em;
+  height:1em;
+}
+
+.infobox span.checkbox-label {
+  margin-right: 10px;
 }
 
 .infobox p.inline-hints {
@@ -211,6 +219,11 @@ body form input {
 
 #loginform ol li, #loginform ul li {
   margin-top: 10px;
+  position:relative;
+}
+
+#loginform fieldset.buttons ol li, #loginform fieldset.buttons ul li {
+  position:static;
 }
 
 #loginform legend {
@@ -2493,6 +2506,15 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   border-radius: 0px 0px 6px 6px;
   -moz-border-radius: 0px 0px 6px 6px;
   -webkit-border-radius: 0px 0px 6px 6px;
+}
+
+.gnite-table a {
+  text-decoration:none;
+  color:#222;
+}
+
+.gnite-table a:hover {
+  border-bottom: 1px dotted;
 }
 
 .gnite-table a.button-link {

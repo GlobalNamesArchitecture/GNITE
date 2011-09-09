@@ -1,5 +1,6 @@
 class Admin::MenuController < ApplicationController
   before_filter :authenticate_user!
+  authorize_resource
   
   layout "pages"
   

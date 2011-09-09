@@ -1,0 +1,19 @@
+<!-- Account -->
+  <div class="infobox-wrap">
+    <div class="breadcrumbs">
+      <ul>
+        <li>Account</li>
+      </ul>
+    </div>
+    <div class="infobox">
+
+    <div class="info-content">
+      <%= f.inputs do -%>
+        <%= f.input :email, :required => true %>
+        <%= f.input :password, :label => "New password", :hint => "leave blank if you do not want to change" %>
+        <%= f.input :password_confirmation %>
+      <% end -%>
+    </div>
+
+    </div>
+  </div>

@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.1.0'
 gem 'mysql2', '0.2.6'
-gem 'devise', '1.4.2'
+gem 'devise', '1.4.4'
 gem 'cancan', '1.6.5'
 gem 'formtastic', '1.1.0'
 gem 'engineyard'

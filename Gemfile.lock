@@ -35,7 +35,7 @@ GEM
     activesupport (3.0.9)
     archive-tar-minitar (0.5.2)
     arel (2.0.10)
-    bcrypt-ruby (2.1.4)
+    bcrypt-ruby (3.0.0)
     biodiversity (0.7.3)
       json
       treetop
@@ -70,8 +70,8 @@ GEM
       rack-test (>= 0.5.7)
     daemons (1.1.0)
     database_cleaner (0.6.0)
-    devise (1.4.2)
-      bcrypt-ruby (~> 2.1.2)
+    devise (1.4.4)
+      bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
       warden (~> 1.0.3)
     diff-lcs (1.1.2)
@@ -244,7 +244,7 @@ DEPENDENCIES
   cucumber (= 1.0.0)
   cucumber-rails (= 1.0.0)
   database_cleaner
-  devise (= 1.4.2)
+  devise (= 1.4.4)
   dwc-archive (= 0.5.15)
   engineyard
   escape_utils
