@@ -15,6 +15,22 @@ class Admin::UsersController < ApplicationController
     @user = User.find(params[:id])
   end
   
+  def new
+    @user = User.new
+  end
+  
+  def create
+    @user = User.new(params[:user])
+    @user.confirmed_at = Time.now()
+    if @user.save
+      flash[:notice] = "Successfully created User." 
+      #todo send email to user
+      redirect_to admin_users_path
+    else
+      render :action => 'new'
+    end
+  end
+  
   def update
     @user = User.find(params[:id])   
     params[:user].delete(:password) if params[:user][:password].blank?

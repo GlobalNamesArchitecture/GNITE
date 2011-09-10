@@ -2,9 +2,14 @@
   <div class="tree_list_header clearfix">
     <div class="tree_list_header_inner clearfix">
       <h1>Administration :: Users</h1>
+      <div id="tree-new" class="tree-link clearfix">
+        <a href="<%= new_admin_user_path %>"><span>Create New User</span></a>
+      </div>
     </div>
   </div>
 <% end %>
+
+
 
 <div class="clearfix">
   <%= will_paginate @users, :class => 'pagination' %>
