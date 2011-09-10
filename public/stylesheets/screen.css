@@ -2480,8 +2480,8 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   color:green;
 }
 
-.gnite-table tbody tr td.online a {
-  color:green;
+.gnite-table tbody tr td.actions span {
+  margin-right:5px;
 }
 
 .gnite-table tbody tr td.offline {

@@ -8,6 +8,9 @@
       <div id="admin-user-count" class="tree-link">
         Online: <span><%= Roster.count %></span>
       </div>
+      <div id="admin-user-count" class="tree-link">
+        Total: <span><%= @users.total_entries %></span>
+      </div>
     </div>
   </div>
 <% end %>
@@ -31,16 +34,17 @@
   <% if @users.any? %>
     <% @users.each do |user| %>
     <tr class="<% row_type = cycle("even", "odd") %><%= row_type %><%= (user == @users.last && row_type == 'even') ? " last last-even" : (user == @users.last && row_type == 'odd') ? " last last-odd": "" %>">
-      <% if user.online? %>
-        <td class="online chat-user-<%= user.id %>"><%= link_to "online", master_tree_url(user.active_master_tree) %></td>
-      <% else %> 
-        <td class="offline chat-user-<%= user.id %>">offline</td>
-      <% end %>
+      
+      <% status = user.online? ? "online" : "offline" %>
+      <td class="<%= status %> chat-user-<%= user.id %>"><%= status %></td>
       <td><%= user.given_name %></td>
       <td><%= user.surname %></td>
       <td><%= user.email %></td>
       <td><%= user.last_sign_in_at %></td>
-      <td><%= link_to "Edit", edit_admin_user_path(user.id) %></td>
+      <td class="actions">
+        <span><%= link_to "Edit", edit_admin_user_path(user.id) %></span>
+        <span class="chat-user-<%= user.id %>"><%= link_to "Join", master_tree_url(user.active_master_tree) if user.online? %></span>
+      </td>
     </tr>
     <% end %>
   <% else %>

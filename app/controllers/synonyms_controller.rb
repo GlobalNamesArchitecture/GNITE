@@ -1,5 +1,6 @@
 class SynonymsController < ApplicationController
   before_filter :authenticate_user!
+  load_and_authorize_resource
   
   def create
     channel     = "tree_#{params[:master_tree_id]}"
@@ -19,7 +20,7 @@ class SynonymsController < ApplicationController
   
   def update
     channel     = "tree_#{params[:master_tree_id]}"
-    master_tree = current_user.master_trees.find(params[:master_tree_id])
+    master_tree = MasterTree.find(params[:master_tree_id])
     node        = master_tree.nodes.find(params[:node_id])
     @synonym    = node.synonyms.find(params[:id])
     if(params[:status])
@@ -42,7 +43,7 @@ class SynonymsController < ApplicationController
   
   def destroy
     channel     = "tree_#{params[:master_tree_id]}"
-    master_tree = current_user.master_trees.find(params[:master_tree_id])
+    master_tree = MasterTree.find(params[:master_tree_id])
     node        = master_tree.nodes.find(params[:node_id])
     @synonym     = node.synonyms.find(params[:id])
     @synonym.destroy

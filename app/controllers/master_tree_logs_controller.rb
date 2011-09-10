@@ -4,8 +4,14 @@ class MasterTreeLogsController < ApplicationController
   def index
     @master_tree = MasterTree.find(params[:master_tree_id])
     
+    if cannot? :show, @master_tree
+      flash[:error] = "Access denied."
+      redirect_to root_url
+    end
+    
     page = (params[:page]) ? params[:page] : 1
-    @logs = MasterTreeLog.where(:master_tree_id => params[:master_tree_id])
+    @logs = MasterTreeLog.includes(:user)
+                         .where(:master_tree_id => params[:master_tree_id])
                          .order("updated_at DESC")
                          .paginate(:page => page, :per_page => 25)
     
