@@ -2,4 +2,15 @@
  <h1>Administration</h1>
 </div>
 
-<h2><%= link_to "Users", admin_users_path %></h2>
+<ul class="treelist clearflix">
+  <li>
+    <a href="<%= admin_users_path %>" class="clearfix button">
+      <div class="content">
+        <h3>Administer Users</h3>
+        <div class="metadata-wrap">
+          <div class="activity created">Add and edit users</div>
+        </div>
+      </div>
+    </a>
+  </li>
+</ul>
