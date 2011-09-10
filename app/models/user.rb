@@ -37,5 +37,9 @@ class User < ActiveRecord::Base
   def online?
     roster.present?
   end
+  
+  def active_master_tree
+    roster.master_tree_id rescue nil
+  end
 
 end

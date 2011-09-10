@@ -23,9 +23,9 @@ $(function() {
     $('#admin-user-count span').text(response.count);
 
     if(response.status === "create") {
-      $("td.chat-user-" + response.user.id).removeClass("offline").addClass("online").text("online");
+      $("td.chat-user-" + response.user.id).removeClass("offline").addClass("online").html("<a href=\"/master_tree/" + response.master_tree_id + "\">online</a>");
     } else { 
-      $("td.chat-user-" + response.user.id).removeClass("online").addClass("offline").text("offline");
+      $("td.chat-user-" + response.user.id).removeClass("online").addClass("offline").html("offline");
     }
 
   });

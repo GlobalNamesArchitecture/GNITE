@@ -126,8 +126,8 @@ $(function() {
             'separator_after'  : true,
             'separator_before' : false,
             'icon'             : 'context-chat',
-            '_disabled'        : function() { if($('#chat-messages-wrapper').length > 0) { return false; } return true; },
-            '_class'           : function() { if($('#chat-messages-wrapper').length > 0) { return; } return "chat-shortcut"; }
+            '_disabled'        : function() { if($('#chat-messages-wrapper').is(":visible")) { return false; } return true; },
+            '_class'           : function() { if($('#chat-messages-wrapper').is(":visible")) { return; } return "chat-shortcut"; }
           },
           'remove' : {
             'label'            : 'Delete',

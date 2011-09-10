@@ -8,6 +8,8 @@ var GNITE = GNITE || { Chat : {} };
 
 $(function() {
 
+  if($('#chat-messages-users ul li').length > 0) { $('#chat-messages-wrapper').show(); }
+
   $('#chat-messages-head').click(function() { GNITE.Chat.toggleChatWindow(); });
   $('#chat-messages-options a').click(function() { GNITE.Chat.toggleChatWindow(); return false; });
 
@@ -65,6 +67,7 @@ $(function() {
 
     "use strict";
 
+    $('#chat-messages-wrapper').show();
     $('#chat-messages-head').effect("highlight", { color : "green" }, 2000);
     $('#chat-messages-maximize').hide();
     $('#chat-messages-minimize').show();

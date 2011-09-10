@@ -24,6 +24,7 @@ class RosterObserver < ActiveRecord::Observer
       }.to_json)
       Juggernaut.publish("admin_roster", {
         :user => { :id => user.id, :email => user.email },
+        :master_tree_id => rec.master_tree_id,
         :status => type,
         :count => total_count
       }.to_json)

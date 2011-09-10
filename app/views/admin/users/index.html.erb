@@ -31,8 +31,11 @@
   <% if @users.any? %>
     <% @users.each do |user| %>
     <tr class="<% row_type = cycle("even", "odd") %><%= row_type %><%= (user == @users.last && row_type == 'even') ? " last last-even" : (user == @users.last && row_type == 'odd') ? " last last-odd": "" %>">
-      <% status = user.online? ? "online" : "offline" %>
-      <td class="<%= status %> chat-user-<%= user.id %>"><%= status %></td>
+      <% if user.online? %>
+        <td class="online chat-user-<%= user.id %>"><%= link_to "online", master_tree_url(user.active_master_tree) %></td>
+      <% else %> 
+        <td class="offline chat-user-<%= user.id %>">offline</td>
+      <% end %>
       <td><%= user.given_name %></td>
       <td><%= user.surname %></td>
       <td><%= user.email %></td>

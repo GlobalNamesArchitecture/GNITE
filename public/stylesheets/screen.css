@@ -2236,6 +2236,7 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   -moz-border-radius: 6px 6px 0px 0px;
   -webkit-border-radius: 6px 6px 0px 0px;
   width:250px;
+  display:none;
 }
 
 #chat-messages-wrapper #chat-messages-head {
@@ -2476,6 +2477,10 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 
 .gnite-table tbody tr td.online {
   background-image: url("../images/icons/bullet_green.png"); 
+  color:green;
+}
+
+.gnite-table tbody tr td.online a {
   color:green;
 }
 
