@@ -4,7 +4,7 @@ class MasterTreesController < ApplicationController
 
   def index
     @master_trees = current_user.master_trees.by_title
-    @accessible_trees = MasterTree.accessible_by(current_ability) - @master_trees
+    @accessible_trees = (MasterTree.accessible_by(current_ability) - @master_trees).sort { |a,b| b.updated_at <=> a.updated_at }
   end
 
   def new

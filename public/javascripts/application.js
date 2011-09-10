@@ -26,9 +26,7 @@ $(function() {
   GNITE.Tree.MasterTree.id = $('.tree-container:first').attr('data-database-id');
   GNITE.channel = "tree_" + GNITE.Tree.MasterTree.id;
 
-  if($('#chat-messages-wrapper').length > 0) {
-    GNITE.jug.meta = { master_tree_id: GNITE.Tree.MasterTree.id, user_id: GNITE.user_id };
-  }
+  GNITE.jug.meta = { master_tree_id: GNITE.Tree.MasterTree.id, user_id: GNITE.user_id };
   GNITE.jug.on("connect", function() { "use strict"; $('#master-tree').addClass("socket-active"); });
   GNITE.jug.on("disconnect", function() { "use strict"; $('#master-tree').removeClass("socket-active"); });
 

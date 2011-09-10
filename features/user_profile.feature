@@ -8,7 +8,6 @@ Feature: User profile
     And I follow "Profile Settings"
     And I fill in "New password" with "newpassword"
     And I fill in "Password confirmation" with "newpassword"
-    And I fill in "Current password" with "password"
     And I press "Save changes"
     Then I should see "You updated your account successfully."
     When I sign out
@@ -19,7 +18,6 @@ Feature: User profile
     Given I have signed in with "email@person.com/password"
     When I go to the edit user settings page
     And I fill in "Email" with "newemail@person.com"
-    And I fill in "Current password" with "password"
     And I press "Save changes"
     Then I should see "You updated your account successfully."
     When I sign out

@@ -33,5 +33,9 @@ class User < ActiveRecord::Base
     clean_up_passwords
     result
   end
+  
+  def online?
+    roster.present?
+  end
 
 end

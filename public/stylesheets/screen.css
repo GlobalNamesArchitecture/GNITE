@@ -1987,6 +1987,13 @@ ul.treelist a:hover,
   top: -5px;
 }
 
+#admin-user-count {
+  height:1em;
+  line-height:1em;
+  top:0px;
+  margin-right:50px;
+}
+
 .tree-link a {
   background: #E0E2E4;
   background: -moz-linear-gradient(0% 100% 90deg,#BBC0C4, #E0E2E4);
@@ -2459,6 +2466,22 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 
 .gnite-table tbody tr td {
   padding:0px 4px;
+}
+
+.gnite-table tbody tr td.online, .gnite-table tbody tr td.offline {
+  background-position: left center;
+  background-repeat: no-repeat;
+  padding: 0 0 0 18px;
+}
+
+.gnite-table tbody tr td.online {
+  background-image: url("../images/icons/bullet_green.png"); 
+  color:green;
+}
+
+.gnite-table tbody tr td.offline {
+  background-image: url("../images/icons/bullet_red.png");
+  color:red; 
 }
 
 .gnite-table tbody tr td span.reverted {
