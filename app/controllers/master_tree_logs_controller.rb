@@ -12,8 +12,8 @@ class MasterTreeLogsController < ApplicationController
     page = (params[:page]) ? params[:page] : 1
     @logs = MasterTreeLog.includes(:user)
                          .where(:master_tree_id => params[:master_tree_id])
-                         .order("updated_at DESC")
                          .paginate(:page => page, :per_page => 25)
+                         .order("updated_at DESC")
     
   end
 

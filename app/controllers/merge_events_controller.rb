@@ -3,9 +3,10 @@ class MergeEventsController < ApplicationController
 
   def index
     page = (params[:page]) ? params[:page] : 1
-    @merge_events = MergeEvent.where(:master_tree_id => params[:master_tree_id])
-                              .reverse
+    @merge_events = MergeEvent.includes(:user)
+                              .where(:master_tree_id => params[:master_tree_id])
                               .paginate(:page => page, :per_page => 25)
+                              .reverse
     
     @master_tree = MasterTree.find(params[:master_tree_id])
     

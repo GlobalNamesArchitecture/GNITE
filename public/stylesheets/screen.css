@@ -2584,10 +2584,11 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 .pagination a:hover, .pagination a:active {
   border:1px solid #E0E2E4;
 }
-.pagination span.current {
+.pagination em.current {
   padding: 2px 5px;
   margin: 2px;
   border:1px solid #E0E2E4;
+  font-style:normal;
 }
 .pagination span.disabled {
   padding: 2px 5px;
