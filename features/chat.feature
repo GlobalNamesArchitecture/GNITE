@@ -13,7 +13,7 @@ Feature: Chat
   Scenario: User cannot see a chat window unless there are contributors
     When I go to the master tree page for "Spiders"
     And I wait for the websocket to activate
-    Then I should not see the chat window
+    Then the chat window should be hidden
 
   @javascript
   Scenario: User can see the chat window when there is a contributor
@@ -21,7 +21,7 @@ Feature: Chat
     And "email2@person.com" is a contributor to the master tree "Spiders"
     When I go to the master tree page for "Spiders"
     And I wait for the websocket to activate
-    Then I should see the chat window
+    Then the chat window should be visible
 
   @javascript
   Scenario: User can see a chat message he/she authors

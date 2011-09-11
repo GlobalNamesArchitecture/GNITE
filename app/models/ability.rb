@@ -11,16 +11,16 @@ class Ability
       can :new, MasterTree
       can [:edit, :update, :publish, :destroy], MasterTree, :user_id => user.id
       can [:show, :undo, :redo], MasterTree do |master_tree|
-        master_tree.users.include?(user)
+        master_tree.users.include?(user) || master_tree.user_id == user.id
       end
-      can [:index, :show, :create, :update], Node do |node|
-        node.tree.type == "MasterTree" && node.tree.users.include?(user)
+      can [:index, :show], Node
+      # :create needs an instance so is handled through controller
+      can [:update], Node do |node|
+        node.parent.tree.users.include?(user) || node.parent.tree.user_id == user.id
       end
-      can [:create, :update, :destroy], Synonym do |synonym|
-        synonym.node.tree.type == "MasterTree" && synonym.node.tree.users.include?(user)
-      end
-      can [:create, :update, :destroy], VernacularName do |vernacular_name|
-        vernacular_name.node.tree.type == "MasterTree" && vernacular_name.node.tree.users.include?(user)
+      # :create needs an instance so is handled through controllers
+      can [:update, :destroy], [Synonym, VernacularName] do |obj|
+        obj.node.tree.users.include?(user) || obj.node.tree.user_id == user.id
       end
     end
   end

@@ -5,11 +5,13 @@ end
 
 Then /^I should be focused on (.*)$/ do |selector|
   element = element_for(selector)
-  page.evaluate_script("jQuery('#{element}')[0] == document.activeElement").should be_true
+  page.evaluate_script("jQuery('#{element}')[0] === document.activeElement").should be_true
 end
 
 When /^I click on the page$/ do
-  page.execute_script("jQuery(document.activeElement).blur();")
+  page.execute_script <<-JS
+    jQuery(document.activeElement).blur();
+  JS
 end
 
 Then /^"([^"]*)" should be checked/ do |label|

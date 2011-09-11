@@ -1,6 +1,7 @@
 class NodesController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource
+  skip_authorize_resource :only => [:create]
 
   def index
     respond_to do |format|
@@ -58,13 +59,19 @@ class NodesController < ApplicationController
   end
 
   def create
+    params[:node] = params[:new_node]
     master_tree = MasterTree.find(params[:master_tree_id])
-    params[:node][:parent_id] = master_tree.root.id unless params[:node] && params[:node][:parent_id]
-    node = params[:node] && params[:node][:id] ? Node.find(params[:node][:id]) : nil
-    action_command = schedule_action(node, master_tree, params)
-    respond_to do |format|
-      format.json do
-        render :json => action_command.json_message
+    if cannot? :show, master_tree
+      flash[:error] = "Access denied."
+      redirect_to root_url
+    else
+      params[:node][:parent_id] = master_tree.root.id unless params[:node] && params[:node][:parent_id]
+      node = params[:node] && params[:node][:id] ? Node.find(params[:node][:id]) : nil
+      action_command = schedule_action(node, master_tree, params)
+      respond_to do |format|
+        format.json do
+          render :json => action_command.json_message
+        end
       end
     end
   end

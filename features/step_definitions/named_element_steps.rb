@@ -19,12 +19,12 @@ end
 
 Then /^(.*) should be hidden$/ do |named_element|
   selector = element_for(named_element)
-  locate(selector).should_not be_visible
+  page.find(selector).should_not be_visible
 end
 
 Then /^(.*) should be visible/ do |named_element|
   selector = element_for(named_element)
-  locate(selector).should be_visible
+  page.find(selector).should be_visible
 end
 
 When %r{^I follow "([^"]*)" within ([^"].*)$} do |link_text, named_element|

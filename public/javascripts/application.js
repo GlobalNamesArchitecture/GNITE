@@ -765,7 +765,7 @@ $(function() {
       type        : 'POST',
       async       : false,
       url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes.json',
-      data        : JSON.stringify({ 'node' : { 'name' : { 'name_string' : name }, 'parent_id' : parentID }, 'action_type' : "ActionAddNode" }),
+      data        : JSON.stringify({ 'new_node' : { 'name' : { 'name_string' : name }, 'parent_id' : parentID }, 'action_type' : "ActionAddNode" }),
       contentType : 'application/json',
       dataType    : 'json',
       beforeSend  : function(xhr) {
@@ -805,7 +805,7 @@ $(function() {
       type        : 'POST',
       async       : true,
       url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes.json',
-      data        : JSON.stringify({ 'node' : { 'parent_id' : parent_id, 'name' : { 'name_string' : null } }, 'json_message' : { 'do' : nodes.split("\n") }, 'action_type' : "ActionBulkAddNode" }),
+      data        : JSON.stringify({ 'new_node' : { 'parent_id' : parent_id, 'name' : { 'name_string' : null } }, 'json_message' : { 'do' : nodes.split("\n") }, 'action_type' : "ActionBulkAddNode" }),
       contentType : 'application/json',
       dataType    : 'json',
       beforeSend  : function(xhr) {
@@ -900,7 +900,8 @@ $(function() {
          deleted_selected   = deleted.jstree("get_selected"),
          do_ids             = [],
          url                = '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes',
-         movedNodeID        = "";
+         movedNodeID        = "",
+         ajax_data          = {};
 
      if (parentID === 'master-tree') {
        parentID = GNITE.Tree.MasterTree.root;
@@ -931,11 +932,17 @@ $(function() {
      // lock the tree
      self.jstree("lock");
 
+     if(isCopy) {
+       ajax_data = JSON.stringify({ 'new_node' : {'id' : movedNodeID, 'parent_id' : parentID }, 'json_message' : { 'do' : do_ids }, 'action_type' : action_type })
+     } else {
+       ajax_data = JSON.stringify({ 'node' : {'id' : movedNodeID, 'parent_id' : parentID }, 'json_message' : { 'do' : do_ids }, 'action_type' : action_type });
+     }
+
      $.ajax({
        type        : isCopy ? 'POST' : 'PUT',
        async       : true,
        url         : url,
-       data        : JSON.stringify({ 'node' : {'id' : movedNodeID, 'parent_id' : parentID }, 'json_message' : { 'do' : do_ids }, 'action_type' : action_type }),
+       data        : ajax_data,
        contentType : 'application/json',
        dataType    : 'json',
        beforeSend  : function(xhr) {

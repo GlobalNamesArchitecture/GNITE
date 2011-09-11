@@ -3,6 +3,7 @@ Feature: Create and manage master trees
   I can create a new master tree, or edit an existing one
   So I can manage my classification work
 
+  @javascript
   Scenario: User can create a new tree
     Given I have signed in with "email@person.com/password"
     Then I should be on the master tree index page

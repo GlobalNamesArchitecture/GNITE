@@ -59,14 +59,14 @@ describe NodesController, 'POST to create a node' do
   subject { controller }
   let(:user) { Factory(:user) }
   let(:tree) do
-    tree = Factory(:master_tree)
+    tree = Factory(:master_tree, :user_id => user.id)
     Factory(:node, :tree => tree)
     tree
   end
   let(:nodes) { tree.nodes }
   let(:node_attributes) do
     name = Factory(:name, :name_string => "My new node")
-    { :name => name }
+    { :tree => tree, :name => name }
   end
   let(:new_node) { Factory.build(:node, node_attributes) }
 
@@ -81,7 +81,7 @@ describe NodesController, 'POST to create a node' do
     new_node.stubs(:save => true)
     @node_count = ::Node.count
     r = Resque::Worker.new(Gnite::Config.action_queue)
-    post :create, :master_tree_id => tree.id, :format => 'json', :node => { :name => {:name_string => node_attributes[:name].name_string} }, :action_type => 'ActionAddNode'
+    post :create, :master_tree_id => tree.id, :format => 'json', :new_node => { :name => { :name_string => node_attributes[:name].name_string } }, :action_type => 'ActionAddNode'
   end
 
   it 'creates a new node' do
@@ -99,7 +99,7 @@ end
 
 describe NodesController, 'POST to copy a node from a reference tree' do
   let(:user) { Factory(:user) }
-  let(:master_tree) { Factory(:master_tree, :user => user) }
+  let(:master_tree) { Factory(:master_tree, :user_id => user.id) }
   let(:parent_node) { Factory(:node, :tree => master_tree) }
   let(:reference_node) do
     child_name = Factory(:name, :name_string => 'child name')
@@ -114,7 +114,7 @@ describe NodesController, 'POST to copy a node from a reference tree' do
   before do
     sign_in user
     @node_count = parent_node.children.size
-    post :create, :master_tree_id => master_tree.id, :format => 'json', :node => {:id => reference_node.id, :parent_id => parent_node.id }, :action_type => 'ActionCopyNodeFromAnotherTree'
+    post :create, :master_tree_id => master_tree.id, :format => 'json', :new_node => { :id => reference_node.id, :parent_id => parent_node.id }, :action_type => 'ActionCopyNodeFromAnotherTree'
     @clone_node = ::Node.find(JSON.parse(response.body)['node']['id'])
   end
 
@@ -139,7 +139,7 @@ end
 
 describe NodesController, 'PUT to update' do
   let(:user) { Factory(:user) }
-  let(:tree) { Factory(:master_tree, :user => user) }
+  let(:tree) { Factory(:master_tree, :user_id => user.id) }
   let(:node)  { Factory(:node, :tree => tree) }
   subject { controller }
 

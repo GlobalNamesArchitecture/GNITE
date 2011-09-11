@@ -31,7 +31,6 @@ class ApplicationController < ActionController::Base
   def schedule_action(node, master_tree, params)
 
     raise "Unknown action command" unless params[:action_type] && Gnite::Config.action_types.include?(params[:action_type])
-
     tree_id = master_tree.id
     destination_parent_id = (params[:node] && params[:node][:parent_id]) ? params[:node][:parent_id] : nil
     destination_parent_id = (params[:node] && params[:node][:destination_parent_id]) ? params[:node][:destination_parent_id] : destination_parent_id
@@ -51,6 +50,10 @@ class ApplicationController < ActionController::Base
 
     ActionCommand.schedule_actions(action_command, request.headers["X-Session-ID"])
     action_command.reload
+  end
+  
+  def push_metadata_message(channel, action)
+    Juggernaut.publish(channel, "{ \"subject\" : \"metadata\", \"action\" : #{action.serializable_hash.to_json} }", :except => request.headers["X-Session-ID"]);
   end
 
 end
