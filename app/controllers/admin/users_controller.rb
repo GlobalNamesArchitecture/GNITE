@@ -2,6 +2,8 @@ class Admin::UsersController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource
   
+#  include Devise::Controllers::InternalHelpers
+  
   add_breadcrumb 'Administration', 'admin_path'
   add_breadcrumb 'Users', 'admin_users_path', :only => [:new, :edit]
   
@@ -28,7 +30,7 @@ class Admin::UsersController < ApplicationController
     @user.confirmed_at = Time.now()
     if @user.save
       flash[:notice] = "Successfully created user." 
-      #todo send email to user
+      #todo send password reset email to user
       redirect_to admin_users_path
     else
       render :action => 'new'

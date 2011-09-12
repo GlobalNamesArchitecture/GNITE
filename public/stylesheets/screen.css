@@ -23,6 +23,7 @@ body.users-new #wrapper {
   width: 100%;
   padding: 0;
   position:relative;
+  margin-bottom:20px;
 }
 
 #header h1 {
