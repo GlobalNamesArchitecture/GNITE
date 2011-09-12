@@ -283,7 +283,7 @@ ActiveRecord::Schema.define(:version => 20110912171247) do
     t.integer  "failed_attempts",                       :default => 0
     t.string   "unlock_token"
     t.datetime "locked_at"
-    t.string   "given_name",             :limit => 128,                :null => false
+    t.string   "given_name",             :limit => 128
     t.string   "surname",                :limit => 128
     t.string   "affiliation"
   end

@@ -5,6 +5,9 @@ describe Ability do
   before(:each) do
     @user  = Factory(:user)
     @user2 = Factory(:user)
+    @master_editor = Factory(:user)
+    @master_editor.roles = [Factory(:role, :name => "master_editor")]
+    @master_editor.save!
     @admin = Factory(:user)
     @admin.roles = [Factory(:role, :name => "admin")]
     @admin.save!
@@ -249,6 +252,41 @@ describe Ability do
       node = Factory(:node, :tree => master_tree)
       vernacular_name = Factory(:vernacular_name, :node => node)
       @ability.should be_able_to(:destroy, vernacular_name)
+    end
+    
+  end
+  
+  describe 'master editor' do
+    before(:each) do
+      @ability = Ability.new(@master_editor)
+    end
+    
+    it "should show admin menu" do
+      @ability.should be_able_to(:show, Menu)
+    end
+    
+    it "should list other users" do
+      @ability.should be_able_to(:index, User)
+    end
+
+    it "should_not show other user" do
+      @ability.should_not be_able_to(:show, @user)
+    end
+
+    it "should_not create other user" do
+      @ability.should_not be_able_to(:create, User)
+    end
+
+    it "should_not edit other user" do
+      @ability.should_not be_able_to(:edit, @user)
+    end
+    
+    it "should_not update other user" do
+      @ability.should_not be_able_to(:update, @user)
+    end
+
+    it "should_not destroy other user" do
+      @ability.should_not be_able_to(:destroy, @user)
     end
     
   end

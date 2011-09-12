@@ -7,6 +7,8 @@ class Ability
     if user.has_role? :admin
       can :manage, :all
     elsif user.has_role? :master_editor
+      can [:index, :show], Menu
+      can :index, User
       can :manage, [MasterTree, Node, Synonym, VernacularName]
     else
       can :new, MasterTree

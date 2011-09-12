@@ -2,9 +2,11 @@
   <div class="tree_list_header clearfix">
     <div class="tree_list_header_inner clearfix">
       <h1>Administration :: Users</h1>
-      <div id="tree-new" class="tree-link clearfix">
-        <a href="<%= new_admin_user_path %>"><span>Create New User</span></a>
-      </div>
+      <% if can? :create, User %>
+        <div id="tree-new" class="tree-link clearfix">
+          <a href="<%= new_admin_user_path %>"><span>Create New User</span></a>
+        </div>
+      <% end %>
       <div id="admin-user-count" class="tree-link">
         Online: <span><%= Roster.count %></span>
       </div>
@@ -44,7 +46,9 @@
       <td><%= user.last_sign_in_at %></td>
       <td><%= user.roles.map { |r| r.name.humanize }.join(", ") %>
       <td class="actions">
-        <span><%= link_to "Edit", edit_admin_user_path(user.id) %></span>
+        <% if can? :update, User %>
+          <span><%= link_to "Edit", edit_admin_user_path(user.id) %></span>
+        <% end %>
         <span class="chat-user-<%= user.id %>"><%= link_to "Join", master_tree_url(user.active_master_tree) if user.online? %></span>
       </td>
     </tr>

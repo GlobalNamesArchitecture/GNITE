@@ -8,7 +8,7 @@
       <div class="content">
         <h3>Administer Users</h3>
         <div class="metadata-wrap">
-          <div class="activity created">Add and edit users</div>
+          <div class="activity created">List<% if can? [:create, :update], User %>, add and edit<% end %> users and see who is currently online.</div>
         </div>
       </div>
     </a>

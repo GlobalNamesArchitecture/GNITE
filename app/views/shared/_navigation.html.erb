@@ -30,7 +30,7 @@
       </li>
 
       <!-- Link to Admin -->
-      <% if current_user.has_role? :admin %>
+      <% if current_user.has_role?(:admin) || current_user.has_role?(:master_editor) %>
         <% if controller_path.include?("admin") %>
           <li id="active">
         <% else %>
