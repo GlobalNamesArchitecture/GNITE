@@ -2,8 +2,6 @@ class Admin::UsersController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource
   
-#  include Devise::Controllers::InternalHelpers
-  
   add_breadcrumb 'Administration', 'admin_path'
   add_breadcrumb 'Users', 'admin_users_path', :only => [:new, :edit]
   
