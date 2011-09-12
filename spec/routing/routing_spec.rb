@@ -381,3 +381,44 @@ describe "vocabularies list" do
     )
   end
 end
+
+describe "routing to admin" do
+  it "routes GET /admin#show" do
+    { :get => "/admin" }.should route_to(
+      :controller => "admin/menu",
+      :action     => "show"
+    )
+  end
+  it "routes GET /admin/users#get" do
+    { :get => "/admin/users" }.should route_to(
+      :controller => "admin/users",
+      :action     => "index"
+    )
+  end
+  it "routes GET /admin/users#post" do
+    { :post => "/admin/users" }.should route_to(
+      :controller => "admin/users",
+      :action     => "create"
+    )
+  end
+  it "routes GET /admin/users/new#get" do
+    { :get => "/admin/users/new" }.should route_to(
+      :controller => "admin/users",
+      :action     => "new"
+    )
+  end
+  it "routes GET /admin/users/:id#show" do
+    { :get => "/admin/users/99" }.should route_to(
+      :controller => "admin/users",
+      :action     => "show",
+      :id => "99"
+    )
+  end
+  it "routes PUT /admin/users/:id#put" do
+    { :put => "/admin/users/99" }.should route_to(
+      :controller => "admin/users",
+      :action     => "update",
+      :id => "99"
+    )
+  end
+end
