@@ -1,7 +1,7 @@
 <% content_for :header do %>
   <div class="tree_list_header clearfix">
     <div class="tree_list_header_inner clearfix">
-      <h1>Administration :: User Profile :: <%= @user.email %></h1>
+      <h1><%= raw @breadcrumbs.map { |txt, path| "#{link_to_unless(path.blank?, h(txt), path)}" }.join(" :: ") %> :: <%= @user.email %></h1>
     </div>
   </div>
 <% end %>

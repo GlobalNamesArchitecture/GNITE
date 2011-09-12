@@ -1,7 +1,7 @@
 <% content_for :header do %>
   <div class="tree_list_header clearfix">
     <div class="tree_list_header_inner clearfix">
-      <h1>Administration :: Add User</h1>
+      <h1><%= raw @breadcrumbs.map { |txt, path| "#{link_to_unless(path.blank?, h(txt), path)}" }.join(" :: ") %> :: Create User</h1>
     </div>
   </div>
 <% end %>
@@ -16,7 +16,7 @@
 
 <!-- Submit -->
   <%= f.buttons do -%>
-    <%= f.commit_button "Save changes", :button_html => { :name => "commit", :class => "green-submit" } %>
+    <%= f.commit_button "Create user", :button_html => { :name => "commit", :class => "green-submit" } %>
   <% end %>
 
 <% end %>

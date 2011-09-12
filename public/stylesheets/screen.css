@@ -184,6 +184,15 @@ body form input {
   border-bottom: 1px dotted;
 }
 
+.admin-users h1 a {
+  color:white;
+  text-decoration:none;
+}
+
+.admin-users h1 a:hover {
+  border-bottom:1px dotted;
+}
+
 /* Login Screen */
 /************************************************************************/
 #loginwrap {
@@ -2016,6 +2025,10 @@ ul.treelist a:hover,
   background: #b3b6ba;
   background: -moz-linear-gradient(19% 75% 90deg,#797d80, #b3b6ba);
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#b3b6ba), to(#797d80));
+}
+
+#tree-new a:hover {
+  border:none;
 }
 
 #tree-new span {
