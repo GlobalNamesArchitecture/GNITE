@@ -40,6 +40,7 @@ class MasterTree < Tree
   end
 
   private
+
   def core_fields
     [ "http://rs.tdwg.org/dwc/terms/taxonID",
       "http://rs.tdwg.org/dwc/terms/parentNameUsageID",

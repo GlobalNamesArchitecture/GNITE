@@ -21,7 +21,8 @@
   <div id="chat-messages-users">
     <ul>
       <% editors.each do |editor| %>
-        <li class="<%= editor[:status]%> chat-user-<%= editor[:id] %>"><%= editor[:email] %></li>
+        <% roles = editor[:roles].any? ? " (" + editor[:roles].join(", ") + ")" : "" %>
+        <li class="<%= editor[:status]%> chat-user-<%= editor[:id] %>"><%= editor[:email] %><%= roles %></li>
       <% end %>
     </ul>
   </div>

@@ -4,7 +4,7 @@ class Admin::UsersController < ApplicationController
   
   def index
     page = (params[:page]) ? params[:page] : 1
-    @users = User.includes(:roster)
+    @users = User.includes([:roster, :roles])
                  .paginate(:page => page, :per_page => 25)
                  .order("surname")
   end
@@ -14,7 +14,6 @@ class Admin::UsersController < ApplicationController
   end
   
   def edit
-    @user = User.find(params[:id])
   end
   
   def new
@@ -25,7 +24,7 @@ class Admin::UsersController < ApplicationController
     @user = User.new(params[:user])
     @user.confirmed_at = Time.now()
     if @user.save
-      flash[:notice] = "Successfully created User." 
+      flash[:notice] = "Successfully created user." 
       #todo send email to user
       redirect_to admin_users_path
     else
@@ -33,8 +32,7 @@ class Admin::UsersController < ApplicationController
     end
   end
   
-  def update
-    @user = User.find(params[:id])   
+  def update   
     params[:user].delete(:password) if params[:user][:password].blank?
     params[:user].delete(:password_confirmation) if params[:user][:password].blank? and params[:user][:password_confirmation].blank?
     if @user.update_attributes(params[:user])

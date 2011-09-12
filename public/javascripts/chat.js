@@ -81,13 +81,15 @@ $(function() {
 
     "use strict";
 
-    var message = response.message;
+    var message = response.message, roles = "";
 
     switch(type) {
       case 'new-user':
+        roles = (response.user.roles) ? ' (' + response.user.roles.join(", ") + ')' : "";
         message = "<strong>arrived</strong> [" + response.time + "]";
       break;
       case 'departed':
+        roles = (response.user.roles) ? ' (' + response.user.roles.join(", ") + ')' : "";
         message = "<strong>departed</strong> [" + response.time + "]";
       break;
       case 'log':
@@ -95,7 +97,7 @@ $(function() {
       break;
     }
 
-    $('#chat-messages-list').append("<li class=\"" + type + "\"><span class=\"user\">" + response.user.email + "</span>:<span class=\"message\">" + message + "</span></li>").parent().scrollTo('li:last',500);
+    $('#chat-messages-list').append("<li class=\"" + type + "\"><span class=\"user\">" + response.user.email + roles + "</span>:<span class=\"message\">" + message + "</span></li>").parent().scrollTo('li:last',500);
     $('#chat-messages-users').height($('#chat-messages-scroller').height());
 
     if(environment === "editor") {
@@ -118,10 +120,14 @@ $(function() {
 
     "use strict";
 
+    var roles = "";
+
     if(GNITE.user_id !== response.user.id.toString()) {
       if(response.status == "create") {
+        // Add admin and master_editor to chat list
         if($('.chat-user-' + response.user.id).length === 0) {
-          $('#chat-messages-users ul').append('<li class="chat-user-' + response.user.id + '">' + response.user.email + '</li>');
+          if(response.user.roles) { roles = ' (' + response.user.roles.join(", ") + ')'; }
+          $('#chat-messages-users ul').append('<li class="chat-user-' + response.user.id + '">' + response.user.email + roles + '</li>');
         }
         $('.chat-user-' + response.user.id).removeClass("offline").addClass("online");
       } else {

@@ -22,11 +22,12 @@
 <table class="gnite-table">
   <thead>
     <tr>
-      <td class="header-updated">Status</td>
+      <td class="header-status">Status</td>
       <td class="header-user">Given Name</td>
       <td class="header-user">Surname</td>
       <td class="header-user">Email</td>
       <td class="header-updated">Last Accessed</td>
+      <td class="header-status">Roles</td>
       <td class="header-action">Actions</td>
     </tr>
   </thead>
@@ -41,6 +42,7 @@
       <td><%= user.surname %></td>
       <td><%= user.email %></td>
       <td><%= user.last_sign_in_at %></td>
+      <td><%= user.roles.map { |r| r.name.humanize }.join(", ") %>
       <td class="actions">
         <span><%= link_to "Edit", edit_admin_user_path(user.id) %></span>
         <span class="chat-user-<%= user.id %>"><%= link_to "Join", master_tree_url(user.active_master_tree) if user.online? %></span>

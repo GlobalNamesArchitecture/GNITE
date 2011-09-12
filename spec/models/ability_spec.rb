@@ -28,6 +28,10 @@ describe Ability do
       @ability.should_not be_able_to(:create, User)
     end
 
+    it "should_not edit other user" do
+      @ability.should_not be_able_to(:edit, @user)
+    end
+    
     it "should_not update other user" do
       @ability.should_not be_able_to(:update, @user)
     end
@@ -70,6 +74,30 @@ describe Ability do
   describe 'authenticated user' do
     before(:each) do
       @ability = Ability.new(@user)
+    end
+
+    it "should_not list other users" do
+      @ability.should_not be_able_to(:index, User)
+    end
+
+    it "should_not show other user" do
+      @ability.should_not be_able_to(:show, @user2)
+    end
+
+    it "should_not create other user" do
+      @ability.should_not be_able_to(:create, User)
+    end
+
+    it "should_not edit other user" do
+      @ability.should_not be_able_to(:edit, @user2)
+    end
+    
+    it "should_not update other user" do
+      @ability.should_not be_able_to(:update, @user2)
+    end
+
+    it "should_not destroy other user" do
+      @ability.should_not be_able_to(:destroy, @user2)
     end
     
     it "should_not show admin menu" do
@@ -232,6 +260,26 @@ describe Ability do
 
     it "should show admin menu" do
       @ability.should be_able_to(:show, Menu)
+    end
+    
+    it "should list other users" do
+      @ability.should be_able_to(:index, User)
+    end
+    
+    it "should show other user" do
+      @ability.should be_able_to(:show, @user)
+    end
+    
+    it "should create other user" do
+      @ability.should be_able_to(:create, User)
+    end
+
+    it "should update other user" do
+      @ability.should be_able_to(:update, @user)
+    end
+
+    it "should destroy other user" do
+      @ability.should be_able_to(:destroy, @user)
     end
     
   end

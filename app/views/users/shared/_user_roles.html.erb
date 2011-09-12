@@ -11,7 +11,7 @@
       <% Role.all.each do |role| %> 
         <%= check_box_tag "user[role_ids][]", role.id, @user.roles.include?(role), { :id => nil, :class => "checkbox" } %>
         <%= hidden_field_tag "user[role_ids][]", nil, { :id => nil } %>
-        <span class="checkbox-label"><%= role.name %></span>
+        <span class="checkbox-label"><%= role.name.humanize %></span>
      <% end %>
     </div>
 

@@ -17,7 +17,7 @@ class RosterObserver < ActiveRecord::Observer
       Juggernaut.publish("tree_#{rec.master_tree_id}", {
         :subject => "roster",
         :message => "",
-        :user => { :id => user.id, :email => user.email },
+        :user => { :id => user.id, :email => user.email, :roles => user.roles.map { |r| r.name.humanize } },
         :status => type,
         :count => count-1,
         :time => Time.new.to_s
