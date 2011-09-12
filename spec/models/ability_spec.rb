@@ -5,7 +5,9 @@ describe Ability do
   before(:each) do
     @user  = Factory(:user)
     @user2 = Factory(:user)
-    @admin = nil
+    @admin = Factory(:user)
+    @admin.roles = [Factory(:role, :name => "admin")]
+    @admin.save!
   end
 
   describe 'guest user' do
@@ -224,5 +226,14 @@ describe Ability do
   end
   
   describe 'admin user' do
+    before(:each) do
+      @ability = Ability.new(@admin)
+    end
+
+    it "should show admin menu" do
+      @ability.should be_able_to(:show, Menu)
+    end
+    
   end
+
 end

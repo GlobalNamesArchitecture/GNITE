@@ -11,5 +11,5 @@ Factory.define :user do |user|
 end
 
 Factory.define :role do |role|
-  role.name          { "admin" }
+  role.name          { "guest" }
 end
