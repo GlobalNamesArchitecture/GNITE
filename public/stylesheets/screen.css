@@ -151,11 +151,14 @@ hr {
   line-height:1em !important;
 }
 
-.infobox p.inline-errors {
+.infobox p.inline-errors, #treewrap-main p.inline-errors {
   color: red !important;
-  margin: 0.5em 0 0 32%;
   line-height:1em !important;
   font-style:italic;
+}
+
+.infobox p.inline-errors {
+    margin: 0.5em 0 0 32%;
 }
 
 .input {
