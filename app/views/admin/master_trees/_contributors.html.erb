@@ -1,0 +1,20 @@
+<!-- Contributors -->
+  <div class="infobox-wrap contributors">
+    <div class="breadcrumbs">
+      <ul>
+        <li>Contributors</li>
+      </ul>
+    </div>
+    <div class="infobox">
+    <div class="info-content clearfix">
+      <% User.all.each do |user| %> 
+        <div class="contributor">
+          <%= check_box_tag "master_tree[master_tree_contributor_ids][]", user.id, @master_tree.users.include?(user), { :id => "master-tree-contributor-#{user.id}", :class => "checkbox" } %>
+          <%= hidden_field_tag "master_tree[master_tree_contributor_ids][]", nil, { :id => "master-tree-contributor-#{user.id}" } %>
+          <label for="master-tree-contributor-<%= user.id %>" class="checkbox"><%= user.email %></label>
+       </div>
+     <% end %>
+    </div>
+
+    </div>
+  </div>

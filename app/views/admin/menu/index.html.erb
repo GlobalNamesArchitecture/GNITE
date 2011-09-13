@@ -3,6 +3,7 @@
 </div>
 
 <ul class="treelist clearflix">
+  <!-- Administer Users -->
   <li>
     <a href="<%= admin_users_path %>" class="clearfix button">
       <div class="content">
@@ -13,4 +14,19 @@
       </div>
     </a>
   </li>
+
+<% if can? [:edit, :update], MasterTree %>
+  <!-- Administer Trees -->
+  <li>
+    <a href="<%= admin_master_trees_path %>" class="clearfix button">
+      <div class="content">
+        <h3>Administer Trees</h3>
+        <div class="metadata-wrap">
+          <div class="activity created">List and edit users' trees.</div>
+        </div>
+      </div>
+    </a>
+  </li>
+<% end %>
+
 </ul>

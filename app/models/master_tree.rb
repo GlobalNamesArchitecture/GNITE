@@ -10,6 +10,7 @@ class MasterTree < Tree
   has_many :rosters
 
   attr_accessor :user
+  attr_accessible :master_tree_contributor_ids
 
   after_create :create_deleted_tree, :create_contributor
 
