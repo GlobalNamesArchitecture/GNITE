@@ -1394,9 +1394,23 @@ input.disabled {
   border-top: 0px;
 }
 
-/* Dialog message */
+/* Dialog Messages */
+.ui-dialog .ui-dialog-titlebar-close {
+  display:none;
+}
+
 #dialog-message p {
   line-height:1.5em;
+  margin-bottom:5px;
+}
+
+#dialog-message p a {
+  text-decoration:none;
+  border-bottom:1px dotted;
+}
+
+#dialog-message p a:hover {
+  background-color:#BABFC3;
 }
 
 /* Merge dialg */
@@ -2230,11 +2244,12 @@ ul.treelist li,  #gnaclr-search, .tree-background, #loginform .input, .green-sub
 }
 
 /* jQuery UI */
+
 input[type="text"].ui-state-error, textarea.ui-state-error {
   background-color:#FFB6C1;
 }
 
-/* Current Messages */
+/* Chat */
 /************************************************************************/
 #chat-messages-wrapper {
   position:fixed;
@@ -2434,7 +2449,7 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   border:1px solid #AAA;
 }
 
-/* Edit History */
+/* Tables */
 /************************************************************************/
 .gnite-table {
   width:100%;

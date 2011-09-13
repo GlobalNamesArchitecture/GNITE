@@ -156,7 +156,7 @@ $(function() {
       'ctrl+d'       : function() { this.remove( this.data.ui.hovered || this._get_node(null) ); },
       'ctrl+z'       : function() { this.undo(); },
       'ctrl+shift+z' : function() { this.redo(); },
-      'ctrl+s'       : function() { GNITE.Tree.MasterTree.publish(); },
+      'ctrl+s'       : function() { GNITE.Tree.MasterTree.publish_confirmation(); },
       'ctrl+h'       : function() {
         var url   = "/master_trees/" + GNITE.Tree.MasterTree.id + "/edits",
             input = '<input type="hidden" name="" value="" />';
@@ -614,7 +614,7 @@ $(function() {
    * FILE: Publish tree
    */
   $('#toolbar .nav-file-publish').live('click', function() {
-    GNITE.Tree.MasterTree.publish();
+    GNITE.Tree.MasterTree.publish_confirmation();
     return false;
   });
 
@@ -645,7 +645,7 @@ $(function() {
                 success     : function() {
                   var url   = "/master_trees",
                       input = '<input type="hidden" name="" value="" />';
-                  jQuery('<form action="'+ url +'" method="GET">'+input+'</form>').appendTo('body').submit().remove();
+                  $('<form action="'+ url +'" method="GET">'+input+'</form>').appendTo('body').submit().remove();
                 }
               });
            }
@@ -654,7 +654,7 @@ $(function() {
            'class' : "cancel-button",
            text  : "Cancel",
            click : function() {
-             $('#dialog-message').dialog("destroy").hide().remove();
+             $('#dialog-message').dialog("destroy").remove();
            }
          }
        ],
@@ -1779,6 +1779,39 @@ GNITE.Tree.importTree = function(opts) {
   return false;
 };
 
+GNITE.Tree.MasterTree.publish_confirmation = function() {
+
+  "use strict";
+
+  var message = "<p>Publishing your tree will make it publicly accessible in the Global Names Classification and List Repository with the license and description you stated <a href=\"" + window.location.href + "/edit\">here</a>.</p>";
+      message += "<p>If you have already published your tree, a new version will be appended.</p>";
+
+  $('body').append('<div id="dialog-message" class="ui-state-highlight" title="Publish Confirmation">' + message + '</div>');
+  $('#dialog-message').dialog({
+    height : 200,
+    width  : 500,
+    closeText : "",
+    buttons : [
+      {
+        'class' : "green-submit",
+        text : "Publish",
+        click : function() {
+          $(this).dialog("destroy").remove();
+          GNITE.Tree.MasterTree.publish();
+        }
+      },
+      {
+         'class' : "cancel-button",
+         text : "Cancel",
+         click : function() { $(this).dialog("destroy").remove(); }
+      }
+    ],
+    draggable : false,
+    resizable : false
+  });
+
+};
+
 GNITE.Tree.MasterTree.publish = function() {
 
   "use strict";
@@ -1792,18 +1825,18 @@ GNITE.Tree.MasterTree.publish = function() {
       xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
     },
     success     : function() {
-      var message = 'Your tree is being queued for publishing';
-      $('body').append('<div id="dialog-message" class="ui-state-highlight" title="Publishing Confirmation">' + message + '</div>');
+      var message = 'Your tree is being queued for publishing.';
+      $('body').append('<div id="dialog-message" class="ui-state-highlight" title="Publishing in Progress">' + message + '</div>');
       $('#dialog-message').dialog({
         height : 200,
-        width : 500,
-        modal : true,
+        width  : 500,
+        modal  : true,
         closeText : "",
         buttons: [
           {
             'class' : "green-submit",
             text  : "OK",
-            click : function() { $(this).dialog("close"); }
+            click : function() { $(this).dialog("destroy").remove(); }
           }
         ],
         draggable : false,
