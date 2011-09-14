@@ -88,7 +88,7 @@ hr {
 
 .infobox-wrap {
   background-color: #EEF1F3;
-  margin: 10px 20px 0px 0px;
+  margin: 30px 20px 0px 0px;
   width: 500px;
 }
 
@@ -118,6 +118,7 @@ hr {
 .infobox div.contributor {
   float:left;
   margin-right:10px;
+  width:225px;
 }
 
 .infobox label.checkbox {

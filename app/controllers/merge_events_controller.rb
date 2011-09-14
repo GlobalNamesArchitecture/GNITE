@@ -106,7 +106,6 @@ class MergeEventsController < ApplicationController
   end
 
   def do
-
     me = MergeEvent.find(params[:id])
     
     if params[:discard]

@@ -87,7 +87,7 @@ describe MasterTreesController do
         assigns(:master_tree).should == tree
       end
 
-      it { should redirect_to(master_tree_url(tree)) }
+      it { should render_template(:edit) }
       it { should set_the_flash.to(/updated/) }
     end
 

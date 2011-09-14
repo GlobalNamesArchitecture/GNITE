@@ -7,7 +7,6 @@
 <% end %>
 
 <div id="tree-container" class="tree-column clearfix" data-database-id="<%= @master_tree.id %>">
-  <div id="fluid-head"></div>
 
   <div id="treewrap-main">
     <%= semantic_form_for(@master_tree, :url => admin_master_tree_path(@master_tree), :html => { :method => :put, :id => "tree-metadata" }) do |form| %>
