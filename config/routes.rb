@@ -60,6 +60,7 @@ Gnite::Application.routes.draw do
   namespace :admin do
     resources :menu, :only => [:index]
     resources :users, :only => [:index, :show, :new, :create, :edit, :update]
+    resources :master_trees, :only => [:index, :show, :edit, :update]
   end
   
   root :to => "homes#show"

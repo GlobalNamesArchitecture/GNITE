@@ -3,7 +3,7 @@
   <div id="nav">
     <ul>
       <!-- Link to Working Trees -->
-      <% if controller_name == 'master_trees' || controller_name == 'master_tree_logs' || controller_name == 'merge_events' %>
+      <% if !controller_path.include?("admin") && controller_name == 'master_trees' || controller_name == 'master_tree_logs' || controller_name == 'merge_events' %>
         <li id="active">
       <% else %>
         <li>

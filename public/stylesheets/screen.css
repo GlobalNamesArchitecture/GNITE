@@ -115,6 +115,19 @@ hr {
   margin-top: 15px;
 }
 
+.infobox div.contributor {
+  float:left;
+  margin-right:10px;
+}
+
+.infobox label.checkbox {
+  float:none !important;
+  margin:0px !important;
+  text-align:left;
+  display:inline;
+  line-height:2em;
+}
+
 .infobox label {
   display: block;
   float: left;
@@ -188,13 +201,17 @@ body form input {
   border-bottom: 1px dotted;
 }
 
-.admin-users h1 a {
+.admin-users h1 a, .admin-master_trees h1 a {
   color:white;
   text-decoration:none;
 }
 
-.admin-users h1 a:hover {
+.admin-users h1 a:hover, .admin-master_trees h1 a:hover {
   border-bottom:1px dotted;
+}
+
+.admin-master_trees .contributors {
+  width:1000px;
 }
 
 /* Login Screen */
@@ -1623,6 +1640,18 @@ ul.classifications div.import-button {
   padding: 10px 15px 20px;
 }
 
+.tree-owner {
+  padding: 10px 15px 0px;
+}
+
+.tree-owner h3 {
+  margin-bottom:5px;
+}
+
+.tree-owner p {
+  color:#333 !important;
+}
+
 .metadata-header {
   border-bottom: 1px solid rgb(176, 173, 163);
   color: #444;
@@ -2485,22 +2514,12 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   -webkit-border-radius: 0px 6px 0px 0px;
 }
 
-.gnite-table thead tr td.header-status {
-  width:10%;
-}
-
-.gnite-table thead tr td.header-action, .gnite-table tr td.actions {
-  width:65%;
-  text-align:center;
-}
-
-.gnite-table thead tr td.header-user {
-  width:15%;
-}
-
-.gnite-table thead tr td.header-updated, .gnite-table thead tr td.header-created {
-  width:15%;
-}
+.gnite-table thead tr td.header-status { width:10%; }
+.gnite-table thead tr td.header-action, .gnite-table tr td.actions { width:65%; text-align:center; }
+.gnite-table thead tr td.header-title { width:35%; }
+.gnite-table thead tr td.header-owner { width:25%; }
+.gnite-table thead tr td.header-user { width:15%; }
+.gnite-table thead tr td.header-updated, .gnite-table thead tr td.header-created { width:15%; }
 
 .gnite-table tbody tr td {
   padding:0px 4px;

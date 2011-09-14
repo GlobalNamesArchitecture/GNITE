@@ -1,0 +1,45 @@
+<% content_for :header do %>
+  <div class="tree_list_header clearfix">
+    <div class="tree_list_header_inner clearfix">
+      <h1><%= raw @breadcrumbs.map { |txt, path| "#{link_to_unless(path.blank?, h(txt), path)}" }.join(" :: ") %> :: Master Trees</h1>
+    </div>
+  </div>
+<% end %>
+
+<div class="clearfix">
+  <%= will_paginate @master_trees, :class => 'pagination' %>
+</div>
+
+<table class="gnite-table">
+  <thead>
+    <tr>
+      <td class="header-title">Title</td>
+      <td class="header-owner">Owner</td>
+      <td class="header-updated">Last Edited</td>
+      <td class="header-action">Actions</td>
+    </tr>
+  </thead>
+  <tbody>
+  <% if @master_trees.any? %>
+    <% @master_trees.each do |master_tree| %>
+    <tr class="<% row_type = cycle("even", "odd") %><%= row_type %><%= (master_tree == @master_trees.last && row_type == 'even') ? " last last-even" : (master_tree == @master_trees.last && row_type == 'odd') ? " last last-odd": "" %>">
+      <td><%= master_tree.title %></td>
+<% owner = !master_tree.user.surname.blank? ? master_tree.user.surname + ', ' + master_tree.user.given_name + ' (' + master_tree.user.email + ')' : master_tree.user.email %>
+      <td><%= owner %></td>
+      <td><%= master_tree.updated_at %></td>
+      <td class="actions">
+        <span><%= link_to "Edit", edit_admin_master_tree_path(master_tree.id) %></span>
+      </td>
+    </tr>
+    <% end %>
+  <% else %>
+     <tr class="single">
+       <td colspan="4">There are not yet any trees</td>
+     </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<div class="clearfix">
+  <%= will_paginate @master_trees, :class => 'pagination' %>
+</div>

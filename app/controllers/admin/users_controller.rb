@@ -38,6 +38,7 @@ class Admin::UsersController < ApplicationController
   def update   
     params[:user].delete(:password) if params[:user][:password].blank?
     params[:user].delete(:password_confirmation) if params[:user][:password].blank? and params[:user][:password_confirmation].blank?
+    params[:user][:role_ids].compact.reject(&:blank?).collect { |s| s.to_i }
     if @user.update_attributes(params[:user])
       flash[:notice] = "Successfully updated user."
     end

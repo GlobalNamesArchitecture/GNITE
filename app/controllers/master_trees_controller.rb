@@ -46,7 +46,7 @@ class MasterTreesController < ApplicationController
           render :json => { :status => "OK"}
         else
           flash[:success] = "Working Tree successfully updated"
-          redirect_to master_tree_url(@master_tree.id)
+          render :edit
         end
       else
         render :edit
