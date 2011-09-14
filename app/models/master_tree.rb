@@ -8,11 +8,11 @@ class MasterTree < Tree
   has_many :reference_trees, :through => :reference_tree_collections
   has_many :merge_events
   has_many :rosters
-
-  attr_accessor :user
-  attr_accessible :master_tree_contributor_ids
+  
+  attr_accessor :user, :master_tree_contributor_ids
 
   after_create :create_deleted_tree, :create_contributor
+  after_save :update_master_tree_contributors
 
   def create_darwin_core_archive
     dwca_file = File.join(::Rails.root.to_s, 'tmp', "#{uuid}.tar.gz")
@@ -97,6 +97,20 @@ class MasterTree < Tree
     res = Tree.connection.select_rows(q)
     res.unshift(header)
     dwca.add_extension(res, table_name + ".csv")
+  end
+  
+  def update_master_tree_contributors
+    unless master_tree_contributor_ids.nil?
+      self.master_tree_contributors.each do |m|
+        m.destroy unless master_tree_contributor_ids.include?(m.user_id.to_s)
+        master_tree_contributor_ids.delete(m.user_id.to_s)
+      end 
+      master_tree_contributor_ids.each do |m|
+        self.master_tree_contributors.create(:user_id => m) unless m.blank?
+      end
+      reload
+      self.master_tree_contributor_ids = nil
+    end
   end
 
 end

@@ -18,11 +18,19 @@
           </ul>
         </div>
 
+<div class="tree-owner">
+  <h3>Owner</h3>
+  <% if !@master_tree.creator.surname.blank? %>
+    <p><%= @master_tree.creator.given_name %> <%= @master_tree.creator.surname %></p>
+  <% end %>
+  <p><%= @master_tree.creator.email %></p>
+</div>
+
         <%= render :partial => "master_trees/form", :locals => { :form => form } %>
 
       </div>
 
-      <%= render :partial => "contributors", :locals => { :form => form, :contributors => @contributors } %>
+      <%= render :partial => "contributors", :locals => { :form => form } %>
 
       <%= form.buttons do -%>
         <%= form.commit_button "Update", :button_html => { :class => "green-submit", :name => 'update' } %>

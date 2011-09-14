@@ -1640,6 +1640,18 @@ ul.classifications div.import-button {
   padding: 10px 15px 20px;
 }
 
+.tree-owner {
+  padding: 10px 15px 0px;
+}
+
+.tree-owner h3 {
+  margin-bottom:5px;
+}
+
+.tree-owner p {
+  color:#333 !important;
+}
+
 .metadata-header {
   border-bottom: 1px solid rgb(176, 173, 163);
   color: #444;
