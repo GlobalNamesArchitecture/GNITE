@@ -2022,7 +2022,7 @@ GNITE.Tree.MasterTree.externalDropped = function(data) {
       type        : 'POST',
       async       : false,
       url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes.json',
-      data        : JSON.stringify({ 'new_node' : { 'id' : node.attr("id"), 'destination_node_id' : dest.attr("id"), 'destination_parent_id' : dest_parent.attr("id") }, 'json_message' : { 'do' : '' }, 'action_type' : "ActionNodeToSynonym" }),
+      data        : JSON.stringify({ 'new_node' : { 'id' : node.attr("id"), 'destination_node_id' : dest.attr("id"), 'destination_parent_id' : dest_parent.attr("id") }, 'json_message' : { }, 'action_type' : "ActionNodeToSynonym" }),
       contentType : 'application/json',
       dataType    : 'json',
       beforeSend  : function(xhr) {
