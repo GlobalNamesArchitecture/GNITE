@@ -2,7 +2,7 @@ class ActionNodeToSynonym < ActionCommand
 
   def precondition_do
     @destination_node = Node.find(destination_node_id) rescue nil
-    !!(tree_id && node && @destination_node && ancestry_ok?(node) && ancestry_ok?(@destination_node) && !node.has_children?)
+    !!(tree_id && node && @destination_node && ancestry_ok?(node) && ancestry_ok?(@destination_node) && !node.has_children? && json_message)
   end
 
   def precondition_undo
@@ -50,7 +50,6 @@ class ActionNodeToSynonym < ActionCommand
     end
     
     node.delete_softly
-
     @destination_node.delete_softly
   end
 

@@ -81,7 +81,15 @@ describe NodesController, 'POST to create a node' do
     new_node.stubs(:save => true)
     @node_count = ::Node.count
     r = Resque::Worker.new(Gnite::Config.action_queue)
-    post :create, :master_tree_id => tree.id, :format => 'json', :new_node => { :name => { :name_string => node_attributes[:name].name_string } }, :action_type => 'ActionAddNode'
+    post :create,
+      :master_tree_id => tree.id,
+      :format => 'json',
+      :new_node => {
+        :name => {
+          :name_string => node_attributes[:name].name_string
+        }
+      },
+      :action_type => 'ActionAddNode'
   end
 
   it 'creates a new node' do
@@ -148,8 +156,8 @@ describe NodesController, 'POST to assign a node to be a synonym of another' do
   let(:user) { Factory(:user) }
   let(:master_tree) { Factory(:master_tree, :user_id => user.id) }
   let(:source_node) { Factory(:node, :tree => master_tree, :name => Factory(:name, :name_string => "source node")) }
-  let(:source_synonym) { Factory(:synonym, :node => source_node) }
-  let(:source_vernacular) { Factory(:vernacular_name, :node => source_node) }
+  let(:source_synonym) { Factory(:synonym, :node => source_node, :name => Factory(:name, :name_string => "source synonym")) }
+  let(:source_vernacular) { Factory(:vernacular_name, :node => source_node, :name => Factory(:name, :name_string => "source vernacular")) }
   let(:destination_node) do
     parent = Factory(:node, :tree => master_tree, :name => Factory(:name, :name_string => "destination node"))
     Factory(:node, :parent => parent, :tree => master_tree, :name => Factory(:name, :name_string => "destination child"))
@@ -159,7 +167,12 @@ describe NodesController, 'POST to assign a node to be a synonym of another' do
   
   before do
     sign_in user
+    source_node.stubs(:save => true)
+    destination_node.stubs(:save => true)
+    source_synonym.stubs(:save => true)
+    source_vernacular.stubs(:save => true)
     @child_count = master_tree.root.children.size
+    @destination_child_count = destination_node.children.size
     r = Resque::Worker.new(Gnite::Config.action_queue)
     post :create,
       :master_tree_id => master_tree.id,
@@ -168,6 +181,7 @@ describe NodesController, 'POST to assign a node to be a synonym of another' do
         :id => source_node.id,
         :destination_node_id => destination_node.id
       },
+      :json_message => { },
       :action_type => 'ActionNodeToSynonym'
     @merge_node = ::Node.find(JSON.parse(response.body)['undo']['merged_node_id'])
   end
@@ -179,9 +193,9 @@ describe NodesController, 'POST to assign a node to be a synonym of another' do
   end
   
   it 'destroys the source node' do
-    (master_tree.root.children.size - @child_count).should == 1
-    master_tree.root.children.map(&:name).include?(destination_node.name_string).should be_true
-    master_tree.root.children.map(&:name).include?(source_node.name_string).should be_false
+    (@child_count - master_tree.root.children.size).should == 1
+    master_tree.root.children.map(&:name_string).include?(destination_node.name_string).should be_true
+    master_tree.root.children.map(&:name_string).include?(source_node.name_string).should be_false
   end
   
   it 'should render the merged node with same name as destination node' do
@@ -190,12 +204,13 @@ describe NodesController, 'POST to assign a node to be a synonym of another' do
   end
   
   it 'should render the merged node with synonym containing source node and source synonym' do
-    @merge_node.synonyms.map(&:name).include?(source_node.name_string).should be_true
-    @merge_node.synonyms.map(&:name).include?(source_syonym.name_string).should be_true
+    @merge_node.synonyms.map(&:name_string).include?(source_node.name_string).should be_true
+    @merge_node.synonyms.map(&:name_string).include?(source_synonym.name_string).should be_true
+    @merge_node.vernacular_names.map(&:name_string).include?(source_vernacular.name_string).should be_true
   end
   
   it 'should render the merged node with same number of children' do
-    @merge_node.children.size.should == destination_node.children.size
+    @merge_node.children.size.should == @destination_child_count
   end
   
 end
