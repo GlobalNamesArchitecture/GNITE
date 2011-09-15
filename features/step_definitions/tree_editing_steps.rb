@@ -100,7 +100,7 @@ end
 When /^I drag the node "([^"]*)" into the synonym region for the node "([^"]*)"$/ do |node_text, node_destination_text|
   When %{I follow "#{node_destination_text}"}
   node = first_node_by_name(node_text)
-  #TODO add page.execute_script code here
+  #TODO add page.execute_script code here somehow
 end
 
 When /^I delete the node "([^"]*)"$/ do |node_text|

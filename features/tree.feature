@@ -154,8 +154,8 @@ Feature: Edit a master tree
     When I go to the master tree page for "Foods"
     And I wait for the tree to load
 
-    And I select the node "Nut"
-    And I drag the node "Pop" into the synonym region for "Nut"
+    And I select the node "Nut" 
+#    TODO: And I drag the node "Pop" into the synonym region for the node "Nut" [Placeholder in tree_editing_steps]
 
   @javascript
   Scenario: User can deselect a node
