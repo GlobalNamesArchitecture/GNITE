@@ -138,6 +138,26 @@ Feature: Edit a master tree
     Then I should see a node "Rocky" under "Bullwinkle" in deleted names
 
   @javascript
+  Scenario: User can drag a node into the synonym area
+    Given I have signed in with "email@person.com/password"
+    And the following master tree exists:
+      | title |
+      | Foods |
+    And the following master tree contributor exists:
+      | master tree | user                   |
+      | title:Foods | email:email@person.com |
+    And the following nodes exist with metadata for the "Foods" tree:
+      | name | synonyms        | vernacular_names | rank    |
+      | Nut  | Kernel, Nutmeat | Almond, Peanut   | Species |
+      | Pop  | Soda, Softdrink | Coke, Dr. Pepper | Family  |
+      | Cat  |                 |                  |         |
+    When I go to the master tree page for "Foods"
+    And I wait for the tree to load
+
+    And I select the node "Nut"
+    And I drag the node "Pop" into the synonym region for "Nut"
+
+  @javascript
   Scenario: User can deselect a node
     Given I have signed in with "email@person.com/password"
     And "email@person.com" has created an existing master tree titled "Moose tree" with:

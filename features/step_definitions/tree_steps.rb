@@ -11,7 +11,20 @@ Given /^"([^"]*)" has created an existing master tree titled "([^"]*)" with the 
   tree = Factory :master_tree, :title => tree_title, :user_id => user.id
   table.hashes.each do |hash|
     parent = (hash['parent_id'].to_i == 0) ? tree.root.id : hash['parent_id'].to_i
-    Factory(:node, :id => hash['id'].to_i, :name => Factory(:name, :name_string => hash['name']), :parent_id => parent, :tree => tree) 
+    rank = hash['rank'].nil? ? "Family" : hash['rank']
+    node = Factory(:node, :id => hash['id'].to_i, :name => Factory(:name, :name_string => hash['name']), :parent_id => parent, :tree => tree, :rank => rank)
+    
+    unless hash['synonyms'].nil?
+      hash['synonyms'].split(',').each do |synonym|
+        Factory(:synonym, :name => Factory(:name, :name_string => synonym.strip), :node => node)
+      end
+    end
+
+    unless hash['vernacular_names'].nil?
+      hash['vernacular_names'].split(',').each do |vernacular_name|
+        Factory(:vernacular_name, :name => Factory(:name, :name_string => vernacular_name.strip), :node => node)
+      end
+    end
   end
 end
 

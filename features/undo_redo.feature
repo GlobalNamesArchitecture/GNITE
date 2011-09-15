@@ -6,15 +6,16 @@ Feature: Perform undo and redo in a master tree
   Background: I have a master tree
     Given I have signed in with "email@person.com/password"
     And "email@person.com" has created an existing master tree titled "Spiders" with the following nodes:
-      | id   | parent_id | name                |
-      | 100  | 0         | Pardosa             |
-      | 101  | 100       | Pardosa distincta   |
-      | 102  | 100       | Pardosa xerampelina |
-      | 103  | 0         | Schizocosa          |
+      | id   | parent_id | name                | rank    | synonyms                            |
+      | 100  | 0         | Pardosa             | genus   |                                     |
+      | 101  | 100       | Pardosa distincta   | species | Lycosa distincta, Araneus distincta |
+      | 102  | 100       | Pardosa xerampelina | species | Lycosa xerampelina                  |
+      | 103  | 0         | Schizocosa          | genus   |                                     |
     And I am on the master tree index page
 
     When I follow "Spiders"
     And I wait for the tree to load
+    And I wait for the websocket to activate
     And I expand the node "Pardosa"
 
   @javascript
@@ -154,3 +155,6 @@ Feature: Perform undo and redo in a master tree
     And I wait for the tree to load
     Then I should see a node "Pardosa modica" under "Pardosa"
     And I should see a node "Pardosa fuscula" under "Pardosa"
+
+  @javascript
+  Scenario: User can undo and redo synonymizing a taxon

@@ -833,6 +833,10 @@ input.disabled {
   -webkit-border-radius:0px 0px 8px 8px;
 }
 
+.node-metadata a.ui-dialog-titlebar-close {
+  display:block;
+}
+
 .metadata-section ul.topnav a {
   padding:0px;
 }

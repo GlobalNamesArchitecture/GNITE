@@ -114,7 +114,15 @@ describe NodesController, 'POST to copy a node from a reference tree' do
   before do
     sign_in user
     @node_count = parent_node.children.size
-    post :create, :master_tree_id => master_tree.id, :format => 'json', :new_node => { :id => reference_node.id, :parent_id => parent_node.id }, :action_type => 'ActionCopyNodeFromAnotherTree'
+    r = Resque::Worker.new(Gnite::Config.action_queue)
+    post :create,
+      :master_tree_id => master_tree.id,
+      :format => 'json',
+      :new_node => {
+        :id => reference_node.id,
+        :parent_id => parent_node.id
+      },
+      :action_type => 'ActionCopyNodeFromAnotherTree'
     @clone_node = ::Node.find(JSON.parse(response.body)['node']['id'])
   end
 
@@ -136,6 +144,62 @@ describe NodesController, 'POST to copy a node from a reference tree' do
 
 end
 
+describe NodesController, 'POST to assign a node to be a synonym of another' do
+  let(:user) { Factory(:user) }
+  let(:master_tree) { Factory(:master_tree, :user_id => user.id) }
+  let(:source_node) { Factory(:node, :tree => master_tree, :name => Factory(:name, :name_string => "source node")) }
+  let(:source_synonym) { Factory(:synonym, :node => source_node) }
+  let(:source_vernacular) { Factory(:vernacular_name, :node => source_node) }
+  let(:destination_node) do
+    parent = Factory(:node, :tree => master_tree, :name => Factory(:name, :name_string => "destination node"))
+    Factory(:node, :parent => parent, :tree => master_tree, :name => Factory(:name, :name_string => "destination child"))
+    parent
+  end
+  subject { controller }
+  
+  before do
+    sign_in user
+    @child_count = master_tree.root.children.size
+    r = Resque::Worker.new(Gnite::Config.action_queue)
+    post :create,
+      :master_tree_id => master_tree.id,
+      :format => 'json',
+      :new_node => { 
+        :id => source_node.id,
+        :destination_node_id => destination_node.id
+      },
+      :action_type => 'ActionNodeToSynonym'
+    @merge_node = ::Node.find(JSON.parse(response.body)['undo']['merged_node_id'])
+  end
+  
+  it { should respond_with(:success) }
+  
+  it 'renders the newly merged node as JSON' do
+    @merge_node.is_a?(::Node).should be_true
+  end
+  
+  it 'destroys the source node' do
+    (master_tree.root.children.size - @child_count).should == 1
+    master_tree.root.children.map(&:name).include?(destination_node.name_string).should be_true
+    master_tree.root.children.map(&:name).include?(source_node.name_string).should be_false
+  end
+  
+  it 'should render the merged node with same name as destination node' do
+    @merge_node.name_id.should == destination_node.name_id
+    @merge_node.name == destination_node.name
+  end
+  
+  it 'should render the merged node with synonym containing source node and source synonym' do
+    @merge_node.synonyms.map(&:name).include?(source_node.name_string).should be_true
+    @merge_node.synonyms.map(&:name).include?(source_syonym.name_string).should be_true
+  end
+  
+  it 'should render the merged node with same number of children' do
+    @merge_node.children.size.should == destination_node.children.size
+  end
+  
+end
+
 
 describe NodesController, 'PUT to update' do
   let(:user) { Factory(:user) }
@@ -145,6 +209,7 @@ describe NodesController, 'PUT to update' do
 
   before do
     sign_in user
+    r = Resque::Worker.new(Gnite::Config.action_queue)
     put :update,
       :id => node.id,
       :master_tree_id => tree.id,

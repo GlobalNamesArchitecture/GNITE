@@ -20,7 +20,7 @@ gem 'ruby-debug19' # change to ruby-debug19 for ruby 1.9.x
 gem 'nokogiri'
 gem 'resque', '1.16.1'
 gem 'rest-client', '1.6.1'
-gem 'juggernaut', '2.0.1'
+gem 'juggernaut', '2.0.3'
 gem 'will_paginate', '3.0'
 gem 'family-reunion', '0.2.4'
 gem 'sanitize', '2.0.3'
