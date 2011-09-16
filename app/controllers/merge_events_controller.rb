@@ -21,10 +21,10 @@ class MergeEventsController < ApplicationController
     
     editors = []
     @master_tree.rosters.each do |roster|
-      editors << { :id => roster.user.id, :email => roster.user.email, :status => "online" }
+      editors << { :id => roster.user.id, :email => roster.user.email, :roles => roster.user.roles.map { |r| r.name.humanize }, :status => "online" }
     end
     @master_tree.master_tree_contributors.each do |contributor|
-      editors << { :id => contributor.user.id, :email => contributor.user.email, :status => "offline" } unless editors.any? { |h| h[:id] == contributor.user.id }
+      editors << { :id => contributor.user.id, :email => contributor.user.email, :roles => contributor.user.roles.map { |r| r.name.humanize }, :status => "offline" } unless editors.any? { |h| h[:id] == contributor.user.id }
     end
     
     @editors = editors.sort_by { |h| h[:email] }
