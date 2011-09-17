@@ -9,7 +9,7 @@ class MasterTree < Tree
   has_many :merge_events
   has_many :rosters
   
-  attr_accessor :user, :master_tree_contributor_ids
+  attr_accessor :master_tree_contributor_ids
 
   after_create :create_deleted_tree, :create_contributor
   after_save :update_master_tree_contributors
@@ -34,10 +34,6 @@ class MasterTree < Tree
     Tree.connection.execute("DELETE FROM master_tree_contributors WHERE master_tree_id = #{id}")
     Tree.find(self.deleted_tree.id).nuke
     super
-  end
-  
-  def creator
-    User.find(self.user_id) rescue nil
   end
 
   private

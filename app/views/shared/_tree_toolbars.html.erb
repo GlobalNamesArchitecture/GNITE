@@ -1,6 +1,6 @@
 <% case tree_type %>
 <% when "MasterTree" %>
-<div id="toolbar" class="toolbar ddsmoothmenu clearfix">
+<div id="toolbar" class="toolbar master-tree ddsmoothmenu clearfix">
   <ul class="topnav">
     <li><a href="#">File</a>
       <ul class="subnav">
@@ -16,7 +16,7 @@
           <% end %>
 
           <% if can? :destroy, tree %>
-            <li><a href="#" class="nav-file-delete" data-master-tree-id="<%= tree.id %>">Delete tree</a></li>
+            <li><a href="#" class="nav-file-delete" data-tree-id="<%= tree.id %>">Delete tree</a></li>
           <% end %>
       </ul>
     </li>
@@ -55,8 +55,15 @@
 </div>
 
 <% when "ReferenceTree" %>
-<div id="toolbar-reference-<%= tree.id %>" class="toolbar ddsmoothmenu clearfix">
+<div id="toolbar-reference-<%= tree.id %>" class="toolbar reference-tree ddsmoothmenu clearfix">
   <ul class="topnav">
+    <% if can? :destroy, tree %>
+      <li><a href="#">File</a>
+        <ul class="subnav">
+          <li><a href="#" class="nav-file-delete" data-tree-id="<%= tree.id %>">Delete tree</a></li>
+        </ul>
+      </li>
+    <% end %>
     <li><a href="#">View</a>
         <ul class="subnav">
           <li class="divider-after"><a href="#" class="nav-view-deselectall">Deselect all</a></li>
@@ -75,7 +82,7 @@
 </div>
 
 <% when "DeletedTree" %>
-<div id="toolbar-deleted" class="toolbar ddsmoothmenu clearfix">
+<div id="toolbar-deleted" class="toolbar deleted-tree ddsmoothmenu clearfix">
   <ul class="topnav">
     <li><a href="#">View</a>
         <ul class="subnav">

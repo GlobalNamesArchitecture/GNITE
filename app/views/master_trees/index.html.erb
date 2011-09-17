@@ -13,25 +13,7 @@
   <h2>Trees You Created</h2>
   <ul class="treelist clearfix">
     <% @master_trees.each do |tree| %>
-      <li>
-        <a href="<%= master_tree_url(tree.id) %>" class="clearfix button">
-          <div class="content">
-            <h3><%= tree.title %></h3>
-            <div class="metadata-wrap">
-              <div class="activity created"><strong>Created:</strong> <%= tree.created_at.to_s(:long) %></div>
-              <% if tree.master_tree_logs.any? %>
-                <div class="activity edited">
-                  <span class="date"><strong>Last Edited:</strong> <%= tree.master_tree_logs.last.created_at.to_s(:long) %></span>
-                  <span class="date"><strong>Last Edited By:</strong> <%= tree.master_tree_logs.last.user.email %></span>
-                </div>
-              <% end %>
-            </div>
-          </div>
-        </a>
-        <% if !tree.merge_events.find_by_status("in review").nil? %>
-          <a href="<%= master_tree_merge_events_url(tree.id) %>" class="clearfix action green-submit">View Active Merge</a>
-        <% end %>
-      </li>
+      <%= render :partial => "tree_button", :locals => { :tree => tree } %>
     <% end %>
   </ul>
 <% end %>
@@ -40,28 +22,7 @@
   <h2>Trees You Can Edit</h2>
   <ul class="treelist clearfix">
     <% @accessible_trees.each do |tree| %>
-      <li>
-        <a href="<%= master_tree_url(tree.id) %>" class="clearfix button">
-          <div class="content">
-            <h3><%= tree.title %></h3>
-            <div class="metadata-wrap">
-              <div class="activity created">
-                <span class="author"><strong>Created:</strong> <%= tree.created_at.to_s(:long) %></span>
-                <span class="author"><strong>Created By:</strong> <%= tree.creator.email %></span>
-              </div>
-              <% if tree.master_tree_logs.any? %>
-                <div class="activity edited">
-                  <span class="date"><strong>Last Edited:</strong> <%= tree.master_tree_logs.last.created_at.to_s(:long) %></span>
-                  <span class="date"><strong>Last Edited By:</strong> <%= tree.master_tree_logs.last.user.email %></span>
-                </div>
-              <% end %>
-            </div>
-          </div>
-        </a>
-        <% if !tree.merge_events.find_by_status("in review").nil? %>
-          <a href="<%= master_tree_merge_events_url(tree.id) %>" class="clearfix action green-submit">View Active Merge</a>
-        <% end %>
-      </li>
+      <%= render :partial => "tree_button", :locals => { :tree => tree } %>
     <% end %>
   </ul>
 <% end %>

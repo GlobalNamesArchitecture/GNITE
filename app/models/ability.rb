@@ -9,7 +9,7 @@ class Ability
     elsif user.has_role? :master_editor
       can [:index, :show], Menu
       can :index, User
-      can :manage, [MasterTree, Node, Synonym, VernacularName]
+      can :manage, [MasterTree, ReferenceTree, Node, Synonym, VernacularName]
     else
       can :new, MasterTree
       can :index, MasterTree, :master_tree_contributors => { :user_id => user.id }
@@ -17,6 +17,7 @@ class Ability
       can [:show, :undo, :redo], MasterTree do |master_tree|
         master_tree.users.include?(user) || master_tree.user_id == user.id
       end
+      can [:create, :show, :destroy], ReferenceTree
       can [:index, :show], Node
       # :create needs an instance so is handled through controller
       can [:update], Node do |node|

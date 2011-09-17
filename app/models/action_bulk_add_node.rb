@@ -4,7 +4,6 @@ class ActionBulkAddNode < ActionCommand
     @json_do = JSON.parse(json_message, :symbolize_names => true)[:do]
     @parent = Node.find(parent_id) rescue nil
     !!(tree_id && parent_id && @json_do && @parent)
-    
   end
 
   def precondition_undo
@@ -15,7 +14,7 @@ class ActionBulkAddNode < ActionCommand
   def do_action
     #TODO add transaction
     node_ids = []
-    @json_do.each do |new_name|
+    @json_do.compact.reject(&:blank?).each do |new_name|
       name = Name.find_or_create_by_name_string(new_name)
       node = Node.create!(:parent_id => parent_id, :name => name, :tree => @parent.tree)
       node_ids << node.id

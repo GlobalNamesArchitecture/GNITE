@@ -33,7 +33,7 @@ Gnite::Application.routes.draw do
     resources :merge_events,           :only => [:index, :create, :show, :update] { post :do, :on => :member}
   end
 
-  resources :reference_trees, :only => [:create, :show] do
+  resources :reference_trees, :only => [:create, :show, :destroy] do
     resources :nodes,          :only => [:index, :show]
     resources :bookmarks,      :only => [:index, :create, :update, :destroy]
     resource  :tree_expand,    :only => [:show]

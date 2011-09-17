@@ -16,5 +16,10 @@ class ReferenceTree < Tree
     end
     tree
   end
+  
+  def nuke
+    Tree.connection.execute("DELETE FROM reference_tree_collections WHERE reference_tree_id = #{id}")
+    super
+  end
 
 end

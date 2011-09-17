@@ -3,8 +3,13 @@ class MasterTreesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @master_trees = current_user.master_trees.by_title
-    @accessible_trees = (MasterTree.accessible_by(current_ability) - @master_trees).sort { |a,b| b.updated_at <=> a.updated_at }
+    accessible_trees = MasterTree.accessible_by(current_ability).includes([:user, :merge_events])
+    master_trees = []
+    accessible_trees.each do |tree|
+      master_trees << tree if tree.user == current_user
+    end
+    @master_trees = master_trees.sort { |a,b| a.title.downcase <=> b.title.downcase }
+    @accessible_trees = (accessible_trees - master_trees).sort { |a,b| a.title.downcase <=> b.title.downcase }
   end
 
   def new

@@ -619,52 +619,6 @@ $(function() {
   });
 
   /*
-   * FILE: Delete tree
-   */
-  $('#toolbar .nav-file-delete').live('click', function() {
-    var message = 'Are you sure you want to delete your working tree?';
-    $('body').append('<div id="dialog-message" class="ui-state-highlight" title="Delete Confirmation">' + message + '</div>');
-    $('#dialog-message').dialog({
-        height : 200,
-        width : 500,
-        modal : true,
-        closeText : "",
-        buttons: [
-          {
-            'class' : "green-submit",
-            text  : "Delete",
-            click : function() {
-              var formData = $("form").serialize();
-              $.ajax({
-                type        : 'DELETE',
-                url         :  '/master_trees/' + GNITE.Tree.MasterTree.id,
-                data        :  formData,
-                beforeSend  : function(xhr) {
-                  xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
-                },
-                success     : function() {
-                  var url   = "/master_trees",
-                      input = '<input type="hidden" name="" value="" />';
-                  $('<form action="'+ url +'" method="GET">'+input+'</form>').appendTo('body').submit().remove();
-                }
-              });
-           }
-         },
-         {
-           'class' : "cancel-button",
-           text  : "Cancel",
-           click : function() {
-             $('#dialog-message').dialog("destroy").remove();
-           }
-         }
-       ],
-       draggable : false,
-       resizable : false
-    });
-    return false;
-  });
-
-  /*
    * EDIT: Undo
    */
   $('#toolbar .nav-edit-undo').click(function() {
@@ -736,7 +690,7 @@ $(function() {
     return false;
   }); 
 
-  GNITE.Tree.buildViewMenuActions();
+  GNITE.Tree.buildMenuActions();
 
 
   /**************************************************************
@@ -805,7 +759,7 @@ $(function() {
       type        : 'POST',
       async       : true,
       url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes.json',
-      data        : JSON.stringify({ 'new_node' : { 'parent_id' : parent_id, 'name' : { 'name_string' : null } }, 'json_message' : { 'do' : nodes.split("\n") }, 'action_type' : "ActionBulkAddNode" }),
+      data        : JSON.stringify({ 'new_node' : { 'parent_id' : parent_id, 'name' : { 'name_string' : null } }, 'json_message' : { 'do' : nodes.split("\n").filter(GNITE.cleanArray) }, 'action_type' : "ActionBulkAddNode" }),
       contentType : 'application/json',
       dataType    : 'json',
       beforeSend  : function(xhr) {
@@ -1454,6 +1408,14 @@ GNITE.nodeMessage = function(obj) {
   $('#chat-messages-input').val("<a href=\"#\" data-path=\"" + path + "\">" + node_string + "</a>");
 };
 
+GNITE.cleanArray = function(element) {
+  if (element === null || element === '' || $.trim(element) === '') {
+    return false;
+  } else {
+    return true;
+  }
+};
+
 GNITE.Tree.hideMenu = function() {
 
   "use strict";
@@ -1501,9 +1463,66 @@ GNITE.Tree.openAncestry = function(tree, obj) {
   }
 };
 
-GNITE.Tree.buildViewMenuActions = function() {
+GNITE.Tree.buildMenuActions = function() {
 
   "use strict";
+
+  /*
+   * FILE: Delete tree
+   */
+  $('.nav-file-delete').live('click', function() {
+    var tree_type = ($(this).parents(".toolbar").hasClass("master-tree")) ? "master_tree" : "reference_tree",
+        message   = "Are you sure you want to delete your ",
+        url       = (tree_type === "master_tree") ? "/master_trees/" : "/reference_trees/",
+        input     = "";
+ 
+
+    message += (tree_type == "master_tree") ? "working tree?" : "reference tree?";
+    url += $(this).attr("data-tree-id");
+    $('body').append('<div id="dialog-message" class="ui-state-highlight" title="Delete Confirmation">' + message + '</div>');
+    $('#dialog-message').dialog({
+        height : 200,
+        width : 500,
+        modal : true,
+        closeText : "",
+        buttons: [
+          {
+            'class' : "green-submit",
+            text  : "Delete",
+            click : function() {
+              var formData = $("form").serialize();
+              $.ajax({
+                type        : 'DELETE',
+                url         :  url,
+                data        :  formData,
+                beforeSend  : function(xhr) {
+                  xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
+                },
+                success     : function(data) {
+                  $('#dialog-message').dialog("destroy").remove();
+                  if(tree_type === "master_tree") {
+                    input = '<input type="hidden" name="" value="" />';
+                    $('<form action="'+ url +'" method="GET">'+input+'</form>').appendTo('body').submit().remove();
+                  } else {
+                    GNITE.Tree.ReferenceTree.remove(data.reference_tree);
+                  }
+                }
+              });
+           }
+         },
+         {
+           'class' : "cancel-button",
+           text  : "Cancel",
+           click : function() {
+             $('#dialog-message').dialog("destroy").remove();
+           }
+         }
+       ],
+       draggable : false,
+       resizable : false
+    });
+    return false;
+  });
 
   /*
   * VIEW: Deselect all nodes
@@ -2161,7 +2180,7 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
       });
     });
 
-    GNITE.Tree.buildViewMenuActions();
+    GNITE.Tree.buildMenuActions();
 
     $('#' + response.domid).siblings('.ui-tabs-nav').children('.ui-state-default').removeClass('ui-tabs-selected ui-state-active');
     $('#' + response.domid).removeClass("ui-tabs-hide").siblings('.ui-tabs-panel').addClass("ui-tabs-hide");
@@ -2172,6 +2191,21 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
     options.spinnedElement.unspinner();
   }
 
+};
+
+GNITE.Tree.ReferenceTree.remove = function(response) {
+
+  "use strict";
+
+  var count = 0, tab = $('#all-tabs');
+
+  if ($('#reference_tree_' + response.id).hasClass("reference-tree-active")) {
+    $('#tabs #import a').trigger('click');
+  }
+  $('a[href="#reference_tree_' + response.id + '"]').parent().remove();
+  $('#reference_tree_' + response.id).remove();
+  count = parseInt(tab.text().replace(/[^0-9]+/, ''), 10);
+  tab.text('All reference trees (' + (count - 1) + ')');
 };
 
 GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {

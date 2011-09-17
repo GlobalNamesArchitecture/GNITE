@@ -1,0 +1,22 @@
+      <li>
+        <a href="<%= master_tree_url(tree.id) %>" class="clearfix button">
+          <div class="content">
+            <h3><%= tree.title %></h3>
+            <div class="metadata-wrap">
+              <div class="activity created">
+                <span class="author"><strong>Created:</strong> <%= tree.created_at.to_s(:long) %></span>
+                <span class="author"><strong>Created By:</strong> <%= tree.user.email %></span>
+              </div>
+              <% if tree.master_tree_logs.any? %>
+                <div class="activity edited">
+                  <span class="date"><strong>Last Edited:</strong> <%= tree.master_tree_logs.last.created_at.to_s(:long) %></span>
+                  <span class="date"><strong>Last Edited By:</strong> <%= tree.master_tree_logs.last.user.email %></span>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </a>
+        <% if tree.merge_events.map(&:status).include?("in review") %>
+          <a href="<%= master_tree_merge_events_url(tree.id) %>" class="clearfix action green-submit">View Active Merge</a>
+        <% end %>
+      </li>
