@@ -1,6 +1,6 @@
 Given /^"([^"]*)" has created an existing master tree titled "([^"]*)" with:$/ do |user_email, tree_title, table|
   user = User.find_by_email(user_email)
-  tree = Factory :master_tree, :title => tree_title, :user_id => user.id
+  tree = Factory :master_tree, :title => tree_title, :user_id => user.id, :user => user
   table.raw.each do |row|
     Factory(:node, :name => Factory(:name, :name_string => row.first), :tree => tree)
   end
@@ -8,7 +8,7 @@ end
 
 Given /^"([^"]*)" has created an existing master tree titled "([^"]*)" with the following nodes:$/ do |user_email, tree_title, table|
   user = User.find_by_email(user_email)
-  tree = Factory :master_tree, :title => tree_title, :user_id => user.id
+  tree = Factory :master_tree, :title => tree_title, :user_id => user.id, :user => user
   table.hashes.each do |hash|
     parent = (hash['parent_id'].to_i == 0) ? tree.root.id : hash['parent_id'].to_i
     rank = hash['rank'].nil? ? "Family" : hash['rank']

@@ -19,7 +19,6 @@ class ReferenceTreesController < ApplicationController
   def show
     respond_to do |format|
       format.json do
-        @reference_tree = ReferenceTree.find(params[:id])
         if @reference_tree.importing?
           head :no_content
         else
@@ -31,22 +30,15 @@ class ReferenceTreesController < ApplicationController
   end
   
   def destroy
-    respond_to do |format|
-      format.json do
-        collections = ReferenceTreeCollection.find_all_by_reference_tree_id(params[:id])
-        if collections.count > 1
-          collections.each do |collection|
-            collection.delete if collection.master_tree_id == @reference_tree.master_tree_id
-          end
-        else
-          collections.each do |collection|
-            collection.delete
-          end
-          @reference_tree.nuke
-        end
-        render :json => @reference_tree
+    master_tree = MasterTree.find(params[:master_tree_id]) rescue nil
+    if master_tree.users.include?(current_user)
+      collection_count = @reference_tree.reference_tree_collections.count
+      ReferenceTreeCollection.destroy_all(:master_tree_id => master_tree.id, :reference_tree_id => @reference_tree.id)
+      if collection_count == 1
+        @reference_tree.nuke
       end
     end
+    render :json => @reference_tree
   end
 
 end

@@ -6,7 +6,7 @@ class MasterTreesController < ApplicationController
     accessible_trees = MasterTree.accessible_by(current_ability).includes([:user, :merge_events])
     master_trees = []
     accessible_trees.each do |tree|
-      master_trees << tree if tree.user == current_user
+      master_trees << tree if tree.user_id == current_user.id
     end
     @master_trees = master_trees.sort { |a,b| a.title.downcase <=> b.title.downcase }
     @accessible_trees = (accessible_trees - master_trees).sort { |a,b| a.title.downcase <=> b.title.downcase }

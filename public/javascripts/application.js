@@ -1473,11 +1473,13 @@ GNITE.Tree.buildMenuActions = function() {
   $('.nav-file-delete').live('click', function() {
     var tree_type = ($(this).parents(".toolbar").hasClass("master-tree")) ? "master_tree" : "reference_tree",
         message   = "Are you sure you want to delete your ",
+        data      = { },
         url       = (tree_type === "master_tree") ? "/master_trees/" : "/reference_trees/",
         input     = "";
  
 
-    message += (tree_type == "master_tree") ? "working tree?" : "reference tree?";
+    message += (tree_type === "master_tree") ? "working tree?" : "reference tree?";
+    data = (tree_type === "master_tree") ? data : { 'master_tree_id' : GNITE.Tree.MasterTree.id };
     url += $(this).attr("data-tree-id");
     $('body').append('<div id="dialog-message" class="ui-state-highlight" title="Delete Confirmation">' + message + '</div>');
     $('#dialog-message').dialog({
@@ -1490,11 +1492,10 @@ GNITE.Tree.buildMenuActions = function() {
             'class' : "green-submit",
             text  : "Delete",
             click : function() {
-              var formData = $("form").serialize();
               $.ajax({
                 type        : 'DELETE',
                 url         :  url,
-                data        :  formData,
+                data        :  data,
                 beforeSend  : function(xhr) {
                   xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
                 },
@@ -1502,7 +1503,7 @@ GNITE.Tree.buildMenuActions = function() {
                   $('#dialog-message').dialog("destroy").remove();
                   if(tree_type === "master_tree") {
                     input = '<input type="hidden" name="" value="" />';
-                    $('<form action="'+ url +'" method="GET">'+input+'</form>').appendTo('body').submit().remove();
+                    $('<form action="/master_trees" method="GET">'+input+'</form>').appendTo('body').submit().remove();
                   } else {
                     GNITE.Tree.ReferenceTree.remove(data.reference_tree);
                   }
@@ -2086,6 +2087,8 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
       self    = "",
       count   = "";
 
+  $('#all-tabs').parent().show();
+
   if ($('a[href="#' + response.domid + '"]').length !== 0 && $('#' + response.domid).hasClass("reference-tree-active")) {
     $('#tabs li:first-child ul li a[href="#' + response.domid +'"]').trigger('click');
   } else {
@@ -2206,6 +2209,8 @@ GNITE.Tree.ReferenceTree.remove = function(response) {
   $('#reference_tree_' + response.id).remove();
   count = parseInt(tab.text().replace(/[^0-9]+/, ''), 10);
   tab.text('All reference trees (' + (count - 1) + ')');
+
+  if(count-1 === 0) { $('#all-tabs').parent().hide(); }
 };
 
 GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {

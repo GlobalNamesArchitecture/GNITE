@@ -9,7 +9,7 @@ class MasterTree < Tree
   has_many :merge_events
   has_many :rosters
   
-  attr_accessor :master_tree_contributor_ids
+  attr_accessor :user, :master_tree_contributor_ids
 
   after_create :create_deleted_tree, :create_contributor
   after_save :update_master_tree_contributors
@@ -59,7 +59,7 @@ class MasterTree < Tree
   end
 
   def get_authors
-    self.users.map { |u| { :first_name => nil, :last_name => nil, :email => u.email } }
+    self.users.map { |u| { :first_name => u.given_name, :last_name => u.surname, :email => u.email } }
   end
   
   def create_contributor

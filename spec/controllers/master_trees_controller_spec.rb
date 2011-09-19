@@ -8,13 +8,11 @@ describe MasterTreesController do
     end
 
     context "on GET to #index" do
-      let(:trees) { [Factory(:master_tree)] }
+      let(:tree) { Factory(:master_tree, :user_id => @user.id) }
 
       before do
         controller.stubs(:current_user => @user)
-        @user.stubs(:master_trees => trees)
-        trees.stubs(:by_title => trees)
-
+        tree.stubs(:save => true)
         get :index
       end
 
@@ -23,13 +21,6 @@ describe MasterTreesController do
       it { should respond_with(:success) }
       it { should render_template(:index) }
 
-      it "should assign_to(:master_trees).with(trees)" do
-        assigns(:master_trees).should == trees
-      end
-
-      it 'sorts the trees by title' do
-        trees.should have_received(:by_title)
-      end
     end
 
     context "on a valid GET to #new" do
@@ -72,7 +63,7 @@ describe MasterTreesController do
       it { should render_template(:edit) }
     end
 
-    context "on a valid PUT to #upate" do
+    context "on a valid PUT to #update" do
       let(:tree) { Factory(:master_tree, :user_id => @user.id) }
 
       before do
@@ -82,10 +73,6 @@ describe MasterTreesController do
       end
 
       subject { controller }
-
-      it "should assign_to(:master_tree).with(tree)" do
-        assigns(:master_tree).should == tree
-      end
 
       it { should render_template(:edit) }
       it { should set_the_flash.to(/updated/) }
@@ -102,10 +89,6 @@ describe MasterTreesController do
 
       subject { controller }
 
-      it "should assign_to(:master_tree).with(tree)" do
-        assigns(:master_tree).should == tree
-      end
-
       it { should redirect_to(root_url) }
       it { should set_the_flash.to(/denied/) }
     end
@@ -115,8 +98,8 @@ describe MasterTreesController do
 
       before do
         MasterTree.stubs(:find => tree)
-        tree.stubs(:save => false)
-        put :update, :id => tree.id, :master_tree => {}
+        tree.stubs(:save => true)
+        post :update, :id => tree.id, :master_tree => {}
       end
 
       subject { controller }
@@ -125,7 +108,7 @@ describe MasterTreesController do
         assigns(:master_tree).should == tree
       end
 
-      it { should_not set_the_flash }
+      it { should set_the_flash.to(/updated/) }
       it { should render_template(:edit) }
     end
     
@@ -134,8 +117,8 @@ describe MasterTreesController do
 
       before do
         MasterTree.stubs(:find => tree)
-        tree.stubs(:save => false)
-        put :update, :id => tree.id, :master_tree => {}
+        tree.stubs(:save => true)
+        post :update, :id => tree.id, :master_tree => {}
       end
 
       subject { controller }
