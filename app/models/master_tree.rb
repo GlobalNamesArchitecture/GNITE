@@ -35,6 +35,10 @@ class MasterTree < Tree
     Tree.find(self.deleted_tree.id).nuke
     super
   end
+  
+  def creator
+    User.find(self.user_id) rescue nil
+  end
 
   private
 
