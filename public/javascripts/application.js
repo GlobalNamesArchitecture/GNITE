@@ -1299,6 +1299,7 @@ $(function() {
       contentType : 'application/json',
       beforeSend  : function(xhr) {
         xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
+        xhr.setRequestHeader("X-Session-ID", GNITE.jug.sessionID);
       },
       success     : function(response) {
         GNITE.Tree.ReferenceTree.add(response);
@@ -1368,6 +1369,15 @@ $(function() {
         $('#chat-messages-user-count').html("(" + response.count + ")").show();
         GNITE.Chat.editChatUserStatus(response);
       break;
+
+      case 'reference-add':
+        //TODO: create method to add a reference tree
+      break;
+
+      case 'reference-remove':
+        GNITE.Tree.ReferenceTree.remove(response.message.reference_tree);
+      break;
+
     }
   });
 
@@ -1498,6 +1508,7 @@ GNITE.Tree.buildMenuActions = function() {
                 data        :  data,
                 beforeSend  : function(xhr) {
                   xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
+                  xhr.setRequestHeader("X-Session-ID", GNITE.jug.sessionID);
                 },
                 success     : function(data) {
                   $('#dialog-message').dialog("destroy").remove();
@@ -1734,6 +1745,7 @@ GNITE.Tree.importTree = function(opts) {
     dataType    : 'json',
     data        : data,
     beforeSend  : function(xhr) {
+      xhr.setRequestHeader("X-Session-ID", GNITE.jug.sessionID);
       xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
     },
     success     : function(response) {
@@ -2208,7 +2220,7 @@ GNITE.Tree.ReferenceTree.remove = function(response) {
   $('a[href="#reference_tree_' + response.id + '"]').parent().remove();
   $('#reference_tree_' + response.id).remove();
   count = parseInt(tab.text().replace(/[^0-9]+/, ''), 10);
-  tab.text('All reference trees (' + (count - 1) + ')');
+  tab.text('All reference trees (' + (count-1) + ')');
 
   if(count-1 === 0) { $('#all-tabs').parent().hide(); }
 };
