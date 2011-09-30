@@ -8,17 +8,23 @@ var GNITE = GNITE || {
     Tree : { }
   },
   Chat     : {},
-  jug      : new Juggernaut(),
+  jug      : {},
   channel  : "",
   token    : "",
   user_id  : "",
   response : {}
 };
 
+if (typeof window !== 'undefined' && typeof window.WEB_SOCKET_SWF_LOCATION === 'undefined') {
+  window.WEB_SOCKET_SWF_LOCATION = '/javascripts/juggernaut/WebSocketMain.swf';
+}
+
 /****************** START jQUERY ****************************/
 $(function() {
 
   "use strict";
+
+  GNITE.jug = new Juggernaut();
 
   GNITE.token = $("meta[name='csrf-token']").attr("content");
   GNITE.channel = "tree_" + GNITE.MergeEvent.master_tree_id;

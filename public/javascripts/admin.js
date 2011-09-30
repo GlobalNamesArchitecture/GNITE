@@ -4,13 +4,19 @@
            GLOBAL VARIABLE(S)
 **************************************************************/
 var GNITE = GNITE || {
-  jug : new Juggernaut()
+  jug : {}
 };
+
+if (typeof window !== 'undefined' && typeof window.WEB_SOCKET_SWF_LOCATION === 'undefined') {
+  window.WEB_SOCKET_SWF_LOCATION = '/javascripts/juggernaut/WebSocketMain.swf';
+}
 
 /********************************* jQuery START *********************************/
 $(function() {
 
   "use strict";
+
+  GNITE.jug = new Juggernaut();
 
   GNITE.channel = "admin_roster";
 

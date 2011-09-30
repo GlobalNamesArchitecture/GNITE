@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110912171247) do
+ActiveRecord::Schema.define(:version => 20110920021547) do
 
   create_table "action_commands", :force => true do |t|
     t.string   "type"
@@ -100,6 +100,16 @@ ActiveRecord::Schema.define(:version => 20110912171247) do
   end
 
   add_index "languages", ["iso_639_1"], :name => "index_languages_on_iso_639_1"
+
+  create_table "lexical_variants", :force => true do |t|
+    t.integer  "name_id",          :null => false
+    t.integer  "lexicalable_id"
+    t.string   "lexicalable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "lexical_variants", ["lexicalable_id", "lexicalable_type"], :name => "index_lexical_variants_on_lexicalable_id_and_lexicalable_type"
 
   create_table "master_tree_contributors", :force => true do |t|
     t.integer  "master_tree_id"

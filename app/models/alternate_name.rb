@@ -3,6 +3,7 @@ module AlternateName
     model.class_eval do
       belongs_to :node
       belongs_to :name
+      has_many :lexical_variants, :as => :lexicalable
 
       validates_presence_of :name
       validates_presence_of :node

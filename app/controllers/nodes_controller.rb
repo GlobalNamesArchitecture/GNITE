@@ -38,7 +38,8 @@ class NodesController < ApplicationController
       :name        => node.name_string,
       :rank        => node.rank_string,
       :synonyms    => node.synonym_data,
-      :vernaculars => node.vernacular_data
+      :vernaculars => node.vernacular_data,
+      :lexicals    => node.lexical_data
     }
     
     respond_to do |format|

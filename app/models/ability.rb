@@ -27,6 +27,11 @@ class Ability
       can [:update, :destroy], [Synonym, VernacularName] do |obj|
         obj.node.tree.users.include?(user) || obj.node.tree.user_id == user.id
       end
+      # :create needs an instance so is handled through controller
+      #TODO: need to set permissions here relative to lexical_variants of nodes, synonyms or vernacular_names....somehow
+      can [:update, :destroy], LexicalVariant
     end
+    
   end
+
 end

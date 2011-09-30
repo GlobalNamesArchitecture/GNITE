@@ -3,12 +3,12 @@ $(function() {
     if ($(this).attr('id') === "all-tabs") {
       $('#reference-trees').parent().toggleClass('ui-tabs-selected ui-state-active');
     } else {
-      var id = $(this).attr('href');
+      var ele = $(this).attr('href');
 
-      $('.ui-tabs > .ui-tabs-panel:visible').addClass('ui-tabs-hide');
-      $('.ui-tabs-selected.ui-state-active').removeClass('ui-tabs-selected ui-state-active');
+      $(this).closest('.ui-tabs').find('.ui-tabs-panel').addClass('ui-tabs-hide');
+      $(this).closest('.ui-tabs').find('.ui-tabs-nav li').removeClass('ui-tabs-selected ui-state-active');
 
-      $(id).removeClass('ui-tabs-hide');
+      $(this).closest('.ui-tabs').find(ele).removeClass('ui-tabs-hide');
       $(this).parent().addClass('ui-tabs-selected ui-state-active');
     }
 
@@ -22,4 +22,5 @@ $(function() {
       });
     }
   });
+
 });

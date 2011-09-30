@@ -29,7 +29,7 @@
         </div>
       </div>
 
-      <div class="node-metadata ui-dialog clearfix"></div>
+      <%= render :partial => 'shared/node_metadata.html', :locals => { :tabs => ["synonyms", "lexicals", "vernaculars", "rank"], :tree_type => 'MasterTree' } %>
 
       <div id="merge-warning">
         <ul><li>
@@ -48,9 +48,11 @@
 
 </div>
 
-<%= render :partial => 'synonym_context.html' %>
-
-<%= render :partial => 'vernacular_context.html' %>
+<!--
+<% ['synonym', 'vernacular', 'lexical'].each do |type| %>
+  <%= render :partial => 'context.html', :locals => { :type => type } %>
+<% end %>
+-->
 
 <%= render :partial => 'bulkcreate_form.html' %>
 
@@ -61,7 +63,7 @@
 <%= render :partial => 'shared/chat_messages.html', :locals => { :editors => @editors } %>
 
 <% content_for :javascript do %>
-<%= javascript_include_tag 'juggernaut/json', 'juggernaut/socket_io', 'juggernaut/juggernaut', 'application', 'chat', 'jstree/jquery.jstree', 'jquery.jstree.bookmarks', 'jquery.cookie', 'jquery.hotkeys', 'jquery.jstree.bulkcreate', 'jquery.jstree.undoredo', 'jquery.jstree.merge', 'jquery.spinner', 'ddsmoothmenu', 'jquery.scrollTo.min', 'jquery.extensions', 'jquery.contextMenu', 'jquery.inlinecomplete' %>
+<%= javascript_include_tag 'application', 'juggernaut/application', 'chat', 'jstree/jquery.jstree', 'jquery.jstree.bookmarks', 'jquery.cookie', 'jquery.hotkeys', 'jquery.jstree.bulkcreate', 'jquery.jstree.undoredo', 'jquery.jstree.merge', 'jquery.spinner', 'ddsmoothmenu', 'jquery.scrollTo.min', 'jquery.extensions', 'jquery.contextMenu', 'jquery.inlinecomplete' %>
 
 <script type="text/javascript">
 <!--//--><![CDATA[//><!--

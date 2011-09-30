@@ -6,6 +6,7 @@ class Node < ActiveRecord::Base
   has_many :bookmarks
   has_many :synonyms
   has_many :vernacular_names
+  has_many :lexical_variants, :as => :lexicalable
   has_many :merge_events, :foreign_key => :primary_node_id
   has_many :merge_events, :foreign_key => :secondary_node_id
   has_many :merge_result_primaries
@@ -42,6 +43,11 @@ class Node < ActiveRecord::Base
   
   def vernacular_data
     res = vernacular_names.all.map { |v| { :name_string => v.name.name_string, :metadata => v.language.nil? ? symbolize_keys(v.attributes.merge(:language => {:id => nil, :name => nil})) : symbolize_keys(v.attributes.merge(:language => v.language.attributes)) } }
+    res.sort { |a,b| a[:name_string] <=> b[:name_string] }
+  end
+  
+  def lexical_data
+    res = lexical_variants.all.map { |l| { :name_string => l.name.name_string, :metadata => symbolize_keys(l.attributes) } }
     res.sort { |a,b| a[:name_string] <=> b[:name_string] }
   end
   

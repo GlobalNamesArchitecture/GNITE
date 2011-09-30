@@ -11,16 +11,22 @@ var GNITE = GNITE || {
     Node          : {}
   },
   Chat    : {},
-  jug     : new Juggernaut(),
+  jug     : {},
   channel : "",
   token   : "",
   user_id : ""
 };
 
+if (typeof window !== 'undefined' && typeof window.WEB_SOCKET_SWF_LOCATION === 'undefined') {
+  window.WEB_SOCKET_SWF_LOCATION = '/javascripts/juggernaut/WebSocketMain.swf';
+}
+
 /********************************* jQuery START *********************************/
 $(function() {
 
   "use strict";
+
+  GNITE.jug = new Juggernaut();
 
   GNITE.token = $("meta[name='csrf-token']").attr("content");
   GNITE.Tree.MasterTree.id = $('.tree-container:first').attr('data-database-id');
@@ -2229,18 +2235,18 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
 
   "use strict";
 
-  container.spinner();
+  container.show().find(".node-metadata-content").spinner();
 
   $.ajax({
     type        : 'GET',
-    url         : url,
-    contentType : 'text/html',
-    dataType    : 'html',
+    url         : url + ".json",
+    contentType : 'application/json',
+    dataType    : 'json',
     beforeSend  : function(xhr) {
       xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
     },
     success     : function(data) {
-      container.html(data);
+      GNITE.Tree.Node.buildMetadata(container, data);
       wrapper.css('bottom', container.height());
       container.find(".ui-icon").click(function() {
         container.hide();
@@ -2254,7 +2260,15 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
     }
   });
 
-  container.unspinner().show();
+  container.find(".node-metadata-content").unspinner();
+
+};
+
+GNITE.Tree.Node.buildMetadata = function(container, data) {
+
+  "use strict";
+
+  container.find("span.namestring").text(data.name).attr("data-node-id", data.id);
 
 };
 
@@ -2276,12 +2290,12 @@ GNITE.Tree.Node.adjustMasterTreeMetadata = function(container) {
     });
   });
 
-  container.find("li.rank, li.synonym, li.vernacular, li.metadata-add").each(function() {
+  container.find("li.rank, li.synonym, li.vernacular, li.lexical, li.metadata-add").each(function() {
     var self = $(this), type = self.parent().parent().attr("data-type");
 
     $(this).not('.metadata-add').click(function() { return false; });
 
-    if(self.hasClass("synonym") || self.hasClass("vernacular")) {
+    if(self.hasClass("synonym") || self.hasClass("vernacular") || self.hasClass("lexical")) {
       self.contextMenu(self.attr("class") + '-context', {
         'bindings' : {
           'nav-edit-rename' : function(t) {

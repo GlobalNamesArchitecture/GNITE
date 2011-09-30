@@ -756,6 +756,7 @@ input.disabled {
   font-size: 14px;
   font-weight: bold;
   width: 100%;
+  position:relative;
 }
 
 .breadcrumbs ul {
@@ -820,7 +821,47 @@ input.disabled {
   border:1px solid transparent;
 }
 
-.metadata-section {
+.node-metadata {
+  bottom: 0px;
+  margin: 10px 0 0 0;
+  position: absolute;
+  top: auto;
+  width: 100%; 
+  overflow:visible;
+  display:none;
+}
+
+.node-metadata .breadcrumbs {
+  border:0px !important;
+  border-radius:0px !important;
+  -moz-border-radius: 0px !important;
+  -webkit-border-radius: 0px !important;
+}
+
+.node-metadata .breadcrumbs ul {
+  padding:5px 10px;
+}
+
+.node-metadata .ui-tabs-nav .ui-state-default {
+  top:2px;
+}
+
+.node-metadata .ui-tabs-nav li a {
+  padding:0.5em 1.4em;
+}
+
+.node-metadata .ui-tabs-panel {
+  bottom:0px;
+}
+
+.node-metadata .metadata-wrapper {
+  box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.7);
+  border-radius:0 0 8px 8px;
+  -moz-border-radius: 0 0 8px 8px;
+  -webkit-border-radius: 0 0 8px 8px;
+}
+
+.node-metadata .metadata-section {
   background: #BABFC3;
   border-top: 1px solid #dadddf;
   margin: 0;
@@ -833,11 +874,32 @@ input.disabled {
   -webkit-border-radius:0px 0px 8px 8px;
 }
 
-.node-metadata a.ui-dialog-titlebar-close {
-  display:block;
+.node-metadata .ui-dialog-titlebar-close {
+  height: 16px;
+  padding: 0;
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  width: 16px;
 }
 
-.metadata-section ul.topnav a {
+.node-metadata .ui-dialog-titlebar-close:hover {
+  border:0px;
+}
+
+.node-metadata .ui-dialog-titlebar-close span {
+  background: url("../stylesheets/Aristo/images/icon_sprite.png") no-repeat scroll 0 -16px transparent;
+  display: block;
+  height: 16px;
+  margin: 1px;
+  width: 16px;
+}
+
+.node-metadata .node-metadata-content {
+  min-height:41px;
+}
+
+.node-metadata .metadata-section ul.topnav a {
   padding:0px;
 }
 
@@ -845,20 +907,20 @@ input.disabled {
   cursor:pointer;
 }
 
-.metadata-section .ddsmoothmenu ul.topnav {
+.node-metadata .metadata-section .ddsmoothmenu ul.topnav {
   padding-bottom:5px;
 }
 
-.metadata-section .ddsmoothmenu ul.topnav li span {
+.node-metadata .metadata-section .ddsmoothmenu ul.topnav li span {
   position:inherit;
 }
 
-.metadata-section .ddsmoothmenu ul.topnav img.downarrowclass {
+.node-metadata .metadata-section .ddsmoothmenu ul.topnav img.downarrowclass {
   top:8px;
   right:4px;
 }
 
-.metadata-section .ddsmoothmenu ul.topnav ul.subnav li {
+.node-metadata .metadata-section .ddsmoothmenu ul.topnav ul.subnav li {
   border:0px;
   border-radius:0px;
   -moz-border-radius:0px;
@@ -869,59 +931,37 @@ input.disabled {
   white-space:nowrap;
 }
 
-.metadata-section .ddsmoothmenu ul.topnav ul.subnav li a {
+.node-metadata .metadata-section .ddsmoothmenu ul.topnav ul.subnav li a {
   padding:5px 5px 5px 25px;
   margin:0px;
   min-width:0px;
 }
 
-.node-metadata {
-  background: #fff;
-  border-radius: 0px 0px 8px 8px;
-  -moz-border-radius: 0px 0px 8px 8px;
-  -webkit-border-radius: 0px 0px 8px 8px;
-  box-shadow: none;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  bottom: 0;
-  display: none;
-  margin: 10px 0 0 0;
-  position: absolute;
-  top: auto;
-  width: 100%; 
-  overflow:visible;
-}
-
-.node-metadata div.label {
-  float: left;
-  margin: 0;
-  padding: 10px 0 0 0;
-  text-shadow: #DADEE2 0  1px 0px;
-  width: 18%;
-}
-
-.node-metadata div.label h4 {
-  padding-left:10px;
-  font-weight:bold;
-}
-
 .node-metadata div.lists {
-  width: 82%;
   float:left;
   background: #fff;
   padding:0 0 5px 0;
+  width:100%;
+  min-height:35px;
 }
 
 .node-metadata .metadata-section:last-child .lists {
-  border-radius:0px 0px 8px 0px;
-  -moz-border-radius: 0px 0px 8px 0px;
-  -webkit-border-radius: 0px 0px 8px 0px;
+  border-radius:0px 0px 8px 8px;
+  -moz-border-radius: 0px 0px 8px 8px;
+  -webkit-border-radius: 0px 0px 8px 8px;
 }
 
-.node-metadata ul {
+.node-metadata .metadata-section ul li.jstree-drop {
+  background:transparent;
+  border: 1px dotted #BABFC3;
+  border-radius: 0px;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  color:#BABFC3;
+  cursor:auto !important;
 }
 
-.node-metadata ul li {
+.node-metadata .metadata-section ul li {
   background: none repeat scroll 0 0 #E6E6E6;
   border: 1px solid #BABFC3;
   border-radius: 8px;
@@ -933,18 +973,9 @@ input.disabled {
   position:relative;
 }
 
-.node-metadata ul li.metadata-add {
+.node-metadata .metadata-section ul li.metadata-add {
   height:15px;
   min-width:24px;
-}
-
-.node-metadata ul li.jstree-draggable {
-  cursor:move;
-}
-
-.node-metadata ul li.jstree-draggable:hover {
-  background: none repeat scroll 0 0 #BEEBFF;
-  border: 1px solid #99DEFD;
 }
 
 .node-metadata ul li input.metadata-input {

@@ -1,0 +1,40 @@
+      <div class="node-metadata ui-tabs ui-widget ui-widget-content">
+
+        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header">
+          <% tabs.each_with_index do |tab, index| %>
+            <% if index == 0 %>
+              <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#node-<%= tab %>-wrapper"><%= tab.capitalize %></a></li>
+            <% else %>
+              <li class="ui-state-default ui-corner-top"><a href="#node-<%= tab %>-wrapper"><%= tab.capitalize %></a></li>
+            <% end %>
+          <% end %>
+        </ul>
+
+        <% tabs.each_with_index do |tab, index| %>
+
+          <div id="node-<%= tab %>-wrapper" class="node-<%= tab %> ui-tabs-panel ui-widget-content ui-corner-bottom<%= (index == 0) ? "" : " ui-tabs-hide" %>">
+            <div class="metadata-wrapper">
+              <div class="breadcrumbs ui-dialog-titlebar">
+                <ul>
+                  <li><span class="namestring" data-node-id=""></span>
+                    <a class="ui-dialog-titlebar-close" href="#" role="button"><span class="ui-icon ui-icon-closethick"></span></a>
+                  </li>
+                </ul>
+              </div>
+              <div class="node-metadata-content node-<%= tab %>-content">
+              </div>
+            </div>
+          </div>
+
+          <% if tree_type == 'MasterTree' %>
+            <div id="<%= tab %>-context" class="ddsmoothmenu-v">
+              <ul class="topnav">
+                <li><a href="#" class="nav-edit-rename">Edit</a></li>
+                <li><a href="#" class="nav-edit-delete">Delete</a></li>
+              </ul>
+            </div>
+          <% end %>
+
+        <% end %>
+
+      </div>

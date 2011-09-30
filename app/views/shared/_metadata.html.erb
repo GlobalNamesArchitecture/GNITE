@@ -1,36 +1,7 @@
-<div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix" data-node-id="<%= @metadata[:id] %>">
-  <span class="ui-dialog-title"><%= @metadata[:name] %></span>
-  <a class="ui-dialog-titlebar-close" href="#" role="button">
-    <span class="ui-icon ui-icon-closethick"></span>
-  </a>
-</div>
-
-<div class="metadata-section metadata-rank clearfix">
-  <div class="label">
-    <h4>Rank</h4>
-  </div>
-  <div id="metadata-rank-<%= @metadata[:id] %>"class="lists ddsmoothmenu" data-type="ranks">
-    <ul class="topnav">
-      <li class="rank">
-        <% if tree_type == "MasterTree" %>
-          <a href="#"><span><%= @metadata[:rank] %></span></a>
-        <% else %>
-          <%= @metadata[:rank] %>
-        <% end %>
-      </li>
-    </ul>
-  </div>
-</div>
-
 <div class="metadata-section metadata-synonyms clearfix">
-  <div class="label">
-    <h4>Synonyms</h4>
-  </div>
-  <div id="metadata-synonyms-<%= @metadata[:id] %>" class="lists ddsmoothmenu jstree-drop" data-type="synonyms">
+  <div id="metadata-synonyms-<%= @metadata[:id] %>" class="lists ddsmoothmenu" data-type="synonyms">
     <ul class="topnav">
-      <% if @metadata[:synonyms].empty? %>
-        <li class="synonym metadata-none">None</li>
-      <% else %>
+      <% if !@metadata[:synonyms].empty? %>
         <% @metadata[:synonyms].each do |synonym| %>
           <% if tree_type == "MasterTree" %>
           <li id="synonym-<%= synonym[:metadata][:id] %>" class="synonym"><a href="#"><span><%= synonym[:name_string] %></span></a>
@@ -46,23 +17,22 @@
           <% end %>
         <% end %>
       <% end %>
+      <% if tree_type == "MasterTree" %>
+        <li class="jstree-drop">Drop</li>
+      <% end %>
       <%= raw (tree_type == "MasterTree") ? "<li class=\"metadata-add green-submit-small\">Add</li>": "" %>
     </ul>
   </div>
 </div>
 
+<!--
 <div class="metadata-section metadata-vernacular-names clearfix">
-  <div class="label">
-    <h4>Vernaculars</h4>
-  </div>
   <div id="metadata-vernaculars-<%= @metadata[:id] %>" class="lists ddsmoothmenu" data-type="vernacular_names">
     <ul class="topnav">
-      <% if @metadata[:vernaculars].empty? %>
-        <li class="vernacular metadata-none">None</li>
-      <% else %>
+      <% if !@metadata[:vernaculars].empty? %>
         <% @metadata[:vernaculars].each do |vernacular| %>
           <% if tree_type == "MasterTree" %>
-          <li id="vernacular_names-<%= vernacular[:metadata][:id] %>" class="vernacular"><a href="#"><span><%= vernacular[:name_string] %></span></a>
+          <li id="vernacular_name-<%= vernacular[:metadata][:id] %>" class="vernacular"><a href="#"><span><%= vernacular[:name_string] %></span></a>
             <ul class="subnav">
               <li>
                 <label for="vernacular-language-<%= vernacular[:metadata][:id] %>">Language</label>
@@ -74,7 +44,32 @@
           <% end %>
         <% end %>
       <% end %>
+      <% if tree_type == "MasterTree" %>
+        <li class="jstree-drop">Drop</li>
+      <% end %>
       <%= raw (tree_type == "MasterTree") ? "<li class=\"metadata-add green-submit-small\">Add</li>": "" %>
     </ul>
   </div>
 </div>
+
+<div class="metadata-section metadata-lexicals clearfix">
+  <div id="metadata-lexicals-<%= @metadata[:id] %>" class="lists ddsmoothmenu jstree-drop" data-type="lexical_variants">
+    <ul class="topnav">
+      <% if !@metadata[:lexicals].empty? %>
+        <% @metadata[:lexicals].each do |lexical| %>
+          <% if tree_type == "MasterTree" %>
+          <li id="lexical_variant-<%= lexical[:metadata][:id] %>" class="lexical"><a href="#"><span><%= lexical[:name_string] %></span></a>
+         </li>
+         <% else %>
+          <li><%= lexical[:name_string] %></li>
+          <% end %>
+        <% end %>
+      <% end %>
+      <% if tree_type == "MasterTree" %>
+        <li class="jstree-drop">Drop</li>
+      <% end %>
+      <%= raw (tree_type == "MasterTree") ? "<li class=\"metadata-add green-submit-small\">Add</li>": "" %>
+    </ul>
+  </div>
+</div>
+-->
