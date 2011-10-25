@@ -12,7 +12,6 @@ class ActionBulkAddNode < ActionCommand
   end
 
   def do_action
-    #TODO add transaction
     node_ids = []
     @json_do.compact.reject(&:blank?).each do |new_name|
       name = Name.find_or_create_by_name_string(new_name)
@@ -24,7 +23,6 @@ class ActionBulkAddNode < ActionCommand
   end
 
   def undo_action
-    #TODO add transaction
     @json_undo.each do |i|
       node = Node.find(i) rescue nil
       node.destroy if node

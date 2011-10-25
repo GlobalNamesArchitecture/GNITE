@@ -6,14 +6,12 @@ class ActionMoveNodeToDeletedTree < ActionCommand
   end
 
   def do_action
-    #TODO add transaction
     node.delete_softly
     self.json_message = node.to_json
     save!
   end
 
   def undo_action
-    #TODO add transaction
     node.restore(@parent)
   end
   

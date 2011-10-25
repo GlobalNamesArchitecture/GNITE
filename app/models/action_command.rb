@@ -13,15 +13,19 @@ class ActionCommand < ActiveRecord::Base
     ac = ActionCommand.find(instance_id)
     if ac.undo?
       if ac.precondition_undo
-        perform_undo(ac)
-        generate_log(ac, 'undo')
+        transaction do
+          perform_undo(ac)
+          generate_log(ac, 'undo')
+        end
       else 
         ac.precondition_undo_error
       end
     else
       if ac.precondition_do
-        perform_do(ac)
-        generate_log(ac, 'do')
+        transaction do
+          perform_do(ac)
+          generate_log(ac, 'do')
+        end
       else
         ac.precondition_do_error
       end

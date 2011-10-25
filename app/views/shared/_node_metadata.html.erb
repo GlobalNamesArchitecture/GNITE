@@ -21,7 +21,14 @@
                   </li>
                 </ul>
               </div>
-              <div class="node-metadata-content node-<%= tab %>-content">
+              <div class="node-metadata-content node-<%= tab %>-content ddsmoothmenu<%= (tab == 'lexicals' || tab == 'synonyms') ? " jstree-drop" : "" %>" data-type="<%= tab %>">
+                <ul class="topnav">
+                  <% if tab != 'rank' %>
+                    <li class="metadata-add green-submit-small">Add</li>
+                  <% else %>
+                    <li class="<%= tab %> metadata-none">None</li>
+                  <% end %>
+                </ul>
               </div>
             </div>
           </div>

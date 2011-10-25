@@ -25,13 +25,13 @@ class ActionNodeToSynonym < ActionCommand
     new_synonym_names.each do |name|
       Synonym.create!(:node => merged_node, :name => name, :status => nil)
     end
-    
+  
     new_vernacular_names = node.vernacular_names.map { |v| v.name }
     new_vernacular_names = new_vernacular_names - @destination_node.vernacular_names.map { |v| v.name }
     @destination_node.vernacular_names.each do |vernacular|
       VernacularName.create!(:node => merged_node, :name => vernacular.name, :language => vernacular.language)
     end
-    
+  
     # TODO: each new_vernacular_names needs :language
     new_vernacular_names.each do |name|
       VernacularName.create!(:node => merged_node, :name => name, :language => nil)
@@ -41,14 +41,14 @@ class ActionNodeToSynonym < ActionCommand
     new_json_message = JSON.parse(json_message, :symbolize_keys => true)
     self.json_message = new_json_message.merge({ :undo => { :merged_node_id => merged_node.id } }).to_json
     save!
-    
+  
     Synonym.create(:node => merged_node, :name => node.name, :status => nil)
-    
+  
     @destination_node.children.each do |child|
       child.parent_id = merged_node.id
-      child.save!
+     child.save!
     end
-    
+  
     node.delete_softly
     @destination_node.delete_softly
   end

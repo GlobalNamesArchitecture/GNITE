@@ -12,7 +12,6 @@ class ActionBulkCopyNode < ActionCommand
   end
 
   def do_action
-    #TODO add transaction
     node_ids = []
     @json_do.each do |i|
       node = Node.find(i) rescue nil
@@ -26,7 +25,6 @@ class ActionBulkCopyNode < ActionCommand
   end
 
   def undo_action
-    #TODO add transaction
     @json_undo.each do |i|
       node = Node.find(i) rescue nil
       node.destroy_with_children

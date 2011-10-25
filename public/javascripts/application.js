@@ -2268,7 +2268,26 @@ GNITE.Tree.Node.buildMetadata = function(container, data) {
 
   "use strict";
 
+   var key = "", wrapper = "";
+
   container.find("span.namestring").text(data.name).attr("data-node-id", data.id);
+
+  $.each(data.reconciliation, function(k, v) {
+    wrapper = container.find(".node-" + k + "-content ul.topnav");
+    wrapper.children("li." + k).remove();
+    $.each(v, function() {
+      wrapper.prepend("<li id=\"" + k + "-" + this.metadata.id.toString() + "\" class=\"" + k + "\">"+this.name_string+"</li>");
+    });
+    if(v.length === 0) {
+      wrapper.prepend("<li class=\"" + k + " metadata-none\">None</li>");
+    }
+  });
+
+  if(data.rank) {
+    container.find('.node-rank-content ul.topnav li.rank').removeClass("metadata-none").text(data.rank);
+  } else {
+    container.find('.node-rank-content ul.topnav li.rank').addClass("metadata-none").text("None");
+  }
 
 };
 
@@ -2420,7 +2439,7 @@ GNITE.Tree.MasterTree.editMetadata = function(elem, type, action, autocomplete_u
       elem.removeClass("active-edit");
       if(t !== v) {
         container.spinner();
-        if(type === "ranks") {
+        if(type === "rank") {
           $.ajax({
             type        : 'PUT',
             async       : true,

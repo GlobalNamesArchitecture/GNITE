@@ -840,6 +840,7 @@ input.disabled {
 
 .node-metadata .breadcrumbs ul {
   padding:5px 10px;
+  height:20px;
 }
 
 .node-metadata .ui-tabs-nav .ui-state-default {
@@ -899,28 +900,29 @@ input.disabled {
   min-height:41px;
 }
 
-.node-metadata .metadata-section ul.topnav a {
+
+.node-metadata .metadata-content ul.topnav a {
   padding:0px;
 }
 
-#treewrap-main .metadata-section ul.topnav li {
+#treewrap-main .metadata-content ul.topnav li {
   cursor:pointer;
 }
 
-.node-metadata .metadata-section .ddsmoothmenu ul.topnav {
+.node-metadata .metadata-content .ddsmoothmenu ul.topnav {
   padding-bottom:5px;
 }
 
-.node-metadata .metadata-section .ddsmoothmenu ul.topnav li span {
+.node-metadata .metadata-content .ddsmoothmenu ul.topnav li span {
   position:inherit;
 }
 
-.node-metadata .metadata-section .ddsmoothmenu ul.topnav img.downarrowclass {
+.node-metadata .metadata-content .ddsmoothmenu ul.topnav img.downarrowclass {
   top:8px;
   right:4px;
 }
 
-.node-metadata .metadata-section .ddsmoothmenu ul.topnav ul.subnav li {
+.node-metadata .metadata-content .ddsmoothmenu ul.topnav ul.subnav li {
   border:0px;
   border-radius:0px;
   -moz-border-radius:0px;
@@ -931,7 +933,7 @@ input.disabled {
   white-space:nowrap;
 }
 
-.node-metadata .metadata-section .ddsmoothmenu ul.topnav ul.subnav li a {
+.node-metadata .metadata-content .ddsmoothmenu ul.topnav ul.subnav li a {
   padding:5px 5px 5px 25px;
   margin:0px;
   min-width:0px;
@@ -945,13 +947,13 @@ input.disabled {
   min-height:35px;
 }
 
-.node-metadata .metadata-section:last-child .lists {
+.node-metadata .metadata-content:last-child .lists {
   border-radius:0px 0px 8px 8px;
   -moz-border-radius: 0px 0px 8px 8px;
   -webkit-border-radius: 0px 0px 8px 8px;
 }
 
-.node-metadata .metadata-section ul li.jstree-drop {
+.node-metadata .metadata-content ul li.jstree-drop {
   background:transparent;
   border: 1px dotted #BABFC3;
   border-radius: 0px;
@@ -961,7 +963,7 @@ input.disabled {
   cursor:auto !important;
 }
 
-.node-metadata .metadata-section ul li {
+.node-metadata .node-metadata-content ul li {
   background: none repeat scroll 0 0 #E6E6E6;
   border: 1px solid #BABFC3;
   border-radius: 8px;
@@ -973,7 +975,7 @@ input.disabled {
   position:relative;
 }
 
-.node-metadata .metadata-section ul li.metadata-add {
+.node-metadata .node-metadata-content ul li.metadata-add {
   height:15px;
   min-width:24px;
 }

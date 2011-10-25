@@ -11,7 +11,6 @@ class ActionCopyNodeFromAnotherTree < ActionCommand
   end
 
   def do_action
-    #TODO add transaction
     copy_node = node.deep_copy_to(@destination_node.tree)
     copy_node.parent_id = @destination_node.id
     copy_node.save!
