@@ -2280,8 +2280,6 @@ GNITE.Tree.Node.buildMetadata = function(container, data) {
     wrapper.children("li." + k).remove();
     $.each(v, function() {
       wrapper.prepend("<li id=\"" + k + "-" + this.metadata.id.toString() + "\" class=\"" + k + "\">"+this.name_string+"</li>");
-      if(container.parent().parent().attr("id") === "treewrap-main") {
-      }
     });
     if(v.length === 0) {
       wrapper.prepend("<li class=\"" + k + " metadata-none\">None</li>");
