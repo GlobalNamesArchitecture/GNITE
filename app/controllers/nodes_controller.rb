@@ -38,9 +38,9 @@ class NodesController < ApplicationController
       :name        => node.name_string,
       :rank        => node.rank_string,
       :reconciliation => {
-        :synonyms    => node.synonym_data,
-        :vernaculars => node.vernacular_data,
-        :lexicals    => node.lexical_data
+        :synonyms         => node.synonym_data,
+        :lexical_variants => node.lexical_data,
+        :vernacular_names => node.vernacular_data
       }
     }
     

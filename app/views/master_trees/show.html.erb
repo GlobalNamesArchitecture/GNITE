@@ -29,7 +29,7 @@
         </div>
       </div>
 
-      <%= render :partial => 'shared/node_metadata.html', :locals => { :tabs => ["synonyms", "lexicals", "vernaculars", "rank"], :tree_type => 'MasterTree' } %>
+      <%= render :partial => 'shared/node_metadata.html', :locals => { :tabs => ["synonyms", "lexical_variants", "vernacular_names", "rank"], :tree_type => 'MasterTree' } %>
 
       <div id="merge-warning">
         <ul><li>
@@ -47,12 +47,6 @@
   </div>
 
 </div>
-
-<!--
-<% ['synonym', 'vernacular', 'lexical'].each do |type| %>
-  <%= render :partial => 'context.html', :locals => { :type => type } %>
-<% end %>
--->
 
 <%= render :partial => 'bulkcreate_form.html' %>
 

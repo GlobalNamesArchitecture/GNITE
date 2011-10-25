@@ -38,17 +38,17 @@ class Node < ActiveRecord::Base
 
   def synonym_data
     res = synonyms.all.map { |s| { :name_string => s.name.name_string, :metadata => symbolize_keys(s.attributes) } }
-    res.sort { |a,b| a[:name_string] <=> b[:name_string] }
+    res.sort { |a,b| b[:name_string] <=> a[:name_string] }
   end
   
   def vernacular_data
     res = vernacular_names.all.map { |v| { :name_string => v.name.name_string, :metadata => v.language.nil? ? symbolize_keys(v.attributes.merge(:language => {:id => nil, :name => nil})) : symbolize_keys(v.attributes.merge(:language => v.language.attributes)) } }
-    res.sort { |a,b| a[:name_string] <=> b[:name_string] }
+    res.sort { |a,b| b[:name_string] <=> a[:name_string] }
   end
   
   def lexical_data
     res = lexical_variants.all.map { |l| { :name_string => l.name.name_string, :metadata => symbolize_keys(l.attributes) } }
-    res.sort { |a,b| a[:name_string] <=> b[:name_string] }
+    res.sort { |a,b| b[:name_string] <=> a[:name_string] }
   end
   
   def rank_string

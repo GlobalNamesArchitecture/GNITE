@@ -862,19 +862,6 @@ input.disabled {
   -webkit-border-radius: 0 0 8px 8px;
 }
 
-.node-metadata .metadata-section {
-  background: #BABFC3;
-  border-top: 1px solid #dadddf;
-  margin: 0;
-  padding: 0;
-}
-
-.node-metadata .metadata-section:last-child {
-  border-radius:0px 0px 8px 8px;
-  -moz-border-radius:0px 0px 8px 8px;
-  -webkit-border-radius:0px 0px 8px 8px;
-}
-
 .node-metadata .ui-dialog-titlebar-close {
   height: 16px;
   padding: 0;
@@ -901,28 +888,28 @@ input.disabled {
 }
 
 
-.node-metadata .metadata-content ul.topnav a {
+.node-metadata .node-metadata-content ul.topnav a {
   padding:0px;
 }
 
-#treewrap-main .metadata-content ul.topnav li {
+#treewrap-main .node-metadata-content ul.topnav li {
   cursor:pointer;
 }
 
-.node-metadata .metadata-content .ddsmoothmenu ul.topnav {
+.node-metadata .ddsmoothmenu ul.topnav {
   padding-bottom:5px;
 }
 
-.node-metadata .metadata-content .ddsmoothmenu ul.topnav li span {
+.node-metadata .ddsmoothmenu ul.topnav li span {
   position:inherit;
 }
 
-.node-metadata .metadata-content .ddsmoothmenu ul.topnav img.downarrowclass {
+.node-metadata .ddsmoothmenu ul.topnav img.downarrowclass {
   top:8px;
   right:4px;
 }
 
-.node-metadata .metadata-content .ddsmoothmenu ul.topnav ul.subnav li {
+.node-metadata .ddsmoothmenu ul.topnav ul.subnav li {
   border:0px;
   border-radius:0px;
   -moz-border-radius:0px;
@@ -933,7 +920,7 @@ input.disabled {
   white-space:nowrap;
 }
 
-.node-metadata .metadata-content .ddsmoothmenu ul.topnav ul.subnav li a {
+.node-metadata .ddsmoothmenu ul.topnav ul.subnav li a {
   padding:5px 5px 5px 25px;
   margin:0px;
   min-width:0px;
@@ -947,13 +934,13 @@ input.disabled {
   min-height:35px;
 }
 
-.node-metadata .metadata-content:last-child .lists {
+.node-metadata .node-metadata-content:last-child .lists {
   border-radius:0px 0px 8px 8px;
   -moz-border-radius: 0px 0px 8px 8px;
   -webkit-border-radius: 0px 0px 8px 8px;
 }
 
-.node-metadata .metadata-content ul li.jstree-drop {
+.node-metadata .node-metadata-content ul li.jstree-drop {
   background:transparent;
   border: 1px dotted #BABFC3;
   border-radius: 0px;
