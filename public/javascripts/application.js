@@ -2237,7 +2237,15 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
 
   var self = this;
 
-  container.show();
+  container.find(".node-metadata-content .topnav li").each(function() {
+    if(!$(this).hasClass("metadata-add")) { $(this).remove(); }
+  });
+
+  container.show().find(".ui-icon").click(function() {
+    container.hide();
+    wrapper.css('bottom', '20px');
+    return false;
+  });
   self.metadataSpinner(container);
 
   $.ajax({
@@ -2251,20 +2259,13 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
     success     : function(data) {
       self.buildMetadata(container, data);
       wrapper.css('bottom', container.height());
-      container.find(".ui-icon").click(function() {
-        container.hide();
-        wrapper.css('bottom', '20px');
-        return false;
-      });
       if(wrapper.find("#master-tree").length) {
         self.adjustMasterTreeMetadata(container);
       }
       wrapper.css('bottom', container.height());
+      self.metadataUnspinner(container);
     }
   });
-
-  self.metadataUnspinner(container);
-
 };
 
 GNITE.Tree.Node.buildMetadata = function(container, data) {
@@ -2273,15 +2274,10 @@ GNITE.Tree.Node.buildMetadata = function(container, data) {
 
    var key = "", wrapper = "";
 
-  container.find(".node-metadata-content .topnav li").each(function() {
-    if(!$(this).hasClass("metadata-add") && !$(this).hasClass("metadata-none")) { $(this).remove(); }
-  });
-
   container.find("span.namestring").text(data.name).attr("data-node-id", data.id);
 
   $.each(data.reconciliation, function(k, v) {
     wrapper = container.find(".node-" + k + "-content ul.topnav");
-    wrapper.children("li." + k).remove();
     $.each(v, function() {
       wrapper.prepend("<li id=\"" + k + "-" + this.metadata.id.toString() + "\" class=\"" + k + "\">"+this.name_string+"</li>");
     });
@@ -2297,9 +2293,9 @@ GNITE.Tree.Node.buildMetadata = function(container, data) {
   });
 
   if(data.rank) {
-    container.find('.node-rank-content ul.topnav li.rank').removeClass("metadata-none").text(data.rank);
+    container.find('.node-rank-content ul.topnav').append('<li class=\"rank\">'+data.rank+'</li>');
   } else {
-    container.find('.node-rank-content ul.topnav li.rank').addClass("metadata-none").text("None");
+    container.find('.node-rank-content ul.topnav').append('<li class=\"rank metadata-none\">None</li>');
   }
 
 };
@@ -2326,7 +2322,7 @@ GNITE.Tree.Node.adjustMasterTreeMetadata = function(container) {
   container.find("li.rank, li.synonyms, li.vernacular_names, li.lexical_variants, li.metadata-add").each(function() {
     var elem = $(this), type = elem.parent().parent().attr("data-type");
 
-    elem.not('.metadata-add').click(function() { return false; });
+    elem.click(function() { return false; });
 
     if(elem.hasClass("synonyms") || elem.hasClass("vernacular_names") || elem.hasClass("lexical_variants")) {
       elem.contextMenu(elem.attr("class") + '-context', {
@@ -2351,7 +2347,7 @@ GNITE.Tree.Node.adjustMasterTreeMetadata = function(container) {
          'onContextMenu' : function() { elem.find('ul.subnav').hide(); return true; }
        }).find("a:first").dblclick(function() {
          elem.unbind('dblclick');
-         if($(this).hasClass("metadata-none")) {
+         if(elem.hasClass("metadata-none")) {
            self.editMetadata(elem, type, "POST");
          } else {
            self.editMetadata(elem, type, "PUT");
@@ -2435,6 +2431,7 @@ GNITE.Tree.Node.editMetadata = function(elem, type, action, autocomplete_url) {
       input     = "";
 
   elem.find("ul.subnav").hide();
+  elem.siblings('.metadata-none').remove();
 
   if(elem.hasClass("metadata-add")) {
     elem.before("<li><a href=\"#\" class=\"selected\"><span>&nbsp;</span></a></li>").prev().addClass("active-edit").find("a.selected").css({"width" : width});
