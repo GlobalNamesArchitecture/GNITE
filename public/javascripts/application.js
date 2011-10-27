@@ -2355,8 +2355,10 @@ GNITE.Tree.Node.buildVernacularMenu = function(wrapper, data) {
   "use strict";
 
   var language = (data.metadata.language.name) ? data.metadata.language.name : "";
-
-  $("li:last", wrapper).append("<ul class=\"subnav\"><li><label for=\"vernacular-language-"+data.metadata.id.toString()+"\">Language</label><input id=\"vernacular-language-"+data.metadata.id.toString()+"\" type=\"text\" class=\"metadata-autocomplete\" value=\""+ language +"\" data-terms=\"url:/languages.json\" data-term-id=\""+data.metadata.language.id+"\" /></li></ul>");
+  $("li:last", wrapper).append($("#vernacular-context").html())
+    .find("label").attr("for", "vernacular-language-" + data.metadata.id.toString())
+    .end()
+    .find("input").attr("id", "vernacular-language-" + data.metadata.id.toString()).val(language).attr("data-term-id", data.metadata.language.id);
 };
 
 GNITE.Tree.Node.buildSynonymMenu = function(wrapper, data) {
@@ -2367,8 +2369,6 @@ GNITE.Tree.Node.buildSynonymMenu = function(wrapper, data) {
     $(this).removeClass("nav-view-checked");
     if($(this).text() === data.metadata.status) { $(this).addClass("nav-view-checked"); }
   });
-  
-
 };
 
 GNITE.Tree.Node.adjustMasterTreeMetadata = function(container) {

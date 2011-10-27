@@ -1161,10 +1161,6 @@ input.disabled {
 .node-metadata ul li a.selected, .node-metadata ul li a:hover { background-color:transparent; }
 .node-metadata ul li ul li a.selected, .node-metadata ul li ul li a:hover { background-color:#BABFC3; }
 
-#synonym-context {
-  float:left;
-}
-
 
 /* SEARCHBAR ABOVE TREES */
 .searchbar {
@@ -2310,8 +2306,8 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   background-color:#FFB6C1;
 }
 
-/* Synonym Context Menu */
-#synonym-context {
+/* Synonym & Vernacular Context Menus */
+#synonym-context, #vernacular-context {
   display:none;
 }
 
