@@ -39,12 +39,14 @@ $(function() {
   $('.ui-tabs-nav a').click(function() {
     GNITE.toggleTab(this);
     return false;
-  }).each(function() {
+  });
+
+  $('.node-metadata .ui-tabs-nav a').each(function() {
     var elem = $(this);
-    elem.mouseover(function(e){
-      elem.doTimeout('hover', 500, GNITE.toggleTab, e.target);
+    elem.mouseover(function(e) {
+      elem.doTimeout('hover', 1000, GNITE.toggleTab, e.target);
     }).mouseout(function() {
-      elem.doTimeout('hover', 500, GNITE.toggleTab);
+      elem.doTimeout('hover');
     });
   });
 
@@ -2309,7 +2311,7 @@ GNITE.Tree.Node.buildMetadata = function(container, data) {
 
   "use strict";
 
-   var key = "", wrapper = "", language = "";
+   var self = this, key = "", wrapper = "";
 
   container.find("span.namestring").text(data.name).attr("data-node-id", data.id);
 
@@ -2320,16 +2322,14 @@ GNITE.Tree.Node.buildMetadata = function(container, data) {
   $.each(data.reconciliation, function(k, v) {
     wrapper = container.find(".node-" + k + "-content").attr("id",k + "-" + data.id.toString()).find("ul.topnav");
     $.each(v, function() {
-      language = "";
       wrapper.append("<li id=\"" + k + "-" + this.metadata.id.toString() + "\" class=\"" + k + "\">"+this.name_string+"</li>");
       if(container.parent().parent().attr("id") === "treewrap-main") {
         $("li:last", wrapper).wrapInner("<a href=\"#\"><span></span></a>");
         if(k === "vernacular_names") {
-          language = (this.metadata.language.name) ? this.metadata.language.name : "";
-          $("li:last", wrapper).append("<ul class=\"subnav\"><li><label for=\"vernacular-language-"+this.metadata.id.toString()+"\">Language</label><input id=\"vernacular-language-"+this.metadata.id.toString()+"\" type=\"text\" class=\"metadata-autocomplete\" value=\""+ language +"\" data-terms=\"url:/languages.json\" data-term-id=\""+this.metadata.language.id+"\" /></li></ul>");
+          self.buildVernacularMenu(wrapper, this);
         }
         if(k === "synonyms") {
-          //TODO: add selections for synonyms
+          self.buildSynonymMenu(wrapper, this);
         }
       }
     });
@@ -2347,6 +2347,21 @@ GNITE.Tree.Node.buildMetadata = function(container, data) {
   } else {
     container.find('.node-rank-content ul.topnav').append('<li class=\"rank metadata-none\">None</li>');
   }
+
+};
+
+GNITE.Tree.Node.buildVernacularMenu = function(wrapper, data) {
+
+  "use strict";
+
+  var language = (data.metadata.language.name) ? data.metadata.language.name : "";
+
+  $("li:last", wrapper).append("<ul class=\"subnav\"><li><label for=\"vernacular-language-"+data.metadata.id.toString()+"\">Language</label><input id=\"vernacular-language-"+data.metadata.id.toString()+"\" type=\"text\" class=\"metadata-autocomplete\" value=\""+ language +"\" data-terms=\"url:/languages.json\" data-term-id=\""+data.metadata.language.id+"\" /></li></ul>");
+};
+
+GNITE.Tree.Node.buildSynonymMenu = function(wrapper, data) {
+
+  "use strict";
 
 };
 
@@ -2370,7 +2385,7 @@ GNITE.Tree.Node.adjustMasterTreeMetadata = function(container) {
   });
 
   $.each($("li", container), function() {
-    var elem = $(this), type = $(this).parent().parent().attr("data-type");
+    var elem = $(this), type = $(this).parent().attr("data-type");
 
     elem.click(function() { return false; });
 
