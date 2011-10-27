@@ -14,7 +14,8 @@ var GNITE = GNITE || {
   jug     : {},
   channel : "",
   token   : "",
-  user_id : ""
+  user_id : "",
+  tabTimer : null
 };
 
 if (typeof window !== 'undefined' && typeof window.WEB_SOCKET_SWF_LOCATION === 'undefined') {
@@ -35,6 +36,25 @@ $(function() {
   GNITE.jug.meta = { master_tree_id: GNITE.Tree.MasterTree.id, user_id: GNITE.user_id };
   GNITE.jug.on("connect", function() { "use strict"; $('#master-tree').addClass("socket-active"); });
   GNITE.jug.on("disconnect", function() { "use strict"; $('#master-tree').removeClass("socket-active"); });
+
+  $('.ui-tabs-nav a').click(function() {
+    GNITE.toggleTab(this);
+    return false;
+  }).mouseover(function() {
+    var self = this;
+    if (GNITE.tabTimer) { clearTimeout(GNITE.tabTimer); }
+    GNITE.tabTimer = setTimeout(function() {
+      GNITE.toggleTab(self);
+    }, 1000);
+  });
+
+  $('body').click(function(event) {
+    if($(event.target).parent('.ui-tabs').length === 0 || event.target.nodeName != 'A') {
+      $('.ui-tabs').find('.ui-tabs-selected').each(function() {
+        if($(this).children("ul").length > 0) { $(this).removeClass('ui-tabs-selected ui-state-active'); }
+      });
+    }
+  });
 
   /**************************************************************
            TREE CONFIGURATION
@@ -1432,6 +1452,19 @@ GNITE.cleanArray = function(element) {
   }
 };
 
+GNITE.toggleTab = function(obj) {
+  if ($(obj).attr('id') === "all-tabs") {
+    $('#reference-trees').parent().toggleClass('ui-tabs-selected ui-state-active');
+  } else {
+    var ele = $(obj).attr('href');
+    $(obj).closest('.ui-tabs').children('.ui-tabs-panel').addClass('ui-tabs-hide');
+    $(obj).closest('.ui-tabs').children('.ui-tabs-nav').children('.ui-tabs-nav li').removeClass('ui-tabs-selected ui-state-active');
+
+    $(obj).closest('.ui-tabs').find(ele).removeClass('ui-tabs-hide');
+    $(obj).parent().addClass('ui-tabs-selected ui-state-active');
+  }
+};
+
 GNITE.Tree.hideMenu = function() {
 
   "use strict";
@@ -2053,14 +2086,15 @@ GNITE.Tree.MasterTree.externalDropped = function(data) {
       dest        = self.find(".jstree-clicked").parent("li"),
       dest_parent = dest.parent().parent(),
       type        = data.r.attr("data-type"),
-      metadata    = self.parents(".tree-background").find(".node-metadata");
+      metadata    = self.parents(".tree-background").find(".node-metadata"),
+      action_type = (type === "synonyms") ? "ActionNodeToSynonym" : "ActionNodeToLexicals";
 
   if($('#' + node.attr("id")).parents().is("#master-tree")) {
     $.ajax({
       type        : 'POST',
       async       : false,
       url         : '/master_trees/' + GNITE.Tree.MasterTree.id + '/nodes.json',
-      data        : JSON.stringify({ 'new_node' : { 'id' : node.attr("id"), 'destination_node_id' : dest.attr("id"), 'destination_parent_id' : dest_parent.attr("id") }, 'json_message' : { }, 'action_type' : "ActionNodeToSynonym" }),
+      data        : JSON.stringify({ 'new_node' : { 'id' : node.attr("id"), 'destination_node_id' : dest.attr("id"), 'destination_parent_id' : dest_parent.attr("id") }, 'json_message' : { }, 'action_type' : action_type }),
       contentType : 'application/json',
       dataType    : 'json',
       beforeSend  : function(xhr) {
@@ -2285,6 +2319,9 @@ GNITE.Tree.Node.buildMetadata = function(container, data) {
         if(k === "vernacular_names") {
           language = (this.metadata.language.name) ? this.metadata.language.name : "";
           $("li:last", wrapper).append("<ul class=\"subnav\"><li><label for=\"vernacular-language-"+this.metadata.id.toString()+"\">Language</label><input id=\"vernacular-language-"+this.metadata.id.toString()+"\" type=\"text\" class=\"metadata-autocomplete\" value=\""+ language +"\" data-terms=\"url:/languages.json\" data-term-id=\""+this.metadata.language.id+"\" /></li></ul>");
+        }
+        if(k === "synonyms") {
+          //TODO: add selections for synonyms
         }
       }
     });

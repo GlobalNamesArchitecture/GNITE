@@ -3,9 +3,9 @@
         <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header">
           <% tabs.each_with_index do |tab, index| %>
             <% if index == 0 %>
-              <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#node-<%= tab %>-wrapper"><%= tab.capitalize %></a></li>
+              <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active<%= (tab == 'lexical_variants' || tab == 'synonyms') ? " jstree-drop" : "" %>"><a href="#node-<%= tab %>-wrapper" data-type="<%= tab %>"><%= tab.capitalize %></a></li>
             <% else %>
-              <li class="ui-state-default ui-corner-top"><a href="#node-<%= tab %>-wrapper"><%= tab.titleize %></a></li>
+              <li class="ui-state-default ui-corner-top<%= (tab == 'lexical_variants' || tab == 'synonyms') ? " jstree-drop" : "" %>"><a href="#node-<%= tab %>-wrapper" data-type="<%= tab %>"><%= tab.titleize %></a></li>
             <% end %>
           <% end %>
         </ul>
@@ -21,8 +21,8 @@
                   </li>
                 </ul>
               </div>
-              <div class="node-metadata-content node-<%= tab %>-content ddsmoothmenu<%= (tab == 'lexical_variants' || tab == 'synonyms') ? " jstree-drop" : "" %>" data-type="<%= tab %>">
-                <ul class="topnav clearfix">
+              <div class="node-metadata-content node-<%= tab %>-content ddsmoothmenu<%= (tab == 'lexical_variants' || tab == 'synonyms') ? " jstree-drop" : "" %>">
+                <ul class="topnav clearfix" data-type="<%= tab %>">
                 </ul>
               </div>
             </div>
