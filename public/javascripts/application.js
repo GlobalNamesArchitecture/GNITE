@@ -2267,7 +2267,7 @@ GNITE.Tree.Node.buildMetadata = function(container, data) {
 
   "use strict";
 
-   var key = "", wrapper = "";
+   var key = "", wrapper = "", language = "";
 
   container.find("span.namestring").text(data.name).attr("data-node-id", data.id);
 
@@ -2276,17 +2276,23 @@ GNITE.Tree.Node.buildMetadata = function(container, data) {
   });
 
   $.each(data.reconciliation, function(k, v) {
-    wrapper = container.find(".node-" + k + "-content ul.topnav");
+    wrapper = container.find(".node-" + k + "-content").attr("id",k + "-" + data.id.toString()).find("ul.topnav");
     $.each(v, function() {
+      language = "";
       wrapper.append("<li id=\"" + k + "-" + this.metadata.id.toString() + "\" class=\"" + k + "\">"+this.name_string+"</li>");
+      if(container.parent().parent().attr("id") === "treewrap-main") {
+        $("li:last", wrapper).wrapInner("<a href=\"#\"><span></span></a>");
+        if(k === "vernacular_names") {
+          language = (this.metadata.language.name) ? this.metadata.language.name : "";
+          $("li:last", wrapper).append("<ul class=\"subnav\"><li><label for=\"vernacular-language-"+this.metadata.id.toString()+"\">Language</label><input id=\"vernacular-language-"+this.metadata.id.toString()+"\" type=\"text\" class=\"metadata-autocomplete\" value=\""+ language +"\" data-terms=\"url:/languages.json\" data-term-id=\""+this.metadata.language.id+"\" /></li></ul>");
+        }
+      }
     });
     if(v.length === 0) {
       wrapper.append("<li class=\"" + k + " metadata-none\">None</li>");
-    }
-    if(container.parent().parent().attr("id") === "treewrap-main") {
-      $.each($("li." + k, wrapper), function() {
-        $(this).wrapInner("<a href=\"#\"><span></span></a>");
-      });
+      if(container.parent().parent().attr("id") === "treewrap-main") {
+        $("li:last", wrapper).wrapInner("<a href=\"#\"><span></span></a>");
+      }
     }
     if(k !== "rank") { wrapper.append("<li class=\"metadata-add green-submit-small\">Add</li>"); }
   });
