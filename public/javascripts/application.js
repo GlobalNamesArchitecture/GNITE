@@ -1364,7 +1364,7 @@ $(function() {
       break;
 
       case 'metadata':
-        GNITE.Tree.MasterTree.refreshMetadata(response.action.node_id);
+        GNITE.Tree.Node.refreshMetadata(response.action.node_id);
       break;
 
       case 'roster':
@@ -2237,10 +2237,6 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
 
   var self = this;
 
-  container.find(".node-metadata-content .topnav li").each(function() {
-    if(!$(this).hasClass("metadata-add")) { $(this).remove(); }
-  });
-
   container.show().find(".ui-icon").click(function() {
     container.hide();
     wrapper.css('bottom', '20px');
@@ -2259,10 +2255,9 @@ GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
     success     : function(data) {
       self.buildMetadata(container, data);
       wrapper.css('bottom', container.height());
-      if(wrapper.find("#master-tree").length) {
+      if(wrapper.find("#master-tree").length > 0) {
         self.adjustMasterTreeMetadata(container);
       }
-      wrapper.css('bottom', container.height());
       self.metadataUnspinner(container);
     }
   });
@@ -2276,20 +2271,24 @@ GNITE.Tree.Node.buildMetadata = function(container, data) {
 
   container.find("span.namestring").text(data.name).attr("data-node-id", data.id);
 
+  $.each($(".node-metadata-content ul.topnav li", container), function() {
+    $(this).remove();
+  });
+
   $.each(data.reconciliation, function(k, v) {
     wrapper = container.find(".node-" + k + "-content ul.topnav");
     $.each(v, function() {
-      wrapper.prepend("<li id=\"" + k + "-" + this.metadata.id.toString() + "\" class=\"" + k + "\">"+this.name_string+"</li>");
+      wrapper.append("<li id=\"" + k + "-" + this.metadata.id.toString() + "\" class=\"" + k + "\">"+this.name_string+"</li>");
     });
     if(v.length === 0) {
-      wrapper.prepend("<li class=\"" + k + " metadata-none\">None</li>");
-    } else {
-      if(container.parent().parent().attr("id") === "treewrap-main") {
-        $.each($("li." + k, wrapper), function() {
-          $(this).wrapInner("<a href=\"#\"><span></span></a>");
-        });
-      }
+      wrapper.append("<li class=\"" + k + " metadata-none\">None</li>");
     }
+    if(container.parent().parent().attr("id") === "treewrap-main") {
+      $.each($("li." + k, wrapper), function() {
+        $(this).wrapInner("<a href=\"#\"><span></span></a>");
+      });
+    }
+    if(k !== "rank") { wrapper.append("<li class=\"metadata-add green-submit-small\">Add</li>"); }
   });
 
   if(data.rank) {
@@ -2319,18 +2318,18 @@ GNITE.Tree.Node.adjustMasterTreeMetadata = function(container) {
     });
   });
 
-  container.find("li.rank, li.synonyms, li.vernacular_names, li.lexical_variants, li.metadata-add").each(function() {
-    var elem = $(this), type = elem.parent().parent().attr("data-type");
+  $.each($("li", container), function() {
+    var elem = $(this), type = $(this).parent().parent().attr("data-type");
 
     elem.click(function() { return false; });
 
     if(elem.hasClass("synonyms") || elem.hasClass("vernacular_names") || elem.hasClass("lexical_variants")) {
       elem.contextMenu(elem.attr("class") + '-context', {
         'bindings' : {
-          'nav-edit-rename' : function(t) {
+          'nav-edit-rename' : function() {
             self.editMetadata(elem, type, "PUT");
            },
-           'nav-edit-delete' : function(t) {
+           'nav-edit-delete' : function() {
              self.metadataSpinner(container);
              self.reconciliation({ 
                type           : type, 
@@ -2352,10 +2351,11 @@ GNITE.Tree.Node.adjustMasterTreeMetadata = function(container) {
          } else {
            self.editMetadata(elem, type, "PUT");
          }
+         return false;
        });
 
        elem.find("ul.subnav li a").click(function() {
-         self.updateMetadata(elem, type, node_id, this);
+         self.updateMetadata($(this), type, node_id, this);
          return false;
        });
 
@@ -2365,12 +2365,16 @@ GNITE.Tree.Node.adjustMasterTreeMetadata = function(container) {
 
      } else if(elem.hasClass("rank")) {
        elem.dblclick(function() {
-         elem.unbind('dblclick');
-         self.editMetadata(elem, type, "PUT", '/vocabularies/rank.json');
+         $(this).unbind('dblclick');
+         self.editMetadata($(this), type, "PUT", '/vocabularies/rank.json');
+         return false;
        });
 
      } else if(elem.hasClass("metadata-add")) {
-       elem.click(function() { self.editMetadata(elem, type, "POST"); });
+       elem.click(function() {
+         self.editMetadata($(this), type, "POST");
+         return false;
+       });
      }
    });
 };
@@ -2434,32 +2438,34 @@ GNITE.Tree.Node.editMetadata = function(elem, type, action, autocomplete_url) {
   elem.siblings('.metadata-none').remove();
 
   if(elem.hasClass("metadata-add")) {
-    elem.before("<li><a href=\"#\" class=\"selected\"><span>&nbsp;</span></a></li>").prev().addClass("active-edit").find("a.selected").css({"width" : width});
+    elem.before("<li class=\"active-edit\"><a href=\"#\"><span>&nbsp;</span></a></li>").prev().find("a").css({"width" : width});
   } else {
-    elem.addClass("active-edit").removeClass("jstree-draggable").unbind('mouseenter mouseleave').find("a:first").css({"width" : width});
-    t = elem.find("a:first span").text();
+    elem.removeClass("jstree-draggable").addClass("active-edit").unbind('mouseenter mouseleave').find("a:first").css({"width" : width});
+    t = elem.text();
   }
 
-  elem.find("a.selected").css({"width" : width});
-
   input =  $("<input />", { 
-    "value"        : t,
+    "value"        : (t === "None") ? "" : t,
     "class"        : "metadata-input",
     "name"         : type,
     "type"         : "text",
     "data-term-id" : "",
     "css"          : {"width" : width},
     "blur"         : $.proxy(function() {
-      var i = (elem.hasClass("metadata-add")) ? elem.prev().children(".metadata-input") : elem.children(".metadata-input"),
+      var i = (elem.hasClass("metadata-add")) ? elem.prev().find(".metadata-input") : elem.find(".metadata-input"),
           v = i.val();
 
       if(v === "") { v = t; }
-      if(elem.hasClass("metadata-add")) { elem.prev().text(v); } else { elem.text(v); }
       i.remove();
-      elem.removeClass("active-edit");
+      if(elem.hasClass("metadata-add")) {
+        elem.show().prev().removeClass("active-edit").find("a:first span").text(v);
+      } else {
+        elem.removeClass("active-edit").parent().find(".metadata-add").show().end().end().find("a:first span").text(v).parent().css({"width":""});
+      }
       if(t !== v) {
         self.metadataSpinner(container);
         if(type === "rank") {
+          elem.text(v);
           $.ajax({
             type        : 'PUT',
             async       : true,
@@ -2470,6 +2476,9 @@ GNITE.Tree.Node.editMetadata = function(elem, type, action, autocomplete_url) {
             beforeSend  : function(xhr) {
               xhr.setRequestHeader("X-CSRF-Token", GNITE.token);
               xhr.setRequestHeader("X-Session-ID", GNITE.jug.sessionID);
+            },
+            success     : function(data) {
+              self.refreshMetadata(node_id);
             }
           });
         } else {
@@ -2486,9 +2495,6 @@ GNITE.Tree.Node.editMetadata = function(elem, type, action, autocomplete_url) {
         self.metadataUnspinner(container);
       }
       t = v;
-      $('#master-tree').jstree("deselect_all").jstree("select_node", $('#' + node_id));
-      container.find(".active-edit").remove();
-      container.find(".metadata-add").show();
     }, this),
     "keyup" : function(event) {
       var key = event.keyCode || event.which;
@@ -2503,12 +2509,12 @@ GNITE.Tree.Node.editMetadata = function(elem, type, action, autocomplete_url) {
   });
 
   if(elem.hasClass("metadata-add")) {
-    elem.prev().append(input).children(".metadata-input").focus();
-    if(autocomplete_url) { $(".metadata-input").inlineComplete({ terms: autocomplete_url }); }
+    elem.prev().append(input).find(".metadata-input").focus();
+    if(autocomplete_url) { elem.prev().find(".metadata-input").inlineComplete({ terms: autocomplete_url }); }
     elem.hide();
   } else {
-    elem.append(input).children(".metadata-input").focus();
-    if(autocomplete_url) { $(".metadata-input").inlineComplete({ terms: autocomplete_url }); }
+    elem.append(input).find(".metadata-input").focus();
+    if(autocomplete_url) { elem.find(".metadata-input").inlineComplete({ terms: autocomplete_url }); }
     elem.parent().find(".metadata-add").hide();
   }
 
@@ -2552,10 +2558,14 @@ GNITE.Tree.Node.reconciliation = function(params) {
 };
 
 GNITE.Tree.Node.refreshMetadata = function(node_id) {
-
   "use strict";
 
-  $('#master-tree').jstree("deselect_all").jstree("select_node", $('#' + node_id));
+  var self     = $('#master-tree'),
+      selected = self.jstree("get_selected");
+
+  if(selected[0].id === node_id || self.find("a.jstree-clicked").parent().attr("id") === node_id.toString()) {
+    self.jstree("deselect_all").jstree("select_node", $('#' + node_id));
+  }
 };
 
 GNITE.Tree.Node.metadataSpinner = function(container) {
