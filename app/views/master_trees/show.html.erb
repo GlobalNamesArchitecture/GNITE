@@ -50,11 +50,13 @@
 
 <%= render :partial => 'bulkcreate_form.html' %>
 
-<%= render :partial => 'reference_trees' %>
+<%= render :partial => 'reference_trees.html' %>
 
 <%= render :partial => 'merge_form.html' %>
 
 <%= render :partial => 'shared/chat_messages.html', :locals => { :editors => @editors } %>
+
+<%= render :partial => 'synonym_context.html' %>
 
 <% content_for :javascript do %>
 <%= javascript_include_tag 'application', 'juggernaut/application', 'chat', 'jstree/jquery.jstree', 'jquery.jstree.bookmarks', 'jquery.cookie', 'jquery.hotkeys', 'jquery.jstree.bulkcreate', 'jquery.jstree.undoredo', 'jquery.jstree.merge', 'jquery.spinner', 'ddsmoothmenu', 'jquery.scrollTo.min', 'jquery.extensions', 'jquery.contextMenu', 'jquery.inlinecomplete', 'jquery.ba-dotimeout.min' %>

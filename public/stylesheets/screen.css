@@ -1053,7 +1053,7 @@ input.disabled {
 
 .ddsmoothmenu ul li ul li {
   display: list-item;
-  float: none;
+  float: none !important;
 }
 
 .ddsmoothmenu ul li ul li ul {
@@ -2308,6 +2308,11 @@ ul.treelist li,  #gnaclr-search, .tree-background, #loginform .input, .green-sub
 
 input[type="text"].ui-state-error, textarea.ui-state-error {
   background-color:#FFB6C1;
+}
+
+/* Synonym Context Menu */
+#synonym-context {
+  display:none;
 }
 
 /* Chat */

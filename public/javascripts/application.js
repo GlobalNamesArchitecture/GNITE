@@ -2339,7 +2339,7 @@ GNITE.Tree.Node.buildMetadata = function(container, data) {
         $("li:last", wrapper).wrapInner("<a href=\"#\"><span></span></a>");
       }
     }
-    if(k !== "rank") { wrapper.append("<li class=\"metadata-add green-submit-small\">Add</li>"); }
+    if(container.parent().parent().attr("id") === "treewrap-main" && k !== "rank") { wrapper.append("<li class=\"metadata-add green-submit-small\">Add</li>"); }
   });
 
   if(data.rank) {
@@ -2362,6 +2362,12 @@ GNITE.Tree.Node.buildVernacularMenu = function(wrapper, data) {
 GNITE.Tree.Node.buildSynonymMenu = function(wrapper, data) {
 
   "use strict";
+
+  $("li:last", wrapper).append($("#synonym-context").html()).find(".subnav li a").each(function() {
+    $(this).removeClass("nav-view-checked");
+    if($(this).text() === data.metadata.status) { $(this).addClass("nav-view-checked"); }
+  });
+  
 
 };
 
@@ -2421,7 +2427,7 @@ GNITE.Tree.Node.adjustMasterTreeMetadata = function(container) {
        });
 
        elem.find("ul.subnav li a").click(function() {
-         self.updateMetadata($(this), type, node_id, this);
+         self.updateMetadata(elem, type, node_id, this);
          return false;
        });
 
