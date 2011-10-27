@@ -2097,7 +2097,7 @@ GNITE.Tree.MasterTree.externalDropped = function(data) {
       dest_parent = dest.parent().parent(),
       type        = data.r.attr("data-type"),
       metadata    = self.parents(".tree-background").find(".node-metadata"),
-      action_type = (type === "synonyms") ? "ActionNodeToSynonym" : "ActionNodeToLexicals";
+      action_type = (type === "synonyms") ? "ActionNodeToSynonym" : "ActionNodeToLexical";
 
   if($('#' + node.attr("id")).parents().is("#master-tree")) {
     $.ajax({

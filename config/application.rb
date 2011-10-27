@@ -63,6 +63,7 @@ module Gnite
       'ActionMoveNodeToDeletedTree',
       'ActionMoveNodeWithinTree',
       'ActionNodeToSynonym',
+      'ActionNodeToLexical',
       'ActionRenameNode'
     ],
     :undo_limit => 10,
