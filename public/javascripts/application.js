@@ -14,8 +14,7 @@ var GNITE = GNITE || {
   jug     : {},
   channel : "",
   token   : "",
-  user_id : "",
-  tabTimer : null
+  user_id : ""
 };
 
 if (typeof window !== 'undefined' && typeof window.WEB_SOCKET_SWF_LOCATION === 'undefined') {
@@ -40,12 +39,13 @@ $(function() {
   $('.ui-tabs-nav a').click(function() {
     GNITE.toggleTab(this);
     return false;
-  }).mouseover(function() {
-    var self = this;
-    if (GNITE.tabTimer) { clearTimeout(GNITE.tabTimer); }
-    GNITE.tabTimer = setTimeout(function() {
-      GNITE.toggleTab(self);
-    }, 1000);
+  }).each(function() {
+    var elem = $(this);
+    elem.mouseover(function(e){
+      elem.doTimeout('hover', 500, GNITE.toggleTab, e.target);
+    }).mouseout(function() {
+      elem.doTimeout('hover', 500, GNITE.toggleTab);
+    });
   });
 
   $('body').click(function(event) {
@@ -1445,6 +1445,9 @@ GNITE.nodeMessage = function(obj) {
 };
 
 GNITE.cleanArray = function(element) {
+
+  "use strict";
+
   if (element === null || element === '' || $.trim(element) === '') {
     return false;
   } else {
@@ -1453,10 +1456,15 @@ GNITE.cleanArray = function(element) {
 };
 
 GNITE.toggleTab = function(obj) {
+
+  "use strict";
+
+  var ele = "";
+
   if ($(obj).attr('id') === "all-tabs") {
     $('#reference-trees').parent().toggleClass('ui-tabs-selected ui-state-active');
   } else {
-    var ele = $(obj).attr('href');
+    ele = $(obj).attr('href');
     $(obj).closest('.ui-tabs').children('.ui-tabs-panel').addClass('ui-tabs-hide');
     $(obj).closest('.ui-tabs').children('.ui-tabs-nav').children('.ui-tabs-nav li').removeClass('ui-tabs-selected ui-state-active');
 
