@@ -11,16 +11,34 @@ module Gnite
         child_copy.save!
       end
 
-      vernacular_names.each do |vernacular_name|
-        vernacular_name_copy = vernacular_name.clone
-        vernacular_name_copy.node = copy
-        vernacular_name_copy.save!
-      end
-
       synonyms.each do |synonym|
         synonym_copy = synonym.clone
         synonym_copy.node = copy
         synonym_copy.save!
+        
+        synonym.lexical_variants.each do |lexical_variant|
+          lexical_variant_copy = lexical_variant.clone
+          lexical_variant_copy.lexicalable = synonym_copy
+          lexical_variant_copy.save!
+        end
+      end
+
+      vernacular_names.each do |vernacular_name|
+        vernacular_name_copy = vernacular_name.clone
+        vernacular_name_copy.node = copy
+        vernacular_name_copy.save!
+        
+        vernacular_name.lexical_variants.each do |lexical_variant|
+          lexical_variant_copy = lexical_variant.clone
+          lexical_variant_copy.lexicalable = vernacular_name_copy
+          lexical_variant_copy.save!
+        end
+      end
+
+      lexical_variants.each do |lexical_variant|
+        lexical_variant_copy = lexical_variant.clone
+        lexical_variant_copy.lexicalable = copy
+        lexical_variant_copy.save!
       end
 
       copy.reload

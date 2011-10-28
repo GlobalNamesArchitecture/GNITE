@@ -2313,7 +2313,7 @@ GNITE.Tree.Node.buildMetadata = function(container, data) {
 
   "use strict";
 
-   var self = this, key = "", wrapper = "";
+   var self = this, key = "", wrapper = "", tab;
 
   container.find("span.namestring").text(data.name).attr("data-node-id", data.id);
 
@@ -2323,6 +2323,8 @@ GNITE.Tree.Node.buildMetadata = function(container, data) {
 
   $.each(data.reconciliation, function(k, v) {
     wrapper = container.find(".node-" + k + "-content").attr("id",k + "-" + data.id.toString()).find("ul.topnav");
+    tab = $(".node-metadata .ui-tabs-nav li span." + k);
+    if(v.length === 0) { tab.hide(); } else { tab.text(v.length).show(); }
     $.each(v, function() {
       wrapper.append("<li id=\"" + k + "-" + this.metadata.id.toString() + "\" class=\"" + k + "\">"+this.name_string+"</li>");
       if(container.parent().parent().attr("id") === "treewrap-main") {
@@ -2356,7 +2358,7 @@ GNITE.Tree.Node.buildVernacularMenu = function(wrapper, data) {
 
   "use strict";
 
-  var language = (data.metadata.language.name) ? data.metadata.language.name : "", clone = $("#vernacular-context").clone(true);
+  var clone = $("#vernacular-context").clone(true), language = (data.metadata.language.name) ? data.metadata.language.name : "";
 
   $("li:last", wrapper).append(clone)
     .find("ul").removeAttr("id")

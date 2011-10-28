@@ -851,8 +851,31 @@ input.disabled {
   top:2px;
 }
 
+.node-metadata .ui-tabs.nav li {
+  position:relative;
+}
+
 .node-metadata .ui-tabs-nav li a {
-  padding:0.5em 1.4em;
+  padding:0.5em 2em;
+}
+
+.node-metadata .ui-tabs-nav li span.counter {
+  display:none;
+  position:absolute;
+  right:0;
+  top:-5px;
+  width:18px;
+  height:18px;
+  line-height:18px;
+  background-color:red;
+  border-radius:18px;
+  -moz-border-radius: 18px;
+  -webkit-border-radius: 18px;
+  border:1px solid #FFF;
+  color:#FFF;
+  text-align:center;
+  font-weight:normal;
+  font-size:0.9em;
 }
 
 .node-metadata .ui-tabs-panel {

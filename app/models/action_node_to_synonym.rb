@@ -20,19 +20,25 @@ class ActionNodeToSynonym < ActionCommand
     new_synonym_names = node.synonyms.map { |s| s.name }
     new_synonym_names = new_synonym_names - @destination_node.synonyms.map { |s| s.name }
     @destination_node.synonyms.each do |synonym|
-      Synonym.create!(:node => merged_node, :name => synonym.name, :status => synonym.status)
+      new_synonym = Synonym.create!(:node => merged_node, :name => synonym.name, :status => synonym.status)
+      synonym.lexical_variants.each do |lexical_variant|
+        LexicalVariant.create!(:lexicalable => new_synonym, :name => lexical_variant.name)
+      end
     end
+    #TODO: what about the lexical variants of the residual synonyms, new_synonym_names?
     new_synonym_names.each do |name|
       Synonym.create!(:node => merged_node, :name => name, :status => nil)
     end
-  
+
     new_vernacular_names = node.vernacular_names.map { |v| v.name }
     new_vernacular_names = new_vernacular_names - @destination_node.vernacular_names.map { |v| v.name }
     @destination_node.vernacular_names.each do |vernacular|
-      VernacularName.create!(:node => merged_node, :name => vernacular.name, :language => vernacular.language)
+      new_vernacular = VernacularName.create!(:node => merged_node, :name => vernacular.name, :language => vernacular.language)
+      vernacular.lexical_variants.each do |lexical_variant|
+        LexicalVariant.create!(:lexicalable => new_vernacular, :name => lexical_variant.name)
+      end
     end
-  
-    # TODO: each new_vernacular_names needs :language
+    #TODO: what about the lexical variants of the residual vernaculars, new_vernacular_names?
     new_vernacular_names.each do |name|
       VernacularName.create!(:node => merged_node, :name => name, :language => nil)
     end
@@ -42,11 +48,16 @@ class ActionNodeToSynonym < ActionCommand
     self.json_message = new_json_message.merge({ :undo => { :merged_node_id => merged_node.id } }).to_json
     save!
   
-    Synonym.create(:node => merged_node, :name => node.name, :status => nil)
+    new_synonym = Synonym.create(:node => merged_node, :name => node.name, :status => nil)
+    
+    new_lexical_variant_names = node.lexical_variants.map { |l| l.name }
+    new_lexical_variant_names.each do |name|
+      LexicalVariant.create!(:lexicalable => new_synonym, :name => name)
+    end
   
     @destination_node.children.each do |child|
       child.parent_id = merged_node.id
-     child.save!
+      child.save!
     end
   
     node.delete_softly
