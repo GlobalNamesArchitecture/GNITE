@@ -880,6 +880,11 @@ input.disabled {
   font-size:0.9em;
 }
 
+.node-metadata .ui-tabs-nav li span.rank {
+  background: url("../images/icons/tick.png") no-repeat scroll center top;
+  border:0px;
+}
+
 .node-metadata .ui-tabs-panel {
   bottom:0px;
 }

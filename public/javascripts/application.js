@@ -2355,7 +2355,7 @@ GNITE.Tree.Node.buildMetadata = function(container, data) {
   });
 
   if(data.rank) {
-    $(".node-metadata .ui-tabs-nav li span.rank", container.parent()).text("1").show();
+    $(".node-metadata .ui-tabs-nav li span.rank", container.parent()).show();
     container.find('.node-rank-content ul.topnav').append('<li class=\"rank\">'+data.rank+'</li>');
   } else {
     $(".node-metadata .ui-tabs-nav li span.rank", container.parent()).hide();
