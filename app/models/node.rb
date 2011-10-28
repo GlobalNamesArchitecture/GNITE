@@ -52,9 +52,7 @@ class Node < ActiveRecord::Base
   end
   
   def rank_string
-    rank_string = rank.to_s.strip
-    rank_string = 'None' if rank_string.empty?
-    rank_string
+    rank.to_s.strip
   end
 
   def rename(new_name_string)

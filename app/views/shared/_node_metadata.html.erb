@@ -2,7 +2,7 @@
 
         <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header">
           <% tabs.each_with_index do |tab, index| %>
-            <% counter = (tab != "rank") ? "<span class=\"counter " + tab +"\"></span>": "" %>
+            <% counter = "<span class=\"counter " + tab +"\"></span>" %>
             <% if index == 0 %>
               <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active<%= (tab == 'lexical_variants' || tab == 'synonyms') ? " jstree-drop" : "" %>"><a href="#node-<%= tab %>-wrapper" data-type="<%= tab %>"><%= tab.titleize %></a><%= raw counter %></li>
             <% else %>

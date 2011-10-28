@@ -2347,8 +2347,10 @@ GNITE.Tree.Node.buildMetadata = function(container, data) {
   });
 
   if(data.rank) {
+    $(".node-metadata .ui-tabs-nav li span.rank").text("1").show();
     container.find('.node-rank-content ul.topnav').append('<li class=\"rank\">'+data.rank+'</li>');
   } else {
+    $(".node-metadata .ui-tabs-nav li span.rank").hide();
     container.find('.node-rank-content ul.topnav').append('<li class=\"rank metadata-none\">None</li>');
   }
 
