@@ -538,6 +538,14 @@ $(function() {
             self.addClass('loaded');
           });
 
+          self.bind('select_node.jstree', function(event, data) {
+            event = null;
+            var metadata = self.parent().next(),
+                wrapper  = self.parent(),
+                url      = '/deleted_trees/' + id + '/nodes/' + data.rslt.obj.attr("id");
+            GNITE.Tree.Node.getMetadata(url, metadata, wrapper);
+          });
+
           // Hide the spinner icon once node is loaded
           self.bind('open_node.jstree', function(event, data) {
             event = null;

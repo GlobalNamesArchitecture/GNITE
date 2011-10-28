@@ -15,7 +15,7 @@
       <div id=<%= dom_id(deleted_tree, "container_for") %>></div>
     </div>
 
-    <div class="node-metadata clearfix"></div>
+    <%= render :partial => 'shared/node_metadata.html', :locals => { :tabs => ["synonyms", "lexical_variants", "vernacular_names", "rank"], :tree_type => 'DeletedTree' } %>
 
   </div>
 </div>
