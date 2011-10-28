@@ -2323,7 +2323,7 @@ GNITE.Tree.Node.buildMetadata = function(container, data) {
 
   $.each(data.reconciliation, function(k, v) {
     wrapper = container.find(".node-" + k + "-content").attr("id",k + "-" + data.id.toString()).find("ul.topnav");
-    tab = $(".node-metadata .ui-tabs-nav li span." + k);
+    tab = $(".node-metadata .ui-tabs-nav li span." + k, container.parent());
     if(v.length === 0) { tab.hide(); } else { tab.text(v.length).show(); }
     $.each(v, function() {
       wrapper.append("<li id=\"" + k + "-" + this.metadata.id.toString() + "\" class=\"" + k + "\">"+this.name_string+"</li>");
@@ -2347,10 +2347,10 @@ GNITE.Tree.Node.buildMetadata = function(container, data) {
   });
 
   if(data.rank) {
-    $(".node-metadata .ui-tabs-nav li span.rank").text("1").show();
+    $(".node-metadata .ui-tabs-nav li span.rank", container.parent()).text("1").show();
     container.find('.node-rank-content ul.topnav').append('<li class=\"rank\">'+data.rank+'</li>');
   } else {
-    $(".node-metadata .ui-tabs-nav li span.rank").hide();
+    $(".node-metadata .ui-tabs-nav li span.rank", container.parent()).hide();
     container.find('.node-rank-content ul.topnav').append('<li class=\"rank metadata-none\">None</li>');
   }
 
