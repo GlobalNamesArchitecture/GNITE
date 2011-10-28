@@ -12,7 +12,7 @@
     <%= render :partial => 'shared/tree_toolbars.html', :locals => { :tree_type => 'DeletedTree', :tree_id => deleted_tree.id } %>
 
     <div class="tree-container deleted-tree-container" data-database-id="<%= deleted_tree.id %>">
-      <div id=<%= dom_id(deleted_tree, "container_for") %>></div>
+      <div id="<%= dom_id(deleted_tree, "container_for") %>"></div>
     </div>
 
     <%= render :partial => 'shared/node_metadata.html', :locals => { :tabs => ["synonyms", "lexical_variants", "vernacular_names", "rank"], :tree_type => 'DeletedTree' } %>
