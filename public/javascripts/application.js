@@ -41,6 +41,8 @@ $(function() {
     return false;
   });
 
+  $('.metadata-autocomplete').inlineComplete();
+
   $('.node-metadata .ui-tabs-nav a').each(function() {
     var elem = $(this);
     elem.mouseover(function(e) {
@@ -2354,8 +2356,10 @@ GNITE.Tree.Node.buildVernacularMenu = function(wrapper, data) {
 
   "use strict";
 
-  var language = (data.metadata.language.name) ? data.metadata.language.name : "";
-  $("li:last", wrapper).append($("#vernacular-context").html())
+  var language = (data.metadata.language.name) ? data.metadata.language.name : "", clone = $("#vernacular-context").clone(true);
+
+  $("li:last", wrapper).append(clone)
+    .find("ul").removeAttr("id")
     .find("label").attr("for", "vernacular-language-" + data.metadata.id.toString())
     .end()
     .find("input").attr("id", "vernacular-language-" + data.metadata.id.toString()).val(language).attr("data-term-id", data.metadata.language.id);
@@ -2365,9 +2369,13 @@ GNITE.Tree.Node.buildSynonymMenu = function(wrapper, data) {
 
   "use strict";
 
-  $("li:last", wrapper).append($("#synonym-context").html()).find(".subnav li a").each(function() {
-    $(this).removeClass("nav-view-checked");
-    if($(this).text() === data.metadata.status) { $(this).addClass("nav-view-checked"); }
+  var clone = $("#synonym-context").clone(true);
+
+  $("li:last", wrapper).append(clone)
+    .find("ul").removeAttr("id")
+    .find("li a").each(function() {
+      $(this).removeClass("nav-view-checked");
+      if($(this).text() === data.metadata.status) { $(this).addClass("nav-view-checked"); }
   });
 };
 
@@ -2378,8 +2386,6 @@ GNITE.Tree.Node.adjustMasterTreeMetadata = function(container) {
   var self     = this,
       selected = $('#master-tree').jstree('get_selected'),
       node_id  = $(selected[0]).attr("id");
-
-  $('.metadata-autocomplete').inlineComplete();
 
   $(".node-metadata-content").each(function() {
     ddsmoothmenu.init({

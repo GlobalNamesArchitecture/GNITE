@@ -1,7 +1,5 @@
-<div id="synonym-context">
-  <ul class="subnav">
+  <ul id="synonym-context" class="subnav">
     <% ControlledVocabulary.find_by_identifier("taxonomic_status").controlled_terms.each do |status| %>
       <li data-metadata-term="<%= status.identifier %>" class="metadata-edit"><a href="#"><%= status.name %></a></li>
     <% end %>
   </ul>
-</div>
