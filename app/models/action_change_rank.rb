@@ -2,7 +2,7 @@ class ActionChangeRank < ActionCommand
 
   def precondition_do
     @json_do = JSON.parse(json_message, :symbolize_names => true)[:do]
-    !!(node && @json_do)
+    !!node
   end
 
   def precondition_undo
