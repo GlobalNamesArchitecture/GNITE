@@ -377,7 +377,7 @@ $(function() {
     if (active) {
         $('#reference-trees li a').click(function() {
           if($(this).attr('href').split('_')[2] === tree_id && self.find('ul').length === 0) {
-              // Render the reference tree
+
               self.jstree($.extend(true, {}, GNITE.Tree.ReferenceTree.configuration, {
                 'html_data': {
                   'ajax' : {
@@ -393,7 +393,6 @@ $(function() {
                 }
               }));
 
-              // Build the menu system for the reference tree
               self.bind("init.jstree", function(event, data) {
                 event = null; data = null;
                 ddsmoothmenu.init({
@@ -409,7 +408,6 @@ $(function() {
                 self.addClass('loaded');
               });
 
-              // Hide the spinner icon once node is loaded
               self.bind('open_node.jstree', function(event, data) {
                 event = null;
                 var node = data.rslt, id = node.obj.attr('id');
@@ -510,7 +508,7 @@ $(function() {
     if (active) {
       $('#deleted a').click(function() {
         if(self.find('ul').length === 0) {
-          // Render the deleted tree
+
           self.jstree($.extend(true, {}, GNITE.Tree.ReferenceTree.configuration, {
             'html_data': {
               'ajax' : {
@@ -522,7 +520,6 @@ $(function() {
             }
           }));
 
-          // Build the menu system for the deleted tree
           self.bind("init.jstree", function(event, data) {
             event = null; data = null;
             ddsmoothmenu.init({
@@ -538,6 +535,12 @@ $(function() {
             self.addClass('loaded');
           });
 
+          self.bind('open_node.jstree', function(event, data) {
+            event = null;
+            var node = data.rslt, id = node.obj.attr('id');
+            $('#'+id).find("span.jstree-loading").remove();
+          });
+
           self.bind('select_node.jstree', function(event, data) {
             event = null;
             var metadata = self.parent().next(),
@@ -546,11 +549,8 @@ $(function() {
             GNITE.Tree.Node.getMetadata(url, metadata, wrapper);
           });
 
-          // Hide the spinner icon once node is loaded
-          self.bind('open_node.jstree', function(event, data) {
-            event = null;
-            var node = data.rslt, id = node.obj.attr('id');
-            $('#'+id).find("span.jstree-loading").remove();
+          self.bind('deselect_all.jstree', function() {
+            self.parent().css('bottom','20px').next().hide();
           });
 
         }
