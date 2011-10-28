@@ -867,7 +867,9 @@ input.disabled {
   width:18px;
   height:18px;
   line-height:18px;
-  background-color:red;
+  background: #FF4040;
+  background: -moz-linear-gradient(center bottom, rgb(139,35,35) 4%, rgb(255,64,64) 58%, rgb(255,193,193) 98%);
+  background: -webkit-gradient(linear,left bottom,left top, color-stop(0.04, rgb(139,35,35)), color-stop(0.58, rgb(255,64,64)), color-stop(0.98, rgb(255,193,193)));
   border-radius:18px;
   -moz-border-radius: 18px;
   -webkit-border-radius: 18px;
