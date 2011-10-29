@@ -24,7 +24,7 @@ class ActionChangeRank < ActionCommand
   
   def do_log
     rank = JSON.parse(json_message, :symbolize_names => true)[:do]
-    "#{old_name} given rank #{rank}"
+    rank.nil? ? "#{old_name} rank removed" : "#{old_name} given rank #{rank}"
   end
   
   def undo_log

@@ -19,7 +19,7 @@ gem 'yajl-ruby', :require => 'yajl'
 gem 'ruby-debug19' # change to ruby-debug19 for ruby 1.9.x
 gem 'nokogiri'
 gem 'resque', '1.19.0'
-gem 'rest-client', '1.6.1'
+gem 'rest-client', '1.6.7'
 gem 'juggernaut', '2.0.4'
 gem 'will_paginate', '3.0.2'
 gem 'family-reunion', '0.2.4'
@@ -37,9 +37,9 @@ end
 
 group :test do
   gem 'polyglot'
-  gem 'capybara', '1.0.1'
-  gem 'cucumber', '1.0.0'
-  gem 'cucumber-rails', '1.0.0'
+  gem 'capybara', '1.1.1'
+  gem 'cucumber', '1.1.0'
+  gem 'cucumber-rails', '1.1.1'
   gem 'database_cleaner'
   gem 'bourne'
   gem 'spork'

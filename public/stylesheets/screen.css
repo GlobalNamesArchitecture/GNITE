@@ -856,7 +856,7 @@ input.disabled {
 }
 
 .node-metadata .ui-tabs-nav li a {
-  padding:0.5em 2em;
+  padding:0.5em 1.8em 0.5em 1.6em;
 }
 
 .node-metadata .ui-tabs-nav li span.counter {
@@ -1734,6 +1734,7 @@ ul.classifications div.import-button {
   -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2) inset;
   font-size:1.25em;
   padding:5px;
+  width:75%;
 }
 
 #tree-metadata fieldset textarea {
