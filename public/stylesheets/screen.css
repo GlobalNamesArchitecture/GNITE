@@ -280,7 +280,7 @@ body form input {
   display: none; /*gets rid of useless asterisk*/
 }
 
-#loginform .input {
+#loginform input.input {
   border: 0px;
   border-radius: 3px;
   -moz-border-radius: 3px;
@@ -2276,7 +2276,7 @@ ul#reference-trees li a:hover {
 /* Border Radius */
 /************************************************************************/
 #flash_error, #flash_success, #flash_failure, #flash_notice, #flash_alert,
-ul.treelist li,  #gnaclr-search, .tree-background, #loginform .input, .green-submit, .cancel-button,
+ul.treelist li,  #gnaclr-search, .tree-background, #loginform input.input, .green-submit, .cancel-button,
 .infobox-wrap, .infobox, .tree-back-wrap, #tree-newimport li, .bookmark-addition .input, .bookmarks-input .input {
   border-radius: 6px;
   -moz-border-radius: 6px;
