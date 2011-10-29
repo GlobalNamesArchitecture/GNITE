@@ -292,8 +292,11 @@ describe NodesController, 'GET to show for master tree' do
       :id          => node.id,
       :name        => node.name_string,
       :rank        => node.rank,
-      :synonyms    => node.synonym_data,
-      :vernaculars => node.vernacular_data
+      :reconciliation => {
+        :synonyms         => node.synonym_data,
+        :lexical_variants => node.lexical_data,
+        :vernacular_names => node.vernacular_data
+      }
     }
 
     get :show, :id => node.id, :master_tree_id => tree.id, :format => 'json'
@@ -323,8 +326,11 @@ describe NodesController, 'GET to show for reference tree' do
       :id          => node.id,
       :name        => node.name_string,
       :rank        => node.rank,
-      :synonyms    => node.synonym_data,
-      :vernaculars => node.vernacular_data
+      :reconciliation => {
+        :synonyms         => node.synonym_data,
+        :lexical_variants => node.lexical_data,
+        :vernacular_names => node.vernacular_data
+      }
     }
 
     get :show, :id => node.id, :reference_tree_id => tree.id, :format => 'json'

@@ -2558,7 +2558,7 @@ GNITE.Tree.Node.editMetadata = function(elem, type, action, autocomplete_url) {
     "css"          : {"width" : width},
     "blur"         : $.proxy(function() {
       var i = (elem.hasClass("metadata-add")) ? elem.prev().find(".metadata-input") : elem.find(".metadata-input"),
-          v = i.val();
+          v = $.trim(i.val());
 
       if(v === "") { v = t; }
       i.remove();

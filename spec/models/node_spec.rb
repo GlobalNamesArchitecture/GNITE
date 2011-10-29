@@ -68,16 +68,6 @@ describe Node, 'name' do
 end
 
 describe Node, '#rank_string' do
-  it 'returns None if rank is nil' do
-    node = Factory(:node, :rank => nil)
-    node.rank_string.should == 'None'
-  end
-
-  it 'returns None if rank is empty' do
-    node = Factory(:node, :rank => '  ')
-    node.rank_string.should == 'None'
-  end
-
   it 'returns rank if present' do
     node = Factory(:node, :rank => 'Family')
     node.rank_string.should == 'Family'
