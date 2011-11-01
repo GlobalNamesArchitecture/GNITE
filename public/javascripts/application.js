@@ -2321,7 +2321,7 @@ GNITE.Tree.Node.buildMetadata = function(container, data) {
 
   "use strict";
 
-   var self = this, key = "", wrapper = "", tab;
+   var self = this, key = "", wrapper = "", tab = "", counter_class = " class=\"counter\"";
 
   container.find("span.namestring").text(data.name).attr("data-node-id", data.id);
 
@@ -2359,6 +2359,7 @@ GNITE.Tree.Node.buildMetadata = function(container, data) {
     container.find('.node-rank-content ul.topnav').append('<li class=\"rank\">'+data.rank+'</li>');
   } else {
     $(".node-metadata .ui-tabs-nav li span.rank", container.parent()).hide();
+    $(".node-metadata .ui-tabs-nav li a", container.parent()).removeClass("counter");
     container.find('.node-rank-content ul.topnav').append('<li class=\"rank metadata-none\">None</li>');
   }
 

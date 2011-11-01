@@ -856,13 +856,13 @@ input.disabled {
 }
 
 .node-metadata .ui-tabs-nav li a {
-  padding:0.5em 1.8em 0.5em 1.6em;
+  padding:0.5em 1.6em 0.5em 1em;
 }
 
 .node-metadata .ui-tabs-nav li span.counter {
   display:none;
   position:absolute;
-  right:0;
+  right:-2px;
   top:-5px;
   width:18px;
   height:18px;
