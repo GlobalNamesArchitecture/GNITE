@@ -20,6 +20,7 @@ class ActionNodeToLexical < ActionCommand
     self.json_message = new_json_message.merge({ :undo => { :lexicalable_id => lexical_variant.id } }).to_json
     save!
     node.delete_softly
+    #TODO Must accommodate synonyms and vernaculars of name being declared lexical variant of another
   end
 
   def undo_action

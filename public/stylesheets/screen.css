@@ -2321,6 +2321,9 @@ ul.treelist li,  #gnaclr-search, .tree-background, #loginform input.input, .gree
   top: 0;
   width: 100%;
   z-index:100;
+  border-radius:8px;
+  -moz-border-radius:8px;
+  -webkit-border-radius:8px;
 }
 
 .spinner p.status {
