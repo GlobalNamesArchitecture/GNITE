@@ -2,9 +2,9 @@
   <div id="treewrap-right">
     <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
       <ul id="tab-titles" class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-        <li class="ui-state-default ui-corner-top">
-          <a href="#" id="all-tabs">All reference trees (<%= @master_tree.reference_trees.size %>)</a>
-
+        <li id="reference" class="ui-state-default ui-corner-top">
+          <a href="#" id="all-tabs">All reference trees</a>
+          <span class="counter"><%= @master_tree.reference_trees.size %></span>
           <ul id="reference-trees">
             <% @master_tree.reference_trees.each do |reference_tree| %>
               <li class="clearfix"><a href="#<%= dom_id(reference_tree) %>"><%= reference_tree.title %></a></li>

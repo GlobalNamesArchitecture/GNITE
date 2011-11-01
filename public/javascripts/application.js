@@ -2154,10 +2154,10 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
 
   "use strict";
 
-  var tab     = "",
-      tree_id = "",
-      self    = "",
-      count   = "";
+  var ref_counter = $('#reference span.counter'),
+      tree_id     = "",
+      self        = "",
+      count       = "";
 
   $('#all-tabs').parent().show();
 
@@ -2165,9 +2165,8 @@ GNITE.Tree.ReferenceTree.add = function(response, options) {
     $('#tabs li:first-child ul li a[href="#' + response.domid +'"]').trigger('click');
   } else {
     if($('a[href="#' + response.domid + '"]').length === 0) {
-      tab = $('#all-tabs');
-      count = parseInt(tab.text().replace(/[^0-9]+/, ''), 10);
-      tab.text('All reference trees (' + (count + 1) + ')');
+      count = parseInt(ref_counter.text(), 10) + 1;
+      ref_counter.text(count);
       $('#new-tab').before(response.tree);
       $('#tab-titles li:first-child').show();
       $('#reference-trees').append('<li><a href="#' + response.domid + '">' + response.title + '</a></li>');
