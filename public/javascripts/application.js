@@ -966,6 +966,8 @@ $(function() {
 
     var self = $(this), node = data.rslt;
 
+    self.jstree("deselect_all");
+
     // lock the tree
     self.jstree("lock");
 
