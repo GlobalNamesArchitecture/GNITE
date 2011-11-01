@@ -133,6 +133,7 @@ module Gnite
           FROM #{table}
           WHERE node_id IN (#{delete_ids})")
       end
+      Node.connection.execute("DELETE FROM lexical_variants WHERE lexicalable_id IN (#{delete_ids})")
       Node.connection.execute("DELETE FROM nodes WHERE id IN (#{delete_ids})")
     end
  
