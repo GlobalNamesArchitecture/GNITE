@@ -2271,17 +2271,17 @@ GNITE.Tree.ReferenceTree.remove = function(response) {
 
   "use strict";
 
-  var count = 0, tab = $('#all-tabs');
+  var count = 0, ref_counter = $('#reference span.counter');
 
   if ($('#reference_tree_' + response.id).hasClass("reference-tree-active")) {
     $('#tabs #import a').trigger('click');
   }
   $('a[href="#reference_tree_' + response.id + '"]').parent().remove();
   $('#reference_tree_' + response.id).remove();
-  count = parseInt(tab.text().replace(/[^0-9]+/, ''), 10);
-  tab.text('All reference trees (' + (count-1) + ')');
+  count = parseInt(ref_counter.text(), 10) - 1;
+  ref_counter.text(count);
 
-  if(count-1 === 0) { $('#all-tabs').parent().hide(); }
+  if(count === 0) { $('#all-tabs').parent().hide(); }
 };
 
 GNITE.Tree.Node.getMetadata = function(url, container, wrapper) {
