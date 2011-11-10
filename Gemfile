@@ -11,9 +11,8 @@ gem 'hoptoad_notifier', '2.3.7'
 gem 'uuid'
 gem 'crack'
 gem 'biodiversity19'
-gem 'dwc-archive', '0.5.15'
+gem 'dwc-archive', '0.7.1'
 # gem 'fastercsv' #remove for ruby 1.9.x
-gem 'parsley-store', '0.2.2'
 # gem 'SystemTimer' # remove for ruby 1.9.x
 gem 'yajl-ruby', :require => 'yajl'
 gem 'ruby-debug19' # change to ruby-debug19 for ruby 1.9.x
