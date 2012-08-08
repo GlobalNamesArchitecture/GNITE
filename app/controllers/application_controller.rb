@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
     action_class = Object.class_eval(params[:action_type])
     action_command = action_class.create!(:user => current_user, 
       :tree_id => tree_id, :node_id => node_id, 
-      :old_name => old_name, :new_name => new_name,
+      :old_name => old_name.force_encoding("UTF-8"), :new_name => new_name.force_encoding("UTF-8"),
       :destination_node_id => destination_node_id,
       :destination_parent_id => destination_parent_id, 
       :parent_id => parent_id, :json_message => json_message)
