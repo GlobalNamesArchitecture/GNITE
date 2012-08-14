@@ -20,6 +20,7 @@ class MasterTree < Tree
     records = Node.connection.select_rows("select nd.id, null, nd.local_id, names.name_string, nd.rank, nd.updated_at from nodes nd inner join names on names.id = nd.name_id where nd.tree_id = #{id} and nd.parent_id = #{self.root.id}")
     records += Node.connection.select_rows("select nd.id, nd.parent_id, nd.local_id, names.name_string, nd.rank, nd.updated_at from nodes nd inner join names on names.id = nd.name_id where nd.tree_id = #{id} and nd.id != #{self.root.id} and nd.parent_id != #{self.root.id}")
     records.unshift core_fields
+    force_encode(records)
     g.add_core(records, 'core.csv')
     build_extension(g, VernacularName)
     build_extension(g, Synonym)
@@ -96,6 +97,7 @@ class MasterTree < Tree
     q = "select #{query_fields.join(", ")} FROM nodes n JOIN #{table_name} ext ON ext.node_id = n.id JOIN names ON names.id = ext.name_id WHERE n.tree_id = #{self.id}"
     res = Tree.connection.select_rows(q)
     res.unshift(header)
+    force_encode(res, 'extension')
     dwca.add_extension(res, table_name + ".csv")
   end
   
@@ -111,6 +113,14 @@ class MasterTree < Tree
       reload
       self.master_tree_contributor_ids = nil
     end
+  end
+  
+  def force_encode(records, type = 'core')
+    index = (type == 'core') ? 3 : 1
+    records.each do |record|
+      record[index].force_encoding("UTF-8") if record[index].is_a? String
+    end
+    records
   end
 
 end
