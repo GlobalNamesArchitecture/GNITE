@@ -37,13 +37,14 @@ class ApplicationController < ActionController::Base
     destination_node_id = (params[:node] && params[:node][:destination_node_id]) ? params[:node][:destination_node_id] : nil
     parent_id = node.is_a?(::Node) ? node.parent_id : params[:node][:parent_id]
     node_id = node.is_a?(::Node) ? node.id : nil
-    old_name = node.is_a?(::Node) ? node.name.name_string : nil
-    new_name = (params[:node] && params[:node][:name] && params[:node][:name][:name_string]) ? params[:node][:name][:name_string] : nil
+    old_name = node.is_a?(::Node) ? node.name.name_string.force_encoding("UTF-8") : nil
+    new_name = (params[:node] && params[:node][:name] && params[:node][:name][:name_string]) ? params[:node][:name][:name_string].force_encoding("UTF-8") : nil
     json_message = (params[:json_message]) ? params[:json_message].to_json : nil
     action_class = Object.class_eval(params[:action_type])
     action_command = action_class.create!(:user => current_user, 
       :tree_id => tree_id, :node_id => node_id, 
-      :old_name => old_name.force_encoding("UTF-8"), :new_name => new_name.force_encoding("UTF-8"),
+      :old_name => old_name,
+      :new_name => new_name,
       :destination_node_id => destination_node_id,
       :destination_parent_id => destination_parent_id, 
       :parent_id => parent_id, :json_message => json_message)
