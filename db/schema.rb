@@ -54,8 +54,6 @@ ActiveRecord::Schema.define(:version => 20120731151204) do
     t.string   "identifier"
     t.string   "uri"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   add_index "controlled_vocabularies", ["identifier"], :name => "index_controlled_vocabularies_on_identifier", :unique => true

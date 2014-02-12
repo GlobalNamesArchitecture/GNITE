@@ -5,7 +5,6 @@ class CreateVocabularies < ActiveRecord::Migration
       t.string :identifier
       t.string :uri
       t.text :description
-      t.timestamps
     end
     
     add_index :controlled_vocabularies, :identifier, :unique => true
@@ -18,7 +17,6 @@ class CreateVocabularies < ActiveRecord::Migration
       t.string :identifier
       t.string :uri
       t.text :description
-      t.timestamps
     end
     
     add_index :controlled_terms, :controlled_vocabulary_id

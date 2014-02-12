@@ -46,6 +46,7 @@ group :test do
   gem 'timecop'
   gem 'factory_girl'
   gem 'shoulda', :path => "vendor/git/shoulda"
+  gem "selenium-webdriver", "~> 2.39.0"
 end
 
 group :staging do
