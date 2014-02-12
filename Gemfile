@@ -37,7 +37,6 @@ group :test do
   gem 'cucumber', '1.1.0'
   gem 'cucumber-rails', '1.1.1'
   gem 'database_cleaner'
-  gem 'bourne'
   gem 'spork'
   gem 'launchy' # So you can do "Then show me the page".
   gem 'mocha'

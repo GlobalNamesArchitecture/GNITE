@@ -45,8 +45,6 @@ ActiveRecord::Schema.define(:version => 20120731151204) do
     t.string   "identifier"
     t.string   "uri"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   add_index "controlled_terms", ["controlled_vocabulary_id"], :name => "index_controlled_terms_on_controlled_vocabulary_id"
@@ -66,8 +64,6 @@ ActiveRecord::Schema.define(:version => 20120731151204) do
     t.integer  "reference_tree_id"
     t.string   "url"
     t.integer  "status"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "gnaclr_publishers", :force => true do |t|
@@ -95,8 +91,6 @@ ActiveRecord::Schema.define(:version => 20120731151204) do
     t.string   "iso_639_2"
     t.string   "iso_639_3"
     t.string   "native"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   add_index "languages", ["iso_639_1"], :name => "index_languages_on_iso_639_1"
