@@ -2,14 +2,14 @@ require 'spec_helper'
 
 describe MasterTreeLogsController, 'GET to show edit history for master tree' do
   let(:user) { create(:user) }
-  let(:master_tree) { create(:master_tree, :user => user) }
-  let(:node)  { create(:node, :tree => master_tree) }
+  let(:master_tree) { create(:master_tree, user: user) }
+  let(:node)  { create(:node, tree: master_tree) }
   
   subject { controller }
 
   before do
     sign_in user
-    get :index, :master_tree_id => master_tree
+    get :index, master_tree_id: master_tree
   end
     
   it { should respond_with(:success) }

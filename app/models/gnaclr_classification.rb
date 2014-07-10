@@ -11,7 +11,7 @@ class GnaclrClassification
     end
 
     self.revisions = (new_attributes[:revisions] || []).map do |revision_attributes|
-      GnaclrClassificationRevision.new(revision_attributes.merge(:classification => self))
+      GnaclrClassificationRevision.new(revision_attributes.merge(classification: self))
     end
   end
 
@@ -29,13 +29,13 @@ class GnaclrClassification
 
   def attributes
     {
-      :title       => title,
-      :authors     => authors,
-      :description => description,
-      :updated     => updated,
-      :uuid        => uuid,
-      :file_url    => file_url,
-      :revisions   => revisions.map(&:to_hash)
+      title: title,
+      authors: authors,
+      description: description,
+      updated: updated,
+      uuid: uuid,
+      file_url: file_url,
+      revisions: revisions.map(&:to_hash)
     }
   end
 
@@ -48,7 +48,7 @@ class GnaclrClassification
   end
 
   def add_revision_from_attributes(revision_attributes)
-    (self.revisions ||= []) << GnaclrClassificationRevision.new(revision_attributes.merge(:classification => self))
+    (self.revisions ||= []) << GnaclrClassificationRevision.new(revision_attributes.merge(classification: self))
   end
 
   def revision_count

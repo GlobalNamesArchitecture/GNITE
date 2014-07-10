@@ -1,5 +1,5 @@
 Given /^there is an existing bookmark called "([^"]*)" for a node "([^"]*)"$/ do |bookmark_title, name_string|
-  Factory(:bookmark, :bookmark_title => bookmark_title, :node => ::Node.joins(:name).where('names.name_string = ?', name_string).first)
+  Factory(:bookmark, bookmark_title: bookmark_title, node: ::Node.joins(:name).where('names.name_string = ?', name_string).first)
 end
 
 Then /^I should see a bookmark "([^"]*)" in master tree bookmarks$/ do |bookmark_text|

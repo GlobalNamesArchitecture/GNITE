@@ -10,7 +10,7 @@ class GnaclrPublisher < ActiveRecord::Base
 
   def publish
     dwca_file = master_tree.create_darwin_core_archive
-    RestClient.post("#{Gnite::Config.gnaclr_url}/classifications", :uuid => master_tree.uuid, :file => File.new(dwca_file, 'rb') )
+    RestClient.post("#{Gnite::Config.gnaclr_url}/classifications", uuid: master_tree.uuid, file: File.new(dwca_file, 'rb') )
   end
 end
 

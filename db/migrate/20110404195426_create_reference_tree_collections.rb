@@ -6,7 +6,7 @@ class CreateReferenceTreeCollections < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :reference_tree_collections, [:master_tree_id, :reference_tree_id], :unique => true , :name => 'index_rtc_on_master_tree_id_etc'
+    add_index :reference_tree_collections, [:master_tree_id, :reference_tree_id], unique: true , name: 'index_rtc_on_master_tree_id_etc'
   end
 
   def self.down

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe NodesController, 'when signed out on POST to create' do
   before do
-    post :create, :master_tree_id => 123, :node_id => 456
+    post :create, master_tree_id: 123, node_id: 456
   end
   subject { controller }
   it { should redirect_to(new_user_session_url) }
@@ -19,10 +19,10 @@ describe NodesController do
 
     context "when signed in with a tree" do
       let(:user) { user = create(:user) }
-      let(:tree) { create(:master_tree, :user_id => user.id) }
+      let(:tree) { create(:master_tree, user_id: user.id) }
       let(:node) do 
-        node = create(:node, :tree => tree)
-        create(:node, :tree => tree, :parent => node)
+        node = create(:node, tree: tree)
+        create(:node, tree: tree, parent: node)
         node
       end
       let(:nodes) { tree.nodes }
@@ -35,7 +35,7 @@ describe NodesController do
 
       context "on GET to #index without a parent_id" do
         before do
-          get :index, :master_tree_id => tree.id, :format => 'html'
+          get :index, master_tree_id: tree.id, format: 'html'
         end
 
         it { should respond_with(:success) }
@@ -44,7 +44,7 @@ describe NodesController do
       
       context "on GET to #index with a parent_id" do
         before do
-          get :index, :master_tree_id => tree.id, :parent_id => node.id, :format => 'html'
+          get :index, master_tree_id: tree.id, parent_id: node.id, format: 'html'
         end
 
         it { should respond_with(:success) }
@@ -59,34 +59,34 @@ describe NodesController, 'POST to create a node' do
   subject { controller }
   let(:user) { create(:user) }
   let(:tree) do
-    tree = create(:master_tree, :user_id => user.id)
-    create(:node, :tree => tree)
+    tree = create(:master_tree, user_id: user.id)
+    create(:node, tree: tree)
     tree
   end
   let(:nodes) { tree.nodes }
   let(:node_attributes) do
-    name = create(:name, :name_string => "My new node")
-    { :tree => tree, :name => name }
+    name = create(:name, name_string: "My new node")
+    { tree: tree, name: name }
   end
 
   before do
     sign_in user
-    controller.stubs(:current_user => user)
+    controller.stubs(current_user: user)
     user_trees = [tree]
-    user.stubs(:master_trees => user_trees)
-    user_trees.stubs(:find => tree)
-    tree.stubs(:children_of => nodes)
+    user.stubs(master_trees: user_trees)
+    user_trees.stubs(find: tree)
+    tree.stubs(children_of: nodes)
     @node_count = ::Node.count
     r = Resque::Worker.new(Gnite::Config.action_queue)
     post :create,
-      :master_tree_id => tree.id,
-      :format => 'json',
-      :new_node => {
-        :name => {
-          :name_string => node_attributes[:name].name_string
+      master_tree_id: tree.id,
+      format: 'json',
+      new_node: {
+        name: {
+          name_string: node_attributes[:name].name_string
         }
       },
-      :action_type => 'ActionAddNode'
+      action_type: 'ActionAddNode'
   end
 
   it 'creates a new node' do
@@ -96,7 +96,7 @@ describe NodesController, 'POST to create a node' do
   it { should respond_with(:success) }
 
   it 'renders the newly created node as JSON' do
-    node = JSON.parse(response.body, :symbolize_names => true)
+    node = JSON.parse(response.body, symbolize_names: true)
     node.keys.should == [:node]
   end
 end
@@ -104,14 +104,14 @@ end
 
 describe NodesController, 'POST to copy a node from a reference tree' do
   let(:user) { create(:user) }
-  let(:master_tree) { create(:master_tree, :user_id => user.id) }
-  let(:parent_node) { create(:node, :tree => master_tree) }
+  let(:master_tree) { create(:master_tree, user_id: user.id) }
+  let(:parent_node) { create(:node, tree: master_tree) }
   let(:reference_node) do
-    child_name = create(:name, :name_string => 'child name')
-    grandchild_name = create(:name, :name_string => 'grandchild_name')
-    node = create(:node, :tree => create(:reference_tree))
-    child = create(:node, :tree => node.tree, :parent => node, :name => child_name)
-    grandchild = create(:node, :tree => node.tree, :parent => child, :name => grandchild_name)
+    child_name = create(:name, name_string: 'child name')
+    grandchild_name = create(:name, name_string: 'grandchild_name')
+    node = create(:node, tree: create(:reference_tree))
+    child = create(:node, tree: node.tree, parent: node, name: child_name)
+    grandchild = create(:node, tree: node.tree, parent: child, name: grandchild_name)
     node
   end
   subject { controller }
@@ -121,13 +121,13 @@ describe NodesController, 'POST to copy a node from a reference tree' do
     @node_count = parent_node.children.size
     r = Resque::Worker.new(Gnite::Config.action_queue)
     post :create,
-      :master_tree_id => master_tree.id,
-      :format => 'json',
-      :new_node => {
-        :id => reference_node.id,
-        :parent_id => parent_node.id
+      master_tree_id: master_tree.id,
+      format: 'json',
+      new_node: {
+        id: reference_node.id,
+        parent_id: parent_node.id
       },
-      :action_type => 'ActionCopyNodeFromAnotherTree'
+      action_type: 'ActionCopyNodeFromAnotherTree'
     @clone_node = ::Node.find(JSON.parse(response.body)['node']['id'])
   end
 
@@ -151,35 +151,35 @@ end
 
 describe NodesController, 'POST to assign a node to be a synonym of another' do
   let(:user) { create(:user) }
-  let(:master_tree) { create(:master_tree, :user_id => user.id) }
-  let(:source_node) { create(:node, :tree => master_tree, :name => create(:name, :name_string => "source node")) }
-  let(:source_synonym) { create(:synonym, :node => source_node, :name => create(:name, :name_string => "source synonym")) }
-  let(:source_vernacular) { create(:vernacular_name, :node => source_node, :name => create(:name, :name_string => "source vernacular")) }
+  let(:master_tree) { create(:master_tree, user_id: user.id) }
+  let(:source_node) { create(:node, tree: master_tree, name: create(:name, name_string: "source node")) }
+  let(:source_synonym) { create(:synonym, node: source_node, name: create(:name, name_string: "source synonym")) }
+  let(:source_vernacular) { create(:vernacular_name, node: source_node, name: create(:name, name_string: "source vernacular")) }
   let(:destination_node) do
-    parent = create(:node, :tree => master_tree, :name => create(:name, :name_string => "destination node"))
-    create(:node, :parent => parent, :tree => master_tree, :name => create(:name, :name_string => "destination child"))
+    parent = create(:node, tree: master_tree, name: create(:name, name_string: "destination node"))
+    create(:node, parent: parent, tree: master_tree, name: create(:name, name_string: "destination child"))
     parent
   end
   subject { controller }
   
   before do
     sign_in user
-    source_node.stubs(:save => true)
-    destination_node.stubs(:save => true)
-    source_synonym.stubs(:save => true)
-    source_vernacular.stubs(:save => true)
+    source_node.stubs(save: true)
+    destination_node.stubs(save: true)
+    source_synonym.stubs(save: true)
+    source_vernacular.stubs(save: true)
     @child_count = master_tree.root.children.size
     @destination_child_count = destination_node.children.size
     r = Resque::Worker.new(Gnite::Config.action_queue)
     post :create,
-      :master_tree_id => master_tree.id,
-      :format => 'json',
-      :new_node => { 
-        :id => source_node.id,
-        :destination_node_id => destination_node.id
+      master_tree_id: master_tree.id,
+      format: 'json',
+      new_node: { 
+        id: source_node.id,
+        destination_node_id: destination_node.id
       },
-      :json_message => { },
-      :action_type => 'ActionNodeToSynonym'
+      json_message: { },
+      action_type: 'ActionNodeToSynonym'
     @merge_node = ::Node.find(JSON.parse(response.body)['undo']['merged_node_id'])
   end
   
@@ -215,24 +215,24 @@ end
 
 describe NodesController, 'PUT to update' do
   let(:user) { create(:user) }
-  let(:tree) { create(:master_tree, :user_id => user.id) }
-  let(:node)  { create(:node, :tree => tree) }
+  let(:tree) { create(:master_tree, user_id: user.id) }
+  let(:node)  { create(:node, tree: tree) }
   subject { controller }
 
   before do
     sign_in user
     r = Resque::Worker.new(Gnite::Config.action_queue)
     put :update,
-      :id => node.id,
-      :master_tree_id => tree.id,
-      :format => 'json',
-      :node => (node_attributes rescue nil),
-      :action_type => (action_type rescue nil)
+      id: node.id,
+      master_tree_id: tree.id,
+      format: 'json',
+      node: (node_attributes rescue nil),
+      action_type: (action_type rescue nil)
   end
 
   context 'when moving node within tree' do
-    let(:new_parent_node) { create(:node, :tree => tree) }
-    let(:node_attributes) { { :parent_id => new_parent_node.id } }
+    let(:new_parent_node) { create(:node, tree: tree) }
+    let(:node_attributes) { { parent_id: new_parent_node.id } }
     let(:action_type) { "ActionMoveNodeWithinTree" }
 
     it { should respond_with(:success) }
@@ -247,7 +247,7 @@ describe NodesController, 'PUT to update' do
   end
 
   context "when deleting a node" do
-    let(:node_attributes) { { :parent_id => node.parent.id } }
+    let(:node_attributes) { { parent_id: node.parent.id } }
     let(:action_type) { "ActionMoveNodeToDeletedTree" }
 
     it { should respond_with(:success) }
@@ -260,7 +260,7 @@ describe NodesController, 'PUT to update' do
   end
 
   context "when renaming a node" do
-    let(:node_attributes) { { :name => { :name_string => 'Updated name' } } }
+    let(:node_attributes) { { name: { name_string: 'Updated name' } } }
     let(:action_type) { "ActionRenameNode" }
 
     it { should respond_with(:success) }
@@ -274,11 +274,11 @@ end
 
 describe NodesController, 'GET to show for master tree' do
   let(:user) { create(:user) }
-  let(:tree) { create(:master_tree, :user => user) }
-  let(:node) { create(:node, :tree => tree) }
-  let(:synonym) { create(:synonym, :node => node, :name => create(:name, :name_string => 'Point'), :status => 'synonym') }
-  let(:language) { create(:language, :name => 'English', :iso_639_1 => 'en', :iso_639_2 => 'eng', :iso_639_3 => 'eng', :native => 'English') }
-  let(:vernacular) { create(:vernacular_name, :node => node, :name => create(:name, :name_string => 'Coordinate'), :language => language) }
+  let(:tree) { create(:master_tree, user: user) }
+  let(:node) { create(:node, tree: tree) }
+  let(:synonym) { create(:synonym, node: node, name: create(:name, name_string: 'Point'), status: 'synonym') }
+  let(:language) { create(:language, name: 'English', iso_639_1: 'en', iso_639_2: 'eng', iso_639_3: 'eng', native: 'English') }
+  let(:vernacular) { create(:vernacular_name, node: node, name: create(:name, name_string: 'Coordinate'), language: language) }
 
   subject { controller }
 
@@ -286,14 +286,14 @@ describe NodesController, 'GET to show for master tree' do
     sign_in user
 
     @expected = {
-      :id          => node.id,
-      :name        => node.name_string,
-      :rank        => node.rank,
-      :synonyms    => node.synonym_data,
-      :vernaculars => node.vernacular_data
+      id: node.id,
+      name: node.name_string,
+      rank: node.rank,
+      synonyms: node.synonym_data,
+      vernaculars: node.vernacular_data
     }
 
-    get :show, :id => node.id, :master_tree_id => tree.id, :format => 'json'
+    get :show, id: node.id, master_tree_id: tree.id, format: 'json'
   end
 
   it { should respond_with(:success) }
@@ -306,10 +306,10 @@ end
 describe NodesController, 'GET to show for reference tree' do
   let(:user) { create(:user) }
   let(:tree) { create(:reference_tree) }
-  let(:node) { create(:node, :tree => tree) }
-  let(:synonym) { create(:synonym, :node => node, :name => create(:name, :name_string => 'Point'), :status => 'synonym') }
-  let(:language) { create(:language, :name => 'English', :iso_639_1 => 'en', :iso_639_2 => 'eng', :iso_639_3 => 'eng', :native => 'English') }
-  let(:vernacular) { create(:vernacular_name, :node => node, :name => create(:name, :name_string => 'Coordinate'), :language => language) }
+  let(:node) { create(:node, tree: tree) }
+  let(:synonym) { create(:synonym, node: node, name: create(:name, name_string: 'Point'), status: 'synonym') }
+  let(:language) { create(:language, name: 'English', iso_639_1: 'en', iso_639_2: 'eng', iso_639_3: 'eng', native: 'English') }
+  let(:vernacular) { create(:vernacular_name, node: node, name: create(:name, name_string: 'Coordinate'), language: language) }
 
   subject { controller }
 
@@ -317,14 +317,14 @@ describe NodesController, 'GET to show for reference tree' do
     sign_in user
 
     @expected = {
-      :id          => node.id,
-      :name        => node.name_string,
-      :rank        => node.rank,
-      :synonyms    => node.synonym_data,
-      :vernaculars => node.vernacular_data
+      id: node.id,
+      name: node.name_string,
+      rank: node.rank,
+      synonyms: node.synonym_data,
+      vernaculars: node.vernacular_data
     }
 
-    get :show, :id => node.id, :reference_tree_id => tree.id, :format => 'json'
+    get :show, id: node.id, reference_tree_id: tree.id, format: 'json'
   end
 
   it { should respond_with(:success) }

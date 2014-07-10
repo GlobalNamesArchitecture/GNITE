@@ -6,15 +6,15 @@ class Node < ActiveRecord::Base
   has_many :bookmarks
   has_many :synonyms
   has_many :vernacular_names
-  has_many :merge_events, :foreign_key => :primary_node_id
-  has_many :merge_events, :foreign_key => :secondary_node_id
+  has_many :merge_events, foreign_key: :primary_node_id
+  has_many :merge_events, foreign_key: :secondary_node_id
   has_many :merge_result_primaries
   has_many :merge_result_secondaries
 
   before_create :check_parent_id_for_nil
   before_update :check_parent_id_for_nil
 
-  delegate :name_string, :to => :name
+  delegate :name_string, to: :name
 
   include Gnite::NodeHierarchy
   include Gnite::NodeMerge
@@ -22,26 +22,26 @@ class Node < ActiveRecord::Base
   def self.search(search_string, tree_id)
     clean_search_string = "%#{search_string}%"
     clean_tree_id = "#{tree_id}"
-    names = Name.find(:all, :conditions => ['LOWER(names.name_string) LIKE ?', clean_search_string.downcase])
+    names = Name.find(:all, conditions: ['LOWER(names.name_string) LIKE ?', clean_search_string.downcase])
     nodes = []
     names.each do |name|
-      node = Node.find_by_name_id(name, :conditions => {:tree_id => clean_tree_id.to_i})
+      node = Node.find_by_name_id(name, conditions: {tree_id: clean_tree_id.to_i})
       nodes <<  node unless node.nil?
     end
     nodes
   end
 
   def canonical_name
-    @canonical_name ||= Gnite::Config.parser.parse(self.name_string, :canonical_only => true)
+    @canonical_name ||= Gnite::Config.parser.parse(self.name_string, canonical_only: true)
   end
 
   def synonym_data
-    res = synonyms.all.map { |s| { :name_string => s.name.name_string, :metadata => symbolize_keys(s.attributes) } }
+    res = synonyms.all.map { |s| { name_string: s.name.name_string, metadata: symbolize_keys(s.attributes) } }
     res.sort { |a,b| a[:name_string] <=> b[:name_string] }
   end
   
   def vernacular_data
-    res = vernacular_names.all.map { |v| { :name_string => v.name.name_string, :metadata => v.language.nil? ? symbolize_keys(v.attributes.merge(:language => {:id => nil, :name => nil})) : symbolize_keys(v.attributes.merge(:language => v.language.attributes)) } }
+    res = vernacular_names.all.map { |v| { name_string: v.name.name_string, metadata: v.language.nil? ? symbolize_keys(v.attributes.merge(language: {id: nil, name: nil})) : symbolize_keys(v.attributes.merge(language: v.language.attributes)) } }
     res.sort { |a,b| a[:name_string] <=> b[:name_string] }
   end
   
@@ -52,7 +52,7 @@ class Node < ActiveRecord::Base
   end
 
   def rename(new_name_string)
-    new_name = Name.where(:name_string => new_name_string).limit(1).first || Name.create(:name_string => new_name_string)
+    new_name = Name.where(name_string: new_name_string).limit(1).first || Name.create(name_string: new_name_string)
     self.name = new_name
     save
   end

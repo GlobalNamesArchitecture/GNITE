@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe NodeJsonPresenter do
   it "should present nodes as JSON" do
-    node = create(:node, :name => create(:name, :name_string => 'node-name'))
+    node = create(:node, name: create(:name, name_string: 'node-name'))
     nodes = [node]
 
     expected_hash = [{"attr" => { "id" => node.id}, "data" => "node-name"}]
@@ -12,10 +12,10 @@ describe NodeJsonPresenter do
   end
 
   it "should render nodes with a 'closed' state when they have children" do
-    parent = create(:node, :name => create(:name, :name_string => 'parent'))
+    parent = create(:node, name: create(:name, name_string: 'parent'))
     child  = create(:node,
-                     :name => create(:name, :name_string => 'child'),
-                     :parent => parent)
+                     name: create(:name, name_string: 'child'),
+                     parent: parent)
     nodes  = [parent]
 
     expected_hash = [

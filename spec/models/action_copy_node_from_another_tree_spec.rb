@@ -13,15 +13,15 @@ describe ActionCopyNodeFromAnotherTree do
 
   it 'should copy the node on first perform and remove it on second perform' do
     node = subject.node
-    child = create(:node, :parent => node, :tree => node.tree)
-    grandchild = create(:node, :parent => child, :tree => node.tree)
+    child = create(:node, parent: node, tree: node.tree)
+    grandchild = create(:node, parent: child, tree: node.tree)
     old_parent_id = node.parent_id
     new_parent_id = subject.destination_parent_id
     ActionCopyNodeFromAnotherTree.perform(subject.id)
     node.parent_id.should == old_parent_id
     Node.find(new_parent_id).children.select { |c| c.name == node.name && c.children[0].name == node.children[0].name && c.children[0].children[0].name == node.children[0].children[0].name }.size.should == 1
     subject.reload.undo?.should be_true
-    JSON.parse(subject.json_message, :symbolize_names => true).keys.should == [:node]
+    JSON.parse(subject.json_message, symbolize_names: true).keys.should == [:node]
     ActionCopyNodeFromAnotherTree.perform(subject.id)
     node.reload.parent_id.should == old_parent_id
     Node.find(new_parent_id).children.select { |c| c.name == node.name }.size == 0

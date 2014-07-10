@@ -1,7 +1,7 @@
 class AddProfileToUser < ActiveRecord::Migration
   def self.up
-    add_column :users, :given_name, :string, :limit => 128
-    add_column :users, :surname, :string, :limit => 128
+    add_column :users, :given_name, :string, limit: 128
+    add_column :users, :surname, :string, limit: 128
     add_column :users, :affiliation, :string
   end
 

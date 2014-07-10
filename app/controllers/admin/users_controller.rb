@@ -3,12 +3,12 @@ class Admin::UsersController < ApplicationController
   load_and_authorize_resource
   
   add_breadcrumb 'Administration', 'admin_path'
-  add_breadcrumb 'Users', 'admin_users_path', :only => [:new, :edit]
+  add_breadcrumb 'Users', 'admin_users_path', only: [:new, :edit]
   
   def index
     page = (params[:page]) ? params[:page] : 1
     @users = User.includes([:roster, :roles])
-                 .paginate(:page => page, :per_page => 25)
+                 .paginate(page: page, per_page: 25)
                  .order("surname")
   end
   
@@ -31,7 +31,7 @@ class Admin::UsersController < ApplicationController
       #todo send password reset email to user
       redirect_to admin_users_path
     else
-      render :action => 'new'
+      render action: 'new'
     end
   end
   
@@ -42,7 +42,7 @@ class Admin::UsersController < ApplicationController
     if @user.update_attributes(params[:user])
       flash[:notice] = "Successfully updated user."
     end
-    render :action => 'edit'
+    render action: 'edit'
   end
 
 end

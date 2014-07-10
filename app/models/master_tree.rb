@@ -2,10 +2,10 @@ class MasterTree < Tree
   belongs_to :user
   has_one :deleted_tree
   has_many :master_tree_contributors
-  has_many :users, :through => :master_tree_contributors
+  has_many :users, through: :master_tree_contributors
   has_many :master_tree_logs
   has_many :reference_tree_collections
-  has_many :reference_trees, :through => :reference_tree_collections
+  has_many :reference_trees, through: :reference_tree_collections
   has_many :merge_events
   has_many :rosters
   
@@ -54,27 +54,27 @@ class MasterTree < Tree
 
   def eml_xml
     {
-      :id => uuid,
-      :title => title,
-      :authors => get_authors,
-      :abstract => abstract,
-      :citation => citation,
-      :pubDate => Time.now
+      id: uuid,
+      title: title,
+      authors: get_authors,
+      abstract: abstract,
+      citation: citation,
+      pubDate: Time.now
     }
   end
 
   def get_authors
-    self.users.map { |u| { :first_name => u.given_name, :last_name => u.surname, :email => u.email } }
+    self.users.map { |u| { first_name: u.given_name, last_name: u.surname, email: u.email } }
   end
   
   def create_contributor
     return unless self.user
-    MasterTreeContributor.create!(:master_tree => self, :user => self.user)
+    MasterTreeContributor.create!(master_tree: self, user: self.user)
     self.user = nil
   end
 
   def create_deleted_tree
-    DeletedTree.create!(:master_tree => self, :title => "Deleted Names")
+    DeletedTree.create!(master_tree: self, title: "Deleted Names")
   end
 
   def build_extension(dwca, klass)
@@ -108,7 +108,7 @@ class MasterTree < Tree
         master_tree_contributor_ids.delete(m.user_id.to_s)
       end 
       master_tree_contributor_ids.each do |m|
-        self.master_tree_contributors.create(:user_id => m) unless m.blank?
+        self.master_tree_contributors.create(user_id: m) unless m.blank?
       end
       reload
       self.master_tree_contributor_ids = nil

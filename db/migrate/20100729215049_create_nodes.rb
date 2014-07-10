@@ -11,7 +11,7 @@ class CreateNodes < ActiveRecord::Migration
   end
 
   def self.down
-    remove_index :nodes, :column => :tree_id
+    remove_index :nodes, column: :tree_id
 
     drop_table :nodes
   end

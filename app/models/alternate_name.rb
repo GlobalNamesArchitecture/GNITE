@@ -6,7 +6,7 @@ module AlternateName
 
       validates_presence_of :name
       validates_presence_of :node
-      validates_uniqueness_of :name_id, :scope => :node_id
+      validates_uniqueness_of :name_id, scope: :node_id
     end
   end
 end

@@ -11,8 +11,8 @@ class CreateMergeResultSecondaries < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :merge_result_secondaries, [:merge_type_id, :merge_subtype_id], :name => :index_merge_results_secondaries_1
-    add_index :merge_result_secondaries, :merge_decision_id, :name => :index_merge_results_secondaries_2
+    add_index :merge_result_secondaries, [:merge_type_id, :merge_subtype_id], name: :index_merge_results_secondaries_1
+    add_index :merge_result_secondaries, :merge_decision_id, name: :index_merge_results_secondaries_2
   end
 
   def self.down

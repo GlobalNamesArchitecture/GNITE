@@ -25,17 +25,17 @@ FactoryGirl.define do
     creative_commons 'cc0'
   end
 
-  factory :master_tree, :parent => :tree, class: MasterTree do
+  factory :master_tree, parent: :tree, class: MasterTree do
     association :user
     user_id { FactoryGirl.create(:user) }
   end
 
-  factory :reference_tree, :parent => :tree, class: ReferenceTree do
+  factory :reference_tree, parent: :tree, class: ReferenceTree do
     revision { FactoryGirl.generate(:string) }
     publication_date { Time.now }
   end
 
-  factory :deleted_tree, :parent => :tree, class: DeletedTree do
+  factory :deleted_tree, parent: :tree, class: DeletedTree do
     association :master_tree
   end
 
@@ -86,7 +86,7 @@ FactoryGirl.define do
   factory :action_rename_node do
     tree_id { FactoryGirl.create(:master_tree).id }
     association :user
-    node_id { |a| FactoryGirl.create(:node, :tree_id => a.tree_id ).id }
+    node_id { |a| FactoryGirl.create(:node, tree_id: a.tree_id ).id }
     old_name { |a| Node.find(a.node_id).name.name_string }
     new_name { FactoryGirl.generate(:name_string) }
   end
@@ -94,58 +94,58 @@ FactoryGirl.define do
   factory :action_move_node_within_tree do
     tree_id { FactoryGirl.create(:master_tree).id }
     association :user
-    parent_id { |a| FactoryGirl.create(:node, :tree_id => a.tree_id).id }
-    node_id { |a| FactoryGirl.create(:node, :parent_id => a.parent_id, :tree_id => a.tree_id).id }
-    destination_parent_id {|a| FactoryGirl.create(:node, :tree_id => a.tree_id).id }
+    parent_id { |a| FactoryGirl.create(:node, tree_id: a.tree_id).id }
+    node_id { |a| FactoryGirl.create(:node, parent_id: a.parent_id, tree_id: a.tree_id).id }
+    destination_parent_id {|a| FactoryGirl.create(:node, tree_id: a.tree_id).id }
   end
 
   factory :action_move_node_to_deleted_tree do
     tree_id { FactoryGirl.create(:master_tree).id }
     association :user
-    parent_id { |a| FactoryGirl.create(:node, :tree_id => a.tree_id).id }
-    node_id { |a| FactoryGirl.create(:node, :parent_id => a.parent_id, :tree_id => a.tree_id).id }
+    parent_id { |a| FactoryGirl.create(:node, tree_id: a.tree_id).id }
+    node_id { |a| FactoryGirl.create(:node, parent_id: a.parent_id, tree_id: a.tree_id).id }
   end
 
   factory :action_copy_node_from_another_tree do
     tree_id { FactoryGirl.create(:master_tree).id }
     association :user
-    node_id { FactoryGirl.create(:node, :tree => FactoryGirl.create(:reference_tree)).id }
-    destination_parent_id { |a| FactoryGirl.create(:node, :tree_id => a.tree_id).id  }
+    node_id { FactoryGirl.create(:node, tree: FactoryGirl.create(:reference_tree)).id }
+    destination_parent_id { |a| FactoryGirl.create(:node, tree_id: a.tree_id).id  }
   end
 
   factory :action_add_node do
     tree_id { FactoryGirl.create(:master_tree).id }
     association :user
-    parent_id { |a| FactoryGirl.create(:node, :tree_id => a.tree_id).id }
+    parent_id { |a| FactoryGirl.create(:node, tree_id: a.tree_id).id }
   end
 
   factory :action_change_rank do
     tree_id { FactoryGirl.create(:master_tree).id }
     association :user
-    node_id { |a| FactoryGirl.create(:node, :tree_id => a.tree_id, :rank => "species" ).id }
-    json_message { {:do => "subpecies"}.to_json }
+    node_id { |a| FactoryGirl.create(:node, tree_id: a.tree_id, rank: "species" ).id }
+    json_message { {do: "subpecies"}.to_json }
   end
 
   factory :action_bulk_add_node do
     tree_id { FactoryGirl.create(:master_tree).id }
     association :user
-    parent_id { |a| FactoryGirl.create(:node, :tree_id => a.tree_id).id }
-    json_message { {:do => %w(name1 name2 name3)}.to_json }
+    parent_id { |a| FactoryGirl.create(:node, tree_id: a.tree_id).id }
+    json_message { {do: %w(name1 name2 name3)}.to_json }
   end
 
   factory :action_bulk_copy_node do
     tree_id { FactoryGirl.create(:master_tree).id }
     association :user
-    destination_parent_id { |a| FactoryGirl.create(:node, :tree_id => a.tree_id).id }
-    json_message { {:do => nil}.to_json }
+    destination_parent_id { |a| FactoryGirl.create(:node, tree_id: a.tree_id).id }
+    json_message { {do: nil}.to_json }
   end
 
   factory :action_node_to_synonym do
     tree_id { FactoryGirl.create(:master_tree).id }
     association :user
-    node_id { |a| FactoryGirl.create(:node, :tree_id => a.tree_id).id }
-    destination_node_id { |a| FactoryGirl.create(:node, :tree_id => a.tree_id).id }
-    json_message { {:do => nil, :undo => nil}.to_json }
+    node_id { |a| FactoryGirl.create(:node, tree_id: a.tree_id).id }
+    destination_node_id { |a| FactoryGirl.create(:node, tree_id: a.tree_id).id }
+    json_message { {do: nil, undo: nil}.to_json }
   end
 
 end

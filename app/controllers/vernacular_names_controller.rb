@@ -1,7 +1,7 @@
 class VernacularNamesController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource
-  skip_authorize_resource :only => :create
+  skip_authorize_resource only: :create
   
   def create
     node = Node.find(params[:node_id]) rescue nil
@@ -12,14 +12,14 @@ class VernacularNamesController < ApplicationController
     else
       channel     = "tree_#{params[:master_tree_id]}"
       name        = Name.find_or_create_by_name_string(params[:name_string])
-      @vernacular = VernacularName.new(:name => name, :node_id => params[:node_id])
+      @vernacular = VernacularName.new(name: name, node_id: params[:node_id])
       @vernacular.save
       
       push_metadata_message(channel, @vernacular)
 
       respond_to do |format|
         format.json do
-          render :json => @vernacular
+          render json: @vernacular
         end
       end
     end
@@ -31,7 +31,7 @@ class VernacularNamesController < ApplicationController
     node        = master_tree.nodes.find(params[:node_id]) rescue nil
     @vernacular = node.vernacular_names.find(params[:id]) rescue nil
     if(params[:language_id])
-      @vernacular.update_attributes(:language_id => params[:language_id])
+      @vernacular.update_attributes(language_id: params[:language_id])
       @vernacular.save
     end
     if(params[:name_string])
@@ -42,7 +42,7 @@ class VernacularNamesController < ApplicationController
     
     respond_to do |format|
       format.json do
-        render :json => @vernacular
+        render json: @vernacular
       end
     end
   end
@@ -58,7 +58,7 @@ class VernacularNamesController < ApplicationController
     
     respond_to do |format|
       format.json do
-        render :json => @vernacular
+        render json: @vernacular
       end
     end
   end

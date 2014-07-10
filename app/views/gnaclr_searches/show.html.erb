@@ -1,7 +1,7 @@
 <div class="breadcrumbs">
   <ul>
     <li>
-      <%= link_to 'New Import', new_master_tree_import_path(@master_tree), :class => 'ajax-load-new-tab' %>
+      <%= link_to 'New Import', new_master_tree_import_path(@master_tree), class: 'ajax-load-new-tab' %>
     </li>
     <li>
       Search for &#8220;<%= @results['search_term'] %>&#8221;
@@ -31,12 +31,12 @@
     </li>
   </ul>
   <div id="scientific-name-search-results" class="tabbed-panel search-text">
-    <%= render :partial => 'search_results', :locals => { :results_hash => @results['scientific_name_search'] } %>
+    <%= render partial: 'search_results', locals: { results_hash: @results['scientific_name_search'] } %>
   </div>
   <div id="vernacular-name-search-results" class="tabbed-panel search-text" style="display:none;">
-    <%= render :partial => 'search_results', :locals => { :results_hash => @results['vernacular_name_search'] } %>
+    <%= render partial: 'search_results', locals: { results_hash: @results['vernacular_name_search'] } %>
   </div>
   <div id="classification-metadata-search" class="tabbed-panel search-text" style="display:none;">
-    <%= render :partial => 'search_results', :locals => { :results_hash => @results['classification_metadata_search'] } %>
+    <%= render partial: 'search_results', locals: { results_hash: @results['classification_metadata_search'] } %>
   </div>
 </div>

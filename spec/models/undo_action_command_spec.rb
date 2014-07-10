@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe UndoActionCommand do
   let(:master_tree) { create(:master_tree) }
-  let(:action_add_node1) { create(:action_add_node, :tree_id => master_tree.id, :parent_id => master_tree.root.id) }
-  let(:action_add_node2) { create(:action_add_node, :tree_id => master_tree.id, :parent_id => action_add_node1.node.id) }
-  let(:action_add_node3) { create(:action_add_node, :tree_id => master_tree.id, :parent_id => action_add_node2.node.id) }
-  let(:action_add_node4) { create(:action_add_node, :tree_id => master_tree.id, :parent_id => action_add_node3.node.id) }
-  let(:action_add_node5) { create(:action_add_node, :tree_id => master_tree.id, :parent_id => action_add_node4.node.id) }
+  let(:action_add_node1) { create(:action_add_node, tree_id: master_tree.id, parent_id: master_tree.root.id) }
+  let(:action_add_node2) { create(:action_add_node, tree_id: master_tree.id, parent_id: action_add_node1.node.id) }
+  let(:action_add_node3) { create(:action_add_node, tree_id: master_tree.id, parent_id: action_add_node2.node.id) }
+  let(:action_add_node4) { create(:action_add_node, tree_id: master_tree.id, parent_id: action_add_node3.node.id) }
+  let(:action_add_node5) { create(:action_add_node, tree_id: master_tree.id, parent_id: action_add_node4.node.id) }
   let(:undo_actions) { UndoActionCommand.undo_actions(master_tree.id) }
 
   before do
@@ -21,7 +21,7 @@ describe UndoActionCommand do
     ActionAddNode.perform(action_add_node5.id)
     action_add_node5.reload
     6.times do |i|
-      ra = create(:action_rename_node, :tree_id => master_tree.id, :node_id => action_add_node1.node.id, :new_name => "node1_rename_#{i+1}")
+      ra = create(:action_rename_node, tree_id: master_tree.id, node_id: action_add_node1.node.id, new_name: "node1_rename_#{i+1}")
       ra.class.perform(ra.id)
       ra.reload
     end
@@ -41,7 +41,7 @@ describe UndoActionCommand do
     (undo_count - UndoActionCommand.count).should == 3
     (RedoActionCommand.count  - redo_count).should == 3
     action_add_node1.reload.node.reload.name.name_string.should == 'node1_rename_3'
-    ra = create(:action_rename_node, :tree_id => master_tree.id, :node_id => action_add_node5.node.id, :new_name => "renamed_name")
+    ra = create(:action_rename_node, tree_id: master_tree.id, node_id: action_add_node5.node.id, new_name: "renamed_name")
     ra.class.perform(ra.id)
     (undo_count - UndoActionCommand.count).should == 2
   end

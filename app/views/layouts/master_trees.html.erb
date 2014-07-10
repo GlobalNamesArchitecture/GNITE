@@ -5,14 +5,14 @@
   <meta name="description" content="<%= meta_description %>">
   <title>GNITE</title>
   <%= favicon_link_tag %>
-  <%= stylesheet_link_tag :all, :recursive => true %>
+  <%= stylesheet_link_tag :all, recursive: true %>
   <%= csrf_meta_tag %>
 </head>
 <body class="<%= body_class %>">
   <div id="wrapper">
 
     <% if current_user %>
-      <%= render :partial => 'shared/navigation' %>
+      <%= render partial: 'shared/navigation' %>
     <% end %>
 
     <div id="content" class="clearfix">
@@ -22,11 +22,11 @@
         </div>
       <% end %>
 
-      <%= render :partial => 'shared/flashes' -%>
+      <%= render partial: 'shared/flashes' -%>
       <%= yield %>
     </div>
     
   </div>
-  <%= render :partial => 'shared/javascript' %>
+  <%= render partial: 'shared/javascript' %>
 </body>
 </html>

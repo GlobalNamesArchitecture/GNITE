@@ -6,7 +6,7 @@ module FakeGnaclr
   class App < Sinatra::Base
     get '/classifications' do
       xml = {
-        :classifications => ClassificationStore.all.map do |classification|
+        classifications: ClassificationStore.all.map do |classification|
           classification.attributes
         end
       }.to_xml

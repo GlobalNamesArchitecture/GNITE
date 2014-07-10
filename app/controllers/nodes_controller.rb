@@ -1,7 +1,7 @@
 class NodesController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource
-  skip_authorize_resource :only => [:create]
+  skip_authorize_resource only: [:create]
 
   def index
     respond_to do |format|
@@ -13,17 +13,17 @@ class NodesController < ApplicationController
       @nodes = tree.children_of(parent_id)
 
       format.json do
-        render :json => NodeJsonPresenter.present(@nodes)
+        render json: NodeJsonPresenter.present(@nodes)
       end
 
       format.xml do
         response.headers['Content-type'] = 'text/xml; charset=utf-8'
-        render :layout => false
+        render layout: false
       end
 
       format.html do
         response.headers['Content-type'] = 'text/html; charset=utf-8'
-        render :layout => false
+        render layout: false
       end
 
     end
@@ -34,16 +34,16 @@ class NodesController < ApplicationController
     node = tree.nodes.find(params[:id]) rescue nil
     
     @metadata = {
-      :id          => node.id,
-      :name        => node.name_string,
-      :rank        => node.rank_string,
-      :synonyms    => node.synonym_data,
-      :vernaculars => node.vernacular_data
+      id: node.id,
+      name: node.name_string,
+      rank: node.rank_string,
+      synonyms: node.synonym_data,
+      vernaculars: node.vernacular_data
     }
     
     respond_to do |format|
       format.json do
-        render :json => @metadata
+        render json: @metadata
       end
       
       format.html do
@@ -52,7 +52,7 @@ class NodesController < ApplicationController
         elsif params[:reference_tree_id]
           tree_type = 'ReferenceTree'
         end
-        render :partial => 'shared/metadata', :locals => { :tree_type => tree_type }
+        render partial: 'shared/metadata', locals: { tree_type: tree_type }
       end
     end
 
@@ -70,7 +70,7 @@ class NodesController < ApplicationController
       action_command = schedule_action(node, master_tree, params)
       respond_to do |format|
         format.json do
-          render :json => action_command.json_message
+          render json: action_command.json_message
         end
       end
     end
@@ -82,7 +82,7 @@ class NodesController < ApplicationController
     respond_to do |format|
       format.json do
         schedule_action(node, master_tree, params)
-        render :json => node.reload
+        render json: node.reload
       end
     end
   end

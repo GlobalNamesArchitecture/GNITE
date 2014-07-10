@@ -3,19 +3,19 @@ class Admin::MasterTreesController < ApplicationController
   load_and_authorize_resource
   
   add_breadcrumb 'Administration', 'admin_path'
-  add_breadcrumb 'Trees', 'admin_master_trees_path', :only => :edit
+  add_breadcrumb 'Trees', 'admin_master_trees_path', only: :edit
   
   layout :get_layout
   
   def index
     page = (params[:page]) ? params[:page] : 1
     @master_trees = MasterTree.includes(:user)
-                 .paginate(:page => page, :per_page => 25)
+                 .paginate(page: page, per_page: 25)
                  .order("title")
   end
   
   def edit
-    @master_tree = MasterTree.find(params[:id], :include => { :users => :master_tree_contributors })
+    @master_tree = MasterTree.find(params[:id], include: { users: :master_tree_contributors })
   end
   
   def show
@@ -23,7 +23,7 @@ class Admin::MasterTreesController < ApplicationController
   end
   
   def update
-    @master_tree = MasterTree.find(params[:id], :include => { :users => :master_tree_contributors })
+    @master_tree = MasterTree.find(params[:id], include: { users: :master_tree_contributors })
     
     if params[:cancel]
       redirect_to admin_master_trees_url

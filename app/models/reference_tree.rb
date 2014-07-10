@@ -1,7 +1,7 @@
 class ReferenceTree < Tree
   has_many :gnaclr_importers
   has_many :reference_tree_collections
-  has_many :master_trees, :through => :reference_tree_collections
+  has_many :master_trees, through: :reference_tree_collections
 
   validates_presence_of :revision
   validates_presence_of :publication_date
@@ -11,7 +11,7 @@ class ReferenceTree < Tree
     tree.save
     node_list.each do |node_name|
       name = Name.find_or_create_by_name_string(node_name)
-      n = Node.new(:tree => tree, :name => name)
+      n = Node.new(tree: tree, name: name)
       n.save
     end
     tree

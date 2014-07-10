@@ -6,7 +6,7 @@ class CreateSynonyms < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :synonyms, [:node_id, :name_id], :unique => true
+    add_index :synonyms, [:node_id, :name_id], unique: true
   end
 
   def self.down

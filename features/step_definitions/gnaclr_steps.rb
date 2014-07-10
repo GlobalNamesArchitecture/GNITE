@@ -6,6 +6,6 @@ end
 
 Given /^the GNACLR classification "([^"]*)" has the following revisions:$/ do |classification_title, table|
   table.hashes.each do |revision_attributes|
-    FakeGnaclr::ClassificationStore.insert_revision_for_classification_title(:revision_attributes => revision_attributes, :classification_title => classification_title)
+    FakeGnaclr::ClassificationStore.insert_revision_for_classification_title(revision_attributes: revision_attributes, classification_title: classification_title)
   end
 end

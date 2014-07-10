@@ -16,16 +16,16 @@ end
 
 Given /^I signed up with "(.*)\/(.*)"$/ do |email, password|
   user = Factory :user,
-    :email                 => email,
-    :password              => password,
-    :confirmed_at          => nil
+    email: email,
+    password: password,
+    confirmed_at: nil
 end 
 
 Given /^I am signed up and confirmed as "(.*)\/(.*)"$/ do |email, password|
   user = Factory :user,
-    :email                 => email,
-    :password              => password,
-    :confirmed_at          => Time.now
+    email: email,
+    password: password,
+    confirmed_at: Time.now
 end
 
 # Session
@@ -107,7 +107,7 @@ end
 
 When /^I follow the password reset link sent to "(.*)"$/ do |email|
   user = User.find_by_email(email)
-  visit edit_user_password_path(:reset_password_token => user.reset_password_token)
+  visit edit_user_password_path(reset_password_token: user.reset_password_token)
 end
 
 When /^I follow the unlock link sent to "(.*)"$/ do |email|

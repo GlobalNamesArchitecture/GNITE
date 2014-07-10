@@ -41,7 +41,7 @@ module Gnite
         percentage = r.to_f/@url.header.content_length * 100
         elapsed_time = Time.now - start_time
         eta = calculate_eta(percentage, elapsed_time)
-        res = {:percentage => percentage, :elapsed_time => elapsed_time, :eta => eta}
+        res = {percentage: percentage, elapsed_time: elapsed_time, eta: eta}
         yield res
       end
     end

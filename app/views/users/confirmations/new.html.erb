@@ -1,12 +1,12 @@
 <div id="loginform" class="clearfix">
-  <%= semantic_form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
+  <%= semantic_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
 
-    <%= f.inputs :title => "Resend confirmation instructions" do %>
-      <%= f.input :email, :label => "Email", :input_html => { :class => "input" } %>
+    <%= f.inputs title: "Resend confirmation instructions" do %>
+      <%= f.input :email, label: "Email", input_html: { class: "input" } %>
     <% end -%>
 
     <%= f.buttons do %>
-      <%= f.commit_button "Resend", :button_html => { :class => "green-submit" } %>
+      <%= f.commit_button "Resend", button_html: { class: "green-submit" } %>
     <% end -%>
 
   <% end -%>

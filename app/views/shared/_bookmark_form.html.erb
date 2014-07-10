@@ -1,7 +1,7 @@
 <div id="bookmarks-addition-form-<%= tree.id %>" class="bookmark-addition" title="Add Bookmark">
-    <%= semantic_form_for(:bookmark, :html => { :id => "bookmark-form-" + tree.id.to_s }) do |form| %>
+    <%= semantic_form_for(:bookmark, html: { id: "bookmark-form-" + tree.id.to_s }) do |form| %>
         <%= form.inputs do -%>
-        <%= form.input :bookmark_title, :label => 'Name', :input_html => { :class => "input", :id => "bookmark-title-" + tree.id.to_s } %>
+        <%= form.input :bookmark_title, label: 'Name', input_html: { class: "input", id: "bookmark-title-" + tree.id.to_s } %>
       <% end -%>
     <% end %>
 </div>

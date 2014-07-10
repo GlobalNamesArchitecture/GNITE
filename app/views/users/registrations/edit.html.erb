@@ -2,15 +2,15 @@
   Profile Settings
 <% end %>
 
-<%= semantic_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+<%= semantic_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
 
-<%= render :partial => 'users/shared/user_fields', :locals => { :f => f } %>
+<%= render partial: 'users/shared/user_fields', locals: { f: f } %>
 
-<%= render :partial => 'users/shared/user_account', :locals => { :f => f} %>
+<%= render partial: 'users/shared/user_account', locals: { f: f} %>
 
 <!-- Submit -->
   <%= f.buttons do -%>
-    <%= f.commit_button "Save changes", :button_html => { :class => "green-submit" } %>
+    <%= f.commit_button "Save changes", button_html: { class: "green-submit" } %>
   <% end %>
 
 <% end %>

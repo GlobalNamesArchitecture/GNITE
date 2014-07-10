@@ -11,7 +11,7 @@ gem 'biodiversity19'
 gem 'dwc-archive'
 # gem 'fastercsv' #remove for ruby 1.9.x
 # gem 'SystemTimer' # remove for ruby 1.9.x
-gem 'yajl-ruby', :require => 'yajl'
+gem 'yajl-ruby', require: 'yajl'
 gem 'nokogiri'
 gem 'resque'
 gem 'rest-client'
@@ -33,14 +33,14 @@ end
 group :test do
   gem 'capybara'
   gem 'cucumber'
-  gem 'cucumber-rails', :require => false
+  gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'spork'
   gem 'launchy' # So you can do 'Then show me the page'.
   gem 'mocha'
   gem 'bourne'
   gem 'sham_rack'
-  gem 'sinatra', :require => false
+  gem 'sinatra', require: false
   gem 'timecop'
   gem 'factory_girl_rails'
   gem 'shoulda', '3.5.0'
@@ -53,5 +53,5 @@ end
 
 group :production do
   gem 'thin'
-  gem 'rack-google_analytics', '1.0.1', :require => 'rack/google_analytics'
+  gem 'rack-google_analytics', '1.0.1', require: 'rack/google_analytics'
 end

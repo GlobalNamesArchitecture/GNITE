@@ -2,7 +2,7 @@
     <table id="merge-results-fuzzy" class="gnite-table merge-results">
       <thead>
         <tr>
-          <%= render :partial => 'merge_decision_header' %>
+          <%= render partial: 'merge_decision_header' %>
           <td class="header-path">Primary Path</td>
           <td class="header-path">Secondary Path</td>
         </tr>
@@ -12,7 +12,7 @@
         <% data.each do |fuzzy| %>
           <tr class="<% row_type = cycle("even", "odd") %><%= row_type %><%= (fuzzy == data.last && row_type == 'even') ? " last last-even" : (fuzzy == data.last && row_type == 'odd') ? " last last-odd": "" %>">
             <td class="merge-decision">
-              <%= render :partial => 'merge_inputs', :locals => { :merge_id => fuzzy[:id], :decision_types => @decision_types, :decision => fuzzy[:merge_decision] } %>
+              <%= render partial: 'merge_inputs', locals: { merge_id: fuzzy[:id], decision_types: @decision_types, decision: fuzzy[:merge_decision] } %>
             </td>
             <td><%= fuzzy[:primary_path] %></td>
             <td class="<%= fuzzy[:type] %><%= !fuzzy[:subtype].nil? ? " " << fuzzy[:subtype] : "" %>"><%= fuzzy[:secondary_path] %></td>

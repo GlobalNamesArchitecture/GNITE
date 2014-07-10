@@ -42,8 +42,8 @@ module ActionView
       # block renderer. For example, if <tt>@entry</tt> has an attribute +message+ of type +VARCHAR+ then
       #
       #   form("entry",
-      #     :action => "sign",
-      #     :input_block => Proc.new { |record, column|
+      #     action: "sign",
+      #     input_block: Proc.new { |record, column|
       #       "#{column.human_name}: #{input(record, column.name)}<br />"
       #   })
       #
@@ -57,7 +57,7 @@ module ActionView
       #
       # It's also possible to add additional content to the form by giving it a block, such as:
       #
-      #   form("entry", :action => "sign") do |form|
+      #   form("entry", action: "sign") do |form|
       #     form << content_tag("b", "Department")
       #     form << collection_select("department", "id", @departments, "id", "name")
       #   end
@@ -75,11 +75,11 @@ module ActionView
 
         options = options.symbolize_keys
         options[:action] ||= record.persisted? ? "update" : "create"
-        action = url_for(:action => options[:action], :id => record)
+        action = url_for(action: options[:action], id: record)
 
         submit_value = options[:submit_value] || options[:action].gsub(/[^\w]/, '').capitalize
 
-        contents = form_tag({:action => action}, :method =>(options[:method] || 'post'), :enctype => options[:multipart] ? 'multipart/form-data': nil)
+        contents = form_tag({action: action}, :method =>(options[:method] || 'post'), enctype: options[:multipart] ? 'multipart/form-data': nil)
         contents.safe_concat hidden_field(record_name, :id) if record.persisted?
         contents.safe_concat all_input_tags(record, record_name, options)
         yield contents if block_given?
@@ -101,10 +101,10 @@ module ActionView
       #   # => <div class="formError">can't be empty</div>
       #
       #   <%= error_message_on "post", "title",
-      #       :prepend_text => "Title simply ",
-      #       :append_text => " (or it won't work).",
-      #       :html_tag => "span",
-      #       :css_class => "inputError" %>
+      #       prepend_text: "Title simply ",
+      #       append_text: " (or it won't work).",
+      #       html_tag: "span",
+      #       css_class: "inputError" %>
       #   # => <span class="inputError">Title simply can't be empty (or it won't work).</span>
       def error_message_on(object, method, *args)
         options = args.extract_options!
@@ -117,7 +117,7 @@ module ActionView
           options[:html_tag] = args[2] || 'div'
           options[:css_class] = args[3] || 'formError'
         end
-        options.reverse_merge!(:prepend_text => '', :append_text => '', :html_tag => 'div', :css_class => 'formError')
+        options.reverse_merge!(prepend_text: '', append_text: '', html_tag: 'div', css_class: 'formError')
 
         object = convert_to_model(object)
 
@@ -125,7 +125,7 @@ module ActionView
           (errors = obj.errors[method]).presence
           content_tag(options[:html_tag],
             (options[:prepend_text].html_safe << errors.first).safe_concat(options[:append_text]),
-            :class => options[:css_class]
+            class: options[:css_class]
           )
         else
           ''
@@ -168,7 +168,7 @@ module ActionView
       # To specify more than one object, you simply list them; optionally, you can add an extra <tt>:object_name</tt> parameter, which
       # will be the name used in the header message:
       #
-      #   error_messages_for 'user_common', 'user', :object_name => 'user'
+      #   error_messages_for 'user_common', 'user', object_name: 'user'
       #
       # You can also use a number of objects, which will have the same naming semantics
       # as a single object.
@@ -178,7 +178,7 @@ module ActionView
       # If the objects cannot be located as instance variables, you can add an extra <tt>:object</tt> parameter which gives the actual
       # object (or array of objects to use):
       #
-      #   error_messages_for 'user', :object => @question.user
+      #   error_messages_for 'user', object: @question.user
       #
       # NOTE: This is a pre-packaged presentation of the errors with embedded strings and a certain HTML structure. If what
       # you need is significantly different from the default presentation, it makes plenty of sense to access the <tt>object.errors</tt>
@@ -212,11 +212,11 @@ module ActionView
           end
           options[:object_name] ||= params.first
 
-          I18n.with_options :locale => options[:locale], :scope => [:errors, :template] do |locale|
+          I18n.with_options locale: options[:locale], scope: [:errors, :template] do |locale|
             header_message = if options.include?(:header_message)
               options[:header_message]
             else
-              locale.t :header, :count => count, :model => options[:object_name].to_s.gsub('_', ' ')
+              locale.t :header, count: count, model: options[:object_name].to_s.gsub('_', ' ')
             end
 
             message = options.include?(:message) ? options[:message] : locale.t(:body)

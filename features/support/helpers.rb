@@ -6,7 +6,7 @@ module NodeFinders
 
   def first_node_by_name_for_tree(name_string, tree)
     name = Name.find_by_name_string(name_string)
-    name.nodes.where(:tree => tree).first
+    name.nodes.where(tree: tree).first
   end
 end
 

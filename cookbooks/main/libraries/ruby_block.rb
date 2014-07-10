@@ -36,5 +36,5 @@ class Chef
   end
 end
 
-Chef::Platform.platforms[:default].merge! :ruby_block => Chef::Provider::RubyBlock
+Chef::Platform.platforms[:default].merge! ruby_block: Chef::Provider::RubyBlock
 

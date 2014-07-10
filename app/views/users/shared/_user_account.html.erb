@@ -9,8 +9,8 @@
 
     <div class="info-content">
       <%= f.inputs do -%>
-        <%= f.input :email, :required => true %>
-        <%= f.input :password, :label => "New password", :hint => "leave blank if you do not want to change" %>
+        <%= f.input :email, required: true %>
+        <%= f.input :password, label: "New password", hint: "leave blank if you do not want to change" %>
         <%= f.input :password_confirmation %>
       <% end -%>
     </div>

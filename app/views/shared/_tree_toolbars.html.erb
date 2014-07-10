@@ -8,7 +8,7 @@
           <li class="divider-after"><a href="#" class="nav-file-bulkadd">Add many nodes</a><span>ctrl+shift+n</span></li>
 
           <% if can? :edit, tree %>
-            <li><%= link_to edit_master_tree_path, :class => "nav-file-edit" do %>Edit tree info<% end %></li>
+            <li><%= link_to edit_master_tree_path, class: "nav-file-edit" do %>Edit tree info<% end %></li>
           <% end %>
 
           <% if can? :publish, tree %>
@@ -35,8 +35,8 @@
         <li class="divider-after"><a href="#" class="nav-view-deselectall">Deselect all</a></li>
         <li><a href="#" class="nav-view-refresh">Refresh tree</a><span>ctrl+shift+r</span></li>
         <li class="divider-after"><a href="#" class="nav-view-collapse">Collapse tree</a><span>ctrl+c</span></li>
-        <li><%= link_to master_tree_merge_events_path(:master_tree_id => tree.id), :class => "nav-view-merge" do %>Merge events<% end %><span>ctrl+m</span></li>
-        <li><%= link_to master_tree_edits_path(:master_tree_id => tree.id), :class => "nav-view-history" do %>History<% end %><span>ctrl+h</span></li>
+        <li><%= link_to master_tree_merge_events_path(master_tree_id: tree.id), class: "nav-view-merge" do %>Merge events<% end %><span>ctrl+m</span></li>
+        <li><%= link_to master_tree_edits_path(master_tree_id: tree.id), class: "nav-view-history" do %>History<% end %><span>ctrl+h</span></li>
       </ul>
     </li>
     <li><a href="#">Bookmarks</a>

@@ -4,7 +4,7 @@ describe GnaclrClassificationsController do
   context "when signed out" do
     describe "on GET to index" do
       before do
-        get :index, :master_tree_id => 123
+        get :index, master_tree_id: 123
       end
 
       subject { controller }
@@ -16,22 +16,22 @@ describe GnaclrClassificationsController do
 
   context "signed in with some remote GNACLR classifications" do
     let(:user) { create(:user) }
-    let(:master_tree)  { create(:master_tree, :user_id => user.id) }
+    let(:master_tree)  { create(:master_tree, user_id: user.id) }
     let(:master_trees) { [master_tree] }
 
     before do
       sign_in user
-      master_trees.stubs(:find => master_tree)
+      master_trees.stubs(find: master_tree)
     end
 
     describe "on GET to index" do
       let(:gnaclr_classifications) { 'fake classifications' }
 
       before do
-        controller.stubs(:current_user => user)
-        user.stubs(:master_trees => master_trees)
-        GnaclrClassification.stubs(:all => gnaclr_classifications)
-        get :index, :master_tree_id => master_tree.to_param
+        controller.stubs(current_user: user)
+        user.stubs(master_trees: master_trees)
+        GnaclrClassification.stubs(all: gnaclr_classifications)
+        get :index, master_tree_id: master_tree.to_param
       end
 
       subject { controller }
@@ -61,10 +61,10 @@ describe GnaclrClassificationsController do
       let(:gnaclr_classification) { 'fake classification' }
 
       before do
-        controller.stubs(:current_user => user)
-        user.stubs(:master_trees => master_trees)
-        GnaclrClassification.stubs(:find_by_uuid => gnaclr_classification)
-        get :show, :master_tree_id => master_tree.to_param, :id => 'the-uuid'
+        controller.stubs(current_user: user)
+        user.stubs(master_trees: master_trees)
+        GnaclrClassification.stubs(find_by_uuid: gnaclr_classification)
+        get :show, master_tree_id: master_tree.to_param, id: 'the-uuid'
       end
 
       subject { controller }

@@ -3,7 +3,7 @@
     <div class="tree_list_header_inner clearfix">
       <h1><%= @master_tree.title %></h1>
       <div id="tree-return" class="tree-link clearfix">
-        <a href="<%= master_tree_path(:id => @master_tree.id) %>"><span>Back to Master Tree</span></a>
+        <a href="<%= master_tree_path(id: @master_tree.id) %>"><span>Back to Master Tree</span></a>
       </div>
     </div>
   </div>
@@ -13,7 +13,7 @@
   <div id="fluid-head"></div>
 
   <div id="treewrap-main">
-    <%= semantic_form_for(@master_tree, :url => master_tree_path(@master_tree), :html => { :method => :put, :id => "tree-metadata" }) do |form| %>
+    <%= semantic_form_for(@master_tree, url: master_tree_path(@master_tree), html: { method: :put, id: "tree-metadata" }) do |form| %>
       <div class="tree-back-wrap">
         <div class="breadcrumbs">
           <ul>
@@ -21,11 +21,11 @@
           </ul>
         </div>
 
-        <%= render :partial => "form", :locals => { :form => form } %>
+        <%= render partial: "form", locals: { form: form } %>
       </div>
       <%= form.buttons do -%>
-        <%= form.commit_button "Update", :button_html => { :class => "green-submit", :name => 'update' } %>
-        <%= form.commit_button "Cancel", :button_html => { :class => "cancel-button", :name => 'cancel' } %>
+        <%= form.commit_button "Update", button_html: { class: "green-submit", name: 'update' } %>
+        <%= form.commit_button "Cancel", button_html: { class: "cancel-button", name: 'cancel' } %>
       <% end -%>
     <% end %>
   </div>

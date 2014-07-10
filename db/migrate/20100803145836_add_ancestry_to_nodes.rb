@@ -5,7 +5,7 @@ class AddAncestryToNodes < ActiveRecord::Migration
   end
 
   def self.down
-    remove_index :nodes, :column => :ancestry
+    remove_index :nodes, column: :ancestry
     remove_column :nodes, :ancestry
   end
 end

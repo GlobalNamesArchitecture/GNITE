@@ -2,8 +2,8 @@ class NodeJsonPresenter
   def self.present(nodes)
     node_hashes = nodes.map do |node|
       node_hash = {
-        :data => node.name_string,
-        :attr => { :id => node.id }
+        data: node.name_string,
+        attr: { id: node.id }
       }
       node_hash[:state] = 'closed' if node.has_children?
       node_hash

@@ -16,19 +16,19 @@ module Gnite
       copy
     end
   
-    def merge_data(path = [self], result = { :empty_nodes => [], :leaves => []})
+    def merge_data(path = [self], result = { empty_nodes: [], leaves: []})
       self.children.each do |child|
         path_new = path.dup
         path_names = path.map(&:canonical_name) << child.canonical_name
         path_ids = path.map { |n| n.id.to_s } << child.id.to_s
         if child.canonical_name.split(' ').size > 1
-          leaf = {:id => child.id.to_s, :rank => child.rank, :path => path_names, :path_ids => path_ids, :valid_name => {:name => child.name_string, :canonical_name => child.canonical_name, :type => 'valid', :status => nil}, :synonyms => []}
+          leaf = {id: child.id.to_s, rank: child.rank, path: path_names, path_ids: path_ids, valid_name: {name: child.name_string, canonical_name: child.canonical_name, type: 'valid', status: nil}, synonyms: []}
           child.synonyms.each do |synonym|
-            leaf[:synonyms] << {:name => synonym.name_string, :canonical_name => synonym.canonical_name, :status => synonym.status, :type => 'synonym'}
+            leaf[:synonyms] << {name: synonym.name_string, canonical_name: synonym.canonical_name, status: synonym.status, type: 'synonym'}
           end
           result[:leaves] << leaf
         elsif !child.has_children?
-          empty_node = {:id => child.id.to_s, :rank => child.rank, :path => path_names, :path_ids => path_ids, :valid_name => {:name => child.name_string, :canonical_name => child.canonical_name, :type => 'valid', :status => nil}, :synonyms => []}
+          empty_node = {id: child.id.to_s, rank: child.rank, path: path_names, path_ids: path_ids, valid_name: {name: child.name_string, canonical_name: child.canonical_name, type: 'valid', status: nil}, synonyms: []}
           result[:empty_nodes] << empty_node
         end
         child.merge_data((path_new << child), result)
@@ -84,9 +84,9 @@ module Gnite
       
       if target_node.name != source_node.name
         if merge_type == 'exact valid to valid'
-          Synonym.create(:node_id => target_node.id, :name => source_node.name, :status => 'lexical variant') 
+          Synonym.create(node_id: target_node.id, name: source_node.name, status: 'lexical variant') 
         else
-          Synonym.create(:node_id => target_node.id, :name => source_node.name, :status => 'merge alt name') 
+          Synonym.create(node_id: target_node.id, name: source_node.name, status: 'merge alt name') 
         end
       end
 
@@ -102,7 +102,7 @@ module Gnite
           node.parent = node_parent
         else
           name = Name.find_or_create_by_name_string(canonical_parts[0])
-          genus_node = Node.create!(:tree => node.tree, :name => name, :parent_id => ancestor.id, :rank => "genus")
+          genus_node = Node.create!(tree: node.tree, name: name, parent_id: ancestor.id, rank: "genus")
           node.parent = genus_node
         end
       else

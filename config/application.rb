@@ -35,7 +35,7 @@ module Gnite
     # config.generators do |g|
     #   g.orm             :active_record
     #   g.template_engine :erb
-    #   g.test_framework  :test_unit, :fixture => true
+    #   g.test_framework  :test_unit, fixture: true
     # end
 
     # Configure the default encoding used in templates for Ruby 1.9.
@@ -48,15 +48,15 @@ module Gnite
     config.active_support.deprecation = :log
     
     if Rails.env == "production"
-      config.middleware.use("Rack::GoogleAnalytics", :web_property_id => "UA-24752349-1")
+      config.middleware.use("Rack::GoogleAnalytics", web_property_id: "UA-24752349-1")
     end
   end
 
   Config = OpenStruct.new(
-    :gnaclr_url => "http://gnaclrold.globalnames.org",
-    :batch_size => 10_000,
-    :root_node_name_string => "tree_root",
-    :action_types => [
+    gnaclr_url: "http://gnaclrold.globalnames.org",
+    batch_size: 10_000,
+    root_node_name_string: "tree_root",
+    action_types: [
       'ActionAddNode',
       'ActionBulkAddNode',
       'ActionBulkCopyNode',
@@ -67,8 +67,8 @@ module Gnite
       'ActionNodeToSynonym',
       'ActionRenameNode'
     ],
-    :undo_limit => 10,
-    :parser => ParsleyStore.new(1,2),
+    undo_limit: 10,
+    parser: ParsleyStore.new(1,2),
   )
 
 end

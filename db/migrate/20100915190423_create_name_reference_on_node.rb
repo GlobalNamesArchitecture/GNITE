@@ -1,7 +1,7 @@
 class CreateNameReferenceOnNode < ActiveRecord::Migration
   def self.up
     remove_column :nodes ,:name
-    add_column  :nodes   ,:name_id ,:integer ,:null => false
+    add_column  :nodes   ,:name_id ,:integer ,null: false
 
     add_index   :nodes   ,:name_id
   end

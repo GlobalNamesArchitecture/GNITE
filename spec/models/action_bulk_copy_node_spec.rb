@@ -7,8 +7,8 @@ describe ActionBulkCopyNode do
   before(:each) do
     reference_tree = create(:reference_tree)
     nodes = []
-    3.times { nodes << create(:node, :tree => reference_tree).id }
-    subject.json_message = {:do => nodes}.to_json
+    3.times { nodes << create(:node, tree: reference_tree).id }
+    subject.json_message = {do: nodes}.to_json
     subject.save!
   end
 
@@ -16,7 +16,7 @@ describe ActionBulkCopyNode do
     parent = Node.find(subject.destination_parent_id)
     parent.has_children?.should be_false
     ActionBulkCopyNode.perform(subject.id)
-    node_ids = JSON.parse(subject.reload.json_message, :symbolize_names => true)[:undo]
+    node_ids = JSON.parse(subject.reload.json_message, symbolize_names: true)[:undo]
     parent.reload.has_children?.should be_true
     parent.children.size.should == node_ids.size
     parent.children.map(&:id).should == node_ids
