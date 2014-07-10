@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ActionMoveNodeToDeletedTree do
-  subject { Factory(:action_move_node_to_deleted_tree) }
+  subject { create(:action_move_node_to_deleted_tree) }
 
   it 'should return node' do
     subject.node.should == Node.find(subject.node_id)
@@ -25,30 +25,30 @@ describe ActionMoveNodeToDeletedTree do
   end
 
   it 'should not try to move the node if node does not exist' do
-    subject = Factory(:action_move_node_to_deleted_tree)
+    subject = create(:action_move_node_to_deleted_tree)
     node = subject.node
     node.destroy
     expect { ActionMoveNodeToDeletedTree.perform(subject.id) }.to raise_error
   end
 
   it 'should not try to move the node if parent_id does not exist' do
-    subject = Factory(:action_move_node_to_deleted_tree)
+    subject = create(:action_move_node_to_deleted_tree)
     parent_node = Node.find(subject.parent_id)
     parent_node.destroy
     expect { ActionMoveNodeToDeletedTree.perform(subject.id) }.to raise_error
   end
 
   it 'should not try to move the node if ancestry of parent is broken' do
-    subject = Factory(:action_move_node_to_deleted_tree)
+    subject = create(:action_move_node_to_deleted_tree)
     parent_node = Node.find(subject.parent_id)
-    parent_node.parent_id = Factory(:node).id
+    parent_node.parent_id = create(:node).id
     parent_node.save!
     parent_node.reload
     expect { ActionMoveNodeToDeletedTree.perform(subject.id) }.to raise_error
   end
 
   it 'should not try to undelete a node if node does not exist' do
-    subject = Factory(:action_move_node_to_deleted_tree)
+    subject = create(:action_move_node_to_deleted_tree)
     ActionMoveNodeToDeletedTree.perform(subject.id)
     subject.reload.undo?.should be_true
     node = subject.node
@@ -57,7 +57,7 @@ describe ActionMoveNodeToDeletedTree do
   end
 
   it 'should not try to move the node if parent_id does not exist' do
-    subject = Factory(:action_move_node_to_deleted_tree)
+    subject = create(:action_move_node_to_deleted_tree)
     ActionMoveNodeToDeletedTree.perform(subject.id)
     subject.reload.undo?.should be_true
     parent_node = Node.find(subject.parent_id)
@@ -66,11 +66,11 @@ describe ActionMoveNodeToDeletedTree do
   end
 
   it 'should not try to move the node if ancestry of parent is broken' do
-    subject = Factory(:action_move_node_to_deleted_tree)
+    subject = create(:action_move_node_to_deleted_tree)
     ActionMoveNodeToDeletedTree.perform(subject.id)
     subject.reload.undo?.should be_true
     parent_node = Node.find(subject.parent_id)
-    parent_node.parent = Factory(:node)
+    parent_node.parent = create(:node)
     expect { ActionMoveNodeToDeletedTree.perform(subject.id) }.to raise_error
   end
 

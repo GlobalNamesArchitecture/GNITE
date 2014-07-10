@@ -40,20 +40,20 @@ ActiveRecord::Schema.define(:version => 20120731151204) do
   add_index "bookmarks", ["node_id"], :name => "index_bookmarks_on_node_id"
 
   create_table "controlled_terms", :force => true do |t|
-    t.integer  "controlled_vocabulary_id"
-    t.string   "name"
-    t.string   "identifier"
-    t.string   "uri"
-    t.text     "description"
+    t.integer "controlled_vocabulary_id"
+    t.string  "name"
+    t.string  "identifier"
+    t.string  "uri"
+    t.text    "description"
   end
 
   add_index "controlled_terms", ["controlled_vocabulary_id"], :name => "index_controlled_terms_on_controlled_vocabulary_id"
 
   create_table "controlled_vocabularies", :force => true do |t|
-    t.string   "name"
-    t.string   "identifier"
-    t.string   "uri"
-    t.text     "description"
+    t.string "name"
+    t.string "identifier"
+    t.string "uri"
+    t.text   "description"
   end
 
   add_index "controlled_vocabularies", ["identifier"], :name => "index_controlled_vocabularies_on_identifier", :unique => true
@@ -62,6 +62,8 @@ ActiveRecord::Schema.define(:version => 20120731151204) do
     t.integer  "reference_tree_id"
     t.string   "url"
     t.integer  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "gnaclr_publishers", :force => true do |t|
@@ -89,6 +91,8 @@ ActiveRecord::Schema.define(:version => 20120731151204) do
     t.string   "iso_639_2"
     t.string   "iso_639_3"
     t.string   "native"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "languages", ["iso_639_1"], :name => "index_languages_on_iso_639_1"

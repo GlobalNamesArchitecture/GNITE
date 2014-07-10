@@ -3,12 +3,12 @@ require 'spec_helper'
 describe MasterTreesController do
   context "signed in" do
     before do
-      @user = Factory(:user)
+      @user = create(:user)
       sign_in @user
     end
 
     context "on GET to #index" do
-      let(:tree) { Factory(:master_tree, :user_id => @user.id) }
+      let(:tree) { create(:master_tree, :user_id => @user.id) }
 
       before do
         controller.stubs(:current_user => @user)
@@ -24,7 +24,7 @@ describe MasterTreesController do
     end
 
     context "on a valid GET to #new" do
-      let(:master_tree) { Factory(:master_tree, :user_id => @user.id) }
+      let(:master_tree) { create(:master_tree, :user_id => @user.id) }
 
       before do
         MasterTree.stubs(:new => master_tree)
@@ -46,7 +46,7 @@ describe MasterTreesController do
     end
 
     context "on a valid GET to #new" do
-      let(:tree) { Factory(:master_tree, :user_id => @user.id) }
+      let(:tree) { create(:master_tree, :user_id => @user.id) }
 
       before do
         get :edit, :id => tree.id
@@ -64,7 +64,7 @@ describe MasterTreesController do
     end
 
     context "on a valid PUT to #update" do
-      let(:tree) { Factory(:master_tree, :user_id => @user.id) }
+      let(:tree) { create(:master_tree, :user_id => @user.id) }
 
       before do
         MasterTree.stubs(:find => tree)
@@ -79,7 +79,7 @@ describe MasterTreesController do
     end
 
     context "on a valid PUT to #upate without permission" do
-      let(:tree) { Factory(:master_tree, :user => @user) }
+      let(:tree) { create(:master_tree, :user => @user) }
 
       before do
         MasterTree.stubs(:find => tree)
@@ -94,7 +94,7 @@ describe MasterTreesController do
     end
 
     context "on a valid POST to #update" do
-      let(:tree) { Factory(:master_tree, :user_id => @user.id) }
+      let(:tree) { create(:master_tree, :user_id => @user.id) }
 
       before do
         MasterTree.stubs(:find => tree)
@@ -113,7 +113,7 @@ describe MasterTreesController do
     end
     
     context "on a valid POST to #update without permission" do
-      let(:tree) { Factory(:master_tree, :user => @user) }
+      let(:tree) { create(:master_tree, :user => @user) }
 
       before do
         MasterTree.stubs(:find => tree)
@@ -128,7 +128,7 @@ describe MasterTreesController do
     end
     
     context "on a valid DELETE to #destroy" do
-      let(:tree) { Factory(:master_tree, :user_id => @user.id) }
+      let(:tree) { create(:master_tree, :user_id => @user.id) }
       
       before do
         delete :destroy, :id => tree.id
@@ -141,7 +141,7 @@ describe MasterTreesController do
     end
     
     context "on a valid DELETE to #destroy without permission" do
-      let(:tree) { Factory(:master_tree, :user => @user) }
+      let(:tree) { create(:master_tree, :user => @user) }
       
       before do
         delete :destroy, :id => tree.id

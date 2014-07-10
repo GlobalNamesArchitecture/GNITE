@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe ReferenceTreesController, 'html POST create' do
   context "when signed in with a master tree" do
-    let(:user) { Factory(:user) }
-    let(:master_tree) { Factory(:master_tree, :user => user) }
+    let(:user) { create(:user) }
+    let(:master_tree) { create(:master_tree, :user => user) }
 
     before do
       sign_in user
@@ -13,7 +13,7 @@ describe ReferenceTreesController, 'html POST create' do
     subject { controller }
 
     context "on POST to #create.json" do
-      let(:tree) { Factory(:reference_tree, :title => "Awesome title") }
+      let(:tree) { create(:reference_tree, :title => "Awesome title") }
       let(:nodes_list) { ["Title One", "Title Two", "Title Three"] }
       before do
         ReferenceTree.stubs(:new => tree)
@@ -39,11 +39,11 @@ end
 
 describe ReferenceTreesController, 'html DELETE destroy' do
   context "when signed in with a master tree" do
-    let(:user) { Factory(:user) }
-    let(:master_tree) { Factory(:master_tree, :user => user) }
-    let(:reference_tree) { Factory(:reference_tree) }
-    let(:reference_tree_collection) { Factory(:reference_tree_collection, :reference_tree => reference_tree, :master_tree => master_tree) }
-    let(:node) { Factory(:node, :tree => reference_tree) }
+    let(:user) { create(:user) }
+    let(:master_tree) { create(:master_tree, :user => user) }
+    let(:reference_tree) { create(:reference_tree) }
+    let(:reference_tree_collection) { create(:reference_tree_collection, :reference_tree => reference_tree, :master_tree => master_tree) }
+    let(:node) { create(:node, :tree => reference_tree) }
 
     before do
       sign_in user
@@ -80,8 +80,8 @@ describe ReferenceTreesController, 'html DELETE destroy' do
     end
 
     context "on DELETE to #destroy.json" do
-      let(:master_tree2) { Factory(:master_tree, :user => user) }
-      let(:reference_tree_collection2) { Factory(:reference_tree_collection, :reference_tree => reference_tree, :master_tree => master_tree2) }
+      let(:master_tree2) { create(:master_tree, :user => user) }
+      let(:reference_tree_collection2) { create(:reference_tree_collection, :reference_tree => reference_tree, :master_tree => master_tree2) }
       before do
         master_tree.stubs(:save => true)
         master_tree2.stubs(:save => true)
@@ -115,15 +115,15 @@ describe ReferenceTreesController, 'html DELETE destroy' do
 end
 
 describe ReferenceTreesController, 'DELETE destroy without authenticating' do
-  let(:reference_tree) { Factory(:reference_tree) }
+  let(:reference_tree) { create(:reference_tree) }
   
   before { delete :destroy, :id => reference_tree.id }
   it { should redirect_to(new_user_session_url) }
 end
 
 describe ReferenceTreesController, 'xhr GET show for a tree that is importing' do
-  let(:user) { Factory(:user) }
-  let(:reference_tree) { Factory(:reference_tree,
+  let(:user) { create(:user) }
+  let(:reference_tree) { create(:reference_tree,
                                 :state => 'importing') }
   subject { controller }
   before do
@@ -140,8 +140,8 @@ describe ReferenceTreesController, 'xhr GET show for a tree that is importing' d
 end
 
 describe ReferenceTreesController, 'xhr GET show for a tree that is active' do
-  let(:user) { Factory(:user) }
-  let(:reference_tree) { Factory(:reference_tree, :state => 'active') }
+  let(:user) { create(:user) }
+  let(:reference_tree) { create(:reference_tree, :state => 'active') }
   
   subject { controller }
   before do
@@ -158,8 +158,8 @@ describe ReferenceTreesController, 'xhr GET show for a tree that is active' do
 end
 
 describe ReferenceTreesController, 'html GET to show' do
-  let(:user) { Factory(:user) }
-  let(:reference_tree) { Factory(:reference_tree) }
+  let(:user) { create(:user) }
+  let(:reference_tree) { create(:reference_tree) }
   
   before do
     sign_in user
@@ -170,7 +170,7 @@ describe ReferenceTreesController, 'html GET to show' do
 end
 
 describe ReferenceTreesController, 'GET show without authenticating' do
-  let(:reference_tree) { Factory(:reference_tree) }
+  let(:reference_tree) { create(:reference_tree) }
   
   before { get :show, :id => 1 }
   it     { should redirect_to(new_user_session_url) }

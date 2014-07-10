@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe ActionBulkCopyNode do
   
-  subject { Factory(:action_bulk_copy_node) }
+  subject { create(:action_bulk_copy_node) }
   
   before(:each) do
-    reference_tree = Factory(:reference_tree)
+    reference_tree = create(:reference_tree)
     nodes = []
-    3.times { nodes << Factory(:node, :tree => reference_tree).id }
+    3.times { nodes << create(:node, :tree => reference_tree).id }
     subject.json_message = {:do => nodes}.to_json
     subject.save!
   end
@@ -28,7 +28,7 @@ describe ActionBulkCopyNode do
   it 'should not bulk copy nodes if precondition is not met' do
     Node.find(subject.destination_parent_id).destroy
     expect{ ActionBulkCopyNode.perform(subject.id) }.to raise_error
-    aa = Factory(:action_bulk_copy_node)
+    aa = create(:action_bulk_copy_node)
     aa.json_message = nil
     aa.save!
     expect{ ActionBulkCopyNode.perform(aa.id) }.to raise_error

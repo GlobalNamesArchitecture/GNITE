@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ActionBulkAddNode do
-  subject { Factory(:action_bulk_add_node) }
+  subject { create(:action_bulk_add_node) }
 
   it "should return nodes" do
     subject.nodes.should be_empty
@@ -24,17 +24,17 @@ describe ActionBulkAddNode do
   end
   
   it 'should not add nodes if precondition is not met' do
-    aa = Factory(:action_bulk_add_node)
+    aa = create(:action_bulk_add_node)
     Node.find(aa.parent_id).destroy
     expect{ ActionBulkAddNode.perform(aa.id) }.to raise_error
-    aa = Factory(:action_bulk_add_node)
+    aa = create(:action_bulk_add_node)
     aa.json_message = nil
     aa.save!
     expect{ ActionBulkAddNode.perform(aa.id) }.to raise_error
   end
 
   it 'should not undo adding nodes if precondition is not met' do
-    aa = Factory(:action_bulk_add_node)
+    aa = create(:action_bulk_add_node)
     ActionBulkAddNode.perform(aa.id)
     aa.json_message = nil
     aa.save!

@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe MasterTreeLogsController, 'GET to show edit history for master tree' do
-  let(:user) { Factory(:user) }
-  let(:master_tree) { Factory(:master_tree, :user => user) }
-  let(:node)  { Factory(:node, :tree => master_tree) }
+  let(:user) { create(:user) }
+  let(:master_tree) { create(:master_tree, :user => user) }
+  let(:node)  { create(:node, :tree => master_tree) }
   
   subject { controller }
 

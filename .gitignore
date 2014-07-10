@@ -10,3 +10,4 @@ capybara*.html
 *_site_specific.rb
 cucumber-rails
 script/roster_listener
+vendor/cache

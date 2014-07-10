@@ -15,7 +15,7 @@ describe ImportsController do
   end
 
   context "signed in" do
-    let(:user) { Factory(:user) }
+    let(:user) { create(:user) }
 
     before do
       sign_in user
@@ -23,7 +23,7 @@ describe ImportsController do
     end
 
     context "GET to #new with a master_tree_id" do
-      let(:master_tree)  { Factory(:master_tree, :user_id => user.id) }
+      let(:master_tree)  { create(:master_tree, :user_id => user.id) }
       let(:master_trees) { [master_tree] }
 
       before do

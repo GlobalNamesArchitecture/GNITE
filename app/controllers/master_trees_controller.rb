@@ -2,6 +2,8 @@ class MasterTreesController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource
 
+  layout 'master_trees'
+
   def index
     accessible_trees = MasterTree.accessible_by(current_ability).includes([:user, :merge_events])
     master_trees = []
@@ -23,7 +25,7 @@ class MasterTreesController < ApplicationController
   def show
     @master_tree.rosters.delete_if { |h| h.user_id == current_user.id }
     @master_tree.master_tree_contributors.delete_if { |h| h.user_id == current_user.id }
-    
+
     editors = []
     @master_tree.rosters.each do |roster|
       editors << { :id => roster.user.id, :email => roster.user.email, :roles => roster.user.roles.map { |r| r.name.humanize }, :status => "online" }
@@ -31,9 +33,9 @@ class MasterTreesController < ApplicationController
     @master_tree.master_tree_contributors.each do |contributor|
       editors << { :id => contributor.user.id, :email => contributor.user.email, :roles => contributor.user.roles.map { |r| r.name.humanize }, :status => "offline" } unless editors.any? { |h| h[:id] == contributor.user.id }
     end
-    
+
     @editors = editors.sort_by { |h| h[:email] }
-    
+
     message = { :subject => "member-login", :message => "", :time => Time.new.to_s, :user => { :id => current_user.id, :email => current_user.email, :roles => current_user.roles.map { |r| r.name.humanize } } }.to_json
     Juggernaut.publish("tree_" + @master_tree.id.to_s, message)
   end
@@ -72,15 +74,15 @@ class MasterTreesController < ApplicationController
     Resque.enqueue(GnaclrPublisher, gp.id)
     render :json => { :status => "OK" }
   end
-  
+
   def undo
-    action_command = UndoActionCommand.undo(params[:id], request.headers["X-Session-ID"]) 
+    action_command = UndoActionCommand.undo(params[:id], request.headers["X-Session-ID"])
     action = action_command.nil? ? { :status => "Nothing to undo" } : action_command.serializable_hash(:except => :json_message).merge({ :json_message => JSON.parse(action_command.json_message, :symbolize_keys => true) })
     render :json => action
   end
-  
+
   def redo
-    action_command = RedoActionCommand.redo(params[:id], request.headers["X-Session-ID"]) 
+    action_command = RedoActionCommand.redo(params[:id], request.headers["X-Session-ID"])
     action = action_command.nil? ? { :status => "Nothing to redo" } : action_command.serializable_hash(:except => :json_message).merge({ :json_message => JSON.parse(action_command.json_message, :symbolize_keys => true) })
     render :json => action
   end

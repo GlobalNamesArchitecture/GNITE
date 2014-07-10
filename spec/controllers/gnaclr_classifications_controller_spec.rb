@@ -15,8 +15,8 @@ describe GnaclrClassificationsController do
   end
 
   context "signed in with some remote GNACLR classifications" do
-    let(:user) { Factory(:user) }
-    let(:master_tree)  { Factory(:master_tree, :user_id => user.id) }
+    let(:user) { create(:user) }
+    let(:master_tree)  { create(:master_tree, :user_id => user.id) }
     let(:master_trees) { [master_tree] }
 
     before do
