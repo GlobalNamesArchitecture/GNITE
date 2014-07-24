@@ -12,7 +12,7 @@ gem 'dwc-archive', '0.7.1'
 # gem 'fastercsv' #remove for ruby 1.9.x
 # gem 'SystemTimer' # remove for ruby 1.9.x
 gem 'yajl-ruby', :require => 'yajl'
-gem 'ruby-debug19' # change to ruby-debug19 for ruby 1.9.x
+gem 'debugger'
 gem 'nokogiri'
 gem 'resque', '1.19.0'
 gem 'rest-client', '1.6.7'

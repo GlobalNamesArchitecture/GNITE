@@ -5,6 +5,7 @@ db/*.sqlite3
 log/*.log
 tmp/**/*
 tmp/*
+vendor/cache/*
 capybara*.html
 .DS_Store
 *_site_specific.rb
