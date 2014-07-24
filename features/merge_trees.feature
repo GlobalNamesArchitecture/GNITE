@@ -44,17 +44,20 @@ Feature: Merge nodes between trees
     And I press "OK"
     When I click the master tree background
     And I select the node "Lycosidae" in my reference tree
+    And I follow "Tools" within "toolbar"
     And I follow "Merge" within "toolbar"
     Then I should see "Select one name in your working tree and one name in your reference tree then re-execute merge." within the dialog box
     And I press "OK"
     When I expand the node "Lycosidae" in my reference tree "My Reference Tree"
     And I wait for the reference tree to load
     And I select the node "Pardosa" in my reference tree
+    And I follow "Tools" within "toolbar"
     And I follow "Merge" within "toolbar"
     Then I should see "Select one name in your working tree and one name in your reference tree then re-execute merge." within the dialog box
     And I press "OK"
     When I select the node "Pardosa" in my reference tree
     And I select the node "Lycosidae"
+    And I follow "Tools" within "toolbar"
     And I follow "Merge" within "toolbar"
     Then I should see "Lycosidae" within the dialog box
     And I should not see "Pardosa" within the dialog box

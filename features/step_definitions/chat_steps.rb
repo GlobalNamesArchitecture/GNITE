@@ -1,7 +1,7 @@
 When /^I wait for the websocket to activate$/ do
   loaded = false
   When %{pause 1}
-  Timeout.timeout(1) do
+  Timeout.timeout(10) do
     while !loaded
       loaded = page.has_css?("#master-tree.socket-active")
     end

@@ -79,7 +79,7 @@ end
 
 When /^I wait for the reference tree to load$/ do
   loaded = false
-  When %{pause 1}
+  When %{pause 0.5}
   while !loaded
     loaded = page.has_css?(".reference-tree-container > div.loaded") && !page.has_css?("span.jstree-loading")
   end

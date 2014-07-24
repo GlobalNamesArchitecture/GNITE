@@ -34,6 +34,7 @@ Feature: Manage bookmarks
     And I wait for the bookmark form to load
     And I fill in "Name" with "My bookmark"
     And I press "Add bookmark"
+    And I follow "Bookmarks" within "toolbar"
     And I follow "Show bookmarks" within "toolbar"
     And I wait for the bookmark results to load
     Then I should see a bookmark "My bookmark" in master tree bookmarks

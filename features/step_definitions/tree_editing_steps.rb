@@ -49,9 +49,9 @@ end
 
 When /^I wait for the tree to load$/ do
   loaded = false
-  When %{pause 1}
+  When %{pause 0.5}
   while !loaded
-    loaded = page.has_css?("#master-tree.loaded") && !page.has_css?(".jstree-locked") && !page.has_css?("span.jstree-loading")
+    loaded = page.has_css?("#master-tree.loaded") && !page.body.include?(".jstree-locked") && !page.body.include?("span.jstree-loading")
   end
 end
 
@@ -70,6 +70,8 @@ When /^I expand the node "([^"]*)"$/ do |node_name|
 end
 
 When /^I expand the node "([^"]*)" in deleted names$/ do |node_name|
+  # TODO: why are we getting "This connection is still waiting for a result" without this sleep?
+  sleep 1
   node = first_node_by_name(node_name)
   page.execute_script("jQuery('.deleted-tree-container > div').jstree('open_node', '##{node.id}');")
   sleep 1
@@ -88,6 +90,8 @@ Then /^pause (\d+\.?\d?)$/ do |num|
 end
 
 When /^I drag "([^"]*)" under "([^"]*)"$/ do |child_node_text, parent_node_text|
+  # TODO: why are we getting "This connection is still waiting for a result" without this sleep?
+  sleep 1
   child_node = first_node_by_name(child_node_text)
   parent_node = first_node_by_name(parent_node_text)
   #This calls the "move_node" function from the core api directly
@@ -106,6 +110,7 @@ end
 When /^I delete the node "([^"]*)"$/ do |node_text|
   node = first_node_by_name(node_text)
   page.execute_script("jQuery('#master-tree').jstree('remove', '##{node.id}');")
+  sleep 1
 end
 
 Then /^the "([^"]*)" tree node should be selected$/ do |node_text|
