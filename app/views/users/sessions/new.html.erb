@@ -10,8 +10,8 @@
       <%= f.check_box :remember_me %><%= f.label "remember me", :class => "remember-me" %>
     <% end -%>
 
-    <%= f.buttons do %>
-      <%= f.commit_button "Sign in", :button_html => { :class => "green-submit" } %>
+    <%= f.actions do %>
+      <%= f.action :submit, :as => :button, :label => "Sign in", :button_html => { :class => "green-submit" } %>
     <% end -%>
 
   <% end %>

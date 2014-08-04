@@ -1,9 +1,9 @@
 Then /^I should see a node "([^"]*)" at the root level in my master tree$/ do |node_text|
-  page.should have_css("div#master-tree>ul>li>a:contains('#{node_text}')")
+  page.should have_xpath("//div[@id='master-tree']/ul/li/a[contains(text(),'#{node_text}')]")
 end
 
 Then /^I should see a node "([^"]*)" at the root level in deleted names$/ do |node_text|
-  page.should have_css("div.deleted-tree-container>div>ul>li>a:contains('#{node_text}')")
+  page.should have_xpath("//div[contains(@class, 'deleted-tree-container')]/div/ul/li/a[contains(text(), '#{node_text}')]")
 end
 
 Then /^I should see (\d+) child nodes? for the "([^"]*)" node in my master tree$/ do |node_count, parent_node_text|
@@ -11,7 +11,7 @@ Then /^I should see (\d+) child nodes? for the "([^"]*)" node in my master tree$
 end
 
 Then /^I should not see a node "([^"]*)" at the root level in my master tree$/ do |node_text|
-  page.should_not have_css("div#master-tree>ul>li>a:contains('#{node_text}')")
+  page.should_not have_xpath("//div[@id='master-tree']/ul/li/a[contains(text(),'#{node_text}')]")
 end
 
 When /^I enter "([^"]*)" in the new node and press enter$/ do |text|
@@ -22,7 +22,7 @@ When /^I enter "([^"]*)" in the new node and press enter$/ do |text|
 end
 
 When /^I select the node "([^"]*)"$/ do |node_text|
-  When %{I follow "#{node_text}"}
+  step %{I follow "#{node_text}" within "#master-tree"}
   sleep 1
 end
 
@@ -39,7 +39,7 @@ Then /^I should not see a node "([^"]*)" under "([^"]*)"$/ do |child_node_text, 
 end
 
 When /^I double click "([^"]*)" and change it to "([^"]*)"$/ do |old_name, new_name|
-  When %{I follow "#{old_name}"}
+  step %{I follow "#{old_name}"}
   page.execute_script("jQuery('.jstree-clicked').dblclick();")
   sleep 1
   field = find(:css, "#master-tree input")
@@ -49,7 +49,7 @@ end
 
 When /^I wait for the tree to load$/ do
   loaded = false
-  When %{pause 0.5}
+  step %{pause 0.5}
   while !loaded
     loaded = page.has_css?("#master-tree.loaded") && !page.body.include?(".jstree-locked") && !page.body.include?("span.jstree-loading")
   end
@@ -57,7 +57,7 @@ end
 
 When /^I wait for tree to disappear/ do
   removed = false
-  When %{pause 1}
+  step %{pause 1}
   while !removed
     removed = !page.has_css?("#toolbar")
   end
@@ -96,13 +96,13 @@ When /^I drag "([^"]*)" under "([^"]*)"$/ do |child_node_text, parent_node_text|
   parent_node = first_node_by_name(parent_node_text)
   #This calls the "move_node" function from the core api directly
   #but the same function is also called during mouse drag and drops
-  When %{I select the node "#{child_node.name_string}"}
+  step %{I select the node "#{child_node.name_string}"}
   page.execute_script("jQuery('#master-tree').jstree('move_node', '##{child_node.id}', '##{parent_node.id}', 'first', false);")
   sleep 2
 end
 
 When /^I drag the node "([^"]*)" into the synonym region for the node "([^"]*)"$/ do |node_text, node_destination_text|
-  When %{I follow "#{node_destination_text}"}
+  step %{I follow "#{node_destination_text}"}
   node = first_node_by_name(node_text)
   #TODO add page.execute_script code here somehow
 end
@@ -115,7 +115,7 @@ end
 
 Then /^the "([^"]*)" tree node should be selected$/ do |node_text|
   node = first_node_by_name(node_text)
-  page.should have_css("li##{node.id} a.jstree-clicked")
+  page.should have_xpath("//li[@id='#{node.id}']/a[@class='jstree-clicked']")
 end
 
 When /^I click the master tree background$/ do
@@ -143,7 +143,7 @@ end
 Given /^the "([^"]*)" tree has a child node "([^"]*)" under "([^"]*)"$/ do |tree_title, child_node_name, parent_node_name|
   tree = Tree.find_by_title(tree_title)
   parent = first_node_by_name_for_tree(parent_node_name, tree)
-  Factory(:node, :parent => parent, :name => child_node_name)
+  FactoryGirl.create(:node, :parent => parent, :name => child_node_name)
 end
 
 Then /^I should see "([^"]*)" under "([^"]*)" under "([^"]*)" in my master tree$/ do |grandchild, child, parent|

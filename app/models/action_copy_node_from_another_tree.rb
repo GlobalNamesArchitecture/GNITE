@@ -31,7 +31,7 @@ class ActionCopyNodeFromAnotherTree < ActionCommand
   end
   
   def undo_log
-    "#{node.name_string} and its children (if any) removed"
+    "#{old_name} and its children (if any) removed"
   end
 
   def master_tree

@@ -10,17 +10,17 @@ describe Node, 'valid' do
   it { should have_many :vernacular_names }
 
   it 'supports constructing a hierarchy' do
-    root = Factory(:node)
-    child = Factory(:node,      :parent => root)
-    grandchild = Factory(:node, :parent => child)
+    root = create(:node)
+    child = create(:node,      :parent => root)
+    grandchild = create(:node, :parent => child)
 
     root.children.should == [child]
     grandchild.parent.parent.should == root
   end
 
   it 'should by default be a child of the root node' do
-    root = Factory(:node)
-    child = Factory(:node, :parent => root)
+    root = create(:node)
+    child = create(:node, :parent => root)
     real_root = root.tree.root
     real_root.children.should == [root]
     root.children.should == [child]
@@ -29,14 +29,14 @@ end
 
 describe Node, '#deep_copy_to' do
   it 'produces a deep copy of its subtree, with node names, synonyms, and vernacular names' do
-    tree        = Factory(:reference_tree)
-    root        = Factory(:node, :tree => tree, :name => Factory(:name, :name_string => 'Root'))
-    child       = Factory(:node, :tree => tree, :parent => root, :name => Factory(:name, :name_string => 'Child'))
-    grandchild  = Factory(:node, :tree => tree, :parent => child, :name => Factory(:name, :name_string => 'Grandchild'))
-    master_tree = Factory(:master_tree)
+    tree        = create(:reference_tree)
+    root        = create(:node, :tree => tree, :name => create(:name, :name_string => 'Root'))
+    child       = create(:node, :tree => tree, :parent => root, :name => create(:name, :name_string => 'Child'))
+    grandchild  = create(:node, :tree => tree, :parent => child, :name => create(:name, :name_string => 'Grandchild'))
+    master_tree = create(:master_tree)
 
-    synonym         = Factory(:synonym, :node => grandchild)
-    vernacular_name = Factory(:vernacular_name, :node => child)
+    synonym         = create(:synonym, :node => grandchild)
+    vernacular_name = create(:vernacular_name, :node => child)
 
     another_root = root.deep_copy_to(master_tree)
     another_root.name_string.should == 'Root'
@@ -57,8 +57,8 @@ describe Node, '#deep_copy_to' do
 end
 
 describe Node, 'name' do
-  let(:name) { Factory(:name) }
-  subject { Factory(:node, :name => name) }
+  let(:name) { create(:name) }
+  subject { create(:node, :name => name) }
 
   it 'delegates name to the Name model' do
     subject.name_string.should == name.name_string
@@ -69,26 +69,26 @@ end
 
 describe Node, '#rank_string' do
   it 'returns None if rank is nil' do
-    node = Factory(:node, :rank => nil)
+    node = create(:node, :rank => nil)
     node.rank_string.should == 'None'
   end
 
   it 'returns None if rank is empty' do
-    node = Factory(:node, :rank => '  ')
+    node = create(:node, :rank => '  ')
     node.rank_string.should == 'None'
   end
 
   it 'returns rank if present' do
-    node = Factory(:node, :rank => 'Family')
+    node = create(:node, :rank => 'Family')
     node.rank_string.should == 'Family'
   end
 end
 
 describe Node, '#synonym_data for a synonym' do
-  let(:node) { Factory(:node) }
+  let(:node) { create(:node) }
 
   before do
-    @synonym = Factory(:synonym, :node => node)
+    @synonym = create(:synonym, :node => node)
   end
 
   it 'returns data for a synonym' do
@@ -98,7 +98,7 @@ describe Node, '#synonym_data for a synonym' do
 end
 
 describe Node, '#synonym_data with no synonyms' do
-  let(:node) { Factory(:node) }
+  let(:node) { create(:node) }
 
   it 'returns None' do
     node.synonym_data.should == []
@@ -106,11 +106,11 @@ describe Node, '#synonym_data with no synonyms' do
 end
 
 describe Node, '#vernacular_data for a vernacular' do
-  let(:node) { Factory(:node) }
-  let(:language) { Factory(:language, :name => 'English', :iso_639_1 => 'en', :iso_639_2 => 'eng', :iso_639_3 => 'eng', :native => 'English') }
+  let(:node) { create(:node) }
+  let(:language) { create(:language, :name => 'English', :iso_639_1 => 'en', :iso_639_2 => 'eng', :iso_639_3 => 'eng', :native => 'English') }
 
   before do
-    @vernacular = Factory(:vernacular_name, :node => node, :language => language)
+    @vernacular = create(:vernacular_name, :node => node, :language => language)
   end
 
   it 'returns data for a vernacular name' do
@@ -120,7 +120,7 @@ describe Node, '#vernacular_data for a vernacular' do
 end
 
 describe Node, '#vernacular_data with no vernaculars' do
-  let(:node) { Factory(:node) }
+  let(:node) { create(:node) }
 
   it 'returns None' do
     node.vernacular_data.should == []
@@ -128,7 +128,7 @@ describe Node, '#vernacular_data with no vernaculars' do
 end
 
 describe Node, "#children" do
-  let (:parent) { Factory(:node) }
+  let (:parent) { create(:node) }
   let (:names) do
     %w{ Gossleriellaceae
       Stictodiscaceae
@@ -136,9 +136,9 @@ describe Node, "#children" do
       Leptocylindraceae
       Corethraceae
       Heliopeltaceae
-      Ethmodiscaceae }.map { |n| Factory(:name, :name_string => n) }
+      Ethmodiscaceae }.map { |n| create(:name, :name_string => n) }
   end
-  let (:children_nodes) { names.map{ |name| Factory(:node, :tree_id => parent.tree_id, :parent_id => parent.id, :name => name) } }
+  let (:children_nodes) { names.map{ |name| create(:node, :tree_id => parent.tree_id, :parent_id => parent.id, :name => name) } }
 
   it 'should sort names by alphabet' do
     unsorted_names = children_nodes.map { |node| node.name.name_string }
@@ -161,14 +161,14 @@ end
 
 describe Node, '#destroy_with_children' do
   it 'deletes the node and its descendents, related synonyms and vernacular names' do
-    tree        = Factory(:reference_tree)
-    root        = Factory(:node, :tree => tree, :name => Factory(:name, :name_string => 'Root'))
-    child       = Factory(:node, :tree => tree, :parent => root, :name => Factory(:name, :name_string => 'Child'))
-    grandchild  = Factory(:node, :tree => tree, :parent => child, :name => Factory(:name, :name_string => 'Grandchild'))
-    master_tree = Factory(:master_tree)
+    tree        = create(:reference_tree)
+    root        = create(:node, :tree => tree, :name => create(:name, :name_string => 'Root'))
+    child       = create(:node, :tree => tree, :parent => root, :name => create(:name, :name_string => 'Child'))
+    grandchild  = create(:node, :tree => tree, :parent => child, :name => create(:name, :name_string => 'Grandchild'))
+    master_tree = create(:master_tree)
 
-    synonym         = Factory(:synonym, :node => grandchild)
-    vernacular_name = Factory(:vernacular_name, :node => child)
+    synonym         = create(:synonym, :node => grandchild)
+    vernacular_name = create(:vernacular_name, :node => child)
     nodes_count = Node.count
     vern_count = VernacularName.count
     syn_count = Synonym.count

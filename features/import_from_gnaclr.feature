@@ -16,7 +16,7 @@ Feature: Importing trees from GNACLR
 
   @javascript
   Scenario: Importing the sample NCBI tree
-    Then I should see "All reference trees (0)"
+    And I should not see the reference trees tab
     When I follow "Browse Classifications"
     And I follow "NCBI"
     And I press "Import"
@@ -28,12 +28,12 @@ Feature: Importing trees from GNACLR
     And I should see the breadcrumb path "NCBI"
     And I should see a node "Cyphophthalmi incertae sedis" at the root level in my reference tree "NCBI"
     And I should see a node "Opiliones" at the root level in my reference tree "NCBI"
-    When I select the node "Opiliones"
+    When I select the node "Opiliones" in my reference tree
     Then I should see "Daddy longlegs" as vernacular names for the "NCBI" tree
 
   @javascript
   Scenario: Importing an older revision of the sample NCBI tree
-    Then I should see "All reference trees (0)"
+    And I should not see the reference trees tab
     When I follow "Browse Classifications"
     And I follow "NCBI"
     Then "Published: 2011-02-14 17:05:17" should be checked
@@ -50,7 +50,7 @@ Feature: Importing trees from GNACLR
 
   @javascript
   Scenario: Importing the sample NCBI tree and reloading the page before it finishes
-    Then I should see "All reference trees (0)"
+    And I should not see the reference trees tab
     When I follow "Browse Classifications"
     And I follow "NCBI"
     And I press "Import"
@@ -67,5 +67,5 @@ Feature: Importing trees from GNACLR
     And I should see "All reference trees (1)"
     And I should see a node "Cyphophthalmi incertae sedis" at the root level in my reference tree "NCBI"
     And I should see a node "Opiliones" at the root level in my reference tree "NCBI"
-    When I select the node "Opiliones"
+    When I select the node "Opiliones" in my reference tree
     Then I should see "Daddy longlegs" as vernacular names for the "NCBI" tree

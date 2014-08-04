@@ -14,7 +14,7 @@ end
 
 When /^the GNACLR search results return$/ do
   loaded = false
-  When %{pause 1}
+  step %{pause 1}
   until loaded
     loaded = page.has_css?("#gnaclr-search-results") || page.has_css?("#gnaclr-error")
   end

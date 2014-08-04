@@ -1,4 +1,4 @@
-<% if flash.size > 0 -%>
+<% if flash.any? -%>
   <div id="flash">
     <% flash.each do |key, value| -%>
       <div id="flash_<%= key %>"><div id="flash_image_<%= key %>"></div><%=h value %></div>

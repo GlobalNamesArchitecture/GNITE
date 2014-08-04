@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe JobsLog do
   before(:all) do
-    @tree = Factory(:reference_tree)
+    @tree = create(:reference_tree)
     @an_object_id = 333
-    @gnaclr_importer = Factory(:gnaclr_importer, :reference_tree => @tree, :status => 'test')
+    @gnaclr_importer = create(:gnaclr_importer, :reference_tree => @tree, :status => 'test')
     @logger = JobsLogger.new
   end
 

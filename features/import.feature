@@ -15,7 +15,7 @@ Feature: Import data to your master tree
 
   @javascript
   Scenario: User can import flat list as root nodes
-    Then I should see "All reference trees (0)"
+    Then I should not see the reference trees tab
     When I follow "Import"
     And I follow "Enter Flat List"
     And I fill in "Title" with "My Sweet List"
@@ -38,7 +38,7 @@ Feature: Import data to your master tree
     And I press "Import"
     Then I should see "Title is required"
     And I should see "List of Taxa is required"
-    And I should see "All reference trees (0)"
+    And I should not see the reference trees tab
 
   @javascript
   Scenario: View breadcrumb navigation while importing a flat list

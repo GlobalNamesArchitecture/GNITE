@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ActionChangeRank do
-  subject { Factory(:action_change_rank) }
+  subject { create(:action_change_rank) }
 
   it 'should return node' do
     subject.node.should == Node.find(subject.node_id)
@@ -24,17 +24,17 @@ describe ActionChangeRank do
   end
 
   it 'should not change rank if preconditions are not met' do
-    acr = Factory(:action_change_rank)
+    acr = create(:action_change_rank)
     Node.find(acr.node_id).destroy
     expect{ ActionChangeRank.perform(acr.id) }.to raise_error
-    acr = Factory(:action_change_rank)
+    acr = create(:action_change_rank)
     acr.json_message = nil
     acr.save!
     expect{ ActionChangeRank.perform(acr.id) }.to raise_error
   end
 
   it 'should not undo change rank if precondition is not met' do
-    acr = Factory(:action_change_rank)
+    acr = create(:action_change_rank)
     acr.json_message = nil
     acr.save!
     expect{ ActionChangeRank.perform(acr.id) }.to raise_error

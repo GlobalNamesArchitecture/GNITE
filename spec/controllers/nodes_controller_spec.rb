@@ -11,18 +11,18 @@ end
 
 describe NodesController do
   context "signed in with a tree and nodes" do
-    let(:user)        { Factory(:user) }
+    let(:user)        { create(:user) }
 
     before do
       sign_in user
     end
 
     context "when signed in with a tree" do
-      let(:user) { Factory(:user) }
-      let(:tree) { Factory(:master_tree, :user_id => user.id, :user => user) }
+      let(:user) { user = create(:user) }
+      let(:tree) { create(:master_tree, :user_id => user.id) }
       let(:node) do 
-        node = Factory(:node, :tree => tree)
-        Factory(:node, :tree => tree, :parent => node)
+        node = create(:node, :tree => tree)
+        create(:node, :tree => tree, :parent => node)
         node
       end
       let(:nodes) { tree.nodes }
@@ -57,18 +57,17 @@ end
 
 describe NodesController, 'POST to create a node' do
   subject { controller }
-  let(:user) { Factory(:user) }
+  let(:user) { create(:user) }
   let(:tree) do
-    tree = Factory(:master_tree, :user_id => user.id)
-    Factory(:node, :tree => tree)
+    tree = create(:master_tree, :user_id => user.id)
+    create(:node, :tree => tree)
     tree
   end
   let(:nodes) { tree.nodes }
   let(:node_attributes) do
-    name = Factory(:name, :name_string => "My new node")
+    name = create(:name, :name_string => "My new node")
     { :tree => tree, :name => name }
   end
-  let(:new_node) { Factory.build(:node, node_attributes) }
 
   before do
     sign_in user
@@ -77,8 +76,6 @@ describe NodesController, 'POST to create a node' do
     user.stubs(:master_trees => user_trees)
     user_trees.stubs(:find => tree)
     tree.stubs(:children_of => nodes)
-    ::Node.stubs(:new => new_node)
-    new_node.stubs(:save => true)
     @node_count = ::Node.count
     r = Resque::Worker.new(Gnite::Config.action_queue)
     post :create,
@@ -106,15 +103,15 @@ end
 
 
 describe NodesController, 'POST to copy a node from a reference tree' do
-  let(:user) { Factory(:user) }
-  let(:master_tree) { Factory(:master_tree, :user_id => user.id) }
-  let(:parent_node) { Factory(:node, :tree => master_tree) }
+  let(:user) { create(:user) }
+  let(:master_tree) { create(:master_tree, :user_id => user.id) }
+  let(:parent_node) { create(:node, :tree => master_tree) }
   let(:reference_node) do
-    child_name = Factory(:name, :name_string => 'child name')
-    grandchild_name = Factory(:name, :name_string => 'grandchild_name')
-    node = Factory(:node, :tree => Factory(:reference_tree))
-    child = Factory(:node, :tree => node.tree, :parent => node, :name => child_name)
-    grandchild = Factory(:node, :tree => node.tree, :parent => child, :name => grandchild_name)
+    child_name = create(:name, :name_string => 'child name')
+    grandchild_name = create(:name, :name_string => 'grandchild_name')
+    node = create(:node, :tree => create(:reference_tree))
+    child = create(:node, :tree => node.tree, :parent => node, :name => child_name)
+    grandchild = create(:node, :tree => node.tree, :parent => child, :name => grandchild_name)
     node
   end
   subject { controller }
@@ -153,14 +150,14 @@ describe NodesController, 'POST to copy a node from a reference tree' do
 end
 
 describe NodesController, 'POST to assign a node to be a synonym of another' do
-  let(:user) { Factory(:user) }
-  let(:master_tree) { Factory(:master_tree, :user_id => user.id) }
-  let(:source_node) { Factory(:node, :tree => master_tree, :name => Factory(:name, :name_string => "source node")) }
-  let(:source_synonym) { Factory(:synonym, :node => source_node, :name => Factory(:name, :name_string => "source synonym")) }
-  let(:source_vernacular) { Factory(:vernacular_name, :node => source_node, :name => Factory(:name, :name_string => "source vernacular")) }
+  let(:user) { create(:user) }
+  let(:master_tree) { create(:master_tree, :user_id => user.id) }
+  let(:source_node) { create(:node, :tree => master_tree, :name => create(:name, :name_string => "source node")) }
+  let(:source_synonym) { create(:synonym, :node => source_node, :name => create(:name, :name_string => "source synonym")) }
+  let(:source_vernacular) { create(:vernacular_name, :node => source_node, :name => create(:name, :name_string => "source vernacular")) }
   let(:destination_node) do
-    parent = Factory(:node, :tree => master_tree, :name => Factory(:name, :name_string => "destination node"))
-    Factory(:node, :parent => parent, :tree => master_tree, :name => Factory(:name, :name_string => "destination child"))
+    parent = create(:node, :tree => master_tree, :name => create(:name, :name_string => "destination node"))
+    create(:node, :parent => parent, :tree => master_tree, :name => create(:name, :name_string => "destination child"))
     parent
   end
   subject { controller }
@@ -217,9 +214,9 @@ end
 
 
 describe NodesController, 'PUT to update' do
-  let(:user) { Factory(:user) }
-  let(:tree) { Factory(:master_tree, :user_id => user.id) }
-  let(:node)  { Factory(:node, :tree => tree) }
+  let(:user) { create(:user) }
+  let(:tree) { create(:master_tree, :user_id => user.id) }
+  let(:node)  { create(:node, :tree => tree) }
   subject { controller }
 
   before do
@@ -234,7 +231,7 @@ describe NodesController, 'PUT to update' do
   end
 
   context 'when moving node within tree' do
-    let(:new_parent_node) { Factory(:node, :tree => tree) }
+    let(:new_parent_node) { create(:node, :tree => tree) }
     let(:node_attributes) { { :parent_id => new_parent_node.id } }
     let(:action_type) { "ActionMoveNodeWithinTree" }
 
@@ -276,12 +273,12 @@ describe NodesController, 'PUT to update' do
 end
 
 describe NodesController, 'GET to show for master tree' do
-  let(:user) { Factory(:user) }
-  let(:tree) { Factory(:master_tree, :user => user) }
-  let(:node) { Factory(:node, :tree => tree) }
-  let(:synonym) { Factory(:synonym, :node => node, :name => Factory(:name, :name_string => 'Point'), :status => 'synonym') }
-  let(:language) { Factory(:language, :name => 'English', :iso_639_1 => 'en', :iso_639_2 => 'eng', :iso_639_3 => 'eng', :native => 'English') }
-  let(:vernacular) { Factory(:vernacular_name, :node => node, :name => Factory(:name, :name_string => 'Coordinate'), :language => language) }
+  let(:user) { create(:user) }
+  let(:tree) { create(:master_tree, :user => user) }
+  let(:node) { create(:node, :tree => tree) }
+  let(:synonym) { create(:synonym, :node => node, :name => create(:name, :name_string => 'Point'), :status => 'synonym') }
+  let(:language) { create(:language, :name => 'English', :iso_639_1 => 'en', :iso_639_2 => 'eng', :iso_639_3 => 'eng', :native => 'English') }
+  let(:vernacular) { create(:vernacular_name, :node => node, :name => create(:name, :name_string => 'Coordinate'), :language => language) }
 
   subject { controller }
 
@@ -307,12 +304,12 @@ describe NodesController, 'GET to show for master tree' do
 end
 
 describe NodesController, 'GET to show for reference tree' do
-  let(:user) { Factory(:user) }
-  let(:tree) { Factory(:reference_tree) }
-  let(:node) { Factory(:node, :tree => tree) }
-  let(:synonym) { Factory(:synonym, :node => node, :name => Factory(:name, :name_string => 'Point'), :status => 'synonym') }
-  let(:language) { Factory(:language, :name => 'English', :iso_639_1 => 'en', :iso_639_2 => 'eng', :iso_639_3 => 'eng', :native => 'English') }
-  let(:vernacular) { Factory(:vernacular_name, :node => node, :name => Factory(:name, :name_string => 'Coordinate'), :language => language) }
+  let(:user) { create(:user) }
+  let(:tree) { create(:reference_tree) }
+  let(:node) { create(:node, :tree => tree) }
+  let(:synonym) { create(:synonym, :node => node, :name => create(:name, :name_string => 'Point'), :status => 'synonym') }
+  let(:language) { create(:language, :name => 'English', :iso_639_1 => 'en', :iso_639_2 => 'eng', :iso_639_3 => 'eng', :native => 'English') }
+  let(:vernacular) { create(:vernacular_name, :node => node, :name => create(:name, :name_string => 'Coordinate'), :language => language) }
 
   subject { controller }
 

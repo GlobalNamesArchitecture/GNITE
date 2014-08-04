@@ -1,15 +1,19 @@
-Factory.sequence :email do |n|
-  "user#{n}@example.com"
-end
+FactoryGirl.define do
 
-Factory.define :user do |user|
-  user.email         { Factory.next :email }
-  user.given_name    { "Joe" }
-  user.surname       { "Smith" }
-  user.password      { "password" }
-  user.confirmed_at  { Time.now }
-end
+  sequence :email do |n|
+    "user#{n}@example.com"
+  end
 
-Factory.define :role do |role|
-  role.name          { "guest" }
+  factory :user do
+    email         { FactoryGirl.generate :email }
+    given_name    "Joe"
+    surname       "Smith"
+    password      "password"
+    confirmed_at  { Time.now }
+  end
+
+  factory :role do
+    name          'guest'
+  end
+
 end

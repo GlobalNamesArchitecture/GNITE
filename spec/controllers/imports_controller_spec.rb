@@ -15,7 +15,7 @@ describe ImportsController do
   end
 
   context "signed in" do
-    let(:user) { Factory(:user) }
+    let(:user) { create(:user) }
 
     before do
       sign_in user
@@ -23,12 +23,11 @@ describe ImportsController do
     end
 
     context "GET to #new with a master_tree_id" do
-      let(:master_tree)  { Factory(:master_tree, :user_id => user.id) }
+      let(:master_tree)  { create(:master_tree, :user_id => user.id) }
       let(:master_trees) { [master_tree] }
 
       before do
-        user.stubs(:master_trees => master_trees)
-        master_trees.stubs(:find => master_tree)
+        MasterTree.stubs(:find => master_tree)
         get :new, :master_tree_id => master_tree.to_param
       end
 
@@ -42,8 +41,7 @@ describe ImportsController do
       end
 
       it "should find the correct master tree" do
-        user.should have_received(:master_trees).with()
-        master_trees.should have_received(:find).with(master_tree.to_param)
+        MasterTree.should have_received(:find).with(master_tree.to_param)
       end
     end
   end

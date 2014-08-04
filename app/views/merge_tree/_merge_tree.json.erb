@@ -2,5 +2,5 @@
   "title" : <%= raw @merge_tree.title.to_json %>,
   "url"   : <%= raw merge_tree_nodes_path(:merge_tree_id => @merge_tree.id, :format => 'json').to_json %>,
   "domid" : <%= raw dom_id(@merge_tree).to_json %>,
-  "tree"  : <%= raw render(:partial => 'merge_tree.html', :locals => { :merge_tree => @merge_tree }).to_json %>
+  "tree"  : <%= raw render(:partial => 'merge_tree', :locals => { :merge_tree => @merge_tree }).to_json %>
 }

@@ -3,10 +3,10 @@ When /^I reload the page$/ do
 end
 
 Then /^the "([^"]*)" bar should be highlighted$/ do |bar_text|
-  Then %{I should see "#{bar_text}" within "#active"}
+  step %{I should see "#{bar_text}" within "#active"}
 end
 
 Then /^the "([^"]*)" bar should not be highlighted$/ do |bar_text|
-  Then %{I should not see "#{bar_text}" within "#active"}
+  step %{I should not see "#{bar_text}" within "#active"}
 end
 

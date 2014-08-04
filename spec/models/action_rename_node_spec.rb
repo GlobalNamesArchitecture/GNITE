@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ActionRenameNode do
-  subject { Factory(:action_rename_node) }
+  subject { create(:action_rename_node) }
 
   it 'should return node' do
     subject.node.should == Node.find(subject.node_id)
@@ -24,13 +24,13 @@ describe ActionRenameNode do
   end
 
   it 'should not rename if preconditions is not met' do
-    ar = Factory(:action_rename_node)
+    ar = create(:action_rename_node)
     Node.find(ar.node_id).destroy
     expect{ ActionRenameNode.perform(ar.id) }.to raise_error
   end
 
   it 'should not undo rename if precondition is not met' do
-    ar = Factory(:action_rename_node)
+    ar = create(:action_rename_node)
     node = Node.find(ar.node_id)
     ActionRenameNode.perform(ar.id)
     node.reload.name.name_string.should == ar.new_name

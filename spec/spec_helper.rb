@@ -8,19 +8,20 @@ require 'rspec/rails'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-require 'factory_girl'
-Factory.find_definitions
 require 'shoulda'
 
 RSpec.configure do |config|
-  config.mock_with :mocha
+
+  config.include FactoryGirl::Syntax::Methods
+
+  config.mock_framework = :mocha
   config.use_transactional_fixtures = true
   config.include Devise::TestHelpers, :type => :controller
   config.extend ControllerMacros, :type => :controller
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.clean_with(:truncation, { :except => Gnite::DbData.prepopulated_tables })
     Gnite::DbData.populate
   end
 
@@ -36,5 +37,4 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 end
-
 

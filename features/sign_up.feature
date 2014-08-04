@@ -42,16 +42,15 @@ Feature: Sign up
       And I fill in "Password" with "password"
       And I fill in "Confirm password" with "password"
       And I press "Sign up"
-      Then I should see "your account is unconfirmed"
+      Then I should see "A message with a confirmation link has been sent to your email address"
       And a confirmation message should be sent to "email@person.com"
 
     Scenario: User confirms his account
       Given I signed up with "email@person.com/password"
       When I follow the confirmation link sent to "email@person.com"
       Then I should see "Your account was successfully confirmed"
-      And I should be signed in
 
     Scenario: User is directed to tree index after sign up
       Given I signed up with "email@person.com/password"
       When I follow the confirmation link sent to "email@person.com"
-      Then I should be on the master tree index page
+      Then I should be on the sign in page

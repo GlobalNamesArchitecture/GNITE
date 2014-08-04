@@ -35,9 +35,11 @@
           <% if tree_type == "MasterTree" %>
           <li id="synonym-<%= synonym[:metadata][:id] %>" class="synonym"><a href="#"><span><%= synonym[:name_string] %></span></a>
             <ul class="subnav">
-              <% ControlledVocabulary.find_by_identifier("taxonomic_status").controlled_terms.each do |status| %>
-                <% metadata_class = (status.name == synonym[:metadata][:status]) ? " class=\"nav-view-checked\"": "" %>
-                <li data-metadata-term="<%= status.identifier %>" class="metadata-edit"><a href="#"<%= raw metadata_class %>><%= status.name %></a></li>
+              <% unless ControlledVocabulary.find_by_identifier("taxonomic_status").blank? %>
+                <% ControlledVocabulary.find_by_identifier("taxonomic_status").controlled_terms.each do |status| %>
+                  <% metadata_class = (status.name == synonym[:metadata][:status]) ? " class=\"nav-view-checked\"": "" %>
+                  <li data-metadata-term="<%= status.identifier %>" class="metadata-edit"><a href="#"<%= raw metadata_class %>><%= status.name %></a></li>
+                <% end %>
               <% end %>
             </ul>
          </li>

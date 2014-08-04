@@ -83,7 +83,6 @@ Feature: Merge nodes between trees
     When merge jobs are run
     And I wait for the merge to complete
     Then the master tree should be locked
-
     When I follow "View" within the dialog box
     Then I should be on the merge results page for "My Master Tree"
 

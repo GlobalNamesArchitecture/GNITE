@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ActionAddNode do
-  subject { Factory(:action_add_node) }
+  subject { create(:action_add_node) }
 
   it 'should return node' do
     subject.node.should be_nil
@@ -28,13 +28,13 @@ describe ActionAddNode do
   end
 
   it 'should not add a node if precondition is not met' do
-    aa = Factory(:action_add_node)
+    aa = create(:action_add_node)
     Node.find(aa.parent_id).destroy
     expect{ ActionAddNode.perform(aa.id) }.to raise_error
   end
 
   it 'should not add a node if precondition is not met' do
-    aa = Factory(:action_add_node)
+    aa = create(:action_add_node)
     Node.find(aa.parent_id).has_children?.should be_false
     ActionAddNode.perform(aa)
     Node.find(aa.reload.parent_id).has_children?.should be_true

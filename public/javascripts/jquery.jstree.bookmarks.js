@@ -53,8 +53,8 @@
                             text : "Add bookmark",
                             click : function() {
                                 var bValid = true;
-                                $(s.addition_form).find(".input").removeClass("ui-state-error");
-                                bValid = bValid && self._bookmarks_validate($(s.addition_form).find(".input"), 1, 50);
+                                $(s.addition_form).find("input.input").removeClass("ui-state-error");
+                                bValid = bValid && self._bookmarks_validate($(s.addition_form).find("input.input"), 1, 50);
                                 if (bValid) {
                                   self.bookmarks_save();
                                   $(this).dialog("close");
@@ -70,15 +70,15 @@
                           }
                         ],
                         close: function() {
-                          $(s.addition_form).find(".input").val("").removeClass("ui-state-error");
+                          $(s.addition_form).find("input.input").val("").removeClass("ui-state-error");
                           return false;
                         }
                   })
                   .keypress(function(event) {
                     if (event.which == 13) {
                         var bValid = true;
-                        $(s.addition_form).find(".input").removeClass("ui-state-error");
-                        bValid = bValid && self._bookmarks_validate($(s.addition_form).find(".input"), 1, 50);
+                        $(s.addition_form).find("input.input").removeClass("ui-state-error");
+                        bValid = bValid && self._bookmarks_validate($(s.addition_form).find("input.input"), 1, 50);
                         if (bValid) {
                           self.bookmarks_save();
                           $(this).dialog("close");

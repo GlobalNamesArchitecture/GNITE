@@ -9,8 +9,8 @@
 <%= render :partial => 'users/shared/user_account', :locals => { :f => f} %>
 
 <!-- Submit -->
-  <%= f.buttons do -%>
-    <%= f.commit_button "Save changes", :button_html => { :class => "green-submit" } %>
+  <%= f.actions do -%>
+    <%= f.action :submit, :as => :button, :label => "Save changes", :button_html => { :class => "green-submit" } %>
   <% end %>
 
 <% end %>

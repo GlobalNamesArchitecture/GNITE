@@ -5,7 +5,7 @@ describe DeletedTree do
   it { should belong_to(:master_tree) }
 
   it 'Should have a title "Deleted Names"' do
-    deleted_tree = Factory(:deleted_tree)
+    deleted_tree = create(:deleted_tree)
     deleted_tree.title.should == 'Deleted Names'
   end
 end

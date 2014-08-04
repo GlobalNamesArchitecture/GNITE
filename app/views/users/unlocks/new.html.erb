@@ -6,8 +6,8 @@
       <%= f.input :email, :label => "Email", :input_html => { :class => "input" } %>
     <% end -%>
 
-    <%= f.buttons do %>
-      <%= f.commit_button "Resend", :button_html => { :class => "green-submit" } %>
+    <%= f.actions do %>
+      <%= f.action :submit, :label => "Resend", :button_html => { :class => "green-submit" } %>
     <% end -%>
 
   <% end -%>

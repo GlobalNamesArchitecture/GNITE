@@ -44,7 +44,9 @@ module Gnite
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
     config.active_support.deprecation = :log
-    
+
+    config.i18n.enforce_available_locales = true
+
     if Rails.env == "production"
       config.middleware.use("Rack::GoogleAnalytics", :web_property_id => "UA-24752349-1")
     end

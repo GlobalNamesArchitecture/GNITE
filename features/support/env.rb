@@ -12,6 +12,11 @@ require 'cucumber/rails'
 # steps to use the XPath syntax.
 Capybara.default_selector = :css
 
+# for 2.x to 1.x backwards compatability
+Capybara.configure do |config|
+  config.match = :prefer_exact
+end
+
 # By default, any exception happening in your Rails application will bubble up
 # to Cucumber so that your scenario will fail. This is a different from how 
 # your application behaves in the production environment, where an error page will 
@@ -35,6 +40,10 @@ begin
   DatabaseCleaner.strategy = :truncation, { :except => Gnite::DbData.prepopulated_tables }
 rescue NameError
   raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
+end
+
+Before('@no-txn,@selenium,@culerity,@celerity,@javascript') do
+  DatabaseCleaner.strategy = :truncation, { :except => Gnite::DbData.prepopulated_tables }
 end
 
 # You may also want to configure DatabaseCleaner to use different strategies for certain features and scenarios.

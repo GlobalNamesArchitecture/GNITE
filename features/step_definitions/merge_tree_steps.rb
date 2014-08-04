@@ -14,7 +14,7 @@ end
 
 When /^I wait for the merge to complete$/ do
   loaded = false
-  When %{pause 1}
+  step %{pause 1}
   while !loaded
     loaded = !page.has_css?("#merge-complete")
   end

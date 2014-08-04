@@ -1,45 +1,46 @@
 Then /^I should see "([^"]*)" as synonyms for the "([^"]*)" tree$/ do |synonyms, tree_title|
   tree = Tree.find_by_title!(tree_title)
-  id   = tree.type == 'MasterTree' ? 'add-node-wrap +' : "reference_tree_#{tree.id}"
+  id   = tree.type == 'MasterTree' ? 'treewrap-main' : "reference_tree_#{tree.id}"
 
   synonyms.split(',').each do |synonym|
-    page.should have_css("##{id} .node-metadata .metadata-synonyms ul li:contains('#{synonym.strip}')")
+    page.should have_xpath("//div[@id='#{id}']//div[contains(@class, 'metadata-synonyms')]//*[text()='#{synonym.strip}']")
   end
 end
 
 Then /^I should not see "([^"]*)" as synonyms for the "([^"]*)" tree$/ do |synonyms, tree_title|
   tree = Tree.find_by_title!(tree_title)
-  id   = tree.type == 'MasterTree' ? 'add-node-wrap +' : "reference_tree_#{tree.id}"
+  id   = tree.type == 'MasterTree' ? 'treewrap-main' : "reference_tree_#{tree.id}"
 
   synonyms.split(',').each do |synonym|
-    page.should have_no_css("##{id} .node-metadata .metadata-synonyms ul li:contains('#{synonym.strip}')")
+    page.should_not have_xpath("//div[@id='#{id}']//div[contains(@class, 'metadata-synonyms')]//*[text()='#{synonym.strip}']")
   end
 end
 
 Then /^I should see "([^"]*)" as vernacular names for the "([^"]*)" tree$/ do |vernacular_names, tree_title|
   tree = Tree.find_by_title!(tree_title)
-  id   = tree.type == 'MasterTree' ? 'add-node-wrap +' : "reference_tree_#{tree.id}"
+  id   = tree.type == 'MasterTree' ? 'treewrap-main' : "reference_tree_#{tree.id}"
 
   vernacular_names.split(',').each do |vernacular_name|
-    page.should have_css("##{id} .node-metadata .metadata-vernacular-names ul li:contains('#{vernacular_name.strip}')")
+    page.should have_xpath("//div[@id='#{id}']//div[contains(@class, 'metadata-vernacular-names')]//*[text()='#{vernacular_name.strip}']")
   end
 end
 
 Then /^I should not see "([^"]*)" as vernacular names for the "([^"]*)" tree$/ do |vernacular_names, tree_title|
   tree = Tree.find_by_title!(tree_title)
-  id   = tree.type == 'MasterTree' ? 'add-node-wrap +' : "reference_tree_#{tree.id}"
+  id   = tree.type == 'MasterTree' ? 'treewrap-main' : "reference_tree_#{tree.id}"
 
   vernacular_names.split(',').each do |vernacular_name|
-    page.should have_no_css("##{id} .node-metadata .metadata-vernacular-names ul li:contains('#{vernacular_name.strip}')")
+    page.should_not have_xpath("//div[@id='#{id}']//div[contains(@class, 'metadata-vernacular-names')]//*[text()='#{vernacular_name.strip}']")
   end
 end
 
 Then /^I should see "([^"]*)" as rank for the "([^"]*)" tree$/ do |rank, tree_title|
   tree = Tree.find_by_title!(tree_title)
   if tree.type == 'MasterTree'
-    page.should have_css("#add-node-wrap + .node-metadata .metadata-rank ul li a span:contains('#{rank.strip}')")
+    page.should have_xpath("//div[@id='treewrap-main']//div[contains(@class, 'metadata-rank')]//*[text()='#{rank.strip}']")
   else
-    page.should have_css("#reference_tree_#{tree.id} .node-metadata .metadata-rank ul li:contains('#{rank.strip}')")
+    # page.should have_css("#reference_tree_#{tree.id} .node-metadata .metadata-rank ul li:contains('#{rank.strip}')")
+    page.should have_xpath("//div[@id='reference_tree_#{tree.id}']//div[contains(@class, 'metadata-rank')]//*[contains(text(),'#{rank.strip}')]")
   end
 end
 

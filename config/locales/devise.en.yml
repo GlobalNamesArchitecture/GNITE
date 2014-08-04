@@ -40,7 +40,7 @@ en:
       destroyed: 'Your account was successfully cancelled. We hope to see you again soon.'
     unlocks:
       send_instructions: 'You will receive an email message with instructions about how to unlock your account in a few minutes.'
-      unlocked: 'Your account was successfully unlocked. You are now signed in.'
+      unlocked: 'Your account was successfully unlocked. You may now sign in.'
       send_paranoid_instructions: 'If your account exists, you will receive an email message with instructions about how to unlock it in a few minutes.'
     omniauth_callbacks:
       success: 'Successfully authorized from %{kind} account.'

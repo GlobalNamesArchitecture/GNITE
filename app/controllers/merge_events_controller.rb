@@ -44,9 +44,9 @@ class MergeEventsController < ApplicationController
     @busy = false
 
     results = MergeResultPrimary.includes(:merge_result_secondaries).where(:merge_event_id => params[:id])
-    results.each do |primary|      
+    results.each do |primary|
       primary.merge_result_secondaries.each do |secondary|
-        type = type_to_label[secondary.merge_type_id]
+        type = type_to_label[secondary.merge_type_id] || 'new'
         @data["#{type}_matches".to_sym] << {
             :id             => secondary.id,
             :primary_path   => primary.path,
@@ -62,9 +62,9 @@ class MergeEventsController < ApplicationController
     end
     
     @data.delete_if { |k, v| v.empty? }
-    
+
     last_log = JobsLog.where(:tree_id => @master_tree, :job_type => 'MergeEvent').last unless @merge_event.status == "in review" 
-    
+
     @merge_last_log = (!last_log.nil?) ? last_log.message : ""
 
   end

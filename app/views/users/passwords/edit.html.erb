@@ -8,8 +8,8 @@
       <%= f.input :password_confirmation, :label => "Confirm new password", :input_html => { :class => "input" } %>
     <% end -%>
 
-    <%= f.buttons do %>
-      <%= f.commit_button "Change my password", :button_html => { :class => "green-submit" } %>
+    <%= f.actions do %>
+      <%= f.action :submit, :as => :button, :label => "Change my password", :button_html => { :class => "green-submit" } %>
     <% end -%>
 
   <% end -%>

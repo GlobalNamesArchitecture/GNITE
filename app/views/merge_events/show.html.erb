@@ -16,7 +16,7 @@
         </ul>
       </div>
 
-      <%= render :partial => 'shared/tree_searches.html' %>
+      <%= render :partial => 'shared/tree_searches' %>
 
       <a class="ui-dialog-titlebar-close" role="button" href="#">
         <span class="ui-icon ui-icon-closethick"></span>
@@ -62,7 +62,7 @@
 </div>
 
 <% if @editors.count > 0 %>
-  <%= render :partial => 'shared/chat_messages.html', :locals => { :editors => @editors } %>
+  <%= render :partial => 'shared/chat_messages', :locals => { :editors => @editors } %>
 <% end %>
 
 <% content_for :javascript do %>

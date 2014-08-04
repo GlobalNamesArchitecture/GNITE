@@ -16,7 +16,7 @@ describe HomesController do
 
   context "when signed in" do
     before do
-      sign_in Factory(:user)
+      sign_in create(:user)
     end
 
     context "on GET to #show" do

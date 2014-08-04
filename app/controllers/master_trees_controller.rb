@@ -2,6 +2,8 @@ class MasterTreesController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource
 
+  layout 'master_trees'
+
   def index
     accessible_trees = MasterTree.accessible_by(current_ability).includes([:user, :merge_events])
     master_trees = []

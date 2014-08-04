@@ -7,9 +7,9 @@ When /^I search for "([^"]*)" in the master tree search box$/ do |search_term|
 end
 
 Then /^I should see "([^\"]*)" in the master tree search results$/ do |search_result|
-  page.should have_css("#treewrap-main .searchbar-results>div>ul>li>a:contains('#{search_result}')")
+  page.should have_xpath("//div[@id='treewrap-main']//div[contains(@class, 'searchbar-results')]//*[contains(text(), '#{search_result}')]")
 end
 
 Then /^I should see "([^\"]*)" in the master tree search results when nothing is found$/ do |message|
-  page.should have_css("#treewrap-main .searchbar-results>div:contains('#{message}')")
+  page.should have_xpath("//div[@id='treewrap-main']//div[contains(@class, 'searchbar-results')]//p[contains(text(), '#{message}')]")
 end

@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 describe GnaclrImportsController, 'xhr POST create' do
-  let(:user) { Factory(:user) }
-  let(:master_tree) { Factory(:master_tree, :user_id => user.id) }
+  let(:user) { create(:user) }
+  let(:master_tree) { create(:master_tree, :user_id => user.id) }
 
   before do
-    reference_tree = Factory(:reference_tree, :title => 'NCBI')
+    reference_tree = create(:reference_tree, :title => 'NCBI')
     ReferenceTree.stubs(:create!).returns(reference_tree)
-    GnaclrImporter.stubs(:create!).returns(Factory(:gnaclr_importer, :reference_tree => reference_tree, :url => 'foo'))
+    GnaclrImporter.stubs(:create!).returns(create(:gnaclr_importer, :reference_tree => reference_tree, :url => 'foo'))
     sign_in user
     xhr :post,
         :create,
@@ -36,10 +36,10 @@ describe GnaclrImportsController, 'xhr POST create' do
 end
 
 describe GnaclrImportsController, 'reuse of a tree' do
-  let(:user) { Factory(:user) }
-  let(:master_tree) { Factory(:master_tree, :user_id => user.id) }
-  let(:reference_tree) { Factory(:reference_tree) }
-  let(:gnaclr_importer) { Factory(:gnaclr_importer, :reference_tree => reference_tree, :url => 'foo') }
+  let(:user) { create(:user) }
+  let(:master_tree) { create(:master_tree, :user_id => user.id) }
+  let(:reference_tree) { create(:reference_tree) }
+  let(:gnaclr_importer) { create(:gnaclr_importer, :reference_tree => reference_tree, :url => 'foo') }
 
   it 'reuses existing reference tree for the second import of the same classification' do
     GnaclrImporter.stubs(:create!).returns(gnaclr_importer)
@@ -58,7 +58,7 @@ describe GnaclrImportsController, 'reuse of a tree' do
     xhr :post,
         :create,
         :title            => 'NCBI',
-        :master_tree_id   => Factory(:master_tree, :user => user).id,
+        :master_tree_id   => create(:master_tree, :user => user).id,
         :publication_date => reference_tree.publication_date,
         :revision         => reference_tree.revision,
         :url              => 'foo'
@@ -79,7 +79,7 @@ describe GnaclrImportsController, 'reuse of a tree' do
 end
 
 describe GnaclrImportsController, 'html POST create' do
-  let(:user) { Factory(:user) }
+  let(:user) { create(:user) }
   subject { controller }
   before do
     sign_in user

@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe TreeSearchesController, 'GET to show search results in master tree' do
-  let(:user) { Factory(:user) }
-  let(:master_tree) { Factory(:master_tree, :user => user) }
-  let(:parent)  { Factory(:node, :tree => master_tree) }
-  let(:child) { Factory(:node, :parent => parent, :tree => master_tree) }
+  let(:user) { create(:user) }
+  let(:master_tree) { create(:master_tree, :user => user) }
+  let(:parent)  { create(:node, :tree => master_tree) }
+  let(:child) { create(:node, :parent => parent, :tree => master_tree) }
   
   subject { controller }
 
@@ -19,10 +19,10 @@ describe TreeSearchesController, 'GET to show search results in master tree' do
 end
 
 describe TreeSearchesController, 'GET to show search results in reference tree' do
-  let(:user) { Factory(:user) }
-  let(:reference_tree) { Factory(:reference_tree) }
-  let(:parent)  { Factory(:node, :tree => reference_tree) }
-  let(:child) { Factory(:node, :parent => parent, :tree => reference_tree) }
+  let(:user) { create(:user) }
+  let(:reference_tree) { create(:reference_tree) }
+  let(:parent)  { create(:node, :tree => reference_tree) }
+  let(:child) { create(:node, :parent => parent, :tree => reference_tree) }
   
   subject { controller }
 

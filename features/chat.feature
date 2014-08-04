@@ -13,7 +13,7 @@ Feature: Chat
   Scenario: User cannot see a chat window unless there are contributors
     When I go to the master tree page for "Spiders"
     And I wait for the websocket to activate
-    Then the chat window should be hidden
+    And I should not see the chat window
 
   @javascript
   Scenario: User can see the chat window when there is a contributor

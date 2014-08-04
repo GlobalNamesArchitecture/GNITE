@@ -3,11 +3,11 @@ require "spec_helper"
 describe GnaclrPublisher do
 
   before(:all) do
-    @master_tree = Factory(:master_tree, :abstract => "It is my tree of very strange taxa")
-    root = Factory(:node, :tree => @master_tree)
-    5.times { Factory(:node, :parent => root, :tree => @master_tree) }
+    @master_tree = create(:master_tree, :abstract => "It is my tree of very strange taxa")
+    root = create(:node, :tree => @master_tree)
+    5.times { create(:node, :parent => root, :tree => @master_tree) }
     @master_tree.children_of(root).each do |child|
-      5.times { Factory(:node, :parent => child, :tree => @master_tree) }
+      5.times { create(:node, :parent => child, :tree => @master_tree) }
     end
     @gp = GnaclrPublisher.create(:master_tree => @master_tree)
   end

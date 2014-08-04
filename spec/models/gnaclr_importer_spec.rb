@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe GnaclrImporter, 'create' do
-  let(:reference_tree) { Factory(:reference_tree) }
+  let(:reference_tree) { create(:reference_tree) }
 
   subject { GnaclrImporter.create(:reference_tree => reference_tree,
                                :url               => 'http://example.com') }
@@ -16,7 +16,7 @@ describe GnaclrImporter, 'create' do
 end
 
 describe GnaclrImporter, 'import a tree for a valid dwc archive' do
-  let(:reference_tree) { Factory(:reference_tree) }
+  let(:reference_tree) { create(:reference_tree) }
   subject { GnaclrImporter.create(:url => "file:///#{Rails.root.join('features', 'support', 'fixtures', 'cyphophthalmi.tar.gz')}", :reference_tree => reference_tree) }
 
   it "should import darwin core file into a reference tree" do

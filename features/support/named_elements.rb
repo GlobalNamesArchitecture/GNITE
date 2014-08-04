@@ -27,6 +27,8 @@ module NamedElementHelper
       "#ddsmoothmenu-context"
     when /the chat window/
       "#chat-messages-wrapper"
+    when /the reference trees tab/
+      "#reference-trees"
     else
       named_element
     end

@@ -9,7 +9,7 @@ class MasterTree < Tree
   has_many :merge_events
   has_many :rosters
   
-  attr_accessor :user, :master_tree_contributor_ids
+  attr_accessor :master_tree_contributor_ids
 
   after_create :create_deleted_tree, :create_contributor
   after_save :update_master_tree_contributors
@@ -70,7 +70,6 @@ class MasterTree < Tree
   def create_contributor
     return unless self.user
     MasterTreeContributor.create!(:master_tree => self, :user => self.user)
-    self.user = nil
   end
 
   def create_deleted_tree

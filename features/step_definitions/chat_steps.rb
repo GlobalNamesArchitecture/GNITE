@@ -1,6 +1,6 @@
 When /^I wait for the websocket to activate$/ do
   loaded = false
-  When %{pause 1}
+  step %{pause 1}
   Timeout.timeout(10) do
     while !loaded
       loaded = page.has_css?("#master-tree.socket-active")
@@ -25,6 +25,6 @@ When /^I enter "([^"]*)" in the chat box and press enter$/ do |text|
 end
 
 Then /^I should see a chat message "([^"]*)" authored by "([^"]*)"$/ do |chat_message, email|
-  page.should have_css("div#chat-messages-scroller>ul>li>span.message:contains('#{chat_message}')")
-  page.should have_css("div#chat-messages-scroller>ul>li>span.user:contains('#{email}')")
+  page.should have_xpath("//div[@id='chat-messages-scroller']/ul/li/span[contains(@class, 'message')][contains(text(), '#{chat_message}')]")
+  page.should have_xpath("//div[@id='chat-messages-scroller']/ul/li/span[contains(@class, 'user')][contains(text(), '#{email}')]")
 end

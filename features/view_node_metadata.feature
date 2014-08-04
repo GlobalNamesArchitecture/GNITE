@@ -51,17 +51,17 @@ Feature: View metadata for master tree nodes
   Scenario: User can view metadata for nodes on reference trees
     When I follow "All reference trees"
     And I follow "Snacks"
-    And I select the node "Twinkie"
+    And I select the node "Twinkie" in my reference tree
     Then I should see "Cake" as synonyms for the "Snacks" tree
     And I should see "Twinkie Cake" as vernacular names for the "Snacks" tree
     And I should see "Good" as rank for the "Snacks" tree
     When I follow "All reference trees"
     And I follow "Fruits"
-    And I select the node "Apple"
+    And I select the node "Apple" in my reference tree
     Then I should see "Orange" as synonyms for the "Fruits" tree
     And I should see "Red Apple" as vernacular names for the "Fruits" tree
     And I should see "Round" as rank for the "Fruits" tree
-    When I select the node "Cucumber"
+    When I select the node "Cucumber" in my reference tree
     Then I should see "None" as synonyms for the "Fruits" tree
     And I should see "None" as vernacular names for the "Fruits" tree
     And I should see "None" as rank for the "Fruits" tree
@@ -86,9 +86,11 @@ Feature: View metadata for master tree nodes
   Scenario: User can change the synonym designation in the metadata panel
     When I select the node "Nut"
     And I follow "Kernel" within "the master tree metadata panel"
+    And I follow "Kernel" within "the master tree metadata panel"
     And I follow "homotypic synonym" within "the master tree metadata panel"
     And I select the node "Nut"
     And I follow "Kernel" within "the master tree metadata panel"
+    When pause 1
     Then the synonym "Kernel" should be of type "homotypic synonym"
 
   @javascript

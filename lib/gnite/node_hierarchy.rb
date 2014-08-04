@@ -90,7 +90,7 @@ module Gnite
       self.tree_id = self.tree.deleted_tree.id
       save!
       self.descendants.each do |descendant|
-        descendant.tree_id = self.tree.deleted_tree.id
+        descendant.tree_id = self.tree.id
         descendant.save!
       end
     end

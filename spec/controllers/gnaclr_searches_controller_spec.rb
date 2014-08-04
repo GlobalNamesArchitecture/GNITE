@@ -5,8 +5,8 @@ describe GnaclrSearchesController, 'route' do
 end
 
 describe GnaclrSearchesController, 'xhr GET to show' do
-  let(:user)           { Factory(:user) }
-  let(:master_tree)    { Factory(:master_tree, :user_id => user.id) }
+  let(:user)           { create(:user) }
+  let(:master_tree)    { create(:master_tree, :user_id => user.id) }
   let(:search_results) { File.open('features/support/fixtures/gnaclr_search_result.json') }
 
   before do
@@ -32,7 +32,7 @@ describe GnaclrSearchesController, 'xhr GET to show' do
 end
 
 describe GnaclrSearchesController, 'xhr GET to show with GNACLR service down' do
-  let(:user)           { Factory(:user) }
+  let(:user)           { create(:user) }
 
   before do
     gnaclr_search_mock = mock('gnaclr_search')

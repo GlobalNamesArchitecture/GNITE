@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe BookmarksController, 'GET to show bookmarks for master tree' do
-  let(:user) { Factory(:user) }
-  let(:master_tree) { Factory(:master_tree, :user_id => user.id) }
-  let(:node)  { Factory(:node, :tree => master_tree) }
-  let(:bookmark) { Factory(:bookmark, :node => node, :bookmark_title => "My new bookmark") }
+  let(:user) { create(:user) }
+  let(:master_tree) { create(:master_tree, :user_id => user.id) }
+  let(:node)  { create(:node, :tree => master_tree) }
+  let(:bookmark) { create(:bookmark, :node => node, :bookmark_title => "My new bookmark") }
   
   subject { controller }
 
@@ -18,16 +18,16 @@ describe BookmarksController, 'GET to show bookmarks for master tree' do
 end
 
 describe BookmarksController, 'POST to create bookmark in master tree' do
-  let(:user) { Factory(:user) }
-  let(:master_tree) { Factory(:master_tree, :user_id => user.id) }
-  let(:node)  { Factory(:node, :tree => master_tree) }
+  let(:user) { create(:user) }
+  let(:master_tree) { create(:master_tree, :user_id => user.id) }
+  let(:node)  { create(:node, :tree => master_tree) }
 
   subject { controller }
 
   before do
     sign_in user
     @bookmark_count = Bookmark.count
-    post :create, :master_tree_id => master_tree, :id => node, :bookmark_title => "My bookmark", :format => 'json'
+    post :create, :master_tree_id => master_tree, :id => node.id, :bookmark_title => "My bookmark", :format => 'json'
     @clone_bookmark = Bookmark.find(JSON.parse(response.body)['bookmark']['id'])
   end
   
@@ -47,10 +47,10 @@ describe BookmarksController, 'POST to create bookmark in master tree' do
 end
 
 describe BookmarksController, 'PUT to update a bookmark in master tree' do
-  let(:user) { Factory(:user) }
-  let(:master_tree) { Factory(:master_tree, :user_id => user.id) }
-  let(:node) { Factory(:node, :tree => master_tree) }
-  let(:bookmark) { Factory(:bookmark, :node => node) }
+  let(:user) { create(:user) }
+  let(:master_tree) { create(:master_tree, :user_id => user.id) }
+  let(:node) { create(:node, :tree => master_tree) }
+  let(:bookmark) { create(:bookmark, :node => node) }
   
   subject { controller }
   
@@ -63,16 +63,16 @@ describe BookmarksController, 'PUT to update a bookmark in master tree' do
 end
 
 describe BookmarksController, 'GET to show bookmarks for reference tree' do
-  let(:user) { Factory(:user) }
-  let(:reference_tree) { Factory(:reference_tree) }
-  let(:node)  { Factory(:node, :tree => reference_tree) }
+  let(:user) { create(:user) }
+  let(:reference_tree) { create(:reference_tree) }
+  let(:node)  { create(:node, :tree => reference_tree) }
   let(:nodes) { reference_tree.nodes }
 
   subject { controller }
 
   before do
     sign_in user
-    Factory(:bookmark, :node => node, :bookmark_title => "My new bookmark")
+    create(:bookmark, :node => node, :bookmark_title => "My new bookmark")
     get :index, :reference_tree_id => reference_tree
   end
   
@@ -82,16 +82,16 @@ describe BookmarksController, 'GET to show bookmarks for reference tree' do
 end
 
 describe BookmarksController, 'POST to create bookmark in reference tree' do
-  let(:user) { Factory(:user) }
-  let(:reference_tree) { Factory(:reference_tree) }
-  let(:node)  { Factory(:node, :tree => reference_tree) }
+  let(:user) { create(:user) }
+  let(:reference_tree) { create(:reference_tree) }
+  let(:node)  { create(:node, :tree => reference_tree) }
 
   subject { controller }
 
   before do
     sign_in user
     @bookmark_count = Bookmark.count
-    post :create, :reference_tree_id => reference_tree, :id => node, :bookmark_title => "My bookmark", :format => 'json'
+    post :create, :reference_tree_id => reference_tree, :id => node.id, :bookmark_title => "My bookmark", :format => 'json'
     @clone_bookmark = Bookmark.find(JSON.parse(response.body)['bookmark']['id'])
   end
   
@@ -111,10 +111,10 @@ describe BookmarksController, 'POST to create bookmark in reference tree' do
 end
 
 describe BookmarksController, 'PUT to update a bookmark in reference tree' do
-  let(:user) { Factory(:user) }
-  let(:reference_tree) { Factory(:reference_tree) }
-  let(:node) { Factory(:node, :tree => reference_tree) }
-  let(:bookmark) { Factory(:bookmark, :node => node) }
+  let(:user) { create(:user) }
+  let(:reference_tree) { create(:reference_tree) }
+  let(:node) { create(:node, :tree => reference_tree) }
+  let(:bookmark) { create(:bookmark, :node => node) }
   
   subject { controller }
   

@@ -23,9 +23,9 @@
 
         <%= render :partial => "form", :locals => { :form => form } %>
       </div>
-      <%= form.buttons do -%>
-        <%= form.commit_button "Update", :button_html => { :class => "green-submit", :name => 'update' } %>
-        <%= form.commit_button "Cancel", :button_html => { :class => "cancel-button", :name => 'cancel' } %>
+      <%= form.actions do -%>
+        <%= form.action :submit, :as => :button, :label => "Update", :button_html => { :class => "green-submit", :name => 'update' } %>
+        <%= form.action :submit, :as => :button, :label => "Cancel", :button_html => { :class => "cancel-button", :name => 'cancel' } %>
       <% end -%>
     <% end %>
   </div>
