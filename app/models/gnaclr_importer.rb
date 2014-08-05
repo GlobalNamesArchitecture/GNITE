@@ -45,7 +45,7 @@ class GnaclrImporter < ActiveRecord::Base
     normalizer        = DarwinCore::ClassificationNormalizer.new(@dwc)
     @darwin_core_data = normalizer.normalize
     @tree             = normalizer.tree
-    @name_strings     = normalizer.name_strings
+    @name_strings     = normalizer.name_strings + normalizer.vernacular_name_strings
     @languages        = {}
   end
 
