@@ -12,7 +12,6 @@ gem 'dwc-archive', '~> 0.9'
 # gem 'fastercsv' #remove for ruby 1.9.x
 # gem 'SystemTimer' # remove for ruby 1.9.x
 gem 'yajl-ruby', '~> 1.2', :require => 'yajl'
-gem 'debugger', '~> 1.6'
 gem 'nokogiri', '~> 1.5'
 gem 'resque', '~> 1.25'
 gem 'rest-client', '~> 1.7'
@@ -28,6 +27,7 @@ end
 group :test, :development do
   gem 'rspec-rails', '~> 2.14.2'
   gem 'escape_utils', '~> 1.0'
+  gem 'byebug', '~> 3.2'
 end
 
 group :test do
