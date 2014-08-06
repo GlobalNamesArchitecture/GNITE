@@ -1,19 +1,19 @@
 require 'spec_helper'
 
-describe "sign_up, sign_in, sign_out" do
+describe "sign_up, sign_in, sign_out", :type => :routing do
   it "route /users/sign_up to users/sign_up#new" do
     { :get => "/users/sign_up" }.should route_to(
       :controller => 'users/registrations',
       :action => 'new'
     )
   end
-  it "route /users/sign_in to users/sessions#new" do
+  it "route /users/sign_in to users/sessions#new", :type => :routing do
     { :get => "/users/sign_in" }.should route_to(
       :controller => 'users/sessions',
       :action => 'new'
     )
   end
-  it "route /users/sign_out to users/sessions#destroy" do
+  it "route /users/sign_out to users/sessions#destroy", :type => :routing do
     { :delete => "/users/sign_out" }.should route_to(
       :controller => 'users/sessions',
       :action => 'destroy'
@@ -21,33 +21,33 @@ describe "sign_up, sign_in, sign_out" do
   end
 end
 
-describe "routing to master_trees" do
+describe "routing to master_trees", :type => :routing do
   it "routes /master_trees to master_trees#index" do
     { :get => "/master_trees" }.should route_to(
       :controller => "master_trees",
       :action => "index"
     )
   end
-  it "routes /master_trees/new to master_trees#new" do
+  it "routes /master_trees/new to master_trees#new", :type => :routing do
     { :get => "master_trees/new" }.should route_to(
       :controller => "master_trees",
       :action => "new"
     )
   end
-  it "routes /master_trees to master_trees#create" do
+  it "routes /master_trees to master_trees#create", :type => :routing do
     { :post => "/master_trees" }.should route_to(
       :controller => "master_trees",
       :action => "create"
     )
   end
-  it "routes /master_trees/abc to master_trees#show" do
+  it "routes /master_trees/abc to master_trees#show", :type => :routing do
     { :get => "/master_trees/abc" }.should route_to(
       :controller => "master_trees",
       :action => "show",
       :id => "abc"
     )
   end
-  it "routes /master_trees/abc/edit to master_trees#edit" do
+  it "routes /master_trees/abc/edit to master_trees#edit", :type => :routing do
     { :get => "/master_trees/abc/edit" }.should route_to(
       :controller => "master_trees",
       :action => "edit",
@@ -63,14 +63,14 @@ describe "routing to master_trees" do
   end
 end
 
-describe "routing to reference_trees" do
+describe "routing to reference_trees", :type => :routing do
   it "routes /reference_trees to reference_trees#create" do
     {  :post => "/reference_trees" }.should route_to(
        :controller => "reference_trees",
        :action => "create"
     )
   end
-  it "routes /reference_trees/abc to reference_trees#show" do
+  it "routes /reference_trees/abc to reference_trees#show", :type => :routing do
     { :get => "/reference_trees/abc" }.should route_to(
       :controller => "reference_trees",
       :action => "show",
@@ -79,7 +79,7 @@ describe "routing to reference_trees" do
   end
 end
 
-describe "routing to deleted_trees" do
+describe "routing to deleted_trees", :type => :routing do
   it "routes /deleted_trees/:id to deleted_trees#show" do
     {  :get => "/deleted_trees/12" }.should route_to(
        :controller => "deleted_trees",
@@ -89,7 +89,7 @@ describe "routing to deleted_trees" do
   end
 end
 
-describe "routing to master tree edits" do
+describe "routing to master tree edits", :type => :routing do
   it "routes /master_trees/:master_tree_id/edits to master_tree_logs#index" do
     { :get => "/master_trees/123/edits" }.should route_to(
       :controller => "master_tree_logs",
@@ -99,7 +99,7 @@ describe "routing to master tree edits" do
   end
 end
 
-describe "routing to nodes" do
+describe "routing to nodes", :type => :routing do
   it "routes /master_trees/:master_tree_id/nodes to nodes#index" do
     { :get => "/master_trees/123/nodes" }.should route_to(
       :controller => "nodes",
@@ -192,7 +192,7 @@ describe "routing to nodes" do
 
 end
 
-describe "routing to node metadata" do
+describe "routing to node metadata", :type => :routing do
   it "routes /master_trees/:master_tree_id/nodes/:id to nodes#show" do
     { :get => "/master_trees/123/nodes/12" }.should route_to(
       :controller => "nodes",
@@ -219,7 +219,7 @@ describe "routing to node metadata" do
   end
 end
 
-describe "routing to merge events" do
+describe "routing to merge events", :type => :routing do
   
   it "routes /master_trees/:master_tree_id/merge_events to merge_events#index" do
     { :get => "/master_trees/123/merge_events" }.should route_to(
@@ -266,7 +266,7 @@ describe "routing to merge events" do
 
 end
 
-describe "imports" do
+describe "imports", :type => :routing do
   it "routes /master_trees/:master_tree_id/imports/new to imports#new" do
     { :get => "/master_trees/123/imports/new" }.should route_to(
       :controller => 'imports',
@@ -276,7 +276,7 @@ describe "imports" do
   end
 end
 
-describe "GNACLR import" do
+describe "GNACLR import", :type => :routing do
   it "routes /master_trees/:master_tree_id/gnaclr_classifications to gnaclr_classifications#index" do
     { :get => "/master_trees/123/gnaclr_classifications" }.should route_to(
       :controller => 'gnaclr_classifications',
@@ -295,7 +295,7 @@ describe "GNACLR import" do
   end
 end
 
-describe "Flat list import" do
+describe "Flat list import", :type => :routing do
   it "routes /master_trees/:master_tree_id/flat_list_imports/new to flat_list_imports#new" do
     { :get => "/master_trees/123/flat_list_imports/new" }.should route_to(
       :controller => 'flat_list_imports',
@@ -305,7 +305,7 @@ describe "Flat list import" do
   end
 end
 
-describe "routing to bookmarks" do
+describe "routing to bookmarks", :type => :routing do
   it "routes /master_trees/:master_tree_id/bookmarks to bookmarks#index" do
     { :get => "/master_trees/123/bookmarks" }.should route_to(
       :controller => "bookmarks",
@@ -352,7 +352,7 @@ describe "routing to bookmarks" do
   end
 end
 
-describe "search in trees" do
+describe "search in trees", :type => :routing do
   it "routes GET /tree_searches/:tree_id/:name_string tree_searches#get" do
     { :get => "/tree_searches/123/gnite" }.should route_to(
       :controller => "tree_searches",
@@ -363,7 +363,7 @@ describe "search in trees" do
   end
 end
 
-describe "languges list" do
+describe "languges list", :type => :routing do
   it "routes GET /languages to languages#show" do
     { :get => "/languages" }.should route_to(
       :controller => "languages",
@@ -372,7 +372,7 @@ describe "languges list" do
   end
 end
 
-describe "vocabularies list" do
+describe "vocabularies list", :type => :routing do
   it "routes GET /vocabularies/:id to vocabularies#show" do
     { :get => "/vocabularies/ranks" }.should route_to(
       :controller => "controlled_vocabularies",
@@ -382,7 +382,7 @@ describe "vocabularies list" do
   end
 end
 
-describe "routing to admin" do
+describe "routing to admin", :type => :routing do
   it "routes GET /admin#show" do
     { :get => "/admin" }.should route_to(
       :controller => "admin/menu",

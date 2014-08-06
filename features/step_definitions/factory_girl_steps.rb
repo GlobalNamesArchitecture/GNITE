@@ -5,7 +5,7 @@ module FactoryGirlStepHelpers
     attributes = convert_human_hash_to_attribute_hash(attribute => value.strip)
     factory = FactoryGirl.factory_by_name(factory_name)
     model_class = factory.build_class
-    model_class.find(:first, :conditions => attributes) or
+    model_class.where(attributes).first or
       FactoryGirl.create(factory_name, attributes)
   end
 

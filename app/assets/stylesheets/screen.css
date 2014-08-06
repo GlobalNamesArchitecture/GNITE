@@ -1,7 +1,7 @@
 /* Global Stucture */
 /************************************************************************/
 body {
-  background: #3e4649 url("../images/background.jpg") top left repeat;
+  background: #3e4649 url("../assets/background.jpg") top left repeat;
   color: #222;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -461,7 +461,7 @@ input.disabled {
 }
 
 #nav li#active {
-  background: url("../images/sidebar-active.png") no-repeat;
+  background: url("../assets/sidebar-active.png") no-repeat;
   border: none;
   color: white;
   line-height: 36px;
@@ -486,13 +486,13 @@ input.disabled {
   padding: 0 0 0 25px;
 }
 
-#nav li .nav_master_tree { background: transparent url("/images/tree-nonactive.png") left center no-repeat; }
-#nav li#active .nav_master_tree { background: transparent url("/images/tree-active.png") left center no-repeat; }
-#nav li .nav_profile { background: transparent url("/images/profile-nonactive.png") left center no-repeat; }
-#nav li#active .nav_profile { background: transparent url("/images/profile-active.png") left center no-repeat; }
-#nav li .nav_feedback { background: transparent url("/images/nav-bullhorn.png") left center no-repeat; }
-#nav li .nav_admin { background: transparent url("/images/settings-nonactive.png") left center no-repeat; }
-#nav li#active .nav_admin { background: transparent url("/images/settings-active.png") left center no-repeat; }
+#nav li .nav_master_tree { background: transparent url("/assets/tree-nonactive.png") left center no-repeat; }
+#nav li#active .nav_master_tree { background: transparent url("/assets/tree-active.png") left center no-repeat; }
+#nav li .nav_profile { background: transparent url("/assets/profile-nonactive.png") left center no-repeat; }
+#nav li#active .nav_profile { background: transparent url("/assets/profile-active.png") left center no-repeat; }
+#nav li .nav_feedback { background: transparent url("/assets/nav-bullhorn.png") left center no-repeat; }
+#nav li .nav_admin { background: transparent url("/assets/settings-nonactive.png") left center no-repeat; }
+#nav li#active .nav_admin { background: transparent url("/assets/settings-active.png") left center no-repeat; }
 
 .icon {
   float: left;
@@ -659,7 +659,7 @@ input.disabled {
 }
 
 #add-node a span {
-  background: url("../images/add-node.png") 0 1px no-repeat;
+  background: url("../assets/add-node.png") 0 1px no-repeat;
   color: #222;
   padding: 0 0 0 20px;
 }
@@ -764,7 +764,7 @@ input.disabled {
 }
 
 .breadcrumbs ul li {
-  background: transparent url("/images/angle.png") right 3px no-repeat;
+  background: transparent url("/assets/angle.png") right 3px no-repeat;
   color: #232323;
   display: inline-block;
   font-size: .9em;
@@ -1101,34 +1101,34 @@ input.disabled {
 * html .ddsmoothmenu-v ul li { float: left; height: 1%; }
 * html .ddsmoothmenu-v ul li a { height: 1%; }
 
-.ddsmoothmenu ul li a.nav-file-add { background: transparent url(../images/icons/page_white_add.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-file-bulkadd { background: transparent url(../images/icons/page_white_add_bulk.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-file-publish { background: transparent url(../images/icons/book_go.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-file-edit { background: transparent url(../images/icons/page_white_edit.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-file-delete { background: transparent url(../images/icons/bin_closed.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-file-add { background: transparent url(../assets/icons/page_white_add.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-file-bulkadd { background: transparent url(../assets/icons/page_white_add_bulk.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-file-publish { background: transparent url(../assets/icons/book_go.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-file-edit { background: transparent url(../assets/icons/page_white_edit.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-file-delete { background: transparent url(../assets/icons/bin_closed.png) no-repeat 5px center; }
 
-.ddsmoothmenu ul li a.nav-edit-rename, .ddsmoothmenu-v ul li a.nav-edit-rename { background: transparent url(../images/icons/page_white_edit.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-edit-undo { background: transparent url(../images/icons/arrow_undo.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-edit-redo { background: transparent url(../images/icons/arrow_redo.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-edit-cut { background: transparent url(../images/icons/cut.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-edit-paste { background: transparent url(../images/icons/page_white_paste.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-edit-delete, .ddsmoothmenu-v ul li a.nav-edit-delete { background: transparent url(../images/icons/bin_closed.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-edit-tag-red, .ddsmoothmenu-v ul li a.nav-edit-tag-red { background: transparent url(../images/icons/tag_red.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-edit-tag-blue, .ddsmoothmenu-v ul li a.nav-edit-tag-blue { background: transparent url(../images/icons/tag_blue.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-edit-rename, .ddsmoothmenu-v ul li a.nav-edit-rename { background: transparent url(../assets/icons/page_white_edit.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-edit-undo { background: transparent url(../assets/icons/arrow_undo.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-edit-redo { background: transparent url(../assets/icons/arrow_redo.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-edit-cut { background: transparent url(../assets/icons/cut.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-edit-paste { background: transparent url(../assets/icons/page_white_paste.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-edit-delete, .ddsmoothmenu-v ul li a.nav-edit-delete { background: transparent url(../assets/icons/bin_closed.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-edit-tag-red, .ddsmoothmenu-v ul li a.nav-edit-tag-red { background: transparent url(../assets/icons/tag_red.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-edit-tag-blue, .ddsmoothmenu-v ul li a.nav-edit-tag-blue { background: transparent url(../assets/icons/tag_blue.png) no-repeat 5px center; }
 
-.ddsmoothmenu ul li a.nav-refresh-node { background: transparent url(../images/icons/arrow_refresh_small.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-bookmarks-add { background: transparent url(../images/icons/asterisk_yellow_add.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-bookmarks-view { background: transparent url(../images/icons/asterisk_yellow.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-refresh-node { background: transparent url(../assets/icons/arrow_refresh_small.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-bookmarks-add { background: transparent url(../assets/icons/asterisk_yellow_add.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-bookmarks-view { background: transparent url(../assets/icons/asterisk_yellow.png) no-repeat 5px center; }
 
-.ddsmoothmenu ul li a.nav-view-selectall { background: transparent url(../images/icons/page_white_stack_select.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-view-deselectall { background: transparent url(../images/icons/page_white_stack_deselect.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-view-history { background: transparent url(../images/icons/table.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-view-merge { background: transparent url(../images/icons/arrow_join_down.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-view-refresh { background: transparent url(../images/icons/arrow_refresh.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-view-collapse { background: transparent url(../images/icons/door.png) no-repeat 5px center; }
-.ddsmoothmenu ul li a.nav-view-checked, .ddsmoothmenu-v ul li a.nav-view-checked { background: transparent url(../images/icons/tick.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-view-selectall { background: transparent url(../assets/icons/page_white_stack_select.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-view-deselectall { background: transparent url(../assets/icons/page_white_stack_deselect.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-view-history { background: transparent url(../assets/icons/table.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-view-merge { background: transparent url(../assets/icons/arrow_join_down.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-view-refresh { background: transparent url(../assets/icons/arrow_refresh.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-view-collapse { background: transparent url(../assets/icons/door.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-view-checked, .ddsmoothmenu-v ul li a.nav-view-checked { background: transparent url(../assets/icons/tick.png) no-repeat 5px center; }
 
-.ddsmoothmenu ul li a.nav-tools-merge { background: transparent url(../images/icons/arrow_join_down.png) no-repeat 5px center; }
+.ddsmoothmenu ul li a.nav-tools-merge { background: transparent url(../assets/icons/arrow_join_down.png) no-repeat 5px center; }
 
 .ddsmoothmenu ul li a:link, .ddsmoothmenu ul li a:visited, .ddsmoothmenu-v ul li a:link, .ddsmoothmenu-v ul li a:visited { }
 .ddsmoothmenu ul li a.selected, .ddsmoothmenu-v ul li a.selected { background-color:#BABFC3; }
@@ -1166,7 +1166,7 @@ input.disabled {
 }
 
 .searchbar .searchicon {
-  background-image: url("../images/icons/magnifier.png");
+  background-image: url("../assets/icons/magnifier.png");
   background-repeat:no-repeat;
   background-position:right center;
   width:16px;
@@ -1191,7 +1191,7 @@ input.disabled {
   height:32px;
   background-repeat:no-repeat;
   background-position:right center;
-  background-image: url("../images/down.gif");  
+  background-image: url("../assets/down.gif");
 }
 
 .searchbar-dropdown span.expanded {
@@ -1806,14 +1806,14 @@ ul.classifications div.import-button {
 }
 
 #tree-newimport .result:hover { }
-#tree-newimport .search { background: url("../images/search.png") no-repeat; }
-#tree-newimport .search:hover { background: url("../images/search-hover.png") no-repeat; }
-#tree-newimport .upload { background: url("../images/upload.png") no-repeat; }
-#tree-newimport .upload:hover { background: url("../images/upload.png") 0 -52px no-repeat; }
-#tree-newimport .browse { background: url("../images/browse.png") no-repeat; }
-#tree-newimport .browse:hover { background:url("../images/browse.png") 0 -52px no-repeat; }
-#tree-newimport .flat-list { background: url("../images/flat-list.png") no-repeat; }
-#tree-newimport .flat-list:hover { background: url("../images/flat-list.png") 0 -52px no-repeat;}
+#tree-newimport .search { background: url("../assets/search.png") no-repeat; }
+#tree-newimport .search:hover { background: url("../assets/search-hover.png") no-repeat; }
+#tree-newimport .upload { background: url("../assets/upload.png") no-repeat; }
+#tree-newimport .upload:hover { background: url("../assets/upload.png") 0 -52px no-repeat; }
+#tree-newimport .browse { background: url("../assets/browse.png") no-repeat; }
+#tree-newimport .browse:hover { background:url("../assets/browse.png") 0 -52px no-repeat; }
+#tree-newimport .flat-list { background: url("../assets/flat-list.png") no-repeat; }
+#tree-newimport .flat-list:hover { background: url("../assets/flat-list.png") 0 -52px no-repeat;}
 
 #tree-newimport ul.list {
   margin: 0;
@@ -1959,9 +1959,9 @@ ul.treelist li h3 {
 }
 
 ul.treelist li a.button {
-  background: #E0E2E4 url("/images/master_tree_icon.png") 5px 15px no-repeat;
-  background: url("/images/master_tree_icon.png") 5px 15px no-repeat, -moz-linear-gradient(0% 100% 90deg,#BBC0C4, #E0E2E4);
-  background: url("/images/master_tree_icon.png") 5px 15px no-repeat, -webkit-gradient(linear, 0 0, 0 100%, from(#E0E2E4), to(#BBC0C4));
+  background: #E0E2E4 url("/assets/master_tree_icon.png") 5px 15px no-repeat;
+  background: url("/assets/master_tree_icon.png") 5px 15px no-repeat, -moz-linear-gradient(0% 100% 90deg,#BBC0C4, #E0E2E4);
+  background: url("/assets/master_tree_icon.png") 5px 15px no-repeat, -webkit-gradient(linear, 0 0, 0 100%, from(#E0E2E4), to(#BBC0C4));
   border-top: 1px solid rgba(255,255,255,.6);
   border-radius: 5px;
   -moz-border-radius: 5px;
@@ -1971,15 +1971,15 @@ ul.treelist li a.button {
 }
 
 ul.treelist li a.button:hover {
-  background: #ccd0d4 url("/images/master_tree_icon_hover.png") 5px 15px no-repeat;
-  background: url("/images/master_tree_icon_hover.png") 5px 15px no-repeat, -moz-linear-gradient(19% 75% 90deg,#919598, #ccd0d4);
-  background: url("/images/master_tree_icon_hover.png") 5px 15px no-repeat, -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccd0d4), to(#919598));
+  background: #ccd0d4 url("/assets/master_tree_icon_hover.png") 5px 15px no-repeat;
+  background: url("/assets/master_tree_icon_hover.png") 5px 15px no-repeat, -moz-linear-gradient(19% 75% 90deg,#919598, #ccd0d4);
+  background: url("/assets/master_tree_icon_hover.png") 5px 15px no-repeat, -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccd0d4), to(#919598));
 }
 
 ul.treelist li a.button:active {
-  background: #b3b6ba url("/images/master_tree_icon.png") 5px 15px no-repeat;
-  background: url("/images/master_tree_icon.png") 5px 15px no-repeat, -moz-linear-gradient(19% 75% 90deg,#797d80, #b3b6ba);
-  background: url("/images/master_tree_icon.png") 5px 15px no-repeat, -webkit-gradient(linear, 0% 0%, 0% 100%, from(#b3b6ba), to(#797d80));
+  background: #b3b6ba url("/assets/master_tree_icon.png") 5px 15px no-repeat;
+  background: url("/assets/master_tree_icon.png") 5px 15px no-repeat, -moz-linear-gradient(19% 75% 90deg,#797d80, #b3b6ba);
+  background: url("/assets/master_tree_icon.png") 5px 15px no-repeat, -webkit-gradient(linear, 0% 0%, 0% 100%, from(#b3b6ba), to(#797d80));
 }
 
 ul.treelist li a.action {
@@ -2084,7 +2084,7 @@ ul.treelist a:hover,
 }
 
 #tree-new span {
-  background: url("/images/add-node.png") no-repeat;
+  background: url("/assets/add-node.png") no-repeat;
   color: #232323;
   display: block;
   font-size: 12px;
@@ -2140,11 +2140,11 @@ ul.treelist a:hover,
 }
 
 #flash_image_success, #flash_image_notice {
-  background-image: url("../images/flash-success.png");
+  background-image: url("../assets/flash-success.png");
 }
 
 #flash_image_failure, #flash_image_alert, #flash_image_error {
-  background-image: url("../images/flash-failure.png");
+  background-image: url("../assets/flash-failure.png");
 }
 
 #flash_image_success, #flash_image_failure, #flash_image_alert, #flash_image_notice, #flash_image_error {
@@ -2258,7 +2258,7 @@ ul.treelist li,  #gnaclr-search, .tree-background, #loginform .input, .green-sub
 }
 
 .spinner {
-  background: #FFF url("/images/loading.gif") no-repeat center center;
+  background: #FFF url("/assets/loading.gif") no-repeat center center;
   display: none;
   height: 100%;
   left: 0;
@@ -2334,7 +2334,7 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 #chat-messages-wrapper #chat-messages-user-count {
   padding: 0 0px 0 18px;
   font-weight:bold;
-  background: transparent url("../images/icons/group.png") no-repeat left center;
+  background: transparent url("../assets/icons/group.png") no-repeat left center;
   margin-left:5px;
 }
 
@@ -2385,8 +2385,8 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   text-decoration:none;
 }
 
-#chat-messages-options #chat-messages-maximize { background-image: url("../images/icons/bullet_green.png"); color:green }
-#chat-messages-options #chat-messages-minimize { background-image: url("../images/icons/bullet_yellow.png"); color:yellow; display:none; }
+#chat-messages-options #chat-messages-maximize { background-image: url("../assets/icons/bullet_green.png"); color:green }
+#chat-messages-options #chat-messages-minimize { background-image: url("../assets/icons/bullet_yellow.png"); color:yellow; display:none; }
 
 #chat-messages-scroller {
   overflow-y:auto;
@@ -2417,12 +2417,12 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 }
 
 #chat-messages-users ul li.online {
-  background-image: url("../images/icons/bullet_green.png"); 
+  background-image: url("../assets/icons/bullet_green.png");
   color:green;
 }
 
 #chat-messages-users ul li.offline {
-  background-image: url("../images/icons/bullet_red.png");
+  background-image: url("../assets/icons/bullet_red.png");
   color:red; 
 }
 
@@ -2538,7 +2538,7 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 }
 
 .gnite-table tbody tr td.online {
-  background-image: url("../images/icons/bullet_green.png"); 
+  background-image: url("../assets/icons/bullet_green.png");
   color:green;
 }
 
@@ -2547,7 +2547,7 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 }
 
 .gnite-table tbody tr td.offline {
-  background-image: url("../images/icons/bullet_red.png");
+  background-image: url("../assets/icons/bullet_red.png");
   color:red; 
 }
 
@@ -2719,7 +2719,7 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 }
 
 #merge-results-wrapper .ui-dialog-titlebar-close span {
-  background: url("../stylesheets/Aristo/images/icon_sprite.png") no-repeat scroll 0 -16px transparent;
+  background: url("../assets/Aristo/icon_sprite.png") no-repeat scroll 0 -16px transparent;
   display: block;
   height: 16px;
   margin: 1px;
@@ -2784,7 +2784,7 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
 }
 
 .merge_events .spinner {
-  background: #FFF url("/images/loading.gif") no-repeat center 30%;
+  background: #FFF url("/assets/loading.gif") no-repeat center 30%;
   z-index:100;
   top:50px;
 }
@@ -2831,9 +2831,9 @@ input[type="text"].ui-state-error, textarea.ui-state-error {
   -webkit-border-radius: 6px;
 }
 
-.merge-results td.header-decision div a.accepted { background-image: url("../images/icons/accept.png"); }
-.merge-results td.header-decision div a.postponed { background-image: url("../images/icons/hourglass.png"); }
-.merge-results td.header-decision div a.rejected { background-image: url("../images/icons/cancel.png"); }
+.merge-results td.header-decision div a.accepted { background-image: url("../assets/icons/accept.png"); }
+.merge-results td.header-decision div a.postponed { background-image: url("../assets/icons/hourglass.png"); }
+.merge-results td.header-decision div a.rejected { background-image: url("../assets/icons/cancel.png"); }
 
 .merge-results td.header-decision, .merge-results td.header-path {
   vertical-align:bottom;

@@ -25,7 +25,7 @@ Feature: Sign up
       And I fill in "Password" with "password"
       And I fill in "Confirm password" with "password1"
       And I press "Sign up"
-      Then I should see "doesn't match confirmation" within "#user_password_input"
+      Then I should see "doesn't match Password" within "#user_password_confirmation_input"
 
     Scenario: User signs up with an account that is already taken
       When a user "email@person.com/password" already exists

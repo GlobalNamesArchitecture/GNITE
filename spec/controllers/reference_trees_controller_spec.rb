@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ReferenceTreesController, 'html POST create' do
+describe ReferenceTreesController, 'html POST create', :type => :controller do
   context "when signed in with a master tree" do
     let(:user) { create(:user) }
     let(:master_tree) { create(:master_tree, :user => user) }
@@ -27,17 +27,17 @@ describe ReferenceTreesController, 'html POST create' do
       end
 
       it { should respond_with(:success) }
-      it { should render_template(:reference_tree) }
+      it { should render_template('reference_trees/_reference_tree') }
     end
   end
 end
 
-describe ReferenceTreesController, 'POST create without authenticating' do
+describe ReferenceTreesController, 'POST create without authenticating', :type => :controller do
   before { post :create }
   it     { should redirect_to(new_user_session_url) }
 end
 
-describe ReferenceTreesController, 'html DELETE destroy' do
+describe ReferenceTreesController, 'html DELETE destroy', :type => :controller do
   context "when signed in with a master tree" do
     let(:user) { create(:user) }
     let(:master_tree) { create(:master_tree, :user => user) }
@@ -75,7 +75,7 @@ describe ReferenceTreesController, 'html DELETE destroy' do
       end
       
       it "should destroy reference_tree nodes" do
-        Node.count(:conditions => "tree_id = #{reference_tree.id}").should == 0
+        Node.where(tree_id: reference_tree.id).count.should == 0
       end
     end
 
@@ -114,14 +114,14 @@ describe ReferenceTreesController, 'html DELETE destroy' do
   end
 end
 
-describe ReferenceTreesController, 'DELETE destroy without authenticating' do
+describe ReferenceTreesController, 'DELETE destroy without authenticating', :type => :controller do
   let(:reference_tree) { create(:reference_tree) }
   
   before { delete :destroy, :id => reference_tree.id }
   it { should redirect_to(new_user_session_url) }
 end
 
-describe ReferenceTreesController, 'xhr GET show for a tree that is importing' do
+describe ReferenceTreesController, 'xhr GET show for a tree that is importing', :type => :controller do
   let(:user) { create(:user) }
   let(:reference_tree) { create(:reference_tree,
                                 :state => 'importing') }
@@ -139,7 +139,7 @@ describe ReferenceTreesController, 'xhr GET show for a tree that is importing' d
   end
 end
 
-describe ReferenceTreesController, 'xhr GET show for a tree that is active' do
+describe ReferenceTreesController, 'xhr GET show for a tree that is active', :type => :controller do
   let(:user) { create(:user) }
   let(:reference_tree) { create(:reference_tree, :state => 'active') }
   
@@ -154,10 +154,10 @@ describe ReferenceTreesController, 'xhr GET show for a tree that is active' do
   end
 
   it { should respond_with(:success) }
-  it { should render_template(:reference_tree) }
+  it { should render_template('reference_trees/_reference_tree') }
 end
 
-describe ReferenceTreesController, 'html GET to show' do
+describe ReferenceTreesController, 'html GET to show', :type => :controller do
   let(:user) { create(:user) }
   let(:reference_tree) { create(:reference_tree) }
   
@@ -169,7 +169,7 @@ describe ReferenceTreesController, 'html GET to show' do
   it { should respond_with(:bad_request) }
 end
 
-describe ReferenceTreesController, 'GET show without authenticating' do
+describe ReferenceTreesController, 'GET show without authenticating', :type => :controller do
   let(:reference_tree) { create(:reference_tree) }
   
   before { get :show, :id => 1 }

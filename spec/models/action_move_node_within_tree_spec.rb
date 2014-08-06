@@ -18,10 +18,10 @@ describe ActionMoveNodeWithinTree do
     new_parent_id = subject.destination_parent_id
     ActionMoveNodeWithinTree.perform(subject.id)
     node.reload.parent_id.should == new_parent_id
-    subject.reload.undo?.should be_true
+    subject.reload.undo?.should be_truthy
     ActionMoveNodeWithinTree.perform(subject.id)
     node.reload.parent_id.should == old_parent_id
-    subject.reload.undo?.should be_false
+    subject.reload.undo?.should be_falsey
   end
 
   it 'should not try to move the node if node does not exist' do

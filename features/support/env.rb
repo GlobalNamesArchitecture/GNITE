@@ -66,3 +66,17 @@ After do |scenario|
     puts "*" * 80
   end
 end
+
+# To fix errors like : undefined method `+' for nil:NilClass when ussing `assert` methods
+module MinitestAssertionsBridge
+  attr_accessor :assertions
+end
+World(MinitestAssertionsBridge)
+Before { self.assertions = 0 }
+
+require 'rspec/rails'
+RSpec.configure do |config|
+  config.expect_with :rspec do |c|
+    c.syntax = [:should, :expect]
+  end
+end

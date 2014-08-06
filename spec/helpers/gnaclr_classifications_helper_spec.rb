@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe GnaclrClassificationsHelper do
+describe GnaclrClassificationsHelper, :type => :helper do
   describe "author_line_for_classification" do
     it "should stringify the author name" do
       classification = stub('classification', {

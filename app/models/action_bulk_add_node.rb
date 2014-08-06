@@ -15,7 +15,7 @@ class ActionBulkAddNode < ActionCommand
     #TODO add transaction
     node_ids = []
     @json_do.compact.reject(&:blank?).each do |new_name|
-      name = Name.find_or_create_by_name_string(new_name)
+      name = Name.find_or_create_by(name_string: new_name)
       node = Node.create!(:parent_id => parent_id, :name => name, :tree => @parent.tree)
       node_ids << node.id
     end

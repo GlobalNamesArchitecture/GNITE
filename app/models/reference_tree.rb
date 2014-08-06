@@ -7,10 +7,11 @@ class ReferenceTree < Tree
   validates_presence_of :publication_date
 
   def self.create_from_list(tree_params, node_list)
+    tree_params.permit! if tree_params.respond_to?(:permit!)
     tree = ReferenceTree.new(tree_params)
     tree.save
     node_list.each do |node_name|
-      name = Name.find_or_create_by_name_string(node_name)
+      name = Name.find_or_create_by(name_string: node_name)
       n = Node.new(:tree => tree, :name => name)
       n.save
     end

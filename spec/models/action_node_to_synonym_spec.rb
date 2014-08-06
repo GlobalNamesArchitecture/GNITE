@@ -8,7 +8,7 @@ describe ActionNodeToSynonym do
     ["Vern1", "Vern2", "Vern3"].each { |n| create(:vernacular_name, :node => Node.find(@subject.node_id), :name => Name.find_by_name_string(n)) }
     ["Synonym one", "Synonym four"].each { |n| create(:synonym, :node => Node.find(@subject.destination_node_id), :name => Name.find_by_name_string(n)) }
     ["Vern4", "Vern2", "Vern6"].each { |n| create(:vernacular_name, :node => Node.find(@subject.destination_node_id), :name => Name.find_by_name_string(n)) }
-    ["child1", "child2"].each { |n| create(:node, :tree_id => @subject.tree_id, :parent => Node.find(@subject.destination_node_id), :name => Name.find_or_create_by_name_string(n)) }
+    ["child1", "child2"].each { |n| create(:node, :tree_id => @subject.tree_id, :parent => Node.find(@subject.destination_node_id), :name => Name.find_or_create_by(name_string: n)) }
     @subject
   }
 
@@ -24,7 +24,7 @@ describe ActionNodeToSynonym do
     destination_node = Node.find(subject.destination_node_id)
     destination_node.child_count.should == 2
     ActionNodeToSynonym.perform(subject.id)
-    subject.reload.undo?.should be_true
+    subject.reload.undo?.should be_truthy
     undo_info = JSON.parse(subject.reload.json_message, :symbolize_keys => true)[:undo]
     undo_info.should_not be_nil
     merged_node = Node.find(undo_info[:merged_node_id])
@@ -47,7 +47,7 @@ describe ActionNodeToSynonym do
     vernacular_names.uniq.size.should == vernacular_names.size
     #undo
     ActionNodeToSynonym.perform(subject.id)
-    subject.reload.undo?.should be_false
+    subject.reload.undo?.should be_falsey
     destination_node.reload.child_count.should == 2
   end
 
@@ -83,16 +83,16 @@ describe ActionNodeToSynonym do
   it 'should not restore node from synonyms if precondition "new node" is not met' do
     ans = create(:action_node_to_synonym)
     ActionNodeToSynonym.perform(ans.id)
-    ans.reload.undo?.should be_true
+    ans.reload.undo?.should be_truthy
     message = JSON.parse(ans.json_message, :symbolize_names => true)
-    Node.find(message[:undo][:merged_node_id]).is_a?(::Node).should be_true
+    Node.find(message[:undo][:merged_node_id]).is_a?(::Node).should be_truthy
     Node.find(message[:undo][:merged_node_id]).destroy
     expect{ ActionNodeToSynonym.perform(ans.id) }.to raise_error
   end
   
   it 'should not restore node from synonyms if precondition "old destination node" is not met' do
     ActionNodeToSynonym.perform(subject.id)
-    subject.reload.undo?.should be_true
+    subject.reload.undo?.should be_truthy
     Node.find(subject.destination_node_id).destroy
     expect{ ActionNodeToSynonym.perform(subject.id) }.to raise_error
   end
@@ -100,8 +100,8 @@ describe ActionNodeToSynonym do
   it 'should not restore node from synonyms if precondition "original node" is not met' do
     ans = create(:action_node_to_synonym)
     ActionNodeToSynonym.perform(ans.id)
-    ans.reload.undo?.should be_true
-    Node.find(ans.node_id).is_a?(::Node).should be_true
+    ans.reload.undo?.should be_truthy
+    Node.find(ans.node_id).is_a?(::Node).should be_truthy
     Node.find(ans.node_id).destroy
     expect{ ActionNodeToSynonym.perform(ans.id) }.to raise_error
   end
@@ -109,9 +109,9 @@ describe ActionNodeToSynonym do
   it 'should not restore node from synonyms if precondition "original node parent" is not met' do
     ans = create(:action_node_to_synonym)
     ActionNodeToSynonym.perform(ans.id)
-    ans.reload.undo?.should be_true
+    ans.reload.undo?.should be_truthy
     message = JSON.parse(ans.json_message, :symbolize_names => true)
-    Node.find(ans.parent_id).is_a?(::Node).should be_true
+    Node.find(ans.parent_id).is_a?(::Node).should be_truthy
     Node.find(ans.parent_id).destroy
     expect{ ActionNodeToSynonym.perform(ans.id) }.to raise_error
   end

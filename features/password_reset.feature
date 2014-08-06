@@ -22,7 +22,7 @@ Feature: Password reset
 
       When I follow the password reset link sent to "email@person.com"
       And I update my password with "newpassword/wrongconfirmation"
-      Then I should see "doesn't match confirmation"
+      Then I should see "Password confirmation doesn't match"
       And I should be signed out
 
     Scenario: User is signed up and updates his password

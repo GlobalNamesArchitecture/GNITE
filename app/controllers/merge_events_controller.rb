@@ -5,7 +5,7 @@ class MergeEventsController < ApplicationController
     page = (params[:page]) ? params[:page] : 1
     @merge_events = MergeEvent.includes(:user)
                               .where(:master_tree_id => params[:master_tree_id])
-                              .order(:id => 'desc')
+                              .order(:id => :desc)
                               .paginate(:page => page, :per_page => 25)
     
     @master_tree = MasterTree.find(params[:master_tree_id])
@@ -15,15 +15,14 @@ class MergeEventsController < ApplicationController
   def show
     @merge_event = MergeEvent.find(params[:id])
     @master_tree = @merge_event.master_tree
-
-    @master_tree.rosters.delete_if { |h| h.user_id == current_user.id }
-    @master_tree.master_tree_contributors.delete_if { |h| h.user_id == current_user.id }
     
     editors = []
     @master_tree.rosters.each do |roster|
+      next if roster.user_id == current_user.id
       editors << { :id => roster.user.id, :email => roster.user.email, :roles => roster.user.roles.map { |r| r.name.humanize }, :status => "online" }
     end
     @master_tree.master_tree_contributors.each do |contributor|
+      next if contributor.user_id == current_user.id
       editors << { :id => contributor.user.id, :email => contributor.user.email, :roles => contributor.user.roles.map { |r| r.name.humanize }, :status => "offline" } unless editors.any? { |h| h[:id] == contributor.user.id }
     end
     

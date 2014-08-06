@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe GnaclrClassificationsController do
+describe GnaclrClassificationsController, :type => :controller do
   context "when signed out" do
     describe "on GET to index" do
       before do

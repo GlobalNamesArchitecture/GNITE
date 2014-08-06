@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe FlatListImportsController do
+describe FlatListImportsController, :type => :controller do
 
   context "when signed out" do
     describe "on GET to index" do

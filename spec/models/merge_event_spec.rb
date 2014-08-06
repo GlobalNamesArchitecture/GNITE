@@ -16,7 +16,7 @@ describe MergeEvent do
 
   it "should run the merge" do
     merges = @me.merge
-    merges.is_a?(Hash).should be_true
+    merges.is_a?(Hash).should be_truthy
     merges.keys.select { |k| !k.is_a?(Symbol) }.should be_empty
     merges.keys.size.should > 0
   end

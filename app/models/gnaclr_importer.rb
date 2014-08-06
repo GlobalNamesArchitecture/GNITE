@@ -92,7 +92,7 @@ class GnaclrImporter < ActiveRecord::Base
   end
 
   def activate_tree
-    ReferenceTree.update_all 'state = "active"', "id = #{reference_tree.id}"
+    ReferenceTree.where(id: reference_tree.id).update_all(state: "active")
     DarwinCore.logger_write(@dwc.object_id, "Import is successful")
   end
 

@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe GnaclrSearchesController, 'route' do
+describe GnaclrSearchesController, 'route', :type => :controller do
   it { should route(:get, '/gnaclr_searches').to(:action => 'show') }
 end
 
-describe GnaclrSearchesController, 'xhr GET to show' do
+describe GnaclrSearchesController, 'xhr GET to show', :type => :controller do
   let(:user)           { create(:user) }
   let(:master_tree)    { create(:master_tree, :user_id => user.id) }
   let(:search_results) { File.open('features/support/fixtures/gnaclr_search_result.json') }
@@ -31,7 +31,7 @@ describe GnaclrSearchesController, 'xhr GET to show' do
   it { should render_template(:show) }
 end
 
-describe GnaclrSearchesController, 'xhr GET to show with GNACLR service down' do
+describe GnaclrSearchesController, 'xhr GET to show with GNACLR service down', :type => :controller do
   let(:user)           { create(:user) }
 
   before do

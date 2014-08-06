@@ -28,7 +28,7 @@ class GnaclrImportsController < ApplicationController
                                             :state            => 'importing')
       is_new_tree = true
     end
-    if ReferenceTreeCollection.find_all_by_master_tree_id_and_reference_tree_id(master_tree.id, reference_tree.id).empty?
+    if ReferenceTreeCollection.where(master_tree_id: master_tree.id, reference_tree_id: reference_tree.id).empty?
       ReferenceTreeCollection.create!(:master_tree => master_tree, :reference_tree => reference_tree)
     end
     [reference_tree, is_new_tree]

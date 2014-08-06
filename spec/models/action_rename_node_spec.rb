@@ -18,7 +18,7 @@ describe ActionRenameNode do
     old_node_name.should_not == subject.new_name
     ActionRenameNode.perform(subject.id)
     node.reload.name.name_string.should == subject.new_name
-    subject.reload.undo?.should be_true
+    subject.reload.undo?.should be_truthy
     ActionRenameNode.perform(subject.id)
     node.reload.name.name_string.should == old_node_name
   end

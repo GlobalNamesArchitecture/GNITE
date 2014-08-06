@@ -23,14 +23,13 @@ class MasterTreesController < ApplicationController
   end
 
   def show
-    @master_tree.rosters.delete_if { |h| h.user_id == current_user.id }
-    @master_tree.master_tree_contributors.delete_if { |h| h.user_id == current_user.id }
-    
     editors = []
     @master_tree.rosters.each do |roster|
+      next if roster.user_id == current_user.id
       editors << { :id => roster.user.id, :email => roster.user.email, :roles => roster.user.roles.map { |r| r.name.humanize }, :status => "online" }
     end
     @master_tree.master_tree_contributors.each do |contributor|
+      next if contributor.user_id == current_user.id
       editors << { :id => contributor.user.id, :email => contributor.user.email, :roles => contributor.user.roles.map { |r| r.name.humanize }, :status => "offline" } unless editors.any? { |h| h[:id] == contributor.user.id }
     end
     
@@ -47,7 +46,8 @@ class MasterTreesController < ApplicationController
     if params[:cancel]
       redirect_to master_tree_url(params[:id])
     else
-      @master_tree.update_attributes(params[:master_tree])
+      params[:master_tree] ||= {}
+      @master_tree.update_attributes(params[:master_tree].select{ |k,v| MasterTree.column_names.include?(k) }.permit!)
       if @master_tree.save
         if request.xhr?
           render :json => { :status => "OK"}

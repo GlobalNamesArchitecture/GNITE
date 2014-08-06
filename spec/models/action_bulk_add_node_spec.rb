@@ -7,20 +7,20 @@ describe ActionBulkAddNode do
     subject.nodes.should be_empty
     ActionBulkAddNode.perform(subject.id)
     subject.reload.nodes.size.should > 0
-    subject.nodes.first.is_a?(::Node).should be_true
+    subject.nodes.first.is_a?(::Node).should be_truthy
   end
   
   it 'should add nodes to a tree' do
     parent = Node.find(subject.parent_id)
-    parent.has_children?.should be_false
+    parent.has_children?.should be_falsey
     ActionBulkAddNode.perform(subject.id)
     node_ids = JSON.parse(subject.reload.json_message, :symbolize_names => true)[:undo]
-    parent.reload.has_children?.should be_true
+    parent.reload.has_children?.should be_truthy
     parent.children.size.should == node_ids.size
     parent.children.map(&:id).should == node_ids
-    subject.undo?.should be_true
+    subject.undo?.should be_truthy
     ActionBulkAddNode.perform(subject.id)
-    parent.has_children?.should be_false
+    parent.has_children?.should be_falsey
   end
   
   it 'should not add nodes if precondition is not met' do

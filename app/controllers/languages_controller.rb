@@ -2,7 +2,7 @@ class LanguagesController < ApplicationController
   
   def show
     
-    @languages = Language.all(:conditions => ["iso_639_2 <> ''"])
+    @languages = Language.where("iso_639_2 != ''")
     
     respond_to do |format|
       format.json do

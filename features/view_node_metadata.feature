@@ -86,7 +86,7 @@ Feature: View metadata for master tree nodes
   Scenario: User can change the synonym designation in the metadata panel
     When I select the node "Nut"
     And I follow "Kernel" within "the master tree metadata panel"
-    And I follow "Kernel" within "the master tree metadata panel"
+    When pause 1
     And I follow "homotypic synonym" within "the master tree metadata panel"
     And I select the node "Nut"
     And I follow "Kernel" within "the master tree metadata panel"

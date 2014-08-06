@@ -34,8 +34,7 @@ Gnite::Application.configure do
   # ActiveRecord::Base.logger = Logger.new(STDOUT)
   # ActionController::Base.logger = Logger.new(STDOUT)
 
-  # Raise exception on mass assignment protection for Active Record models
-  config.active_record.mass_assignment_sanitizer = :strict
+  config.eager_load = false
 
 end
 Gnite::Config.gnaclr_url = "http://example.com"

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ImportsController do
+describe ImportsController, :type => :controller do
   context "when signed out" do
     context "on GET to new" do
       before do

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe MasterTreesController do
+describe MasterTreesController, :type => :controller, :type => :controller do
   context "signed in" do
     before do
       @user = create(:user)
@@ -155,32 +155,32 @@ describe MasterTreesController do
   end
 end
 
-describe MasterTreesController, 'GET index without authenticating' do
+describe MasterTreesController, 'GET index without authenticating', :type => :controller do
   before { get :index }
   it     { should redirect_to(new_user_session_url) }
 end
 
-describe MasterTreesController, 'GET new without authenticating' do
+describe MasterTreesController, 'GET new without authenticating', :type => :controller do
   before { get :new }
   it     { should redirect_to(new_user_session_url) }
 end
 
-describe MasterTreesController, 'GET show without authenticating' do
+describe MasterTreesController, 'GET show without authenticating', :type => :controller do
   before { get :show, :id => 1 }
   it     { should redirect_to(new_user_session_url) }
 end
 
-describe MasterTreesController, 'GET edit without authenticating' do
+describe MasterTreesController, 'GET edit without authenticating', :type => :controller do
   before { get :edit, :id => 1 }
   it     { should redirect_to(new_user_session_url) }
 end
 
-describe MasterTreesController, 'PUT update without authenticating' do
+describe MasterTreesController, 'PUT update without authenticating', :type => :controller do
   before { put :update, :id => 1 }
   it     { should redirect_to(new_user_session_url) }
 end
 
-describe MasterTreesController, 'DELETE destroy without authenticating' do
+describe MasterTreesController, 'DELETE destroy without authenticating', :type => :controller do
   before { delete :destroy, :id => 1 }
   it     { should redirect_to(new_user_session_url) }
 end

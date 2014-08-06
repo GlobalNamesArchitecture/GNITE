@@ -22,12 +22,7 @@ Gnite::Application.configure do
   config.log_level = :debug # :error
   config.logger = Logger.new(STDOUT)
 
-  # Raise exception on mass assignment protection for Active Record models
-  config.active_record.mass_assignment_sanitizer = :strict
-
-  # Log the query plan for queries taking more than this (works
-  # with SQLite, MySQL, and PostgreSQL)
-  config.active_record.auto_explain_threshold_in_seconds = 0.5
+  config.eager_load = false
 
 end
 Gnite::Config.gnaclr_url = "http://gnaclr.globalnames.org"

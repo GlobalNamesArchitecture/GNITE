@@ -11,7 +11,7 @@ class ActionAddNode < ActionCommand
 
   def do_action
     self.new_name ||= "New child"
-    name = Name.find_or_create_by_name_string(new_name)
+    name = Name.find_or_create_by(name_string: new_name)
     node = Node.create!(:parent_id => parent_id, :name => name, :tree => @parent.tree)
     self.node_id = node.id
     self.json_message = node.to_json

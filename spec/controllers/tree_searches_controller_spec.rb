@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe TreeSearchesController, 'GET to show search results in master tree' do
+describe TreeSearchesController, 'GET to show search results in master tree', :type => :controller do
   let(:user) { create(:user) }
   let(:master_tree) { create(:master_tree, :user => user) }
   let(:parent)  { create(:node, :tree => master_tree) }
@@ -14,11 +14,11 @@ describe TreeSearchesController, 'GET to show search results in master tree' do
   end
   
   it { should respond_with(:success) }
-  it { should render_template(:tree_search) }
+  it { should render_template('tree_searches/_tree_search') }
 
 end
 
-describe TreeSearchesController, 'GET to show search results in reference tree' do
+describe TreeSearchesController, 'GET to show search results in reference tree', :type => :controller do
   let(:user) { create(:user) }
   let(:reference_tree) { create(:reference_tree) }
   let(:parent)  { create(:node, :tree => reference_tree) }
@@ -32,11 +32,11 @@ describe TreeSearchesController, 'GET to show search results in reference tree' 
   end
   
   it { should respond_with(:success) }
-  it { should render_template(:tree_search) }
+  it { should render_template('tree_searches/_tree_search') }
  
 end
 
-describe TreeSearchesController, 'GET search in master tree without authenticating' do
+describe TreeSearchesController, 'GET search in master tree without authenticating', :type => :controller do
   before { get :show, :tree_id => 123, :name_string => 'gnite' }
   it     { should redirect_to(new_user_session_url) }
   it     { should set_the_flash.to(/sign in/) }

@@ -33,7 +33,5 @@ module NamedElementHelper
       named_element
     end
   end
-
-  include ActionController::RecordIdentifier
 end
 World(NamedElementHelper)

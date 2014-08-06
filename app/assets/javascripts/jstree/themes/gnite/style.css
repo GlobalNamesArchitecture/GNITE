@@ -63,15 +63,15 @@
 #vakata-contextmenu.jstree-gnite-context li ul { margin-left:-4px; }
 
 #vakata-contextmenu.jstree-gnite-context ins { background-repeat: no-repeat; background-position: center center; margin-right: 5px; margin-left:2px; height:18px; }
-#vakata-contextmenu.jstree-gnite-context ins.context-rename { background-image: url('../../../../images/icons/page_white_edit.png'); }
-#vakata-contextmenu.jstree-gnite-context ins.context-create { background-image: url('../../../../images/icons/page_white_add.png'); }
-#vakata-contextmenu.jstree-gnite-context ins.context-create-bulk { background-image: url('../../../../images/icons/page_white_add_bulk.png'); }
-#vakata-contextmenu.jstree-gnite-context ins.context-cut { background-image: url('../../../../images/icons/cut.png'); }
-#vakata-contextmenu.jstree-gnite-context ins.context-paste { background-image: url('../../../../images/icons/page_white_paste.png'); }
-#vakata-contextmenu.jstree-gnite-context ins.context-refresh { background-image: url('../../../../images/icons/arrow_refresh_small.png'); }
-#vakata-contextmenu.jstree-gnite-context ins.context-bookmark { background-image: url('../../../../images/icons/asterisk_yellow_add.png'); }
-#vakata-contextmenu.jstree-gnite-context ins.context-chat { background-image: url('../../../../images/icons/user_comment.png'); }
-#vakata-contextmenu.jstree-gnite-context ins.context-delete { background-image: url('../../../../images/icons/bin_closed.png'); }
+#vakata-contextmenu.jstree-gnite-context ins.context-rename { background-image: url('../../../../assets/icons/page_white_edit.png'); }
+#vakata-contextmenu.jstree-gnite-context ins.context-create { background-image: url('../../../../assets/icons/page_white_add.png'); }
+#vakata-contextmenu.jstree-gnite-context ins.context-create-bulk { background-image: url('../../../../assets/icons/page_white_add_bulk.png'); }
+#vakata-contextmenu.jstree-gnite-context ins.context-cut { background-image: url('../../../../assets/icons/cut.png'); }
+#vakata-contextmenu.jstree-gnite-context ins.context-paste { background-image: url('../../../../assets/icons/page_white_paste.png'); }
+#vakata-contextmenu.jstree-gnite-context ins.context-refresh { background-image: url('../../../../assets/icons/arrow_refresh_small.png'); }
+#vakata-contextmenu.jstree-gnite-context ins.context-bookmark { background-image: url('../../../../assets/icons/asterisk_yellow_add.png'); }
+#vakata-contextmenu.jstree-gnite-context ins.context-chat { background-image: url('../../../../assets/icons/user_comment.png'); }
+#vakata-contextmenu.jstree-gnite-context ins.context-delete { background-image: url('../../../../assets/icons/bin_closed.png'); }
 
 /* IE6 BEGIN */
 .jstree-gnite li, 

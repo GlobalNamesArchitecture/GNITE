@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe MasterTreeLogsController, 'GET to show edit history for master tree' do
+describe MasterTreeLogsController, 'GET to show edit history for master tree', :type => :controller do
   let(:user) { create(:user) }
   let(:master_tree) { create(:master_tree, :user => user) }
   let(:node)  { create(:node, :tree => master_tree) }
@@ -13,5 +13,5 @@ describe MasterTreeLogsController, 'GET to show edit history for master tree' do
   end
     
   it { should respond_with(:success) }
-  it { should render_template(:master_tree_log) }
+  it { should render_template("master_tree_logs/index") }
 end

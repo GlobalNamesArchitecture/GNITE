@@ -22,10 +22,10 @@ class Node < ActiveRecord::Base
   def self.search(search_string, tree_id)
     clean_search_string = "%#{search_string}%"
     clean_tree_id = "#{tree_id}"
-    names = Name.find(:all, :conditions => ['LOWER(names.name_string) LIKE ?', clean_search_string.downcase])
+    names = Name.where(['LOWER(names.name_string) LIKE ?', clean_search_string.downcase])
     nodes = []
     names.each do |name|
-      node = Node.find_by_name_id(name, :conditions => {:tree_id => clean_tree_id.to_i})
+      node = Node.where(name_id: name.id, tree_id: clean_tree_id.to_i).first
       nodes <<  node unless node.nil?
     end
     nodes

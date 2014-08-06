@@ -11,7 +11,7 @@ class VernacularNamesController < ApplicationController
       redirect_to root_url
     else
       channel     = "tree_#{params[:master_tree_id]}"
-      name        = Name.find_or_create_by_name_string(params[:name_string])
+      name        = Name.find_or_create_by(name_string: params[:name_string])
       @vernacular = VernacularName.new(:name => name, :node_id => params[:node_id])
       @vernacular.save
       

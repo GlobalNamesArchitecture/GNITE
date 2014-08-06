@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe GnaclrImportsController, 'xhr POST create' do
+describe GnaclrImportsController, 'xhr POST create', :type => :controller do
   let(:user) { create(:user) }
   let(:master_tree) { create(:master_tree, :user_id => user.id) }
 
@@ -35,7 +35,7 @@ describe GnaclrImportsController, 'xhr POST create' do
 
 end
 
-describe GnaclrImportsController, 'reuse of a tree' do
+describe GnaclrImportsController, 'reuse of a tree', :type => :controller do
   let(:user) { create(:user) }
   let(:master_tree) { create(:master_tree, :user_id => user.id) }
   let(:reference_tree) { create(:reference_tree) }
@@ -78,7 +78,7 @@ describe GnaclrImportsController, 'reuse of a tree' do
 
 end
 
-describe GnaclrImportsController, 'html POST create' do
+describe GnaclrImportsController, 'html POST create', :type => :controller do
   let(:user) { create(:user) }
   subject { controller }
   before do

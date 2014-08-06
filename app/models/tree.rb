@@ -49,7 +49,7 @@ class Tree < ActiveRecord::Base
   end
 
   def create_root_node
-    name = Name.find_or_create_by_name_string(Gnite::Config.root_node_name_string)
+    name = Name.find_or_create_by(name_string: Gnite::Config.root_node_name_string)
     @root = Node.create!(:parent_id => nil, :tree => self, :name => name)
   end
 

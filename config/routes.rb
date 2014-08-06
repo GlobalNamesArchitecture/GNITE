@@ -8,12 +8,12 @@ Gnite::Application.routes.draw do
     :unlocks => "users/unlocks"
   }
 
-  match "/master_trees/:id/publish" => "master_trees#publish"
-  match "/master_trees/:id/undo" => "master_trees#undo"
-  match "/master_trees/:id/redo" => "master_trees#redo"
-  match "/tree_searches/:tree_id/:name_string" => "tree_searches#show"
-  match "/push_messages" => "push_messages#update"
-  match "/merge_trees/:id/populate" => "merge_trees#populate"
+  get "/master_trees/:id/publish" => "master_trees#publish"
+  get "/master_trees/:id/undo" => "master_trees#undo"
+  get "/master_trees/:id/redo" => "master_trees#redo"
+  get "/tree_searches/:tree_id/:name_string" => "tree_searches#show"
+  put "/push_messages" => "push_messages#update"
+  get "/merge_trees/:id/populate" => "merge_trees#populate"
 
   resources :gnaclr_imports, :only => [:create]
   

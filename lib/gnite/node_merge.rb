@@ -101,7 +101,7 @@ module Gnite
         elsif node_parent = get_parent_from_children(canonical_parts[0], ancestor)
           node.parent = node_parent
         else
-          name = Name.find_or_create_by_name_string(canonical_parts[0])
+          name = Name.find_or_create_by(name_string: canonical_parts[0])
           genus_node = Node.create!(:tree => node.tree, :name => name, :parent_id => ancestor.id, :rank => "genus")
           node.parent = genus_node
         end

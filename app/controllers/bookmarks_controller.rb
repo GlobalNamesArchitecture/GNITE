@@ -3,7 +3,7 @@ class BookmarksController < ApplicationController
 
   def index
     tree = get_tree
-    nodes = tree.nodes.find(:all, :include => :bookmarks, :joins => :bookmarks, :order => 'bookmarks.created_at desc')
+    nodes = tree.nodes.joins(:bookmarks).includes(:bookmarks).order('bookmarks.created_at desc')
 
     @bookmarks = nodes.map do |node|
       treepath_ids = []

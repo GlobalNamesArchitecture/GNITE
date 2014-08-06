@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe BookmarksController, 'GET to show bookmarks for master tree' do
+describe BookmarksController, 'GET to show bookmarks for master tree', :type => :controller do
   let(:user) { create(:user) }
   let(:master_tree) { create(:master_tree, :user_id => user.id) }
   let(:node)  { create(:node, :tree => master_tree) }
@@ -14,10 +14,10 @@ describe BookmarksController, 'GET to show bookmarks for master tree' do
   end
     
   it { should respond_with(:success) }
-  it { should render_template(:bookmark) }
+  it { should render_template('bookmarks/_bookmark') }
 end
 
-describe BookmarksController, 'POST to create bookmark in master tree' do
+describe BookmarksController, 'POST to create bookmark in master tree', :type => :controller do
   let(:user) { create(:user) }
   let(:master_tree) { create(:master_tree, :user_id => user.id) }
   let(:node)  { create(:node, :tree => master_tree) }
@@ -46,7 +46,7 @@ describe BookmarksController, 'POST to create bookmark in master tree' do
   it { should respond_with(:success) }
 end
 
-describe BookmarksController, 'PUT to update a bookmark in master tree' do
+describe BookmarksController, 'PUT to update a bookmark in master tree', :type => :controller do
   let(:user) { create(:user) }
   let(:master_tree) { create(:master_tree, :user_id => user.id) }
   let(:node) { create(:node, :tree => master_tree) }
@@ -62,7 +62,7 @@ describe BookmarksController, 'PUT to update a bookmark in master tree' do
   end
 end
 
-describe BookmarksController, 'GET to show bookmarks for reference tree' do
+describe BookmarksController, 'GET to show bookmarks for reference tree', :type => :controller do
   let(:user) { create(:user) }
   let(:reference_tree) { create(:reference_tree) }
   let(:node)  { create(:node, :tree => reference_tree) }
@@ -77,11 +77,11 @@ describe BookmarksController, 'GET to show bookmarks for reference tree' do
   end
   
   it { should respond_with(:success) }
-  it { should render_template(:bookmark) }
+  it { should render_template('bookmarks/_bookmark') }
   
 end
 
-describe BookmarksController, 'POST to create bookmark in reference tree' do
+describe BookmarksController, 'POST to create bookmark in reference tree', :type => :controller do
   let(:user) { create(:user) }
   let(:reference_tree) { create(:reference_tree) }
   let(:node)  { create(:node, :tree => reference_tree) }
@@ -110,7 +110,7 @@ describe BookmarksController, 'POST to create bookmark in reference tree' do
   it { should respond_with(:success) }
 end
 
-describe BookmarksController, 'PUT to update a bookmark in reference tree' do
+describe BookmarksController, 'PUT to update a bookmark in reference tree', :type => :controller do
   let(:user) { create(:user) }
   let(:reference_tree) { create(:reference_tree) }
   let(:node) { create(:node, :tree => reference_tree) }
@@ -126,49 +126,49 @@ describe BookmarksController, 'PUT to update a bookmark in reference tree' do
   end
 end
 
-describe BookmarksController, 'GET index in master tree without authenticating' do
+describe BookmarksController, 'GET index in master tree without authenticating', :type => :controller do
   before { get :index, :master_tree_id => 123 }
   it     { should redirect_to(new_user_session_url) }
   it     { should set_the_flash.to(/sign in/) }
 end
 
-describe BookmarksController, 'POST create in master tree without authenticating' do
+describe BookmarksController, 'POST create in master tree without authenticating', :type => :controller do
   before { post :create, :master_tree_id => 123, :id => 45 }
   it     { should redirect_to(new_user_session_url) }
   it     { should set_the_flash.to(/sign in/) }
 end
 
-describe BookmarksController, 'PUT in master tree without authenticating' do
+describe BookmarksController, 'PUT in master tree without authenticating', :type => :controller do
   before { put :update, :master_tree_id => 123, :id => 45 }
   it     { should redirect_to(new_user_session_url) }
   it     { should set_the_flash.to(/sign in/) }
 end
 
-describe BookmarksController, 'DELETE delete in master tree without authenticating' do
+describe BookmarksController, 'DELETE delete in master tree without authenticating', :type => :controller do
   before { delete :destroy, :master_tree_id => 123, :id => 45 }
   it     { should redirect_to(new_user_session_url) }
   it     { should set_the_flash.to(/sign in/) }
 end
 
-describe BookmarksController, 'GET index in reference tree without authenticating' do
+describe BookmarksController, 'GET index in reference tree without authenticating', :type => :controller do
   before { get :index, :reference_tree_id => 123 }
   it     { should redirect_to(new_user_session_url) }
   it     { should set_the_flash.to(/sign in/) }
 end
 
-describe BookmarksController, 'POST create in reference tree without authenticating' do
+describe BookmarksController, 'POST create in reference tree without authenticating', :type => :controller do
   before { post :create, :reference_tree_id => 123, :id => 45 }
   it     { should redirect_to(new_user_session_url) }
   it     { should set_the_flash.to(/sign in/) }
 end
 
-describe BookmarksController, 'PUT update in reference tree without authenticating' do
+describe BookmarksController, 'PUT update in reference tree without authenticating', :type => :controller do
   before { put :update, :reference_tree_id => 123, :id => 45 }
   it     { should redirect_to(new_user_session_url) }
   it     { should set_the_flash.to(/sign in/) }
 end
 
-describe BookmarksController, 'DELETE delete in reference tree without authenticating' do
+describe BookmarksController, 'DELETE delete in reference tree without authenticating', :type => :controller do
   before { delete :destroy, :reference_tree_id => 123, :id => 45 }
   it     { should redirect_to(new_user_session_url) }
   it     { should set_the_flash.to(/sign in/) }

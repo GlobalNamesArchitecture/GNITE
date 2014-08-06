@@ -14,15 +14,15 @@ describe ActionBulkCopyNode do
 
   it 'should copy nodes on first perform and remove them on second perform' do
     parent = Node.find(subject.destination_parent_id)
-    parent.has_children?.should be_false
+    parent.has_children?.should be_falsey
     ActionBulkCopyNode.perform(subject.id)
     node_ids = JSON.parse(subject.reload.json_message, :symbolize_names => true)[:undo]
-    parent.reload.has_children?.should be_true
+    parent.reload.has_children?.should be_truthy
     parent.children.size.should == node_ids.size
     parent.children.map(&:id).should == node_ids
-    subject.undo?.should be_true
+    subject.undo?.should be_truthy
     ActionBulkCopyNode.perform(subject.id)
-    parent.has_children?.should be_false
+    parent.has_children?.should be_falsey
   end
   
   it 'should not bulk copy nodes if precondition is not met' do

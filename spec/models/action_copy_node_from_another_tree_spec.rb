@@ -20,12 +20,12 @@ describe ActionCopyNodeFromAnotherTree do
     ActionCopyNodeFromAnotherTree.perform(subject.id)
     node.parent_id.should == old_parent_id
     Node.find(new_parent_id).children.select { |c| c.name == node.name && c.children[0].name == node.children[0].name && c.children[0].children[0].name == node.children[0].children[0].name }.size.should == 1
-    subject.reload.undo?.should be_true
+    subject.reload.undo?.should be_truthy
     JSON.parse(subject.json_message, :symbolize_names => true).keys.should == [:node]
     ActionCopyNodeFromAnotherTree.perform(subject.id)
     node.reload.parent_id.should == old_parent_id
     Node.find(new_parent_id).children.select { |c| c.name == node.name }.size == 0
-    subject.reload.undo?.should be_false
+    subject.reload.undo?.should be_falsey
   end
 
   it 'should not try to copy the node if node does not exist' do
@@ -51,7 +51,7 @@ describe ActionCopyNodeFromAnotherTree do
   it 'should not try to undo copy the node if node does not exist' do
     subject = create(:action_copy_node_from_another_tree)
     ActionCopyNodeFromAnotherTree.perform(subject.id)
-    subject.reload.undo?.should be_true
+    subject.reload.undo?.should be_truthy
     destination_node = Node.find(subject.destination_node_id)
     destination_node.destroy
     expect { ActionCopyNodeFromAnotherTree.perform(subject.id) }.to raise_error

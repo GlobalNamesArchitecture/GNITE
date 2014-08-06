@@ -60,7 +60,7 @@ describe MasterTree do
       MasterTreeContributor.create!(:master_tree => @master_tree, :user => create(:user))
       @dwc_file = File.join(::Rails.root.to_s, 'tmp', "#{@master_tree.uuid}.tar.gz")
       FileUtils.rm(@dwc_file) if File.exists?(@dwc_file)
-      File.exists?(@dwc_file).should be_false
+      File.exists?(@dwc_file).should be_falsey
       @root_nodes = @master_tree.root.children
       @master_tree.create_darwin_core_archive
       @dwca = DarwinCore.new(@dwc_file)
@@ -74,12 +74,12 @@ describe MasterTree do
     end
 
     it "should have publish method" do
-      @master_tree.respond_to?(:create_darwin_core_archive).should be_true
+      @master_tree.respond_to?(:create_darwin_core_archive).should be_truthy
     end
 
     it "should create a valid dwc_archive in tmp directory" do
-      File.exists?(@dwc_file).should be_true
-      @dwca.archive.valid?.should be_true
+      File.exists?(@dwc_file).should be_truthy
+      @dwca.archive.valid?.should be_truthy
     end
 
     it "should read eml metadata of the archive" do
@@ -87,13 +87,13 @@ describe MasterTree do
     end
 
     it "should not have master tree's hidden root in core file" do
-      @dwca_nodes.key?(@master_tree.root.id.to_s).should be_false
+      @dwca_nodes.key?(@master_tree.root.id.to_s).should be_falsey
     end
 
     it "roots of the core file should have null as parent id" do
       @root_nodes.each do |root_node|
         root_id = root_node.id.to_s
-        @dwca_nodes.key?(root_id).should be_true
+        @dwca_nodes.key?(root_id).should be_truthy
         @dwca_nodes[root_id].to_i.should_not == root_node.parent_id
         @dwca_nodes[root_id].should be_nil
       end

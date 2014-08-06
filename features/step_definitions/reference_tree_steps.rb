@@ -1,6 +1,6 @@
 Then /^I should see a node "([^"]*)" at the root level in my reference tree "([^"]*)"$/ do |node_text, reference_tree_title|
   reference_tree = ReferenceTree.find_by_title(reference_tree_title)
-  page.should have_xpath("//div[@id='#{dom_id(reference_tree, "container_for")}']/ul/li/a[contains(text(),'#{node_text}')]")
+  page.should have_xpath("//div[@id='container_for_reference_tree_#{reference_tree.id}']/ul/li/a[contains(text(),'#{node_text}')]")
 end
 
 Then /^I should see an? "([^"]*)" tab$/ do |tab_name|
@@ -16,7 +16,7 @@ end
 
 Then /^I should not be able to show a context menu for my reference tree "(.*)"$/ do |reference_tree_title|
   reference_tree = ReferenceTree.find_by_title(reference_tree_title)
-  reference_tree_matcher = "div##{dom_id(reference_tree, "container_for")}"
+  reference_tree_matcher = "div#container_for_reference_tree_#{reference_tree.id}"
   page.should have_css(reference_tree_matcher)
 
   page.execute_script("jQuery('#{reference_tree_matcher}').jstree('show_contextmenu');");
@@ -38,7 +38,7 @@ end
 
 When /^I drag "([^"]*)" to "([^"]*)" in my reference tree "(.*)"$/ do |origin_node_text, destination_node_text, reference_tree_title|
   reference_tree         = ReferenceTree.find_by_title(reference_tree_title)
-  reference_tree_matcher = "div##{dom_id(reference_tree, "container_for")}"
+  reference_tree_matcher = "div#container_for_reference_tree_#{reference_tree.id}"
   # we had a namespace conflict with Capybara::Node
   origin_node            = ::Node.joins(:name).where('names.name_string = ?', origin_node_text).first
   destination_node       = ::Node.joins(:name).where('names.name_string = ?', destination_node_text).first
@@ -50,7 +50,7 @@ end
 
 When /^I drag selected nodes in my reference tree "(.*)" to "([^"]*)" in my master tree$/ do |reference_tree_title, destination_node_text|
   reference_tree         = ReferenceTree.find_by_title(reference_tree_title)
-  reference_tree_matcher = "div##{dom_id(reference_tree, "container_for")}"
+  reference_tree_matcher = "div#container_for_reference_tree_#{reference_tree.id}"
   destination_node       = ::Node.joins(:name).where('names.name_string = ?', destination_node_text).first
   
   page.execute_script("jQuery('#master-tree').jstree('move_node', '.jstree-clicked:parent', '##{destination_node.id}', 'first', true);")
@@ -58,7 +58,7 @@ end
 
 When /^I refresh the reference tree "(.*)"$/ do |reference_tree_title|
   reference_tree = ReferenceTree.find_by_title(reference_tree_title)
-  reference_tree_matcher = "div##{dom_id(reference_tree, "container_for")}"
+  reference_tree_matcher = "div#container_for_reference_tree_#{reference_tree.id}"
   page.should have_css(reference_tree_matcher)
 
   page.execute_script("jQuery('#{reference_tree_matcher}').jstree('refresh');");

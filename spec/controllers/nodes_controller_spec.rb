@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe NodesController, 'when signed out on POST to create' do
+describe NodesController, 'when signed out on POST to create', :type => :controller do
   before do
     post :create, :master_tree_id => 123, :node_id => 456
   end
@@ -9,7 +9,7 @@ describe NodesController, 'when signed out on POST to create' do
   it { should set_the_flash.to(/sign in/) }
 end
 
-describe NodesController do
+describe NodesController, :type => :controller do
   context "signed in with a tree and nodes" do
     let(:user)        { create(:user) }
 
@@ -39,7 +39,7 @@ describe NodesController do
         end
 
         it { should respond_with(:success) }
-        it { should render_template(:node) }
+        it { should render_template('nodes/index') }
       end
       
       context "on GET to #index with a parent_id" do
@@ -48,14 +48,14 @@ describe NodesController do
         end
 
         it { should respond_with(:success) }
-        it { should render_template(:node) }
+        it { should render_template('nodes/index') }
       end
 
     end
   end
 end
 
-describe NodesController, 'POST to create a node' do
+describe NodesController, 'POST to create a node', :type => :controller do
   subject { controller }
   let(:user) { create(:user) }
   let(:tree) do
@@ -102,7 +102,7 @@ describe NodesController, 'POST to create a node' do
 end
 
 
-describe NodesController, 'POST to copy a node from a reference tree' do
+describe NodesController, 'POST to copy a node from a reference tree', :type => :controller do
   let(:user) { create(:user) }
   let(:master_tree) { create(:master_tree, :user_id => user.id) }
   let(:parent_node) { create(:node, :tree => master_tree) }
@@ -138,7 +138,7 @@ describe NodesController, 'POST to copy a node from a reference tree' do
   end
 
   it 'renders the newly created node as JSON' do
-    @clone_node.is_a?(::Node).should be_true
+    @clone_node.is_a?(::Node).should be_truthy
   end
 
   it 'should create a copy of the reference tree node' do
@@ -149,7 +149,7 @@ describe NodesController, 'POST to copy a node from a reference tree' do
 
 end
 
-describe NodesController, 'POST to assign a node to be a synonym of another' do
+describe NodesController, 'POST to assign a node to be a synonym of another', :type => :controller do
   let(:user) { create(:user) }
   let(:master_tree) { create(:master_tree, :user_id => user.id) }
   let(:source_node) { create(:node, :tree => master_tree, :name => create(:name, :name_string => "source node")) }
@@ -186,13 +186,13 @@ describe NodesController, 'POST to assign a node to be a synonym of another' do
   it { should respond_with(:success) }
   
   it 'renders the newly merged node as JSON' do
-    @merge_node.is_a?(::Node).should be_true
+    @merge_node.is_a?(::Node).should be_truthy
   end
   
   it 'destroys the source node' do
     (@child_count - master_tree.root.children.size).should == 1
-    master_tree.root.children.map(&:name_string).include?(destination_node.name_string).should be_true
-    master_tree.root.children.map(&:name_string).include?(source_node.name_string).should be_false
+    master_tree.root.children.map(&:name_string).include?(destination_node.name_string).should be_truthy
+    master_tree.root.children.map(&:name_string).include?(source_node.name_string).should be_falsey
   end
   
   it 'should render the merged node with same name as destination node' do
@@ -201,9 +201,9 @@ describe NodesController, 'POST to assign a node to be a synonym of another' do
   end
   
   it 'should render the merged node with synonym containing source node and source synonym' do
-    @merge_node.synonyms.map(&:name_string).include?(source_node.name_string).should be_true
-    @merge_node.synonyms.map(&:name_string).include?(source_synonym.name_string).should be_true
-    @merge_node.vernacular_names.map(&:name_string).include?(source_vernacular.name_string).should be_true
+    @merge_node.synonyms.map(&:name_string).include?(source_node.name_string).should be_truthy
+    @merge_node.synonyms.map(&:name_string).include?(source_synonym.name_string).should be_truthy
+    @merge_node.vernacular_names.map(&:name_string).include?(source_vernacular.name_string).should be_truthy
   end
   
   it 'should render the merged node with same number of children' do
@@ -213,7 +213,7 @@ describe NodesController, 'POST to assign a node to be a synonym of another' do
 end
 
 
-describe NodesController, 'PUT to update' do
+describe NodesController, 'PUT to update', :type => :controller do
   let(:user) { create(:user) }
   let(:tree) { create(:master_tree, :user_id => user.id) }
   let(:node)  { create(:node, :tree => tree) }
@@ -272,7 +272,7 @@ describe NodesController, 'PUT to update' do
 
 end
 
-describe NodesController, 'GET to show for master tree' do
+describe NodesController, 'GET to show for master tree', :type => :controller do
   let(:user) { create(:user) }
   let(:tree) { create(:master_tree, :user => user) }
   let(:node) { create(:node, :tree => tree) }
@@ -303,7 +303,7 @@ describe NodesController, 'GET to show for master tree' do
   end
 end
 
-describe NodesController, 'GET to show for reference tree' do
+describe NodesController, 'GET to show for reference tree', :type => :controller do
   let(:user) { create(:user) }
   let(:tree) { create(:reference_tree) }
   let(:node) { create(:node, :tree => tree) }

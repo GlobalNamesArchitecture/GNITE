@@ -101,6 +101,8 @@ Feature: Edit a master tree
     And I delete the node "Boris"
     And I wait for the tree to load
     Then I should not see a node "Boris" at the root level in my master tree
+    When I go to the master tree page for "Moose tree"
+    And I follow "Deleted Names"
     And I should see a node "Boris" at the root level in deleted names
     And I refresh the master tree
     And I wait for the tree to load
@@ -133,6 +135,8 @@ Feature: Edit a master tree
     And I follow "Refresh tree" within "toolbar-deleted"
     Then I should not see a node "Bullwinkle" at the root level in my master tree
     And I should not see a node "Rocky" at the root level in my master tree
+    When I go to the master tree page for "Moose tree"
+    And I follow "Deleted Names"
     And I should see a node "Bullwinkle" at the root level in deleted names
     And I expand the node "Bullwinkle" in deleted names
     Then I should see a node "Rocky" under "Bullwinkle" in deleted names

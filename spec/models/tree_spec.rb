@@ -19,7 +19,7 @@ describe Tree do
 
   it "should automatically have a root node" do
     tree = create(:tree)
-    nodes = Node.find_all_by_tree_id(tree.id)
+    nodes = Node.where(tree_id: tree.id)
     nodes.size.should == 1
     nodes[0].parent_id.should == nil
     nodes[0].name.name_string.should == Gnite::Config.root_node_name_string

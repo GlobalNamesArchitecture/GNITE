@@ -29,9 +29,9 @@ describe GnaclrPublisher do
       RestClient.stubs(:post => nil)
       file = File.join(Rails.root.to_s, 'tmp', "#{@master_tree.uuid}.tar.gz")
       FileUtils.rm(file) if File.exists?(file)
-      File.exists?(file).should be_false
+      File.exists?(file).should be_falsey
       @gp.publish
-      File.exists?(file).should be_true
+      File.exists?(file).should be_truthy
       RestClient.should have_received(:post)
     end
   end

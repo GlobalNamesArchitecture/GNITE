@@ -149,12 +149,14 @@ describe Node, "#children" do
   it 'should work with a subset of fields' do
     children_nodes #won't load implicitly
     first_child = parent.reload.children('id')[0]
-    first_child.tree.should be_nil
-    first_child.name.should be_nil
-    first_child.id.is_a?(Fixnum).should be_true
+    first_child_attributes = first_child.attributes.keys
+    first_child_attributes.should_not include('tree_id')
+    first_child_attributes.should_not include('name_id')
+    first_child.id.is_a?(Fixnum).should be_truthy
     first_child_full = parent.children[0]
-    first_child_full.tree.should_not be_nil
-    first_child_full.name.should_not be_nil
+    first_child_full_attributes = first_child_full.attributes.keys
+    first_child_full_attributes.should include('tree_id')
+    first_child_full_attributes.should include('name_id')
     first_child_full.id.should_not be_nil
   end
 end

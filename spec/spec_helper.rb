@@ -25,6 +25,10 @@ RSpec.configure do |config|
     Gnite::DbData.populate
   end
 
+  config.expect_with :rspec do |c|
+    c.syntax = [:should, :expect]
+  end
+
   config.after(:suite) do
     Gnite::ResqueHelper.cleanup
   end

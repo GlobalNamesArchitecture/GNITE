@@ -7,16 +7,16 @@ module Gnite::FixtureHelper
                    :title => (options[:title].nil? ? "Master Tree One" : options[:title]), 
                    :user => (options[:user].nil? ? user : options[:user])
            )
-    merge_node = FactoryGirl.create(:node, :tree => tree, :name => Name.find_or_create_by_name_string("Lycosidae"))
+    merge_node = FactoryGirl.create(:node, :tree => tree, :name => Name.find_or_create_by(name_string: "Lycosidae"))
     bulk_add1 = FactoryGirl.create(:action_bulk_add_node, :tree_id => tree.id, :parent_id => merge_node.id, :json_message => '{"do": ["Pardosa", "Schizocosa", "Trochosa", "Alopecosa"]}')
     ActionBulkAddNode.perform(bulk_add1.id)
     genera_ids = JSON.parse(bulk_add1.reload.json_message)['undo']
     bulk_add2 = FactoryGirl.create(:action_bulk_add_node, :tree_id => tree.id, :parent_id => genera_ids[0], :json_message => '{"do": ["Pardosa moesta Banks, 1892", "Pardosa modica (Keyserling, 1887)", "Pardosa fuscula (Keyserling, 1887)", "Pardosa xerampelina Keyserling, 1887" , "Pardosa zelotes Keyserling, 1887", "Pardosa groenlandica Banks, 1892", "Pardosa opeongo Banks, 1800"]}')
     ActionBulkAddNode.perform(bulk_add2.id)
     pardosa_ids = JSON.parse(bulk_add2.reload.json_message)['undo']
-    FactoryGirl.create(:synonym, :node_id => pardosa_ids[0], :name => Name.find_or_create_by_name_string("Lycosa moesta Banks, 1892"))
-    FactoryGirl.create(:synonym, :node_id => pardosa_ids[1], :name => Name.find_or_create_by_name_string("Lycosa modica Keyserling, 1887"))
-    FactoryGirl.create(:vernacular_name, :node_id => pardosa_ids[0], :name => Name.find_or_create_by_name_string("Thin-legged wolf spider"), :language => english)
+    FactoryGirl.create(:synonym, :node_id => pardosa_ids[0], :name => Name.find_or_create_by(name_string: "Lycosa moesta Banks, 1892"))
+    FactoryGirl.create(:synonym, :node_id => pardosa_ids[1], :name => Name.find_or_create_by(name_string: "Lycosa modica Keyserling, 1887"))
+    FactoryGirl.create(:vernacular_name, :node_id => pardosa_ids[0], :name => Name.find_or_create_by(name_string: "Thin-legged wolf spider"), :language => english)
     tree
   end
 
@@ -27,7 +27,7 @@ module Gnite::FixtureHelper
                    :title => (options[:title].nil? ? "Master Tree Two" : options[:title]),
                    :user => (options[:user].nil? ? user : options[:user])
            )
-    merge_node = FactoryGirl.create(:node, :tree => tree, :name => Name.find_or_create_by_name_string("Lycosidae"))
+    merge_node = FactoryGirl.create(:node, :tree => tree, :name => Name.find_or_create_by(name_string: "Lycosidae"))
     bulk_add1 = FactoryGirl.create(:action_bulk_add_node, :tree_id => tree.id, :parent_id => merge_node.id, :json_message => '{"do": ["Pardosa", "Schizocosa", "Varacosa", "Trochosa", "Alopecosa", "Crocodilosa"]}')
     ActionBulkAddNode.perform(bulk_add1.id)
     genera_ids = JSON.parse(bulk_add1.reload.json_message)['undo']
@@ -43,13 +43,13 @@ module Gnite::FixtureHelper
     ActionBulkAddNode.perform(bulk_add6.id)
     pardosa_ids = JSON.parse(bulk_add2.reload.json_message)['undo']
     varacosa_ids = JSON.parse(bulk_add4.reload.json_message)['undo']
-    FactoryGirl.create(:synonym, :node_id => pardosa_ids[0], :name => Name.find_or_create_by_name_string("Lycosa moesta Banks, 1892"))
-    FactoryGirl.create(:synonym, :node_id => varacosa_ids[0], :name => Name.find_or_create_by_name_string("Pordosa groenlindica B. 1891"))
-    FactoryGirl.create(:synonym, :node_id => varacosa_ids[1], :name => Name.find_or_create_by_name_string("Pardosa opeongo Smith, 1800"))
-    FactoryGirl.create(:synonym, :node_id => pardosa_ids[1], :name => Name.find_or_create_by_name_string("Lycosa modiica Keyserling, 1887"))
-    FactoryGirl.create(:synonym, :node_id => pardosa_ids[2], :name => Name.find_or_create_by_name_string("Lycosa fuscula Keyserling, 1887"))
-    FactoryGirl.create(:vernacular_name, :node_id => pardosa_ids[0], :name => Name.find_or_create_by_name_string("Tarântula Gordura"), :language => portuguese)
-    FactoryGirl.create(:vernacular_name, :node_id => pardosa_ids[4], :name => Name.find_or_create_by_name_string("Lobo Aranha Peluda"), :language => portuguese)
+    FactoryGirl.create(:synonym, :node_id => pardosa_ids[0], :name => Name.find_or_create_by(name_string: "Lycosa moesta Banks, 1892"))
+    FactoryGirl.create(:synonym, :node_id => varacosa_ids[0], :name => Name.find_or_create_by(name_string: "Pordosa groenlindica B. 1891"))
+    FactoryGirl.create(:synonym, :node_id => varacosa_ids[1], :name => Name.find_or_create_by(name_string: "Pardosa opeongo Smith, 1800"))
+    FactoryGirl.create(:synonym, :node_id => pardosa_ids[1], :name => Name.find_or_create_by(name_string: "Lycosa modiica Keyserling, 1887"))
+    FactoryGirl.create(:synonym, :node_id => pardosa_ids[2], :name => Name.find_or_create_by(name_string: "Lycosa fuscula Keyserling, 1887"))
+    FactoryGirl.create(:vernacular_name, :node_id => pardosa_ids[0], :name => Name.find_or_create_by(name_string: "Tarântula Gordura"), :language => portuguese)
+    FactoryGirl.create(:vernacular_name, :node_id => pardosa_ids[4], :name => Name.find_or_create_by(name_string: "Lobo Aranha Peluda"), :language => portuguese)
     tree
   end
 end
