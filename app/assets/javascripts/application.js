@@ -588,6 +588,13 @@ $(function() {
   **************************************************************/
 
   /*
+   * FILE: Don't let the toolbar headers get clicked
+   */
+  $('.toolbar > ul.topnav > li > a').click(function(e) {
+    e.preventDefault();
+  });
+
+  /*
    * FILE: Add single node
    */
   $('#toolbar .nav-file-add').click(function() {
@@ -904,6 +911,7 @@ $(function() {
          xhr.setRequestHeader("X-Session-ID", GNITE.jug.sessionID);
        },
        success     : function(r) {
+         reference.jstree("refresh")
          var i = 0;
 
          if (isCopy && do_ids.length === 0) {
@@ -2321,8 +2329,8 @@ GNITE.Tree.Node.adjustMasterTreeMetadata = function(container) {
        });
 
      } else if(self.hasClass("rank")) {
-       self.dblclick(function() {
-         self.unbind('dblclick');
+       self.click(function() {
+         self.unbind('click');
          GNITE.Tree.MasterTree.editMetadata(self, type, "PUT", '/vocabularies/rank.json');
        });
 
@@ -2448,11 +2456,11 @@ GNITE.Tree.MasterTree.editMetadata = function(elem, type, action, autocomplete_u
   });
 
   if(elem.hasClass("metadata-add")) {
-    elem.prev().append(input).children(".metadata-input").focus();
+    elem.prev().append(input).children(".metadata-input").focus().select();
     if(autocomplete_url) { $(".metadata-input").inlineComplete({ terms: autocomplete_url }); }
     elem.hide();
   } else {
-    elem.append(input).children(".metadata-input").focus();
+    elem.append(input).children(".metadata-input").focus().select();
     if(autocomplete_url) { $(".metadata-input").inlineComplete({ terms: autocomplete_url }); }
     elem.parent().find(".metadata-add").hide();
   }

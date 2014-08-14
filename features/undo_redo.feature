@@ -86,7 +86,6 @@ Feature: Perform undo and redo in a master tree
 
     When I drag "Pardosa fuscula" in my reference tree "List" to "Pardosa" in my master tree
     And I wait for the tree to load
-    Then I should see a node "Pardosa fuscula" at the root level in my reference tree "List"
     And I should see a node "Pardosa fuscula" under "Pardosa"
 
     When I follow "Edit" within "toolbar"

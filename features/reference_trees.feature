@@ -43,7 +43,6 @@ Feature: Work with reference trees
   Scenario: Drag-and-drop copying from reference tree to master tree
     And I drag "Pardosa xerampelina" in my reference tree "List" to "Pardosa" in my master tree
     And I wait for the tree to load
-    Then I should see a node "Pardosa xerampelina" at the root level in my reference tree "List"
     And I should see a node "Pardosa xerampelina" under "Pardosa"
     When I refresh the master tree
     And I wait for the tree to load

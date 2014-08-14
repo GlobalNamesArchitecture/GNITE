@@ -2,7 +2,7 @@ class ControlledVocabulariesController < ApplicationController
   
   def show
     vocabulary = ControlledVocabulary.find_by_identifier(params[:id].to_s.downcase)
-    terms = vocabulary.controlled_terms
+    terms = vocabulary.controlled_terms.order(:name)
     
     respond_to do |format|
       format.json do

@@ -53,7 +53,7 @@ When /^I rename the synonym "([^"]*)" to "([^"]*)"$/ do |old_synonym, new_synony
 end
 
 When /^I edit the rank to "([^"]*)"$/ do |new_rank|
-  page.execute_script("jQuery('div.node-metadata li.rank').dblclick();")
+  page.execute_script("jQuery('div.node-metadata li.rank').click();")
   field = find(:css, "input.metadata-input")
   field.set(new_rank)
   page.execute_script("jQuery('input.metadata-input').blur();")
