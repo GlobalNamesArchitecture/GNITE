@@ -21,7 +21,8 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with(:truncation, { :except => Gnite::DbData.prepopulated_tables })
+    DatabaseCleaner.clean_with(:truncation, 
+                               { except: Gnite::DbData.prepopulated_tables })
     Gnite::DbData.populate
   end
 

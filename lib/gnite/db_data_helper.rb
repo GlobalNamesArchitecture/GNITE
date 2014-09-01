@@ -1,13 +1,8 @@
 module Gnite
   module DbData
 
-    def self.populate
-      Dir.entries(csv_dir).each do |file|
-        next if file[-4..-1] != '.csv'
-        table_name = file.gsub(/.csv$/, '')
-        ::Node.connection.execute "truncate #{table_name}"  
-        ::Node.connection.execute "load data infile '#{File.join(csv_dir, file)}' into table #{table_name} character set utf8"  
-      end
+    def self.populate(environment: "test")
+      puts `rake db:seed RAILS_ENV=#{environment}`
     end
 
     def self.prepopulated_tables
@@ -17,7 +12,7 @@ module Gnite
     private
 
     def self.csv_dir
-      File.join(Rails.root.to_s, 'db', 'csv')
+      File.join(Rails.root.to_s, "db", "seeds")
     end
 
   end

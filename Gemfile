@@ -9,8 +9,6 @@ gem 'uuid', '~> 2.3'
 gem 'crack', '~> 0.4'
 gem 'biodiversity19', '~> 0.7'
 gem 'dwc-archive', '~> 0.9'
-# gem 'fastercsv' #remove for ruby 1.9.x
-# gem 'SystemTimer' # remove for ruby 1.9.x
 gem 'yajl-ruby', '~> 1.2', :require => 'yajl'
 gem 'nokogiri', '~> 1.5'
 gem 'resque', '~> 1.25'
@@ -27,7 +25,7 @@ end
 group :test, :development, :test_dev do
   gem 'rspec-rails', '~> 3.0'
   gem 'escape_utils', '~> 1.0'
-  gem 'byebug', '~> 3.2'
+  gem 'byebug', '~> 3.4'
 end
 
 group :test do
