@@ -38,10 +38,10 @@ Running Tests
 QUEUES & WORKERS
 ----------------
 
-RAILS_ENV=production RAKE_ENV=production QUEUE=gnaclr_importer rake resque:work
-RAILS_ENV=production RAKE_ENV=production QUEUE=merge_event rake resque:work
-RAILS_ENV=production RAKE_ENV=production QUEUE=gnite_not_destructive rake resque:work
-./script/roster_listener
+    RAILS_ENV=production RAKE_ENV=production QUEUE=gnaclr_importer rake resque:work
+    RAILS_ENV=production RAKE_ENV=production QUEUE=merge_event rake resque:work
+    RAILS_ENV=production RAKE_ENV=production QUEUE=gnite_not_destructive rake resque:work
+    ./script/roster_listener
 
 
 Copyright
