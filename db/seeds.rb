@@ -12,7 +12,6 @@ class Seeder
     @db = ActiveRecord::Base.connection
     common_dir = File.join(__dir__, 'seeds')
     @env_dir = File.join(common_dir, Rails.env)
-    @path = nil
   end
 
   def walk_path(path)
@@ -40,7 +39,7 @@ class Seeder
     ca_index = columns.index("created_at")
     ua_index = columns.index("updated_at")
     csv_args = {:col_sep => "\t"}
-    data = CSV.open(File.join(@path, file), csv_args).map do |row|
+    data = CSV.open(File.join(@env_dir, file), csv_args).map do |row|
       res = get_row(row, ca_index, ua_index)
       (columns.size - res.size).times { res << 'null' } 
       res.join(",")
