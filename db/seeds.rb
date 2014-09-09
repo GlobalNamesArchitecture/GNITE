@@ -38,7 +38,7 @@ class Seeder
     columns = @db.select_values("show columns from %s" % table)
     ca_index = columns.index("created_at")
     ua_index = columns.index("updated_at")
-    csv_args = {:col_sep => "\t"}
+    csv_args = {col_sep: "\t"}
     data = CSV.open(File.join(@env_dir, file), csv_args).map do |row|
       res = get_row(row, ca_index, ua_index)
       (columns.size - res.size).times { res << 'null' } 

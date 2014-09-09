@@ -16,13 +16,13 @@
       </ul>
 
       <% @master_tree.reference_trees.each do |reference_tree| %>
-        <%= render :partial => 'reference_trees/reference_tree', :locals => { :reference_tree => reference_tree } %>
+        <%= render partial: 'reference_trees/reference_tree', locals: { reference_tree: reference_tree } %>
       <% end %>
        
-      <%= render :partial => 'deleted_tree/deleted_tree', :locals => { :deleted_tree => @master_tree.deleted_tree } %>
+      <%= render partial: 'deleted_tree/deleted_tree', locals: { deleted_tree: @master_tree.deleted_tree } %>
 
       <div id="new-tab" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
-          <%= render :template => 'imports/new', :layout => 'layouts/right_tree' %>
+          <%= render template: 'imports/new', layout: 'layouts/right_tree' %>
       </div>
 
     </div>

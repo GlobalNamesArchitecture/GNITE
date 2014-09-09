@@ -41,20 +41,20 @@ class ApplicationController < ActionController::Base
     new_name = (params[:node] && params[:node][:name] && params[:node][:name][:name_string]) ? params[:node][:name][:name_string].force_encoding("UTF-8") : nil
     json_message = (params[:json_message]) ? params[:json_message].to_json : nil
     action_class = Object.class_eval(params[:action_type])
-    action_command = action_class.create!(:user => current_user, 
-      :tree_id => tree_id, :node_id => node_id, 
-      :old_name => old_name,
-      :new_name => new_name,
-      :destination_node_id => destination_node_id,
-      :destination_parent_id => destination_parent_id, 
-      :parent_id => parent_id, :json_message => json_message)
+    action_command = action_class.create!(user: current_user, 
+      tree_id: tree_id, node_id: node_id, 
+      old_name: old_name,
+      new_name: new_name,
+      destination_node_id: destination_node_id,
+      destination_parent_id: destination_parent_id, 
+      parent_id: parent_id, json_message: json_message)
 
     ActionCommand.schedule_actions(action_command, request.headers["X-Session-ID"])
     action_command.reload
   end
   
   def push_metadata_message(channel, action)
-    Juggernaut.publish(channel, "{ \"subject\" : \"metadata\", \"action\" : #{action.serializable_hash.to_json} }", :except => request.headers["X-Session-ID"]);
+    Juggernaut.publish(channel, "{ \"subject\" : \"metadata\", \"action\" : #{action.serializable_hash.to_json} }", except: request.headers["X-Session-ID"]);
   end
   
   protected

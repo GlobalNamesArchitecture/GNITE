@@ -11,8 +11,8 @@ describe Node, 'valid' do
 
   it 'supports constructing a hierarchy' do
     root = create(:node)
-    child = create(:node,      :parent => root)
-    grandchild = create(:node, :parent => child)
+    child = create(:node,      parent: root)
+    grandchild = create(:node, parent: child)
 
     root.children.should == [child]
     grandchild.parent.parent.should == root
@@ -20,7 +20,7 @@ describe Node, 'valid' do
 
   it 'should by default be a child of the root node' do
     root = create(:node)
-    child = create(:node, :parent => root)
+    child = create(:node, parent: root)
     real_root = root.tree.root
     real_root.children.should == [root]
     root.children.should == [child]
@@ -30,13 +30,13 @@ end
 describe Node, '#deep_copy_to' do
   it 'produces a deep copy of its subtree, with node names, synonyms, and vernacular names' do
     tree        = create(:reference_tree)
-    root        = create(:node, :tree => tree, :name => create(:name, :name_string => 'Root'))
-    child       = create(:node, :tree => tree, :parent => root, :name => create(:name, :name_string => 'Child'))
-    grandchild  = create(:node, :tree => tree, :parent => child, :name => create(:name, :name_string => 'Grandchild'))
+    root        = create(:node, tree: tree, name: create(:name, name_string: 'Root'))
+    child       = create(:node, tree: tree, parent: root, name: create(:name, name_string: 'Child'))
+    grandchild  = create(:node, tree: tree, parent: child, name: create(:name, name_string: 'Grandchild'))
     master_tree = create(:master_tree)
 
-    synonym         = create(:synonym, :node => grandchild)
-    vernacular_name = create(:vernacular_name, :node => child)
+    synonym         = create(:synonym, node: grandchild)
+    vernacular_name = create(:vernacular_name, node: child)
 
     another_root = root.deep_copy_to(master_tree)
     another_root.name_string.should == 'Root'
@@ -58,7 +58,7 @@ end
 
 describe Node, 'name' do
   let(:name) { create(:name) }
-  subject { create(:node, :name => name) }
+  subject { create(:node, name: name) }
 
   it 'delegates name to the Name model' do
     subject.name_string.should == name.name_string
@@ -69,17 +69,17 @@ end
 
 describe Node, '#rank_string' do
   it 'returns None if rank is nil' do
-    node = create(:node, :rank => nil)
+    node = create(:node, rank: nil)
     node.rank_string.should == 'None'
   end
 
   it 'returns None if rank is empty' do
-    node = create(:node, :rank => '  ')
+    node = create(:node, rank: '  ')
     node.rank_string.should == 'None'
   end
 
   it 'returns rank if present' do
-    node = create(:node, :rank => 'Family')
+    node = create(:node, rank: 'Family')
     node.rank_string.should == 'Family'
   end
 end
@@ -88,7 +88,7 @@ describe Node, '#synonym_data for a synonym' do
   let(:node) { create(:node) }
 
   before do
-    @synonym = create(:synonym, :node => node)
+    @synonym = create(:synonym, node: node)
   end
 
   it 'returns data for a synonym' do
@@ -107,10 +107,10 @@ end
 
 describe Node, '#vernacular_data for a vernacular' do
   let(:node) { create(:node) }
-  let(:language) { create(:language, :name => 'English', :iso_639_1 => 'en', :iso_639_2 => 'eng', :iso_639_3 => 'eng', :native => 'English') }
+  let(:language) { create(:language, name: 'English', iso_639_1: 'en', iso_639_2: 'eng', iso_639_3: 'eng', native: 'English') }
 
   before do
-    @vernacular = create(:vernacular_name, :node => node, :language => language)
+    @vernacular = create(:vernacular_name, node: node, language: language)
   end
 
   it 'returns data for a vernacular name' do
@@ -136,9 +136,9 @@ describe Node, "#children" do
       Leptocylindraceae
       Corethraceae
       Heliopeltaceae
-      Ethmodiscaceae }.map { |n| create(:name, :name_string => n) }
+      Ethmodiscaceae }.map { |n| create(:name, name_string: n) }
   end
-  let (:children_nodes) { names.map{ |name| create(:node, :tree_id => parent.tree_id, :parent_id => parent.id, :name => name) } }
+  let (:children_nodes) { names.map{ |name| create(:node, tree_id: parent.tree_id, parent_id: parent.id, name: name) } }
 
   it 'should sort names by alphabet' do
     unsorted_names = children_nodes.map { |node| node.name.name_string }
@@ -164,13 +164,13 @@ end
 describe Node, '#destroy_with_children' do
   it 'deletes the node and its descendents, related synonyms and vernacular names' do
     tree        = create(:reference_tree)
-    root        = create(:node, :tree => tree, :name => create(:name, :name_string => 'Root'))
-    child       = create(:node, :tree => tree, :parent => root, :name => create(:name, :name_string => 'Child'))
-    grandchild  = create(:node, :tree => tree, :parent => child, :name => create(:name, :name_string => 'Grandchild'))
+    root        = create(:node, tree: tree, name: create(:name, name_string: 'Root'))
+    child       = create(:node, tree: tree, parent: root, name: create(:name, name_string: 'Child'))
+    grandchild  = create(:node, tree: tree, parent: child, name: create(:name, name_string: 'Grandchild'))
     master_tree = create(:master_tree)
 
-    synonym         = create(:synonym, :node => grandchild)
-    vernacular_name = create(:vernacular_name, :node => child)
+    synonym         = create(:synonym, node: grandchild)
+    vernacular_name = create(:vernacular_name, node: child)
     nodes_count = Node.count
     vern_count = VernacularName.count
     syn_count = Synonym.count

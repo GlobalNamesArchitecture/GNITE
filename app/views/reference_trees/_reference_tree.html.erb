@@ -3,15 +3,15 @@
 
     <div class="breadcrumbs">
       <ul>
-        <li><%= truncate(reference_tree.title, :length => 40) %></li>
+        <li><%= truncate(reference_tree.title, length: 40) %></li>
       </ul>
     </div>
 
-    <%= render :partial => 'shared/tree_searches', :formats => [ :html ] %>
+    <%= render partial: 'shared/tree_searches', formats: [ :html ] %>
 
-    <%= render :partial => 'shared/tree_toolbars', :formats => [ :html ], :locals => { :tree_type => 'ReferenceTree', :tree => reference_tree } %>
+    <%= render partial: 'shared/tree_toolbars', formats: [ :html ], locals: { tree_type: 'ReferenceTree', tree: reference_tree } %>
 
-    <%= render :partial => 'shared/bookmark_form', :formats => [ :html ], :locals => { :tree => reference_tree } %>
+    <%= render partial: 'shared/bookmark_form', formats: [ :html ], locals: { tree: reference_tree } %>
 
     <div class="tree-container reference-tree-container" data-database-id="<%= reference_tree.id %>">
       <div id="<%= dom_id(reference_tree, "container_for") %>"></div>

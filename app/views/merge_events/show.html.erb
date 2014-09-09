@@ -16,7 +16,7 @@
         </ul>
       </div>
 
-      <%= render :partial => 'shared/tree_searches' %>
+      <%= render partial: 'shared/tree_searches' %>
 
       <a class="ui-dialog-titlebar-close" role="button" href="#">
         <span class="ui-icon ui-icon-closethick"></span>
@@ -36,7 +36,7 @@
     </div>
 
     <div id="merge-results-table" class="full clearfix">
-    <%= form_tag(:autocomplete => "off", :only_path => true, :action => :do) do %>
+    <%= form_tag(autocomplete: "off", only_path: true, action: :do) do %>
       <div class="ui-tabs ui-widget ui-widget-content ui-corner-all">
         <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
           <% @data.each_with_index do |(key,value),index| %>
@@ -46,15 +46,15 @@
           <% end %>
         </ul>
          <% @data.each_with_index do |(key, value),index| %>
-           <%= render :partial => "merge_#{key}", :locals => { :index => index } %>
+           <%= render partial: "merge_#{key}", locals: { index: index } %>
          <% end %>
       </div>
-      <%= submit_tag "Preview", :class => "green-submit preview", :name => "preview" %>
+      <%= submit_tag "Preview", class: "green-submit preview", name: "preview" %>
 
       <% disabled = (@busy == true) ? " disabled": "" %>
-      <%= submit_tag "Apply Merge", :class => "green-submit submit" << disabled, :name => "commit", :disabled => (@busy == true) ? true : false %>
+      <%= submit_tag "Apply Merge", class: "green-submit submit" << disabled, name: "commit", disabled: (@busy == true) ? true : false %>
 
-      <%= submit_tag "Discard", :class => "cancel-button discard", :name => "discard" %>
+      <%= submit_tag "Discard", class: "cancel-button discard", name: "discard" %>
 
     <% end %>
     </div>
@@ -62,7 +62,7 @@
 </div>
 
 <% if @editors.count > 0 %>
-  <%= render :partial => 'shared/chat_messages', :locals => { :editors => @editors } %>
+  <%= render partial: 'shared/chat_messages', locals: { editors: @editors } %>
 <% end %>
 
 <% content_for :javascript do %>

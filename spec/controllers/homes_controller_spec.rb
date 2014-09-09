@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe HomesController, :type => :controller do
+describe HomesController, type: :controller do
 
   context "signed out" do
     context "on GET to #show" do

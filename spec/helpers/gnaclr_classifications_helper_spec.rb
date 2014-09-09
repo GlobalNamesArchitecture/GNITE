@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe GnaclrClassificationsHelper, :type => :helper do
+describe GnaclrClassificationsHelper, type: :helper do
   describe "author_line_for_classification" do
     it "should stringify the author name" do
       classification = stub('classification', {
-        :authors => [
+        authors: [
           {'first_name' => 'First', 'last_name' => 'Last',    'email' => 'Email'}
         ]
       })
@@ -14,7 +14,7 @@ describe GnaclrClassificationsHelper, :type => :helper do
 
     it "should include emails only when present" do
       classification = stub('classification', {
-        :authors => [
+        authors: [
           {'first_name' => 'First', 'last_name' => 'Last',    'email' => 'Email'},
           {'first_name' => 'No',    'last_name' => 'Address', 'email' => nil}
         ]
@@ -25,7 +25,7 @@ describe GnaclrClassificationsHelper, :type => :helper do
 
     it "should provide a sentence" do
       classification = stub('classification', {
-        :authors => [
+        authors: [
           {'first_name' => 'Alice',   'last_name' => 'Apple',     'email' => 'aapple@example.com'},
           {'first_name' => 'Betty',   'last_name' => 'Blueberry', 'email' => 'bblueberry@example.com'},
           {'first_name' => 'Charles', 'last_name' => 'Cherry',    'email' => 'ccherry@example.com'}

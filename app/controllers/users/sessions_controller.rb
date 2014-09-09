@@ -1,5 +1,5 @@
 class Users::SessionsController < Devise::SessionsController
-  rescue_from BCrypt::Errors::InvalidHash, :with => :redirect_if_old_password
+  rescue_from BCrypt::Errors::InvalidHash, with: :redirect_if_old_password
   
   layout "login"
   

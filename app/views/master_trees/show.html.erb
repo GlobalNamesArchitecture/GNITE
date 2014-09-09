@@ -17,11 +17,11 @@
         </ul>
       </div>
 
-      <%= render :partial => 'shared/tree_searches' %>
+      <%= render partial: 'shared/tree_searches' %>
 
-      <%= render :partial => 'shared/tree_toolbars', :locals => { :tree_type => 'MasterTree', :tree => @master_tree } %>
+      <%= render partial: 'shared/tree_toolbars', locals: { tree_type: 'MasterTree', tree: @master_tree } %>
 
-      <%= render :partial => 'shared/bookmark_form', :locals => { :tree => @master_tree } %>
+      <%= render partial: 'shared/bookmark_form', locals: { tree: @master_tree } %>
 
       <div id="add-node-wrap">
         <div class="tree-container" data-database-id="<%= @master_tree.id %>">
@@ -34,7 +34,7 @@
       <div id="merge-warning">
         <ul><li>
         <% if @master_tree.merge_events.find_by_status("in review") %>
-          <%= link_to master_tree_merge_event_path(:master_tree_id => @master_tree.id, :id => @master_tree.merge_events.find_by_status("in review").id) do %>
+          <%= link_to master_tree_merge_event_path(master_tree_id: @master_tree.id, id: @master_tree.merge_events.find_by_status("in review").id) do %>
             This tree has an active merge event and cannot be edited
           <% end %>
         <% else %>
@@ -48,17 +48,17 @@
 
 </div>
 
-<%= render :partial => 'synonym_context' %>
+<%= render partial: 'synonym_context' %>
 
-<%= render :partial => 'vernacular_context' %>
+<%= render partial: 'vernacular_context' %>
 
-<%= render :partial => 'bulkcreate_form' %>
+<%= render partial: 'bulkcreate_form' %>
 
-<%= render :partial => 'reference_trees' %>
+<%= render partial: 'reference_trees' %>
 
-<%= render :partial => 'merge_form' %>
+<%= render partial: 'merge_form' %>
 
-<%= render :partial => 'shared/chat_messages', :locals => { :editors => @editors } %>
+<%= render partial: 'shared/chat_messages', locals: { editors: @editors } %>
 
 <% content_for :javascript do %>
 <%= javascript_include_tag 'juggernaut/application', 'application', 'chat', 'jstree/jquery.jstree', 'jquery.jstree.bookmarks', 'jquery.cookie', 'jquery.hotkeys', 'jquery.jstree.bulkcreate', 'jquery.jstree.undoredo', 'jquery.jstree.merge', 'jquery.spinner', 'ddsmoothmenu', 'jquery.scrollTo.min', 'jquery.extensions', 'jquery.contextMenu', 'jquery.inlinecomplete' %>

@@ -13,7 +13,7 @@
   <h2>Trees You Created</h2>
   <ul class="treelist clearfix">
     <% @master_trees.each do |tree| %>
-      <%= render :partial => "tree_button", :locals => { :tree => tree } %>
+      <%= render partial: "tree_button", locals: { tree: tree } %>
     <% end %>
   </ul>
 <% end %>
@@ -22,7 +22,7 @@
   <h2>Trees You Can Edit</h2>
   <ul class="treelist clearfix">
     <% @accessible_trees.each do |tree| %>
-      <%= render :partial => "tree_button", :locals => { :tree => tree } %>
+      <%= render partial: "tree_button", locals: { tree: tree } %>
     <% end %>
   </ul>
 <% end %>

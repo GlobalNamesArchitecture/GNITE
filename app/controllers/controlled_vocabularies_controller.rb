@@ -6,8 +6,8 @@ class ControlledVocabulariesController < ApplicationController
 
     respond_to do |format|
       format.json do
-        render :json => { :metadata => vocabulary,
-                          :terms => terms.map{ |k| { :id => k.id, :term => k.name } } }
+        render json: { metadata: vocabulary,
+                          terms: terms.map{ |k| { id: k.id, term: k.name } } }
       end
     end
   end

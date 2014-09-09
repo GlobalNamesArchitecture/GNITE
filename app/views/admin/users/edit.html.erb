@@ -6,17 +6,17 @@
   </div>
 <% end %>
 
-<%= semantic_form_for(@user, :url => admin_user_path, :html => { :method => :put }) do |f| %>
+<%= semantic_form_for(@user, url: admin_user_path, html: { method: :put }) do |f| %>
 
-<%= render :partial => 'users/shared/user_fields', :locals => { :f => f } %>
+<%= render partial: 'users/shared/user_fields', locals: { f: f } %>
 
-<%= render :partial => 'users/shared/user_account', :locals => { :f => f} %>
+<%= render partial: 'users/shared/user_account', locals: { f: f} %>
 
-<%= render :partial => 'users/shared/user_roles', :locals => { :f => f } %>
+<%= render partial: 'users/shared/user_roles', locals: { f: f } %>
 
 <!-- Submit -->
   <%= f.actions do -%>
-    <%= f.action :submit, :as => :button, :label => "Save changes", :button_html => { :name => "commit", :class => "green-submit" } %>
+    <%= f.action :submit, as: :button, label: "Save changes", button_html: { name: "commit", class: "green-submit" } %>
   <% end %>
 
 <% end %>

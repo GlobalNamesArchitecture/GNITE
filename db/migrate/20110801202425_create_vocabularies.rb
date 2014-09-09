@@ -7,7 +7,7 @@ class CreateVocabularies < ActiveRecord::Migration
       t.text :description
     end
     
-    add_index :controlled_vocabularies, :identifier, :unique => true
+    add_index :controlled_vocabularies, :identifier, unique: true
 
     execute "load data infile '#{File.join(Rails.root, 'db', 'csv', 'controlled_vocabularies.csv')}' into table controlled_vocabularies character set utf8"
     

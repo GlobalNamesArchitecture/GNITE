@@ -12,7 +12,7 @@
   <div id="wrapper">
 
     <% if current_user %>
-      <%= render :partial => 'shared/navigation' %>
+      <%= render partial: 'shared/navigation' %>
     <% end %>
     <div id="content">
       <% if content_for?(:header) %>
@@ -21,12 +21,12 @@
         </div>
       <% end %>
       <div id="bodywrap">
-        <%= render :partial => 'shared/flashes' -%>
+        <%= render partial: 'shared/flashes' -%>
         <%= yield %>
       </div>
     </div>
 
   </div>
-  <%= render :partial => 'shared/javascript' %>
+  <%= render partial: 'shared/javascript' %>
 </body>
 </html>

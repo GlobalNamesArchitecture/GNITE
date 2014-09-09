@@ -3,7 +3,7 @@ class Tree < ActiveRecord::Base
   has_many :nodes
   has_many :job_logs
 
-  validates_inclusion_of :creative_commons, :in => Licenses::CC_LICENSES.map{|elt| elt.last }
+  validates_inclusion_of :creative_commons, in: Licenses::CC_LICENSES.map{|elt| elt.last }
   after_initialize :set_defaults
   after_create :create_root_node
 
@@ -38,7 +38,7 @@ class Tree < ActiveRecord::Base
   end
 
   def root
-    @root ||= Node.where(:tree_id => self.id).where(:parent_id => nil).limit(1)[0]
+    @root ||= Node.where(tree_id: self.id).where(parent_id: nil).limit(1)[0]
   end
 
   private
@@ -50,7 +50,7 @@ class Tree < ActiveRecord::Base
 
   def create_root_node
     name = Name.find_or_create_by(name_string: Gnite::Config.root_node_name_string)
-    @root = Node.create!(:parent_id => nil, :tree => self, :name => name)
+    @root = Node.create!(parent_id: nil, tree: self, name: name)
   end
 
 end

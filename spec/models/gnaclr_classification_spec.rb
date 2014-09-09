@@ -55,32 +55,32 @@ end
 describe GnaclrClassification, "attributes" do
   let(:attributes) do
     {
-      :title       => "Title",
-      :authors     => ["Author 1", "Author 2"],
-      :description => "Description",
-      :updated     => Time.now,
-      :uuid        => "abcdef-ghij-klmnop",
-      :file_url    => 'example.tar.gz'
+      title: "Title",
+      authors: ["Author 1", "Author 2"],
+      description: "Description",
+      updated: Time.now,
+      uuid: "abcdef-ghij-klmnop",
+      file_url: 'example.tar.gz'
     }
   end
 
   let(:revision_1) do
-    { :sequence_number => 1,
-      :message         => 'first',
-      :tree_id         => '123',
-      :file_name       => 'first_file_name',
-      :id              => 'abcdef123',
-      :committed_date  => 1.day.ago,
-      :url             => 'first_url' }
+    { sequence_number: 1,
+      message: 'first',
+      tree_id: '123',
+      file_name: 'first_file_name',
+      id: 'abcdef123',
+      committed_date: 1.day.ago,
+      url: 'first_url' }
   end
   let(:revision_2) do
-    { :sequence_number => 2,
-      :message         => 'second',
-      :tree_id         => '234',
-      :file_name       => 'second_file_name',
-      :id              => '123abcdef',
-      :committed_date  => 2.days.ago,
-      :url             => 'second_url' }
+    { sequence_number: 2,
+      message: 'second',
+      tree_id: '234',
+      file_name: 'second_file_name',
+      id: '123abcdef',
+      committed_date: 2.days.ago,
+      url: 'second_url' }
   end
 
   before do
@@ -96,7 +96,7 @@ describe GnaclrClassification, "attributes" do
     gnaclr_classification.add_revision_from_attributes(revision_1)
     gnaclr_classification.add_revision_from_attributes(revision_2)
 
-    gnaclr_classification.attributes.should  == attributes.merge(:revisions => [revision_1, revision_2])
+    gnaclr_classification.attributes.should  == attributes.merge(revisions: [revision_1, revision_2])
 
     gnaclr_classification.title.should       == "Title"
     gnaclr_classification.authors.should     == ["Author 1", "Author 2"]
@@ -114,7 +114,7 @@ describe GnaclrClassification, "attributes" do
   end
 
   it "provides uuid for #to_param" do
-    GnaclrClassification.new(:uuid => "uuid").to_param.should == "uuid"
+    GnaclrClassification.new(uuid: "uuid").to_param.should == "uuid"
   end
 
   it "defaults its revisions to []" do
@@ -125,22 +125,22 @@ end
 describe GnaclrClassification, 'adding a revision' do
   subject do
     GnaclrClassification.new(
-      :title       => "Title",
-      :authors     => ["Author 1", "Author 2"],
-      :description => "Description",
-      :uuid        => "abcdef-ghij-klmnop",
-      :file_url    => 'example.tar.gz'
+      title: "Title",
+      authors: ["Author 1", "Author 2"],
+      description: "Description",
+      uuid: "abcdef-ghij-klmnop",
+      file_url: 'example.tar.gz'
       )
   end
 
   let(:revision_attributes) do
-    { :url             => 'http://gnaclr.globalnames.org',
-      :file_name       => 'example.tgz',
-      :tree_id         => 'some id',
-      :message         => 'revision message',
-      :id              => 'abcdef123',
-      :committed_date  => Time.now,
-      :sequence_number => 1 }
+    { url: 'http://gnaclr.globalnames.org',
+      file_name: 'example.tgz',
+      tree_id: 'some id',
+      message: 'revision message',
+      id: 'abcdef123',
+      committed_date: Time.now,
+      sequence_number: 1 }
   end
 
   it 'accepts a revision when it has no revisions' do
@@ -164,11 +164,11 @@ end
 describe GnaclrClassification, 'with two revisions' do
   subject do
     GnaclrClassification.new(
-      :title       => "Title",
-      :authors     => ["Author 1", "Author 2"],
-      :description => "Description",
-      :uuid        => "abcdef-ghij-klmnop",
-      :file_url    => 'example.tar.gz'
+      title: "Title",
+      authors: ["Author 1", "Author 2"],
+      description: "Description",
+      uuid: "abcdef-ghij-klmnop",
+      file_url: 'example.tar.gz'
       )
   end
 

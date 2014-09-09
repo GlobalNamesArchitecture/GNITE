@@ -5,7 +5,7 @@ class AddSourceIdToTrees < ActiveRecord::Migration
   end
 
   def self.down
-    remove_index  :trees, :column => :source_id
+    remove_index  :trees, column: :source_id
     remove_column :trees, :source_id
   end
 end

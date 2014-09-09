@@ -6,10 +6,10 @@ class GnaclrImportsController < ApplicationController
       wants.js do
         reference_tree, is_new_tree = get_reference_tree
         if is_new_tree
-          gi = GnaclrImporter.create!(:reference_tree => reference_tree, :url => params[:url])
+          gi = GnaclrImporter.create!(reference_tree: reference_tree, url: params[:url])
           Resque.enqueue(GnaclrImporter, gi.id)
         end
-        render :json => { :tree_id => reference_tree.id }
+        render json: { tree_id: reference_tree.id }
       end
       wants.html { head :bad_request }
     end
@@ -22,14 +22,14 @@ class GnaclrImportsController < ApplicationController
     reference_tree = ReferenceTree.find_by_revision(params[:revision])
     is_new_tree = false
     unless reference_tree
-      reference_tree = ReferenceTree.create(:title            => params[:title],
-                                            :publication_date => params[:publication_date],
-                                            :revision         => params[:revision],
-                                            :state            => 'importing')
+      reference_tree = ReferenceTree.create(title: params[:title],
+                                            publication_date: params[:publication_date],
+                                            revision: params[:revision],
+                                            state: 'importing')
       is_new_tree = true
     end
     if ReferenceTreeCollection.where(master_tree_id: master_tree.id, reference_tree_id: reference_tree.id).empty?
-      ReferenceTreeCollection.create!(:master_tree => master_tree, :reference_tree => reference_tree)
+      ReferenceTreeCollection.create!(master_tree: master_tree, reference_tree: reference_tree)
     end
     [reference_tree, is_new_tree]
   end

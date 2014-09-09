@@ -6,10 +6,10 @@ describe Ability do
     @user  = create(:user)
     @user2 = create(:user)
     @master_editor = create(:user)
-    @master_editor.roles = [create(:role, :name => "master_editor")]
+    @master_editor.roles = [create(:role, name: "master_editor")]
     @master_editor.save!
     @admin = create(:user)
-    @admin.roles = [create(:role, :name => "admin")]
+    @admin.roles = [create(:role, name: "admin")]
     @admin.save!
   end
 
@@ -48,27 +48,27 @@ describe Ability do
     end
     
     it "should_not list master trees" do
-      master_tree = create(:master_tree, :user_id => @user.id)
+      master_tree = create(:master_tree, user_id: @user.id)
       @ability.should_not be_able_to(:index, master_tree)
     end
 
     it "should_not edit others' master trees metadata" do
-      master_tree = create(:master_tree, :user_id => @user2.id)
+      master_tree = create(:master_tree, user_id: @user2.id)
       @ability.should_not be_able_to(:edit, master_tree)
     end
     
     it "should_not update others' master trees metadata" do
-      master_tree = create(:master_tree, :user_id => @user2.id)
+      master_tree = create(:master_tree, user_id: @user2.id)
       @ability.should_not be_able_to(:update, master_tree)
     end
     
     it "should_not publish others' master trees" do
-      master_tree = create(:master_tree, :user_id => @user2.id)
+      master_tree = create(:master_tree, user_id: @user2.id)
       @ability.should_not be_able_to(:publish, master_tree)
     end
     
     it "should_not destroy others' master trees" do
-      master_tree = create(:master_tree, :user_id => @user2.id)
+      master_tree = create(:master_tree, user_id: @user2.id)
       @ability.should_not be_able_to(:destroy, master_tree)
     end
     
@@ -112,145 +112,145 @@ describe Ability do
     end
     
     it "should_not list others' master trees" do
-      master_tree = create(:master_tree, :user_id => @user2.id)
+      master_tree = create(:master_tree, user_id: @user2.id)
       @ability.should_not be_able_to(:index, master_tree)
     end
     
     it "should_not show others' master tree" do
-      master_tree = create(:master_tree, :user_id => @user2.id)
+      master_tree = create(:master_tree, user_id: @user2.id)
       @ability.should_not be_able_to(:show, master_tree)
     end
 
     it "should_not undo action in others' master tree" do
-      master_tree = create(:master_tree, :user_id => @user2.id)
+      master_tree = create(:master_tree, user_id: @user2.id)
       @ability.should_not be_able_to(:undo, master_tree)
     end
 
     it "should_not redo action in others' master tree" do
-      master_tree = create(:master_tree, :user_id => @user2.id)
+      master_tree = create(:master_tree, user_id: @user2.id)
       @ability.should_not be_able_to(:redo, master_tree)
     end
     
     it "should_not edit others' master tree metadata" do
-      master_tree = create(:master_tree, :user_id => @user2.id)
+      master_tree = create(:master_tree, user_id: @user2.id)
       @ability.should_not be_able_to(:edit, master_tree)
     end
     
     it "should_not update others' master tree metadata" do
-      master_tree = create(:master_tree, :user_id => @user2.id)
+      master_tree = create(:master_tree, user_id: @user2.id)
       @ability.should_not be_able_to(:update, master_tree)
     end
     
     it "should_not publish others' master tree" do
-      master_tree = create(:master_tree, :user_id => @user2.id)
+      master_tree = create(:master_tree, user_id: @user2.id)
       @ability.should_not be_able_to(:publish, master_tree)
     end
 
     it "should_not edit others' master tree metadata even with access to edit node" do
-      master_tree = create(:master_tree, :user_id => @user2.id)
-      create(:master_tree_contributor, :user => @user, :master_tree => master_tree)
+      master_tree = create(:master_tree, user_id: @user2.id)
+      create(:master_tree_contributor, user: @user, master_tree: master_tree)
       @ability.should_not be_able_to(:edit, master_tree)
     end
     
     it "should_not update others' master tree metadata even with access to edit node" do
-      master_tree = create(:master_tree, :user_id => @user2.id)
-      create(:master_tree_contributor, :user => @user, :master_tree => master_tree)
+      master_tree = create(:master_tree, user_id: @user2.id)
+      create(:master_tree_contributor, user: @user, master_tree: master_tree)
       @ability.should_not be_able_to(:update, master_tree)
     end
     
     it "should_not publish others' master tree even with access to edit node" do
-      master_tree = create(:master_tree, :user_id => @user2.id)
-      create(:master_tree_contributor, :user => @user, :master_tree => master_tree)
+      master_tree = create(:master_tree, user_id: @user2.id)
+      create(:master_tree_contributor, user: @user, master_tree: master_tree)
       @ability.should_not be_able_to(:publish, master_tree)
     end
     
     it "should_not destroy others' master tree" do
-      master_tree = create(:master_tree, :user_id => @user2.id)
+      master_tree = create(:master_tree, user_id: @user2.id)
       @ability.should_not be_able_to(:destroy, master_tree)
     end
     
     it "should_not update node in inaccessible master tree" do
-      master_tree = create(:master_tree, :user_id => @user2.id)
-      node = create(:node, :tree => master_tree)
+      master_tree = create(:master_tree, user_id: @user2.id)
+      node = create(:node, tree: master_tree)
       @ability.should_not be_able_to(:update, node)
     end
     
     it "should_not update synonym for node in inaccessible master tree" do
-      master_tree = create(:master_tree, :user_id => @user2.id)
-      node = create(:node, :tree => master_tree)
-      synonym = create(:synonym, :node => node)
+      master_tree = create(:master_tree, user_id: @user2.id)
+      node = create(:node, tree: master_tree)
+      synonym = create(:synonym, node: node)
       @ability.should_not be_able_to(:update, synonym)
     end
 
     it "should_not destroy synonym for node in inaccessible master tree" do
-      master_tree = create(:master_tree, :user_id => @user2.id)
-      node = create(:node, :tree => master_tree)
-      synonym = create(:synonym, :node => node)
+      master_tree = create(:master_tree, user_id: @user2.id)
+      node = create(:node, tree: master_tree)
+      synonym = create(:synonym, node: node)
       @ability.should_not be_able_to(:destroy, synonym)
     end
 
     it "should_not update vernacular for node in inaccessible master tree" do
-      master_tree = create(:master_tree, :user_id => @user2.id)
-      node = create(:node, :tree => master_tree)
-      vernacular_name = create(:vernacular_name, :node => node)
+      master_tree = create(:master_tree, user_id: @user2.id)
+      node = create(:node, tree: master_tree)
+      vernacular_name = create(:vernacular_name, node: node)
       @ability.should_not be_able_to(:update, vernacular_name)
     end
 
     it "should_not destroy vernacular for node in inaccessible master tree" do
-      master_tree = create(:master_tree, :user_id => @user2.id)
-      node = create(:node, :tree => master_tree)
-      vernacular_name = create(:vernacular_name, :node => node)
+      master_tree = create(:master_tree, user_id: @user2.id)
+      node = create(:node, tree: master_tree)
+      vernacular_name = create(:vernacular_name, node: node)
       @ability.should_not be_able_to(:destroy, vernacular_name)
     end
 
     it "should undo action in accessible master tree" do
-      master_tree = create(:master_tree, :user_id => @user2.id)
-      create(:master_tree_contributor, :user => @user, :master_tree => master_tree)
+      master_tree = create(:master_tree, user_id: @user2.id)
+      create(:master_tree_contributor, user: @user, master_tree: master_tree)
       @ability.should be_able_to(:undo, master_tree)
     end
 
     it "should redo action in accessible master tree" do
-      master_tree = create(:master_tree, :user_id => @user2.id)
-      create(:master_tree_contributor, :user => @user, :master_tree => master_tree)
+      master_tree = create(:master_tree, user_id: @user2.id)
+      create(:master_tree_contributor, user: @user, master_tree: master_tree)
       @ability.should be_able_to(:redo, master_tree)
     end
 
     it "should update node in accessible master tree" do
-      master_tree = create(:master_tree, :user_id => @user2.id)
-      create(:master_tree_contributor, :user => @user, :master_tree => master_tree)
-      node = create(:node, :tree => master_tree)
+      master_tree = create(:master_tree, user_id: @user2.id)
+      create(:master_tree_contributor, user: @user, master_tree: master_tree)
+      node = create(:node, tree: master_tree)
       @ability.should be_able_to(:update, node)
     end
     
     it "should update synonym for node in accessible master tree" do
-      master_tree = create(:master_tree, :user_id => @user2.id)
-      create(:master_tree_contributor, :user => @user, :master_tree => master_tree)
-      node = create(:node, :tree => master_tree)
-      synonym = create(:synonym, :node => node)
+      master_tree = create(:master_tree, user_id: @user2.id)
+      create(:master_tree_contributor, user: @user, master_tree: master_tree)
+      node = create(:node, tree: master_tree)
+      synonym = create(:synonym, node: node)
       @ability.should be_able_to(:update, synonym)
     end
 
     it "should destroy synonym for node in accessible master tree" do
-      master_tree = create(:master_tree, :user_id => @user2.id)
-      create(:master_tree_contributor, :user => @user, :master_tree => master_tree)
-      node = create(:node, :tree => master_tree)
-      synonym = create(:synonym, :node => node)
+      master_tree = create(:master_tree, user_id: @user2.id)
+      create(:master_tree_contributor, user: @user, master_tree: master_tree)
+      node = create(:node, tree: master_tree)
+      synonym = create(:synonym, node: node)
       @ability.should be_able_to(:destroy, synonym)
     end
 
     it "should update vernacular for node in accessible master tree" do
-      master_tree = create(:master_tree, :user_id => @user2.id)
-      create(:master_tree_contributor, :user => @user, :master_tree => master_tree)
-      node = create(:node, :tree => master_tree)
-      vernacular_name = create(:vernacular_name, :node => node)
+      master_tree = create(:master_tree, user_id: @user2.id)
+      create(:master_tree_contributor, user: @user, master_tree: master_tree)
+      node = create(:node, tree: master_tree)
+      vernacular_name = create(:vernacular_name, node: node)
       @ability.should be_able_to(:update, vernacular_name)
     end
 
     it "should destroy vernacular for node in accessible master tree" do
-      master_tree = create(:master_tree, :user_id => @user2.id)
-      create(:master_tree_contributor, :user => @user, :master_tree => master_tree)
-      node = create(:node, :tree => master_tree)
-      vernacular_name = create(:vernacular_name, :node => node)
+      master_tree = create(:master_tree, user_id: @user2.id)
+      create(:master_tree_contributor, user: @user, master_tree: master_tree)
+      node = create(:node, tree: master_tree)
+      vernacular_name = create(:vernacular_name, node: node)
       @ability.should be_able_to(:destroy, vernacular_name)
     end
     

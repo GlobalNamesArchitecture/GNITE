@@ -37,7 +37,7 @@ module NavigationHelpers
       master_tree_merge_events_path(tree.id)
     when /the merge results page for "(.+)"/i
       tree = MasterTree.find_by_title($1)
-      merge_event = MergeEvent.where(:master_tree_id => tree.id).first
+      merge_event = MergeEvent.where(master_tree_id: tree.id).first
       master_tree_merge_event_path(tree.id, merge_event.id)
     when /the edit master tree page for "(.+)"/i
       tree = MasterTree.find_by_title($1)

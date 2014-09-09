@@ -143,7 +143,7 @@ end
 Given /^the "([^"]*)" tree has a child node "([^"]*)" under "([^"]*)"$/ do |tree_title, child_node_name, parent_node_name|
   tree = Tree.find_by_title(tree_title)
   parent = first_node_by_name_for_tree(parent_node_name, tree)
-  FactoryGirl.create(:node, :parent => parent, :name => child_node_name)
+  FactoryGirl.create(:node, parent: parent, name: child_node_name)
 end
 
 Then /^I should see "([^"]*)" under "([^"]*)" under "([^"]*)" in my master tree$/ do |grandchild, child, parent|

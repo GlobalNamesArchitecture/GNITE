@@ -6,7 +6,7 @@ class CreateVernacularName < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :vernacular_names, [:node_id, :name_id], :unique => true
+    add_index :vernacular_names, [:node_id, :name_id], unique: true
   end
 
   def self.down

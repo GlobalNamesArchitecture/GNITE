@@ -3,13 +3,13 @@ require 'spec_helper'
 describe MasterTree do
 
   before(:all) do
-    @master_tree = create(:master_tree, :abstract => "It is my tree of very strange taxa")
-    @root = create(:node, :tree => @master_tree)
-    5.times { create(:node, :parent => @root, :tree => @master_tree) }
+    @master_tree = create(:master_tree, abstract: "It is my tree of very strange taxa")
+    @root = create(:node, tree: @master_tree)
+    5.times { create(:node, parent: @root, tree: @master_tree) }
     @master_tree.children_of(@root).each do |child|
-      5.times { create(:node, :parent => child, :tree => @master_tree) }
-      5.times { create(:vernacular_name, :node => child) }
-      5.times { create(:synonym, :node => child) }
+      5.times { create(:node, parent: child, tree: @master_tree) }
+      5.times { create(:vernacular_name, node: child) }
+      5.times { create(:synonym, node: child) }
     end
   end
 
@@ -24,32 +24,32 @@ describe MasterTree do
   it { should have_many(:rosters) }
 
   it "should nuke the tree and deleted_names tree" do
-    master_tree = create(:master_tree, :user => create(:user), :abstract => "It is my tree of very strange taxa")
-    root = create(:node, :tree => master_tree)
-    5.times { create(:node, :parent => root, :tree => master_tree) }
+    master_tree = create(:master_tree, user: create(:user), abstract: "It is my tree of very strange taxa")
+    root = create(:node, tree: master_tree)
+    5.times { create(:node, parent: root, tree: master_tree) }
     master_tree.children_of(root).each do |child|
-      5.times { create(:node, :parent => child, :tree => master_tree) }
-      5.times { create(:vernacular_name, :node => child) }
-      5.times { create(:synonym, :node => child) }
+      5.times { create(:node, parent: child, tree: master_tree) }
+      5.times { create(:vernacular_name, node: child) }
+      5.times { create(:synonym, node: child) }
     end
     vernacular_count = VernacularName.count
     synonyms_count = Synonym.count
     tree_id = master_tree.id
     deleted_tree_id = master_tree.deleted_tree.id
-    MasterTreeContributor.where(:master_tree_id => tree_id).size.should == 1
+    MasterTreeContributor.where(master_tree_id: tree_id).size.should == 1
     master_tree.nuke
     expect { Tree.find(tree_id) }.to raise_error(ActiveRecord::RecordNotFound)
     expect { Tree.find(deleted_tree_id) }.to raise_error(ActiveRecord::RecordNotFound)
-    Node.where(:tree_id => tree_id).should == []
-    Node.where(:tree_id => deleted_tree_id).should == []
-    MasterTreeContributor.where(:master_tree_id => tree_id).size.should == 0
+    Node.where(tree_id: tree_id).should == []
+    Node.where(tree_id: deleted_tree_id).should == []
+    MasterTreeContributor.where(master_tree_id: tree_id).size.should == 0
     (vernacular_count - VernacularName.count).should == 25
     (synonyms_count - Synonym.count).should == 25
   end
 
   it "should get deleted tree upon creation" do
     tree = create(:master_tree)
-    deleted_names = DeletedTree.where(:master_tree_id => tree.id)
+    deleted_names = DeletedTree.where(master_tree_id: tree.id)
     deleted_names.size.should == 1
     deleted_names[0].title.should == "Deleted Names"
   end
@@ -57,7 +57,7 @@ describe MasterTree do
   describe "#create_darwin_core_archive" do
 
     before(:all) do
-      MasterTreeContributor.create!(:master_tree => @master_tree, :user => create(:user))
+      MasterTreeContributor.create!(master_tree: @master_tree, user: create(:user))
       @dwc_file = File.join(::Rails.root.to_s, 'tmp', "#{@master_tree.uuid}.tar.gz")
       FileUtils.rm(@dwc_file) if File.exists?(@dwc_file)
       File.exists?(@dwc_file).should be_falsey
@@ -123,9 +123,9 @@ end
 
 describe MasterTree, 'finding in sorted by title' do
   let(:user) { create(:user) }
-  let(:z_tree) { create(:master_tree, :title => 'z', :user_id => user.id) }
-  let(:b_tree) { create(:master_tree, :title => 'b', :user_id => user.id) }
-  let(:a_tree) { create(:master_tree, :title => 'a', :user_id => user.id) }
+  let(:z_tree) { create(:master_tree, title: 'z', user_id: user.id) }
+  let(:b_tree) { create(:master_tree, title: 'b', user_id: user.id) }
+  let(:a_tree) { create(:master_tree, title: 'a', user_id: user.id) }
 
   it 'finds the trees in ascending title order' do
     user.master_trees.by_title.should == [a_tree, b_tree, z_tree]

@@ -8,7 +8,7 @@ class CreateJobsLoggers < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :jobs_logs, :tree_id, :name => :index_jobs_logs_on_tree_id
+    add_index :jobs_logs, :tree_id, name: :index_jobs_logs_on_tree_id
   end
 
   def self.down

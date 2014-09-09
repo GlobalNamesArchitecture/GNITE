@@ -7,13 +7,13 @@
     </div>
     <div class="infobox">
     <div class="info-content clearfix">
-      <% User.find(:all, :order => "email").each do |user| %>
+      <% User.find(:all, order: "email").each do |user| %>
         <% if @master_tree.user_id.eql?(user.id) %>
           <%= hidden_field_tag "master_tree[master_tree_contributor_ids][]", user.id %>
         <% else %>
           <div class="contributor">
-            <%= check_box_tag "master_tree[master_tree_contributor_ids][]", user.id, @master_tree.users.include?(user), { :id => "master-tree-contributor-#{user.id}", :class => "checkbox" } %>
-            <%= hidden_field_tag "master_tree[master_tree_contributor_ids][]", nil, { :id => "master-tree-contributor-#{user.id}" } %>
+            <%= check_box_tag "master_tree[master_tree_contributor_ids][]", user.id, @master_tree.users.include?(user), { id: "master-tree-contributor-#{user.id}", class: "checkbox" } %>
+            <%= hidden_field_tag "master_tree[master_tree_contributor_ids][]", nil, { id: "master-tree-contributor-#{user.id}" } %>
             <label for="master-tree-contributor-<%= user.id %>" class="checkbox"><%= user.email %></label>
          </div>
        <% end %>

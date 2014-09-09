@@ -6,7 +6,7 @@ class CreateMasterTreeContributors < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :master_tree_contributors, [:user_id, :master_tree_id], :unique => true, :name => 'index_master_tree_contributors_on_user_id_and_master_tree_id'
+    add_index :master_tree_contributors, [:user_id, :master_tree_id], unique: true, name: 'index_master_tree_contributors_on_user_id_and_master_tree_id'
   end
 
   def self.down

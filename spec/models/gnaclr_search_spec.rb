@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe GnaclrSearch do
   it 'initializes with a search term' do
-    search = GnaclrSearch.new(:search_term => 'foo')
+    search = GnaclrSearch.new(search_term: 'foo')
     search.search_term.should == 'foo'
   end
 
   it 'escapes the search term' do
-    search = GnaclrSearch.new(:search_term => 'foo bar')
+    search = GnaclrSearch.new(search_term: 'foo bar')
     search.search_term.should == 'foo%20bar'
   end
 
@@ -17,7 +17,7 @@ describe GnaclrSearch do
 end
 
 describe GnaclrSearch, 'issuing a search' do
-  subject { GnaclrSearch.new(:search_term => 'asfd') }
+  subject { GnaclrSearch.new(search_term: 'asfd') }
 
   before do
     response = File.open(Rails.root.join('features', 'support', 'fixtures', 'gnaclr_search_result.json')).read
@@ -36,7 +36,7 @@ describe GnaclrSearch, 'issuing a search' do
 end
 
 describe GnaclrSearch, 'when GNACLR search service fails' do
-  subject { GnaclrSearch.new(:search_term => 'asdf') }
+  subject { GnaclrSearch.new(search_term: 'asdf') }
 
   before do
     OpenURI.stubs(:open).raises("OpenURI::HTTPError")

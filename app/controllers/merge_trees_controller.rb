@@ -5,7 +5,7 @@ class MergeTreesController < ApplicationController
     merge_tree = MergeTree.find(params[:id])
     merge_tree.nuke_nodes
     merge_tree.populate
-    render :json => { :status => "OK" }
+    render json: { status: "OK" }
   end
 
   def show

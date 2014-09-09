@@ -6,7 +6,7 @@ class LanguagesController < ApplicationController
     
     respond_to do |format|
       format.json do
-        render :json => { :terms => @languages.map{ |k| { :id => k.id, :term => k.name } } }
+        render json: { terms: @languages.map{ |k| { id: k.id, term: k.name } } }
       end
     end
   end

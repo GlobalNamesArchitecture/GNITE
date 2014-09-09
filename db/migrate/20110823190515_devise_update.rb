@@ -12,10 +12,10 @@ class DeviseUpdate < ActiveRecord::Migration
       t.rememberable
       t.trackable
       t.confirmable
-      t.lockable :lock_strategy => :failed_attempts, :unlock_strategy => :both
+      t.lockable lock_strategy: :failed_attempts, unlock_strategy: :both
     end
     
-    change_column :users, :encrypted_password, :string, :limit => 255
+    change_column :users, :encrypted_password, :string, limit: 255
     
     #if email_confirmed, update the confirmed_at column
     execute "UPDATE users SET confirmed_at = NOW() WHERE email_confirmed = 1"
@@ -23,21 +23,21 @@ class DeviseUpdate < ActiveRecord::Migration
     #remove remaining column created with clearance
     remove_column :users, :email_confirmed
     
-    # add_index :users, :email,                :unique => true
-    add_index :users, :reset_password_token, :unique => true
-    add_index :users, :confirmation_token,   :unique => true
-    add_index :users, :unlock_token,         :unique => true
-    # add_index :users, :authentication_token, :unique => true
+    # add_index :users, :email,                unique: true
+    add_index :users, :reset_password_token, unique: true
+    add_index :users, :confirmation_token,   unique: true
+    add_index :users, :unlock_token,         unique: true
+    # add_index :users, :authentication_token, unique: true
 
   end
 
   def self.down
     remove_column :users, :confirmation_token
     
-    add_column :users, :salt, :string, :limit => 128
-    add_column :users, :remember_token, :string, :limit => 128
-    add_column :users, :confirmation_token, :string, :limit => 128
-    add_column :users, :email_confirmed, :boolean, :default => false, :null => false
+    add_column :users, :salt, :string, limit: 128
+    add_column :users, :remember_token, :string, limit: 128
+    add_column :users, :confirmation_token, :string, limit: 128
+    add_column :users, :email_confirmed, :boolean, default: false, null: false
     
     execute "UPDATE users SET email_confirmed = 1 WHERE confirmed_at <> ''"
     

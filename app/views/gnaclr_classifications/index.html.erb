@@ -1,6 +1,6 @@
 <%= content_for :panel_header do %>
   <li>
-    <%= link_to 'New Import', new_master_tree_import_path(@master_tree), :class => 'ajax-load-new-tab' %>
+    <%= link_to 'New Import', new_master_tree_import_path(@master_tree), class: 'ajax-load-new-tab' %>
   </li>
   <li>
     Browse
@@ -10,7 +10,7 @@
 <ul id="tree-import-list" class="list">
   <% @gnaclr_classifications.each do |classification| %>
     <li>
-      <%= link_to master_tree_gnaclr_classification_path(@master_tree, classification), :class => "ajax-load-new-tab" do %>
+      <%= link_to master_tree_gnaclr_classification_path(@master_tree, classification), class: "ajax-load-new-tab" do %>
         <div class="result clearfix">
           <div class="result-text clearfix">
             <h2><%= classification.title %></h2>

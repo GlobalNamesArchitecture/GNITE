@@ -8,9 +8,9 @@
     <%= form.text_area :abstract %>
     <%= form.label :publication_date %>
     <%= form.date_select :publication_date %>
-    <%= form.input :creative_commons, :as            => :select,
-                                      :label         => "License",
-                                      :include_blank => false,
-                                      :collection    => Licenses::CC_LICENSES %>
+    <%= form.input :creative_commons, as: :select,
+                                      label: "License",
+                                      include_blank: false,
+                                      collection: Licenses::CC_LICENSES %>
   <% end %>
 </div>

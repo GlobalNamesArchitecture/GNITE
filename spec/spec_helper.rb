@@ -16,8 +16,8 @@ RSpec.configure do |config|
 
   config.mock_framework = :mocha
   config.use_transactional_fixtures = true
-  config.include Devise::TestHelpers, :type => :controller
-  config.extend ControllerMacros, :type => :controller
+  config.include Devise::TestHelpers, type: :controller
+  config.extend ControllerMacros, type: :controller
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction

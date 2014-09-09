@@ -14,7 +14,7 @@ describe ActionBulkAddNode do
     parent = Node.find(subject.parent_id)
     parent.has_children?.should be_falsey
     ActionBulkAddNode.perform(subject.id)
-    node_ids = JSON.parse(subject.reload.json_message, :symbolize_names => true)[:undo]
+    node_ids = JSON.parse(subject.reload.json_message, symbolize_names: true)[:undo]
     parent.reload.has_children?.should be_truthy
     parent.children.size.should == node_ids.size
     parent.children.map(&:id).should == node_ids

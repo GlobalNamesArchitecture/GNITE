@@ -18,17 +18,17 @@ class TreeSearchesController < ApplicationController
       treepath_ids << "#" + node.id.to_s
       
       search = {
-        :name => node.name_string,
-        :id => node.id,
-        :treepath => {
-          :name_strings => treepath_strings.join(' &gt; '),
-          :node_ids => treepath_ids.join(',')
+        name: node.name_string,
+        id: node.id,
+        treepath: {
+          name_strings: treepath_strings.join(' &gt; '),
+          node_ids: treepath_ids.join(',')
         }
       }
 
     end
     
-    render :partial => 'tree_search'
+    render partial: 'tree_search'
   end
 
 end

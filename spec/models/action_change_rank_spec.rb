@@ -16,7 +16,7 @@ describe ActionChangeRank do
     old_node_rank = node.rank
     ActionChangeRank.perform(subject.id)
     subject.reload.undo?.should be_truthy
-    json_message = JSON.parse(subject.reload.json_message, :symbolize_names => true)
+    json_message = JSON.parse(subject.reload.json_message, symbolize_names: true)
     json_message[:undo].should == old_node_rank
     node.reload.rank.should == json_message[:do]
     ActionChangeRank.perform(subject.id)

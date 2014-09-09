@@ -4,9 +4,9 @@ class MergeEventsController < ApplicationController
   def index
     page = (params[:page]) ? params[:page] : 1
     @merge_events = MergeEvent.includes(:user)
-                              .where(:master_tree_id => params[:master_tree_id])
-                              .order(:id => :desc)
-                              .paginate(:page => page, :per_page => 25)
+                              .where(master_tree_id: params[:master_tree_id])
+                              .order(id: :desc)
+                              .paginate(page: page, per_page: 25)
     
     @master_tree = MasterTree.find(params[:master_tree_id])
     
@@ -19,11 +19,11 @@ class MergeEventsController < ApplicationController
     editors = []
     @master_tree.rosters.each do |roster|
       next if roster.user_id == current_user.id
-      editors << { :id => roster.user.id, :email => roster.user.email, :roles => roster.user.roles.map { |r| r.name.humanize }, :status => "online" }
+      editors << { id: roster.user.id, email: roster.user.email, roles: roster.user.roles.map { |r| r.name.humanize }, status: "online" }
     end
     @master_tree.master_tree_contributors.each do |contributor|
       next if contributor.user_id == current_user.id
-      editors << { :id => contributor.user.id, :email => contributor.user.email, :roles => contributor.user.roles.map { |r| r.name.humanize }, :status => "offline" } unless editors.any? { |h| h[:id] == contributor.user.id }
+      editors << { id: contributor.user.id, email: contributor.user.email, roles: contributor.user.roles.map { |r| r.name.humanize }, status: "offline" } unless editors.any? { |h| h[:id] == contributor.user.id }
     end
     
     @editors = editors.sort_by { |h| h[:email] }
@@ -42,17 +42,17 @@ class MergeEventsController < ApplicationController
     @data = { new_matches: [], exact_matches: [], fuzzy_matches: [] }
     @busy = false
 
-    results = MergeResultPrimary.includes(:merge_result_secondaries).where(:merge_event_id => params[:id])
+    results = MergeResultPrimary.includes(:merge_result_secondaries).where(merge_event_id: params[:id])
     results.each do |primary|
       primary.merge_result_secondaries.each do |secondary|
         type = type_to_label[secondary.merge_type_id] || 'new'
         @data["#{type}_matches".to_sym] << {
-            :id             => secondary.id,
-            :primary_path   => primary.path,
-            :secondary_path => secondary.path,
-            :type           => type,
-            :subtype        => subtype_to_label[secondary.merge_subtype_id],
-            :merge_decision => secondary.merge_decision_id
+            id: secondary.id,
+            primary_path: primary.path,
+            secondary_path: secondary.path,
+            type: type,
+            subtype: subtype_to_label[secondary.merge_subtype_id],
+            merge_decision: secondary.merge_decision_id
         }
         if secondary.merge_decision_id == nil || secondary.merge_decision_id == 3
           @busy = true
@@ -62,7 +62,7 @@ class MergeEventsController < ApplicationController
     
     @data.delete_if { |k, v| v.empty? }
 
-    last_log = JobsLog.where(:tree_id => @master_tree, :job_type => 'MergeEvent').last unless @merge_event.status == "in review" 
+    last_log = JobsLog.where(tree_id: @master_tree, job_type: 'MergeEvent').last unless @merge_event.status == "in review" 
 
     @merge_last_log = (!last_log.nil?) ? last_log.message : ""
 
@@ -76,17 +76,17 @@ class MergeEventsController < ApplicationController
            << " merged with " << "#{Node.find(params[:merge][:reference_tree_node]).name_string}" \
            << " in " << "#{ReferenceTree.find(Node.find(params[:merge][:reference_tree_node]).tree_id).title}"
     @merge_event = MergeEvent.create!(
-      :primary_node_id => nodes[0], 
-      :secondary_node_id => nodes[1], 
-      :master_tree => master_tree, 
-      :user => current_user,
-      :memo => memo,
-      :status => 'computing')
+      primary_node_id: nodes[0], 
+      secondary_node_id: nodes[1], 
+      master_tree: master_tree, 
+      user: current_user,
+      memo: memo,
+      status: 'computing')
     Resque.enqueue(MergeEvent, @merge_event.id)
 
     respond_to do |format|
       format.json do
-        render :json => { :status => "OK", :merge_event => @merge_event.id }
+        render json: { status: "OK", merge_event: @merge_event.id }
       end
     end
   end
@@ -94,12 +94,12 @@ class MergeEventsController < ApplicationController
   def update
     params[:data].each do |decision|
       decision_item = MergeResultSecondary.find(decision[:merge_result_secondary_id])
-      decision_item.update_attributes(:merge_decision_id => decision[:merge_decision_id])
+      decision_item.update_attributes(merge_decision_id: decision[:merge_decision_id])
       decision_item.save
     end
     respond_to do |format|
       format.json do
-        render :json => { :status => "OK" }
+        render json: { status: "OK" }
       end
     end
   end
@@ -111,7 +111,7 @@ class MergeEventsController < ApplicationController
       me.master_tree.state = 'active'
       me.master_tree.save!
       channel = "tree_#{me.master_tree.id}"
-      Juggernaut.publish(channel, { :subject => "unlock" }.to_json)
+      Juggernaut.publish(channel, { subject: "unlock" }.to_json)
       me.status = "discarded"      
     else
       master_tree_node = me.primary_node.tree == me.master_tree ? me.primary_node : me.secondary_node

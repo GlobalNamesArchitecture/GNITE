@@ -60,12 +60,12 @@ describe ActionMoveNodeWithinTree do
   end
 
   it 'should not try to move the node if parent and destination are in different trees' do
-    subject = create(:action_move_node_within_tree, :destination_parent_id => create(:node).id)
+    subject = create(:action_move_node_within_tree, destination_parent_id: create(:node).id)
     expect { ActionMoveNodeWithinTree.perform(subject.id) }.to raise_error
   end
 
   it 'should not try to undo a move of the node if node does not exist' do
-    subject = create(:action_move_node_within_tree, :undo => true)
+    subject = create(:action_move_node_within_tree, undo: true)
     subject.undo.should == true
     node = subject.node
     node.destroy
@@ -73,35 +73,35 @@ describe ActionMoveNodeWithinTree do
   end
 
   it 'should not try to undo a move of the node if destination does not exist' do
-    subject = create(:action_move_node_within_tree, :undo => true)
+    subject = create(:action_move_node_within_tree, undo: true)
     dest_node = Node.find(subject.destination_parent_id)
     dest_node.destroy
     expect { ActionMoveNodeWithinTree.perform(subject.id) }.to raise_error
   end
 
   it 'should not try to undo a move of the node if parent_id does not exist' do
-    subject = create(:action_move_node_within_tree, :undo => true)
+    subject = create(:action_move_node_within_tree, undo: true)
     parent_node = Node.find(subject.parent_id)
     parent_node.destroy
     expect { ActionMoveNodeWithinTree.perform(subject.id) }.to raise_error
   end
 
   it 'should not try to undo a move of the node if ancestry of parent is broken' do
-    subject = create(:action_move_node_within_tree, :undo => true)
+    subject = create(:action_move_node_within_tree, undo: true)
     parent_node = Node.find(subject.parent_id)
     parent_node.parent = create(:node)
     expect { ActionMoveNodeWithinTree.perform(subject.id) }.to raise_error
   end
 
   it 'should not try to undo a move of the node if ancestry of destination parent is broken' do
-    subject = create(:action_move_node_within_tree, :undo => true)
+    subject = create(:action_move_node_within_tree, undo: true)
     dest_node = Node.find(subject.destination_parent_id)
     dest_node.parent = create(:node)
     expect { ActionMoveNodeWithinTree.perform(subject.id) }.to raise_error
   end
 
   it 'should not try to undo a move of the node if parent and destination are in different trees' do
-    subject = create(:action_move_node_within_tree, :undo => true, :destination_parent_id => create(:node).id)
+    subject = create(:action_move_node_within_tree, undo: true, destination_parent_id: create(:node).id)
     expect { ActionMoveNodeWithinTree.perform(subject.id) }.to raise_error
   end
 end

@@ -24,7 +24,7 @@ class Roster < ActiveRecord::Base
     protected
     
       def event_subscribe(master_tree_id, user_id)
-        master_tree_roster_user = find_by_master_tree_id_and_user_id(master_tree_id, user_id) || self.new(:master_tree_id => master_tree_id, :user_id => user_id)
+        master_tree_roster_user = find_by_master_tree_id_and_user_id(master_tree_id, user_id) || self.new(master_tree_id: master_tree_id, user_id: user_id)
         master_tree_roster_user.increment!
       end
 

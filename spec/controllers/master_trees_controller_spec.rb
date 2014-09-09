@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe MasterTreesController, :type => :controller, :type => :controller do
+describe MasterTreesController, type: :controller, type: :controller do
   context "signed in" do
     before do
       @user = create(:user)
@@ -8,11 +8,11 @@ describe MasterTreesController, :type => :controller, :type => :controller do
     end
 
     context "on GET to #index" do
-      let(:tree) { create(:master_tree, :user_id => @user.id) }
+      let(:tree) { create(:master_tree, user_id: @user.id) }
 
       before do
-        controller.stubs(:current_user => @user)
-        tree.stubs(:save => true)
+        controller.stubs(current_user: @user)
+        tree.stubs(save: true)
         get :index
       end
 
@@ -24,11 +24,11 @@ describe MasterTreesController, :type => :controller, :type => :controller do
     end
 
     context "on a valid GET to #new" do
-      let(:master_tree) { create(:master_tree, :user_id => @user.id) }
+      let(:master_tree) { create(:master_tree, user_id: @user.id) }
 
       before do
-        MasterTree.stubs(:new => master_tree)
-        master_tree.stubs(:save => true)
+        MasterTree.stubs(new: master_tree)
+        master_tree.stubs(save: true)
         get :new
       end
 
@@ -46,10 +46,10 @@ describe MasterTreesController, :type => :controller, :type => :controller do
     end
 
     context "on a valid GET to #new" do
-      let(:tree) { create(:master_tree, :user_id => @user.id) }
+      let(:tree) { create(:master_tree, user_id: @user.id) }
 
       before do
-        get :edit, :id => tree.id
+        get :edit, id: tree.id
       end
 
       subject { controller }
@@ -64,12 +64,12 @@ describe MasterTreesController, :type => :controller, :type => :controller do
     end
 
     context "on a valid PUT to #update" do
-      let(:tree) { create(:master_tree, :user_id => @user.id) }
+      let(:tree) { create(:master_tree, user_id: @user.id) }
 
       before do
-        MasterTree.stubs(:find => tree)
-        tree.stubs(:save => true)
-        put :update, :id => tree.id, :tree => {}
+        MasterTree.stubs(find: tree)
+        tree.stubs(save: true)
+        put :update, id: tree.id, tree: {}
       end
 
       subject { controller }
@@ -82,9 +82,9 @@ describe MasterTreesController, :type => :controller, :type => :controller do
       let(:tree) { create(:master_tree) }
 
       before do
-        MasterTree.stubs(:find => tree)
-        tree.stubs(:save => true)
-        put :update, :id => tree.id, :tree => {}
+        MasterTree.stubs(find: tree)
+        tree.stubs(save: true)
+        put :update, id: tree.id, tree: {}
       end
 
       subject { controller }
@@ -94,12 +94,12 @@ describe MasterTreesController, :type => :controller, :type => :controller do
     end
 
     context "on a valid POST to #update" do
-      let(:tree) { create(:master_tree, :user_id => @user.id) }
+      let(:tree) { create(:master_tree, user_id: @user.id) }
 
       before do
-        MasterTree.stubs(:find => tree)
-        tree.stubs(:save => true)
-        post :update, :id => tree.id, :master_tree => {}
+        MasterTree.stubs(find: tree)
+        tree.stubs(save: true)
+        post :update, id: tree.id, master_tree: {}
       end
 
       subject { controller }
@@ -116,9 +116,9 @@ describe MasterTreesController, :type => :controller, :type => :controller do
       let(:tree) { create(:master_tree) }
 
       before do
-        MasterTree.stubs(:find => tree)
-        tree.stubs(:save => true)
-        post :update, :id => tree.id, :master_tree => {}
+        MasterTree.stubs(find: tree)
+        tree.stubs(save: true)
+        post :update, id: tree.id, master_tree: {}
       end
 
       subject { controller }
@@ -128,10 +128,10 @@ describe MasterTreesController, :type => :controller, :type => :controller do
     end
     
     context "on a valid DELETE to #destroy" do
-      let(:tree) { create(:master_tree, :user_id => @user.id) }
+      let(:tree) { create(:master_tree, user_id: @user.id) }
       
       before do
-        delete :destroy, :id => tree.id
+        delete :destroy, id: tree.id
       end
       
       subject { controller }
@@ -144,7 +144,7 @@ describe MasterTreesController, :type => :controller, :type => :controller do
       let(:tree) { create(:master_tree) }
       
       before do
-        delete :destroy, :id => tree.id
+        delete :destroy, id: tree.id
       end
       
       subject { controller }
@@ -155,32 +155,32 @@ describe MasterTreesController, :type => :controller, :type => :controller do
   end
 end
 
-describe MasterTreesController, 'GET index without authenticating', :type => :controller do
+describe MasterTreesController, 'GET index without authenticating', type: :controller do
   before { get :index }
   it     { should redirect_to(new_user_session_url) }
 end
 
-describe MasterTreesController, 'GET new without authenticating', :type => :controller do
+describe MasterTreesController, 'GET new without authenticating', type: :controller do
   before { get :new }
   it     { should redirect_to(new_user_session_url) }
 end
 
-describe MasterTreesController, 'GET show without authenticating', :type => :controller do
-  before { get :show, :id => 1 }
+describe MasterTreesController, 'GET show without authenticating', type: :controller do
+  before { get :show, id: 1 }
   it     { should redirect_to(new_user_session_url) }
 end
 
-describe MasterTreesController, 'GET edit without authenticating', :type => :controller do
-  before { get :edit, :id => 1 }
+describe MasterTreesController, 'GET edit without authenticating', type: :controller do
+  before { get :edit, id: 1 }
   it     { should redirect_to(new_user_session_url) }
 end
 
-describe MasterTreesController, 'PUT update without authenticating', :type => :controller do
-  before { put :update, :id => 1 }
+describe MasterTreesController, 'PUT update without authenticating', type: :controller do
+  before { put :update, id: 1 }
   it     { should redirect_to(new_user_session_url) }
 end
 
-describe MasterTreesController, 'DELETE destroy without authenticating', :type => :controller do
-  before { delete :destroy, :id => 1 }
+describe MasterTreesController, 'DELETE destroy without authenticating', type: :controller do
+  before { delete :destroy, id: 1 }
   it     { should redirect_to(new_user_session_url) }
 end

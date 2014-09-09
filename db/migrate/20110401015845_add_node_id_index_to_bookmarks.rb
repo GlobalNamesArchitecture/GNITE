@@ -1,6 +1,6 @@
 class AddNodeIdIndexToBookmarks < ActiveRecord::Migration
   def self.up
-    add_index :bookmarks, :node_id, :name => 'index_bookmarks_on_node_id'
+    add_index :bookmarks, :node_id, name: 'index_bookmarks_on_node_id'
   end
 
   def self.down

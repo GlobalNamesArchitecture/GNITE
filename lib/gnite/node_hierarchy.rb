@@ -32,13 +32,13 @@ module Gnite
     end
 
     def parent=(node)
-      self.update_attributes(:parent_id => node.id)
+      self.update_attributes(parent_id: node.id)
     end
 
     def children(select_params = '')
       select_params = select_params.empty? ? '`nodes`.*' : select_params.split(',').map { |p| '`nodes`.' + p.strip }.join(', ')
       nodes = Node.select(select_params)
-        .where(:parent_id => id)
+        .where(parent_id: id)
         .joins(:name)
         .order("name_string")
         .readonly(false) #select and join return readonly objects, override that here
@@ -46,11 +46,11 @@ module Gnite
     end
 
     def has_children?
-      Node.select(:id).where(:parent_id => id).limit(1).exists?
+      Node.select(:id).where(parent_id: id).limit(1).exists?
     end
 
     def child_count
-      Node.select(:id).where(:parent_id => id).size
+      Node.select(:id).where(parent_id: id).size
     end
 
     def ancestors(options = {})

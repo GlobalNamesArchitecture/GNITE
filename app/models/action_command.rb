@@ -43,10 +43,10 @@ class ActionCommand < ActiveRecord::Base
     master_tree.state = 'working'
     master_tree.save
     
-    message = { :subject => "edit", :action => action_command.serializable_hash(:except => :json_message) }.to_json
+    message = { subject: "edit", action: action_command.serializable_hash(except: :json_message) }.to_json
 
-    Juggernaut.publish(channel, message, :except => session_id)
-    Juggernaut.publish(channel, { :subject => "lock"}.to_json, :except => session_id)
+    Juggernaut.publish(channel, message, except: session_id)
+    Juggernaut.publish(channel, { subject: "lock"}.to_json, except: session_id)
     
     Resque.enqueue(action_command.class, action_command.id)
     action_command.class.queue = nil
@@ -65,7 +65,7 @@ class ActionCommand < ActiveRecord::Base
     master_tree.state = 'active'
     master_tree.save
     
-    Juggernaut.publish(channel, { :subject => "unlock" }.to_json)
+    Juggernaut.publish(channel, { subject: "unlock" }.to_json)
     
   end
 
@@ -106,7 +106,7 @@ class ActionCommand < ActiveRecord::Base
   end
 
   def ancestry_ok?(a_node)
-    ancestors = a_node.ancestors(:with_tree_root => true) + [a_node]
+    ancestors = a_node.ancestors(with_tree_root: true) + [a_node]
     ancestors.size == 1 || (ancestors.map {|a| a.tree_id}.uniq.size == 1 && ancestors.first.parent_id == nil)
   end
 
@@ -124,28 +124,28 @@ class ActionCommand < ActiveRecord::Base
   def self.perform_undo(action_command)
     action_command.undo_action
     action_command.undo = false
-    undo_actions = UndoActionCommand.where(:master_tree_id => action_command.master_tree.id, :action_command_id => action_command.id)
-    RedoActionCommand.create(:master_tree_id => action_command.master_tree.id, :action_command_id => action_command.id)
+    undo_actions = UndoActionCommand.where(master_tree_id: action_command.master_tree.id, action_command_id: action_command.id)
+    RedoActionCommand.create(master_tree_id: action_command.master_tree.id, action_command_id: action_command.id)
     undo_actions[0].destroy unless undo_actions.empty?
   end
 
   def self.perform_do(action_command)
     action_command.do_action
     action_command.undo = true
-    redo_action = RedoActionCommand.where(:master_tree_id => action_command.master_tree.id, :action_command_id => action_command.id)
+    redo_action = RedoActionCommand.where(master_tree_id: action_command.master_tree.id, action_command_id: action_command.id)
     if redo_action.empty?
       RedoActionCommand.connection.execute("delete from redo_action_commands where master_tree_id = #{action_command.master_tree.id}")
     else
       redo_action[0].destroy
     end
-    UndoActionCommand.create(:master_tree => action_command.master_tree, :action_command => action_command)
+    UndoActionCommand.create(master_tree: action_command.master_tree, action_command: action_command)
   end
   
   def self.generate_log(action_command, type)
     log = (type == 'undo') ? action_command.undo_log : action_command.do_log
-    MasterTreeLog.create(:master_tree => action_command.master_tree, :user => action_command.user, :message => log)
-    user = { :id => action_command.user.id, :email => action_command.user.email }
-    message = { :subject => "log", :message => log, :user => user, :time => Time.new.to_s }.to_json
+    MasterTreeLog.create(master_tree: action_command.master_tree, user: action_command.user, message: log)
+    user = { id: action_command.user.id, email: action_command.user.email }
+    message = { subject: "log", message: log, user: user, time: Time.new.to_s }.to_json
     Juggernaut.publish("tree_#{action_command.master_tree.id}", message)
   end
 

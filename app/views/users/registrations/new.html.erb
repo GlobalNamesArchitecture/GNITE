@@ -1,14 +1,14 @@
 <div id="loginform" class="clearfix">
-  <%= semantic_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <%= semantic_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
 
-    <%= f.inputs :title => "Sign up for a GNITE account" do %>
-      <%= f.input :email, :label => "Email", :input_html => { :class => "input" } %>
-      <%= f.input :password, :label => "Password", :input_html => { :class => "input" } %>
-      <%= f.input :password_confirmation, :label => "Confirm password", :input_html => { :class => "input" } %>
+    <%= f.inputs title: "Sign up for a GNITE account" do %>
+      <%= f.input :email, label: "Email", input_html: { class: "input" } %>
+      <%= f.input :password, label: "Password", input_html: { class: "input" } %>
+      <%= f.input :password_confirmation, label: "Confirm password", input_html: { class: "input" } %>
     <% end -%>
 
     <%= f.actions do %>
-      <%= f.action :submit, :as => :button, :label => "Sign up", :button_html => { :class => "green-submit" } %>
+      <%= f.action :submit, as: :button, label: "Sign up", button_html: { class: "green-submit" } %>
     <% end -%>
 
   <% end -%>

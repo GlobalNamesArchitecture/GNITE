@@ -12,13 +12,13 @@ class GnaclrClassificationRevision
 
   def to_hash
     {
-      :sequence_number => sequence_number,
-      :url             => url,
-      :file_name       => file_name,
-      :tree_id         => tree_id,
-      :message         => message,
-      :committed_date  => committed_date,
-      :id              => id,
+      sequence_number: sequence_number,
+      url: url,
+      file_name: file_name,
+      tree_id: tree_id,
+      message: message,
+      committed_date: committed_date,
+      id: id,
     }
   end
 end
