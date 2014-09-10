@@ -911,7 +911,6 @@ $(function() {
          xhr.setRequestHeader("X-Session-ID", GNITE.jug.sessionID);
        },
        success     : function(r) {
-         reference.jstree("refresh")
          var i = 0;
 
          if (isCopy && do_ids.length === 0) {
