@@ -1,7 +1,7 @@
 module Gnite
   module NodeHierarchy
     def deep_copy_to(tree)
-      copy = self.clone
+      copy = self.dup
       copy.tree = tree
       copy.save!
 
@@ -12,13 +12,13 @@ module Gnite
       end
 
       vernacular_names.each do |vernacular_name|
-        vernacular_name_copy = vernacular_name.clone
+        vernacular_name_copy = vernacular_name.dup
         vernacular_name_copy.node = copy
         vernacular_name_copy.save!
       end
 
       synonyms.each do |synonym|
-        synonym_copy = synonym.clone
+        synonym_copy = synonym.dup
         synonym_copy.node = copy
         synonym_copy.save!
       end

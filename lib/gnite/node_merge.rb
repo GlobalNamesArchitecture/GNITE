@@ -2,7 +2,7 @@ module Gnite
   module NodeMerge
 
     def deep_merge(merge_event)
-      copy = self.clone
+      copy = self.dup
       copy.tree = merge_event.merge_tree
       copy.save!
       add_merges(merge_event, copy) if merge_has_node?(merge_event.id, self.id)
@@ -50,7 +50,7 @@ module Gnite
           merge_node = Node.find(secondary_node.node_id)
           merge_type = secondary_node.merge_subtype ? "#{secondary_node.merge_type.label} #{secondary_node.merge_subtype.label}" : secondary_node.merge_type.label
           if merge_type == 'new'
-            merge_node_copy = merge_node.clone
+            merge_node_copy = merge_node.dup
             merge_node_copy.tree = merge_event.merge_tree
             set_parent(merge_node_copy, node)
             copy_metadata(merge_node_copy, merge_node, merge_type)
@@ -68,7 +68,7 @@ module Gnite
 
       source_node.vernacular_names.each do |vernacular_name|
         unless known_vernaculars.include?(vernacular_name.name.name_string)
-          vernacular_name_copy = vernacular_name.clone
+          vernacular_name_copy = vernacular_name.dup
           vernacular_name_copy.node = target_node
           vernacular_name_copy.save!
         end
@@ -76,7 +76,7 @@ module Gnite
 
       source_node.synonyms.each do |synonym|
         unless known_synonyms.include?(synonym.name.name_string)
-          synonym_copy = synonym.clone
+          synonym_copy = synonym.dup
           synonym_copy.node = target_node
           synonym_copy.save!
         end
