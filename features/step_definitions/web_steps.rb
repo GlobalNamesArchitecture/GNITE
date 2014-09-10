@@ -210,3 +210,7 @@ end
 Then /^show me the page$/ do
   save_and_open_page
 end
+
+When /^I reset the screen position$/ do
+  page.execute_script "window.scrollTo(0, 0)"
+end

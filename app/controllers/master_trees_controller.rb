@@ -65,7 +65,7 @@ class MasterTreesController < ApplicationController
     @deleted_tree = DeletedTree.find_by_master_tree_id(params[:id])
     if @master_tree.nuke && @deleted_tree.nuke
       flash[:notice] = 'Tree successfully deleted'
-      redirect_to action: :index
+      redirect_to action: :index, status: :see_other
     end
   end
 

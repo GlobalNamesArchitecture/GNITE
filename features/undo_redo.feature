@@ -93,6 +93,7 @@ Feature: Perform undo and redo in a master tree
     And I wait for the tree to load
     Then I should not see a node "Pardosa fuscula" under "Pardosa"
 
+    When I reset the screen position
     When I follow "Edit" within "toolbar"
     And I follow "Redo" within "toolbar"
     And I wait for the tree to load
@@ -149,6 +150,7 @@ Feature: Perform undo and redo in a master tree
     Then I should not see a node "Pardosa modica" under "Pardosa"
     And I should not see a node "Pardosa fuscula" under "Pardosa"
 
+    When I reset the screen position
     When I follow "Edit" within "toolbar"
     And I follow "Redo" within "toolbar"
     And I wait for the tree to load
