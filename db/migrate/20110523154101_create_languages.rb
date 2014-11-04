@@ -9,9 +9,7 @@ class CreateLanguages < ActiveRecord::Migration
       t.timestamps
     end
     
-    add_index :languages, :iso_639_1, uniq: true, name: :index_languages_on_iso_639_1
-
-    execute "load data infile '#{File.join(Rails.root, 'db', 'csv', 'languages.csv')}' into table languages character set utf8"  
+    add_index :languages, :iso_639_1, unique: true, name: :index_languages_on_iso_639_1
   end
 
   def self.down
