@@ -7,7 +7,7 @@
     </div>
     <div class="infobox">
     <div class="info-content clearfix">
-      <% User.find(:all, order: "email").each do |user| %>
+      <% User.order("email").all.each do |user| %>
         <% if @master_tree.user_id.eql?(user.id) %>
           <%= hidden_field_tag "master_tree[master_tree_contributor_ids][]", user.id %>
         <% else %>

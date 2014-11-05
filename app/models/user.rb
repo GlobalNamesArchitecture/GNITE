@@ -13,7 +13,6 @@ class User < ActiveRecord::Base
   has_one :roster
   has_and_belongs_to_many :roles
 
-
   def has_role?(role_sym)
     roles.any? { |r| r.name.underscore.to_sym == role_sym }
   end

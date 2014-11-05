@@ -24,7 +24,7 @@ class Admin::UsersController < ApplicationController
   end
   
   def create
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
     @user.confirmed_at = Time.now()
     if @user.save
       flash[:notice] = "Successfully created user." 
@@ -38,11 +38,17 @@ class Admin::UsersController < ApplicationController
   def update   
     params[:user].delete(:password) if params[:user][:password].blank?
     params[:user].delete(:password_confirmation) if params[:user][:password].blank? and params[:user][:password_confirmation].blank?
-    params[:user][:role_ids].compact.reject(&:blank?).collect { |s| s.to_i }
-    if @user.update_attributes(params[:user])
+    params[:user][:role_ids].reject!(&:blank?).collect!{ |s| s.to_i }.compact!
+    if @user.update(user_params)
       flash[:notice] = "Successfully updated user."
     end
     render action: 'edit'
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:given_name, :surname, :email, :affiliation, :password, :password_confirmation, :role_ids => [])
   end
 
 end

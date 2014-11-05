@@ -32,8 +32,8 @@
       <%= render partial: "contributors", locals: { form: form } %>
 
       <%= form.actions do -%>
-        <%= f.action :submit, as: :button, label: "Update", button_html: { class: "green-submit", name: 'update' } %>
-        <%= f.action :submit, as: :button, label: "Cancel", button_html: { class: "cancel-button", name: 'cancel' } %>
+        <%= form.action :submit, as: :button, label: "Update", button_html: { class: "green-submit", name: 'update' } %>
+        <%= form.action :submit, as: :button, label: "Cancel", button_html: { class: "cancel-button", name: 'cancel' } %>
       <% end -%>
     <% end %>
   </div>
