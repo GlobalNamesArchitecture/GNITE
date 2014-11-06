@@ -107,7 +107,7 @@ end
 
 describe Node, '#vernacular_data for a vernacular' do
   let(:node) { create(:node) }
-  let(:language) { create(:language, name: 'English', iso_639_1: 'en', iso_639_2: 'eng', iso_639_3: 'eng', native: 'English') }
+  let(:language) { create(:language, name: 'English', iso_639_1: 'enz', iso_639_2: 'engz', iso_639_3: 'engz', native: 'English') }
 
   before do
     @vernacular = create(:vernacular_name, node: node, language: language)
