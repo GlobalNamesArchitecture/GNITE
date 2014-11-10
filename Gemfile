@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '~> 4.1'
+gem 'rails-observers', '~> 0.1'
 gem 'mysql2', '~> 0.3'
 gem 'devise', '~> 3.2'
 gem 'cancancan', '~> 1.9'

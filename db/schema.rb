@@ -60,11 +60,9 @@ ActiveRecord::Schema.define(version: 20120731151204) do
   add_index "controlled_vocabularies", ["identifier"], name: "index_controlled_vocabularies_on_identifier", unique: true, using: :btree
 
   create_table "gnaclr_importers", force: true do |t|
-    t.integer  "reference_tree_id"
-    t.string   "url"
-    t.integer  "status"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "reference_tree_id"
+    t.string  "url"
+    t.integer "status"
   end
 
   create_table "gnaclr_publishers", force: true do |t|
@@ -87,16 +85,14 @@ ActiveRecord::Schema.define(version: 20120731151204) do
   add_index "jobs_logs", ["tree_id"], name: "index_jobs_logs_on_tree_id", using: :btree
 
   create_table "languages", force: true do |t|
-    t.string   "name"
-    t.string   "iso_639_1"
-    t.string   "iso_639_2"
-    t.string   "iso_639_3"
-    t.string   "native"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string "name"
+    t.string "iso_639_1"
+    t.string "iso_639_2"
+    t.string "iso_639_3"
+    t.string "native"
   end
 
-  add_index "languages", ["iso_639_1"], name: "index_languages_on_iso_639_1", unique: true, using: :btree
+  add_index "languages", ["iso_639_1"], name: "index_languages_on_iso_639_1", using: :btree
 
   create_table "master_tree_contributors", force: true do |t|
     t.integer  "master_tree_id"
@@ -262,7 +258,7 @@ ActiveRecord::Schema.define(version: 20120731151204) do
   add_index "undo_action_commands", ["master_tree_id", "action_command_id"], name: "index_undo_action_commands_on_master_tree_and_action_command", using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "email",                              default: "", null: false
+    t.string   "email"
     t.string   "encrypted_password"
     t.datetime "created_at"
     t.datetime "updated_at"
