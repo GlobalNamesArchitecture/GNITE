@@ -16,12 +16,12 @@ class Seeder
 
   def walk_path(path)
     files = Dir.entries(path).map {|e| e.to_s}.select {|e| e.match /csv$/}
-    begin
-      files.each do |file|
+    files.each do |file|
+      begin
         add_seeds(file)
+      rescue ActiveRecord::StatementInvalid
+        raise "Cannot seed database %s" % file
       end
-    rescue ActiveRecord::StatementInvalid
-      raise "Cannot seed database %s" % file
     end
   end
 
