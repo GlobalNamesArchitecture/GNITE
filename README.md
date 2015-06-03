@@ -14,7 +14,7 @@ General Requirements
 
 ### required packages for Ubuntu:
 
-    suso apt-get update
+    sudo apt-get update
     sudo apt-get install mysql-server
     
 You will need UTF-8 encoding and collation for your tables: You would need 
