@@ -14,7 +14,7 @@ General Requirements
 
 ### required packages for Ubuntu:
 
-    suso apt-get update
+    sudo apt-get update
     sudo apt-get install mysql-server
     
 You will need UTF-8 encoding and collation for your tables: You would need 
@@ -27,11 +27,11 @@ follwing in your my.cnf as minimum:
 Running Tests
 -------------
 
-    bundle exect rake db:drop:all #if needed
-    bundle exect rake db:create:all
-    bundle exect rake db:schema:load RAILS_ENV=test
-    bundle exect rake db:migrate RAILS_ENV=test #if there are new ones
-    bundle exect rake db:seed RAILS_ENV=test
+    bundle exec rake db:drop:all
+    bundle exec rake db:create:all
+    bundle exec rake db:schema:load RAILS_ENV=test
+    bundle exec rake db:migrate RAILS_ENV=test #if there are new ones
+    bundle exec rake db:seed RAILS_ENV=test
     rake 
     cucumber
     
